@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    
+    <!--Confirm the ClinicalDocument exists and all required CDA elements have been generated -->
+    <x:scenario
+        label="Scenario for testing template with match 'fhir:Composition">
+        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml" />
+        
+        
+        <!--Confirm the Clinical Document contains a realmCode element -->
+        <x:expect label="SHALL contain exactly one [1..1] realmCode=US (CONF:1198-16791)." 
+            test="count(/cda:ClinicalDocument/cda:realmCode/@code='US')=1" />
+        
+     <!--Confirm the Clinical Document-> contains a typeId element -->
+        <x:expect label="SHALL contain exactly one [1..1] typeId (CONF:1198-5361)." 
+            test="count(/cda:ClinicalDocument/cda:typeId)=1" />
+             <!--Confirm the Clinical Document->typeId contains a root element  -->
+        <x:expect label="a.	This typeId SHALL contain exactly one [1..1] @root=2.16.840.1.113883.1.3 (CONF:1198-5250)." 
+            test="count(/cda:ClinicalDocument/cda:typeId/cda/@root='2.16.840.1.113883.1.3')=1" />
+        <!--Confirm the Clinical Document->typeId contains an extension element  -->
+        <x:expect label="b.	This typeId SHALL contain exactly one [1..1] @extension=POCD_HD000040 (CONF:1198-5251)." 
+            test="count(/cda:ClinicalDocument/cda:typeId/cda/@extension='POCD_HD000040')=1" />
+        
+        <!--Confirm the Clinical Document contains a templateId element -->
+        <x:expect label="SHALL contain exactly one [1..1] templateId (CONF:1198-5252)" 
+            test="count(/cda:ClinicalDocument/cda:templateId)=3" />
+        <!--Confirm the Clinical Document templateId contains a root element -->
+        <x:expect label="a.	SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.1.1 (CONF:1198-10036)." 
+            test="count(/cda:ClinicalDocument/cda:templateId/@root='2.16.840.1.113883.10.20.22.1.1')=1" />
+        <!--Confirm the Clinical Document templateId contains an extension element -->
+        <x:expect label="b.	SHALL contain exactly one [1..1] @extension='2015-08-01' (CONF:1198-32503).)" 
+            test="count(/cda:ClinicalDocument/cda:templateId/@extension='2015-08-01')=1" />
+        
+        <!--Confirm the Clinical Document contains an Id element -->
+        <x:expect label="SHALL contain exactly one [1..1] id (CONF:1198-5363)." 
+            test="count(/cda:ClinicalDocument/cda:id)=1" />
+        <!--Confirm the Clinical Document contains a code element -->
+        <x:expect label="SHALL contain exactly one [1..1] code (CONF:1198-5253)." 
+            test="count(/cda:ClinicalDocument/cda:code)=1" />
+        <!--Confirm the Clinical Document contains a title element -->
+        <x:expect label="SHALL contain exactly one [1..1] title (CONF:1198-5254)." 
+            test="count(/cda:ClinicalDocument/cda:title)=1" />
+        <!--Confirm the Clinical Document contains a time element -->
+        <x:expect label="SHALL contain exactly one [1..1] US Realm Date and Time (DTM.US.FIELDED) " 
+            test="count(/cda:ClinicalDocument/cda:effectiveTime)=1" />
+        <!--Confirm the Clinical Document contains a confidentialityCode element -->
+        <x:expect label="SHALL contain exactly one [1..1] confidentialityCode (CONF:1198-5259). " 
+            test="count(/cda:ClinicalDocument/cda:confidentialityCode)=1" />
+        <!--Confirm the Clinical Document contains a languageCode element -->
+        <x:expect label="SHALL contain exactly one [1..1] languageCode (CONF:1198-5372). " 
+            test="count(/cda:ClinicalDocument/cda:languageCode)=1" />
+        <!--Confirm the Clinical Document contains a setId element -->
+        <x:expect label="MAY contain zero or one [0..1] setId (CONF:1198-5261) " 
+            test="count(/cda:ClinicalDocument/cda:setId)=1" />
+        <!--Confirm the Clinical Document contains a versionNumber element -->
+        <x:expect label="MAY contain zero or one [0..1] versionNumber (CONF:1198-5264). " 
+            test="count(/cda:ClinicalDocument/cda:versionNumber)=1" />
+        
+    </x:scenario>
+</x:description>

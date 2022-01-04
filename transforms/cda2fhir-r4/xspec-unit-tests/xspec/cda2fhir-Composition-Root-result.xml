@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Composition-Root.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/SaxonPE-cda2fhir.xslt"
+        date="2022-01-04T15:33:24.788776+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Composition-Root.xspec">
+      <label>Scenario for testing eICR Composition elements</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d598e0.xml"/>
+      <test id="scenario1-expect1" successful="true">
+         <label>There should be one fhir Composition</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>There should be an Composition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>There should be a Composition.status=final</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:status[@value='final'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>There should be two Composition.type.coding.system.value=http://loinc.org</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:system[@value='http://loinc.org'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>There should be an Composition.type..coding.code.value=55751-2</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:code[@value='55751-2'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>There should be an Composition.type..coding.display.value=Public Health Case Report</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:display[@value='Public Health Case Report'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>There should be a Composition.language value=en-US</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:language[@value='en-US'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>There should be a Composition.date value=2020-11-07T09:44:21.000-05:00</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:date[@value='2020-11-07T09:44:21.000-05:00'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect9" successful="true">
+         <label>There should be a Composition.confidentiality value=N</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect10" successful="true">
+         <label>There should be a Composition.title value=Initial Public Health Case Report: eICR-CDA-001_R3</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:title[@value='Initial Public Health Case Report: eICR-CDA-001_R3'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect11" successful="true">
+         <label>There should be a Composition.extension.url=http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect12" successful="true">
+         <label>There should be a Composition.extension.valueString.value=2</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:extension/fhir:valueString[@value='2'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect13" successful="true">
+         <label>There should be two Composition.identifier.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:identifier/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect14" successful="true">
+         <label>There should be an Composition.system.value.value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:identifier/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect15" successful="true">
+         <label>There should be a Composition.subject</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:subject) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect16" successful="true">
+         <label>There should be a Composition.subject.reference.value=urn:uuid:</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:subject/fhir:reference) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect17" successful="true">
+         <label>There should be a Composition.author</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:author) = 2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect18" successful="true">
+         <label>There should be a Composition.custodian</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:custodian) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect19" successful="true">
+         <label>There should be a Composition.relatesTo</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:relatesTo) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect20" successful="true">
+         <label>There should be a Composition.encounter</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:encounter) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario2"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Composition-Root.xspec">
+      <label>Scenario for testing eICR Composition.section elements</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d1202e0.xml"/>
+      <test id="scenario2-expect1" successful="true">
+         <label>There should be 14 Composition.section</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section) = 14"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect2" successful="true">
+         <label>There should be a Plan of Treatment section</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:title/@value='Plan of Treatment'][fhir:code/fhir:coding/fhir:code/@value='18776-5']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect3" successful="true">
+         <label>The Plan of Treatment Section should contain 5 eICR trigger code extension entries</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension'])=5"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect4" successful="true">
+         <label>The Plan of Treatment Section should contain one entry that doesn't contain the eICR trigger code extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry[not(fhir:extension/@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension')])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect5" successful="true">
+         <label>The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Airborne precautions procedure (409524006)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='409524006'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect6" successful="true">
+         <label>The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method (80825-3)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='80825-3'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect7" successful="true">
+         <label>The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Extracorporeal membrane oxygenation (procedure) (233573008)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='233573008'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect8" successful="true">
+         <label>The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Ventilator care and adjustment (regime/therapy) (385857005)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='385857005'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect9" successful="true">
+         <label>The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Bacillus anthracis strain V770-NP1-R antigens 0.1 MG/ML Injectable (832679)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='832679'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario3"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Composition-Root.xspec">
+      <label>Scenario for testing RR Composition elements</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d1423e0.xml"/>
+      <test id="scenario3-expect1" successful="true">
+         <label>There should be one fhir Composition</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect2" successful="true">
+         <label>There should be an Composition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect3" successful="true">
+         <label>There should be a Composition.status=final</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:status[@value='final'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect4" successful="true">
+         <label>There should be two Composition.type.coding.system.value=http://loinc.org</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:system[@value='http://loinc.org'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect5" successful="true">
+         <label>There should be an Composition.type..coding.code.value=88085-6</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:code[@value='88085-6'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect6" successful="true">
+         <label>There should be an Composition.type..coding.display.value=Reportability response report Document Public health</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:display[@value='Reportability response report Document Public health'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect7" successful="true">
+         <label>There should be a Composition.language value=en-US</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:language[@value='en-US'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect8" successful="true">
+         <label>There should be a Composition.date value=2017-11-14T12:15:00.000-07:00</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:date[@value='2017-11-14T12:15:00.000-07:00'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect9" successful="true">
+         <label>There should be a Composition.confidentiality value=N</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect10" successful="true">
+         <label>There should be a Composition.title value=Reportability Response: RR-CDA-001_R1</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:title[@value='Reportability Response: RR-CDA-001_R1'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect11" successful="true">
+         <label>There should be a Composition.extension.url=http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect12" successful="true">
+         <label>There should be a Composition.extension.valueString.value=2</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:extension/fhir:valueString[@value='2'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect13" successful="true">
+         <label>There should be two Composition.identifier.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:identifier/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect14" successful="true">
+         <label>There should be an Composition.system.value.value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:identifier/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect15" successful="true">
+         <label>There should be a Composition.subject</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:subject) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect16" successful="true">
+         <label>There should be a Composition.subject.reference.value=urn:uuid:</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:subject/fhir:reference) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect17" successful="true">
+         <label>There should be a Composition.author</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:author) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect18" successful="true">
+         <label>There should be a Composition.custodian</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:custodian) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect19" successful="true">
+         <label>There should be a Composition.relatesTo</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:relatesTo) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect20" successful="true">
+         <label>There should be a Composition.encounter</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:encounter) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario4"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Composition-Root.xspec">
+      <label>Scenario for testing RR Composition.section elements</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d1675e0.xml"/>
+      <test id="scenario4-expect1" successful="true">
+         <label>There should be 3 Composition.section</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section) = 3"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect2" successful="true">
+         <label>There should be a Reportability Response Subject Section (88084-9)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88084-9']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect3" successful="true">
+         <label>The Reportability Response Subject Section shall contain text</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88084-9']/fhir:text)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect4" successful="true">
+         <label>There should be a Electronic Initial Case Report Section (88082-3)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect5" successful="true">
+         <label>The Electronic Initial Case Report Section shall contain the rr-eicr-processing-status-extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect6" successful="true">
+         <label>The rr-eicr-processing-status-extension shall contain the eICRProcessingStatus extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension']/fhir:extension[@url='eICRProcessingStatus'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect7" successful="true">
+         <label>The rr-eicr-processing-status-extension shall contain the eICRValidationOutput extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension']/fhir:extension[@url='eICRValidationOutput'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect8" successful="true">
+         <label>The rr-eicr-processing-status-extension shall contain the eICRValidationOutput extension with specific valueString</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension/fhir:extension[@url='eICRValidationOutput']/fhir:valueString[@value='&lt;html&gt;&lt;head&gt;&lt;title&gt; Results &lt;/title&gt;&lt;style type=&#34;text/css&#34; /&gt;&lt;/head&gt;&lt;body&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Severity&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;File&lt;/th&gt;&lt;th&gt;Location&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;error&lt;/td&gt;&lt;td&gt;SHOULD contain zero or one [0..1] setId (CONF:1098-32752).&lt;/td&gt;&lt;td&gt;C:\Users\user1\Documents\Work\Lantana\SVN\ClientProjects\ReportabilityResponse\xml\samples\CDAR2_IG_PHCR_R2_RR_D1_2017AUG_SAMPLE.xml&lt;/td&gt;&lt;td&gt;&lt;p&gt;Start line 415:70&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;error&lt;/td&gt;&lt;td&gt;SHOULD contain zero or one [0..1] versionNumber (CONF:1098-32753).&lt;/td&gt;&lt;td&gt;C:\Users\user1\Documents\Work\Lantana\SVN\ClientProjects\ReportabilityResponse\xml\samples\CDAR2_IG_PHCR_R2_RR_D1_2017AUG_SAMPLE.xml&lt;/td&gt;&lt;td&gt;&lt;p&gt;Start line 415:70&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect9" successful="true">
+         <label>The Electronic Initial Case Report Section shall contain an entry with reference, display, and identifier elements</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:entry[fhir:reference][fhir:display][fhir:identifier])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect10" successful="true">
+         <label>There should be a Reportability Response Summary Section (55112-7)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect11" successful="true">
+         <label>There shall be a rr-priority-extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect12" successful="true">
+         <label>There shall be a reference to a rr-summary Observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']/fhir:entry/fhir:reference[@value=//fhir:entry[fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']/fhir:fullUrl/@value])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect13" successful="true">
+         <label>There shall be a reference to a rr-relevant-reportable-condition-observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']/fhir:entry/fhir:reference[@value=//fhir:entry[fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']/fhir:fullUrl/@value])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

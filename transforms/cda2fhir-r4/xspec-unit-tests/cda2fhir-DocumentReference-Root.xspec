@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
+
+    <!-- create DocumentReference from 2.16.840.1.113883.10.20.15.2.3.10 eICR External Document Reference externalDocument -->
+    <x:scenario label="Scenario for testing template with match 'cda:externalDocument">
+
+        <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+
+        <x:expect label="Should produce a DocumentReference: http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference" 
+            test="count(//fhir:DocumentReference/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']) = 1" />
+        <!-- Validate the Master Identifier element  -->
+        <x:expect label="Should produce a DocumentReference/masterIdentifier/system/@value" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:masterIdentifier/fhir:system[@value='urn:ietf:rfc:3986'])= 1" />
+        <x:expect label="Should produce a DocumentReference/masterIdentifier/value/@value='urn:uuid:db734647-fc99-424c-a864-7e3cda82e703'" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:masterIdentifier/fhir:value[@value='urn:uuid:db734647-fc99-424c-a864-7e3cda82e703'])= 1" />
+        <!-- Validate the Identifier element  -->
+        <x:expect label="Should produce a DocumentReference/identifier/system/@value" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:identifier/fhir:system[@value='urn:oid:2.16.840.1.113883.19.5.99999.19'])= 1" />
+        <x:expect label="Should produce a DocumentReference/identifier/value.value='urn:uuid:db734647-fc99-424c-a864-7e3cda82e703'" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:identifier/fhir:value[@value='sTT988#1'])= 1" />
+        <!-- Validate the Status element   -->
+        <x:expect label="Should produce an identifer with status.value='current'" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:status[@value='current']) = 1" />
+        <!-- Validate the Type element  -->
+        <x:expect label="Should produce a type.coding.system=http://loinc.org" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:type/fhir:coding/fhir:system[@value='http://loinc.org']) = 1" />
+        <x:expect label="Should produce a type.coding.code=55751-2" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:type/fhir:coding/fhir:code[@value='55751-2']) = 1" />
+        <x:expect label="Should produce a type.coding.display=Public health Case report" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:type/fhir:coding/fhir:display[@value='Public health Case report']) = 1" />
+        <!-- Validate the Category element  -->
+        <x:expect label="Should produce a category" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:category) = 1" />
+        <!-- Validate the Attachment element  -->
+        <x:expect label="Should produce a content.attachment with url: urn:hl7ii:2.16.840.1.113883.19.5.99999.19:1" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:content/fhir:attachment/fhir:url[@value='urn:hl7ii:2.16.840.1.113883.19.5.99999.19:1']) = 1" />
+        
+    </x:scenario>
+    
+    <!-- Create DocumentReference from 2.16.840.1.113883.10.20.15.2.3.17 RR External Reference (also pulls data from containing RR External Resource template) -->
+    <x:scenario label="Scenario for testing DocumentReference from 2.16.840.1.113883.10.20.15.2.3.17 RR External Reference (also pulls data from containing RR External Resource template)">
+        
+        <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+        
+        <x:expect label="Should produce 11 DocumentReference: http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference" 
+            test="count(//fhir:DocumentReference/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']) = 11" />
+        
+        <!-- Validate the http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension extension   -->
+        <x:expect label="Should produce 11 http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension extensions" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension']) = 11" />
+        
+        <!-- Validate the Status element   -->
+        <x:expect label="Should produce 11 status.value='current'" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:status[@value='current']) = 11" />
+        <!-- Validate the Type element  -->
+        <x:expect label="Should produce 11 type.coding.system=http://loinc.org" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:type/fhir:coding/fhir:system[@value='http://loinc.org']) = 11" />
+        <x:expect label="Should produce 11 type.coding.code=83910-0" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:type/fhir:coding/fhir:code[@value='83910-0']) = 11" />
+        <x:expect label="Should produce 11 type.coding.display=Public health Note" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:type/fhir:coding/fhir:display[@value='Public health Note']) = 11" />
+        <x:expect label="Should produce 11 category" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:category) = 11" />
+        <!-- Validate 11 description elements  -->
+        <x:expect label="Should produce 11 description" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:description) = 11" />
+        <!-- Validate 11 Attachment element  -->
+        <x:expect label="Should produce 11 content.attachment" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:content/fhir:attachment) = 11" />
+        
+    </x:scenario>
+</x:description>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" 
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
+    
+    <!-- Validate the Practitioner (cda:author) Elements -->
+  <x:scenario
+        label="Scenario for testing template with match 'cda:author'">
+      <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
+      <x:expect label="SHOULD contain zero or one [0..1] @extension (CONF:1198-32885)" 
+          test="count(//fhir:Practitioner/fhir:identifier/fhir:system) = 2" />
+      <x:expect label="SHALL contain exactly one [1..1] @root='2.16.840.1.113883.4.6' National Provider Identifier (CONF:1198-32884)" 
+          test="count(//fhir:Practitioner/fhir:identifier[fhir:system/@value='urn:ietf:rfc:3986'][fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']) = 1" />
+      
+      <!-- Validate the Practitioner (Author) Address -->
+      <x:expect label="This assignedAuthor SHALL contain at least one [1..*]  US Realm Address (CONF:1198-5452)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address) = 1" />
+      <x:expect label="SHALL contain at least one and not more than 4 streetAddressLine (CONF:81-7291)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:line) =1" />
+      <x:expect label="SHALL contain exactly one [1..1] city (CONF:81-7292)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:city) =1" />
+      <x:expect label="SHOULD contain zero or one [0..1] state  (CONF:81-7293)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:state) =1" />
+      <x:expect label="SHOULD contain zero or one [0..1] postalCode (CONF:81-7294)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:postalCode) =1" />
+      <x:expect label="SHOULD contain zero or one [0..1] country (CONF:81-7295)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:country) =1" />
+      <!-- Validate the Practitioner (Author) Telecom-->
+      <x:expect label="This assignedAuthor SHALL contain at least one [1..*] telecom (CONF:1198-5428)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:telecom) = 1" />
+      <x:expect label="Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-7995)" 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:telecom/fhir:use) = 1" />
+      <!-- Validate the Practitioner (Author) Name-->
+      <x:expect label="This assignedAuthor SHOULD contain zero or one [0..1] assignedPerson (CONF:1198-5430)." 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name) = 1" />
+      <x:expect label="The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (surname)  (CONF:1198-16789)." 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name/fhir:family) = 1" />
+      <x:expect label="The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (firstname)  (CONF:1198-16789)." 
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name/fhir:given) = 1" />
+  </x:scenario>
+    
+</x:description>

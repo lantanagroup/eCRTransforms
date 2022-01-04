@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Organization.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/cda2fhir-Organization.xslt"
+        date="2022-01-04T15:30:02.22744+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Organization.xspec">
+      <label>Scenario for testing Custodian entry with match 'cda:custodian' and mode 'bundle-entry'</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"
+                    select="//cda:custodian"
+                    mode="bundle-entry"/>
+      </input-wrap>
+      <result select="/element()">
+         <content-wrap xmlns="">
+            <entry xmlns="http://hl7.org/fhir">
+               <fullUrl value="urn:uuid:"/>
+               <resource>
+                  <Organization>
+                     <identifier>
+                        <system value="http://hl7.org/fhir/sid/us-npi"/>
+                        <value value="88888888"/>
+                     </identifier>
+                     <active value="true"/>
+                     <name value="Custodian Level Seven Healthcare, Inc."/>
+                     <telecom>
+                        <system value="phone"/>
+                        <value value="+1(555)555-3001"/>
+                        <use value="work"/>
+                     </telecom>
+                     <address>
+                        <line value="4444 Healthcare Drive"/>
+                        <city value="Ann Arbor"/>
+                        <state value="MI"/>
+                        <postalCode value="99999"/>
+                        <country value="US"/>
+                     </address>
+                  </Organization>
+               </resource>
+            </entry>
+         </content-wrap>
+      </result>
+      <test id="scenario1-expect1" successful="true">
+         <label>There should be 9 entry.resource.Organization</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>There should be 1 Custodian  identifier System</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:identifier/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>There should be 1 Custodian Identifier identifier value </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:identifier/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>There should be 1 Custodian active=true</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:active[@value='true'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>There should be 1 Custodian name</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:name)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>There should be 1 telecom system </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>There should be 1 telecom use </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:use)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>There should be 1 telecom value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect9" successful="true">
+         <label>There should be 1 address</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect10" successful="true">
+         <label>There should be 1 line</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:line)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect11" successful="true">
+         <label>There should be 1 city</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:city)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect12" successful="true">
+         <label>There should be 1 state</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:state)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect13" successful="true">
+         <label>There should be 1 postal code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:postalCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect14" successful="true">
+         <label>There should be 1 postal code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:country)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario2"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Organization.xspec">
+      <label>Scenario for testing Intended Recipient entry within the 'cda:informationRecipient' and mode 'bundle-entry'</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"
+                    select="//cda:informationRecipient"
+                    mode="bundle-entry"/>
+      </input-wrap>
+      <result select="/node()">
+         <content-wrap xmlns="">
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+        </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+        </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>1002 Healthcare Drive<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>Ann Arbor<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>MI<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>99999<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>US<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                    </ws>Dr.<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                    </ws>InformationRecipient Henry<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                    </ws>Seven<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+            <entry xmlns="http://hl7.org/fhir">
+               <fullUrl value="urn:uuid:"/>
+               <resource>
+                  <Organization>
+                     <identifier>
+                        <system value="urn:ietf:rfc:3986"/>
+                        <value value="urn:uuid:"/>
+                     </identifier>
+                     <active value="true"/>
+                     <name value="ReceivedOrganization Level Seven Healthcare, Inc."/>
+                     <telecom>
+                        <system value="phone"/>
+                        <value value="+1-555-555-1002"/>
+                        <use value="work"/>
+                     </telecom>
+                     <telecom>
+                        <system value="fax"/>
+                        <value value="+1-555-955-1002"/>
+                        <use value="work"/>
+                     </telecom>
+                     <telecom>
+                        <system value="email"/>
+                        <value value="henrysevenmd@email.net"/>
+                        <use value="work"/>
+                     </telecom>
+                     <address>
+                        <line value="4444 Healthcare Drive"/>
+                        <city value="Ann Arbor"/>
+                        <state value="MI"/>
+                        <postalCode value="99999"/>
+                        <country value="US"/>
+                     </address>
+                  </Organization>
+               </resource>
+            </entry>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+        </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+    </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                    </ws>Dr.<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                    </ws>InformationRecipient Henry<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                    </ws>Seven<ws xmlns="http://www.jenitennison.com/xslt/xspec">
+                </ws>
+            <ws xmlns="http://www.jenitennison.com/xslt/xspec">
+            </ws>
+         </content-wrap>
+      </result>
+      <test id="scenario2-expect1" successful="true">
+         <label>There should be 9 entry.resource.Organization</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect2" successful="true">
+         <label>There should be 1 Organization identifier System</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:identifier/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect3" successful="true">
+         <label>There should be 1 Organization Identifier identifier value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:identifier/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect4" successful="true">
+         <label>There should be 1 Organization active=true</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:active)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect5" successful="true">
+         <label>There should be 1 Organization name</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:name)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect6" successful="true">
+         <label>There should be 1 telecom system value 'phone'</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:system)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect7" successful="true">
+         <label>There should be 1 telecom use value 'work'</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:use)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect8" successful="true">
+         <label>There should be 1 telecom value value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:value)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect9" successful="true">
+         <label>There should be 1 address</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect10" successful="true">
+         <label>There should be 1 line</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:line[@value='4444 Healthcare Drive'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect11" successful="true">
+         <label>There should be 1 city</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:city[@value='Ann Arbor'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect12" successful="true">
+         <label>There should be 1 state</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:state[@value='MI'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect13" successful="true">
+         <label>There should be 1 postal code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:postalCode[@value='99999'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario3"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Organization.xspec">
+      <label>Scenario for testing template with match 'cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"
+                    select="//cda:participant[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.4.2']]"/>
+      </input-wrap>
+      <result select="/element()">
+         <content-wrap xmlns="">
+            <Organization xmlns="http://hl7.org/fhir">
+               <meta>
+                  <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization"/>
+               </meta>
+               <!--participant[LOC]-->
+               <identifier>
+                  <system value="http://hl7.org/fhir/sid/us-npi"/>
+                  <value value="12341234"/>
+               </identifier>
+               <active value="true"/>
+               <type>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                     <code value="RR8"/>
+                     <display value="Responsible Agency"/>
+                  </coding>
+               </type>
+               <name value="State Department of Health"/>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-555-555-3555"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="fax"/>
+                  <value value="+1-955-555-3555"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="mail@healthauthoritywest.gov"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="url"/>
+                  <value value="https://www.healthauthoritywest.gov"/>
+                  <use value="work"/>
+               </telecom>
+               <address>
+                  <use value="work"/>
+                  <line value="7777 Health Authority Drive"/>
+                  <city value="Ann Arbor"/>
+                  <state value="MI"/>
+                  <postalCode value="99999"/>
+               </address>
+            </Organization>
+         </content-wrap>
+      </result>
+      <test id="scenario3-expect1" successful="true">
+         <label>Should produce an Organization</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect2" successful="true">
+         <label>Should produce an Organization with meta.profile='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization'</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect3" successful="true">
+         <label>There should be a identifier</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:identifier)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect4" successful="true">
+         <label>There should be an organization.identifier.system.value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:identifier/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect5" successful="true">
+         <label>There should be an organization.identifier.system.value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:identifier/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect6" successful="true">
+         <label>Should produce an Organization with active value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:active) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect7" successful="true">
+         <label>Should produce an Organization with system </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:type/fhir:coding/fhir:system) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect8" successful="true">
+         <label>Should produce an Organization with type.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:type/fhir:coding/fhir:code) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect9" successful="true">
+         <label>Should produce an Organization with type.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:type/fhir:coding/fhir:display) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect10" successful="true">
+         <label>Should produce an Organization with name</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:name) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect11" successful="true">
+         <label>There should be 4 telecoms</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom)=4"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect12" successful="true">
+         <label>There should be 1 telecom system value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom/fhir:system)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect13" successful="true">
+         <label>There should be 1 telecom use value 'work'</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom/fhir:use)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect14" successful="true">
+         <label>There should be 1 telecom value value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom/fhir:value)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect15" successful="true">
+         <label>There should be 1 address</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect16" successful="true">
+         <label>Should produce an Organization with address.use</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:use) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect17" successful="true">
+         <label>There should be 1 line</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:line)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect18" successful="true">
+         <label>There should be 1 city</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:city)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect19" successful="true">
+         <label>There should be 1 state</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:state)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect20" successful="true">
+         <label>There should be 1 postal code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:postalCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario4"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Organization.xspec">
+      <label>Scenario for testing template with match 'cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"
+                    select="//cda:participant[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.4.3']]"/>
+      </input-wrap>
+      <result select="/element()">
+         <content-wrap xmlns="">
+            <Organization xmlns="http://hl7.org/fhir">
+               <meta>
+                  <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
+               </meta>
+               <!--participant[LOC]-->
+               <identifier>
+                  <system value="http://hl7.org/fhir/sid/us-npi"/>
+                  <value value="12341234"/>
+               </identifier>
+               <active value="true"/>
+               <type>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                     <code value="RR12"/>
+                     <display value="Rules Authoring Agency"/>
+                  </coding>
+               </type>
+               <name value="State Department of Health"/>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-555-555-3555"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="fax"/>
+                  <value value="+1-955-555-3555"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="mail@healthauthoritywest.gov"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="url"/>
+                  <value value="https://www.healthauthoritywest.gov"/>
+                  <use value="work"/>
+               </telecom>
+               <address>
+                  <use value="work"/>
+                  <line value="7777 Health Authority Drive"/>
+                  <city value="Ann Arbor"/>
+                  <state value="MI"/>
+                  <postalCode value="99999"/>
+               </address>
+            </Organization>
+         </content-wrap>
+      </result>
+      <test id="scenario4-expect1" successful="true">
+         <label>Should produce an Organization</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect2" successful="true">
+         <label>Should produce an Organization with meta.profile='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization'</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect3" successful="true">
+         <label>There should be a identifier</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:identifier)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect4" successful="true">
+         <label>There should be an organization.identifier.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:identifier/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect5" successful="true">
+         <label>There should be an organization.identifier.value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:identifier/fhir:value)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect6" successful="true">
+         <label>Should produce an Organization with active</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:active) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect7" successful="true">
+         <label>Should produce an Organization with system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:type/fhir:coding/fhir:system) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect8" successful="true">
+         <label>Should produce an Organization with type.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:type/fhir:coding/fhir:code) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect9" successful="true">
+         <label>Should produce an Organization with type.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:type/fhir:coding/fhir:display) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect10" successful="true">
+         <label>Should produce an Organization with a name</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:name) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect11" successful="true">
+         <label>There should be 4 telecoms</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect12" successful="true">
+         <label>There should be 1 telecom system </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom/fhir:system)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect13" successful="true">
+         <label>There should be 1 telecom use</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom/fhir:use)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect14" successful="true">
+         <label>There should be 1 telecom value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:telecom/fhir:value)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect15" successful="true">
+         <label>There should be 1 address</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect16" successful="true">
+         <label>Should produce an Organization with address.use</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:use) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect17" successful="true">
+         <label>There should be 1 line</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:line)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect18" successful="true">
+         <label>There should be 1 city</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:city)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect19" successful="true">
+         <label>There should be 1 state</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:state)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect20" successful="true">
+         <label>There should be 1 postal code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Organization/fhir:address/fhir:postalCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

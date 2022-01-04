@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+   
+    <!--Confirm the DocumentReference has been created from thefhir:DocumentReference -> eICR External Document Reference (ExternalDocument)" -->
+    <x:scenario
+        label="Test fhir:DocumentReference -> eICR External Document Reference">
+        <x:context href="../../../samples/fhir/RR-R2/RR-FHIR-001_R2.xml"/>
+        
+     
+        <x:expect label="Create one externalDocument with classCode=DOCCLIN" 
+            test="count(//cda:reference/cda:externalDocument[@classCode='DOCCLIN'])=1" />
+        <x:expect label="The externalDocument should have templateId = '2.16.840.1.113883.10.20.15.2.3.10'" 
+            test="count(//cda:reference/cda:externalDocument[@classCode='DOCCLIN']/cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.10'])=1" />
+        <!--Confirm the externalDocument contains an id element -->
+        <x:expect label="This externalDocument SHALL contain exactly one [1..1] setId (CONF:4411-308)." 
+            test="count(//cda:externalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.10']]/cda:id)=1" />
+        <!--Confirm the externalDocument contains an id element -->
+        <x:expect label="This externalDocument SHALL contain exactly one [1..1] versionNumber (CONF:4411-309).." 
+            test="count(//cda:externalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.10']]/cda:versionNumber)=1" />
+    </x:scenario>
+    
+</x:description>

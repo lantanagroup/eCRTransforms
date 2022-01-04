@@ -1,0 +1,10 @@
+<mapping>
+  <!-- CDA templates that map to "subprofiles" e.g. Observation.component -->
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.215:2017-11-30" subprofileName="Observation.component: odh-OccupationalHazard" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.216:2017-11-30" subprofileName="Observation.component: odh-PastOrPresentIndustry" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.219:2017-11-30" subprofileName="Observation.component: odh-UsualIndustry" />
+  
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.297:2018-04-01" subprofileName="Observation.component: sliceEstimatedDateOfDelivery" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.280:2018-04-01" subprofileName="Observation.component: sliceEstimatedGestationalAgeOfPregnancysliceEstimatedDateOfDelivery" />
+  
+</mapping>

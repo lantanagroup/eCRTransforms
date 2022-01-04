@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
+    <!-- eICR -->
+    <x:scenario label="Scenario for testing eICR Composition elements">
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
+        <!-- Validate the Composition exists-->
+        <x:expect label="There should be one fhir Composition" test="count(//fhir:Composition) = 1" />
+
+        <!-- Validate the Meta Profile exists-->
+        <x:expect label="There should be an Composition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+            test="count(//fhir:Composition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'])=1" />
+
+        <!-- Validate the Composition Status-->
+        <x:expect label="There should be a Composition.status=final" test="count(//fhir:Composition/fhir:status[@value='final'])=1" />
+
+        <!-- Validate the Composition Type  -->
+        <x:expect label="There should be two Composition.type.coding.system.value=http://loinc.org" test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:system[@value='http://loinc.org'])=1" />
+        <x:expect label="There should be an Composition.type..coding.code.value=55751-2" test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:code[@value='55751-2'])=1" />
+        <x:expect label="There should be an Composition.type..coding.display.value=Public Health Case Report" test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:display[@value='Public Health Case Report'])=1" />
+
+        <!-- Validate the Composition Language-->
+        <x:expect label="There should be a Composition.language value=en-US" test="count(//fhir:Composition/fhir:language[@value='en-US'])=1" />
+
+        <!-- Validate the Composition Date-->
+        <x:expect label="There should be a Composition.date value=2020-11-07T09:44:21.000-05:00" test="count(//fhir:Composition/fhir:date[@value='2020-11-07T09:44:21.000-05:00'])=1" />
+
+        <!-- Validate the Composition Confidentiality-->
+        <x:expect label="There should be a Composition.confidentiality value=N" test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1" />
+
+        <!-- Validate the Composition Title-->
+        <x:expect label="There should be a Composition.title value=Initial Public Health Case Report: eICR-CDA-001_R3" test="count(//fhir:Composition/fhir:title[@value='Initial Public Health Case Report: eICR-CDA-001_R3'])=1" />
+
+        <!-- Validate the Composition Version  -->
+        <x:expect label="There should be a Composition.extension.url=http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber"
+            test="count(//fhir:Composition/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber'])=1" />
+        <x:expect label="There should be a Composition.extension.valueString.value=2" test="count(//fhir:Composition/fhir:extension/fhir:valueString[@value='2'])=1" />
+
+        <!-- Validate the Composition Identifier exists  -->
+        <x:expect label="There should be two Composition.identifier.system" test="count(//fhir:Composition/fhir:identifier/fhir:system)=1" />
+        <x:expect label="There should be an Composition.system.value.value" test="count(//fhir:Composition/fhir:identifier/fhir:value)=1" />
+
+        <!-- Validate the Composition Subject exists-->
+        <x:expect label="There should be a Composition.subject" test="count(//fhir:Composition/fhir:subject) = 1" />
+        <x:expect label="There should be a Composition.subject.reference.value=urn:uuid:" test="count(//fhir:Composition/fhir:subject/fhir:reference) = 1" />
+
+        <!-- Validate the Composition Author exists -->
+        <x:expect label="There should be a Composition.author" test="count(//fhir:Composition/fhir:author) = 2" />
+
+        <!-- Validate the Composition Custodian exists -->
+        <x:expect label="There should be a Composition.custodian" test="count(//fhir:Composition/fhir:custodian) = 1" />
+
+        <!-- Validate the Composition RelatesTo exists -->
+        <x:expect label="There should be a Composition.relatesTo" test="count(//fhir:Composition/fhir:relatesTo) = 1" />
+
+        <!-- Validate the Composition Encounter exists -->
+        <x:expect label="There should be a Composition.encounter" test="count(//fhir:Composition/fhir:encounter) = 1" />
+
+        <!-- Validate the Composition Event exists -->
+        <!-- SG: ServiceEvent doesn't create an event in the FHIR Composition -->
+        <!--<x:expect label="There should be a Composition.event" 
+      test="count(//fhir:Composition/fhir:event) = 1" />-->
+    </x:scenario>
+
+    <!-- eICR -->
+    <x:scenario label="Scenario for testing eICR Composition.section elements">
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
+
+        <!-- Validate the correct number of  Composition Sections exists -->
+        <x:expect label="There should be 14 Composition.section" test="count(//fhir:Composition/fhir:section) = 14" />
+
+        <x:expect label="There should be a Plan of Treatment section" test="count(//fhir:Composition/fhir:section[fhir:title/@value='Plan of Treatment'][fhir:code/fhir:coding/fhir:code/@value='18776-5']) = 1" />
+        <x:expect label="The Plan of Treatment Section should contain 5 eICR trigger code extension entries"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension'])=5" />
+
+        <x:expect label="The Plan of Treatment Section should contain one entry that doesn't contain the eICR trigger code extension"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry[not(fhir:extension/@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension')])=1" />
+
+        <x:expect label="The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Airborne precautions procedure (409524006)"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='409524006'])=1" />
+        <x:expect
+            label="The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method (80825-3)"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='80825-3'])=1" />
+        <x:expect label="The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Extracorporeal membrane oxygenation (procedure) (233573008)"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='233573008'])=1" />
+        <x:expect label="The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Ventilator care and adjustment (regime/therapy) (385857005)"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='385857005'])=1" />
+        <x:expect label="The Plan of Treatment Section should contain an entry containing the eICR trigger code extension for Bacillus anthracis strain V770-NP1-R antigens 0.1 MG/ML Injectable (832679)"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='18776-5']/fhir:entry/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='832679'])=1" />
+
+    </x:scenario>
+
+    <!-- RR -->
+    <x:scenario label="Scenario for testing RR Composition elements">
+        <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml" />
+        <!-- Validate the Composition exists-->
+        <x:expect label="There should be one fhir Composition" test="count(//fhir:Composition) = 1" />
+
+        <!-- Validate the Meta Profile exists-->
+        <x:expect label="There should be an Composition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition"
+            test="count(//fhir:Composition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition'])=1" />
+
+        <!-- Validate the Composition Status-->
+        <x:expect label="There should be a Composition.status=final" test="count(//fhir:Composition/fhir:status[@value='final'])=1" />
+
+        <!-- Validate the Composition Type  -->
+        <x:expect label="There should be two Composition.type.coding.system.value=http://loinc.org" test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:system[@value='http://loinc.org'])=1" />
+        <x:expect label="There should be an Composition.type..coding.code.value=88085-6" test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:code[@value='88085-6'])=1" />
+        <x:expect label="There should be an Composition.type..coding.display.value=Reportability response report Document Public health"
+            test="count(//fhir:Composition/fhir:type/fhir:coding/fhir:display[@value='Reportability response report Document Public health'])=1" />
+
+        <!-- Validate the Composition Language-->
+        <x:expect label="There should be a Composition.language value=en-US" test="count(//fhir:Composition/fhir:language[@value='en-US'])=1" />
+
+        <!-- Validate the Composition Date-->
+        <x:expect label="There should be a Composition.date value=2017-11-14T12:15:00.000-07:00" test="count(//fhir:Composition/fhir:date[@value='2017-11-14T12:15:00.000-07:00'])=1" />
+
+        <!-- Validate the Composition Confidentiality-->
+        <x:expect label="There should be a Composition.confidentiality value=N" test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1" />
+
+        <!-- Validate the Composition Title-->
+        <x:expect label="There should be a Composition.title value=Reportability Response: RR-CDA-001_R1" test="count(//fhir:Composition/fhir:title[@value='Reportability Response: RR-CDA-001_R1'])=1" />
+
+        <!-- Validate the Composition Version  -->
+        <x:expect label="There should be a Composition.extension.url=http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber"
+            test="count(//fhir:Composition/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber'])=1" />
+        <x:expect label="There should be a Composition.extension.valueString.value=2" test="count(//fhir:Composition/fhir:extension/fhir:valueString[@value='2'])=1" />
+
+        <!-- Validate the Composition Identifier exists  -->
+        <x:expect label="There should be two Composition.identifier.system" test="count(//fhir:Composition/fhir:identifier/fhir:system)=1" />
+        <x:expect label="There should be an Composition.system.value.value" test="count(//fhir:Composition/fhir:identifier/fhir:value)=1" />
+
+        <!-- Validate the Composition Subject exists-->
+        <x:expect label="There should be a Composition.subject" test="count(//fhir:Composition/fhir:subject) = 1" />
+        <x:expect label="There should be a Composition.subject.reference.value=urn:uuid:" test="count(//fhir:Composition/fhir:subject/fhir:reference) = 1" />
+
+        <!-- Validate the Composition Author exists -->
+        <x:expect label="There should be a Composition.author" test="count(//fhir:Composition/fhir:author) = 1" />
+
+        <!-- Validate the Composition Custodian exists -->
+        <x:expect label="There should be a Composition.custodian" test="count(//fhir:Composition/fhir:custodian) = 1" />
+
+        <!-- Validate the Composition RelatesTo exists -->
+        <x:expect label="There should be a Composition.relatesTo" test="count(//fhir:Composition/fhir:relatesTo) = 1" />
+
+        <!-- Validate the Composition Encounter exists -->
+        <x:expect label="There should be a Composition.encounter" test="count(//fhir:Composition/fhir:encounter) = 1" />
+    </x:scenario>
+
+    <!-- RR -->
+    <x:scenario label="Scenario for testing RR Composition.section elements">
+        <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml" />
+
+        <!-- Validate the correct number of  Composition Sections exists -->
+        <x:expect label="There should be 3 Composition.section" test="count(//fhir:Composition/fhir:section) = 3" />
+
+        <!-- Reportability Response Subject Section -->
+        <x:expect label="There should be a Reportability Response Subject Section (88084-9)" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88084-9']) = 1" />
+        <x:expect label="The Reportability Response Subject Section shall contain text" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88084-9']/fhir:text)=1" />
+
+        <!-- Electronic Initial Case Report Section -->
+        <x:expect label="There should be a Electronic Initial Case Report Section (88082-3)" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']) = 1" />
+        <x:expect label="The Electronic Initial Case Report Section shall contain the rr-eicr-processing-status-extension"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension'])=1" />
+        <x:expect label="The rr-eicr-processing-status-extension shall contain the eICRProcessingStatus extension"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension']/fhir:extension[@url='eICRProcessingStatus'])=1" />
+        <x:expect label="The rr-eicr-processing-status-extension shall contain the eICRValidationOutput extension"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension']/fhir:extension[@url='eICRValidationOutput'])=1" />
+        <x:expect label="The rr-eicr-processing-status-extension shall contain the eICRValidationOutput extension with specific valueString"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:extension/fhir:extension[@url='eICRValidationOutput']/fhir:valueString[@value='&lt;html&gt;&lt;head&gt;&lt;title&gt; Results &lt;/title&gt;&lt;style type=&#34;text/css&#34; /&gt;&lt;/head&gt;&lt;body&gt;&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Severity&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;File&lt;/th&gt;&lt;th&gt;Location&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;error&lt;/td&gt;&lt;td&gt;SHOULD contain zero or one [0..1] setId (CONF:1098-32752).&lt;/td&gt;&lt;td&gt;C:\Users\user1\Documents\Work\Lantana\SVN\ClientProjects\ReportabilityResponse\xml\samples\CDAR2_IG_PHCR_R2_RR_D1_2017AUG_SAMPLE.xml&lt;/td&gt;&lt;td&gt;&lt;p&gt;Start line 415:70&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;error&lt;/td&gt;&lt;td&gt;SHOULD contain zero or one [0..1] versionNumber (CONF:1098-32753).&lt;/td&gt;&lt;td&gt;C:\Users\user1\Documents\Work\Lantana\SVN\ClientProjects\ReportabilityResponse\xml\samples\CDAR2_IG_PHCR_R2_RR_D1_2017AUG_SAMPLE.xml&lt;/td&gt;&lt;td&gt;&lt;p&gt;Start line 415:70&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;'])=1" />
+        <x:expect label="The Electronic Initial Case Report Section shall contain an entry with reference, display, and identifier elements"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='88082-3']/fhir:entry[fhir:reference][fhir:display][fhir:identifier])=1" />
+
+        <!-- Reportability Response Summary Section -->
+        <x:expect label="There should be a Reportability Response Summary Section (55112-7)" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']) = 1" />
+        <x:expect label="There shall be a rr-priority-extension"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension']) = 1" />
+        <x:expect label="There shall be a reference to a rr-summary Observation"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']/fhir:entry/fhir:reference[@value=//fhir:entry[fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']/fhir:fullUrl/@value])=1" />
+        <x:expect label="There shall be a reference to a rr-relevant-reportable-condition-observation"
+            test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value='55112-7']/fhir:entry/fhir:reference[@value=//fhir:entry[fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']/fhir:fullUrl/@value])=1" />
+
+    </x:scenario>
+</x:description>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Practitioner-Root.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/SaxonPE-cda2fhir.xslt"
+        date="2022-01-04T15:30:12.759094+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Practitioner-Root.xspec">
+      <label>Scenario for testing template with match 'cda:author'</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d598e0.xml"/>
+      <test id="scenario1-expect1" successful="true">
+         <label>SHOULD contain zero or one [0..1] @extension (CONF:1198-32885)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner/fhir:identifier/fhir:system) = 2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>SHALL contain exactly one [1..1] @root='2.16.840.1.113883.4.6' National Provider Identifier (CONF:1198-32884)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner/fhir:identifier[fhir:system/@value='urn:ietf:rfc:3986'][fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>This assignedAuthor SHALL contain at least one [1..*]  US Realm Address (CONF:1198-5452)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>SHALL contain at least one and not more than 4 streetAddressLine (CONF:81-7291)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:line) =1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>SHALL contain exactly one [1..1] city (CONF:81-7292)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:city) =1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>SHOULD contain zero or one [0..1] state  (CONF:81-7293)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:state) =1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>SHOULD contain zero or one [0..1] postalCode (CONF:81-7294)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:postalCode) =1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>SHOULD contain zero or one [0..1] country (CONF:81-7295)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:address/fhir:country) =1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect9" successful="true">
+         <label>This assignedAuthor SHALL contain at least one [1..*] telecom (CONF:1198-5428)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:telecom) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect10" successful="true">
+         <label>Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-7995)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:telecom/fhir:use) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect11" successful="true">
+         <label>This assignedAuthor SHOULD contain zero or one [0..1] assignedPerson (CONF:1198-5430).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect12" successful="true">
+         <label>The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (surname)  (CONF:1198-16789).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name/fhir:family) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect13" successful="true">
+         <label>The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (firstname)  (CONF:1198-16789).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name/fhir:given) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/SaxonPE-cda2fhir.xslt"
+        date="2022-01-04T15:29:55.824535+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d598e0.xml"/>
+      <test id="scenario1-expect1" successful="true">
+         <label>There should be 7 Observation.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab']])=7"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>There should be 1 Observation.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab with identifier = 7d5a02b0-67a4-11db-bd13-0800200c9a66</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']][fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab']])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>There should be 1 category = laboratory</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']]/fhir:category/fhir:coding/fhir:code[@value='laboratory'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>There should be 1 Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']]/fhir:code/fhir:coding/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>There should be 1 Observation.code.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']]/fhir:code/fhir:coding/fhir:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>There should be 1 Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']]/fhir:code/fhir:coding/fhir:display)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>There should be 1 specimen reference</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']]/fhir:specimen/fhir:reference)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>There should be 2 hasMember result observations</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66']]/fhir:hasMember/fhir:reference)=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario2"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing Pregnancy Status Observation</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d1166e0.xml"/>
+      <test id="scenario2-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect2" successful="true">
+         <label>There should be an Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation']]/fhir:code/fhir:coding/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect3" successful="true">
+         <label>There should be an Observation.code.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation']]/fhir:code/fhir:coding/fhir:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect4" successful="true">
+         <label>There should be an Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation']]/fhir:code/fhir:coding/fhir:display)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario3"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing Travel History Observation - text only template with match 'cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.1'][cda:id/@root='79565142-eae0-4213-a3b3-b73cdf474682']'</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d1722e0.xml"/>
+      <test id="scenario3-expect1" successful="true">
+         <label>There should be 6 Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history'])=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect2" successful="true">
+         <label>There should be 6 Observation.code.coding.system=http://snomed.info/sct</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:code/fhir:coding/fhir:system)=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect3" successful="true">
+         <label>There should be 6 Observation.code.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:code/fhir:coding/fhir:code)=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect4" successful="true">
+         <label>There should be 6 Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:code/fhir:coding/fhir:display)=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect5" successful="true">
+         <label>There should be 6 Observation.effectivePeriod.start</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:effectivePeriod/fhir:start)=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario3-expect6" successful="true">
+         <label>There should be 6 Observation.effectivePeriod.end</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:effectivePeriod/fhir:end)=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario4"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing Travel History Observation - address extensions</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d2284e0.xml"/>
+      <test id="scenario4-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history'])=6"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect2" successful="true">
+         <label>There should be an Observation.address.line</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:component/fhir:extension/fhir:valueAddress/fhir:line)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect3" successful="true">
+         <label>There should be an Observation.address.city</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:component/fhir:extension/fhir:valueAddress/fhir:city)=4"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect4" successful="true">
+         <label>There should be an Observation.address.state</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:component/fhir:extension/fhir:valueAddress/fhir:state)=3"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario4-expect5" successful="true">
+         <label>There should be an Observation.address.country</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']]/fhir:component/fhir:extension/fhir:valueAddress/fhir:country)=4"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario5"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing Processing Status Observation </label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d2493e0.xml"/>
+      <test id="scenario5-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario5-expect2" successful="true">
+         <label>There should be an Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation']]/fhir:code/fhir:coding/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario5-expect3" successful="true">
+         <label>There should be an Observation.code.coding.code=RRVS20</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation']]/fhir:code/fhir:coding/fhir:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario5-expect4" successful="true">
+         <label>There should be an Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation']]/fhir:code/fhir:coding/fhir:display)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario6"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing Processing Status Reason Observation template</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d2697e0.xml"/>
+      <test id="scenario6-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario6-expect2" successful="true">
+         <label>There should be an Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation']]/fhir:code/fhir:coding/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario6-expect3" successful="true">
+         <label>There should be an Observation.code.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation']]/fhir:code/fhir:coding/fhir:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario6-expect4" successful="true">
+         <label>There should be an Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation']]/fhir:code/fhir:coding/fhir:display)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario6-expect5" successful="true">
+         <label>There should be an Observation.valueCodeableConcept.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation']]/fhir:valueCodeableConcept/fhir:coding/fhir:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario6-expect6" successful="true">
+         <label>There should be an Observation.component.valueString</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation']]/fhir:component/fhir:valueString)&gt;1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario7"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing RR Summary template</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d2907e0.xml"/>
+      <test id="scenario7-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario7-expect2" successful="true">
+         <label>There should be an Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:code/fhir:coding/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario7-expect3" successful="true">
+         <label>There should be an Observation.code.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:code/fhir:coding/fhir:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario7-expect4" successful="true">
+         <label>There should be an Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:code/fhir:coding/fhir:display)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario7-expect5" successful="true">
+         <label>There should be an Observation.valueString</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:valueString)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario8"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing rr-relevant-reportable-condition-observation</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d3114e0.xml"/>
+      <test id="scenario8-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario8-expect2" successful="true">
+         <label>There should be an Observation.status=final</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']]/fhir:status/@value='final')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario8-expect3" successful="true">
+         <label>There should be an Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']]/fhir:code/fhir:coding/fhir:system)=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario8-expect4" successful="true">
+         <label>There should be an Observation.code.coding.code</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']]/fhir:code/fhir:coding/fhir:code)=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario8-expect5" successful="true">
+         <label>There should be an Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']]/fhir:code/fhir:coding/fhir:display)=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario8-expect6" successful="true">
+         <label>There should be an Observation.valueCodeableConcept</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']]/fhir:valueCodeableConcept)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario8-expect7" successful="true">
+         <label>There should be an Observation.hasMember with reference</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation']]/fhir:hasMember/fhir:reference)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario9"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Observation-root.xspec">
+      <label>Scenario for testing rr-reportability-information-observation</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+      <result href="result-d3327e0.xml"/>
+      <test id="scenario9-expect1" successful="true">
+         <label>There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect2" successful="true">
+         <label>There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension with code=RRVS1</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension']/fhir:valueCodeableConcept/fhir:coding/fhir:code[@value='RRVS1'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect3" successful="true">
+         <label>There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect4" successful="true">
+         <label>There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect5" successful="true">
+         <label>There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension'])=11"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect6" successful="true">
+         <label>There should be an Observation.status=final</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:status[@value='final'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect7" successful="true">
+         <label>There should be an Observation.code.coding.system</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:code/fhir:coding/fhir:system)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect8" successful="true">
+         <label>There should be an Observation.code.coding.code with value RRVS7</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:code/fhir:coding/fhir:code[@value='RRVS7'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect9" successful="true">
+         <label>There should be an Observation.code.coding.display</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:code/fhir:coding/fhir:display)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect10" successful="true">
+         <label>There should be 3 performers</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:performer)=3"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect11" successful="true">
+         <label>There should be an Observation.component.code for Reporting Timeframe with code RR4</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:component/fhir:code/fhir:coding/fhir:code[@value='RR4'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario9-expect12" successful="true">
+         <label>There should be an Observation.component.valueQuantity with value 24</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:component/fhir:valueQuantity/fhir:value[@value='24'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

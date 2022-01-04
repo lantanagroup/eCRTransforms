@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    
+    <!--Confirm the informationRecipient has been created -->
+    <x:scenario
+        label="Scenario for testing template with match 'fhir:recipient">
+        <x:context href="../../../samples/fhir/RR-R2/RR-FHIR-001_R2.xml"/>
+        
+       <!--Confirm the informationRecipient exists -->
+        <x:expect label="MAY contain zero or more [0..*] informationRecipient (CONF:1198-5565)." 
+            test="count(/cda:ClinicalDocument/cda:informationRecipient)=1" />
+       <!--Confirm the informationRecipient contains an intendedRecipient -->
+        <x:expect label="The informationRecipient, if present, SHALL contain exactly one [1..1] intendedRecipient (CONF:1198-5566)." 
+            test="count(/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient)=1" />
+        <!--Confirm the informationRecipient->intendedRecipient contains an id element -->
+        <x:expect label="This intendedRecipient MAY contain zero or more [0..*] id (CONF:1198-32399)." 
+            test="count(/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient/cda:id)>=1" />
+        <!--Confirm the informationRecipient->intendedRecipient contains an informationRecipient element -->
+        <x:expect label="This intendedRecipient MAY contain zero or one [0..1] informationRecipient (CONF:1198-5567)." 
+            test="count(/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient/cda:informationRecipient)=1" />
+        <!--Confirm the informationRecipient->intendedRecipient->informationRecipient contains a name element -->
+        <x:expect label="The informationRecipient, if present, SHALL contain at least one [1..*]  US Realm Person Name  (CONF:1198-5568)." 
+            test="count(/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient/cda:informationRecipient/cda:name)>=1" />
+       <!-- Confirm the informationRecipient->intendedRecipient->informationRecipient contains a receiedOrganization element -->
+        <x:expect label="This intendedRecipient MAY contain zero or one [0..1] receivedOrganization (CONF:1198-5577)." 
+            test="count(/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization)=1" />
+    
+    </x:scenario>
+    
+</x:description>

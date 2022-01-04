@@ -1,0 +1,12 @@
+<mapping>
+  <map cdaLabStatus="F" fhirLabStatus="final" cdaDisplayName="Final results; results stored and verified. Can only be changed with a corrected result." cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="S" fhirLabStatus="registered" cdaDisplayName="No results available; procedure scheduled, but not done" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="O" fhirLabStatus="registered" cdaDisplayName="Order received; specimen not yet received" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="I" fhirLabStatus="registered" cdaDisplayName="No results available; specimen received procedure incomplete" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="A" fhirLabStatus="preliminary" cdaDisplayName="Some, but not all, results available" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="P" fhirLabStatus="preliminary" cdaDisplayName="Preliminary: A verified early result is available, final results not yet obtained" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="C" fhirLabStatus="final" cdaDisplayName="Correction to results (Corrected result and order is final)" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="R" fhirLabStatus="preliminary" cdaDisplayName="Results stored; not yet verified" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="X" fhirLabStatus="cancelled" cdaDisplayName="No results available; Order canceled." cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+  <map cdaLabStatus="M" fhirLabStatus="corrected" cdaDisplayName="Corrected result but order is not final" cdaCodeSystem="2.16.840.1.113883.18.51" cdaCodeSystemName="HL7ResultStatus" />
+</mapping>

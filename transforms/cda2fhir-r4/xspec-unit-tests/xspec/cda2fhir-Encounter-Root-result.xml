@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Encounter-Root.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/SaxonPE-cda2fhir.xslt"
+        date="2022-01-04T15:29:21.170317+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Encounter-Root.xspec">
+      <label>Scenario for testing template with match 'cda:encompassingEncounter'and mode 'bundle-entry'</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/eICR-R3/eICR-CDA-001_R3.xml"/>
+      </input-wrap>
+      <result href="result-d598e0.xml"/>
+      <test id="scenario1-expect1" successful="true">
+         <label>There should be one Encounter resource</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>There Encounter should have a period with a start date of 2020-11-07</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:period/fhir:start[@value='2020-11-07'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>There should be one Encounter.identifier[value=9937012][system=2.16.840.1.113883.19]</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter/fhir:identifier[fhir:value/@value='9937012'][fhir:system/@value='urn:oid:2.16.840.1.113883.19'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>There should be one Encounter.class.code='AMB'</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Encounter/fhir:class/fhir:code/@value='AMB')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>The Encounter should have one participant with type ATND that has an individual</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:participant[fhir:type/fhir:coding/fhir:code/@value='ATND']/fhir:individual)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>The Encounter resource should contain a diagnosis that is a trigger code diagnosis for pertussis (27836007)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:diagnosis/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension']/fhir:extension/fhir:valueCoding/fhir:code[@value='27836007'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>The Encounter resource should contain a trigger code diagnosis for pertussis that has a reference to a condition</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:diagnosis[fhir:extension/fhir:extension/fhir:valueCoding/fhir:code/@value='27836007']/fhir:condition)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>The Encounter resource should contain a non-trigger code diagnosis that has a reference to a condition</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:diagnosis[not(fhir:extension)]/fhir:condition)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect9" successful="true">
+         <label>The Encounter resource should a location reference</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Encounter/fhir:location/fhir:location)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect10" successful="true">
+         <label>There should be a Location resource with identifier = 77777777777</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Location/fhir:identifier/fhir:value/@value='77777777777')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect11" successful="true">
+         <label>The Location resource with identifier 77777777777 should have name = Good Health Hospital</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:name/@value='Good Health Hospital')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect12" successful="true">
+         <label>The Location resource with identifier 77777777777 should have 2 telecoms</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:telecom)=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect13" successful="true">
+         <label>The Location resource with identifier 77777777777 should have 1 address with 1000 Hospital Lane</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:address/fhir:line[@value='1000 Hospital Lane'])=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" 
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
+    
+    <x:scenario label="Scenario for testing Device">
+        
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
+        
+        <x:expect label="There should be one Device with modelNumber 'Acme'" 
+                test="count(//fhir:Device/fhir:modelNumber[@value='Acme']) = 1" />
+        
+        <x:expect label="There should be one Device with version 'NI'" 
+            test="count(//fhir:Device/fhir:version/fhir:value[@value='NI']) = 1" />
+        
+        <x:expect label="There should be one Device with a location reference" 
+            test="count(//fhir:Device/fhir:location/fhir:reference) = 1" />
+    </x:scenario>
+
+</x:description>

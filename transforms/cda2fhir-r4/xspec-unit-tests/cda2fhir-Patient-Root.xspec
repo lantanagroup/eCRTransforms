@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../SaxonPE-cda2fhir.xslt" xmlns:cda="urn:hl7-org:v3"
+  xmlns:fhir="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lcg="http://www.lantanagroup.com">
+  
+  <!-- All Patients - Create bundle entry -->
+  <x:scenario label="Scenario for testing template 'cda:recordTarget'">
+    <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+    <x:expect label="There should be an entry.resource.Patient" 
+      test="count(/fhir:Bundle/fhir:entry/fhir:resource/fhir:Patient)=1" />
+  </x:scenario>
+
+  <!-- RR Patient - Create resource -->
+  <x:scenario label="Scenario for testing template with patient extensions" >
+    <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+    
+    <x:expect label="There should be one Patient" 
+      test="count(//fhir:Patient)=1" />
+    <x:expect label="There should be an eCR Patient meta.profile" 
+        test="count(//fhir:Patient/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient'])=1" />
+    <x:expect label="There should be a us-core-race extension" 
+        test="count(//fhir:Patient/fhir:extension[@url='http://hl7.org/fhir/us/core/StructureDefinition/us-core-race'])=1" />
+    <x:expect label="There should be a us-core-ethnicity extension" 
+        test="count(//fhir:Patient/fhir:extension[@url='http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity'])=1" />
+    <x:expect label="There should be 2 identifiers" 
+        test="count(//fhir:Patient/fhir:identifier)=2" />
+    
+    <x:expect label="There should be 2 telecoms" 
+        test="count(//fhir:Patient/fhir:telecom)=2" />
+    <x:expect label="There should be 1 gender" 
+        test="count(//fhir:Patient/fhir:gender)=1" />
+    <x:expect label="There should be 1 birthDate" 
+        test="count(//fhir:Patient/fhir:birthDate)=1" />
+    <x:expect label="There should be 1 deceasedDateTime" 
+        test="count(//fhir:Patient/fhir:deceasedBoolean)=1" />
+    <x:expect label="There should be 1 address" 
+        test="count(//fhir:Patient/fhir:address)=1" />
+    <x:expect label="There should be 1 guardian" 
+        test="count(//fhir:Patient/fhir:contact/fhir:relationship/fhir:coding/fhir:code)=0" />
+    <x:expect label="There should be 1 name" 
+        test="count(//fhir:Patient/fhir:name)=1" />
+    <x:expect label="There should be 1 communication.language" 
+        test="count(//fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code)=1" />
+    <x:expect label="There should be 1 communication.preferred" 
+        test="count(//fhir:Patient/fhir:communication/fhir:preferred)=1" />
+    
+  </x:scenario>
+</x:description>

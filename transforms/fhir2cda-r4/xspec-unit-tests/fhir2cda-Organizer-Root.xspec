@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+  
+    <x:scenario label="Scenario for testing function make-vitalsign-organizer">
+        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml"/>
+        
+        
+        <!--Confirm a Vital Signs Organizer (V3) template is created with all required elements -->
+        <x:expect label="SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.4.26 (CONF:1198-10528)." 
+            test="count(//cda:entry/cda:organizer/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.26'])=2" />
+        <x:expect label="SHALL contain exactly one [1..1] @extension=2015-08-01 (CONF:1198-32582)." 
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:templateId[@extension='2015-08-01'])=1" />
+        <x:expect label="SHALL contain exactly one [1..1] code (CONF:1198-32740) @code=46680005 Vital Signs (CONF:1198-32741)"
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:code[@code='46680005'])=1" />
+        <x:expect label="This code SHALL contain exactly one [1..1] @codeSystem=2.16.840.1.113883.6.96 SNOMED CT (CONF:1198-32742)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:code[@codeSystem='2.16.840.1.113883.6.96'])=1" />
+        <x:expect label="This code SHALL contain exactly one [1..1] translation (CONF:1198-32743) that SHALL contain exactly one [1..1] @code=74728-7  (CONF:1198-32744)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:code/cda:translation[@code='74728-7'])=1" />
+        <x:expect label="This translation SHALL contain exactly one [1..1] @codeSystem=2.16.840.1.113883.6.1 LOINC (CONF:1198-32746)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:code/cda:translation[@codeSystem='2.16.840.1.113883.6.1'])=1" />
+        <x:expect label="SHALL contain exactly one [1..1] statusCode (CONF:1198-7284) that SHALL contain exactly one [1..1] @code=completed (CONF:1198-19120)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:statusCode[@code='completed'])=1" />
+        <x:expect label="SHALL contain exactly one [1..1] effectiveTime (CONF:1198-7288)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:effectiveTime)=1" />
+        <x:expect label="SHALL contain at least one [1..*] component (CONF:1198-7285) that SHALL contain exactly one [1..1]  Vital Sign Observation (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09) (CONF:1198-15946)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:component/cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.27'])=4" />
+    </x:scenario>
+    
+    <x:scenario
+        label="Scenario for testing template with match 'fhir:Observation[fhir:hasMember] | fhir:Observation[fhir:category/fhir:coding[fhir:code/@value = 'laboratory']]' and mode 'entry'">
+        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml"/>
+        
+        
+        <!--Confirm a Result Organizer (V3) template is created with all required elements -->
+        <x:expect label="SHALL contain exactly one [1..1] templateId (CONF:1198-7126) @root=2.16.840.1.113883.10.20.22.4.1 (CONF:1198-9134)"
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1'])=1" />
+        <x:expect label="SHALL contain exactly one [1..1] @extension=2015-08-01 (CONF:1198-32588)." 
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:templateId[@extension='2015-08-01'])=1" />
+        <x:expect label="SHALL contain exactly one [1..1] code (CONF:1198-7128)"
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:code)=1" />
+        <x:expect label="Laboratory results SHOULD be from LOINC (CodeSystem: 2.16.840.1.113883.6.1) (CONF:1198-19219)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:code[@codeSystem='2.16.840.1.113883.6.1'])=1" />
+        <x:expect label="SHALL contain exactly one [1..1] statusCode (CONF:1198-7123)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:statusCode)=1" />
+        <x:expect label="This statusCode SHALL contain exactly one [1..1] @code=completed."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:statusCode[@code='completed'])=1" />
+        <x:expect label="MAY contain zero or one [0..1] effectiveTime (CONF:1198-31865)."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:effectiveTime)=1" />
+        <x:expect label="SHALL contain one component Result Observation with a code of 731-0."
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:component/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']/cda:code/@code='731-0')=1" />
+    </x:scenario>
+</x:description>

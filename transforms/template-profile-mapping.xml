@@ -1,0 +1,102 @@
+<mapping>
+    <!-- TODO: unmapped -->
+    <!-- eCR-Organization, eCR-patient, eCR-Practitioner, eCR-PractitionerRole, eCR-task, eicr-encounter, eicr-location  -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.131:2015-08-01" />
+    <!-- Done: mapped -->
+    <!-- Composition Resource Templates -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.1:2015-08-01" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/US-Realm-Header" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.1" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/US-Realm-Header" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.15:2015-08-01" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/Care-Plan-Document" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.2:2015-08-01" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/Continuity-of-Care-Document" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2016-12-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
+    <!-- [eICR R2 STU3] Initial Public Health Case Report Document (eICR) (V4) -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
+    <!-- MD: add dental data exchange -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.40.1.1.2:2020-08-01" profileURI="http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.40.1.1.1:2020-08-01" profileURI="http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note" />
+    
+    <!-- Other templates -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.4:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.7:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09" profileURI="http://hl7.org/fhir/StructureDefinition/vitalsigns" />
+    <!-- This template no longer exists in US Core -->
+    <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.16:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationstatement" />-->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.2:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.1:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.78:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+    
+    <!-- 
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/travel-history-observation" />
+    -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
+   
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.47:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.52:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information" />
+     
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.53:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-residence" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.54:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-nationality" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.109" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/characteristics-of-home-environment" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.109" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.3:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-condition" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.3:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+    
+    <!-- eICR Initial Case Report Trigger Code Lab Test Order -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.4:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
+    <!-- eICR Initial Case Report Trigger Code Planned Procedure -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.42:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
+    <!-- eICR Initial Case Report Trigger Code Planned Act -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.41:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
+    <!-- eICR Initial Case Report Trigger Code Planned Observation -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.43:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
+    
+    <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.30.3.34:2014-06-09" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/last-menstrual-period" />-->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.30.3.34:2014-06-09" profileURI="http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-last-menstrual-period" />
+
+    <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.285:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/postpartum-status" />-->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.285:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-postpartum-status" />
+    
+    <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.284:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/pregnancy-outcome-observation" />-->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.284:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation" />
+    
+    <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/pregnancy-status-observation" />-->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2020-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.40:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information" />
+
+    <!--<map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.2:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication" />-->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.2:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.29:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.21:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.8:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary" />
+
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.4.2:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.4.1:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.4.3:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization" />
+    
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.12:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.13:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.17:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.10:2017-04-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference" />
+<!--    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.13:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-plandefinition" />-->
+    
+
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.221:2017-11-30" profileURI="http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2017-11-30" profileURI="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.141" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-CareCoordination" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.61:2015-08-01" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-Coverage" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.40:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.13:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.37.3.11:2017-08-01" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-MedicationDispense" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.140" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-ServiceRequest" />
+
+
+
+</mapping>

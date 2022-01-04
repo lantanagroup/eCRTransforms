@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/fhir2cda-r4/xspec-unit-tests/fhir2cda-ClinicalDocument-Root.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/fhir2cda-r4/fhir2cda.xslt"
+        date="2022-01-04T15:27:05.863446+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/fhir2cda-r4/xspec-unit-tests/fhir2cda-ClinicalDocument-Root.xspec">
+      <label>Scenario for testing template with match 'fhir:Composition</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml"/>
+      </input-wrap>
+      <result href="result-d278e0.xml"/>
+      <test id="scenario1-expect1" successful="true">
+         <label>SHALL contain exactly one [1..1] realmCode=US (CONF:1198-16791).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:realmCode/@code='US')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>SHALL contain exactly one [1..1] typeId (CONF:1198-5361).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:typeId)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>a. This typeId SHALL contain exactly one [1..1] @root=2.16.840.1.113883.1.3 (CONF:1198-5250).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:typeId/cda/@root='2.16.840.1.113883.1.3')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>b. This typeId SHALL contain exactly one [1..1] @extension=POCD_HD000040 (CONF:1198-5251).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:typeId/cda/@extension='POCD_HD000040')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>SHALL contain exactly one [1..1] templateId (CONF:1198-5252)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:templateId)=3"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>a. SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.1.1 (CONF:1198-10036).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:templateId/@root='2.16.840.1.113883.10.20.22.1.1')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>b. SHALL contain exactly one [1..1] @extension='2015-08-01' (CONF:1198-32503).)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:templateId/@extension='2015-08-01')=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>SHALL contain exactly one [1..1] id (CONF:1198-5363).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:id)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect9" successful="true">
+         <label>SHALL contain exactly one [1..1] code (CONF:1198-5253).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:code)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect10" successful="true">
+         <label>SHALL contain exactly one [1..1] title (CONF:1198-5254).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:title)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect11" successful="true">
+         <label>SHALL contain exactly one [1..1] US Realm Date and Time (DTM.US.FIELDED) </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:effectiveTime)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect12" successful="true">
+         <label>SHALL contain exactly one [1..1] confidentialityCode (CONF:1198-5259). </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:confidentialityCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect13" successful="true">
+         <label>SHALL contain exactly one [1..1] languageCode (CONF:1198-5372). </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:languageCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect14" successful="true">
+         <label>MAY contain zero or one [0..1] setId (CONF:1198-5261) </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:setId)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect15" successful="true">
+         <label>MAY contain zero or one [0..1] versionNumber (CONF:1198-5264). </label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(/cda:ClinicalDocument/cda:versionNumber)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

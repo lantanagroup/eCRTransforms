@@ -1,0 +1,55 @@
+<mapping>
+
+  <!-- eCR-Organization, eCR-patient, eCR-Practitioner, eCR-PractitionerRole, eCR-task, eicr-encounter, eicr-location, rr-relevant-reportable-condition-plandefinition,
+     -->
+  <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2']/recordTarget"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient" />
+  <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2']/recordTarget"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient" />
+  
+  
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/author/assignedAuthor[child::assignedAuthoringDevice]"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-location" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/author/assignedAuthor[assignedPerson]"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-practitionerrole" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/componentOf/encompassingEncounter/responsibleParty/assignedEntity"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-practitionerrole" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/author/assignedAuthor/representedOrganization"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/custodian/assignedCustodian/representedCustodianOrganization"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/componentOf/encompassingEncounter"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/componentOf/encompassingEncounter/responsibleParty/assignedEntity/representedOrganization"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/componentOf/encompassingEncounter/location"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2021-01-01']/author/assignedAuthor/representedOrganization"
+        profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+    
+    
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/author/assignedAuthor[child::assignedAuthoringDevice]"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-location" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/author/assignedAuthor[assignedPerson]"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-practitionerrole" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/responsibleParty/assignedEntity"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-practitionerrole" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/author/assignedAuthor/representedOrganization"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/custodian/assignedCustodian/representedCustodianOrganization"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/responsibleParty/assignedEntity/representedOrganization"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-organization" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/location"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-location" />
+    <map participantXPath="ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/author/assignedAuthor/representedOrganization"
+    profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/ecr-organization" />
+  
+
+</mapping>

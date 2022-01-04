@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:uuid="http://www.uuid.org">
+   <realmCode code="US"/>
+   <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+   <templateId root="2.16.840.1.113883.10.20.5.7.3.3"/>
+   <templateId root="2.16.840.1.113883.10.20.5.4.25"/>
+   <templateId root="2.16.840.1.113883.10.20.5.4.27"/>
+   <templateId root="2.16.840.1.113883.10.20.5.53" extension="2018-04-01"/>
+   <id root="2.16.840.1.113883.3.117.1.1.5.2.1.1.2" extension="20202202"/>
+   <code codeSystem="2.16.840.1.113883.6.1"
+         codeSystemName="LOINC"
+         code="51897-7"
+         displayName="Healthcare Associated Infection Report"/>
+   <title>TODO: map title</title>
+   <!--QuestionnaireResponse does not contain fhir:authored, so ClinicalDocument.effectiveTime will be null-->
+   <effectiveTime nullFlavor="NI"/>
+   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" displayName="Normal"/>
+   <languageCode code="en-US"/>
+   <setId nullFlavor="1"/>
+   <versionNumber value=""/>
+   <recordTarget>
+      <patientRole>
+         <id root="2.16.840.1.113883.19.5" extension="959595"/>
+         <id root="2.16.840.1.113883.4.1" extension="12345"/>
+         <id root="2.16.840.1.113883.4.338" extension="12345"/>
+         <addr nullFlavor="NI"/>
+         <telecom value="tel:1-(404)555-1212" use="H"/>
+         <patient>
+            <name use="">
+               <given>Ned</given>
+               <family>Nuclear</family>
+            </name>
+            <administrativeGenderCode codeSystem="2.16.840.1.113883.5.1"
+                                      codeSystemName="AdministrativeGender"
+                                      code="M"
+                                      displayName="Male"/>
+            <birthTime value="19541125"/>
+            <sdtc:deceasedInd xmlns:sdtc="urn:hl7-org:sdtc" value="false"/>
+            <raceCode code="2106-3"
+                      codeSystem="2.16.840.1.113883.6.238"
+                      displayName="White"/>
+            <ethnicGroupCodeCode code="2186-5"
+                                 codeSystem="2.16.840.1.113883.6.238"
+                                 displayName="Not Hispanic or Latino"/>
+         </patient>
+      </patientRole>
+   </recordTarget>
+   <!--Author Device/hai-authoring-device-->
+   <author>
+      <time nullFlavor="NI"/>
+      <assignedAuthor>
+         <id root="2.16.840.1.113883.3.117.1.1.5.1.1.2" extension="anAuthorId"/>
+         <assignedAuthoringDevice/>
+      </assignedAuthor>
+   </author>
+   <custodian>
+      <assignedCustodian>
+         <representedCustodianOrganization>
+            <id root="2.16.840.1.114222.4.3.2.11"/>
+         </representedCustodianOrganization>
+      </assignedCustodian>
+   </custodian>
+   <componentOf>
+      <encompassingEncounter>
+         <id root="2.16.840.1.113883.3.117.1.1.5.2.1.1.3" extension="31"/>
+         <effectiveTime>
+            <low value="20180101"/>
+            <high value="20180112"/>
+         </effectiveTime>
+         <location>
+            <healthCareFacility>
+               <id root="2.16.840.1.113883.3.117.1.1.5.1.1" extension="9W"/>
+               <code codeSystem="2.16.840.1.113883.6.259"
+                     codeSystemName="HL7 HealthCareServiceLocation"
+                     code="1029-8"
+                     displayName="Medical/Surgical Critical Care"/>
+            </healthCareFacility>
+         </location>
+      </encompassingEncounter>
+   </componentOf>
+   <component>
+      <structuredBody>
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.5.4.26"/>
+               <templateId root="2.16.840.1.113883.10.20.5.5.64" extension="2018-04-01"/>
+               <code codeSystem="2.16.840.1.113883.6.1"
+                     codeSystemName="LOINC"
+                     code="51899-3"
+                     displayName="Details"/>
+               <title>Details Section</title>
+               <text><!--TODO: Add section narrative--></text>
+               <entry typeCode="DRIV">
+                  <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                     <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                     <templateId root="2.16.840.1.113883.10.20.5.6.139"/>
+                     <id root="626e2c8e-61af-11ea-3147-09173f13e4c5" extension="d32e382"/>
+                     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                     <statusCode code="completed"/>
+                     <effectiveTime>
+                        <low value="20180102"/>
+                     </effectiveTime>
+                     <value xsi:type="CD"
+                            code="765107002"
+                            codeSystem="2.16.840.1.113883.6.96"
+                            displayName="Late-onset neonatal sepsis (disorder)"/>
+                     <entryRelationship typeCode="SPRT">
+                        <organizer classCode="CLUSTER" moodCode="EVN">
+                           <templateId root="2.16.840.1.113883.10.20.5.6.180"/>
+                           <statusCode code="completed"/>
+                           <component>
+                              <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                                 <templateId root="2.16.840.1.113883.10.20.22.4.19"/>
+                                 <templateId root="2.16.840.1.113883.10.20.5.6.119"/>
+                                 <id nullFlavor="NA"/>
+                                 <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                                 <statusCode code="completed"/>
+                                 <value xsi:type="CD"
+                                        code="1951-3"
+                                        codeSystem="http://hl7.org/fhir/us/hai/CodeSystem/2.16.840.1.113883.6.277"
+                                        displayName="Recognized pathogen from one or more blood cultures"/>
+                              </observation>
+                           </component>
+                        </organizer>
+                     </entryRelationship>
+                     <entryRelationship typeCode="REFR">
+                        <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                           <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                           <templateId root="2.16.840.1.113883.10.20.5.6.135"/>
+                           <id nullFlavor="NA"/>
+                           <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                           <statusCode code="completed"/>
+                           <value xsi:type="CD"
+                                  code="3067-6"
+                                  codeSystem="http://hl7.org/fhir/us/hai/CodeSystem/2.16.840.1.113883.6.277"
+                                  displayName="Neonatal Laboratory Confirmed Bloodstream Infection (NLCBI 2)"/>
+                        </observation>
+                     </entryRelationship>
+                  </observation>
+               </entry>
+               <entry typeCode="DRIV">
+                  <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                     <templateId root="2.16.840.1.113883.10.20.5.6.257" extension="2018-04-01"/>
+                     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                     <statusCode code="completed"/>
+                  </observation>
+               </entry>
+               <entry typeCode="DRIV">
+                  <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                     <templateId root="2.16.840.1.113883.10.20.22.4.79"/>
+                     <templateId root="2.16.840.1.113883.10.20.5.6.120"/>
+                     <id nullFlavor="NA"/>
+                     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                     <statusCode code="completed"/>
+                     <effectiveTime>
+                        <low nullFlavor="NA"/>
+                     </effectiveTime>
+                     <value xsi:type="CD"
+                            codeSystem="2.16.840.1.113883.6.96"
+                            code="419099009"
+                            displayName="Dead"/>
+                     <entryRelationship typeCode="CAUS" inversionInd="true" negationInd="false">
+                        <observation classCode="OBS" moodCode="EVN">
+                           <templateId root="2.16.840.1.113883.10.20.5.6.136"/>
+                           <id root="626e2c8e-61af-11ea-3147-09173f13e4c5" extension="d32e382"/>
+                           <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                           <statusCode code="completed"/>
+                        </observation>
+                     </entryRelationship>
+                  </observation>
+               </entry>
+            </section>
+         </component>
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.5.4.26"/>
+               <templateId root="2.16.840.1.113883.10.20.5.5.65" extension="2018-04-01"/>
+               <code codeSystem="2.16.840.1.113883.6.1"
+                     codeSystemName="LOINC"
+                     code="51898-5"
+                     displayName="Risk Factors"/>
+               <title>Risk Factors</title>
+               <text><!--TODO: Add section narrative--></text>
+               <entry>
+                  <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                     <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                     <templateId root="2.16.840.1.113883.10.20.5.6.138"/>
+                     <id nullFlavor="NA"/>
+                     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                     <statusCode code="completed"/>
+                     <value xsi:type="CD"
+                            code="1006-6"
+                            codeSystemName="cdcNHSN"
+                            displayName="central line including umbilical catheter"/>
+                  </observation>
+               </entry>
+               <entry>
+                  <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                     <templateId root="2.16.840.1.113883.10.20.22.4.27"/>
+                     <templateId root="2.16.840.1.113883.10.20.5.6.137"/>
+                     <id nullFlavor="NA"/>
+                     <code code="364589006"
+                           codeSystem="2.16.840.1.113883.6.96"
+                           displayName="Birth weight"/>
+                     <statusCode code="completed"/>
+                     <effectiveTime nullFlavor="NA"/>
+                     <value xsi:type="PQ">
+                        <value xsi:type="PQ" value="700" unit="g"/>
+                     </value>
+                  </observation>
+               </entry>
+               <entry>
+                  <observation classCode="OBS" moodCode="EVN" negationInd="false">
+                     <templateId root="2.16.840.1.113883.10.20.5.6.255"/>
+                     <templateId root="2.16.840.1.113883.10.20.5.6.255" extension="2018-04-01"/>
+                     <code code="76516-4"
+                           codeSystem="2.16.840.1.113883.6.1"
+                           displayName="Gestational age at birth"/>
+                     <value xsi:type="PQ">
+                        <value xsi:type="PQ" value="276" unit="d"/>
+                     </value>
+                  </observation>
+               </entry>
+            </section>
+         </component>
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.5.5.45"/>
+               <code code="18769-0"
+                     codeSystem="2.16.840.1.113883.6.1"
+                     displayName="Findings Section"/>
+               <title>Findings</title>
+               <text><!--TODO: Add section narrative--></text>
+               <entry>
+                  <organizer classCode="CLUSTER" moodCode="EVN">
+                     <templateId root="2.16.840.1.113883.10.20.5.6.182"/>
+                     <id nullFlavor="NA"/>
+                     <statusCode code="completed"/>
+                     <component>
+                        <observation classCode="OBS" moodCode="EVN">
+                           <templateId root="2.16.840.1.113883.10.20.22.4.2"/>
+                           <templateId root="2.16.840.1.113883.10.20.5.6.145"/>
+                           <id nullFlavor="NA"/>
+                           <code code="41852-5"
+                                 codeSystem="2.16.840.1.113883.6.1"
+                                 displayName="Microogranism identified"/>
+                           <statusCode code="completed"/>
+                           <effectiveTime nullFlavor="NA"/>
+                           <value xsi:type="CD"
+                                  code="48321006"
+                                  codeSystem="2.16.840.1.113883.6.96"
+                                  displayName="Clostridium symbiosum (organism)"/>
+                        </observation>
+                     </component>
+                     <component>
+                        <observation classCode="OBS" moodCode="EVN">
+                           <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                           <templateId root="2.16.840.1.113883.10.20.5.6.147"/>
+                           <id nullFlavor="NA"/>
+                           <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                           <statusCode code="completed"/>
+                           <value xsi:type="CD"
+                                  code="255216001"
+                                  codeSystem="2.16.840.1.113883.6.96"
+                                  displayName="First"/>
+                        </observation>
+                     </component>
+                  </organizer>
+               </entry>
+            </section>
+         </component>
+         <component>
+            <section>
+               <templateId root="2.16.840.1.113883.10.20.5.4.26"/>
+               <templateId root="2.16.840.1.113883.10.20.5.5.61"/>
+               <code codeSystem="2.16.840.1.113883.6.1"
+                     codeSystemName="LOINC"
+                     code="86468-6"
+                     displayName="Report comment Section"/>
+               <title>Comments</title>
+               <text>
+                  <table>
+                     <tbody>
+                        <tr>
+                           <td>Comment</td>
+                           <td>NHSN text comment that is less than 2000 characters.</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </text>
+               <entry typeCode="DRIV">
+                  <act classCode="ACT" moodCode="EVN">
+                     <templateId root="2.16.840.1.113883.10.20.5.6.243" extension="2017-04-01"/>
+                     <code code="86467-8"
+                           displayName="Report comment Narrative"
+                           codeSystem="2.16.840.1.113883.6.1"
+                           codeSystemName="LOINC"/>
+                     <text>NHSN text comment that is less than 2000 characters.</text>
+                  </act>
+               </entry>
+            </section>
+         </component>
+      </structuredBody>
+   </component>
+</ClinicalDocument>

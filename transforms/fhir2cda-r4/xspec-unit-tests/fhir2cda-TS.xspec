@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda-TS.xslt">
+
+  <x:scenario label="Simple date: YYYY">
+
+    <!--
+      FHIR Datetime info:
+      The format is YYYY, YYYY-MM, YYYY-MM-DD or YYYY-MM-DDThh:mm:ss+zz:zz, e.g. 2018, 1973-06, 1905-08-23, 2015-02-07T13:28:17-05:00 or 2017-01-01T00:00:00.000Z. 
+      If hours and minutes are specified, a time zone SHALL be populated. 
+      Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored at receiver discretion. 
+      Dates SHALL be valid dates. 
+      The time "24:00" is not allowed. Leap Seconds are allowed
+    -->
+    <x:call template="Date2TS">
+      <x:param name="date" select="'2017'" />
+      <x:param name="includeTime" select="'no_value'" />
+    </x:call>
+
+    <x:expect label="The result should be 2017">2017</x:expect>
+  </x:scenario>
+
+  <x:scenario label="Simple date: YYYY-MM">
+    <x:call template="Date2TS">
+      <x:param name="date" select="'2017-10'" />
+      <x:param name="includeTime" select="'no_value'" />
+    </x:call>
+
+    <x:expect label="The result should be 201710">201710</x:expect>
+  </x:scenario>
+
+  <x:scenario label="Simple date: YYYY-MM-DD">
+    <x:call template="Date2TS">
+      <x:param name="date" select="'2017-10-01'" />
+      <x:param name="includeTime" select="'no_value'" />
+    </x:call>
+
+    <x:expect label="The result should be 20171001">20171001</x:expect>
+  </x:scenario>
+
+  <x:scenario label="Date with time: YYYY-MM-DDThh:mm:ss+zz:zz">
+    <x:call template="Date2TS">
+      <x:param name="date" select="'2015-02-07T13:28:17-05:00'" />
+      <x:param name="includeTime" select="'no_value'" />
+    </x:call>
+
+    <x:expect label="The result should be 20150207132817-0500">20150207132817-0500</x:expect>
+  </x:scenario>
+
+  <x:scenario label="Date with time: YYYY-MM-DDThh:mm:ss+zz:zz">
+    <x:call template="Date2TS">
+      <x:param name="date" select="'2017-10-01T10:35:00+10:00'" />
+      <x:param name="includeTime" select="'no_value'" />
+    </x:call>
+
+    <x:expect label="The result should be 20171001103500+1000">20171001103500+1000</x:expect>
+  </x:scenario>
+
+</x:description>

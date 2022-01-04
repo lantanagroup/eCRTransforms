@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+  xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda-PQ.xslt">
+
+  <x:scenario label="Scenario for testing template with match 'fhir:quantity' with no data type">
+    <x:context href="../../../samples/fhir/HAI/fhir-bundle-los-event.xml" select="//fhir:item[fhir:linkId/@value='risk-factor-birth-weight']/fhir:answer/fhir:valueQuantity" >
+      <x:param name="pElementName" select="'testQuantity'" />
+      
+    </x:context>
+    <x:expect label="Should produce testQuantity element" test="count(/cda:testQuantity)=1" />
+  </x:scenario>
+  
+</x:description>

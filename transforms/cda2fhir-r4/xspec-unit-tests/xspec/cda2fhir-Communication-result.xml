@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Communication.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/cda2fhir-Communication.xslt"
+        date="2022-01-04T15:28:52.527451+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Communication.xspec">
+      <label>Act that matches 'cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.141']]</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec">
+            <act xmlns="urn:hl7-org:v3" classCode="ACT" moodCode="EVN"><!-- [C-CDA R2.0] Handoff Communication Participants -->
+               <templateId root="2.16.840.1.113883.10.20.22.4.141"/>
+               <!-- DataElement: Hand off ID-->
+               <id root="d839038b-2456-AABD-1c6a-467925b43857"/>
+               <code code="432138007"
+                     codeSystem="2.16.840.1.113883.6.96"
+                     codeSystemName="SNOMED CT"
+                     displayName="handoff communication (procedure)"/>
+               <statusCode code="completed"/>
+               <!-- DataElement: Time of Handoff -->
+               <effectiveTime value="20161201"/>
+               <!-- DataElement: Author Participation (care coordination) -->
+               <author typeCode="AUT"><!-- [C-CDA R2.0] Author Participation -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+                  <time value="20161201"/>
+                  <assignedAuthor>
+                     <id root="d839038b-7171-4165-a760-467925b43857"/>
+                     <code code="163W00000X"
+                           codeSystem="2.16.840.1.113883.6.101"
+                           codeSystemName="Healthcare Provider Taxonomy (HIPAA)"
+                           displayName="Registered nurse"/>
+                     <assignedPerson>
+                        <name>
+                           <given>Nurse</given>
+                           <family>Florence</family>
+                           <suffix>RN</suffix>
+                        </name>
+                     </assignedPerson>
+                  </assignedAuthor>
+               </author>
+               <!-- DataElement: Participant -->
+               <participant typeCode="IRCP">
+                  <participantRole><!-- DataElement: Participant ID -->
+                     <id extension="1138345" root="2.16.840.1.113883.19"/>
+                     <!-- DataElement: Participant Role -->
+                     <code code="163W00000X"
+                           codeSystem="2.16.840.1.113883.6.101"
+                           codeSystemName="NUCC Health Care Provider Taxonomy"
+                           displayName="Registered Nurse"/>
+                     <!-- DataElement: Participant Address -->
+                     <addr>
+                        <streetAddressLine>1006 Health Drive</streetAddressLine>
+                        <city>Ann Arbor</city>
+                        <state>MI</state>
+                        <postalCode>97867</postalCode>
+                        <country>US</country>
+                     </addr>
+                     <telecom value="tel:+1(555)555-1014" use="WP"/>
+                     <playingEntity><!-- DataElement: Participant Name -->
+                        <name>
+                           <family>Nancy</family>
+                           <given>Nightingale</given>
+                           <suffix>RN</suffix>
+                        </name>
+                     </playingEntity>
+                  </participantRole>
+               </participant>
+            </act>
+         </x:context>
+      </input-wrap>
+      <result select="/element()">
+         <content-wrap xmlns="">
+            <Communication xmlns="http://hl7.org/fhir">
+               <meta>
+                  <profile value="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-CareCoordination"/>
+                  <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.141-->
+               </meta>
+               <identifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:d839038b-2456-AABD-1c6a-467925b43857"/>
+               </identifier>
+               <status value="completed"/>
+               <subject>
+                  <reference value="urn:uuid:"/>
+               </subject>
+               <sent value="2016-12-01"/>
+               <recipient>1006 Health DriveAnn ArborMI97867USNancyNightingaleRN</recipient>
+               <sender>
+                  <reference value="urn:uuid:"/>
+               </sender>
+               <reasonCode>
+                  <coding>
+                     <system value="http://snomed.info/sct"/>
+                     <code value="432138007"/>
+                     <display value="handoff communication (procedure)"/>
+                  </coding>
+               </reasonCode>
+            </Communication>
+         </content-wrap>
+      </result>
+      <test id="scenario1-expect1" successful="true">
+         <label>Should produce a Communication resource</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Communication) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>Should have one identifier with the correct system and a value</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="fhir:Communication/fhir:identifier"/>
+         </expect-test-wrap>
+         <result select="/element()">
+            <content-wrap xmlns="">
+               <identifier xmlns="http://hl7.org/fhir">
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:d839038b-2456-AABD-1c6a-467925b43857"/>
+               </identifier>
+            </content-wrap>
+         </result>
+         <expect select="/element()">
+            <content-wrap xmlns="">
+               <identifier xmlns:cda="urn:hl7-org:v3"
+                           xmlns:fhir="http://hl7.org/fhir"
+                           xmlns:lcg="http://www.lantanagroup.com"
+                           xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                           xmlns="http://hl7.org/fhir">
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="..."/>
+               </identifier>
+            </content-wrap>
+         </expect>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>Should have a single status</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Communication/fhir:status)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>Should have a status of completed</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Communication/fhir:status/@value='completed') = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>Should have a sent date</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Communication/fhir:sent/@value='2016-12-01') = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>Should have the correct reason</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:Communication/fhir:reasonCode/fhir:coding/fhir:code/@value='432138007') = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario2"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Communication.xspec">
+      <label>Act that matches 'cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.141']]' and mode 'bundle-entry'</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    mode="bundle-entry">
+            <act xmlns="urn:hl7-org:v3" classCode="ACT" moodCode="EVN"><!-- [C-CDA R2.0] Handoff Communication Participants -->
+               <templateId root="2.16.840.1.113883.10.20.22.4.141"/>
+               <!-- DataElement: Hand off ID-->
+               <id root="d839038b-2456-AABD-1c6a-467925b43857"/>
+               <code code="432138007"
+                     codeSystem="2.16.840.1.113883.6.96"
+                     codeSystemName="SNOMED CT"
+                     displayName="handoff communication (procedure)"/>
+               <statusCode code="completed"/>
+               <!-- DataElement: Time of Handoff -->
+               <effectiveTime value="20161201"/>
+               <!-- DataElement: Author Participation (care coordination) -->
+               <author typeCode="AUT"><!-- [C-CDA R2.0] Author Participation -->
+                  <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+                  <time value="20161201"/>
+                  <assignedAuthor>
+                     <id root="d839038b-7171-4165-a760-467925b43857"/>
+                     <code code="163W00000X"
+                           codeSystem="2.16.840.1.113883.6.101"
+                           codeSystemName="Healthcare Provider Taxonomy (HIPAA)"
+                           displayName="Registered nurse"/>
+                     <assignedPerson>
+                        <name>
+                           <given>Nurse</given>
+                           <family>Florence</family>
+                           <suffix>RN</suffix>
+                        </name>
+                     </assignedPerson>
+                  </assignedAuthor>
+               </author>
+               <!-- DataElement: Participant -->
+               <participant typeCode="IRCP">
+                  <participantRole><!-- DataElement: Participant ID -->
+                     <id extension="1138345" root="2.16.840.1.113883.19"/>
+                     <!-- DataElement: Participant Role -->
+                     <code code="163W00000X"
+                           codeSystem="2.16.840.1.113883.6.101"
+                           codeSystemName="NUCC Health Care Provider Taxonomy"
+                           displayName="Registered Nurse"/>
+                     <!-- DataElement: Participant Address -->
+                     <addr>
+                        <streetAddressLine>1006 Health Drive</streetAddressLine>
+                        <city>Ann Arbor</city>
+                        <state>MI</state>
+                        <postalCode>97867</postalCode>
+                        <country>US</country>
+                     </addr>
+                     <telecom value="tel:+1(555)555-1014" use="WP"/>
+                     <playingEntity><!-- DataElement: Participant Name -->
+                        <name>
+                           <family>Nancy</family>
+                           <given>Nightingale</given>
+                           <suffix>RN</suffix>
+                        </name>
+                     </playingEntity>
+                  </participantRole>
+               </participant>
+            </act>
+         </x:context>
+      </input-wrap>
+      <result select="/node()">
+         <content-wrap xmlns="">
+            <entry xmlns="http://hl7.org/fhir">
+               <fullUrl value="urn:uuid:"/>
+               <resource>
+                  <Communication>
+                     <meta>
+                        <profile value="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-CareCoordination"/>
+                        <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.141-->
+                     </meta>
+                     <identifier>
+                        <system value="urn:ietf:rfc:3986"/>
+                        <value value="urn:uuid:d839038b-2456-AABD-1c6a-467925b43857"/>
+                     </identifier>
+                     <status value="completed"/>
+                     <subject>
+                        <reference value="urn:uuid:"/>
+                     </subject>
+                     <sent value="2016-12-01"/>
+                     <recipient>1006 Health DriveAnn ArborMI97867USNancyNightingaleRN</recipient>
+                     <sender>
+                        <reference value="urn:uuid:"/>
+                     </sender>
+                     <reasonCode>
+                        <coding>
+                           <system value="http://snomed.info/sct"/>
+                           <code value="432138007"/>
+                           <display value="handoff communication (procedure)"/>
+                        </coding>
+                     </reasonCode>
+                  </Communication>
+               </resource>
+            </entry>
+            <!--No template match for 2.16.840.1.113883.10.20.22.4.119-->1006 Health DriveAnn ArborMI97867USNancyNightingaleRN</content-wrap>
+      </result>
+      <test id="scenario2-expect1" successful="true">
+         <label>Should produce an entry</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect2" successful="true">
+         <label>Should produce an entry with a full url</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:fullUrl[@value]) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect3" successful="true">
+         <label>Should produce an entry with a resource</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario2-expect4" successful="true">
+         <label>Should produce an entry with a full url</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(fhir:entry/fhir:resource/fhir:Communication) = 1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+   <scenario id="scenario3"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/cda2fhir-r4/xspec-unit-tests/cda2fhir-Communication.xspec">
+      <label>Create Bundle entries for CDAR2_IG_PHCR_R2_RR_D1_2019APR_SAMPLE_ZIKA</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/cda/RR-R1/RR-CDA-001_R1.xml"/>
+      </input-wrap>
+   </scenario>
+</report>

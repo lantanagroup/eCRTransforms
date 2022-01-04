@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
+
+    <x:scenario label="Scenario for testing eICR MedicationRequest">
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
+
+        <!-- Validate a MedicationRequest with identifier cdbd33f0-6cde-11db-9fe1-0800200c9a67 exists-->
+        <x:expect label="There should be one MedicationRequest with identifier cdbd33f0-6cde-11db-9fe1-0800200c9a67"
+            test="count(//fhir:MedicationRequest[fhir:identifier/fhir:value/@value='urn:uuid:cdbd33f0-6cde-11db-9fe1-0800200c9a67']) = 1" />
+        
+        <x:expect label="There should be MedicationRequest.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"
+            test="count(//fhir:MedicationRequest[fhir:identifier/fhir:value/@value='urn:uuid:cdbd33f0-6cde-11db-9fe1-0800200c9a67']/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest'])=1" />
+
+        <!-- Validate a MedicationRequest for Bacillus anthracis strain V770-NP1-R antigens 0.1 MG/ML Injectable (832679) exists-->
+        <x:expect label="There should be one MedicationRequest for Bacillus anthracis strain V770-NP1-R antigens 0.1 MG/ML Injectable (832679)" 
+            test="count(//fhir:MedicationRequest[fhir:identifier/fhir:value/@value='urn:uuid:cdbd33f0-6cde-11db-9fe1-0800200c9a67']/fhir:medicationCodeableConcept/fhir:coding/fhir:code[@value='832679']) = 1" />
+    </x:scenario>
+
+</x:description>

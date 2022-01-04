@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" 
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../cda2fhir-Condition.xslt">
+    
+    <!-- All Conditions - Create bundle entry -->
+    <x:scenario label="Scenario for testing template with match 'cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'] and mode 'bundle-entry'">
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" 
+            select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'][@moodCode = 'EVN']" mode="bundle-entry"/>
+        <x:expect label="There should be six Condition resources" 
+            test="count(fhir:entry/fhir:resource/fhir:Condition) = 6" />
+    </x:scenario>
+
+    <!-- Condition - create resource-->
+    <x:scenario
+        label="Scenario for Creating the Condition profile from source 'cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'][@moodCode = 'EVN']'">
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml"
+            select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'][@moodCode = 'EVN']" />
+        
+        <!-- Validate an Condition profile exists-->
+        <x:expect label="There should be six Condition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" 
+            test="count(fhir:Condition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition'])=6" />
+        
+        <!-- Validate the Condition onsetDateTime exists for every Condition resource-->
+        <x:expect label="There should be six Condition.onsetDateTime"
+            test="count(fhir:Condition/fhir:onsetDateTime)=6" />
+        
+        <!-- Validate the Condition Category exists for every Condition resource -->
+        <x:expect label="There should be at six Condition.category"
+            test="count(fhir:Condition/fhir:category)=6" />
+        
+        <!-- Validate the Condition code exists for every Condition resource -->
+        <x:expect label="There should be six Condition.code"
+            test="count(fhir:Condition/fhir:code)=6" />
+
+        <!--Validate the Clinical Status Coding System exists -->
+        <x:expect label="There should be six Condition.clinicalStatus.coding.system.value=http://terminology.hl7.org/CodeSystem/condition-clinical"
+            test="count(fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:system[@value='http://terminology.hl7.org/CodeSystem/condition-clinical'])=6" />
+        
+        <!--Validate the Clinical Status Code exists for every Condition resource -->
+        <x:expect label="There should be six Condition.clinicalStatus.coding.code"
+            test="count(fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:code)=6" />
+        
+    </x:scenario>
+    
+    <!-- All Conditions - Create bundle entry -->
+    <x:scenario label="Scenario for testing template with match 'cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'] and mode 'bundle-entry'">
+        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" 
+            select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'][@moodCode = 'EVN']" mode="bundle-entry"/>
+        <x:expect label="There should be six Condition resources" 
+            test="count(fhir:entry/fhir:resource/fhir:Condition) = 6" />
+    </x:scenario>
+    
+
+</x:description>

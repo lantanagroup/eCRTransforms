@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.jenitennison.com/xslt/xspec"
+        xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/fhir2cda-r4/xspec-unit-tests/fhir2cda-RecordTarget.xspec"
+        stylesheet="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/fhir2cda-r4/fhir2cda-RecordTarget.xslt"
+        date="2022-01-04T15:27:54.298208+10:00">
+   <scenario id="scenario1"
+             xspec="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/transforms/fhir2cda-r4/xspec-unit-tests/fhir2cda-RecordTarget.xspec">
+      <label>Scenario for testing template with match 'fhir:Patient[parent::fhir:Patient]</label>
+      <input-wrap xmlns="">
+         <x:context xmlns:cda="urn:hl7-org:v3"
+                    xmlns:fhir="http://hl7.org/fhir"
+                    xmlns:lcg="http://www.lantanagroup.com"
+                    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                    href="file:/C:/Users/minigrrl/Dropbox/12_SourceControl/GitHub/Lantana/FHIRTransforms/samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml"
+                    select="//fhir:entry/fhir:resource/fhir:Patient"
+                    mode="record-target"/>
+      </input-wrap>
+      <result select="/element()">
+         <content-wrap xmlns="">
+            <recordTarget xmlns="urn:hl7-org:v3">
+               <patientRole>
+                  <id root="1147e9db-6d1f-11ec-1500-09173f13e4c5"
+                      assigningAuthorityName="http://hospital.smarthealthit.org"
+                      extension="1032702"/>
+                  <addr use="WP">
+                     <streetAddressLine>5101 Peachtree St NE</streetAddressLine>
+                     <city>Atlanta</city>
+                     <state>GA</state>
+                     <postalCode>30302</postalCode>
+                     <country>US</country>
+                  </addr>
+                  <telecom value="tel:1-(404)555-1212" use="H"/>
+                  <telecom value="mailto:eve.everywoman@example.com" use="WP"/>
+                  <patient>
+                     <name>
+                        <given>Eve</given>
+                        <given>L</given>
+                        <family>Everywoman</family>
+                     </name>
+                     <administrativeGenderCode codeSystem="2.16.840.1.113883.5.1"
+                                               codeSystemName="AdministrativeGender"
+                                               code="F"
+                                               displayName="Female"/>
+                     <birthTime value="19741124"/>
+                     <sdtc:deceasedInd xmlns:sdtc="urn:hl7-org:sdtc" value="false"/>
+                     <raceCode code="2106-3"
+                               codeSystem="2.16.840.1.113883.6.238"
+                               displayName="White"/>
+                     <ethnicGroupCode code="2186-5"
+                                      codeSystem="2.16.840.1.113883.6.238"
+                                      displayName="Not Hispanic or Latino"/>
+                     <languageCommunication>
+                        <languageCode nullFlavor="NI"/>
+                     </languageCommunication>
+                  </patient>
+               </patientRole>
+            </recordTarget>
+         </content-wrap>
+      </result>
+      <test id="scenario1-expect1" successful="true">
+         <label>SHALL contain at least one [1..*] recordTarget (CONF:1198-5266).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect2" successful="true">
+         <label>Such recordTargets SHALL contain exactly one [1..1] patientRole (CONF:1198-5267).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect3" successful="true">
+         <label>This patientRole SHALL contain at least one [1..*] id (CONF:1198-5268)..</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:id)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect4" successful="true">
+         <label>This patientRole SHALL contain at least one [1..*]  US Realm Address (AD.US.FIELDED)(CONF:1198-5271).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:addr)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect5" successful="true">
+         <label>This patientRole SHALL contain at least one [1..*] telecom (CONF:1198-5280).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:telecom)=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect6" successful="true">
+         <label>Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-5375).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:telecom[@use])=2"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect7" successful="true">
+         <label>iv. This patientRole SHALL contain exactly one [1..1] patient (CONF:1198-5283).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect8" successful="true">
+         <label>This patient SHALL contain at least one [1..*]  US Realm Patient Name (CONF:1198-5284).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient/cda:name)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect9" successful="true">
+         <label>This patient SHALL contain exactly one [1..1] administrativeGenderCode(CONF:1198-6394).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect10" successful="true">
+         <label>This patient SHALL contain exactly one [1..1] birthTime (CONF:1198-5298)</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect11" successful="true">
+         <label>This patient SHALL contain exactly one [1..1] raceCode(CONF:1198-5322).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect12" successful="true">
+         <label>This patient SHALL contain exactly one [1..1] ethnicGroupCode (CONF:1198-5323).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+      <test id="scenario1-expect13" successful="true">
+         <label>12. This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:1198-5406).</label>
+         <expect-test-wrap xmlns="">
+            <x:expect xmlns:cda="urn:hl7-org:v3"
+                      xmlns:fhir="http://hl7.org/fhir"
+                      xmlns:lcg="http://www.lantanagroup.com"
+                      xmlns:x="http://www.jenitennison.com/xslt/xspec"
+                      test="count(cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication)=1"/>
+         </expect-test-wrap>
+         <expect select="()"/>
+      </test>
+   </scenario>
+</report>

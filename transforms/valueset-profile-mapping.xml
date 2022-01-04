@@ -1,0 +1,24 @@
+<mapping>
+
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1223.9/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Condition-lab-confirmed-covid" profileType="Condition" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.115/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Condition-suspected-covid" profileType="Condition" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1142/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1144/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1152/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1154/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1157/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1158/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1223/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+  <map valueSetQueryString="https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1270/$validate-code?"
+    profileURI="http://hl7.org/fhir/us/imp-med-admin/StructureDefinition/Observation-lab-sars-cov" profileType="Observation" />
+
+</mapping>

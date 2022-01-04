@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    
+    <!--Scenario for testing template with match 'fhir:Practitioner' and mode 'legal' -->
+    <x:scenario
+        label="Scenario for testing fhir:Practitioner -> cda:legalAuthenticator ">
+        <x:context href="../../../samples/fhir/Complete-Document-Bundle-Example.xml" />
+        
+        
+        <!--Confirm the Legal Authenticator exists-->
+        <x:expect label="SHOULD contain zero or one [0..1] legalAuthenticator (CONF:1198-5579)" 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator)=1" />
+        
+        <!--Confirm the Legal Authenticator contains a signatureCode element-->
+        <x:expect label="The legalAuthenticator, if present, SHALL contain exactly one [1..1] signatureCode (CONF:1198-5583)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:signatureCode)=1" />
+        <!--Confirm the Legal Authenticator->signatureCode contains a code="S" element-->
+        <x:expect label="This signatureCode SHALL contain exactly one [1..1] @code=S (CONF:1198-5584)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:signatureCode/@code='S')=1" />
+        
+        <!--Confirm the Legal Authenticator contains an assignedEntity  element-->
+        <x:expect label="The legalAuthenticator, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:1198-5585)" 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity)=1" />
+        <!--Confirm the Legal Authenticator assignedEntity contains an id element-->
+        <x:expect label="This assignedEntity SHALL contain at least one [1..*] id (CONF:1198-5586)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity/cda:id)=1" />
+        <!--Confirm the Legal Authenticator assignedEntity contains an address element-->
+        <x:expect label="This assignedEntity SHALL contain at least one [1..*]  US Realm Address (CONF:1198-5589)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity/cda:addr)>=1" />
+        <!--Confirm the Legal Authenticator assignedEntity contains a telecom element-->
+        <x:expect label="This assignedEntity SHALL contain at least one [1..*] telecom (CONF:1198-5595)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity/cda:telecom)>=1" />
+        <!--Confirm the Legal Authenticator assignedEntity telecom contains an @use element-->
+        <x:expect label="1.	Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-7999)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity/cda:telecom[@use])>=1" />
+        <!--Confirm the Legal Authenticator assignedEntity contains an assignedPerson element-->
+        <x:expect label="This assignedEntity SHALL contain exactly one [1..1] assignedPerson (CONF:1198-5597." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity/cda:assignedPerson)>=1" />
+        <!--Confirm the Legal Authenticator assignedEntity->assignedPerson contains a name element-->
+        <x:expect label="This assignedPerson SHALL contain at least one [1..*]  US Realm Person Name (CONF:1198-5598)." 
+            test="count(/cda:ClinicalDocument/cda:legalAuthenticator/cda:assignedEntity/cda:assignedPerson/cda:name)>=1" />
+    </x:scenario>
+</x:description>

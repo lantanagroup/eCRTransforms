@@ -1,0 +1,51 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 506D-6965
+
+ Directory of C:\Users\rickg\OneDrive - Lantana Consulting Group\git\FHIRTransforms\transforms\cda2fhir-r4
+
+07/09/2020  10:48 AM    <DIR>          .
+07/09/2020  10:48 AM    <DIR>          ..
+07/06/2020  03:54 PM            78,073 c-to-fhir-utility.xslt
+04/23/2019  11:11 AM             1,818 cda-add-uuid.xslt
+01/21/2020  08:22 PM             7,385 cda2fhir-AllergyIntolerance.xslt
+06/12/2020  11:18 AM             3,418 cda2fhir-Bundle.xslt
+01/21/2020  08:22 PM             3,150 cda2fhir-CarePlan.xslt
+06/12/2020  11:18 AM            12,974 cda2fhir-Communication.xslt
+06/12/2020  11:18 AM            10,881 cda2fhir-Composition.xslt
+01/21/2020  08:22 PM             9,058 cda2fhir-Condition.xslt
+07/06/2020  05:31 PM             4,543 cda2fhir-Consent.xslt
+01/22/2020  11:34 AM             5,253 cda2fhir-Coverage.xslt
+03/11/2020  04:01 PM             2,635 cda2fhir-Device.xslt
+06/12/2020  11:18 AM             5,534 cda2fhir-DocumentReference.xslt
+03/11/2020  04:01 PM            13,379 cda2fhir-Encounter.xslt
+06/12/2020  11:18 AM            11,936 cda2fhir-Extension.xslt
+01/21/2020  08:22 PM             5,878 cda2fhir-fallback-templates.xslt
+01/21/2020  08:22 PM             6,599 cda2fhir-FamilyMemberHistory.xslt
+01/21/2020  08:22 PM             7,208 cda2fhir-Goal.xslt
+03/11/2020  04:01 PM             3,100 cda2fhir-Immunization.xslt
+03/11/2020  04:01 PM             2,221 cda2fhir-includes.xslt
+01/21/2020  08:22 PM             4,123 cda2fhir-List.xslt
+06/12/2020  11:18 AM             4,108 cda2fhir-Location.xslt
+03/11/2020  04:01 PM             6,857 cda2fhir-MedicationAdministration.xslt
+01/23/2020  06:02 PM             4,814 cda2fhir-MedicationDispense.xslt
+01/21/2020  09:40 PM             7,438 cda2fhir-MedicationRequest.xslt
+01/21/2020  09:44 PM             6,960 cda2fhir-MedicationStatement.xslt
+03/11/2020  04:01 PM           103,382 cda2fhir-Narrative.xslt
+03/11/2020  04:01 PM            33,267 cda2fhir-Observation.xslt
+06/12/2020  11:18 AM             8,309 cda2fhir-Organization.xslt
+06/12/2020  11:18 AM            14,786 cda2fhir-Patient.xslt
+03/11/2020  04:01 PM             8,680 cda2fhir-PlanDefinition.xslt
+03/11/2020  04:01 PM             5,790 cda2fhir-Practitioner.xslt
+03/11/2020  04:01 PM             5,772 cda2fhir-PractitionerRole.xslt
+07/06/2020  10:57 AM             7,573 cda2fhir-Procedure.xslt
+01/21/2020  08:22 PM             4,392 cda2fhir-ReferralRequest.xslt
+04/23/2019  11:11 AM             4,431 cda2fhir-RequestGroup.xslt
+01/21/2020  08:22 PM             3,070 cda2fhir-RiskAssessment.xslt
+01/21/2020  08:22 PM             2,895 cda2fhir-ServiceRequest.xslt
+03/11/2020  04:01 PM             1,895 cda2fhir-Specimen.xslt
+01/21/2020  08:22 PM             1,949 cda2fhir.xslt
+07/09/2020  10:48 AM                 0 dir.txt
+10/16/2019  11:17 AM             1,843 SaxonPE-cda2fhir.xslt
+06/12/2020  11:18 AM    <DIR>          xspec-unit-tests
+              41 File(s)        437,377 bytes
+               3 Dir(s)  117,887,004,672 bytes free

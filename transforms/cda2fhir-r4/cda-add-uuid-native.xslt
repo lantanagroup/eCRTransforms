@@ -101,7 +101,11 @@
             <xsl:sequence select="current-dateTime() - xs:dateTime('1582-10-15T00:00:00.000Z')" />
         </xsl:variable>
         <xsl:variable name="random-offset" as="xs:integer">
-            <xsl:sequence select="uuid:next-nr($node) mod 10000" />
+          <!-- SG 20230214: Removing the mod from this calculation because this was causing the same number to be generated for multiple generate-id($node) values
+           i.e. d1e11398, d1e1398 => 111398, 11398 => 111398 mod 10000 = 1398, 11398 mod 10000 = 1398
+           I don't think it matters that we are adding a larger number onto the 100 nano second intervals, so this should work -->
+          <!--<xsl:sequence select="uuid:next-nr($node) mod 10000" />-->
+          <xsl:sequence select="uuid:next-nr($node)" />
         </xsl:variable>
         <!-- do the math to get the 100 nano second intervals -->
         <xsl:sequence

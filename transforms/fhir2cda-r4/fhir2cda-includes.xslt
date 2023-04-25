@@ -62,5 +62,7 @@ limitations under the License.
   <xsl:include href="fhir2cda-narrative.xslt" />
   <xsl:include href="fhir2cda-mapProfileToTemplate.xslt" />
   
+<!--  <xsl:include href="../hai-ltc/generate-narrative-ltc.xslt" />-->
+  
 
 </xsl:stylesheet>

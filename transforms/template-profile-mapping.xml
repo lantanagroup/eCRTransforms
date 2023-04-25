@@ -12,6 +12,8 @@
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
     <!-- [eICR R2 STU3] Initial Public Health Case Report Document (eICR) (V4) -->
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
+    <!-- [eICR R2 STU3.1] Initial Public Health Case Report Document (eICR) (V5) -->
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2022-05-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
     <!-- MD: add dental data exchange -->
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.40.1.1.2:2020-08-01" profileURI="http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note" />
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.40.1.1.1:2020-08-01" profileURI="http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note" />
@@ -19,6 +21,7 @@
     <!-- Other templates -->
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.4:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition" />
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.7:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.26:2015-08-01" profileURI="http://hl7.org/fhir/StructureDefinition/vitalsigns" />
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09" profileURI="http://hl7.org/fhir/StructureDefinition/vitalsigns" />
     <!-- This template no longer exists in US Core -->
     <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.16:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationstatement" />-->
@@ -33,6 +36,8 @@
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
    
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
+  
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2022-05-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
     
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.47:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status" />
     

@@ -27,9 +27,13 @@ limitations under the License.
     <xsl:template match="fhir:identifier | fhir:masterIdentifier">
         <xsl:param name="pElementName" select="'id'" />
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
+        
+        <!-- MD: Begin uncomment identification of IG -->
+       <xsl:variable name="vCurrentIg">
             <xsl:call-template name="get-current-ig"/>
         </xsl:variable>
+        <!-- MD: end uncomment identification of IG -->
+        
         <xsl:variable name="vConvertedSystem">
             <xsl:call-template name="convertURI">
                 <xsl:with-param name="uri" select="fhir:system/@value" />
@@ -38,7 +42,8 @@ limitations under the License.
 
         <xsl:variable name="vValue">
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'RR' and contains(fhir:value/@value, '#')">
+                <!--<xsl:when test="$vCurrentIg = 'RR' and contains(fhir:value/@value, '#')">-->
+                  <xsl:when test="contains(fhir:value/@value, '#')">
                     <xsl:value-of select="substring-before(fhir:value/@value, '#')" />
                 </xsl:when>
                 <xsl:otherwise>
@@ -46,8 +51,21 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-
-        <xsl:comment>Converting identifier <xsl:value-of select="$vConvertedSystem" /></xsl:comment>
+        
+        <!-- MD: begin check IG for set comments -->
+        <xsl:choose>
+            <xsl:when test="$vCurrentIg = 'eICR'" >  
+                <xsl:comment>
+                    <xsl:text>Globally unique document ID (extension) is scoped by vendor/software</xsl:text>
+                </xsl:comment>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>Converting identifier <xsl:value-of select="$vConvertedSystem" /></xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
+        <!-- MD: end -->
+        
+       
         <xsl:element name="{$pElementName}">
             <xsl:choose>
                 <xsl:when test="fhir:system/@value = 'urn:ietf:rfc:3986'">
@@ -55,8 +73,19 @@ limitations under the License.
                         <xsl:when test="starts-with($vValue, 'urn:oid:')">
                             <xsl:attribute name="root" select="substring-after($vValue, 'urn:oid:')" />
                         </xsl:when>
-                        <xsl:when test="starts-with($vValue, 'urn:uuid:')">
-                            <xsl:attribute name="root" select="substring-after($vValue, 'urn:uuid:')" />
+                        <xsl:when test="starts-with($vValue, 'urn:uuid:')">                         
+                            <!-- MD: Begin -->
+                            <xsl:choose>
+                                <xsl:when test="$vCurrentIg = 'eICR'" >                             
+                                    <xsl:attribute name="root">2.16.840.1.113883.9.9.9.9.9</xsl:attribute> 
+                                    <xsl:attribute name="extension" select="substring-after($vValue, 'urn:uuid:')" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="root" select="substring-after($vValue, 'urn:uuid:')" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <!-- MD: end -->
+                          
                         </xsl:when>
                         <xsl:when test="starts-with($vValue, 'urn:hl7ii:')">
                             <xsl:variable name="val">

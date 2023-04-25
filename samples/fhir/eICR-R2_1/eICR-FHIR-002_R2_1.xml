@@ -1,11 +1,11 @@
 <Bundle xmlns="http://hl7.org/fhir">
-    <id value="RR-FHIR-001_R1" />
+    <id value="eICR-FHIR-002_R2_1" />
     <meta>
         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle" />
     </meta>
     <identifier>
         <system value="urn:ietf:rfc:3986" />
-        <value value="urn:uuid:2be4b4e4-6df1-4cb2-a947-c70fa0eda54b" />
+        <value value="urn:uuid:2be4b4e4-6df1-4cb2-a947-c70fa0eda54c" />
     </identifier>
     <type value="document" />
     <timestamp value="2021-08-02T22:13:23Z" />
@@ -24,7 +24,8 @@
                     <valueString value="1" />
                 </extension>
                 <identifier>
-                    <value value="c03eab8c-11e8-4d0c-ad2a-b385395e27db" />
+                    <system value="urn:ietf:rfc:3986" />
+                    <value value="urn:uuid:c03eab8c-11e8-4d0c-ad2a-b385395e27db" />
                 </identifier>
                 <status value="final" />
                 <type>
@@ -182,8 +183,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" lang="en-US" class="text-no-entries"> Persistent Cough REPORTED starting on 2018/03/05 <br /> Whooping Respiration not reported <br /> Paroxysms Of Coughing REPORTED
-                                        starting on 2018/03/06 <br /> Post-tussive vomiting not reported </td>
+                                    <td colspan="2" lang="en-US" class="text-no-entries"> Persistent Cough REPORTED starting on 2018/03/05 <br /> Whooping Respiration not reported <br /> Paroxysms Of Coughing REPORTED starting on 2018/03/06 <br /> Post-tussive vomiting not reported </td>
                                 </tr>
                             </table>
                         </div>
@@ -690,12 +690,12 @@
                                 <tr>
                                     <td style="font-weight: bold">entry</td>
                                     <td>
-                                        <a href="Observation-observation-us-core-results-eve-everywoman-lymphocytes.html">Lymphocytes [#/​volume] in Blood by Automated count - Interpretation: High</a>
+                                        <a href="Observation-observation-us-ph-lab-result-eve-everywoman-lymphocytes.html">Lymphocytes [#/​volume] in Blood by Automated count - Interpretation: High</a>
                                         <table>
                                             <tr>
                                                 <td style="font-weight: bold">id</td>
                                                 <td>
-                                                    <div title="id">observation-us-core-results-eve-everywoman-lymphocytes</div>
+                                                    <div title="id">observation-us-ph-lab-result-eve-everywoman-lymphocytes</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -717,7 +717,7 @@
                                                         <tr>
                                                             <td style="font-weight: bold">profile</td>
                                                             <td>
-                                                                <div title="profile">http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab</div>
+                                                                <div title="profile">http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation</div>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -889,7 +889,7 @@
                         </div>
                     </text>
                     <entry>
-                        <reference value="Observation/observation-us-core-results-eve-everywoman-lymphocytes" />
+                        <reference value="Observation/observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
                         <display value="Lymphocytes [#/​volume] in Blood by Automated count - Interpretation: High" />
                     </entry>
                 </section>
@@ -1444,8 +1444,7 @@
                                                                                 <div title="display">Vanuatu</div> ( <div title="code">VUT</div> ) </li>
                                                                             <li>
                                                                                 <div title="system">
-                                                                                    <a href="https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1"
-                                                                                        >https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1</a>
+                                                                                    <a href="https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1">https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1</a>
                                                                                 </div>
                                                                             </li>
                                                                         </ul>
@@ -1481,6 +1480,22 @@
                     <entry>
                         <reference value="Observation/observation-country-of-residence-eve-everywoman" />
                         <display value="Country of Residence Observation Example" />
+                    </entry>
+                    <entry>
+                        <reference value="Observation/observation-odh-employment-status-ecr-eve-everywoman" />
+                        <display value="ODH Employment Status Example" />
+                    </entry>
+                    <entry>
+                        <reference value="Observation/observation-characteristics-of-home-environment-eve-everywoman" />
+                        <display value="US Public Health Characteristics of Home Environment Example: Eve Everywoman" />
+                    </entry>
+                    <entry>
+                        <reference value="Observation/observation-odh-past-or-present-job-eve-everywoman" />
+                        <display value="ODH Past or Present Job Example: Eve Everywoman" />
+                    </entry>
+                    <entry>
+                        <reference value="Observation/observation-odh-usual-work-eve-everywoman" />
+                        <display value="ODH Usual Work Example: Eve Everywoman" />
                     </entry>
                 </section>
                 <section>
@@ -1631,7 +1646,7 @@
                                                         <li>
                                                             <ul style="list-style:none; padding-left:0; margin:0 0;">
                                                                 <li>
-                                                                    <div title="display">Pregnant (finding)</div> ( <div title="code">77386006</div> ) </li>
+                                                                    <div title="display">Pregnancy (finding)</div> ( <div title="code">77386006</div> ) </li>
                                                                 <li>
                                                                     <div title="system">
                                                                         <a href="http://snomed.info/sct">http://snomed.info/sct</a>
@@ -1915,6 +1930,7 @@
                     <versionId value="6" />
                     <lastUpdated value="2021-08-17T07:53:28.598+00:00" />
                     <source value="#O8n4DNqcDuNHPfTJ" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-medicationadministration" />
                 </meta>
                 <status value="completed" />
                 <medicationCodeableConcept>
@@ -2007,8 +2023,9 @@
                     <versionId value="5" />
                     <lastUpdated value="2021-08-17T07:53:28.597+00:00" />
                     <source value="#5sOf7BOr595JpyG7" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-medicationadministration" />
                 </meta>
-                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/therapeutic-medication-response-extension">
+                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension">
                     <valueCodeableConcept>
                         <coding>
                             <system value="http://snomed.info/sct" />
@@ -2069,6 +2086,10 @@
                     <source value="#w4zRDqhjQ9EZHgCs" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
                 </meta>
+                <identifier>
+                    <system value="http://lab.smarthealthit.org" />
+                    <value value="061ef612-344f-4e7b-81a8-1059ae7bbe19" />
+                </identifier>
                 <status value="completed" />
                 <intent value="order" />
                 <category>
@@ -2258,7 +2279,7 @@
                     <coding>
                         <system value="http://snomed.info/sct" />
                         <code value="77386006" />
-                        <display value="Pregnant (finding)" />
+                        <display value="Pregnancy (finding)" />
                     </coding>
                 </valueCodeableConcept>
                 <method>
@@ -2464,14 +2485,23 @@
                 <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
                     <valueCode value="F" />
                 </extension>
-                <extension url="http://hl7.org/fhir/StructureDefinition/patient-genderIdentity">
-                    <valueCodeableConcept>
-                        <coding>
-                            <system value="http://hl7.org/fhir/gender-identity" />
-                            <code value="female" />
-                            <display value="female" />
-                        </coding>
-                    </valueCodeableConcept>
+                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
+                    <extension url="value">
+                        <valueCodeableConcept>
+                            <coding>
+                                <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
+                                <code value="ASKU" />
+                                <display value="asked but unknown" />
+                            </coding>
+                            <text value="asked but unknown" />
+                        </valueCodeableConcept>
+                    </extension>
+                    <extension url="period">
+                        <valuePeriod>
+                            <start value="2018-01-02" />
+                            <end value="2018-01-02" />
+                        </valuePeriod>
+                    </extension>
                 </extension>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-tribal-affiliation-extension">
                     <extension url="TribeName">
@@ -2514,6 +2544,7 @@
                 </telecom>
                 <gender value="female" />
                 <birthDate value="1974-11-24" />
+                <deceasedBoolean value="false" />
                 <address>
                     <line value="5101 Peachtree St NE" />
                     <city value="Atlanta" />
@@ -2521,6 +2552,15 @@
                     <postalCode value="30302" />
                     <country value="US" />
                 </address>
+                <communication>
+                    <language>
+                        <coding>
+                            <system value="urn:ietf:bcp:47" />
+                            <code value="en" />
+                            <display value="English" />
+                        </coding>
+                    </language>
+                </communication>
             </Patient>
         </resource>
     </entry>
@@ -2552,6 +2592,308 @@
             </Immunization>
         </resource>
     </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-odh-employment-status-ecr-eve-everywoman" />
+        <resource>
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-odh-employment-status-ecr-eve-everywoman" />
+                <meta>
+                    <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus" />
+                </meta>
+                <text>
+                    <status value="generated" />
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            <b>Generated Narrative: Observation</b>
+                            <a name="observation-odh-employment-status-ecr-eve-everywoman"> </a>
+                        </p>
+                        <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
+                            <p style="margin-bottom: 0px">Resource Observation &quot;observation-odh-employment-status-ecr-eve-everywoman&quot; </p>
+                            <p style="margin-bottom: 0px">Profile: <a href="http://hl7.org/fhir/us/odh/STU1.1/StructureDefinition-odh-EmploymentStatus.html">Employment Status</a></p>
+                        </div>
+                        <p><b>status</b>: final</p>
+                        <p><b>code</b>: History of employment status NIOSH <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#74165-2)</span></p>
+                        <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
+                        <p><b>effective</b>: 2015-04-24 --&gt; (ongoing)</p>
+                        <p><b>value</b>: Employed <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="http://terminology.hl7.org/5.0.0/CodeSystem-v3-ObservationValue.html">ObservationValue</a>#Employed)</span></p>
+                    </div>
+                </text>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="74165-2" />
+                        <display value="History of employment status NIOSH" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectivePeriod>
+                    <start value="2015-04-24" />
+                </effectivePeriod>
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ObservationValue" />
+                        <code value="Employed" />
+                        <display value="Employed" />
+                    </coding>
+                </valueCodeableConcept>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-characteristics-of-home-environment-eve-everywoman" />
+        <resource>
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-characteristics-of-home-environment-eve-everywoman" />
+                <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-06-30T05:17:19.330+00:00" />
+                    <source value="#cgLJymHVJKry789c" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment" />
+                </meta>
+                <text>
+                    <status value="generated" />
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            <b>Generated Narrative: Observation</b>
+                            <a name="observation-characteristics-of-home-environment-eve-everywoman"> </a>
+                        </p>
+                        <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
+                            <p style="margin-bottom: 0px">Resource Observation &quot;observation-characteristics-of-home-environment-eve-everywoman&quot; Version &quot;5&quot; Updated &quot;2021-06-30 05:17:19+0000&quot; </p>
+                            <p style="margin-bottom: 0px">Information Source: #cgLJymHVJKry789c!</p>
+                            <p style="margin-bottom: 0px">Profile: <a href="StructureDefinition-us-ph-characteristics-of-home-environment.html">US Public Health Characteristics of Home Environment</a></p>
+                        </div>
+                        <p><b>status</b>: final</p>
+                        <p><b>code</b>: Characteristics of residence <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#75274-1)</span></p>
+                        <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
+                        <p><b>effective</b>: 2016-05-18 22:33:22+0000</p>
+                        <p><b>value</b>: Homeless <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://browser.ihtsdotools.org/">SNOMED CT</a>#32911000)</span></p>
+                    </div>
+                </text>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="75274-1" />
+                        <display value="Characteristics of residence" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectiveDateTime value="2016-05-18T22:33:22Z" />
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="32911000" />
+                        <display value="Homeless" />
+                    </coding>
+                </valueCodeableConcept>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-odh-past-or-present-job-eve-everywoman" />
+        <resource>
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-odh-past-or-present-job-eve-everywoman" />
+                <meta>
+                    <versionId value="4" />
+                    <lastUpdated value="2021-08-13T04:03:24.908+00:00" />
+                    <source value="#ftYoCauxSeEFK718" />
+                    <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob" />
+                </meta>
+                <text>
+                    <status value="generated" />
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            <b>Generated Narrative: Observation</b>
+                            <a name="observation-odh-past-or-present-job-eve-everywoman"> </a>
+                        </p>
+                        <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
+                            <p style="margin-bottom: 0px">Resource Observation &quot;observation-odh-past-or-present-job-eve-everywoman&quot; Version &quot;4&quot; Updated &quot;2021-08-13 04:03:24+0000&quot; </p>
+                            <p style="margin-bottom: 0px">Information Source: #ftYoCauxSeEFK718!</p>
+                            <p style="margin-bottom: 0px">Profile: <a href="http://hl7.org/fhir/us/odh/STU1.1/StructureDefinition-odh-PastOrPresentJob.html">Past Or Present Job</a></p>
+                        </div>
+                        <p><b>status</b>: final</p>
+                        <p><b>code</b>: History of Occupation <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#11341-5)</span></p>
+                        <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
+                        <p><b>effective</b>: 2015-04-24 --&gt; (ongoing)</p>
+                        <p><b>value</b>: Nursing, psychiatric, and home health aides <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationCDCCensus2010.html">Occupation CDC Census 2010</a>#3600; <a
+                                    href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationalDataForHealthODH.html">Occupational Data for Health (ODH)</a>#31-1014.00.007136 &quot;Certified Nursing Assistant (CNA) [Nursing Assistants]&quot;)</span></p>
+                        <blockquote>
+                            <p>
+                                <b>component</b>
+                            </p>
+                            <p><b>code</b>: History of Occupation industry <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#86188-0)</span></p>
+                            <p><b>value</b>: Nursing care facilities <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="http://terminology.hl7.org/5.0.0/CodeSystem-PHIndustryCDCCensus2010.html">Industry CDC Census 2010</a>#8270; <a
+                                        href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationalDataForHealthODH.html">Occupational Data for Health (ODH)</a>#621610.008495 &quot;Home nursing services&quot;)</span></p>
+                        </blockquote>
+                        <blockquote>
+                            <p>
+                                <b>component</b>
+                            </p>
+                            <p><b>code</b>: History of Occupational hazard <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#87729-0)</span></p>
+                            <p><b>value</b>: Asbestos</p>
+                        </blockquote>
+                    </div>
+                </text>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="11341-5" />
+                        <display value="History of Occupation" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectivePeriod>
+                    <start value="2015-04-24" />
+                </effectivePeriod>
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010" />
+                        <code value="3600" />
+                        <display value="Nursing, psychiatric, and home health aides" />
+                    </coding>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
+                        <code value="31-1014.00.007136" />
+                        <display value="Certified Nursing Assistant (CNA) [Nursing Assistants]" />
+                    </coding>
+                </valueCodeableConcept>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="86188-0" />
+                            <display value="History of Occupation industry" />
+                        </coding>
+                    </code>
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010" />
+                            <code value="8270" />
+                            <display value="Nursing care facilities" />
+                        </coding>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
+                            <code value="621610.008495" />
+                            <display value="Home nursing services" />
+                        </coding>
+                    </valueCodeableConcept>
+                </component>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="87729-0" />
+                            <display value="History of Occupational hazard" />
+                        </coding>
+                    </code>
+                    <valueString value="Asbestos" />
+                </component>
+            </Observation>
+        </resource>
+    </entry>
+
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-odh-usual-work-eve-everywoman" />
+        <resource>
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-odh-usual-work-eve-everywoman" />
+                <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-08-17T07:59:00.820+00:00" />
+                    <source value="#KYnvOUlssACaPh7w" />
+                    <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork" />
+                </meta>
+                <text>
+                    <status value="generated" />
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            <b>Generated Narrative: Observation</b>
+                            <a name="observation-odh-usual-work-eve-everywoman"> </a>
+                        </p>
+                        <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
+                            <p style="margin-bottom: 0px">Resource Observation &quot;observation-odh-usual-work-eve-everywoman&quot; Version &quot;5&quot; Updated &quot;2021-08-17 07:59:00+0000&quot; </p>
+                            <p style="margin-bottom: 0px">Information Source: #KYnvOUlssACaPh7w!</p>
+                            <p style="margin-bottom: 0px">Profile: <a href="http://hl7.org/fhir/us/odh/STU1.1/StructureDefinition-odh-UsualWork.html">Usual Work</a></p>
+                        </div>
+                        <p><b>status</b>: final</p>
+                        <p><b>code</b>: History of Usual occupation <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#21843-8)</span></p>
+                        <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
+                        <p><b>effective</b>: 2015-01-01 --&gt; 2018-03-07</p>
+                        <p><b>value</b>: Human Resources Managers <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (unknown#0136)</span></p>
+                        <h3>Components</h3>
+                        <table class="grid">
+                            <tr>
+                                <td>-</td>
+                                <td>
+                                    <b>Code</b>
+                                </td>
+                                <td>
+                                    <b>Value[x]</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>*</td>
+                                <td>History of Usual industry <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#21844-6)</span></td>
+                                <td>Hospitals <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (unknown#8190)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </text>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="21843-8" />
+                        <display value="History of Usual occupation" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectivePeriod>
+                    <start value="2015-01-01" />
+                    <end value="2018-03-07" />
+                </effectivePeriod>
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.114222.4.5.314" />
+                        <code value="0136" />
+                        <display value="Human Resources Managers" />
+                    </coding>
+                </valueCodeableConcept>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="21844-6" />
+                            <display value="History of Usual industry" />
+                        </coding>
+                    </code>
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="urn:oid:2.16.840.1.114222.4.5.315" />
+                            <code value="8190" />
+                            <display value="Hospitals" />
+                        </coding>
+                    </valueCodeableConcept>
+                </component>
+            </Observation>
+        </resource>
+    </entry>
+
     <entry>
         <fullUrl value="http://example.org/fhir/Observation/observation-country-of-residence-eve-everywoman" />
         <resource>
@@ -2864,15 +3206,12 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-us-core-results-eve-everywoman-lymphocytes" />
+        <fullUrl value="http://example.org/fhir/Observation/observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
         <resource>
-            <Observation>
-                <id value="observation-us-core-results-eve-everywoman-lymphocytes" />
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
                 <meta>
-                    <versionId value="4" />
-                    <lastUpdated value="2021-07-19T00:27:15.332+00:00" />
-                    <source value="#JUoT9ShFi539tEiO" />
-                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation" />
                 </meta>
                 <status value="final" />
                 <category>
@@ -2974,6 +3313,10 @@
                     <source value="#VI2Nm5Ps5HqZ5HXV" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
                 </meta>
+                <identifier>
+                    <system value="http://hl7.org.fhir/sid/us-npi" />
+                    <value value="1144221995" />
+                </identifier>
                 <status value="active" />
                 <name value="Clinic Bldg A, Salem Medical Center" />
                 <type>
@@ -3017,7 +3360,7 @@
                     <versionId value="1" />
                     <lastUpdated value="2020-12-01T01:55:32.705+00:00" />
                     <source value="#KLUFk4w6CXKqrFEC" />
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
+                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-location" />
                 </meta>
                 <status value="active" />
                 <name value="City Football Stadium" />

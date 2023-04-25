@@ -67,6 +67,29 @@ limitations under the License.
     </documentationOf>
   </xsl:template>
 
+  <!-- Template: make-encompassing-encounter-hai
+         Creates the HAI encompassingEncounter from the Questionnaire -->
+  <xsl:template name="make-service-event-hai">
+    <xsl:comment  select="' The period reported '"/>
+    <documentationOf>
+      <serviceEvent classCode="CASE">
+        <code codeSystem="2.16.840.1.113883.6.277" codeSystemName="cdcNHSN" code="1891-1"
+          displayName="Summary data reporting MDRO and CDI LabID Event Monthly Summary Data for LTCF"/>
+        <effectiveTime>
+          <xsl:comment  select="' the first day of the period reported '"/>
+          <xsl:apply-templates select="//fhir:item[fhir:linkId/@value = 'report-period-start']/fhir:answer/fhir:valueDate">
+            <xsl:with-param name="pElementName">low</xsl:with-param>
+          </xsl:apply-templates>
+          <xsl:comment  select="' the last day of the period reported '"/>
+          <xsl:apply-templates select="//fhir:item[fhir:linkId/@value = 'report-period-end']/fhir:answer/fhir:valueDate">
+            <xsl:with-param name="pElementName">high</xsl:with-param>
+          </xsl:apply-templates>
+        </effectiveTime>
+      </serviceEvent>
+    </documentationOf>
+  </xsl:template>
+
+  
 
   <xsl:template match="fhir:entry/fhir:resource/fhir:Practitioner" mode="event-performer">
     <xsl:call-template name="make-performer" />

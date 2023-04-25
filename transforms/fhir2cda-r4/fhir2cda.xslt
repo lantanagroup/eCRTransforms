@@ -27,7 +27,7 @@ limitations under the License.
   <xsl:output method="xml" indent="yes" encoding="UTF-8" />
 
   <xsl:template match="/">
-    <xsl:message>Begining transform</xsl:message>
+    <xsl:message>Beginning transform</xsl:message>
     <xsl:choose>
       <xsl:when test="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]">
         <xsl:apply-templates select="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]" />

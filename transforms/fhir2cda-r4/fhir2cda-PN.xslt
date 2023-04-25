@@ -31,6 +31,7 @@ limitations under the License.
         <xsl:attribute name="use">
           <xsl:choose>
             <xsl:when test="fhir:use/@value = 'usual'">L</xsl:when>
+            <xsl:when test="fhir:use/@value = 'official'">L</xsl:when>
             <xsl:when test="fhir:use/@value = 'nickname'">P</xsl:when>
             <!-- Not sure of the exact condition of when to use this label -->
             <xsl:when test="fhir:use/@value = 'maiden'">BR</xsl:when>

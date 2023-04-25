@@ -42,7 +42,7 @@ limitations under the License.
     <xsl:param name="use" />
     <xsl:attribute name="use">
       <xsl:choose>
-        <xsl:when test="fhir:use/@value = 'home'">H</xsl:when>
+        <xsl:when test="fhir:use/@value = 'home'">HP</xsl:when>
         <xsl:when test="fhir:use/@value = 'work'">WP</xsl:when>
         <xsl:when test="fhir:use/@value = 'mobile'">MC</xsl:when>
         <!-- default to work -->

@@ -8,9 +8,10 @@
     <map oid="2.16.840.1.113883.5.4" uri="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
     <!-- 
     <map oid="2.16.840.1.113883.5.2" uri="http://hl7.org/fhir/v3/MaritalStatus" />
-     -->
+     
     <map oid="2.16.840.1.113883.5.2" uri="http://hl7.org/fhir/ValueSet/marital-status" />
-    
+    -->
+
     <map oid="2.16.840.1.113883.5.1008" uri="http://hl7.org/fhir/v3/NullFlavor" />
     <map oid="2.16.840.1.113883.5.111" uri="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
     <map oid="2.16.840.1.113883.6.101" uri="http://nucc.org/provider-taxonomy" />
@@ -18,7 +19,10 @@
     <map oid="2.16.840.1.113883.5.90" uri="http://terminology.hl7.org/ParticipationType" />
     <map oid="2.16.840.1.113883.6.12" uri="http://www.ama-assn.org/go/cpt" />
     <map oid="2.16.840.1.113883.18.5" uri="http://terminology.hl7.org/CodeSystem/v2-0004" />
-    
+
+    <map oid="2.16.840.1.113883.6.90" uri="http://hl7.org/fhir/sid/icd-10-cm" />
+
+
     <!-- This is not the OID that the FHIR terminology page has for this - they have 2.16.840.1.113883.3.26.1.2 but 
        that OID doesn't exist in Trifolia and this VSAC page has the below OID https://cts.nlm.nih.gov/fhir/  -->
     <map oid="2.16.840.1.113883.3.26.1.1" uri="http://ncimeta.nci.nih.gov" />
@@ -27,11 +31,11 @@
     <!-- http://www.ama-assn.org/go/cdt -->
     <map oid="2.16.840.1.113883.6.13" uri="http://www.ama-assn.org/go/cdt" />
     <!-- https://ada.org/en/publications/cdt put a dummy oid for pass validation -->
-    <map oid="1.12.123.4.123456.6.89" uri="https://ada.org/en/publications/cdt"/>
+    <map oid="1.12.123.4.123456.6.89" uri="https://ada.org/en/publications/cdt" />
     <!-- https://www.ada.org/en/publications/cdt put a dummy oid for pass validation -->
-    <map oid="1.12.123.4.123456.6.90" uri="https://www.ada.org/en/publications/cdt"/>
-                                           
-    
+    <map oid="1.12.123.4.123456.6.90" uri="https://www.ada.org/en/publications/cdt" />
+
+
     <map oid="2.16.840.1.114222.4.5.314" uri="urn:oid:2.16.840.1.114222.4.5.314" />
     <map oid="2.16.840.1.114222.4.5.315" uri="urn:oid:2.16.840.1.114222.4.5.315" />
     <map oid="2.16.840.1.114222.4.5.327" uri="urn:oid:2.16.840.1.114222.4.5.327" />
@@ -42,10 +46,10 @@
     <!-- Identifier Systems -->
     <map oid="2.16.840.1.113883.4.6" uri="http://hl7.org/fhir/sid/us-npi" />
     <map oid="2.16.840.1.113883.4.1" uri="http://hl7.org/fhir/sid/us-ssn" />
-    <map oid="2.16.840.1.113883.4.572" uri="http://hl7.org/fhir/sid/us-medicare"/>
-    <map oid="2.16.840.1.113883.4.873" uri="urn:ietf:rfc:3986"/>
-    <map oid="2.16.840.1.113883.4.927" uri="http://hl7.org/fhir/sid/us-mbi"/>
-    
+    <map oid="2.16.840.1.113883.4.572" uri="http://hl7.org/fhir/sid/us-medicare" />
+    <map oid="2.16.840.1.113883.4.873" uri="urn:ietf:rfc:3986" />
+    <map oid="2.16.840.1.113883.4.927" uri="http://hl7.org/fhir/sid/us-mbi" />
+
 
     <!--External FHIR OIDs/URIs-->
     <map oid="2.16.840.1.113883.6.86" uri="http://terminology.hl7.org/CodeSystem/umls" />
@@ -204,6 +208,7 @@
     <map oid="2.16.840.1.113883.4.642.4.1327" uri="http://terminology.hl7.org/CodeSystem/medicationRequestCourseofTherapyCodes" />
     <map oid="2.16.840.1.113883.4.642.4.1325" uri="http://terminology.hl7.org/CodeSystem/medicationRequestStatusReasonCodes" />
     <map oid="2.16.840.1.113883.4.642.4.1122" uri="http://terminology.hl7.org/CodeSystem/ExampleMessageReasonCodes" />
+    <map oid="2.16.840.1.113883.4.642.1.1231" uri="http://terminology.hl7.org/CodeSystem/measure-population" />
     <map oid="2.16.840.1.113883.4.642.4.1080" uri="http://terminology.hl7.org/CodeSystem/MessageTransport" />
     <map oid="2.16.840.1.113883.4.642.4.1150" uri="http://terminology.hl7.org/CodeSystem/MissingToothReasonCodes" />
     <map oid="2.16.840.1.113883.4.642.4.1151" uri="http://terminology.hl7.org/CodeSystem/ModifierTypeCodes" />
@@ -271,7 +276,7 @@
     <map oid="2.16.840.1.113883.4.642.4.1402" uri="http://terminology.hl7.org/CodeSystem/verificationresult-communication-method" />
     <map oid="2.16.840.1.113883.4.642.1.1147" uri="http://terminology.hl7.org/CodeSystem/coverage-class" />
     <map oid="2.16.840.1.113883.18.347" uri="http://terminology.hl7.org/CodeSystem/v2-0532" />
-    <map oid="2.16.840.1.113883.4.642.4.1386" uri="http://terminology.hl7.org/CodeSystem/subscriber-relationship"></map>
+    <map oid="2.16.840.1.113883.4.642.4.1386" uri="http://terminology.hl7.org/CodeSystem/subscriber-relationship" />
 
     <!--HL7v3 OIDs/URIs-->
     <map oid="2.16.840.1.113883.5.1050" uri="http://terminology.hl7.org/CodeSystem/v3-AcknowledgementCondition" />
@@ -401,7 +406,12 @@
     <map oid="2.16.840.1.113883.5.1111" uri="http://terminology.hl7.org/CodeSystem/v3-TransmissionRelationshipTypeCode" />
     <map oid="2.16.840.1.113883.5.140" uri="http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS" />
     <map oid="2.16.840.1.113883.5.144" uri="http://terminology.hl7.org/CodeSystem/v3-VaccineManufacturer" />
+
     <map oid="2.16.840.1.113883.5.1139" uri="http://terminology.hl7.org/CodeSystem/v3-WorkClassificationODH" />
+    <map oid="2.16.840.1.114222.4.5.327" uri="http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
+    <map oid="2.16.840.1.114222.4.5.314" uri="http://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010" />
+    <map oid="2.16.840.1.114222.4.5.315" uri="http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010" />
+
     <map oid="2.16.840.1.113883.5.1130" uri="http://terminology.hl7.org/CodeSystem/v3-hl7ApprovalStatus" />
     <map oid="2.16.840.1.113883.5.1132" uri="http://terminology.hl7.org/CodeSystem/v3-hl7CMETAttribution" />
     <map oid="2.16.840.1.113883.5.1135" uri="http://terminology.hl7.org/CodeSystem/v3-hl7ITSType" />
@@ -419,13 +429,16 @@
     <map oid="2.16.840.1.113883.1.18" uri="http://terminology.hl7.org/CodeSystem/v3-triggerEventID" />
 
     <map oid="2.16.840.1.113883.6.259" uri="http://terminology.hl7.org/CodeSystem/v3-hsloc" />
+    <map oid="2.16.840.1.113883.6.259" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/hsloc.html" />
+    <map oid="2.16.840.1.113883.6.277" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/cdcnhsn.html" />
+
 
     <map oid="2.16.840.1.113883.12.292" uri="http://hl7.org/fhir/sid/cvx" />
 
-    <map oid="2.16.840.1.113883.6.277" uri="http://hl7.org/fhir/us/hai/CodeSystem/2.16.840.1.113883.6.277" />
+
 
     <map oid="1.0.3166.1" uri="urn:iso:std:iso:3166" />
-    
+
     <map oid="1.0.3166.1.2.2" uri="urn:iso:std:iso:3166" />
 
 

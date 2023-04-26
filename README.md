@@ -13,7 +13,7 @@ This repo contains the following transforms:
     * Saxon UUID Generation: transforms/cda2fhir-r4/SaxonPE-cda2fhir.xslt
            
 ### CDA eICR R3 to FHIR eICR R2 
-(2nd in line to be updated to CDA eICR R3.2 to FHIR eICR R2.1)
+(2nd in line to be updated to CDA eICR R3.1 to FHIR eICR R2.1)
 
 * Sample files to use: samples/cda/eICR-R3 
   * Files to run:

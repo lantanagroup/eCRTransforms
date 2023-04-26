@@ -35,7 +35,7 @@ This repo contains the following transforms:
 * File to run: transforms/fhir2cda-r4/fhir2cda.xslt
       
 ### FHIR RR R2 to CDA RR R1 
-(3rd ine line to be updated to FHIR RR R2.1 to CDA RR R2.1)
+(3rd in line to be updated to FHIR RR R2.1 to CDA RR R1.1)
 
 * Sample files to use: samples/fhir/RR-R2
      * File to run: transforms/fhir2cda-r4/fhir2cda.xslt 

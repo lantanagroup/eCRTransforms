@@ -18,7 +18,9 @@
 
     <!-- MD: add transfer Planned Procedure (request or intent) to fhir ServiceRequest -->
     <xsl:template match="cda:procedure[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]" mode="bundle-entry">
+        <xsl:comment>Planned Procedure</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry"/>
     </xsl:template>
 
     <!-- Planned Procedure (request or intent) -->

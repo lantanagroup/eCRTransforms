@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0"
-    exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
     <xsl:import href="cda2fhir-Narrative.xslt" />
@@ -14,6 +13,7 @@
 
         <!-- MD: create the Patient will be referenced in RelatedPerson
       create the ReleatedPerson will be reference in Patient on recordTarget
+      2.16.840.1.113883.10.20.22.2.15 family history section
     -->
         <xsl:variable name="vTest" select="
                 //cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']/following-sibling::cda:entry/
@@ -41,7 +41,7 @@
         <xsl:apply-templates select="cda:authenticator" mode="bundle-entry" />
         <xsl:apply-templates select="cda:participant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent" mode="bundle-entry" />
-<!--        <xsl:apply-templates select="cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization" mode="bundle-entry" />-->
+        <!--        <xsl:apply-templates select="cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization" mode="bundle-entry" />-->
         <xsl:apply-templates select="cda:informationRecipient" mode="bundle-entry" />
         <xsl:apply-templates select="//cda:section/cda:author" mode="bundle-entry" />
 
@@ -59,9 +59,9 @@
             </xsl:choose>
         </xsl:variable>
         <Composition>
-                        
+
             <xsl:call-template name="add-meta" />
-            
+
             <xsl:if test="cda:languageCode/@code">
                 <language>
                     <xsl:attribute name="value">
@@ -74,7 +74,7 @@
                 <status value="generated" />
                 <xsl:choose>
                     <xsl:when test="cda:languageCode/@code">
-                        <div xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+                        <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
                             <xsl:call-template name="CDAtext" />
                         </div>
                     </xsl:when>
@@ -91,15 +91,28 @@
                But need to preserve indentifying meta-data of the transformed CDA document
                 - for eCR versionNumber will go into the official FHIR extension
                 - for others versionNumber will go into the C-CDA on FHIR extension in Composition 
-      
-          TODO - need to discuss this with team to make sure this decision makes sense - maybe we should actually start Composition.versionNumber at 1??
-      -->
-            <xsl:apply-templates select="cda:versionNumber" />
-            
+            -->
+            <!-- For eICR/RR we want to default version number to 1 when it's missing -->
+            <xsl:comment>Version Number</xsl:comment>
+            <xsl:choose>
+                <xsl:when test="
+                        (/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2'] or
+                        /cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']) and
+                        not(cda:versionNumber/@value)">
+                    <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+                        <valueString value="1" />
+                    </extension>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="cda:versionNumber" />
+                </xsl:otherwise>
+            </xsl:choose>
+
             <!-- InformationRecipient extension -->
             <xsl:for-each select="cda:informationRecipient">
                 <xsl:apply-templates select="." mode="extension" />
             </xsl:for-each>
+
             <!-- MD: add transform  
       <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
       there can be multiple OrderExtensions, each OrderExtension reference one ServiceRequest
@@ -111,7 +124,17 @@
                     </valueReference>
                 </extension>
             </xsl:for-each>
-            <xsl:apply-templates select="cda:setId"/>
+            <xsl:choose>
+                <xsl:when test="cda:setId">
+                    <xsl:apply-templates select="cda:setId" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <identifier>
+                        <system value="urn:ietf:rfc:3986" />
+                        <value value="urn:uuid:{$newSetIdUUID}" />
+                    </identifier>
+                </xsl:otherwise>
+            </xsl:choose>
             <!--<identifier>
                 <system value="urn:ietf:rfc:3986" />
                 <!-\- <value value="urn:uuid:{$newSetIdUUID}" />  -\->
@@ -145,6 +168,8 @@
                     <xsl:value-of select="cda:title" />
                 </xsl:attribute>
             </title>
+            <!-- Composition.confidentiality is deprecated. Use Composition.meta.security instead with a code from http://terminology.hl7.org/ValueSet/v3-ConfidentialityClassification -->
+            <!-- 
             <xsl:if test="cda:confidentialityCode/@code">
                 <confidentiality>
                     <xsl:attribute name="value">
@@ -152,7 +177,7 @@
                     </xsl:attribute>
                 </confidentiality>
             </xsl:if>
-
+            -->
             <xsl:for-each select="cda:legalAuthenticator | cda:authenticator">
                 <attester>
                     <xsl:choose>
@@ -188,7 +213,7 @@
             <custodian>
                 <xsl:apply-templates select="cda:custodian" mode="reference" />
             </custodian>
-            
+
             <!-- relatesTo contains the ClinicalDocument.id of the CDA document 
            (versionNumber and setId can be found using id as id is unique across all documents) -->
             <relatesTo>
@@ -227,19 +252,19 @@
     </xsl:template>
 
     <xsl:template match="cda:section">
-        
+
         <!-- Check current Ig -->
         <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg"/>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
-        
+
         <!-- Don't want the encounters section if this is eICR - the encounter information goes in Composition.Encounter-->
         <xsl:choose>
             <xsl:when test="$vCurrentIg = 'eICR' and cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.22.1'" />
             <xsl:otherwise>
                 <section>
                     <!-- Start: Section Extensions -->
-                    <xsl:if test="cda:templateId[@root='2.16.840.1.113883.10.20.15.2.2.3'] or cda:templateId[@root='2.16.840.1.113883.10.20.15.2.2.2']">
+                    <xsl:if test="cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.2']">
                         <xsl:apply-templates select="." mode="extension" />
                     </xsl:if>
                     <!-- End: Section Extensions -->
@@ -278,27 +303,27 @@
                         </div>
                     </text>
                     <!-- SG: Birth Sex, Gender Identity, eICR Processing Status, Manually Initiated eICR, Reportability Response Priority are put in extensions in FHIR so we'll skip them -->
-                    
+
                     <xsl:choose>
                         <!-- MD:  History of Past illness Narrative should not have entry -->
-                        <xsl:when test="not(cda:templateId[@root='2.16.840.1.113883.10.20.22.2.65'])">
+                        <xsl:when test="not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.65'])">
                             <xsl:for-each select="
-                                cda:entry[not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200')]
-                                [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45')]
-                                [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.29')]
-                                [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.22')]
-                                [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.7')]
-                                [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.30')]">
-                                
+                                    cda:entry[not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200')]
+                                    [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45')]
+                                    [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.29')]
+                                    [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.22')]
+                                    [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.7')]
+                                    [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.30')]">
+
                                 <xsl:apply-templates select="cda:*" mode="reference">
                                     <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
-                                </xsl:apply-templates> 
-                                                              
+                                </xsl:apply-templates>
+
                             </xsl:for-each>
                         </xsl:when>
                     </xsl:choose>
-                   
-                    
+
+
                     <!-- Pregnancy Outcome is contained in Pregnancy Status in CDA but not in FHIR (it has a focus of the related pregnancy observation instead) -->
                     <xsl:if test="cda:code/@code = '90767-5'">
                         <xsl:for-each select="//cda:entryRelationship[cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']">
@@ -318,7 +343,8 @@
             <xsl:comment>Add CCDA-on-FHIR-Performer extension after C-CDA on FHIR is published</xsl:comment>
 
             <xsl:for-each select="cda:performer/cda:assignedEntity">
-                <extension url="http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Performer">
+
+                <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/PerformerExtension">
                     <xsl:apply-templates select="." mode="reference">
                         <xsl:with-param name="wrapping-elements">valueReference</xsl:with-param>
                     </xsl:apply-templates>

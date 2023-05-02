@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
-    exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
@@ -52,12 +51,8 @@
     <!-- C-CDA Result Organizer, C-CDA Vital Signs Organizer, Functional Status Organizer - bundle entry  -->
     <xsl:template match="cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1' or @root = '2.16.840.1.113883.10.20.22.4.26' or @root = '2.16.840.1.113883.10.20.22.4.66']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-        <xsl:for-each select="cda:component/cda:observation">
-            <xsl:apply-templates select="." mode="bundle-entry" />
-        </xsl:for-each>
-        <xsl:for-each select="cda:component/cda:procedure">
-            <xsl:apply-templates select="." mode="bundle-entry" />
-        </xsl:for-each>
+        <xsl:apply-templates select="cda:component/cda:*[not(cda:code[@code = '8462-4' or @code = '8480-6'])]" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:component/cda:observation[cda:code[@code = '8462-4' or @code = '8480-6']]/cda:performer" mode="bundle-entry" />
     </xsl:template>
 
     <!-- C-CDA Result Organizer, C-CDA Vital Signs Organizer, Functional Status Organizer  -->
@@ -96,9 +91,13 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName" select="'effective'" />
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+
+
+            <xsl:call-template name="performer-or-author" />
+            <!-- if there are any specific perfomers, get them -->
+            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>
             <!-- Specimen Collection Procedure -->
             <xsl:for-each select="cda:component/cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']]">
                 <specimen>
@@ -106,15 +105,35 @@
                 </specimen>
             </xsl:for-each>
             <!-- SG: Oids below are for C-CDA Result Observation, C-CDA Vital Sign Observation -->
-            <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2' or @root = '2.16.840.1.113883.10.20.22.4.27']]">
+            <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2']]">
+                <hasMember>
+                    <xsl:apply-templates select="." mode="reference" />
+                </hasMember>
+            </xsl:for-each>
+            <!-- SG: Oids below are for C-CDA Vital Sign Observation -->
+            <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']][not(cda:code[@code = '8462-4' or @code = '8480-6'])]">
+                <hasMember>
+                    <xsl:apply-templates select="." mode="reference" />
+                </hasMember>
+            </xsl:for-each>
+
+            <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']][cda:code[@code = '8462-4' or @code = '8480-6']]">
                 <!-- MD: blood pressure has two parts with one reference, here we using  systolic part as reference point supress diastolic part -->
-                <xsl:choose>
-                    <xsl:when test="not(cda:code/@code eq '8462-4')">
-                        <hasMember>
-                            <xsl:apply-templates select="." mode="reference" />
-                        </hasMember>
-                    </xsl:when>
-                </xsl:choose>
+
+                <component>
+                    <xsl:apply-templates select="cda:code">
+                        <xsl:with-param name="pElementName">code</xsl:with-param>
+                    </xsl:apply-templates>
+                    <xsl:choose>
+                        <xsl:when test="cda:value[@xsi:type = 'INT']">
+                            <!-- There is no valueInteger in observations. Assume is a scale instead -->
+                            <xsl:apply-templates select="cda:value" mode="scale" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="cda:value" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </component>
 
             </xsl:for-each>
         </Observation>
@@ -154,84 +173,18 @@
                 </coding>
             </category>
 
-            <!-- MD: put both systolic and diastolic part together -->
-            <xsl:choose>
-                <xsl:when test="cda:code/@code = '8480-6'">
-                    <code>
-                        <coding>
-                            <system value="http://loinc.org" />
-                            <code value="85354-9" />
-                            <display value="Blood pressure panel with all children optional" />
-                        </coding>
-                        <text value="Blood pressure systolic &amp; diastolic" />
-                    </code>
-                    <xsl:call-template name="subject-reference" />
-                    <xsl:apply-templates select="cda:effectiveTime">
-                        <xsl:with-param name="pStartElementName" select="'effective'" />
-                    </xsl:apply-templates>
-                    <xsl:choose>
-                        <xsl:when test="cda:code/@code = '8480-6'">
-                            <component>
-                                <xsl:apply-templates select="cda:code">
-                                    <xsl:with-param name="pElementName">code</xsl:with-param>
-                                </xsl:apply-templates>
-                                <xsl:choose>
-                                    <xsl:when test="cda:value[@xsi:type = 'INT']">
-                                        <!-- There is no valueInteger in observations. Assume is a scale instead -->
-                                        <xsl:apply-templates select="cda:value" mode="scale" />
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="cda:value" />
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </component>
-                        </xsl:when>
-                    </xsl:choose>
-
-                    <xsl:choose>
-                        <xsl:when test="../following-sibling::cda:component/cda:observation/cda:code[@code = '8462-4']">
-                            <component>
-                                <xsl:apply-templates select="../following-sibling::cda:component/cda:observation/cda:code[@code = '8462-4']">
-                                    <xsl:with-param name="pElementName">code</xsl:with-param>
-                                </xsl:apply-templates>
-                                <xsl:choose>
-                                    <xsl:when test="../following-sibling::cda:component/cda:observation[cda:code/@code = '8462-4']/cda:value[@xsi:type = 'INT']">
-                                        <!-- There is no valueInteger in observations. Assume is a scale instead -->
-                                        <xsl:apply-templates select="../following-sibling::cda:component/cda:observation[cda:code/@code = '8462-4']/cda:value" mode="scale" />
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="../following-sibling::cda:component/cda:observation[cda:code/@code = '8462-4']/cda:value" />
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </component>
-                        </xsl:when>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="cda:code">
-                        <xsl:with-param name="pElementName">code</xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:call-template name="subject-reference" />
-                    <xsl:apply-templates select="cda:effectiveTime">
-                        <xsl:with-param name="pStartElementName" select="'effective'" />
-                    </xsl:apply-templates>
-                    <xsl:call-template name="author-reference">
-                        <xsl:with-param name="pElementName">performer</xsl:with-param>
-                    </xsl:call-template>
-                    <xsl:choose>
-                        <xsl:when test="cda:value[@xsi:type = 'INT']">
-                            <!-- There is no valueInteger in observations. Assume is a scale instead -->
-                            <xsl:apply-templates select="cda:value" mode="scale" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="cda:value" />
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:apply-templates select="cda:interpretationCode" />
-                    <xsl:apply-templates select="cda:referenceRange" />
-                    <!-- TODO process entryRelationships -->
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">code</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:call-template name="subject-reference" />
+            <xsl:apply-templates select="cda:effectiveTime">
+                <xsl:with-param name="pStartElementName" select="'effective'" />
+            </xsl:apply-templates>
+            <xsl:call-template name="performer-or-author" />
+            <xsl:apply-templates select="cda:value" />
+            <xsl:apply-templates select="cda:interpretationCode" />
+            <xsl:apply-templates select="cda:referenceRange" />
+            <!-- TODO process entryRelationships -->
 
         </Observation>
     </xsl:template>
@@ -246,8 +199,8 @@
     <!-- C-CDA Caregiver Characteristics -->
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.72']]">
         <xsl:variable name="caregiver" select="cda:participant[@typeCode = 'IND'][cda:participantRole/@classCode = 'CAREGIVER']" />
+        <xsl:comment>C-CDACaregiver Characteristics</xsl:comment>
         <Observation>
-            <xsl:comment>Caregiver characteristics</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -263,9 +216,8 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:apply-templates select="cda:value" />
         </Observation>
     </xsl:template>
@@ -277,8 +229,8 @@
 
     <!-- (eICR) Travel History -->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.1']]">
+        <xsl:comment>Travel History</xsl:comment>
         <Observation>
-            <xsl:comment>Travel History</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -291,9 +243,8 @@
                 <!-- Will let the utility append the correct DateTime, Period, Timing, or effectiveInstant string onto this -->
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
             <component>
                 <xsl:for-each select="cda:participant/cda:participantRole/cda:addr">
                     <xsl:apply-templates select="." mode="extension" />
@@ -328,8 +279,8 @@
 
     <!-- (eICR) Last Menstrual Period -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.30.3.34']">
+        <xsl:comment>Last Menstrual Period</xsl:comment>
         <Observation>
-            <xsl:comment>Last Menstrual Period</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -340,9 +291,8 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:comment>Start of last menstrual period</xsl:comment>
             <xsl:apply-templates select="cda:value" />
         </Observation>
@@ -350,8 +300,8 @@
 
     <!-- (eICR) Postpartum Status -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.285']">
+        <xsl:comment>Postpartum Status</xsl:comment>
         <Observation>
-            <xsl:comment>Postpartum Status</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -364,9 +314,8 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:comment>Postpartum status</xsl:comment>
             <xsl:apply-templates select="cda:value" />
         </Observation>
@@ -374,8 +323,8 @@
 
     <!-- (eICR) Characteristics of Home Environment -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.109']">
+        <xsl:comment>Characteristics of Home Environment</xsl:comment>
         <Observation>
-            <xsl:comment>Characteristics of Home Environment</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -388,18 +337,16 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-                <xsl:with-param name="pPractitionerRole" select="false()" />
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:apply-templates select="cda:value" />
         </Observation>
     </xsl:template>
 
     <!-- Pregnancy Status Observation -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.293' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.3.8']">
+        <xsl:comment>Pregnancy Status Observation</xsl:comment>
         <Observation>
-            <xsl:comment>Pregnancy Status Observation</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:comment>Pregnancy Status Recorded Date</xsl:comment>
             <xsl:apply-templates select="cda:author/cda:time" mode="extension" />
@@ -422,9 +369,7 @@
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
 
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+            <xsl:call-template name="performer-or-author" />
             <!-- SG: value is always a code in Pregnancy Status -->
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
@@ -475,8 +420,8 @@
 
     <!-- Pregnancy Outcome Observation -->
     <xsl:template match="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']">
+        <xsl:comment>Pregnancy Outcome Observation</xsl:comment>
         <Observation>
-            <xsl:comment>Pregnancy Outcome Observation</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -494,9 +439,7 @@
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
 
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-            </xsl:call-template>
+            <xsl:call-template name="performer-or-author" />
             <xsl:apply-templates select="cda:value" />
 
             <xsl:if test="parent::*/cda:sequenceNumber">
@@ -524,8 +467,8 @@
 
     <!-- (RR) Reportability Response Summary -> RR Summary (Observation) -->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.8']]">
+        <xsl:comment>RR Summary</xsl:comment>
         <Observation>
-            <xsl:comment>RR Summary</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -533,6 +476,8 @@
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:variable name="vApos">'</xsl:variable>
             <xsl:variable name="vQuot">"</xsl:variable>
             <valueString value="{replace(cda:text/text(),$vQuot,$vApos)}" />
@@ -571,6 +516,8 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
                     <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
@@ -598,16 +545,16 @@
         <xsl:comment>Reportability Information Observation</xsl:comment>
         <Observation>
             <xsl:call-template name="add-meta" />
-            <!-- Determination of Reportability -->
+            <!-- RR Determination of Reportability -->
             <xsl:for-each select="cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.19']">
                 <xsl:apply-templates select="." mode="extension" />
 
-                <!-- Determination of Reportability Reason -->
+                <!-- RR Determination of Reportability Reason -->
                 <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.26']">
                     <xsl:apply-templates select="." mode="extension" />
                 </xsl:for-each>
 
-                <!-- Determination of Reportability Rule -->
+                <!-- RR Determination of Reportability Rule -->
                 <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.27']">
                     <xsl:apply-templates select="." mode="extension" />
                 </xsl:for-each>
@@ -618,38 +565,67 @@
                 <xsl:apply-templates select="." mode="extension" />
             </xsl:for-each>
 
-            <!--<xsl:for-each select="cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.14']">
-                <xsl:apply-templates select="cda:value">
-                    <xsl:with-param name="pElementName" select="'timingDuration'" />
-                </xsl:apply-templates>
-            </xsl:for-each>-->
-
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
+
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
+
+
             <!-- Rules Authoring Agency, Routing Entity, Responsible Agency -->
             <xsl:for-each select="cda:participant">
+                <xsl:comment>Rules Authoring Agency, Routing Entity, Responsible Agency</xsl:comment>
                 <performer>
                     <reference value="urn:uuid:{@lcg:uuid}" />
                 </performer>
             </xsl:for-each>
+
             <!-- Reporting Timeframe -->
-            <xsl:for-each select="cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.14']">
-                <component>
-                    <xsl:apply-templates select="cda:code">
-                        <xsl:with-param name="pElementName">code</xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="cda:value">
-                        <xsl:with-param name="pElementName">valueQuantity</xsl:with-param>
-                    </xsl:apply-templates>
-                </component>
-            </xsl:for-each>
+            <!-- Looks like FHIR mistakenly has this as required so will need to always something here -->
+            <xsl:choose>
+                <xsl:when test="cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.14']">
+                    <xsl:for-each select="cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.14']">
+                        <xsl:comment>Reporting Timeframe</xsl:comment>
+                        <component>
+                            <xsl:apply-templates select="cda:code">
+                                <xsl:with-param name="pElementName">code</xsl:with-param>
+                            </xsl:apply-templates>
+                            <xsl:apply-templates select="cda:value">
+                                <xsl:with-param name="pElementName">valueQuantity</xsl:with-param>
+                            </xsl:apply-templates>
+                        </component>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <component>
+                        <code>
+                            <coding>
+                                <system value="urn:oid:2.16.840.1.114222.4.5.232" />
+                                <code value="RR4" />
+                                <display value="Timeframe to report (urgency)" />
+                            </coding>
+                        </code>
+                        <valueQuantity>
+                            <value>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </value>
+                            <unit>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </unit>
+                        </valueQuantity>
+                    </component>
+
+                </xsl:otherwise>
+            </xsl:choose>
         </Observation>
     </xsl:template>
 
@@ -661,6 +637,7 @@
 
     <!-- (RR) eICR Processing Status -> eICR Processing Status Observation -->
     <xsl:template match="cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.29']">
+        <xsl:comment>(RR) eICR Processing Status -> eICR Processing Status Observation</xsl:comment>
         <Observation>
             <xsl:comment>Processing Status</xsl:comment>
             <xsl:call-template name="add-meta" />
@@ -676,8 +653,6 @@
         </Observation>
     </xsl:template>
 
-    <!-- *************** End Reportability Response Processing ******************************************************************* -->
-
     <!-- Processing Status Reason - entry -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.21']" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
@@ -685,15 +660,15 @@
 
     <!-- Processing Status Reason -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.21']">
+        <xsl:comment>Processing Status Reason</xsl:comment>
         <Observation>
-            <xsl:comment>Processing Status Reason</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName" select="'code'" />
             </xsl:apply-templates>
-
+            <xsl:call-template name="performer-or-author" />
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pElementName" select="'valueCodeableConcept'" />
             </xsl:apply-templates>
@@ -713,10 +688,12 @@
         </Observation>
     </xsl:template>
 
+    <!-- *************** End Reportability Response Processing ******************************************************************* -->
+
     <!-- ODH Usual Work -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.221']">
+        <xsl:comment>ODH Usual Work</xsl:comment>
         <Observation>
-            <xsl:comment>ODH Usual Work</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -728,11 +705,8 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-                <!-- ODH Usual Work profile doesn't allow PractitionerRole for the performer -->
-                <xsl:with-param name="pPractitionerRole" select="false()" />
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
                     <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
@@ -753,8 +727,8 @@
 
     <!-- ODH Past or Present Job -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <xsl:comment>ODH Past or Present Job</xsl:comment>
         <Observation>
-            <xsl:comment>ODH Past or Present Job</xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:comment>ohh-Employer-extension</xsl:comment>
             <xsl:apply-templates select="cda:participant[@typeCode = 'IND']" mode="extension" />
@@ -767,11 +741,9 @@
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-                <!-- ODH Past or Present Job profile doesn't allow PractitionerRole for the performer -->
-                <xsl:with-param name="pPractitionerRole" select="false()" />
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
+
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
                     <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
@@ -808,8 +780,8 @@
 
     <!-- Generic Observation Processing -->
     <xsl:template match="cda:observation" priority="-1">
+        <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/extension" /></xsl:comment>
         <Observation>
-            <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/extension" /></xsl:comment>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -822,8 +794,7 @@
                             <code value="EXPOS" />
                             <display value="exposure" />
                         </coding>
-                        <text value="An interaction between entities that provides opportunity for transmission of a physical, chemical, or biological agent from an exposure source entity to an exposure target entity."
-                         />
+                        <text value="An interaction between entities that provides opportunity for transmission of a physical, chemical, or biological agent from an exposure source entity to an exposure target entity." />
                     </category>
                 </xsl:when>
             </xsl:choose>
@@ -841,12 +812,9 @@
             </xsl:choose>
 
             <xsl:apply-templates select="/cda:ClinicalDocument/cda:effectiveTime" mode="observation" />
-            <!-- I think we are using author-reference here even though the element in the Observation is "performer" 
-           because the FHIR Observation.perfomer definition aligns more closely with ClinicalDocument.author -->
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">performer</xsl:with-param>
-                <xsl:with-param name="pPractitionerRole" select="false()" />
-            </xsl:call-template>
+
+            <xsl:call-template name="performer-or-author" />
+
             <xsl:choose>
                 <xsl:when test="cda:value[@xsi:type = 'INT']">
                     <!-- There is no valueInteger in observations. Assume is a scale instead -->
@@ -881,14 +849,36 @@
         </Observation>
     </xsl:template>
 
+    <xsl:template name="performer-or-author">
+        <xsl:choose>
+            <xsl:when test="cda:performer/cda:assignedEntity">
+                <xsl:for-each select="cda:performer/cda:assignedEntity">
+                    <performer>
+                        <reference value="urn:uuid:{@lcg:uuid}" />
+                    </performer>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="
+                    cda:author/cda:assignedAuthor/cda:assignedPerson or
+                    ancestor::cda:section[1]/cda:author/cda:assignedAuthor or
+                    /cda:ClinicalDocument/cda:author/cda:assignedAuthor/cda:assignedPerson or
+                    /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">
+                <xsl:call-template name="author-reference">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>No author reference candidate found</xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <!-- Generic bundle entry creation (inc. author and contained templates) -->
     <xsl:template match="cda:observation" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
         <xsl:apply-templates select="cda:author[cda:assignedAuthor[cda:assignedPerson or cda:assignedDevice]]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:assignedPerson or cda:assignedOrganization]]" mode="bundle-entry" />
-
-        <xsl:apply-templates select="cda:entryRelationship/cda:observation" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:entryRelationship/cda:organizer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
 

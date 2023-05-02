@@ -20,6 +20,7 @@
         </xsl:variable>
         <!-- Make sure it is a template in eICR - there could potentially be other templates that use @sdtc:valueSet -->
         <xsl:if test="$vCurrentIg = 'eICR'">
+            <xsl:comment>eICR Trigger Code Flag Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
                 <extension url="triggerCodeValueSet">
                     <xsl:variable name="vValueOid" select="concat('urn:oid:', @sdtc:valueSet)" />
@@ -40,6 +41,7 @@
 
     <!-- TEMPLATE: Address extension in eICR Travel History Observation profile -->
     <xsl:template match="cda:addr" mode="extension">
+        <xsl:comment>Travel History Address Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension">
             <xsl:apply-templates select=".">
                 <xsl:with-param name="pElementName">valueAddress</xsl:with-param>
@@ -58,7 +60,8 @@
 
     <!-- TEMPLATE: Therapeutic Response to Medication Extension -->
     <xsl:template match="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.37']" mode="extension">
-        <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/therapeutic-medication-response-extension">
+        <xsl:comment>US Public Health Therapeutic Medication Response Extension</xsl:comment>
+        <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension">
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
             </xsl:apply-templates>
@@ -67,6 +70,7 @@
 
     <!-- TEMPLATE: Date determined extension (Pregnancy Status, Estimated Date of Delivery, Estimated Gestational Age of Pregnancy) -->
     <xsl:template match="cda:effectiveTime[parent::*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280']]] | cda:time[parent::cda:performer]" mode="extension">
+        <xsl:comment>Date Determined Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
             <xsl:apply-templates select=".">
                 <xsl:with-param name="pStartElementName">value</xsl:with-param>
@@ -76,6 +80,7 @@
 
     <!-- TEMPLATE: Date recorded extension (Pregnancy Status) -->
     <xsl:template match="cda:time[parent::cda:author]" mode="extension">
+        <xsl:comment>Date Recorded Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension">
             <xsl:apply-templates select=".">
                 <xsl:with-param name="pStartElementName">value</xsl:with-param>
@@ -85,6 +90,7 @@
 
     <!-- TEMPLATE: determination of reportability (RR Composition)-->
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.19']]" mode="extension">
+        <xsl:comment>RR Determination of Reportability</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension">
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pElementName" select="'valueCodeableConcept'" />
@@ -95,6 +101,7 @@
     <!-- TEMPLATE: RR External Resource Extension (RR Composition)-->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.20']]" mode="extension">
         <xsl:for-each select="cda:reference/cda:externalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.17']]">
+            <xsl:comment>RR External Resource Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                 <valueReference>
                     <xsl:apply-templates select="." mode="reference" />
@@ -105,11 +112,7 @@
 
     <!-- TEMPLATE: [RR R1S1] eICR Processing Status -->
     <xsl:template match="cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.2.3']" mode="extension">
-        <!--<extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension">
-            <valueReference>
-                <xsl:apply-templates select="." mode="reference" />
-            </valueReference>
-        </extension>-->
+        <xsl:comment>eICR Processing Status Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension">
             <xsl:for-each select="cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.29']">
                 <extension url="eICRProcessingStatus">
@@ -119,6 +122,7 @@
                 </extension>
                 <!-- eICR Validation Output -> fhir:extension -->
                 <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.33']/cda:value">
+                    <xsl:comment>eICR Validation Output Extension</xsl:comment>
                     <extension url="eICRValidationOutput">
                         <xsl:choose>
                             <xsl:when test="@mediaType = 'text/xhtml'">
@@ -137,6 +141,7 @@
 
         <!-- Manually Initiated eICR -> fhir: extension rr-initiation-type-extension-->
         <xsl:for-each select="cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.22']">
+            <xsl:comment>eICR Initiation Type Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension">
                 <xsl:apply-templates select="cda:code">
                     <xsl:with-param name="pElementName" select="'valueCodeableConcept'" />
@@ -146,6 +151,7 @@
 
         <!-- Received eICR Information -> fhir:extension rr-eicr-receipt-time-extension -->
         <xsl:for-each select="cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']">
+            <xsl:comment>eICR Receipt Time Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-receipt-time-extension">
                 <valueDateTime>
                     <xsl:attribute name="value">
@@ -154,23 +160,12 @@
                 </valueDateTime>
             </extension>
         </xsl:for-each>
-
-        <!--<!-\- Received eICR Information -> fhir:contentReference -\->
-        <xsl:for-each select="cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']">
-            <contentReference>
-                <xsl:apply-templates select="cda:reference/cda:externalDocument/cda:id" />
-                <xsl:for-each select="cda:text">
-                    <xsl:variable name="vApos">'</xsl:variable>
-                    <xsl:variable name="vQuot">"</xsl:variable>
-                    <display value="{replace(text(),$vQuot,$vApos)}" />
-                </xsl:for-each>
-            </contentReference>
-        </xsl:for-each>-->
     </xsl:template>
 
     <!-- TEMPLATE: [RR R1S1] Reportability Response Summary Section -->
     <xsl:template match="cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.2.2']" mode="extension">
         <xsl:for-each select="cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.30']">
+            <xsl:comment>RR Priority Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension">
                 <xsl:apply-templates select="cda:value">
                     <xsl:with-param name="pElementName" select="'valueCodeableConcept'" />
@@ -181,6 +176,7 @@
 
     <!-- TEMPLATE: determination of reportability reason (RR Composition) -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.26']" mode="extension">
+        <xsl:comment>Determination of Reportability Reason Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension">
             <xsl:apply-templates select="cda:value[@xsi:type = 'ST']">
                 <xsl:with-param name="pElementName" select="'valueString'" />
@@ -193,6 +189,7 @@
 
     <!-- TEMPLATE: determination of reportability rule (RR Composition)-->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.27']" mode="extension">
+        <xsl:comment>Determination of Reportability Rule Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
             <xsl:apply-templates select="cda:value[@xsi:type = 'ST']">
                 <xsl:with-param name="pElementName" select="'valueString'" />
@@ -202,6 +199,7 @@
 
     <!-- TEMPLATE: odh-Employer-extension -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']/cda:participant[@typeCode = 'IND']" mode="extension">
+        <xsl:comment>ODH Employer Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension">
             <valueReference>
                 <xsl:apply-templates select="." mode="reference" />
@@ -219,6 +217,7 @@
         
         <xsl:choose>
             <xsl:when test="$vCurrentIg='eICR' or $vCurrentIg='RR'">
+                <xsl:comment>US Public Health Information Recipient Extension</xsl:comment>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension">
                     <valueReference>
                         <xsl:apply-templates select="." mode="reference" />
@@ -227,6 +226,7 @@
                 </extension>        
             </xsl:when>
             <xsl:otherwise>
+                <xsl:comment>C-CDA Recipient Extension</xsl:comment>
                 <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension">
                     <valueReference>
                         <xsl:apply-templates select="." mode="reference" />

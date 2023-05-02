@@ -1,0 +1,33 @@
+<mapping>
+  <!-- Common codes and their proper displays - CDA validators do not generally check displayNames and FHIR validators do, this is a listing of some common ones -->
+    <map code="64572001" display="Disease (disorder)" />
+    <map code="75323-6" display="Condition" />
+    <map code="55751-2" display="Public health Case report" />
+    <map code="RR6" display="eICR Processing Status Reason" />
+    <map code="18776-5" display="Plan of care note" />
+    <map code="80825-3" display="Zika virus envelope E gene [Presence] in Serum by NAA with probe detection" />
+    <map code="10164-2" display="History of Present illness Narrative" />
+    <map code="29549-3" display="Medication administered Narrative" />
+    <map code="11450-4" display="Problem list - Reported" />
+    <map code="30954-2" display="Relevant diagnostic tests/laboratory data Narrative" />
+    <map code="57021-8" display="CBC W Auto Differential panel - Blood" />
+    <map code="47519-4" display="History of Procedures Document" />
+    <map code="409524006" display="Airborne precautions (procedure)" />
+    <map code="29762-2" display="Social history Narrative" />
+    <map code="282291009" display="Diagnosis interpretation" />
+    <map code="20570-8" display="Hematocrit [Volume Fraction] of Blood" />
+    <map code="731-0" display="Lymphocytes [#/volume] in Blood by Automated count" />
+    <map code="69856-3" display="Are you deaf, or do you have serious difficulty hearing" />
+    <map code="91" display="Fort Mojave Indian Tribe of Arizona, California &amp; Nevada" />
+    <map code="21843-8" display="History of Usual occupation" />
+    <map code="21844-6" display="History of Usual industry" />
+    <map code="86188-0" display="History of Occupation industry" />
+    <map code="74165-2" display="History of employment status NIOSH" />
+    <map code="16310003" display="Ultrasonography (procedure)" />
+    <map code="74728-7" display="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel - HL7.CCDAr1.1" />
+    <map code="8302-2" display="Body height" />
+    <map code="3141-9" display="Body weight Measured" />
+    <map code="39156-5" display="Body mass index (BMI) [Ratio]" />
+    <map code="2710-2" display="Deprecated Oxygen saturation in Capillary blood by Oximetry" />
+    
+</mapping>

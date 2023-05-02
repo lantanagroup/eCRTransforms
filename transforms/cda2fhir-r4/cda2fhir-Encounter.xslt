@@ -53,7 +53,6 @@
             </xsl:choose>
         </xsl:variable>
         <Encounter>
-            <xsl:comment>In Encounter</xsl:comment>
             <xsl:choose>
                 <xsl:when test="$vCurrentIg = 'eICR'">
                     <xsl:call-template name="add-participant-meta" />
@@ -203,6 +202,21 @@
                                 <code value="{cda:code/cda:translation/@code}" />
                             </class>
                         </xsl:when>
+                        
+                        <!-- MD: add for ambulatory encounter-->
+                        <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                            <class>
+                                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                                <code value="{cda:code/@code}" />
+                            </class>
+                        </xsl:when>       
+                        <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                            <class>
+                                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                                <code value="{cda:code/cda:translation/@code}" />
+                            </class>
+                        </xsl:when> 
+                        
                         <xsl:otherwise>
                             <class>
                                 <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
@@ -235,7 +249,10 @@
                                 <xsl:when test="local-name(.) = 'performer'">
                                     <type>
                                         <coding>
+                                            <!-- MD: fix validate error 
                                             <system value="http://hl7.org/fhir/v3/ParticipationType" />
+                                            -->
+                                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
                                             <code value="PPRF" />
                                         </coding>
                                     </type>
@@ -259,13 +276,16 @@
                         </participant>
                     </xsl:for-each>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="cda:author/cda:assignedAuthor/cda:assignedPerson or 
+                    ancestor::cda:section[1]/cda:author[1]/cda:assignedAuthor or 
+                    /cda:ClinicalDocument/cda:author[1]/cda:assignedAuthor/cda:assignedPerson or 
+                    /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">
                     <participant>
                         <xsl:call-template name="author-reference">
                             <xsl:with-param name="pElementName">individual</xsl:with-param>
                         </xsl:call-template>
                     </participant>
-                </xsl:otherwise>
+                </xsl:when>
             </xsl:choose>
             <xsl:apply-templates select="cda:effectiveTime" mode="period" />
             <xsl:choose>

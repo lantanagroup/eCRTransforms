@@ -22,13 +22,7 @@
         </xsl:for-each>
     </xsl:template>
     
-    <!--  
-    <xsl:template
-        match="cda:serviceEvent"
-        mode="reference">
-        <reference value="urn:uuid:{@lcg:uuid}"/>
-    </xsl:template>
-	-->
+
     <xsl:template match="cda:serviceEvent">
         <CarePlan>
             <xsl:call-template name="add-meta"/>
@@ -54,13 +48,7 @@
                     <xsl:with-param name="wrapping-elements">activity/reference</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
-            <!--
-            <xsl:for-each select="//cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.16']]">
-                <xsl:apply-templates select="." mode="reference">
-                    <xsl:with-param name="wrapping-elements">activity/reference</xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:for-each>
-            -->
+
         </CarePlan>
     </xsl:template>
 

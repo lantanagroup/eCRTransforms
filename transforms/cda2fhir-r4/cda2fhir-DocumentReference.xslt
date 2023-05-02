@@ -170,7 +170,6 @@
             </xsl:apply-templates>
             <!-- ClinicalDocument.setId and versionNumber -->
             <xsl:call-template name="createIdentifierWithVersionNumber" />
-
             <status value="current" />
             <!-- type -->
             <xsl:apply-templates select="cda:code">
@@ -190,7 +189,6 @@
             <subject>
                 <xsl:apply-templates select="/cda:ClinicalDocument/cda:recordTarget" mode="reference" />
             </subject>
-            
 
             <content>
                 <attachment>

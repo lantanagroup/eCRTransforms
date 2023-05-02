@@ -138,7 +138,7 @@
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>Unknown procedure obeservation procedure value for
+                        <xsl:message>Unknown procedure observation procedure value for
                             <xsl:apply-templates select="cda:id"/></xsl:message>
                     </xsl:otherwise>
                 </xsl:choose>

@@ -47,7 +47,15 @@
 
       <xsl:call-template name="generate-text-patient" />
       <xsl:call-template name="add-race-codes" />
-      <xsl:call-template name="add-ethnicity-codes" />
+      <xsl:choose>
+        <xsl:when test="cda:patientRole/cda:patient/cda:ethnicGroupCode/@nullFlavor">
+          
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="add-ethnicity-codes" />
+        </xsl:otherwise>
+      </xsl:choose>
+     
       <xsl:call-template name="add-birthtime-extension" />
       <xsl:call-template name="add-birth-sex-extension" />
       <xsl:call-template name="add-gender-identity-extension" />
@@ -180,7 +188,15 @@
           <extension url="ombCategory">
             <valueCoding>
               <system value="{$codeSystemUri}" />
-              <code value="{$code}" />
+              <xsl:choose>
+                <xsl:when test="$code='NI'">
+                  <code value='UNK'/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <code value="{$code}" />
+                </xsl:otherwise>
+              </xsl:choose>
+             
               <xsl:if test="@displayName">
                 <display value="{@displayName}" />
               </xsl:if>
@@ -332,7 +348,14 @@
           <extension url="ombCategory">
             <valueCoding>
               <system value="{$codeSystemUri}" />
-              <code value="{$code}" />
+              <xsl:choose>
+                <xsl:when test="$code='NI'">
+                  <code value='UNK'  />
+                </xsl:when>
+                <xsl:otherwise>
+                  <code value="{$code}" />
+                </xsl:otherwise>
+              </xsl:choose>          
               <xsl:if test="@displayName">
                 <display value="{@displayName}" />
               </xsl:if>

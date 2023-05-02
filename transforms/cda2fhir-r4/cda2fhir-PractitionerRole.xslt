@@ -15,16 +15,19 @@
     <!-- PractitionerRole? -->
     <xsl:call-template name="create-bundle-entry" />
     <!-- Practitioner -->
-    <xsl:for-each select="cda:informationRecipient | cda:assignedPerson | cda:associatedPerson">
+    <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | cda:assignedPerson | cda:associatedPerson">
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
     <!-- Organization -->
     <xsl:for-each select="cda:receivedOrganization | cda:representedOrganization | cda:scopingOrganization">
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
+    <xsl:apply-templates select="cda:assignedAuthoringDevice" mode="bundle-entry"/>
+    <!--
     <xsl:for-each select="cda:assignedAuthoringDevice">
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
+    -->
   </xsl:template>
 
   <!-- participantRole of locations are being matched here to PractitionerRole, need to omit -->
@@ -66,8 +69,9 @@
       </xsl:choose>
 
       <xsl:call-template name="breadcrumb-comment" />
+      
       <xsl:apply-templates select="cda:id" />
-      <xsl:for-each select="cda:informationRecipient | cda:assignedPerson | cda:associatedPerson">
+      <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | cda:assignedPerson | cda:associatedPerson">
         <practitioner>
           <xsl:apply-templates select="." mode="reference" />
         </practitioner>
@@ -92,7 +96,7 @@
     </PractitionerRole>
   </xsl:template>
 
-  <xsl:template match="cda:informationRecipient | cda:assignedPerson | cda:associatedPerson">
+  <xsl:template match="cda:informationRecipient[parent::cda:intendedRecipient] | cda:assignedPerson | cda:associatedPerson">
     <xsl:call-template name="make-practitioner">
       <xsl:with-param name="id" select="../cda:id" />
       <xsl:with-param name="name" select="cda:name" />

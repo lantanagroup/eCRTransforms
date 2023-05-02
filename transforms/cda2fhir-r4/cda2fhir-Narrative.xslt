@@ -1531,7 +1531,19 @@
         </xsl:choose>
     </xsl:template>
 
-
+  <!--<xsl:template match="n1:renderMultiMedia">
+    <img xmlns="http://www.w3.org/1999/xhtml">
+      <xsl:variable name="vReferencedObject">
+        <xsl:value-of select="@referencedObject"/>
+      </xsl:variable>
+      <xsl:attribute name="src" select="../../n1:component/n1:observationMedia[@ID=$vReferencedObject]/n1:value/n1:reference/@value"/>
+      <xsl:attribute name="alt" select="../../n1:component/n1:observationMedia[@ID=$vReferencedObject]/n1:text/text()"/>
+      <xsl:apply-templates select="@language" mode="narrative"/>
+      <xsl:apply-templates select="@styleCode" mode="narrative"/>
+      <xsl:apply-templates select="node()" mode="narrative"/>
+    </img>
+  </xsl:template>  -->
+  
     <xsl:template match="n1:renderMultiMedia">
         <xsl:variable name="imageRef" select="@referencedObject" />
         <xsl:choose>

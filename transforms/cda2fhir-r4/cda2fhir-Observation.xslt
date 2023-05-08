@@ -46,6 +46,8 @@
     <!-- Suppress Subject, Initiation since matched in extension in cda2fhir-Composition.xslt (even though they are acts...) -->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7' or @root = '2.16.840.1.113883.10.20.15.2.3.22']]" mode="bundle-entry" />
 
+    <!-- Suppress Tribal Affiliation Observation since matched in add-tribal-affiliation-extension in cda2fhir-Patient.xslt -->
+    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.48']" mode="bundle-entry" />
     <!-- ********************************************************************************************** -->
 
     <!-- C-CDA Result Organizer, C-CDA Vital Signs Organizer, Functional Status Organizer - bundle entry  -->
@@ -418,6 +420,8 @@
         </component>
     </xsl:template>
 
+    <xsl:template match="cda:sequenceNumber[following-sibling::cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']" mode="bundle-entry"/>
+    
     <!-- Pregnancy Outcome Observation -->
     <xsl:template match="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']">
         <xsl:comment>Pregnancy Outcome Observation</xsl:comment>
@@ -690,16 +694,24 @@
 
     <!-- *************** End Reportability Response Processing ******************************************************************* -->
 
-    <!-- ODH Usual Work -->
+    <!-- Usual Occupation Observation -> ODH Usual Work -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.221']">
         <xsl:comment>ODH Usual Work</xsl:comment>
         <Observation>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
+            <!-- This isn't required by the profile, but I think that might be an oversight in the 
+            ODH profile so adding it-->
+            <category>
+                <coding>
+                    <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+                    <code value="social-history" />
+                    <display value="Social History" />
+                </coding>
+            </category>
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
-
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime">
@@ -778,16 +790,30 @@
         </component>
     </xsl:template>
 
-    <!-- Generic Observation Processing -->
-    <xsl:template match="cda:observation" priority="-1">
-        <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/extension" /></xsl:comment>
+
+    <!-- Exposure/Contact Information Observation - bundle entry-->
+    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.52']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:participant[not(@typeCode = 'CSM')]" mode="bundle-entry" />
+    </xsl:template>
+
+    <!-- Exposure/Contact Information Observation -> US Public Health Exposure Contact Information -->
+    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.52']]">
+        <xsl:comment>Exposure/Contact Information Observation</xsl:comment>
         <Observation>
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
-            <!-- MD: add the category for EXPOS based on cda template -->
+
             <xsl:choose>
-                <xsl:when test="cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.52'">
+                <xsl:when test="cda:participant/sdtc:functionCode">
+                    <xsl:apply-templates select="cda:participant/sdtc:functionCode">
+                        <xsl:with-param name="pElementName">category</xsl:with-param>
+                    </xsl:apply-templates>
+
+                </xsl:when>
+                <xsl:otherwise>
                     <category>
                         <coding>
                             <system value="http://terminology.hl7.org/CodeSystem/v3-ActClass" />
@@ -796,8 +822,48 @@
                         </coding>
                         <text value="An interaction between entities that provides opportunity for transmission of a physical, chemical, or biological agent from an exposure source entity to an exposure target entity." />
                     </category>
-                </xsl:when>
+                </xsl:otherwise>
             </xsl:choose>
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">code</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:call-template name="subject-reference" />
+            <!-- focus (cda:participant) person, animal, location -->
+            <xsl:for-each select="cda:participant[not(@typeCode = 'CSM')]">
+                <focus>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </focus>
+            </xsl:for-each>
+            <xsl:apply-templates select="cda:effectiveTime">
+                <xsl:with-param name="pStartElementName">effective</xsl:with-param>
+            </xsl:apply-templates>
+
+            <xsl:call-template name="performer-or-author" />
+
+            <xsl:for-each select="cda:participant[@typeCode = 'CSM']">
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+                            <code value="EXPAGNT" />
+                            <display value="ExposureAgent" />
+                        </coding>
+                    </code>
+                    <xsl:apply-templates select="cda:participantRole/cda:playingEntity/cda:code">
+                        <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+                    </xsl:apply-templates>
+                </component>
+            </xsl:for-each>
+        </Observation>
+    </xsl:template>
+
+    <!-- Generic Observation Processing -->
+    <xsl:template match="cda:observation" priority="-1">
+        <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/extension" /></xsl:comment>
+        <Observation>
+            <xsl:call-template name="add-meta" />
+            <xsl:apply-templates select="cda:id" />
+            <status value="final" />
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
@@ -851,7 +917,7 @@
 
     <xsl:template name="performer-or-author">
         <xsl:choose>
-            <xsl:when test="cda:performer/cda:assignedEntity">
+            <xsl:when test="cda:performer/cda:assignedEntity[assignedPerson|assignedEntity]">
                 <xsl:for-each select="cda:performer/cda:assignedEntity">
                     <performer>
                         <reference value="urn:uuid:{@lcg:uuid}" />
@@ -878,6 +944,7 @@
         <xsl:call-template name="create-bundle-entry" />
         <xsl:apply-templates select="cda:author[cda:assignedAuthor[cda:assignedPerson or cda:assignedDevice]]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:assignedPerson or cda:assignedOrganization]]" mode="bundle-entry" />
+        <!--        <xsl:apply-templates select="cda:participant" mode="bundle-entry" />-->
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 

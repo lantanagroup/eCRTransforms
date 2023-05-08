@@ -275,7 +275,11 @@
     <map oid="2.16.840.1.113883.4.642.4.1085" uri="http://terminology.hl7.org/CodeSystem/sequenceStatus" />
     <map oid="2.16.840.1.113883.4.642.4.1402" uri="http://terminology.hl7.org/CodeSystem/verificationresult-communication-method" />
     <map oid="2.16.840.1.113883.4.642.1.1147" uri="http://terminology.hl7.org/CodeSystem/coverage-class" />
+    <!-- The following are messed up - LOINC and PHINVADs have the first one, THO has the second one - who is correct,
+         need to find out -->
+    <map oid="2.16.840.1.113883.12.136" uri="http://terminology.hl7.org/CodeSystem/v2-0532" />
     <map oid="2.16.840.1.113883.18.347" uri="http://terminology.hl7.org/CodeSystem/v2-0532" />
+    
     <map oid="2.16.840.1.113883.4.642.4.1386" uri="http://terminology.hl7.org/CodeSystem/subscriber-relationship" />
 
     <!--HL7v3 OIDs/URIs-->

@@ -310,6 +310,7 @@
                             <xsl:for-each select="
                                     cda:entry[not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200')]
                                     [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45')]
+                                    [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.48')]
                                     [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.29')]
                                     [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.22')]
                                     [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.7')]

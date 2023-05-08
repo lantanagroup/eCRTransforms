@@ -934,7 +934,7 @@
     <xsl:template match="
             cda:code | cda:confidentialityCode | cda:maritalStatusCode | cda:routeCode | cda:raceCode | sdtc:raceCode |
             cda:ethnicGroupCode | cda:religiousAffiliationCode | cda:targetSiteCode | cda:priorityCode | cda:translation |
-            cda:methodCode | cda:approachSiteCode">
+            cda:methodCode | cda:approachSiteCode | sdtc:functionCode">
         <xsl:param name="pElementName" select="'CodeableConcept'" />
         <xsl:param name="includeCoding" select="true()" />
         <xsl:call-template name="newCreateCodableConcept">
@@ -1174,7 +1174,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="cda:birthTime">
+    <xsl:template match="cda:birthTime|sdtc:birthTime">
         <xsl:param name="pElementName">birthDate</xsl:param>
         <xsl:if test="not(@nullFlavor)">
             <xsl:element name="{$pElementName}">
@@ -1215,6 +1215,15 @@
         <xsl:element name="{$pElementName}">
             <xsl:attribute name="value">
                 <xsl:value-of select="lcg:cdaTS2date(@value)" />
+            </xsl:attribute>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="cda:value[@xsi:type = 'BL']">
+        <xsl:param name="pElementName" select="'valueBoolean'" />
+        <xsl:element name="{$pElementName}">
+            <xsl:attribute name="value">
+                <xsl:value-of select="@value" />
             </xsl:attribute>
         </xsl:element>
     </xsl:template>

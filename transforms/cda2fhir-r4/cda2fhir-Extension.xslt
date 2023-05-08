@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0"
-    exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
@@ -100,7 +99,7 @@
 
     <!-- TEMPLATE: RR External Resource Extension (RR Composition)-->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.20']]" mode="extension">
-        <xsl:for-each select="cda:reference/cda:externalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.17']]">
+        <xsl:for-each select="cda:reference/cda:externalDocument[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.17']]">
             <xsl:comment>RR External Resource Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                 <valueReference>
@@ -207,23 +206,23 @@
             </valueReference>
         </extension>
     </xsl:template>
-    
+
     <!-- TEMPLATE: ClinicalDocument/informationRecipient/intendedRecipient -->
     <xsl:template match="cda:informationRecipient/cda:intendedRecipient" mode="extension">
         <!-- Get current IG -->
         <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg"/>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
-        
+
         <xsl:choose>
-            <xsl:when test="$vCurrentIg='eICR' or $vCurrentIg='RR'">
+            <xsl:when test="$vCurrentIg = 'eICR' or $vCurrentIg = 'RR'">
                 <xsl:comment>US Public Health Information Recipient Extension</xsl:comment>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension">
                     <valueReference>
                         <xsl:apply-templates select="." mode="reference" />
                         <!--        <reference value="urn:uuid:{@lcg:uuid}" />-->
                     </valueReference>
-                </extension>        
+                </extension>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:comment>C-CDA Recipient Extension</xsl:comment>
@@ -235,7 +234,6 @@
                 </extension>
             </xsl:otherwise>
         </xsl:choose>
-        
     </xsl:template>
 
     <!-- Stop text printing out if there is no match -->

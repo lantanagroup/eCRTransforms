@@ -31,7 +31,7 @@
   </xsl:template>
 
   <!-- participantRole of locations are being matched here to PractitionerRole, need to omit -->
-  <xsl:template match="cda:intendedRecipient | cda:assignedAuthor[not(cda:assignedAuthoringDevice)] | cda:assignedEntity | cda:participantRole[not(@classCode = 'TERR')]">
+  <xsl:template match="cda:intendedRecipient | cda:assignedAuthor[not(cda:assignedAuthoringDevice)] | cda:assignedEntity | cda:participantRole[not(@classCode='TERR')][not(parent::cda:participant/@typeCode='CSM')]">
     <PractitionerRole>
 
       <!-- SG 20191204: Add meta.profile -->

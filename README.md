@@ -22,10 +22,10 @@ This repo contains the following transforms:
          
 ## FHIR to CDA
 
-### FHIR eICR R2 to CDA eICR R1.1 
-(Next in line to be updated to FHIR eICR R2.1 to CDA eICR R1.1)
+### FHIR eICR R2.1 to CDA eICR R1.1 
+(Added 2023-MAY-16)
 
-* Sample files to use: samples/fhir/eICR-R2 
+* Sample files to use: samples/fhir/eICR-R2_1 
 * File to run: transforms/fhir2cda-r4/fhir2cda.xslt with parameter gParamCDAeICRVersion = 'R1.1'
      
 ### FHIR eICR R2.1 to CDA eICR R3.1 
@@ -54,3 +54,6 @@ This repo contains the following transforms:
 
 ### FHIR RR R2 to CDA RR R1
 * Replaced with FHIR RR R2.1 to CDA RR R1.1
+
+### FHIR eICR R2 to CDA eICR R1.1
+* Replaced with FHIR eICR R2.1 to CDA eICR R1.1

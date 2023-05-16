@@ -735,10 +735,6 @@ limitations under the License.
             </assignedAuthor>
           </author>
         </xsl:for-each>
-        <!-- For eCR R3 need to add code for US Public Health Transportation Details and US Public Helath Exposure Contact Information -->
-        <!--<xsl:for-each select="hasMember">
-                    
-                </xsl:for-each>-->
         <xsl:for-each select="fhir:component">
           <xsl:choose>
             <!-- These are participants not entryRelationships -->

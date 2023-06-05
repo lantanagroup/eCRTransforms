@@ -2039,8 +2039,11 @@
         </xsl:choose>
     </xsl:function>
 
-    <!-- SG 2023-06-05 Updated to return full data absent reason extension -->
-    <xsl:template match="@nullFlavor" mode="data-absent-reason">
+    
+    
+    
+    <!-- SG 2023-06-05 Returns full data absent reason extension -->
+    <xsl:template match="@nullFlavor" mode="data-absent-reason-extension">
         <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
             <xsl:element name="valueCode">
                 <xsl:attribute name="value">
@@ -2055,6 +2058,27 @@
                 </xsl:attribute>
             </xsl:element>
         </extension>
+    </xsl:template>
+    
+    <!-- This is for Observation.dataAbsentReason only  -->
+    <xsl:template match="@nullFlavor" mode="data-absent-reason">
+        <dataAbsentReason>
+            <coding>
+                <system value="http://hl7.org/fhir/ValueSet/data-absent-reason" />
+                <xsl:element name="code">
+                    <xsl:attribute name="value">
+                        <xsl:choose>
+                            <xsl:when test=". = 'UNK'">unknown</xsl:when>
+                            <xsl:when test=". = 'NA'">not-applicable</xsl:when>
+                            <xsl:when test=". = 'MSK'">masked</xsl:when>
+                            <xsl:when test=". = 'NINF'">negative-infinity</xsl:when>
+                            <xsl:when test=". = 'PINF'">positive-infinity</xsl:when>
+                            <xsl:otherwise>unknown</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                </xsl:element>
+            </coding>
+        </dataAbsentReason>
     </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument" mode="currentIg">

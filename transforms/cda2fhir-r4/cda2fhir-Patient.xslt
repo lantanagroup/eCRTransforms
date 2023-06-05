@@ -72,7 +72,7 @@
             <xsl:choose>
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime[@nullFlavor]">
                     <deceasedDateTime>
-                        <xsl:apply-templates select="cda:patientRole/cda:patient/sdtc:deceasedTime/@nullFlavor" mode="data-absent-reason" />
+                        <xsl:apply-templates select="cda:patientRole/cda:patient/sdtc:deceasedTime/@nullFlavor" mode="data-absent-reason-extension" />
                     </deceasedDateTime>
                 </xsl:when>
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime">

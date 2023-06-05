@@ -68,7 +68,18 @@
 
             <!-- Adding telecom -->
             <xsl:apply-templates select="cda:healthCareFacility/cda:serviceProviderOrganization/cda:telecom" />
-            <xsl:apply-templates select="cda:healthCareFacility/cda:location/cda:addr" />
+            
+            <xsl:variable name="vLocationAddr" select="cda:healthCareFacility/cda:location/cda:addr"/>
+            
+            <!-- SG 2023-06-05 If there is no non-null address in location, check in serviceProviderOrganization -->
+            <xsl:choose>
+                <xsl:when test="$vLocationAddr/cda:postalCode[not(@nullFlavor)] or $vLocationAddr/cda:streetAddressLine[not(@nullFlavor)]">
+                    <xsl:apply-templates select="cda:healthCareFacility/cda:location/cda:addr" />
+                </xsl:when>
+                <xsl:when test="cda:healthCareFacility/cda:serviceProviderOrganization/cda:addr">
+                    <xsl:apply-templates select="cda:healthCareFacility/cda:serviceProviderOrganization/cda:addr" />
+                </xsl:when>
+            </xsl:choose>
         </Location>
     </xsl:template>
 

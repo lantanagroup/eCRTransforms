@@ -101,7 +101,7 @@
                 <xsl:call-template name="performer-or-author" />
             </xsl:for-each>
             <!-- Specimen Collection Procedure -->
-            <xsl:for-each select="cda:component/cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']]">
+            <xsl:for-each select="cda:component/cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']] | cda:component/cda:procedure[cda:code[@code = '17636008']]">
                 <specimen>
                     <xsl:apply-templates select="." mode="reference" />
                 </specimen>

@@ -41,8 +41,7 @@ limitations under the License.
             </participantRole>
         </participant>
     </xsl:template>
-
-
+    
     <!--<template match="fhir:Device">
         <participant typeCode="DEV">
             <participantRole classCode="MANU">

@@ -33,7 +33,6 @@ limitations under the License.
 
     <xsl:import href="native-xslt-uuid.xslt" />
 
-
     <xsl:param name="lab-obs-status-mapping-file">../lab-obs-status-mapping.xml</xsl:param>
     <xsl:param name="lab-status-mapping-file">../lab-status-mapping.xml</xsl:param>
     <xsl:param name="questionnaire-mapping-file">../questionnaire-mapping.xml</xsl:param>
@@ -234,8 +233,6 @@ limitations under the License.
         </xsl:choose>
     </xsl:template>
 
-
-
     <xsl:template match="@* | node()" mode="copy">
         <xsl:copy>
             <xsl:apply-templates select="@* | node()" mode="copy" />
@@ -293,10 +290,18 @@ limitations under the License.
             <xsl:with-param name="use" select="fhir:telecom/@use" />
           </xsl:call-template>
         </telecom>-->
-                <assignedPerson>
-                    <xsl:apply-templates select="fhir:name" />
-                </assignedPerson>
-                <xsl:comment>TODO: Add represented organization</xsl:comment>
+                <xsl:if test="local-name()!='Organization'">
+                    <assignedPerson>
+                        <xsl:apply-templates select="fhir:name" />
+                    </assignedPerson>
+                </xsl:if>    
+                <!-- SG 20231123: Check for Organization and add it -->
+                <xsl:if test="local-name()='Organization'">
+                    <representedOrganization>
+                        <xsl:call-template name="get-id" />
+                        <xsl:call-template name="get-org-name" />
+                    </representedOrganization>
+                </xsl:if>
             </assignedEntity>
         </xsl:element>
     </xsl:template>

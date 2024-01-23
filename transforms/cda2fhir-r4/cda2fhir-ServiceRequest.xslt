@@ -44,6 +44,10 @@
             <xsl:apply-templates select="cda:effectiveTime" mode="instant">
                 <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
             </xsl:apply-templates>
+            <!-- SG 20231122: add ServiceRequest.authoredOn -->
+            <xsl:apply-templates select="cda:author/cda:time" mode="instant">
+                <xsl:with-param name="pElementName">authoredOn</xsl:with-param>
+            </xsl:apply-templates>
             <xsl:call-template name="author-reference">
                 <xsl:with-param name="pElementName">requester</xsl:with-param>
             </xsl:call-template>
@@ -113,8 +117,6 @@
                 </xsl:otherwise>
             </xsl:choose>
             
-            
-
             <xsl:apply-templates select="cda:priorityCode" mode="priorityCode" />
             <xsl:apply-templates select="cda:code" mode="procedure-request" />
             <xsl:call-template name="subject-reference" />
@@ -216,6 +218,10 @@
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime" mode="instant">
                 <xsl:with-param name="pElementName" select="'occurrenceDateTime'" />
+            </xsl:apply-templates>
+            <!-- SG 20231122: add ServiceRequest.authoredOn -->
+            <xsl:apply-templates select="cda:author/cda:time" mode="instant">
+                <xsl:with-param name="pElementName">authoredOn</xsl:with-param>
             </xsl:apply-templates>
             <xsl:if test="cda:author">
                 <xsl:call-template name="author-reference">

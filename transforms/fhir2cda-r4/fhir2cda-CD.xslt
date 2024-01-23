@@ -127,7 +127,7 @@ limitations under the License.
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="fhir:coding | fhir:valueCoding | fhir:class | fhir:item/fhir:code">
+    <xsl:template match="fhir:coding | fhir:valueCoding | fhir:class | fhir:item/fhir:code | fhir:dischargeDisposition">
         <xsl:param name="pElementName" />
         <xsl:param name="pTriggerExtension" />
         <xsl:call-template name="debug-element-stack" />

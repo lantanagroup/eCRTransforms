@@ -130,18 +130,25 @@ limitations under the License.
                     </xsl:choose>
                 </xsl:when>
                 <!-- <id root="{lower-case(uuid:get-uuid())}" /> -->
+                <!-- SG 2023-11-15: Updating the below based on the rules here: 
+                    https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html (see: FHIR identifier ↔ CDA id with Example Mapping table) -->
                 <xsl:when test="$vConvertedSystem">
                     <xsl:choose>
                         <xsl:when test="starts-with($vConvertedSystem, 'http')">
-                            <!-- Did not find an entry in the oid uri mapping file, so use a UUID for the root and store the URI in assigning authority -->
+                            <!-- Did not find an entry in the oid uri mapping file, so use 2.16.840.1.113883.4.873 (OID for urn:ietf:rfc:3986) for root
+                                 and concatenate system and extension for extension-->
+                            <xsl:attribute name="root" select="'2.16.840.1.113883.4.873'" />
+                            <xsl:attribute name="extension" select="concat($vConvertedSystem, '/', $vValue)" />
+                            <!--<!-\- Did not find an entry in the oid uri mapping file, so use a UUID for the root and store the URI in assigning authority -\->
                             <xsl:attribute name="root" select="lower-case(uuid:get-uuid())" />
-                            <xsl:attribute name="assigningAuthorityName" select="$vConvertedSystem" />
+                            <xsl:attribute name="assigningAuthorityName" select="$vConvertedSystem" />-->
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:attribute name="root" select="$vConvertedSystem" />
+                            <xsl:attribute name="extension" select="$vValue" />
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:attribute name="extension" select="$vValue" />
+                    
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="nullFlavor">OTH</xsl:attribute>

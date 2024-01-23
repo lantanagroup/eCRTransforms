@@ -22,8 +22,6 @@
 
     <xsl:key name="referenced-acts" match="cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122'])]" use="cda:id/@root" />
 
-
-
     <xsl:template name="breadcrumb-comment">
         <xsl:comment>
             <xsl:call-template name="breadcrumb-path-walker" />
@@ -888,8 +886,26 @@
         <xsl:param name="pElementName">identifier</xsl:param>
         <xsl:variable name="mapping" select="document('../oid-uri-mapping-r4.xml')/mapping" />
         <xsl:variable name="oid" select="@root" />
+        <xsl:variable name="value">
+            <xsl:choose>
+                <xsl:when test="$oid = '2.16.840.1.113883.4.873'">
+                    <xsl:call-template name="get-substring-after-last">
+                        <xsl:with-param name="pString" select="@extension" />
+                        <xsl:with-param name="pDelimiter" select="'/'" />
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="lower-case(@extension)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="root-uri">
             <xsl:choose>
+                <!-- SG 2023-11-15: Updating the below based on the rules here: 
+                    https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html (see: CDA id → FHIR Identifier with Example Mapping) Case: "Root = URI OID, Value = URL"--> 
+                <xsl:when test="$oid = '2.16.840.1.113883.4.873'">
+                    <xsl:value-of select="substring-before(@extension, concat('/', $value))"/>
+                </xsl:when>
                 <xsl:when test="$mapping/map[@oid = $oid]">
                     <xsl:value-of select="$mapping/map[@oid = $oid][1]/@uri" />
                 </xsl:when>
@@ -921,7 +937,7 @@
             <xsl:when test="@root and @extension">
                 <xsl:element name="{$pElementName}">
                     <system value="{lower-case($root-uri)}" />
-                    <value value="{lower-case(@extension)}" />
+                    <value value="{$value}" />
                 </xsl:element>
             </xsl:when>
 
@@ -2211,4 +2227,22 @@
         </xsl:choose>
     </xsl:template>
 
+
+    <xsl:template name="get-substring-after-last">
+        <xsl:param name="pString" />
+        <xsl:param name="pDelimiter" />
+        <xsl:choose>
+            <xsl:when test="contains($pString, $pDelimiter)">
+                <xsl:call-template name="get-substring-after-last">
+                    <xsl:with-param name="pString"
+                        select="substring-after($pString, $pDelimiter)" />
+                    <xsl:with-param name="pDelimiter" select="$pDelimiter" />
+                </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$pString" />
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
 </xsl:stylesheet>

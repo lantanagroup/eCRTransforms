@@ -16,9 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com"
-    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0"
-    exclude-result-prefixes="lcg xsl cda fhir sdtc">
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir sdtc" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:import href="fhir2cda-utility.xslt" />
     <xsl:import href="fhir2cda-TS.xslt" />
@@ -33,7 +31,7 @@ limitations under the License.
                 </xsl:call-template>
             </xsl:variable>
             <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
-                <xsl:apply-templates select="fhir:resource/fhir:*" mode="record-target" />
+                <xsl:apply-templates mode="record-target" select="fhir:resource/fhir:*" />
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
@@ -98,15 +96,15 @@ limitations under the License.
                         <xsl:with-param name="pElement" select="fhir:birthDate" />
                         <xsl:with-param name="pElementName" select="'birthTime'" />
                     </xsl:call-template>
-                    
+
                     <!-- SG 2023-06-05 update to deal with data-absent-reason -->
                     <xsl:choose>
                         <xsl:when test="fhir:deceasedDateTime">
                             <sdtc:deceasedInd value="true" />
                             <xsl:choose>
-                                <xsl:when test="fhir:deceasedDateTime/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']" >
+                                <xsl:when test="fhir:deceasedDateTime/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
                                     <sdtc:deceasedTime>
-                                        <xsl:apply-templates select="fhir:deceasedDateTime/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']"/>
+                                        <xsl:apply-templates select="fhir:deceasedDateTime/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" />
                                     </sdtc:deceasedTime>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -133,6 +131,8 @@ limitations under the License.
 
                     <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race']" />
                     <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity']" />
+
+
                     <!-- Check for guardian information -->
                     <!-- Added Cerner local code (1156) for Guardian -->
                     <xsl:for-each select="fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value = 'GUARD' or @value = '1156']]">
@@ -144,6 +144,9 @@ limitations under the License.
                             </guardianPerson>
                         </guardian>
                     </xsl:for-each>
+                    
+                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-birthPlace']" />
+
                     <xsl:choose>
                         <xsl:when test="fhir:communication">
                             <!-- SG 20210802: Added for-each - there can be multiple languages unfortunately some of them are going to be in local code systems - if they 
@@ -223,6 +226,17 @@ limitations under the License.
                 <xsl:with-param name="pElementName" select="'sdtc:ethnicGroupCode'" />
             </xsl:apply-templates>
         </xsl:for-each>
+    </xsl:template>
+
+    <!-- SG 20231123: Add birthplace -->
+    <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-birthPlace']">
+<!--        <xsl:for-each select="fhir:address">        -->
+            <birthplace>
+                <place>
+                    <xsl:call-template name="get-addr" />
+                </place>
+            </birthplace>
+        <!--</xsl:for-each>-->
     </xsl:template>
 
 </xsl:stylesheet>

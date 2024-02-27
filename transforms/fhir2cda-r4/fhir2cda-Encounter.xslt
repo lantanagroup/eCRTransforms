@@ -38,6 +38,8 @@ limitations under the License.
         <id root="{lower-case(uuid:get-uuid())}"/>
         <xsl:apply-templates select="fhir:type" />
         <xsl:apply-templates select="fhir:period" />
+          ValueSet 2.16.840.1.113883.3.88.12.80.33 NUBC UB-04 FL17-Patient Status (code system 2.16.840.1.113883.6.301.5) DYNAMIC or, if access to NUBC is unavailable, from CodeSystem 2.16.840.1.113883.12.112 HL7 Discharge Disposition
+          
         <xsl:apply-templates select="fhir:diagnosis" />
       </encounter>
     </entry>

@@ -35,7 +35,7 @@ limitations under the License.
     </xsl:element>
   </xsl:template>
   
-  <xsl:template match="fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp">
+  <xsl:template match="fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn">
     <xsl:param name="pElementName">effectiveTime</xsl:param>
     <xsl:param name="pXSIType" />
     <xsl:element name="{$pElementName}">

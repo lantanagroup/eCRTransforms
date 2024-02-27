@@ -25,10 +25,13 @@ limitations under the License.
 
 
     <!-- fhir:author[parent::fhir:Composition] | fhir:sender[parent::fhir:Communication] | fhir:author[parent::fhir:QuestionnaireResponse] -> get referenced resource entry url and process -->
-    <xsl:template match="fhir:author[parent::fhir:Composition] | fhir:sender[parent::fhir:Communication] | fhir:author[parent::fhir:QuestionnaireResponse]">
+    <!-- SG 20231122: Added fhir:requester[parent::fhir:ServiceRequest] -->
+    <xsl:template match="fhir:author[parent::fhir:Composition] | fhir:sender[parent::fhir:Communication] | fhir:author[parent::fhir:QuestionnaireResponse] | fhir:requester[parent::fhir:ServiceRequest]">
         <!-- check author Parent Resource -->
         <xsl:variable name="vAuthorParent" select="../local-name()" />
-
+        <!-- SG 20231122: Add code to get parent id - won't only be one of everying (e.g. ServiceRequest) -->
+        <xsl:variable name="vAuthorParentId" select="../fhir:id/@value" /> 
+        
         <xsl:for-each select="fhir:reference">
             <xsl:variable name="referenceURI">
                 <xsl:call-template name="resolve-to-full-url">
@@ -39,6 +42,7 @@ limitations under the License.
             <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
                 <xsl:apply-templates select="fhir:resource/fhir:*" mode="author">
                     <xsl:with-param name="pAuthorParent" select="$vAuthorParent" />
+                    <xsl:with-param name="pAuthorParentId" select="$vAuthorParentId" />
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:for-each>
@@ -50,6 +54,16 @@ limitations under the License.
         <xsl:param name="pPractitionerRole" />
         <xsl:call-template name="make-author">
             <xsl:with-param name="pAuthorParent" select="$pAuthorParent" />
+        </xsl:call-template>
+    </xsl:template>
+    
+    <!-- fhir:Organization -> cda:author -->
+    <xsl:template match="fhir:entry/fhir:resource/fhir:Organization" mode="author">
+        <xsl:param name="pAuthorParent" />
+        <xsl:param name="pAuthorParentId" />
+        <xsl:call-template name="make-author">
+            <xsl:with-param name="pAuthorParent" select="$pAuthorParent" />
+            <xsl:with-param name="pAuthorParentId" select="$pAuthorParentId" />
         </xsl:call-template>
     </xsl:template>
 
@@ -241,6 +255,7 @@ limitations under the License.
         <xsl:param name="pElementName">author</xsl:param>
         <xsl:param name="pPractitionerRoleTelecom" />
         <xsl:param name="pAuthorParent" />
+        <xsl:param name="pAuthorParentId" />
 
         <xsl:element name="{$pElementName}">
             <xsl:choose>
@@ -248,12 +263,20 @@ limitations under the License.
                     <xsl:call-template name="get-time">
                         <!-- Assuming we are never going to have more than one of these at a time in one bundle.. Could be wrong though! -->
                         <!-- Add check for the parent resource, to avoid multiple time validation error. We may need to do some more for
-              the otherwise branch. for now just fix for Composition author. 
-              <xsl:with-param name="pElement" select="//fhir:Composition/fhir:date | 
-              //fhir:QuestionnaireResponse/fhir:authored |
-              //fhir:Communication/fhir:sent" /> 
-            -->
+                            the otherwise branch. for now just fix for Composition author. 
+                            <xsl:with-param name="pElement" select="//fhir:Composition/fhir:date | 
+                            //fhir:QuestionnaireResponse/fhir:authored |
+                            //fhir:Communication/fhir:sent" /> 
+                          -->
                         <xsl:with-param name="pElement" select="//fhir:Composition/fhir:date" />
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$pAuthorParent = 'ServiceRequest'">
+                    <xsl:comment select="' [C-CDA R2.0] Author Participation '" />
+                    <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                    
+                    <xsl:call-template name="get-time">
+                        <xsl:with-param name="pElement" select="//fhir:ServiceRequest[fhir:id/@value=$pAuthorParentId]/fhir:authoredOn" />
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
@@ -269,9 +292,18 @@ limitations under the License.
                 <xsl:call-template name="get-id" />
                 <xsl:call-template name="get-addr" />
                 <xsl:call-template name="get-telecom" />
-                <assignedPerson>
-                    <xsl:apply-templates select="fhir:name" />
-                </assignedPerson>
+                <xsl:if test="local-name()!='Organization'">
+                    <assignedPerson>
+                        <xsl:apply-templates select="fhir:name" />
+                    </assignedPerson>
+                </xsl:if>
+                <!-- SG 20231123: Check for Organization and add it -->
+                <xsl:if test="local-name()='Organization'">
+                    <representedOrganization>
+                        <xsl:call-template name="get-id" />
+                        <xsl:call-template name="get-org-name" />
+                    </representedOrganization>
+                </xsl:if>
             </assignedAuthor>
         </xsl:element>
     </xsl:template>

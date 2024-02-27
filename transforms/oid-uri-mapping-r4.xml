@@ -45,6 +45,9 @@
 
     <!-- Identifier Systems -->
     <map oid="2.16.840.1.113883.4.6" uri="http://hl7.org/fhir/sid/us-npi" />
+    <!-- This isn't the correct url, but it keeps coming up so putting it second so it will translate url to oid but never back the other way -->
+    <map oid="2.16.840.1.113883.4.6" uri="http://hl7.org.fhir/sid/us-npi" />
+    
     <map oid="2.16.840.1.113883.4.1" uri="http://hl7.org/fhir/sid/us-ssn" />
     <map oid="2.16.840.1.113883.4.572" uri="http://hl7.org/fhir/sid/us-medicare" />
     <map oid="2.16.840.1.113883.4.873" uri="urn:ietf:rfc:3986" />
@@ -434,7 +437,9 @@
 
     <map oid="2.16.840.1.113883.6.259" uri="http://terminology.hl7.org/CodeSystem/v3-hsloc" />
     <map oid="2.16.840.1.113883.6.259" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/hsloc.html" />
+    
     <map oid="2.16.840.1.113883.6.277" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/cdcnhsn.html" />
+    <map oid="2.16.840.1.113883.4.642.1.1093" uri="http://terminology.hl7.org/CodeSystem/discharge-disposition" />
 
 
     <map oid="2.16.840.1.113883.12.292" uri="http://hl7.org/fhir/sid/cvx" />

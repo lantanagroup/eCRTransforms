@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3"
+    xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
+    version="2.0" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
     <xsl:import href="cda2fhir-Narrative.xslt" />
@@ -224,6 +226,129 @@
             </relatesTo>
             <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent" mode="composition-event" />
             <xsl:apply-templates select="cda:component/cda:structuredBody/cda:component/cda:section" />
+            <!-- If this is eICR and there are missing required sections 
+                 (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) 
+                 add them with no data -->
+            <xsl:variable name="vCurrentIg">
+                <xsl:choose>
+                    <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
+                    <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
+                    <xsl:otherwise>NA</xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12')">
+                <section>
+                    <title value="REASON FOR VISIT" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="29299-5" />
+                            <display value="Reason for visit Narrative" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1')" >
+                <section>
+                    <title value="CHIEF COMPLAINT" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="10154-3" />
+                            <display value="Chief complaint Narrative - Reported" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4')" >
+                <section>
+                    <title value="HISTORY OF PRESENT ILLNESS" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="10154-3" />
+                            <display value="History of Present illness Narrative" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1')" >
+                <section>
+                    <title value="PROBLEM LIST" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="11450-4" />
+                            <display value="Problem list - Reported" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1')" >
+                <section>
+                    <title value="RESULTS" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="30954-2" />
+                            <display value="Relevant diagnostic tests/laboratory data Narrative" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.38')" >
+                <section>
+                    <title value="MEDICATIONS ADMINISTERED" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="10154-3" />
+                            <display value="Medication administered Narrative" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
+            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.17')" >
+                <section>
+                    <title value="SOCIAL HISTORY" />
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="29762-2" />
+                            <display value="Social history Narrative" />
+                        </coding>
+                    </code>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+                    </text>
+                </section>
+            </xsl:if>
         </Composition>
     </xsl:template>
 
@@ -258,13 +383,20 @@
             <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
 
-        <!-- Don't want the encounters section if this is eICR - the encounter information goes in Composition.Encounter-->
+
         <xsl:choose>
+            <!-- Don't want the encounters section if this is eICR - the encounter information goes in Composition.Encounter-->
             <xsl:when test="$vCurrentIg = 'eICR' and cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.22.1'" />
+            <!-- If this is eICR and there are sections with no data - we don't want to include them unless they are one of the required sections
+                 (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) -->
+            <xsl:when
+                test="($vCurrentIg = 'eICR' and @nullFlavor = 'NI') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12') and not(cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1') and not(cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.38') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.17')" />
+
             <xsl:otherwise>
                 <section>
                     <!-- Start: Section Extensions -->
-                    <xsl:if test="cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.2']">
+                    <xsl:if
+                        test="cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.2']">
                         <xsl:apply-templates select="." mode="extension" />
                     </xsl:if>
                     <!-- End: Section Extensions -->

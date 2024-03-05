@@ -16,8 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:uuid="http://www.uuid.org" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
-    version="2.0" exclude-result-prefixes="lcg xsl cda fhir">
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:uuid="http://www.uuid.org" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <!--
   <xsl:import href="fhir2cda-utility.xslt" />
@@ -27,13 +26,13 @@ limitations under the License.
     <xsl:template match="fhir:identifier | fhir:masterIdentifier">
         <xsl:param name="pElementName" select="'id'" />
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        
+
         <!-- MD: Begin uncomment identification of IG -->
-       <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig"/>
+        <xsl:variable name="vCurrentIg">
+            <xsl:call-template name="get-current-ig" />
         </xsl:variable>
         <!-- MD: end uncomment identification of IG -->
-        
+
         <xsl:variable name="vConvertedSystem">
             <xsl:call-template name="convertURI">
                 <xsl:with-param name="uri" select="fhir:system/@value" />
@@ -43,7 +42,7 @@ limitations under the License.
         <xsl:variable name="vValue">
             <xsl:choose>
                 <!--<xsl:when test="$vCurrentIg = 'RR' and contains(fhir:value/@value, '#')">-->
-                  <xsl:when test="contains(fhir:value/@value, '#')">
+                <xsl:when test="contains(fhir:value/@value, '#')">
                     <xsl:value-of select="substring-before(fhir:value/@value, '#')" />
                 </xsl:when>
                 <xsl:otherwise>
@@ -51,21 +50,9 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        
-        <!-- MD: begin check IG for set comments -->
-        <xsl:choose>
-            <xsl:when test="$vCurrentIg = 'eICR'" >  
-                <xsl:comment>
-                    <xsl:text>Globally unique document ID (extension) is scoped by vendor/software</xsl:text>
-                </xsl:comment>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:comment>Converting identifier <xsl:value-of select="$vConvertedSystem" /></xsl:comment>
-            </xsl:otherwise>
-        </xsl:choose>
-        <!-- MD: end -->
-        
-       
+
+        <xsl:comment>Converting identifier <xsl:value-of select="fhir:system/@value" /></xsl:comment>
+
         <xsl:element name="{$pElementName}">
             <xsl:choose>
                 <xsl:when test="fhir:system/@value = 'urn:ietf:rfc:3986'">
@@ -73,11 +60,11 @@ limitations under the License.
                         <xsl:when test="starts-with($vValue, 'urn:oid:')">
                             <xsl:attribute name="root" select="substring-after($vValue, 'urn:oid:')" />
                         </xsl:when>
-                        <xsl:when test="starts-with($vValue, 'urn:uuid:')">                         
+                        <xsl:when test="starts-with($vValue, 'urn:uuid:')">
                             <!-- MD: Begin -->
                             <xsl:choose>
-                                <xsl:when test="$vCurrentIg = 'eICR'" >                             
-                                    <xsl:attribute name="root">2.16.840.1.113883.9.9.9.9.9</xsl:attribute> 
+                                <xsl:when test="$vCurrentIg = 'eICR'">
+                                    <xsl:attribute name="root">2.16.840.1.113883.9.9.9.9.9</xsl:attribute>
                                     <xsl:attribute name="extension" select="substring-after($vValue, 'urn:uuid:')" />
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -85,7 +72,7 @@ limitations under the License.
                                 </xsl:otherwise>
                             </xsl:choose>
                             <!-- MD: end -->
-                          
+
                         </xsl:when>
                         <xsl:when test="starts-with($vValue, 'urn:hl7ii:')">
                             <xsl:variable name="val">
@@ -148,7 +135,7 @@ limitations under the License.
                             <xsl:attribute name="extension" select="$vValue" />
                         </xsl:otherwise>
                     </xsl:choose>
-                    
+
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="nullFlavor">OTH</xsl:attribute>
@@ -169,7 +156,7 @@ limitations under the License.
         <xsl:variable name="value" select="substring-after(substring-after(@value, 'hl7ii:'), ':')" />
         <xsl:choose>
             <xsl:when test="$system and $value">
-                <id root="{$system}" extension="{$value}" />
+                <id extension="{$value}" root="{$system}" />
             </xsl:when>
             <xsl:otherwise>
                 <id nullFlavor="NI">
@@ -180,7 +167,7 @@ limitations under the License.
     </xsl:template>
 
     <xsl:template match="fhir:valueUri">
-        <xsl:variable name="vIdentifier" as="node()*">
+        <xsl:variable as="node()*" name="vIdentifier">
             <fhir:identifier>
                 <fhir:system>
                     <xsl:attribute name="value" select="@value" />

@@ -1203,9 +1203,16 @@ limitations under the License.
         <observation>
             <xsl:attribute name="classCode" select="'OBS'" />
             <xsl:attribute name="moodCode" select="'EVN'" />
-            <xsl:if test="$vTriggerExtension">
-                <xsl:attribute name="negationInd" select="'false'" />
-            </xsl:if>
+            <!-- SG 2024-02-05: Updated Problem Observation negationInd handling for a trigger code Condition with verificationStatus of 'entered-in-error' -->
+            <xsl:choose>
+                <xsl:when test="$vTriggerExtension and fhir:verificationStatus/fhir:coding/fhir:code[@value='entered-in-error']">
+                    <xsl:attribute name="negationInd" select="'true'" />
+                </xsl:when>
+                <xsl:when test="$vTriggerExtension">
+                    <xsl:attribute name="negationInd" select="'false'" />    
+                </xsl:when>
+            </xsl:choose>
+            
             <!-- templateId -->
             <xsl:call-template name="get-template-id">
                 <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />

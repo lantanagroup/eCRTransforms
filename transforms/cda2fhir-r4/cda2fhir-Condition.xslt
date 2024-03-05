@@ -79,15 +79,26 @@
                     </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- SG 2024-02-05: Updated negationInd processing for eCR -->
+            <xsl:choose>
+                <xsl:when test="@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']">
+                    <verificationStatus>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status"/>
+                            <code value="entered-in-error"/>
+                        </coding>
+                    </verificationStatus>
+                </xsl:when>
+                <xsl:when test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
+                    <verificationStatus>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status"/>
+                            <code value="refuted"/>
+                        </coding>
+                    </verificationStatus>
+                </xsl:when>
+            </xsl:choose>
             
-            <xsl:if test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
-                <verificationStatus>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status"/>
-                        <code value="refuted"/>
-                    </coding>
-                </verificationStatus>
-            </xsl:if>
             <xsl:choose>
                 <xsl:when
                     test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]">

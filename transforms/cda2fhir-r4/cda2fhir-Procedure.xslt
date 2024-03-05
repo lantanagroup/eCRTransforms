@@ -113,6 +113,11 @@
             <xsl:apply-templates select="cda:targetSiteCode">
                 <xsl:with-param name="pElementName" select="'bodySite'" />
             </xsl:apply-templates>
+            
+            <!-- SG: Add focalDevice -->
+            <!-- Looking for C-CDA R1.1 Product Instance template -->
+            
+            <xsl:apply-templates select="cda:participant/cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.37']"/>
                 
             <!-- RG: Commented out for demo -->
             <!--

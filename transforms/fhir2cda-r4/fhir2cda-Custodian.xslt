@@ -121,7 +121,7 @@ limitations under the License.
           </xsl:choose>
           <xsl:choose>
             <xsl:when test="fhir:address">
-              <xsl:apply-templates select="fhir:address" />
+              <xsl:apply-templates select="fhir:address[1]" />
             </xsl:when>
             <xsl:otherwise>
               <addr nullFlavor="NI" />

@@ -43,7 +43,7 @@ limitations under the License.
           <xsl:attribute name="unit" select="fhir:code/@value"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:attribute name="unit">1</xsl:attribute>
+          <xsl:attribute name="unit" select="'no_unit'"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:element>

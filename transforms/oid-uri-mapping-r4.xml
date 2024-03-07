@@ -442,13 +442,22 @@
     <map oid="2.16.840.1.113883.4.642.1.1093" uri="http://terminology.hl7.org/CodeSystem/discharge-disposition" />
 
 
-    <map oid="2.16.840.1.113883.12.292" uri="http://hl7.org/fhir/sid/cvx" />
+    <map oid="2.16.840.1.113883.3.13" uri="http://hl7.org/fhir/sid/cvx" />
 
 
 
     <map oid="1.0.3166.1" uri="urn:iso:std:iso:3166" />
 
     <map oid="1.0.3166.1.2.2" uri="urn:iso:std:iso:3166" />
+    
+    <!-- HIMSS workarounds -->
+    <map oid="2.16.840.1.113883.3.13.999.36" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/36" />
+    <map oid="2.16.840.1.113883.3.13.999.38" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/38" />
+    <map oid="2.16.840.1.113883.3.13.999.71" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/71" />
+    <map oid="2.16.840.1.113883.3.13.999.72" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/72" />
+    <map oid="2.16.840.1.113883.3.13.999.200" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/200" />
+    <map oid="2.16.840.1.113883.3.13.999.222" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/222" />
+    <map oid="2.16.840.1.113883.3.13.999.6000" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/6000" />
 
 
 

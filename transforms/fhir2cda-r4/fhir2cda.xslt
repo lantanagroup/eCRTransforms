@@ -23,6 +23,9 @@ limitations under the License.
   <xsl:include href="fhir2cda-includes.xslt" />
     
   <xsl:param name="gParamCDAeICRVersion"/>
+    
+    <!-- Get the CompositionFullUrl for later "workaround" if identifier.system is missing -->
+    <xsl:variable name="gvCompositionBaseUrl" select="substring-before(//fhir:entry[fhir:resource/fhir:Composition]/fhir:fullUrl/@value, '/Composition')" />
 
   <xsl:output method="xml" indent="yes" encoding="UTF-8" />
 

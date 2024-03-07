@@ -42,7 +42,10 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="resolve-to-full-url"/>
+                    <!-- SG 20240306: Get the start of the full url of the Composition - this is a workaround for missing system  -->
+                    <!--<xsl:call-template name="resolve-to-full-url"/>-->
+                    <!--<xsl:variable name="vCompositionFullUrl" select="fhir:entry[parent::fhir:Bundle][1]/fhir:fullUrl/@value" />-->
+                    <xsl:value-of select="$gvCompositionBaseUrl"/>
                 </xsl:otherwise>
             </xsl:choose>
             
@@ -50,7 +53,6 @@ limitations under the License.
 
         <xsl:variable name="vValue">
             <xsl:choose>
-                <!--<xsl:when test="$vCurrentIg = 'RR' and contains(fhir:value/@value, '#')">-->
                 <xsl:when test="contains(fhir:value/@value, '#')">
                     <xsl:value-of select="substring-before(fhir:value/@value, '#')" />
                 </xsl:when>
@@ -64,24 +66,16 @@ limitations under the License.
         
         <xsl:element name="{$pElementName}">
             <xsl:choose>
+                <xsl:when test="starts-with(fhir:value/@value, 'urn:uuid:') and not(fhir:system/@value)">
+                    <xsl:attribute name="root" select="substring-after(fhir:value/@value, 'urn:uuid:')" />
+                </xsl:when>
                 <xsl:when test="fhir:system/@value = 'urn:ietf:rfc:3986'">
                     <xsl:choose>
                         <xsl:when test="starts-with($vValue, 'urn:oid:')">
                             <xsl:attribute name="root" select="substring-after($vValue, 'urn:oid:')" />
                         </xsl:when>
                         <xsl:when test="starts-with($vValue, 'urn:uuid:')">
-                            <!-- MD: Begin -->
-                            <xsl:choose>
-                                <xsl:when test="$vCurrentIg = 'eICR'">
-                                    <xsl:attribute name="root">2.16.840.1.113883.9.9.9.9.9</xsl:attribute>
-                                    <xsl:attribute name="extension" select="substring-after($vValue, 'urn:uuid:')" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:attribute name="root" select="substring-after($vValue, 'urn:uuid:')" />
-                                </xsl:otherwise>
-                            </xsl:choose>
-                            <!-- MD: end -->
-
+                            <xsl:attribute name="root" select="substring-after($vValue, 'urn:uuid:')" />
                         </xsl:when>
                         <xsl:when test="starts-with($vValue, 'urn:hl7ii:')">
                             <xsl:variable name="val">
@@ -103,7 +97,6 @@ limitations under the License.
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                
                 <!-- SG 20240306: Add check to make sure OID is valid -->
                 <xsl:when test="starts-with(fhir:system/@value, 'urn:oid:') and matches(fhir:system/@value, 'urn:oid:[0-2](.[1-9]\d*)+')">
                     <xsl:attribute name="root" select="substring-after(fhir:system/@value, 'urn:oid:')" />
@@ -111,7 +104,7 @@ limitations under the License.
                 </xsl:when>
                 <xsl:when test="starts-with(fhir:system/@value, 'urn:oid:') and not(matches(fhir:system/@value, 'urn:oid:[0-2](.[1-9]\d*)+'))">
                     <xsl:attribute name="root" select="'2.16.840.1.113883.4.873'" />
-                    <xsl:attribute name="extension" select="$vValue" />
+                    <!--<xsl:attribute name="extension" select="$vValue" />-->
                     <xsl:attribute name="extension" select="concat('urn:',substring-after(fhir:system/@value, 'urn:oid:'), ':', $vValue)" />
                 </xsl:when>
                 <xsl:when test="starts-with(fhir:system/@value, 'urn:uuid:')">

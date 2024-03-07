@@ -33,10 +33,19 @@ limitations under the License.
         </xsl:variable>
         <!-- MD: end uncomment identification of IG -->
 
+        <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html -->
         <xsl:variable name="vConvertedSystem">
-            <xsl:call-template name="convertURI">
-                <xsl:with-param name="uri" select="fhir:system/@value" />
-            </xsl:call-template>
+            <xsl:choose>
+                <xsl:when test="fhir:system/@value">
+                    <xsl:call-template name="convertURI">
+                        <xsl:with-param name="uri" select="fhir:system/@value" />
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="resolve-to-full-url"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            
         </xsl:variable>
 
         <xsl:variable name="vValue">
@@ -52,7 +61,7 @@ limitations under the License.
         </xsl:variable>
 
         <xsl:comment>Converting identifier <xsl:value-of select="fhir:system/@value" /></xsl:comment>
-
+        
         <xsl:element name="{$pElementName}">
             <xsl:choose>
                 <xsl:when test="fhir:system/@value = 'urn:ietf:rfc:3986'">
@@ -94,9 +103,16 @@ limitations under the License.
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:when test="starts-with(fhir:system/@value, 'urn:oid:')">
+                
+                <!-- SG 20240306: Add check to make sure OID is valid -->
+                <xsl:when test="starts-with(fhir:system/@value, 'urn:oid:') and matches(fhir:system/@value, 'urn:oid:[0-2](.[1-9]\d*)+')">
                     <xsl:attribute name="root" select="substring-after(fhir:system/@value, 'urn:oid:')" />
                     <xsl:attribute name="extension" select="$vValue" />
+                </xsl:when>
+                <xsl:when test="starts-with(fhir:system/@value, 'urn:oid:') and not(matches(fhir:system/@value, 'urn:oid:[0-2](.[1-9]\d*)+'))">
+                    <xsl:attribute name="root" select="'2.16.840.1.113883.4.873'" />
+                    <xsl:attribute name="extension" select="$vValue" />
+                    <xsl:attribute name="extension" select="concat('urn:',substring-after(fhir:system/@value, 'urn:oid:'), ':', $vValue)" />
                 </xsl:when>
                 <xsl:when test="starts-with(fhir:system/@value, 'urn:uuid:')">
                     <xsl:attribute name="root" select="substring-after(fhir:system/@value, 'urn:uuid:')" />
@@ -178,5 +194,5 @@ limitations under the License.
             <xsl:with-param name="pElement" select="$vIdentifier" />
         </xsl:call-template>
     </xsl:template>
-
+    
 </xsl:stylesheet>

@@ -43,6 +43,11 @@ limitations under the License.
                 <xsl:when test="fhir:category/fhir:coding[fhir:code/@value = 'laboratory']">
                     <xsl:call-template name="make-result-organizer-wrapper" />
                 </xsl:when>
+                <!-- SG 20240307: Added for social-history observation with hasMembers, just make a regular observation
+                     as there aren't any social-history organizers -->
+                <xsl:when test="fhir:category/fhir:coding[fhir:code/@value = 'social-history']">
+                    <xsl:call-template name="make-generic-observation" />
+                </xsl:when>
             </xsl:choose>
         </entry>
     </xsl:template>

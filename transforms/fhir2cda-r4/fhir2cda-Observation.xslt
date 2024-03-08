@@ -932,14 +932,39 @@ limitations under the License.
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:attribute name="value" select="fhir:valueQuantity/fhir:value/@value" />
-                    </value>        
+                    </value>
                 </xsl:when>
-                <!-- SG 20240307: C-CDA Vital Signs Observation can only have a data type of PQ so have to get this in there -->
+                <!-- SG 20240307: C-CDA Vital Signs Observation can only have a data type of PQ so have to get this in there
+                     PQ can have a translation for a code-->
                 <xsl:when test="fhir:valueCodeableConcept">
                     <value xsi:type="PQ" unit="no_unit" nullFlavor="OTH">
-                        <xsl:apply-templates select="fhir:valueCodeableConcept">
-                            <xsl:with-param name="pElementName">translation</xsl:with-param>
-                        </xsl:apply-templates>
+                        <xsl:for-each select="fhir:valueCodeableConcept">
+                            <xsl:for-each select="fhir:coding">
+                                <translation>
+                                    <xsl:attribute name="code">
+                                        <xsl:value-of select="fhir:code/@value" />
+                                    </xsl:attribute>
+                                    <xsl:variable name="codeSystem">
+                                        <xsl:call-template name="convertURI">
+                                            <xsl:with-param name="uri" select="fhir:system/@value" />
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:attribute name="codeSystem">
+                                        <xsl:value-of select="$codeSystem" />
+                                    </xsl:attribute>
+                                    <xsl:if test="fhir:display">
+                                        <xsl:attribute name="displayName">
+                                            <xsl:value-of select="fhir:display/@value" />
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:for-each select="following-sibling::fhir:text">
+                                        <originalText>
+                                            <xsl:value-of select="@value" />
+                                        </originalText>
+                                    </xsl:for-each>
+                                </translation>
+                            </xsl:for-each>
+                        </xsl:for-each>
                     </value>
                 </xsl:when>
             </xsl:choose>

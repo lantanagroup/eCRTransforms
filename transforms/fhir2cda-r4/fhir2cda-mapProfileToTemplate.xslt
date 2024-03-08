@@ -1111,7 +1111,7 @@ limitations under the License.
             <!-- NHSN Comment Section -->
             <xsl:when
                 test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-event' and fhir:linkId/@value = 'nhsn-comment'">
-                <title>NHSN Section</title>
+                <title>NHSN Comment Section</title>
             </xsl:when>
 
             <xsl:otherwise>

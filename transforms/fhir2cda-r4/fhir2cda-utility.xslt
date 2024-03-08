@@ -35,10 +35,12 @@ limitations under the License.
     <xsl:param name="lab-obs-status-mapping-file">../lab-obs-status-mapping.xml</xsl:param>
     <xsl:param name="lab-status-mapping-file">../lab-status-mapping.xml</xsl:param>
     <xsl:param name="questionnaire-mapping-file">../questionnaire-mapping.xml</xsl:param>
+    <xsl:param name="section-title-mapping-file">../section-title-mapping.xml</xsl:param>
 
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
-    <xsl:variable name="questionnaire-mapping" select="document($questionnaire-mapping-file)/fhir:mapping" />
+    <xsl:variable name="questionnaire-mapping" select="document($questionnaire-mapping-file)/mapping" />
+    <xsl:variable name="section-title-mapping" select="document($section-title-mapping-file)/mapping" />
 
     <!-- Get the HAI Document Questionnaire URL (**TODO** - might not use this and just use the select all the time) -->
     <xsl:variable name="gvQuestionnaireUrl" select="//fhir:QuestionnaireResponse/fhir:questionnaire/@value" />
@@ -416,12 +418,17 @@ limitations under the License.
     <xsl:template match="fhir:status" mode="map-lab-obs-status">
         <xsl:param name="pElementName" select="'value'" />
         <xsl:param name="pXSIType" select="'CD'" />
+        
+        <xsl:variable name="vStatus">
+            <xsl:value-of select="@value"/>
+        </xsl:variable>
+        
         <xsl:element name="{$pElementName}">
             <xsl:attribute name="xsi:type" select="$pXSIType" />
             <xsl:choose>
-                <xsl:when test="$lab-obs-status-mapping/map[@fhirLabObsStatus = fhir:status/@value]">
-                    <xsl:attribute name="code" select="@cdaLabObsStatus" />
-                    <xsl:attribute name="displayName" select="@cdaDisplayName" />
+                <xsl:when test="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus]">
+                    <xsl:attribute name="code" select="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus]/@cdaLabObsStatus" />
+                    <xsl:attribute name="displayName" select="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus]/@cdaDisplayName" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="code" select="'F'" />
@@ -437,12 +444,17 @@ limitations under the License.
     <xsl:template match="fhir:status" mode="map-lab-status">
         <xsl:param name="pElementName" select="'value'" />
         <xsl:param name="pXSIType" select="'CD'" />
+        
+        <xsl:variable name="vStatus">
+            <xsl:value-of select="@value"/>
+        </xsl:variable>
+        
         <xsl:element name="{$pElementName}">
             <xsl:attribute name="xsi:type" select="$pXSIType" />
             <xsl:choose>
-                <xsl:when test="$lab-status-mapping/map[@fhirLabStatus = fhir:status/@value]">
-                    <xsl:attribute name="code" select="@cdaLabStatus" />
-                    <xsl:attribute name="displayName" select="@cdaDisplayName" />
+                <xsl:when test="$lab-status-mapping/map[@fhirLabStatus = $vStatus]">
+                    <xsl:attribute name="code" select="$lab-status-mapping/map[@fhirLabStatus = $vStatus]/@cdaLabStatus" />
+                    <xsl:attribute name="displayName" select="$lab-status-mapping/map[@fhirLabStatus = $vStatus]/@cdaDisplayName" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="code" select="'F'" />
@@ -452,6 +464,24 @@ limitations under the License.
             <xsl:attribute name="codeSystem" select="'2.16.840.1.113883.18.51'" />
             <xsl:attribute name="codeSystemName" select="'HL7ResultStatus'" />
         </xsl:element>
+    </xsl:template>
+    
+    <!-- TEMPLATE: Uses the section-title-mapping file imported at the top of this file to match section.code with section.title 
+         when the title is missing from the fhir data-->
+    <xsl:template match="fhir:code" mode="map-section-title">
+        <xsl:variable name="vSectionCode">
+            <xsl:value-of select="fhir:coding/fhir:code/@value"/>
+        </xsl:variable>        
+        <title>
+            <xsl:choose>
+                <xsl:when test="$section-title-mapping/map[@sectionCode = $vSectionCode]">
+                    <xsl:value-of select="$section-title-mapping/map[@sectionCode = $vSectionCode]/@sectionTitle" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="'No title specified'" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </title>
     </xsl:template>
 
     <!-- TEMPLATE: Maps a fhir resource to a cda template and outputs the templateId(s) -->

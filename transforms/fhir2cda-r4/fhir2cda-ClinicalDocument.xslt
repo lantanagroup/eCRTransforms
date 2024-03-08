@@ -16,8 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xhtml" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xhtml" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3"
+    xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:import href="fhir2cda-TS.xslt" />
     <xsl:import href="fhir2cda-CD.xslt" />
@@ -151,11 +152,15 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
-                <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value">
-                    <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value}" />
+                <xsl:when
+                    test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value">
+                    <versionNumber
+                        value="{fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value}"
+                     />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value">
-                    <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value}" />
+                    <versionNumber
+                        value="{fhir:extension[@url='http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value}" />
                 </xsl:when>
             </xsl:choose>
 
@@ -174,8 +179,10 @@ limitations under the License.
 
             <xsl:choose>
                 <!-- fhir:recipient -> cda:informationRecipient -->
-                <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension'] or fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension']">
-                    <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension'] | fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension']">
+                <xsl:when
+                    test="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension'] or fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension']">
+                    <xsl:for-each
+                        select="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension'] | fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension']">
                         <xsl:apply-templates select=".">
                             <xsl:with-param name="pPosition" select="position()" />
                         </xsl:apply-templates>
@@ -216,7 +223,7 @@ limitations under the License.
                     </associatedEntity>
                 </participant>
             </xsl:for-each>
-            
+
             <!-- fhir:extension  -->
             <!-- be aware a Composition can have multiple extensions to ensure in correct context -->
             <!-- MD: OrderExtension -> cda:inFulfillmentOf -->
@@ -225,8 +232,8 @@ limitations under the License.
 
             <xsl:apply-templates select="fhir:event" />
             <xsl:apply-templates select="fhir:encounter" />
-            
-            
+
+
             <component>
                 <structuredBody>
                     <!-- If this is eICR we need to manually add an Encounters section -->
@@ -251,14 +258,21 @@ limitations under the License.
                             </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
-
-
                     <xsl:for-each select="fhir:section">
                         <component>
-                            <!-- Commenting the below out - let's leave the output in the same order as it is -->
-                            <!--<xsl:sort select="fhir:title/@value" />-->
+                            <!-- SG 20240307: Sometimes the FHIR Sections don't have titles -->
+                            <xsl:variable name="vTitle">
+                                <xsl:choose>
+                                    <xsl:when test="fhir:title">
+                                        <xsl:value-of select="fhir:title/@value" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates select="fhir:code" mode="map-section-title" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:variable>
                             <xsl:apply-templates select=".">
-                                <xsl:with-param name="title" select="fhir:title/@value" />
+                                <xsl:with-param name="title" select="$vTitle" />
                             </xsl:apply-templates>
                         </component>
                     </xsl:for-each>
@@ -274,7 +288,9 @@ limitations under the License.
     </xsl:template>
 
     <!-- fhir:extension[3 different organization types] -> (RR) Rules Authoring Agency, Routing Entity, Responsible Agency (Organization) -->
-    <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization-extension'] | fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization-extension'] | fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization-extension']" mode="rr">
+    <xsl:template
+        match="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization-extension'] | fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization-extension'] | fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization-extension']"
+        mode="rr">
 
         <xsl:variable name="referenceURI">
             <xsl:call-template name="resolve-to-full-url">
@@ -386,23 +402,28 @@ limitations under the License.
                         <xsl:variable name="vQuestionnaireResponse" select="." />
 
                         <!-- SG 20220209: Iterate through the sections -->
-                        <xsl:for-each select="$questionnaire-mapping/fhir:map[@type = ('section')][@linkId = ($vQuestionnaireResponse//fhir:linkId/@value)]">
+                        <xsl:for-each
+                            select="$questionnaire-mapping/fhir:map[@type = ('section')][@linkId = ($vQuestionnaireResponse//fhir:linkId/@value)]">
                             <component>
                                 <xsl:variable name="vLinkId">
                                     <xsl:value-of select="@linkId" />
                                 </xsl:variable>
 
                                 <!-- Grab the entry linkIds for this section and put into variable -->
-                                <xsl:variable name="vSectionEntryLinkIds" select="$questionnaire-mapping/fhir:map[@location = $vLinkId][@type = 'entry']/@linkId" />
+                                <xsl:variable name="vSectionEntryLinkIds"
+                                    select="$questionnaire-mapping/fhir:map[@location = $vLinkId][@type = 'entry']/@linkId" />
 
                                 <!-- Get any matching entry items and put into variable -->
-                                <xsl:variable name="vSectionEntries" select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vSectionEntryLinkIds]" />
+                                <xsl:variable name="vSectionEntries"
+                                    select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vSectionEntryLinkIds]" />
 
                                 <!-- Grab the entryRelationship linkIds for this section and put into variable -->
-                                <xsl:variable name="vSectionEntryRelationshipLinkIds" select="$questionnaire-mapping/fhir:map[@location = $vLinkId][@type = 'entryRelationship']/@linkId" />
+                                <xsl:variable name="vSectionEntryRelationshipLinkIds"
+                                    select="$questionnaire-mapping/fhir:map[@location = $vLinkId][@type = 'entryRelationship']/@linkId" />
 
                                 <!-- Get any matching entryRelationship items and put into variable -->
-                                <xsl:variable name="vSectionEntryRelationships" select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vSectionEntryRelationshipLinkIds]" />
+                                <xsl:variable name="vSectionEntryRelationships"
+                                    select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vSectionEntryRelationshipLinkIds]" />
 
                                 <!-- Create the sections and their entries -->
                                 <xsl:apply-templates mode="section" select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vLinkId]">
@@ -522,7 +543,8 @@ limitations under the License.
                     <xsl:call-template name="get-id">
                         <xsl:with-param name="pNoNullAllowed" select="true()" />
                     </xsl:call-template>
-                    <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Reporting Document Architecture Calculated Summary Report" />
+                    <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+                        displayName="Quality Reporting Document Architecture Calculated Summary Report" />
                 </xsl:otherwise>
             </xsl:choose>
             <title>Quality Measure Report Converted from FHIR MeasureReport</title>
@@ -702,7 +724,8 @@ limitations under the License.
         <xsl:if test="fhir:reference">
             <!-- Assume contained resource for now, but in the future fix so it handles bundle entries too (see resolve-resource in fhir2cda-utility.xslt -->
             <xsl:variable name="id" select="substring-after(fhir:reference/@value, '#')" />
-            <xsl:apply-templates mode="subject-list" select="ancestor::fhir:entry[1]/fhir:resource/fhir:*/fhir:contained/fhir:*[fhir:id/@value = $id]" />
+            <xsl:apply-templates mode="subject-list" select="ancestor::fhir:entry[1]/fhir:resource/fhir:*/fhir:contained/fhir:*[fhir:id/@value = $id]"
+             />
         </xsl:if>
     </xsl:template>
 

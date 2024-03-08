@@ -16,43 +16,46 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lcg="http://www.lantanagroup.com"
-  xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:uuid="http://www.uuid.org" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0"
-  exclude-result-prefixes="lcg xsl cda fhir xhtml uuid sdtc">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:uuid="http://www.uuid.org"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0" exclude-result-prefixes="lcg xsl cda fhir xhtml uuid sdtc">
 
-  <xsl:include href="fhir2cda-includes.xslt" />
-    
-  <xsl:param name="gParamCDAeICRVersion"/>
-    
+    <xsl:include href="fhir2cda-includes.xslt" />
+
+    <xsl:param name="gParamCDAeICRVersion" />
+
     <!-- Get the CompositionFullUrl for later "workaround" if identifier.system is missing -->
-    <xsl:variable name="gvCompositionBaseUrl" select="substring-before(//fhir:entry[fhir:resource/fhir:Composition]/fhir:fullUrl/@value, '/Composition')" />
+    <xsl:variable name="gvCompositionBaseUrl"
+        select="substring-before(//fhir:entry[fhir:resource/fhir:Composition]/fhir:fullUrl/@value, '/Composition')" />
 
-  <xsl:output method="xml" indent="yes" encoding="UTF-8" />
+    <xsl:output method="xml" indent="yes" encoding="UTF-8" />
 
-  <xsl:template match="/">
-    <xsl:message>Beginning transform</xsl:message>
-    <xsl:choose>
-      <xsl:when test="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]">
-        <xsl:apply-templates select="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]" />
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:message terminate="yes">This transform can only be run on a FHIR Bundle resource where type = document or type = collection.</xsl:message>
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:template match="/">
+        <xsl:message>Beginning transform</xsl:message>
+        <xsl:choose>
+            <xsl:when test="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]">
+                <xsl:apply-templates select="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:message terminate="yes">This transform can only be run on a FHIR Bundle resource where type = document or type =
+                    collection.</xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>
 
-  </xsl:template>
+    </xsl:template>
 
-  <xsl:template match="fhir:Bundle[fhir:type[@value = 'document']]">
-    <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
-  </xsl:template>
+    <xsl:template match="fhir:Bundle[fhir:type[@value = 'document']]">
+        <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
+    </xsl:template>
 
-  <xsl:template match="fhir:Bundle[fhir:type[@value = 'collection']]">
-    <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
-    <xsl:message>Running collection bundle using root resource <xsl:value-of select="local-name(fhir:entry[1]/fhir:resource/fhir:*)" /></xsl:message>
-  </xsl:template>
+    <xsl:template match="fhir:Bundle[fhir:type[@value = 'collection']]">
+        <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
+        <xsl:message>Running collection bundle using root resource <xsl:value-of select="local-name(fhir:entry[1]/fhir:resource/fhir:*)"
+             /></xsl:message>
+    </xsl:template>
 
-  <xsl:template match="fhir:*" mode="entry" priority="-10">
-    <xsl:comment>
+    <xsl:template match="fhir:*" mode="entry" priority="-10">
+        <xsl:comment>
       <xsl:text>TODO: unmapped entry </xsl:text>
       <xsl:value-of select="local-name(.)" />
       <xsl:text> </xsl:text>
@@ -60,10 +63,10 @@ limitations under the License.
         <xsl:value-of select="fhir:meta/fhir:profile/@value" />
       </xsl:if>
     </xsl:comment>
-  </xsl:template>
+    </xsl:template>
 
-  <xsl:template match="fhir:*" mode="entry-relationship" priority="-10">
-    <xsl:comment>
+    <xsl:template match="fhir:*" mode="entry-relationship" priority="-10">
+        <xsl:comment>
       <xsl:text>TODO: unmapped entryRelationship </xsl:text>
       <xsl:value-of select="local-name(.)" />
       <xsl:text> </xsl:text>
@@ -71,6 +74,6 @@ limitations under the License.
         <xsl:value-of select="fhir:meta/fhir:profile/@value" />
       </xsl:if>
     </xsl:comment>
-  </xsl:template>
+    </xsl:template>
 
 </xsl:stylesheet>

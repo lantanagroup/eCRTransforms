@@ -427,8 +427,8 @@ limitations under the License.
             <xsl:attribute name="xsi:type" select="$pXSIType" />
             <xsl:choose>
                 <xsl:when test="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus]">
-                    <xsl:attribute name="code" select="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus]/@cdaLabObsStatus" />
-                    <xsl:attribute name="displayName" select="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus]/@cdaDisplayName" />
+                    <xsl:attribute name="code" select="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus][1]/@cdaLabObsStatus" />
+                    <xsl:attribute name="displayName" select="$lab-obs-status-mapping/map[@fhirLabObsStatus = $vStatus][1]/@cdaDisplayName" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="code" select="'F'" />
@@ -453,8 +453,8 @@ limitations under the License.
             <xsl:attribute name="xsi:type" select="$pXSIType" />
             <xsl:choose>
                 <xsl:when test="$lab-status-mapping/map[@fhirLabStatus = $vStatus]">
-                    <xsl:attribute name="code" select="$lab-status-mapping/map[@fhirLabStatus = $vStatus]/@cdaLabStatus" />
-                    <xsl:attribute name="displayName" select="$lab-status-mapping/map[@fhirLabStatus = $vStatus]/@cdaDisplayName" />
+                    <xsl:attribute name="code" select="$lab-status-mapping/map[@fhirLabStatus = $vStatus][1]/@cdaLabStatus" />
+                    <xsl:attribute name="displayName" select="$lab-status-mapping/map[@fhirLabStatus = $vStatus][1]/@cdaDisplayName" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="code" select="'F'" />

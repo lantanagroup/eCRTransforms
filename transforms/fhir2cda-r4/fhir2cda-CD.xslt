@@ -63,7 +63,6 @@ limitations under the License.
     </xsl:template>
 
     <!-- Creating a match template similar to the above for more flexibility -->
-    <!--  <xsl:template match="fhir:code[fhir:coding] | fhir:category[fhir:coding] | fhir:type[fhir:coding] | fhir:code[fhir:coding] | fhir:valueCodeableConcept | fhir:medicationCodeableConcept | fhir:route | fhir:vaccineCode">-->
     <xsl:template match="fhir:*[fhir:coding] | fhir:*[fhir:valueCoding] | fhir:code[fhir:text] | fhir:valueCodeableConcept | fhir:medicationCodeableConcept | fhir:route | fhir:vaccineCode">
 
         <xsl:param name="pElementName">code</xsl:param>

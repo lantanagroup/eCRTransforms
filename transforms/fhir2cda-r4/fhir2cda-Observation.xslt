@@ -34,7 +34,8 @@ limitations under the License.
     <!-- ********************************************************************* -->
     <!-- Generic Observation entry (no contained hasMember - if contained hasMember then Organizer)-->
     <!-- These are contained in a Section-->
-    <xsl:template match="fhir:Observation[count(fhir:hasMember) = 0][not(fhir:category/fhir:coding[fhir:code/@value = 'laboratory'])]" mode="entry">
+    <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+    <xsl:template match="fhir:Observation[count(fhir:hasMember) = 0][not(fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory'])]" mode="entry">
         <xsl:param name="generated-narrative">additional</xsl:param>
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
         <xsl:variable name="vCurrentIg">
@@ -46,7 +47,8 @@ limitations under the License.
             </xsl:if>
             <xsl:choose>
                 <!-- Vital Signs -->
-                <xsl:when test="fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
+                <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+                <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
                     <xsl:choose>
                         <!-- PCP creates the vital signs in a Health Concern -->
                         <xsl:when test="$vCurrentIg = 'PCP'">
@@ -90,7 +92,8 @@ limitations under the License.
     <!-- MD: split into three part, since the blood pressure has its own component -->
     <xsl:template match="fhir:Observation[count(fhir:hasMember) = 0]" mode="component">
         <xsl:choose>
-            <xsl:when test="fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
                 <xsl:choose>
                     <!-- LOINC code for Blood pressure panel with all children optional -->
                     <xsl:when test="
@@ -192,7 +195,8 @@ limitations under the License.
                     <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
                 </xsl:when>
                 <!-- SG 20240307: Catch any social history observations that don't have a LOINC code and add a empty LOINC code -->
-               <xsl:when test="fhir:category/fhir:coding/fhir:code/@value = 'social-history' and not(fhir:code/fhir:coding/fhir:system/@value = 'http://loinc.org')">
+                <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+               <xsl:when test="fhir:category[1]/fhir:coding/fhir:code/@value = 'social-history' and not(fhir:code/fhir:coding/fhir:system/@value = 'http://loinc.org')">
                     <xsl:variable name="vCodeWithLOINC">
                         <code xmlns="http://hl7.org/fhir">
                             <xsl:for-each select="fhir:code/fhir:coding">
@@ -408,7 +412,8 @@ limitations under the License.
                 </xsl:choose>
             </xsl:for-each>
             <!-- If this is eICR and this is a Result Observation Trigger Code template -->
-            <xsl:if test="$vTriggerExtension and fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'laboratory'">
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:if test="$vTriggerExtension and fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'laboratory'">
                 <entryRelationship typeCode="COMP">
                     <observation classCode="OBS" moodCode="EVN">
                         <xsl:comment select="' [C-CDA ID] Laboratory Observation Result Status (ID) '" />
@@ -1304,12 +1309,14 @@ limitations under the License.
             <!-- code -->
             <!-- Should have already wrapped this with an encounter diagnosis, hard code that one or deal with the others -->
             <xsl:choose>
-                <xsl:when test="fhir:category[fhir:coding/fhir:code/@value = 'encounter-diagnosis']">
+                <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+                <xsl:when test="fhir:category[1][fhir:coding/fhir:code/@value = 'encounter-diagnosis']">
                     <code code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Diagnosis interpretation">
                         <translation code="29308-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Diagnosis" />
                     </code>
                 </xsl:when>
-                <xsl:when test="fhir:category[fhir:coding/fhir:code/@value = 'problem-list-item']">
+                <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+                <xsl:when test="fhir:category[1][fhir:coding/fhir:code/@value = 'problem-list-item']">
                     <code code="75326-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Problem HL7.CCDAR2">
                         <translation code="55607006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Problem" />
                     </code>
@@ -1512,7 +1519,8 @@ limitations under the License.
                                                 <xsl:comment select="'  [RR R1S1] External Resource  '" />
                                                 <templateId extension="2017-04-01" root="2.16.840.1.113883.10.20.15.2.3.20" />
                                                 <id nullFlavor="NI" />
-                                                <xsl:apply-templates select="fhir:category" />
+                                                <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+                                                <xsl:apply-templates select="fhir:category[1]" />
                                                 <xsl:apply-templates
                                                     select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-type-extension']/fhir:valueCodeableConcept" />
                                                 <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension']/fhir:valueCodeableConcept">

@@ -735,20 +735,21 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.55" extension="2021-01-01" />
             </xsl:when>
 
-
             <!-- We'll see if there is a code match first, then try the IG plus resource type -->
             <!-- Vital Sign Observation -->
-            <xsl:when test="fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs' and count(fhir:hasMember) = 0">
-                <xsl:comment select="' [C-CDA R2.0] Vital sign observation '" />
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs' and count(fhir:hasMember) = 0">
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.27" />
-                <xsl:comment select="' [C-CDA R2.0] Vital sign observation '" />
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.27" extension="2014-06-09" />
             </xsl:when>
             <!-- Vital Sign Organizer -->
-            <xsl:when test="fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
-                <xsl:comment select="' [C-CDA R2.0] Vital sign organizer '" />
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.26" />
-                <xsl:comment select="' [C-CDA R2.0] Vital sign organizer '" />
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.26" extension="2015-08-01" />
             </xsl:when>
 
@@ -857,11 +858,21 @@ limitations under the License.
             </xsl:when>
             
             <!-- SG 20240307: Adding social-history category -->
-            <xsl:when test="local-name() = 'Observation' and fhir:category/fhir:coding/fhir:code/@value = 'social-history'">
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'social-history'">
                 <xsl:comment select="' [C-CDA R1.1] Social History Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.38" />
                 <xsl:comment select="' [C-CDA R2.1] Social History Observation (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.38" extension="2015-08-01" />
+            </xsl:when>
+            
+            <!-- SG 20240307: Adding laboratory category -->
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory'">
+                <xsl:comment select="' [C-CDA R1.1] Result Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.2" />
+                <xsl:comment select="' [C-CDA R2.1] Result Observation (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
             </xsl:when>
             
             <xsl:otherwise>
@@ -1010,7 +1021,8 @@ limitations under the License.
             </xsl:when>
             <!-- SG 20240306: Add more missing meta processing -->
             <!-- If this is a laboratory Observation and it contains hasMember(not Observation) -->
-            <xsl:when test="local-name() = 'Observation' and fhir:category/fhir:coding/fhir:code/@value = 'laboratory' and count(fhir:hasMember) > 0">
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory' and count(fhir:hasMember) > 0">
                 <xsl:comment select="' [C-CDA R1.1] Result Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.1" />
                 <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />
@@ -1019,7 +1031,8 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.35" extension="2019-04-01" />
             </xsl:when>
             <!-- SG 20240306: Just a laboratory Observation without hasMember then Observation -->
-            <xsl:when test="local-name() = 'Observation' and fhir:category/fhir:coding/fhir:code/@value = 'laboratory'">
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory'">
                 <xsl:comment select="' [C-CDA R1.1] Result Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.2" />
                 <xsl:comment select="' [C-CDA R2.1] Result Observation (V3) '" />

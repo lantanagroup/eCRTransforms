@@ -208,11 +208,23 @@ limitations under the License.
                                 <xsl:call-template name="get-org-name">
                                     <xsl:with-param name="pElement" select="$vLocation/fhir:Location/fhir:name" />
                                 </xsl:call-template>
-                                <xsl:call-template name="get-addr">
-                                    <xsl:with-param name="pElement" select="$vLocation/fhir:Location/fhir:address" />
-                                </xsl:call-template>
+                                <!-- SG 20240307: Sometimes the Location has no address, use the first ServiceProvider address in this case -->
+                                <xsl:choose>
+                                    <xsl:when test="$vLocation/fhir:Location/fhir:address">
+                                        <xsl:call-template name="get-addr">
+                                            <xsl:with-param name="pElement" select="$vLocation/fhir:Location/fhir:address" />
+                                        </xsl:call-template>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="get-addr">
+                                            <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization/fhir:address[1]" />
+                                        </xsl:call-template>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                
                             </location>
                             <serviceProviderOrganization>
+                                <!--  -->
                                 <xsl:call-template name="get-org-name">
                                     <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization/fhir:name" />
                                 </xsl:call-template>

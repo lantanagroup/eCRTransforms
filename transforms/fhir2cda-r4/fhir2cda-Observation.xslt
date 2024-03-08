@@ -1014,8 +1014,10 @@ limitations under the License.
     <!-- MD: add template for blood-pressure -->
     <xsl:template name="make-blood-pressure-cluster">
         <organizer classCode="CLUSTER" moodCode="EVN">
+            <xsl:comment select="' [C-CDA R2.0] Vital sign organizer '" />
             <templateId root="2.16.840.1.113883.10.20.22.4.26" />
-            <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.4.26" />
+            <xsl:comment select="' [C-CDA R2.0] Vital sign organizer '" />
+            <templateId root="2.16.840.1.113883.10.20.22.4.26" extension="2015-08-01" />
             <xsl:call-template name="get-id" />
             <code code="46680005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Vital Signs">
                 <translation code="74728-7" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
@@ -1033,8 +1035,10 @@ limitations under the License.
             <xsl:for-each select="fhir:component">
                 <component>
                     <observation classCode="OBS" moodCode="EVN">
+                        <xsl:comment select="' [C-CDA R2.0] Vital sign observation '" />
                         <templateId root="2.16.840.1.113883.10.20.22.4.27" />
-                        <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.27" />
+                        <xsl:comment select="' [C-CDA R2.0] Vital sign observation '" />
+                        <templateId root="2.16.840.1.113883.10.20.22.4.27" extension="2014-06-09" />
                         <xsl:call-template name="get-id" />
                         <xsl:apply-templates select="fhir:code" />
                         <statusCode code="completed" />

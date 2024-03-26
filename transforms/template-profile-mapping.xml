@@ -57,7 +57,7 @@
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.109" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment" />
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.4.4:2021-01-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-location" />
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.3:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-condition" />
-    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.3:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+    <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.3:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
 
     <!-- eICR Initial Case Report Trigger Code Lab Test Order -->
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.4:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    <x:scenario label="Scenario for testing ClinicalDocument/participant creation">
+
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
+
+        <!--Confirm the Emergency Contact participant exists-->
+        <x:expect label="There should be one ClinicalDocument/participant with typeCode='IND'" test="count(/cda:ClinicalDocument/cda:participant[@typeCode='IND'])=1" />
+        <!--Confirm the Emergency Contact exists (includes relationship code "ECON" -->
+        <x:expect label="There should be one ClinicalDocument/participant/associatedEntity with classCode='ECON'" test="count(/cda:ClinicalDocument/cda:participant[@typeCode='IND']/cda:associatedEntity[@classCode='ECON'])=1" />
+        <!--Confirm the Emergency Contact name exists-->
+        <x:expect label="There should be one ClinicalDocument/participant/associatedEntity/associatedPerson/name" test="count(/cda:ClinicalDocument/cda:participant[@typeCode='IND']/cda:associatedEntity[@classCode='ECON']/cda:associatedPerson/cda:name)=1" />
+        <!--Confirm the Emergency Contact address exists-->
+        <x:expect label="There should be one ClinicalDocument/participant/associatedEntity with classCode='ECON'" test="count(/cda:ClinicalDocument/cda:participant[@typeCode='IND']/cda:associatedEntity[@classCode='ECON']/cda:addr)=1" />
+        <!--Confirm the Emergency Contact telecom exists-->
+        <x:expect label="There should be one ClinicalDocument/participant/associatedEntity with classCode='ECON'" test="count(/cda:ClinicalDocument/cda:participant[@typeCode='IND']/cda:associatedEntity[@classCode='ECON']/cda:telecom)=1" />
+
+    </x:scenario>
+</x:description>

@@ -2,7 +2,7 @@
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
 
     <x:scenario label="Test trigger code template generation">
-        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml" />
+        <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />
         <x:expect label="Must be 2 trigger code flags sdtc:valueSet" test="count(//@sdtc:valueSet)=2" />
         <x:expect label="Must be 2 trigger code flags sdtc:valueSetVersion" test="count(//@sdtc:valueSetVersion)=2" />
     </x:scenario>

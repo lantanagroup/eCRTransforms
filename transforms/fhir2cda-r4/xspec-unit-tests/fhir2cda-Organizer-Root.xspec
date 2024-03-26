@@ -3,7 +3,7 @@
     xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
   
     <x:scenario label="Scenario for testing function make-vitalsign-organizer">
-        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml"/>
+        <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml"/>
         
         
         <!--Confirm a Vital Signs Organizer (V3) template is created with all required elements -->

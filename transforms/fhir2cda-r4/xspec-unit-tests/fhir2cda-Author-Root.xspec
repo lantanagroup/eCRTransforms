@@ -5,8 +5,7 @@
     <!--Confirm the Author has been created in eICR -->
     <x:scenario
         label="Scenario for testing fhir:Practitioner -> cda:author">
-        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml" />
-        
+        <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />
         
         <!--Confirm the Author exists and all required CDA elements have been generated -->
         <x:expect label="SHALL contain at least one [1..*] author (CONF:4482-127)" 
@@ -46,7 +45,7 @@
     <!--Confirm the Author has been created in RR -->
     <x:scenario
         label="Scenario for testing fhir -> cda:author">
-        <x:context href="../../../samples/fhir/RR-R2/RR-FHIR-001_R2.xml" />
+        <x:context href="../../../samples/fhir/RR-R2_1/RR-FHIR-001_R2_1.xml" />
         
         
         <!--Confirm the Author exists and all required CDA elements have been generated -->

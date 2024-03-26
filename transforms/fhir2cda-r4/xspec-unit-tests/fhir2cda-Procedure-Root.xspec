@@ -2,7 +2,7 @@
     xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
     
     <x:scenario label="Scenario for testing template with match 'fhir:Procedure' and mode 'entry'">
-        <x:context href="../../../samples/fhir/eICR-R2/eICR-FHIR-001_R2.xml" />
+        <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />
         
         <!--Confirm a Procedures Section (entries optional) (V2) template is created -->
         <x:expect label="SHALL contain exactly one [1..1] @root='2.16.840.1.113883.10.20.22.2.7.1' (CONF:1098-10447)." 

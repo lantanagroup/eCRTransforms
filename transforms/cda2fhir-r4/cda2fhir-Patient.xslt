@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3"
-    xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
@@ -44,12 +43,10 @@
                 </xsl:otherwise>
             </xsl:choose>
 
-            <!-- <xsl:call-template name="add-participant-meta" /> -->
-
             <xsl:call-template name="generate-text-patient" />
             <xsl:call-template name="add-race-codes" />
             <xsl:choose>
-                <xsl:when test="cda:patientRole/cda:patient/cda:ethnicGroupCode/@nullFlavor"> </xsl:when>
+                <xsl:when test="cda:patientRole/cda:patient/cda:ethnicGroupCode/@nullFlavor" />
                 <xsl:otherwise>
                     <xsl:call-template name="add-ethnicity-codes" />
                 </xsl:otherwise>
@@ -57,6 +54,7 @@
 
             <xsl:call-template name="add-birthtime-extension" />
             <xsl:call-template name="add-birth-sex-extension" />
+            <xsl:call-template name="add-birthplace-extension" />
             <xsl:call-template name="add-gender-identity-extension" />
             <xsl:call-template name="add-tribal-affiliation-extension" />
             <xsl:apply-templates select="cda:patientRole/cda:id" />
@@ -110,7 +108,22 @@
                 </contact>
             </xsl:for-each>
 
-            <!-- Adding Communication -->
+            <!-- SG 20240321: Add emergency contact -->
+            <xsl:for-each select="/cda:ClinicalDocument/cda:participant[@typeCode = 'IND']/cda:associatedEntity[@classCode = 'ECON']">
+                <contact>
+                    <relationship>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/v2-0131" />
+                            <code value="C" />
+                        </coding>
+                    </relationship>
+                    <xsl:apply-templates select="cda:associatedPerson/cda:name" />
+                    <xsl:apply-templates select="cda:telecom" />
+                    <xsl:apply-templates select="cda:addr" />
+                </contact>
+            </xsl:for-each>
+
+            <!-- Add Communication -->
             <xsl:if test="cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode/@code">
                 <communication>
                     <language>
@@ -137,8 +150,7 @@
                     <link>
                         <other>
                             <reference value="urn:uuid:{//cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.22.2.15']/
-                following-sibling::cda:entry/cda:organizer/cda:subject/cda:relatedSubject[@classCode='PRS']/@lcg:uuid}"
-                            > </reference>
+                following-sibling::cda:entry/cda:organizer/cda:subject/cda:relatedSubject[@classCode='PRS']/@lcg:uuid}"> </reference>
                         </other>
                         <type value="seealso" />
                     </link>
@@ -437,6 +449,15 @@
         <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200']">
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
                 <valueCode value="{cda:value/@code}" />
+            </extension>
+        </xsl:for-each>
+    </xsl:template>
+
+    <!-- SG 20240321: added -->
+    <xsl:template name="add-birthplace-extension">
+        <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place">
+            <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
+                <xsl:apply-templates select="cda:addr" />
             </extension>
         </xsl:for-each>
     </xsl:template>

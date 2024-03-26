@@ -27,21 +27,28 @@ limitations under the License.
     <!-- Organizer -->
     <!-- An Observation from FHIR translates to an Organizer if it contains hasMember 
        A result observation from FHIR must be wrapped in an Organizer -->
-    <xsl:template match="fhir:Observation[fhir:hasMember] | fhir:Observation[fhir:category/fhir:coding[fhir:code/@value = 'laboratory']]" mode="entry">
+    <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+    <xsl:template match="fhir:Observation[fhir:hasMember] | fhir:Observation[fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory']]" mode="entry">
         <xsl:param name="generated-narrative">additional</xsl:param>
         <xsl:if test="$generated-narrative = 'generated'">
             <xsl:attribute name="typeCode">DRIV</xsl:attribute>
         </xsl:if>
         <entry>
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
             <xsl:choose>
-                <xsl:when test="fhir:category/fhir:coding[fhir:code/@value = 'vital-signs']">
+                <xsl:when test="fhir:category[1]/fhir:coding[fhir:code/@value = 'vital-signs']">
                     <xsl:call-template name="make-vitalsign-organizer" />
                 </xsl:when>
-                <xsl:when test="fhir:category/fhir:coding[fhir:code/@value = 'laboratory'] and fhir:hasMember">
+                <xsl:when test="fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory'] and fhir:hasMember">
                     <xsl:call-template name="make-result-organizer" />
                 </xsl:when>
-                <xsl:when test="fhir:category/fhir:coding[fhir:code/@value = 'laboratory']">
+                <xsl:when test="fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory']">
                     <xsl:call-template name="make-result-organizer-wrapper" />
+                </xsl:when>
+                <!-- SG 20240307: Added for social-history observation with hasMembers, just make a regular observation
+                     as there aren't any social-history organizers -->
+                <xsl:when test="fhir:category[1]/fhir:coding[fhir:code/@value = 'social-history']">
+                    <xsl:call-template name="make-generic-observation" />
                 </xsl:when>
             </xsl:choose>
         </entry>

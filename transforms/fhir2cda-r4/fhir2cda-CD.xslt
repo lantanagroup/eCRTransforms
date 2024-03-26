@@ -19,7 +19,7 @@ limitations under the License.
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0" exclude-result-prefixes="lcg xsl cda fhir sdtc">
 
-<!--    <xsl:import href="fhir2cda-utility.xslt" />-->
+    <!--    <xsl:import href="fhir2cda-utility.xslt" />-->
 
     <xsl:template name="CodeableConcept2CD">
         <xsl:param name="pElementName">code</xsl:param>
@@ -63,7 +63,6 @@ limitations under the License.
     </xsl:template>
 
     <!-- Creating a match template similar to the above for more flexibility -->
-    <!--  <xsl:template match="fhir:code[fhir:coding] | fhir:category[fhir:coding] | fhir:type[fhir:coding] | fhir:code[fhir:coding] | fhir:valueCodeableConcept | fhir:medicationCodeableConcept | fhir:route | fhir:vaccineCode">-->
     <xsl:template match="fhir:*[fhir:coding] | fhir:*[fhir:valueCoding] | fhir:code[fhir:text] | fhir:valueCodeableConcept | fhir:medicationCodeableConcept | fhir:route | fhir:vaccineCode">
 
         <xsl:param name="pElementName">code</xsl:param>
@@ -111,6 +110,9 @@ limitations under the License.
             </xsl:when>
             <xsl:otherwise>
                 <xsl:element name="{$pElementName}">
+                    <xsl:if test="$pXSIType">
+                        <xsl:attribute name="xsi:type" select="$pXSIType" />
+                    </xsl:if>
                     <xsl:choose>
                         <xsl:when test="fhir:text">
                             <xsl:attribute name="nullFlavor">OTH</xsl:attribute>
@@ -145,9 +147,17 @@ limitations under the License.
                         <xsl:with-param name="uri" select="fhir:system/@value" />
                     </xsl:call-template>
                 </xsl:variable>
-                <xsl:attribute name="code">
-                    <xsl:value-of select="fhir:code/@value" />
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="fhir:code/@value">
+                        <xsl:attribute name="code">
+                            <xsl:value-of select="fhir:code/@value" />
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="nullFlavor" select="'OTH'" />
+                    </xsl:otherwise>
+                </xsl:choose>
+
                 <xsl:attribute name="codeSystem">
                     <xsl:value-of select="$codeSystem" />
                 </xsl:attribute>

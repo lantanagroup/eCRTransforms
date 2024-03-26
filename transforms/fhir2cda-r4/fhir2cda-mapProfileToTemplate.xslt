@@ -16,15 +16,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0"
-    exclude-result-prefixes="lcg xsl cda fhir sdtc">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0" exclude-result-prefixes="lcg xsl cda fhir sdtc">
 
     <xsl:import href="fhir2cda-TS.xslt" />
     <xsl:import href="fhir2cda-CD.xslt" />
     <xsl:import href="fhir2cda-utility.xslt" />
 
-
-
+    <!-- Global carriage return variable for nicer formatting -->
+    <xsl:variable name="carriageReturn">
+        <xsl:text>
+        </xsl:text>
+    </xsl:variable>
 
     <!-- Map profile uri to template -->
     <xsl:template match="fhir:*" mode="map-resource-to-template">
@@ -246,7 +249,6 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.40.1.2.1" extension="2020-08-01" />
             </xsl:when>
 
-
             <!-- Procedures Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '47519-4'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
@@ -265,7 +267,6 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
                 <xsl:comment select="' [ODH R2] Occupational Data for Health Templates Requirements Section (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2020-09-01" />
-
             </xsl:when>
             <!-- Pregnancy Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '90767-5'">
@@ -330,7 +331,6 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.22.2.1.1" extension="2014-06-09" />
             </xsl:when>
 
-
             <!-- [RR R1S1] Reportability Response Subject Section -->
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '88084-9'">
                 <xsl:comment select="' [RR R1S1] Reportability Response Subject Section '" />
@@ -390,7 +390,8 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.5.1.2.3" extension="2019-08-01" />
             </xsl:when>
             <!-- Report No Events -->
-            <xsl:when test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary' and fhir:linkId/@value = 'report-no-events-group'">
+            <xsl:when
+                test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary' and fhir:linkId/@value = 'report-no-events-group'">
                 <xsl:comment select="' [HAI R1] HAI Section Generic Constraints '" />
                 <templateId root="2.16.840.1.113883.10.20.5.4.26" />
                 <xsl:comment select="' [HAI R2D1] Report No Events Section '" />
@@ -734,25 +735,25 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.55" extension="2021-01-01" />
             </xsl:when>
 
-
             <!-- We'll see if there is a code match first, then try the IG plus resource type -->
             <!-- Vital Sign Observation -->
-            <xsl:when test="fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs' and count(fhir:hasMember) = 0">
-                <xsl:comment select="' [C-CDA R2.0] Vital sign observation '" />
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs' and count(fhir:hasMember) = 0">
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.27" />
-                <xsl:comment select="' [C-CDA R2.0] Vital sign observation '" />
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.27" extension="2014-06-09" />
             </xsl:when>
             <!-- Vital Sign Organizer -->
-            <xsl:when test="fhir:category/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
-                <xsl:comment select="' [C-CDA R2.0] Vital sign organizer '" />
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.26" />
-                <xsl:comment select="' [C-CDA R2.0] Vital sign organizer '" />
+                <xsl:comment select="' [C-CDA R2.0] Vital Sign Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.26" extension="2015-08-01" />
             </xsl:when>
 
             <!-- Sometimes the meta is missing -->
-            <!-- ServiceRequest uncomment it -->
             <xsl:when test="local-name() = 'ServiceRequest'">
                 <xsl:comment select="' [C-CDA R1.1] Plan of Care Activity Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" />
@@ -787,7 +788,6 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.7" extension="2017-04-01" />
             </xsl:when>
 
-
             <xsl:when test="local-name() = 'Condition'">
                 <xsl:comment select="' [C-CDA R1.1] Problem Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.4" />
@@ -811,7 +811,8 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.22.4.297" extension="2018-04-01" />
             </xsl:when>
             <!-- Estimated Gestational Age of Pregnancy-->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = ('11884-4', '11885-1', '11886-9', '11887-7', '11888-5', '11889-3', '11895-0', '11909-9', '11919-8', '11927-1', '11930-5', '53691-2', '53693-8', '53695-3', '57064-8')">
+            <xsl:when
+                test="fhir:code/fhir:coding/fhir:code/@value = ('11884-4', '11885-1', '11886-9', '11887-7', '11888-5', '11889-3', '11895-0', '11909-9', '11919-8', '11927-1', '11930-5', '53691-2', '53693-8', '53695-3', '57064-8')">
                 <xsl:comment select="' [C-CDA PREG] Estimated Gestational Age of Pregnancy '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.280" extension="2018-04-01" />
             </xsl:when>
@@ -855,6 +856,25 @@ limitations under the License.
                 <xsl:comment select="' [eICR R2 STU3.1] Purpose of Travel Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.51" extension="2022-05-01" />
             </xsl:when>
+            
+            <!-- SG 20240307: Adding social-history category -->
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'social-history'">
+                <xsl:comment select="' [C-CDA R1.1] Social History Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.38" />
+                <xsl:comment select="' [C-CDA R2.1] Social History Observation (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.38" extension="2015-08-01" />
+            </xsl:when>
+            
+            <!-- SG 20240307: Adding laboratory category -->
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory'">
+                <xsl:comment select="' [C-CDA R1.1] Result Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.2" />
+                <xsl:comment select="' [C-CDA R2.1] Result Observation (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+            </xsl:when>
+            
             <xsl:otherwise>
                 <xsl:comment select="'No profile-template map found'" />
             </xsl:otherwise>
@@ -999,6 +1019,28 @@ limitations under the License.
                 <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Lab Test Order (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.4" extension="2019-04-01" />
             </xsl:when>
+            <!-- SG 20240306: Add more missing meta processing -->
+            <!-- If this is a laboratory Observation and it contains hasMember(not Observation) -->
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory' and count(fhir:hasMember) > 0">
+                <xsl:comment select="' [C-CDA R1.1] Result Organizer '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.1" />
+                <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Result Organizer '" />
+                <templateId root="2.16.840.1.113883.10.20.15.2.3.35" extension="2019-04-01" />
+            </xsl:when>
+            <!-- SG 20240306: Just a laboratory Observation without hasMember then Observation -->
+            <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
+            <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory'">
+                <xsl:comment select="' [C-CDA R1.1] Result Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.2" />
+                <xsl:comment select="' [C-CDA R2.1] Result Observation (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Result Observation (V2) '" />
+                <templateId root="2.16.840.1.113883.10.20.15.2.3.2" extension="2019-04-01" />
+            </xsl:when>
+            
             <xsl:otherwise>
                 <xsl:comment select="'No profile-template map found'" />
             </xsl:otherwise>
@@ -1041,7 +1083,8 @@ limitations under the License.
             <xsl:when test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary' and fhir:linkId/@value = 'summary-data-group'">
                 <title>Summary Data Section</title>
             </xsl:when>
-            <xsl:when test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary' and fhir:linkId/@value = 'report-no-events-group'">
+            <xsl:when
+                test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary' and fhir:linkId/@value = 'report-no-events-group'">
                 <title>Report No Events</title>
             </xsl:when>
             <!-- Findings Section -->
@@ -1054,7 +1097,7 @@ limitations under the License.
             </xsl:when>
             <!-- NHSN Comment Section -->
             <xsl:when test="preceding-sibling::fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-event' and fhir:linkId/@value = 'nhsn-comment'">
-                <title>NHSN Section</title>
+                <title>NHSN Comment Section</title>
             </xsl:when>
 
             <xsl:otherwise>

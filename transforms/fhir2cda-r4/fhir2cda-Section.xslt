@@ -27,6 +27,13 @@ limitations under the License.
   <xsl:template match="fhir:section">
     <xsl:param name="title" />
     <section>
+      <!-- SG 20240307: Check to see if this is a section that requires an entry if there is no nullFlavor
+                Sections: Emergency Outbreak Information Section, Encounters Section (entries required), Immunizations Section (entries required),
+                          Medications Section (entries required), Problem Section (entries required), Procedures Section (entries required), 
+                          Reportability Resonse Information Section, Results Section (entries required), Vital Signs Section (entries required)-->
+        <xsl:if test="not(fhir:entry) and fhir:code/fhir:coding/fhir:code/@value = ('83910-0', '46240-8', '11369-6', '10160-0', '11450-4', '47519-4', '88085-6', '30954-2', '8716-3')">
+            <xsl:attribute name="nullFlavor">NI</xsl:attribute>
+        </xsl:if>  
       <xsl:variable name="generated-narrative" select="fhir:text/fhir:status/@value" />
       <!--xsl:apply-templates select="fhir:extension[1]" mode="templateId"/-->
       <!--<xsl:call-template name="section-templates" />-->

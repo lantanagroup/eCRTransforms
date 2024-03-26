@@ -1,0 +1,24 @@
+<mapping>
+  <!-- section code mapped to title (for when Section.title missing in FHIR -->
+    <map sectionTitle="Admission Diagnosis" sectionCode="46241-6" />
+    <map sectionTitle="Admission Medications" sectionCode="42346-7" />
+    <map sectionTitle="Chief Complaint" sectionCode="10154-3" />
+    <map sectionTitle="Discharge Diagnosis" sectionCode="78375-3" />
+    <map sectionTitle="Emergency Outbreak Information" sectionCode="83910-0" />
+    <map sectionTitle="Encounters" sectionCode="46240-8" />
+    <map sectionTitle="History of Present Illness" sectionCode="10164-2" />
+    <map sectionTitle="Immunizations" sectionCode="11369-6" />
+    <map sectionTitle="Medications Administered" sectionCode="29549-3" />
+    <map sectionTitle="Medications" sectionCode="10160-0" />
+    <map sectionTitle="Past Medical History" sectionCode="11348-0" />
+    <map sectionTitle="Plan of Treatment" sectionCode="18776-5" />
+    <map sectionTitle="Pregnancy" sectionCode="90767-5" />
+    <map sectionTitle="Problem" sectionCode="11450-4" />
+    <map sectionTitle="Procedures" sectionCode="47519-4" />
+    <map sectionTitle="Reason for Visit" sectionCode="29299-5" />
+    <map sectionTitle="Reportability Response Information" sectionCode="88085-6" />
+    <map sectionTitle="Results" sectionCode="30954-2" />
+    <map sectionTitle="Review of Systems" sectionCode="10187-3" />
+    <map sectionTitle="Social History" sectionCode="29762-2" />
+    <map sectionTitle="Vital Signs" sectionCode="8716-3" />
+</mapping>

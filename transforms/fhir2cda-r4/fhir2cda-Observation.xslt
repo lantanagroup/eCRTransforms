@@ -689,9 +689,19 @@ limitations under the License.
                 <id nullFlavor="NI" />
                 <code code="76691-5" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Gender identity" />
                 <statusCode code="completed" />
-                <xsl:apply-templates select="fhir:extension[@url = 'period']/fhir:valuePeriod">
-                    <xsl:with-param name="pElementName" select="'effectiveTime'" />
-                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="fhir:extension[@url = 'period']/fhir:valuePeriod">
+                        <xsl:apply-templates select="fhir:extension[@url = 'period']/fhir:valuePeriod">
+                            <xsl:with-param name="pElementName" select="'effectiveTime'" />
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <effectiveTime>
+                            <low nullFlavor="NI" />
+                        </effectiveTime>
+                    </xsl:otherwise>
+                </xsl:choose>
+
                 <xsl:apply-templates select="fhir:extension[@url = 'value']/fhir:valueCodeableConcept">
                     <xsl:with-param name="pElementName" select="'value'" />
                     <xsl:with-param name="pXSIType" select="'CD'" />
@@ -1113,7 +1123,7 @@ limitations under the License.
                                 </xsl:variable>
                                 <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
                                 <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
-                                    <xsl:call-template name="make-performer" />        
+                                    <xsl:call-template name="make-performer" />
                                 </xsl:for-each>
                             </xsl:for-each>
                         </xsl:for-each>
@@ -1137,7 +1147,7 @@ limitations under the License.
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:if>
-                        
+
                     </observation>
                 </entry>
             </xsl:otherwise>

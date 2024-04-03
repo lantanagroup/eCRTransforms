@@ -5,7 +5,7 @@
     xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
     
     <!--Scenario for testing template with match 'fhir:Encounter' and mode 'encounter' -->
-    <x:scenario label="Scenario for testing fhir:section:EmergencyOutBreakInformation -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
+    <x:scenario label="Scenario for testing fhir:section:Pregnancy -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
         
         <x:expect label="1 Pregnancy Section templateId=2.16.840.1.113883.10.20.22.2.80 2020-04-01 SHALL CONF#3368-3, 3368-9 " 
@@ -101,9 +101,7 @@
         
         <x:expect label="26 Observation entryRelationship observation effectiveTime " 
             test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime )"/>
-        
-        
-        
+          
     </x:scenario>
     
     

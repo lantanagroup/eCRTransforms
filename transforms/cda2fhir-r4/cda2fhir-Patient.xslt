@@ -124,23 +124,24 @@
             </xsl:for-each>
 
             <!-- Add Communication -->
-            <xsl:if test="cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode/@code">
+            <!-- SG 20240402: Update to allow for multiple languageCommunication -->
+            <xsl:for-each select="cda:patientRole/cda:patient/cda:languageCommunication">
                 <communication>
                     <language>
                         <coding>
                             <!-- Hard coding system because it's not in the CDA -->
                             <system value="urn:ietf:bcp:47" />
-                            <code value="{cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode/@code}" />
+                            <code value="{cda:languageCode/@code}" />
                             <!-- **TODO** Add a mapping here to get the display -->
                         </coding>
                     </language>
-                    <xsl:if test="cda:patientRole/cda:patient/cda:languageCommunication/cda:preferenceInd">
+                    <xsl:if test="cda:preferenceInd">
                         <preferred>
-                            <xsl:attribute name="value" select="cda:patientRole/cda:patient/cda:languageCommunication/cda:preferenceInd/@value" />
+                            <xsl:attribute name="value" select="cda:preferenceInd/@value" />
                         </preferred>
                     </xsl:if>
                 </communication>
-            </xsl:if>
+            </xsl:for-each>
 
             <!-- MD: Add transform RelatedPerson -->
             <xsl:choose>

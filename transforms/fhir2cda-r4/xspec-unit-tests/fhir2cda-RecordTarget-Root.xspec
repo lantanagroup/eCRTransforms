@@ -62,8 +62,10 @@
         <!-- Confirm the patient contains a raceCode element -->
         <x:expect label="This patient SHALL contain exactly one [1..1] ethnicGroupCode (CONF:1198-5323)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode)=1" />
         <!-- Confirm the patient contains a languageCommunication element -->
-        <x:expect label="12.	This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:1198-5406)."
-            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication)=1" />
+        <x:expect label="Should contain 2 languageCommunication/languageCode"
+            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode)=2" />
+        <x:expect label="Should contain 2 languageCommunication/preferenceInd"
+            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication/cda:preferenceInd)=2" />
         <!-- Confirm the patient contains birthPlace -->
         <x:expect label="There should be one recordTarget/birthPlace"
             test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace)=1" />

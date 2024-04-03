@@ -152,13 +152,17 @@ limitations under the License.
                             <!-- SG 20210802: Added for-each - there can be multiple languages unfortunately some of them are going to be in local code systems - if they 
                                  are translations then need to only get the proper code 
                                  Maybe we can do some mapping with the display later if this causes problems (i.e. they don't have a proper code) -->
-                            <xsl:for-each select="fhir:communication/fhir:language/fhir:coding[fhir:system/@value = 'urn:ietf:bcp:47']">
+                            <xsl:for-each select="fhir:communication[fhir:language/fhir:coding/fhir:system/@value = 'urn:ietf:bcp:47']">
                                 <languageCommunication>
                                     <languageCode>
-                                        <xsl:attribute name="code" select="fhir:code/@value" />
+                                        <xsl:attribute name="code" select="fhir:language/fhir:coding/fhir:code/@value" />
                                     </languageCode>
                                     <xsl:if test="fhir:preferred/@value = 'true'">
                                         <preferenceInd value="true" />
+                                    </xsl:if>
+                                    <!-- SG 20240402: This is a boolean and can have both true and false -->
+                                    <xsl:if test="fhir:preferred/@value = 'false'">
+                                        <preferenceInd value="false" />
                                     </xsl:if>
                                 </languageCommunication>
                             </xsl:for-each>

@@ -8,40 +8,100 @@
     <x:scenario label="Scenario for testing fhir:section:EmergencyOutBreakInformation -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
         
-        
-        <x:expect label="Section templateId=2.16.840.1.113883.10.20.22.2.80 2020-04-01 should be correct" 
+        <x:expect label="1 Pregnancy Section templateId=2.16.840.1.113883.10.20.22.2.80 2020-04-01 SHALL CONF#3368-3, 3368-9 " 
             test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.80' and //cda:component/cda:section/cda:templateId/@extension='2020-04-01'"/>
         
-        <x:expect label="Section templateId=2.16.840.1.113883.10.20.22.2.80 2018-04-01 should be correct" 
+        <x:expect label="2 Section templateId=2.16.840.1.113883.10.20.22.2.80 2018-04-01 SHALL CONF#3368-3, 3368-9, 3368-10" 
             test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.80' and //cda:component/cda:section/cda:templateId/@extension='2018-04-01'"/>
         
-        <x:expect label="Section code=90767-5 should be correct" 
+        <x:expect label="3 Section code=90767-5 SHALL CONF#3368-4, 3368-11. 3368-12 " 
             test="//cda:component/cda:section/cda:code/@code='90767-5' and //cda:component/cda:section/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="4 it has title SHALL CONF#3368-13" 
+            test="exists(//cda:component/cda:section/cda:title)" />
+        
+        <x:expect label="5 it has text SHALL CONF#3368-14" 
+            test="exists(//cda:component/cda:section/cda:text)" />
 
+        <x:expect label="6 it has entry MAY CONF#3368-1" 
+            test="exists(//cda:component/cda:section/cda:entry)" />
         
-        <x:expect label="Observation @classCode=OBS within entry should exist" 
+        <x:expect label="7 it has observation SHALL CONF#3368-26532" 
+            test="exists(//cda:component/cda:section/cda:entry)" />
+        
+        <x:expect label="8 Observation @classCode=OBS SHALL CONF#3368-26797 " 
             test="//cda:component/cda:section/cda:entry/cda:observation/@classCode='OBS'" />
-        
-        <x:expect label="Observation @moodCode=EVN within entry should exist" 
+             
+        <x:expect label="9 Observation @moodCode=EVN SHALL CONF#3368-26798 " 
             test="//cda:component/cda:section/cda:entry/cda:observation/@moodCode='EVN'" />
              
-        <x:expect label="Observation templateId = 2.16.840.1.113883.10.20.15.3.8 should be correct" 
+        <x:expect label="10 Observation templateId = 2.16.840.1.113883.10.20.15.3.8 " 
             test="//cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.15.3.8'"/> 
         
-        <x:expect label="Observation templateId = 2.16.840.1.113883.10.20.22.4.293 2020-04-01 should be correct" 
+        <x:expect label="11 Observation templateId = 2.16.840.1.113883.10.20.22.4.293 2020-04-01 SHALL CONF#3368-26775, 3368-26795, " 
             test="//cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.293' and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2020-04-01'"/> 
         
-        <x:expect label="Observation templateId = 2.16.840.1.113883.10.20.22.4.293 2018-04-01 should be correct" 
+        <x:expect label="12 Observation templateId = 2.16.840.1.113883.10.20.22.4.293 2018-04-01 SHALL CONF#3368-26775, 3368-26795, 3368-26796" 
             test="//cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.293' and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2018-04-01'"/> 
         
+        <!--
         <x:expect label="Id @nullFlavor=NI should have correct root and extension" 
             test="//cda:section/cda:entry/cda:observation/cda:id/@nullFlavor='NI'"/>
+     
+        <x:expect label="Id @nullFlavor=NI should have correct root and extension" 
+            test="if (exists(//cda:section/cda:entry/cda:observation/cda:id)) then //cda:section/cda:entry/cda:observation/cda:id/@nullFlavor='NI' else true()"/>
+        -->
         
-        <x:expect label="Observation statusCode=completed element should exist" test="count(//cda:section/cda:entry/cda:observation/cda:statusCode/@code='completed')=1"/>
+        <x:expect label="13 Id SHALL CONF#3368-26996" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:id)"/>
         
-        <x:expect label="Observation effectiveTime element should exist" test="count(//cda:section/cda:entry/cda:observation/cda:effectiveTime)=1"/>
+        <x:expect label="14 Observation statusCode=completed" 
+            test="count(//cda:section/cda:entry/cda:observation/cda:statusCode/@code='completed')=1"/>
         
-        <x:expect label="Observation author element should exist" test="count(//cda:section/cda:entry/cda:observation/cda:author)=1"/>
+        <!--
+        <x:expect label="15 Observation effectiveTime SHALL CONF#3368-26807"
+            test="count(//cda:section/cda:entry/cda:observation/cda:effectiveTime)=1"/>
+        -->
+        
+        <x:expect label="15 Observation effectiveTime  SHALL CONF#3368-26807" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="16 Observation value " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:value)"/>
+        
+        <x:expect label="17 Observation methodCode 0..1 SHOULD CONF#3368-26801" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:methodCode)"/>
+        
+        <x:expect label="18 Observation performer 0..1 SHOULD CONF#3368-26776" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:performer)"/>
+        
+        <x:expect label="19 Observation 0..1 author SHOULD CONF#3368-26778" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:author)"/>
+        
+        <x:expect label="20 Observation entryRelationship MAY CONF#3368-26673" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship)"/>
+        
+        <x:expect label="21 Observation entryRelationship observation" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'"/>
+        
+        <x:expect label="22 Observation entryRelationship observation templateId=2.16.840.1.113883.10.20.22.4.297 extension=2020-04-01 element should exist" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.297'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2020-04-01'"/>
+        
+        <x:expect label="23 Observation entryRelationship observation Id @nullFlavor=NI" 
+            test="if (exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id)) 
+            then //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id/@nullFlavor='NI' else true()"/>
+        
+        <x:expect label="24 Observation entryRelationship observation code" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code)"/>
+        
+        <x:expect label="25 Observation entryRelationship observation statusCode " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode)"/>
+        
+        <x:expect label="26 Observation entryRelationship observation effectiveTime " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime )"/>
+        
         
         
     </x:scenario>

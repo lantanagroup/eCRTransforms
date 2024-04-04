@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+    xmlns:cda="urn:hl7-org:v3" 
+    xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    
+    <!--Scenario for testing template with match 'fhir:SocialHistory'  -->
+    <x:scenario label="Scenario for testing fhir:section:SocialHistory -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
+        
+        <x:expect label="1 SocialHistorySection Section templateId=2.16.840.1.113883.10.20.22.2.17 2015-08-01 SHALL CONF#1198-7936, 1198-10449, 1198-32494 " 
+            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.17' and //cda:component/cda:section/cda:templateId/@extension='2015-08-01'"/>
+     
+         
+        <x:expect label="2 Section code=29762-2 SHALL CONF#1198-14819, 1198-14820, 1198-30814 " 
+            test="//cda:component/cda:section/cda:code/@code='29762-2' and //cda:component/cda:section/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="3 it has title SHALL CONF#1198-7938" 
+            test="exists(//cda:component/cda:section/cda:title)" />
+        
+        <x:expect label="4 it has text SHALL CONF#1198-7939" 
+            test="exists(//cda:component/cda:section/cda:text)" />
+        
+        <x:expect label="5 it has entry for Characteristics of Home Environment MAY CONF#1198-28825" 
+            test="exists(//cda:component/cda:section/cda:entry)" />
+     
+        <x:expect label="6 it has observation SHALL CONF#1198-28826" 
+            test="exists(//cda:component/cda:section/cda:entry/cda:observation)" />
+      
+        <x:expect label="7 Observation @classCode=OBS SHALL CONF#1098-27890 " 
+            test="//cda:component/cda:section/cda:entry/cda:observation/@classCode='OBS'" />
+        
+        <x:expect label="8 Observation @moodCode=EVN SHALL CONF#1098-27891 " 
+            test="//cda:component/cda:section/cda:entry/cda:observation/@moodCode='EVN'" />
+        
+        <x:expect label="9 Observation templateId = 2.16.840.1.113883.10.20.22.4.109 SHALL CONF#1098-27893 " 
+            test="//cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109'"/> 
+          
+        <x:expect label="10 Id SHALL CONF#1098-27894" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:id)"/>
+        
+        <x:expect label="11 Observation code SHALL CONF#1098-31352, 1098-31353, 1098-31354 " 
+            test="//cda:section/cda:entry/cda:observation/cda:code/@code='75274-1' and //cda:section/cda:entry/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/> 
+        
+        <x:expect label="12 Observation statusCode=completed SHALL CONF#1098-27901, 1098-27902" 
+            test="count(//cda:section/cda:entry/cda:observation/cda:statusCode/@code='completed')=1"/>
+        
+        <!-- the value is dynamic value, we just check structure here instead of value -->
+        <x:expect label="13 Observation value SHALL CONF#1098-28823" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:value)"/>
+        
+        <!-- Travel history -->
+        <x:expect label="14 ACT EVN SHOULD CONF#4527-248, 4527-249" 
+            test="//cda:section/cda:entry/cda:act/@classCode='ACT' and //cda:section/cda:entry/cda:act/@moodCode='EVN'"/>
+        
+        <x:expect label="15 ACT templateId SHOULD CONF#4527-240, 4527-244, 4527-245" 
+            test="//cda:section/cda:entry/cda:act/cda:templateId/@root='2.16.840.1.113883.10.20.15.2.3.1' and //cda:section/cda:entry/cda:act/cda:templateId/@extension='2022-05-01'"/>
+        
+        <x:expect label="15 ACT id SHALL CONF#4527-250" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:id)"/>
+        
+        <!-- SNOMED CODE for travel could be value like international travel, recent air travel, ... 
+        ??? Should we use the fixed code 420008001 ??? -->
+        <x:expect label="16 ACT code SHALL CONF#4527-251" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:code)"/>
+        
+        <x:expect label="17 ACT effectiveTime SHALL CONF#4527-295" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:effectiveTime)"/>
+        
+        <x:expect label="18 ACT effectiveTime SHALL CONF#4527-1024" 
+            test="//cda:section/cda:entry/cda:act/cda:entryRelationship/@typeCode='COMP'"/>
+        
+        <x:expect label="19 ACT effectiveTime SHALL CONF#4527-1023" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation)"/>
+        
+        <x:expect label="20 ACT entryRelationship observation OBS, EVN SHALL CONF#4482-981, 4482-982" 
+            test="//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/@classCode='OBS'
+            and //cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/@moodCode='EVN'"/>
+        
+        <!-- ??? 2.16.840.1.113883.10.20.15.2.3.52 or 2.16.840.1.113883.10.20.15.2.3.51???-->
+        <x:expect label="21 ACT entryRelationship observation templateId 2.16.840.1.113883.10.20.15.2.3.52:2021-01-01 SHALL CONF#4482-975, 4482-977, 4482-978" 
+            test="//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.15.2.3.52'
+            and //cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:templatedId/@extension='2021-01-01'"/>
+        
+        <x:expect label="22 ACT:entryRelationship:observation:id SHALL CONF#4482-981, 4482-983" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:id)"/>
+        
+        <x:expect label="23 ACT:entryRelationship:observation:code SHALL CONF#4482-976" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:code)"/>
+        
+        <x:expect label="24 ACT:entryRelationship:observation:statusCode SHALL CONF#4482-986" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:statusCode)"/>
+        
+        <x:expect label="25 ACT:entryRelationship:observation:effectiveTime SHALL CONF#4482-985" 
+            test="exists(//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:effectiveTime)"/>
+        
+        <!-- Location Participant -->
+        <x:expect label="26 ACT:entryRelationship:observation:participant templateId 2.16.840.1.113883.10.20.15.2.4.4:2021-01-01 SHALL CONF#4482-1005" 
+            test="//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:participant/cda:templateId/@root='2.16.840.1.113883.10.20.15.2.4.4'
+            and //cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:participant/cda:templateId/@extension='2021-01-01'"/>
+        
+        <!-- Person Participant -->
+        <x:expect label="27 ACT:entryRelationship:observation:participant :2.16.840.1.113883.10.20.15.2.4.6:2021-01-01 SHALL CONF#4482-1005" 
+            test="//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:participant/cda:templateId/@root='2.16.840.1.113883.10.20.15.2.4.6'
+            and //cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:participant/cda:templateId/@extension='2021-01-01'"/>
+        
+        <!-- Animal Participant -->
+        <x:expect label="28 ACT:entryRelationship:observation:participant :2.16.840.1.113883.10.20.15.2.4.5:2021-01-01 SHALL CONF#4482-1005" 
+            test="//cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:participant/cda:templateId/@root='2.16.840.1.113883.10.20.15.2.4.5'
+            and //cda:section/cda:entry/cda:act/cda:entryRelationship/cda:observation/cda:participant/cda:templateId/@extension='2021-01-01'"/>
+ 
+ <!--
+        <x:expect label="17 Observation methodCode 0..1 SHOULD CONF#3368-26801" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:methodCode)"/>
+        
+        <x:expect label="18 Observation performer 0..1 SHOULD CONF#3368-26776" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:performer)"/>
+        
+        <x:expect label="19 Observation 0..1 author SHOULD CONF#3368-26778" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:author)"/>
+        
+        <x:expect label="20 Observation entryRelationship MAY CONF#3368-26673" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship)"/>
+        
+        <x:expect label="21 Observation entryRelationship observation" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'"/>
+        
+        <x:expect label="22 Observation entryRelationship observation templateId=2.16.840.1.113883.10.20.22.4.297 extension=2020-04-01 element should exist" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.297'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2020-04-01'"/>
+        
+        <x:expect label="23 Observation entryRelationship observation Id @nullFlavor=NI" 
+            test="if (exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id)) 
+            then //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id/@nullFlavor='NI' else true()"/>
+        
+        <x:expect label="24 Observation entryRelationship observation code" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code)"/>
+        
+        <x:expect label="25 Observation entryRelationship observation statusCode " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode)"/>
+        
+        <x:expect label="26 Observation entryRelationship observation effectiveTime " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime )"/>
+            -->
+        
+    </x:scenario>
+    
+    
+    
+</x:description>

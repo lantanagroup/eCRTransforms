@@ -278,7 +278,138 @@
         
         <x:expect label="73 Section entry Observation History of Employment Status  Observation value present CONF#3349-21" 
             test="exists(//cda:section/cda:entry/cda:observation/cda:value)"/>
+        
+        <x:expect label="74 Section entry Observation Past or Present Occupation Observation @classCode=OBS @moodCode=EVN 
+            @templateId=2.16.840.1.113883.10.20.22.4.217:2017-11-30 CONF#4480-226, 4480-227, 4480-140, 4480-152, 2280-153" 
+            test="//cda:section/cda:entry/cda:observation/@classCode='OBS' 
+            and //cda:section/cda:entry/cda:observation/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.217'
+            and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2017-11-30'" />
+        
+        <x:expect label="75 Section entry Observation Past or Present Occupation Observation id present CONF#4480-154" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:id)"/>
+        
+        <x:expect label="76 Section entry Observation Past or Present Occupation Observation code @code=11341-5, @codeSystem=2.16.840.1.113883.6.1 CONF#4480-141, 4480-155, 4480-156" 
+            test="//cda:section/cda:entry/cda:observation/cda:code/@code='11341-5'
+            and //cda:section/cda:entry/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="77 Section entry Observation Past or Present Occupation  Observation statusCode present CONF#4480-157" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:statusCode)"/>
+        
+        <x:expect label="78 Section entry Observation Past or Present Occupation Observation effectiveTime present CONF#4480-142" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="79 Section entry Observation Past or Present Occupation Observation value present CONF#4480-160" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:value)"/>
+        
+        <x:expect label="80 Section entry Observation Past or Present Occupation Observation entryRelationship @typeCode=REFR CONF#4480-146" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/@typeCode='REFR'"/>
+        
+        <!-- ??? should be 2020-09-01 or 2017-11-30?? -->
+        <x:expect label="81 Section entry Observation Past or Present Occupation Observation entryReleationship Past or Present Industry Observation @classCode=OBS @moodCode=EVN 
+            @templateId=2.16.840.1.113883.10.20.22.4.216:2017-11-30 CONF#4480-178, 4480-179, 4480-168, 4480-170, 2280-171" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS' 
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.216'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2017-11-30'" />
       
+        <x:expect label="82 Section entry Observation Past or Present Occupation Observation entryReleationship Past or Present Industry Observation id present CONF#4480-172" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id)"/>
+        
+        <x:expect label="83 Section entry Observation Past or Present Occupation Observation entryReleashionship Past or Present Industry Observation
+            code History of Occupation industry @code=86188-0, @codeSystem=2.16.840.1.113883.6.1 CONF#4480-169, 4480-173, 4480-174" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code/@code='86188-0'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="84 Section entry Observation Past or Present Occupation Observation entryReleashionship Past or Present Industry Observation 
+            statusCode @code=completed CONF4480-175" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'"/>
+        
+        <x:expect label="85 ??? Section entry Observation Past or Present Occupation Observation entryReleashionship Past or Present Industry Observation effectiveTime CONF" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="86 Section entry Observation Past or Present Occupation Observation entryReleashionship Past or Present Industry Observation value CONF#4480-176 " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)"/>
+        
+        <x:expect label="87 Section entry Observation Past or Present Occupation Observation entryRelationship @typeCode=REFR CONF#4480-167" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/@typeCode='REFR'"/>
+        
+        <x:expect label="88 Section entry Observation Past or Present Occupation Observation entryReleationship Occupational Hazard Observation  @classCode=OBS @moodCode=EVN 
+            @templateId=2.16.840.1.113883.10.20.22.4.215:2017-11-30 CONF#3349-91, 3349-92, 3349-89, 3349-93, 3349-94" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS' 
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.215'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2017-11-30'" />
+        
+        <x:expect label="89 Section entry Observation Past or Present Occupation Observation entryReleationship Occupational Hazard Observation id present CONF#3349-95" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id)"/>
+        
+        <x:expect label="90 Section entry Observation Past or Present Occupation Observation entryReleashionship Occupational Hazard Observation
+            code History of Occupational hazard @code=87729-0, @codeSystem=2.16.840.1.113883.6.1 CONF#3349-90, 3349-96, 3349-97" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code/@code='87729-0'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="91 Section entry Observation Past or Present Occupation Observation entryReleashionship Occupational Hazard Observation 
+            statusCode @code=completed CONF#3349-98" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'"/>
+        
+        <x:expect label="92 ??? Section entry Observation Past or Present Occupation Observation entryReleashionship Occupational Hazard Observation effectiveTime CONF" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="93 Section entry Observation Past or Present Occupation Observation entryReleashionship Occupational Hazard Observation value CONF#3349-99 " 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)"/>
+        
+        <x:expect label="94 Section entry Observation Usual Occupation Observation @classCode=OBS @moodCode=EVN 
+            @templateId=2.16.840.1.113883.10.20.22.4.221:2017-11-30 CONF#4480-260, 4480-207, 4480-23, 4480-26, 4480-27" 
+            test="//cda:section/cda:entry/cda:observation/@classCode='OBS' 
+            and //cda:section/cda:entry/cda:observation/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.221'
+            and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2017-11-30'" />
+        
+        <x:expect label="95 Section entry Observation Usual Occupation Observation id present CONF#4480-28" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:id)"/>
+        
+        <x:expect label="96 Section entry Observation Usual Occupation Observation code @code=21843-8, @codeSystem=2.16.840.1.113883.6.1 CONF#4480-24, 4480-29, 4480-30" 
+            test="//cda:section/cda:entry/cda:observation/cda:code/@code='21843-8'
+            and //cda:section/cda:entry/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="97 Section entry Observation Usual Occupation Observation statusCode present CONF#4480-31" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:statusCode)"/>
+        
+        <x:expect label="98 Section entry Observation Usual Occupation Observation effectiveTime present CONF#4480-25" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="99 Section entry Observation Usual Occupation Observation value present CONF#4480-34" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:value)"/>
+        
+        <x:expect label="100 Section entry Observation Past or Present Occupation Observation entryRelationship @typeCode=REFR CONF#4480-103" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/@typeCode='REFR'"/>
+        
+        <x:expect label="101 Section entry Observation Usual Occupation Observation entryReleationship Past or Present Industry Observation @classCode=OBS @moodCode=EVN 
+            @templateId=2.16.840.1.113883.10.20.22.4.219:2017-11-30 CONF#4480-201, 4480-202, 4480-37, 4480-39, 2280-40" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS' 
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.219'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2017-11-30'" />
+        
+        <x:expect label="102 Section entry Observation Usual Occupation Observation entryReleationship Past or Present Industry Observation id present CONF#4480-41" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id)"/>
+        
+        <x:expect label="103 Section entry Observation Usual Occupation Observation entryReleashionship Past or Present Industry Observation
+            code History of History of Usual industry @code=21844-6, @codeSystem=2.16.840.1.113883.6.1 CONF#4480-169, 4480-173, 4480-174" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code/@code='21844-6'
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="104 Section entry Observation Usual Occupation Observation entryReleashionship Past or Present Industry Observation 
+            statusCode @code=completed CONF4480-44" 
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'"/>
+        
+        <x:expect label="105 ??? Section entry Observation Usual Occupation Observation entryReleashionship Past or Present Industry Observation effectiveTime CONF" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="106 Section entry Observation Usual Occupation Observation entryReleashionship Past or Present Industry Observation value CONF#4480-45" 
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)"/>
+        
     </x:scenario>
     
         

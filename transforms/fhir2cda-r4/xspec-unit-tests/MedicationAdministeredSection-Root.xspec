@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+    xmlns:cda="urn:hl7-org:v3" 
+    xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    
+    <x:scenario label="Scenario for testing fhir:section:MedicationsAdministered Section -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml"
+            select="/fhir:Bundle/fhir:entry/fhir:resource/fhir:Composition"/>
+        
+        <x:expect label="1-1 Medications Administered Section templateId=2.16.840.1.113883.10.20.22.2.38 CONF#1098-8152 " 
+            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.38'"/>
+        
+        <x:expect label="1-2 Medications Administered Section templateId=2.16.840.1.113883.10.20.22.2.38 2018-04-01 SHALL CONF#1098-8152, 1098-10405" 
+            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.38' and //cda:component/cda:section/cda:templateId/@extension='2014-06-09'"/>
+        
+        <x:expect label="2 Section code=29549 CONF#1089-15383, 1098-30829 " 
+            test="//cda:component/cda:section/cda:code/@code='29549-3' and //cda:component/cda:section/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="3 Section title=Pregnancy Section CONF#1098-8154" 
+            test="//cda:component/cda:section/cda:title='Medications Administered Section'" />
+        
+        <x:expect label="4 Section text present CONF#1098-8155" 
+            test="exists(//cda:component/cda:section/cda:text)" />
+        
+        
+        <x:expect label="5 Section entry substanceAdministration for Medication Activity (V2)  
+            @classCode=SBADM @moodCode=EVN
+            @templateId 2.16.840.1.113883.10.20.22.4.16
+            @templateId 2.16.840.1.113883.10.20.22.4.16:2014-06-09
+            CONF#1098-15400 " 
+            test="//cda:section/cda:entry/cda:substanceAdministration/@classCode='SBADM' 
+            and //cda:section/cda:entry/cda:substanceAdministration/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:substanceAdministration/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16'
+            and //cda:section/cda:entry/cda:substanceAdministration/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16' 
+            and //cda:section/cda:entry/cda:substanceAdministration/cda:templateId/@extension='2014-06-09'"/>
+        
+        <x:expect label="6 Section entry substanceAdministration for Medication Activity (V2) Id present CONF#1098-7500" 
+            test="exists(//cda:section/cda:entry/cda:substanceAdministration/cda:id)"/>
+        
+        <!-- ??? should not have section.entry.substanceAdministration.text -->
+        
+        <x:expect label="7 Section entry substanceAdministration for Medication Activity (V2) statusCode=completed CONF#1098-7507" 
+            test="exists(//cda:section/cda:entry/cda:substanceAdministration/cda:statusCode)"/>
+        
+        <x:expect label="8 Section entry substanceAdministration for Medication Activity (V2)  effectiveTime CONF#1098-7508" 
+            test="exists(//cda:section/cda:entry/cda:substanceAdministration/cda:effectiveTime)"/>
+        
+        <x:expect label="9 substanceAdministration for Medication Activity (V2) routeCode CONF#1098-7514 " 
+            test="exists(//cda:section/cda:entry/cda:substanceAdministration/cda:routeCode)"/>
+        
+        <x:expect label="10 Section entry substanceAdministration for Medication Activity (V2) approachSiteCode CONF#1098-7515" 
+            test="exists(//cda:section/cda:entry/cda:substanceAdministration/cda:approachSiteCode)"/>
+        
+        <!-- ??? doseQuantity.@unit, doseQuantity.@rateQuantity -->
+        <x:expect label="11 Section entry substanceAdministration for Medication Activity (V2) doseQuantity CONF#1098-7516" 
+            test="exists(//cda:section/cda:entry/cda:substanceAdministration/cda:doseQuantity)"/>
+        
+        <x:expect label="12 Section entry substanceAdministration for Medication Activity (V2) consumable 
+            manufacturedProduct classCode=MANU templateID=2.16.840.1.113883.10.20.22.4.23:2014-06-09 
+            manufacturedMaterial.code is present
+            CONF#1098-7408, 1098-7409, 1098-10506, 1098-32579, 1098-7411, 1098-7412" 
+            test="//cda:section/cda:entry/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/@classCode='MANU'
+            and //cda:section/cda:entry/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.23'
+            and //cda:section/cda:entry/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:templateId/@extension='2014-06-09'
+            and exists(//cda:section/cda:entry/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial)"/>
+        
+       <!-- ???Need to have more testing cases. -->
+        
+    </x:scenario>
+    
+    
+    
+</x:description>

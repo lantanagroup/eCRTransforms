@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+    xmlns:cda="urn:hl7-org:v3" 
+    xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+    
+    <!--Scenario for testing template with match 'fhir:results'  -->
+    <x:scenario label="Scenario for testing fhir:section:Results -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" 
+            select="/fhir:Bundle/fhir:entry/fhir:resource/fhir:Composition"/>
+        
+        <x:expect label="1 [C-CDA 1.1] Results Section @templateId=2.16.840.1.113883.10.20.22.2.3
+            @templateId=2.16.840.1.113883.10.20.22.2.3:2015-08-01
+            @templateId=2.16.840.1.113883.10.20.22.2.3.1
+            @templateId=2.16.840.1.113883.10.20.22.2.3.1:2015-08-01
+            CONF#1198-7116, 1198-32591, 1198-15431, 1198-7108, 1198-9137, 1198-32592" 
+            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.3'
+            and //cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.3' and //cda:component/cda:section/cda:templateId/@extension='2015-08-01'
+            and //cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.3.1'
+            and //cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.3.1' and //cda:component/cda:section/cda:templateId/@extension='2015-08-01'"/>
+           
+        <x:expect label="2 Results Section @code=30954-2 @codeSystem=2.16.840.1.113883.6.1 CONF#1198-15433, 1198-15434, 1198-31040 " 
+            test="//cda:component/cda:section/cda:code/@code='29762-2' and //cda:component/cda:section/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
+        
+        <x:expect label="3 Results Section title=Results Section  CONF#1198-8892" 
+            test="//cda:component/cda:section/cda:title = 'Results Section'" />
+             
+        <x:expect label="4 Results Section text present CONF#1198-7111" 
+            test="exists(//cda:component/cda:section/cda:text)" />
+      
+        <x:expect label="5 Results Section entry Organization for Result Organizer (V3) 
+            @classCode=BATTERY @moodCode=EVN 
+            @templateId=2.16.840.1.113883.10.20.22.4.1:2015-08-01 
+            CONF#1198-7121, 1198-7122, 1198-7126,1198-9134, 1198-32588 " 
+            test="//cda:component/cda:section/cda:entry/cda:organizer/@classCode='BATTERY' 
+            and //cda:component/cda:section/cda:entry/cda:organizer/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:organizer/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1' 
+            and //cda:section/cda:entry/cda:organizer/cda:templateId/@extension='2015-08-01'" />
+            
+        <x:expect label="6 Results Section entry Organization for Result Organizer (V3) Id present CONF#1198-7127" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:id)"/>
+        
+        <x:expect label="7 Results Section entry Organization for Result Organizer (V3) code present CONF#1198-7128" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:code)"/>
+        
+        <x:expect label="8 Results Section entry Organization for Result Organizer (V3) statusCod present CONF#1198-7123" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:statusCode)"/>
+        
+        <x:expect label="9 Results Section entry Organization for Result Organizer (V3) effectiveTime present CONF#1198-31865" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:effectiveTime)"/>
+        
+        <x:expect label="10 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component @classCode=OBS @moodCode=EVN
+            templateId=2.16.840.1.113883.10.20.22.4.2
+            templateId=2.16.840.1.113883.10.20.22.4.2:2015-08-01
+            CONF#1198-7130, 1198-7131, 1198-7136, 1198-9138, 1198-32575" 
+            test="//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/@classCode='OBS'
+            and //cda:section/cda:entry/cda:organizer/cda:component/cda:observation/@moodCode='EVN'
+            and //cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2'
+            and //cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2'
+            and //cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:templateId/@extension='2015-08-01'"/>
+        
+        <x:expect label="11 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component Id present CONF#1198-7137" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:id)"/>
+        
+        <x:expect label="12 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component code present CONF#1198-7133" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:code)"/>
+        
+        <x:expect label="13 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component statusCode present CONF#1198-7134" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:statusCode)"/>
+        
+        <x:expect label="14 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component effectiveTime present CONF#1198-7140" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:effectiveTime)"/>
+        
+        <x:expect label="15 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component value present CONF#1198-7143" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:value)"/>
+        
+        
+        <x:expect label="16 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component interpretationCode present CONF#1198-7147" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:interpretationCode)"/>
+        
+        <x:expect label="17 Results Section entry Organization for Result Organizer (V3)
+            Result Observation Component referenceRange present CONF#1198-7150" 
+            test="exists(//cda:section/cda:entry/cda:organizer/cda:component/cda:observation/cda:referenceRange)"/>
+          
+        
+     
+        
+    </x:scenario>
+    
+        
+    
+    
+    
+</x:description>

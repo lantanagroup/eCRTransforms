@@ -55,6 +55,7 @@
             <!-- 
             <xsl:call-template name="add-meta"/>
              -->
+            <xsl:apply-templates select="../preceding-sibling::cda:id"/>
             <xsl:apply-templates select="cda:id"/>
             <xsl:choose>
                 <xsl:when

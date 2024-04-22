@@ -723,18 +723,6 @@ limitations under the License.
             <effectiveTime nullFlavor="NI" />
           </xsl:otherwise>
         </xsl:choose>
-        <!-- author -->
-        <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/date-recorded-extension']">
-          <author>
-            <xsl:comment select="' Pregnancy Status Recorded Date '" />
-            <xsl:apply-templates select="fhir:valueDateTime">
-              <xsl:with-param name="pElementName" select="'time'" />
-            </xsl:apply-templates>
-            <assignedAuthor>
-              <id nullFlavor="NA" />
-            </assignedAuthor>
-          </author>
-        </xsl:for-each>
         <xsl:for-each select="fhir:component">
           <xsl:choose>
             <!-- These are participants not entryRelationships -->

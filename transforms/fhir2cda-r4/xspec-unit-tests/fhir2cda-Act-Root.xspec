@@ -7,7 +7,7 @@
   <x:scenario
     label="Scenario for testing template with match 'fhir:Condition' and mode 'entry'">
       <!-- SG: This is returning 2 different Conditions - only going to use the first one -->
-    <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />
+    <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
     
     <!--Confirm a Problem Concern Act (V2) template is created with all required elements -->
      <x:expect label="SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.4.3 (CONF:1198-16773)." 
@@ -75,6 +75,10 @@
       test="count(//cda:entry/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']/cda:value)=1" />
     <x:expect label="SHALL contain exactly one [1..1] value with @xsi:type=CD(CONF:1198-9058)." 
       test="count(//cda:entry/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']/cda:value/@xsi:type='CD')=1" />
+      
+      <!--Confirm there is a Travel History (V3) act -->
+      <x:expect label="One Travel History (V3) act" 
+          test="count(//cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.1']][cda:templateId[@extension='2022-05-01']])=1" />
     
   </x:scenario>
 </x:description>

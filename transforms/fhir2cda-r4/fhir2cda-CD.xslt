@@ -16,6 +16,34 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
+
+<!--
+      FHIR CodeableConcept information: https://hl7.org/fhir/R4/datatypes.html#CodeableConcept
+      A CodeableConcept represents a value that is usually supplied by providing a reference to one or more terminologies 
+      or ontologies but may also be defined by the provision of text. This is a common pattern in healthcare data.
+      
+      More than one code may be used in CodeableConcept. The concept may be coded multiple times in different code systems 
+      (or even multiple times in the same code systems, where multiple forms are possible, such as with SNOMED CT). 
+      Each coding (also referred to as a 'translation') is a representation of the concept as described above and may 
+      have slightly different granularity due to the differences in the definitions of the underlying codes. 
+      There is no meaning associated with the ordering of coding within a CodeableConcept. A typical use of CodeableConcept is to 
+      send the local code that the concept was coded with, and also one or more translations to publicly defined code systems such 
+      as LOINC or SNOMED CT. Sending local codes is useful and important for the purposes of debugging and integrity auditing. 
+      
+      Using Text in CodeableConcept
+      The text is the representation of the concept as entered or chosen by the user, and which most closely represents the intended 
+      meaning of the user or concept. Very often the text is the same as a display of one of the codings. One or more of the codings may 
+      be flagged as the user selected code - the code or concept that the user actually selected directly. Note that in all but a few cases, 
+      only one of the codings may be flagged as the coding.userSelected = true - the code or concept that the user actually selected directly. 
+      If more than one code is marked as user selected, this means the user explicitly chose multiple codes. When none of the 
+      coding elements is marked as user selected, the text (if present) is the preferred source of meaning. 
+      
+      A free text only representation of the concept without any coding elements is permitted if there is no appropriate 
+      code and only free text is available (and not prohibited by the implementation).
+      
+      See: https://hl7.org/fhir/R4/terminologies.html#4.1
+    -->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0" exclude-result-prefixes="lcg xsl cda fhir sdtc">
 

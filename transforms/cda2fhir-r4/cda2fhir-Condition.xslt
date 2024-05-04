@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-    xmlns:lcg="http://www.lantanagroup.com"
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt"/>
+    <xsl:import href="c-to-fhir-utility.xslt" />
 
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]"
-        mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry"/>
-        <xsl:apply-templates select="cda:author" mode="bundle-entry"/>
+    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
     </xsl:template>
-    
-    
 
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]">
-        
 
         <Condition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-            
+
             <!-- Check current Ig -->
             <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg"/>
+                <xsl:apply-templates select="/" mode="currentIg" />
             </xsl:variable>
-            
+
             <!-- Set profiles based on Ig and Resource if it is needed -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg='NA'">
-                    <xsl:call-template name="add-meta"/>
+                <xsl:when test="$vCurrentIg = 'NA'">
+                    <xsl:call-template name="add-meta" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="vProfileValue">
                         <xsl:call-template name="get-profile-for-ig">
-                            <xsl:with-param name="pIg" select="$vCurrentIg"/>
-                            <xsl:with-param name="pResource" select="'Condition'"/>
+                            <xsl:with-param name="pIg" select="$vCurrentIg" />
+                            <xsl:with-param name="pResource" select="'Condition'" />
                         </xsl:call-template>
                     </xsl:variable>
                     <xsl:choose>
@@ -44,7 +37,7 @@
                             <meta>
                                 <profile>
                                     <xsl:attribute name="value">
-                                        <xsl:value-of select="$vProfileValue"/>
+                                        <xsl:value-of select="$vProfileValue" />
                                     </xsl:attribute>
                                 </profile>
                             </meta>
@@ -52,15 +45,11 @@
                     </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
-            
-           
-            <xsl:apply-templates select="cda:id"/>
+
+            <xsl:apply-templates select="cda:id" />
             <xsl:choose>
-                <xsl:when
-                    test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']">
-                    <xsl:apply-templates
-                        select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']"
-                        mode="condition"/>
+                <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']">
+                    <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition" />
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Observation could be in Encounter entryRelationship, there is no statusCode in ancestor::cda:entry/cda:act/cda:statusCode
@@ -68,12 +57,10 @@
                         for cda2fhir in xSpec since clinicalStatus is option in fhir -->
                     <xsl:choose>
                         <xsl:when test="ancestor::cda:entry/cda:act/cda:statusCode">
-                            <xsl:apply-templates select="ancestor::cda:entry/cda:act/cda:statusCode"
-                                mode="condition"/>
+                            <xsl:apply-templates select="ancestor::cda:entry/cda:act/cda:statusCode" mode="condition" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates select="cda:statusCode"
-                                mode="condition"/>
+                            <xsl:apply-templates select="cda:statusCode" mode="condition" />
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>
@@ -83,28 +70,27 @@
                 <xsl:when test="@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']">
                     <verificationStatus>
                         <coding>
-                            <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status"/>
-                            <code value="entered-in-error"/>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status" />
+                            <code value="entered-in-error" />
                         </coding>
                     </verificationStatus>
                 </xsl:when>
                 <xsl:when test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
                     <verificationStatus>
                         <coding>
-                            <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status"/>
-                            <code value="refuted"/>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status" />
+                            <code value="refuted" />
                         </coding>
                     </verificationStatus>
                 </xsl:when>
             </xsl:choose>
-            
+
             <xsl:choose>
-                <xsl:when
-                    test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]">
+                <xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]">
                     <category>
                         <coding>
-                          <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
-                            <code value="encounter-diagnosis"/>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+                            <code value="encounter-diagnosis" />
                         </coding>
                     </category>
                 </xsl:when>
@@ -113,47 +99,44 @@
                         <xsl:with-param name="pElementName">category</xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
-                
+
                 <xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]">
                     <xsl:apply-templates select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:code">
                         <xsl:with-param name="pElementName">category</xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:when>
-                
+
                 <xsl:otherwise>
-                    <xsl:apply-templates select="cda:code" mode="condition"/>
+                    <xsl:apply-templates select="cda:code" mode="condition" />
                 </xsl:otherwise>
             </xsl:choose>
-            
-            <xsl:apply-templates select="cda:value" mode="condition"/>
 
-            <xsl:call-template name="subject-reference"/>
-            <xsl:apply-templates select="cda:effectiveTime" mode="condition"/>
+            <xsl:apply-templates select="cda:value" mode="condition" />
+
+            <xsl:call-template name="subject-reference" />
+            <xsl:apply-templates select="cda:effectiveTime" mode="condition" />
             <xsl:call-template name="author-reference">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
             </xsl:call-template>
 
-            <xsl:for-each
-                select="cda:entryRelationship[@typeCode = 'REFR']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']">
+            <xsl:for-each select="cda:entryRelationship[@typeCode = 'REFR']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']">
                 <xsl:apply-templates select="." mode="reference">
                     <xsl:with-param name="wrapping-elements">evidence/detail</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <xsl:if test="cda:text">
                 <xsl:variable name="text">
-                    <xsl:apply-templates select="cda:text"/>
+                    <xsl:apply-templates select="cda:text" />
                 </xsl:variable>
                 <xsl:if test="string-length($text) &gt; 0">
                     <note>
-                        <text value="{normalize-space(cda:text)}"/>
+                        <text value="{normalize-space(cda:text)}" />
                     </note>
                 </xsl:if>
             </xsl:if>
             <xsl:if test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
                 <note>
-                    <text
-                        value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR"
-                    />
+                    <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR" />
                 </note>
             </xsl:if>
         </Condition>
@@ -162,14 +145,14 @@
     <xsl:template match="cda:statusCode" mode="condition">
         <clinicalStatus>
             <coding>
-                <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
                 <code>
                     <xsl:choose>
                         <xsl:when test="@code = 'completed'">
                             <xsl:attribute name="value">resolved</xsl:attribute>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:attribute name="value" select="@code"/>
+                            <xsl:attribute name="value" select="@code" />
                         </xsl:otherwise>
                     </xsl:choose>
                 </code>
@@ -177,23 +160,22 @@
         </clinicalStatus>
     </xsl:template>
 
-    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']"
-        mode="condition">
+    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition">
 
         <xsl:for-each select="cda:value">
             <clinicalStatus>
                 <coding>
-                    <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                    <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
 
                     <xsl:choose>
                         <xsl:when test="@code = '55561003'">
-                            <code value="active"/>
+                            <code value="active" />
                         </xsl:when>
                         <xsl:when test="@code = '73425007'">
-                            <code value="inactive"/>
+                            <code value="inactive" />
                         </xsl:when>
                         <xsl:when test="@code = '413322009'">
-                            <code value="resolved"/>
+                            <code value="resolved" />
                         </xsl:when>
                     </xsl:choose>
                 </coding>
@@ -204,10 +186,10 @@
 
     <xsl:template match="cda:effectiveTime" mode="condition">
         <xsl:if test="cda:low/@value">
-            <onsetDateTime value="{lcg:cdaTS2date(cda:low/@value)}"/>
+            <onsetDateTime value="{lcg:cdaTS2date(cda:low/@value)}" />
         </xsl:if>
         <xsl:if test="cda:high/@value">
-            <abatementDateTime value="{lcg:cdaTS2date(cda:high/@value)}"/>
+            <abatementDateTime value="{lcg:cdaTS2date(cda:high/@value)}" />
         </xsl:if>
     </xsl:template>
 
@@ -222,9 +204,9 @@
             <xsl:when test="../@negationInd = 'true' and @code = '55607006'">
                 <code>
                     <coding>
-                        <system value="http://snomed.info/sct"/>
-                        <code value="160245001"/>
-                        <display value="No known problems"/>
+                        <system value="http://snomed.info/sct" />
+                        <code value="160245001" />
+                        <display value="No known problems" />
                     </coding>
                 </code>
             </xsl:when>

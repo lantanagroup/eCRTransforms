@@ -420,10 +420,7 @@ limitations under the License.
                 <xsl:with-param name="pXSIType" select="'IVL_TS'" />
             </xsl:apply-templates>
 
-            <xsl:apply-templates select="fhir:dateAsserted">
-                <xsl:with-param name="pXSIType" select="'IVL_TS'" />
-                <xsl:with-param name="pOperator" select="'A'" />
-            </xsl:apply-templates>
+            <xsl:apply-templates select="fhir:dateAsserted"/>
 
             <!-- SG 20230216: An issue here is that C-CDA specifies that routeCode has to come from SPL Drug Route of Administration Terminology
                  and that the translation if it's present needs to come from SNOMED  

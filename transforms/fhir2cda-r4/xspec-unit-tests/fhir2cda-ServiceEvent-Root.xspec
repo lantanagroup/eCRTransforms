@@ -2,18 +2,16 @@
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
 
     <!--Scenario for testing template with match 'fhir:event[parent::fhir:Composition] - > cda:documentationOf/serviceEvent -->
-    <x:scenario label="Scenario for testing fhir:PractitionerRole/fhir:Composition/fhir:event -> cda:serviceEvent">
-        <x:context href="../../../samples/fhir/xspec-test-files/Complete-Document-Bundle-Example.xml"/>
+    <x:scenario label="A. Scenario for testing fhir:PractitionerRole/fhir:Composition/fhir:event -> cda:serviceEvent">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-003_R2_1.xml" />
 
         <!--Confirm the documentationOf exists to contain the serviceEvent -->
-        <x:expect label="MAY contain zero or more [0..*] documentationOf (CONF:1198-14835)" test="count(//cda:documentationOf)=1" />
+        <x:expect label="A1. Contains one documentationOf" test="count(//cda:documentationOf)=1" />
         <!--Confirm the Service Event exists  -->
-            <x:expect label="The documentationOf, if present, SHALL contain exactly one [1..1] serviceEvent (CONF:1198-14836)." test="count(//cda:documentationOf/cda:serviceEvent)=1" />
+        <x:expect label="A2. Contains one serviceEvent" test="count(//cda:documentationOf/cda:serviceEvent)=1" />
         <!--Confirm the Service Event contains a time element  -->
-            <x:expect label="This serviceEvent SHALL contain exactly one [1..1] effectiveTime (CONF:1198-14837)." test="count(//cda:documentationOf/cda:serviceEvent/cda:effectiveTime)=1" />
+        <x:expect label="A3. Contains one effectiveTime" test="count(//cda:documentationOf/cda:serviceEvent/cda:effectiveTime)=1" />
         <!--Confirm the Service Event time element contains a low value  -->
-            <x:expect label="1.	This effectiveTime SHALL contain exactly one [1..1] low (CONF:1198-14838)." test="count(//cda:documentationOf/cda:serviceEvent/cda:effectiveTime/cda:low)=1" />
+        <x:expect label="A4. Contains one effectiveTime/low." test="count(//cda:documentationOf/cda:serviceEvent/cda:effectiveTime/cda:low)=1" />
     </x:scenario>
-
-
 </x:description>

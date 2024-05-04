@@ -64,9 +64,9 @@
             <xsl:apply-templates select="cda:patientRole/cda:patient/cda:administrativeGenderCode" />
             <xsl:apply-templates select="cda:patientRole/cda:patient/cda:birthTime" />
 
-            <!-- SG: Updating from ifs allowing both boolean and time - only one allowed
+            <!-- Updating from ifs allowing both boolean and time - only one allowed
                 Will check date first and use that otherwise will use boolean-->
-            <!-- SG 2023-06-04 Update to handle nullFlavor -->
+            <!-- Update to handle nullFlavor -->
             <xsl:choose>
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime[@nullFlavor]">
                     <deceasedDateTime>
@@ -81,6 +81,13 @@
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedInd/@value">
                     <deceasedBoolean>
                         <xsl:attribute name="value" select="cda:patientRole/cda:patient/sdtc:deceasedInd/@value" />
+                    </deceasedBoolean>
+                </xsl:when>
+                <xsl:when test="cda:patientRole/cda:patient[not(sdtc:deceasedTime) and not(sdtc:deceasedInd)]">
+                    <deceasedBoolean>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
                     </deceasedBoolean>
                 </xsl:when>
             </xsl:choose>
@@ -449,7 +456,14 @@
     <xsl:template name="add-birth-sex-extension">
         <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200']">
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
-                <valueCode value="{cda:value/@code}" />
+                <xsl:choose>
+                    <xsl:when test="cda:value/@code">
+                        <valueCode value="{cda:value/@code}" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <valueCode value="UNK" />
+                    </xsl:otherwise>
+                </xsl:choose>
             </extension>
         </xsl:for-each>
     </xsl:template>
@@ -458,7 +472,9 @@
     <xsl:template name="add-birthplace-extension">
         <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place">
             <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
-                <xsl:apply-templates select="cda:addr" />
+                <xsl:apply-templates select="cda:addr">
+                    <xsl:with-param name="pElementName" select="'valueAddress'" />
+                </xsl:apply-templates>
             </extension>
         </xsl:for-each>
     </xsl:template>
@@ -479,7 +495,7 @@
                 <extension url="TribeName">
                     <xsl:apply-templates select="cda:code">
                         <xsl:with-param name="pElementName" select="'valueCoding'" />
-                        <xsl:with-param name="includeCoding" select="false()" />
+                        <xsl:with-param name="pIncludeCoding" select="false()" />
                     </xsl:apply-templates>
                 </extension>
                 <extension url="EnrolledTribeMember">

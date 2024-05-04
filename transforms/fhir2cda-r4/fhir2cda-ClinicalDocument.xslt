@@ -208,9 +208,9 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
 
-            <!-- fhir:attester -> cda:legalAuthenticator -->
+            <!-- fhir:attester -> cda:legalAuthenticator or cda:Authenticator-->
             <xsl:apply-templates select="fhir:attester" />
-
+                        
             <!-- SG 20231126: Check for Emergency Contact -->
             <xsl:for-each select="//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value = 'C']]">
                 <participant typeCode="IND">

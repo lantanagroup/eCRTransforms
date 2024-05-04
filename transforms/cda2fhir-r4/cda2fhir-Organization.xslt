@@ -159,6 +159,17 @@
             </xsl:choose>  
 
             <xsl:choose>
+                <!-- If this is an Organization without a person preceding-sibling 
+                     grab any ids that are preceding siblings because otherwise they will get
+                     lost - if there was a preceding sibling that was a person the ids
+                     would get put into a PractitionerRole -->
+                <xsl:when test="not(preceding-sibling::cda:assignedPerson) and cda:id">
+                    <xsl:apply-templates select="cda:id" />
+                    <xsl:apply-templates select="preceding-sibling::cda:id" />
+                </xsl:when>
+                <xsl:when test="not(preceding-sibling::cda:assignedPerson)">
+                    <xsl:apply-templates select="preceding-sibling::cda:id" />
+                </xsl:when>
                 <xsl:when test="cda:id">
                     <xsl:apply-templates select="cda:id" />
                 </xsl:when>
@@ -206,6 +217,13 @@
                 <xsl:when test="following-sibling::*/cda:telecom">
                     <xsl:apply-templates select="following-sibling::*/cda:telecom" />
                 </xsl:when>
+                <xsl:otherwise>
+                    <telecom>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
+                    </telecom>
+                </xsl:otherwise>
             </xsl:choose>
             <!-- SG: US Core Organization needs an address so if this is a organization that
             doesn't have a address, check to see if its containing role has an address(s) that
@@ -228,6 +246,13 @@
                 <xsl:when test="following-sibling::*/cda:addr">
                     <xsl:apply-templates select="following-sibling::*/cda:addr" />
                 </xsl:when>
+                <xsl:otherwise>
+                    <address>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
+                    </address>
+                </xsl:otherwise>
             </xsl:choose>
         </Organization>
     </xsl:template>

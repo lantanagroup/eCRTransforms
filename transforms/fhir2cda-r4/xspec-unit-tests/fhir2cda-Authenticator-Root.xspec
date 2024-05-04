@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+
+    <x:scenario label="A. Scenario for testing fhir:Practitioner -> cda:authenticator ">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-003_R2_1.xml" />
+
+        <x:expect label="A1. Should contain 2 authenticators" test="count(/cda:ClinicalDocument/cda:authenticator)=2" />
+        <x:expect label="A2. Each authenticator should have a signature code." test="count(/cda:ClinicalDocument/cda:authenticator/cda:signatureCode)=2" />
+        <x:expect label="A3. Each signature code should be @code=S" test="count(/cda:ClinicalDocument/cda:authenticator/cda:signatureCode[@code='S'])=2" />
+        <x:expect label="A4. Each authenticator should have an assigendEntity" test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity)=2" />
+        <x:expect label="A5. Each assignedEntity should have an id" test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity/cda:id)=2" />
+        <x:expect label="A6. Each assignedEntity shoudl have an address" test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity/cda:addr)>=2" />
+        <x:expect label="A7. Each assignedEntity shoudl have a telecom" test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity/cda:telecom)>=2" />
+        <x:expect label="A8. Each telecom should have a use" test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity/cda:telecom[@use])>=2" />
+        <x:expect label="A9. Each assignedEntity should have an assignedPerson" test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity/cda:assignedPerson)>=2" />
+        <x:expect label="A10. Each assignedPerson should have a name"
+            test="count(/cda:ClinicalDocument/cda:authenticator/cda:assignedEntity/cda:assignedPerson/cda:name)>=2" />
+        <x:expect label="A10. One authenticator contains one time = 20230915223615.000-0800" test="count(/cda:ClinicalDocument/cda:authenticator/cda:time[@value='20230915223615.000-0800'])>=1" />
+        <x:expect label="A11. One authenticator contains one time = 20240915103000.000-0800" test="count(/cda:ClinicalDocument/cda:authenticator/cda:time[@value='20240915103000.000-0800'])>=1" />
+    </x:scenario>
+</x:description>

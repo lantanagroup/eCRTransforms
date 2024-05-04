@@ -65,14 +65,14 @@
     <xsl:template match="cda:value" mode="goal">
         <xsl:call-template name="newCreateCodableConcept">
             <xsl:with-param name="pElementName">category</xsl:with-param>
-            <xsl:with-param name="includeCoding" select="true()"/>
+            <xsl:with-param name="pIncludeCoding" select="true()"/>
         </xsl:call-template>
     </xsl:template>
 
     <xsl:template match="cda:code" mode="goal">
         <xsl:call-template name="newCreateCodableConcept">
             <xsl:with-param name="pElementName">description</xsl:with-param>
-            <xsl:with-param name="includeCoding" select="true()"/>
+            <xsl:with-param name="pIncludeCoding" select="true()"/>
         </xsl:call-template>
     </xsl:template>
     

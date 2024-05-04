@@ -13,6 +13,7 @@
         <xsl:call-template name="create-bundle-entry" />
         <xsl:apply-templates select="cda:responsibleParty[not(@nullFlavor)]/cda:assignedEntity[not(@nullFlavor)]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:encounterParticipant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:location[not(@nullFlavor)]" mode="bundle-entry" />
         <!-- Added location/healthCareFacility to path so this is picked up -->
         <xsl:apply-templates select="cda:location/cda:healthCareFacility/cda:serviceProviderOrganization[not(@nullFlavor)]" mode="bundle-entry" />
@@ -24,7 +25,6 @@
             <xsl:choose>
                 <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
                 <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-                <!-- MD add Dental templateId -->
                 <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.2']">DentalConsultNote</xsl:when>
                 <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.1']">DentalReferalNote</xsl:when>
                 <xsl:otherwise>NA</xsl:otherwise>
@@ -37,11 +37,13 @@
             <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
             <xsl:apply-templates select="cda:location[not(@nullFlavor)]" mode="bundle-entry" />
         </xsl:if>
-        <xsl:apply-templates select="cda:entryRelationship/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']/cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']"
+        <xsl:apply-templates
+            select="cda:entryRelationship/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']/cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']"
             mode="bundle-entry" />
     </xsl:template>
 
-    <xsl:template match="cda:encompassingEncounter[not(@nullFlavor)] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']">
+    <xsl:template
+        match="cda:encompassingEncounter[not(@nullFlavor)] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']">
         <xsl:variable name="vCurrentIg">
             <xsl:choose>
                 <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
@@ -108,7 +110,18 @@
 
                 </xsl:otherwise>
             </xsl:choose>
+
+            <xsl:comment select="'Id from encompassingEncounter'" />
             <xsl:apply-templates select="cda:id" />
+            <!-- Note, there are also ids on the other Encounters. The Encounter in eCR only allows one identifier.
+                Commenting this code out for now - consider updating the FHIR IG to allow multiple identifiers
+                If this is eCR get the id from other encounters in the CDA -->
+            <!--<xsl:if test="$vCurrentIg = 'eICR'">
+                <xsl:comment select="'Id from Encounter Activity'"/>
+                <xsl:apply-templates select="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:id" />
+                <xsl:comment select="'Id from Encounter Diagnosis Act'"/>
+                <xsl:apply-templates select="//cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.80']/cda:id" />
+            </xsl:if>-->
 
             <xsl:if test="local-name(.) eq 'encounter'">
                 <xsl:choose>
@@ -140,119 +153,97 @@
                 </xsl:choose>
             </xsl:if>
 
-            <!-- These are the other way round in the eCR encompassingEncounter - 
-           translation goes in type and code goes in class -->
-            <!-- RG: The above comment and the eICR specific code below is based on a false assumption. Encounter.class is not a code vs. translation thing, it is a codeSystem thing in this case. 
-           Fixed for other IGs (see <otherwise> below) but leaving eICR as is for now. 
-           Next eICR person reading this should review and see if the special eICR code is even needed. -->
-            <!--  MD: Using RG suggestion
+            <!-- RG: If any code or translation is from the ActCode code system, use that to populate class, otherwise make it a nullFlavor -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
-                    <xsl:for-each select="cda:code">
-                        <class>
-                            <xsl:call-template name="createCodeableConceptContent">
-                                <xsl:with-param name="code" select="@code" />
-                                <xsl:with-param name="codeSystem" select="@codeSystem" />
-                                <xsl:with-param name="displayName" select="@displayName" />
-                            </xsl:call-template>
-                        </class>
-                    </xsl:for-each>
-
-                    <xsl:for-each select="cda:code/cda:translation">
-                        <xsl:call-template name="newCreateCodableConcept">
-                            <xsl:with-param name="pElementName" select="'type'" />
-                            <xsl:with-param name="includeCoding" select="true()" />
-                            <xsl:with-param name="includeTranslations" select="false()" />
-                        </xsl:call-template>
-                    </xsl:for-each>
+                <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.5.4']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{cda:code/@code}" />
+                    </class>
                 </xsl:when>
-                
-                <xsl:when test="$vCurrentIg eq 'DentalConsultNote' or $vCurrentIg eq 'DentalReferalNote'">
-                    <xsl:for-each select="cda:code">
-                        <class>
-                            <xsl:call-template name="createCodeableConceptContent">
-                                <xsl:with-param name="code" select="@code" />
-                                <xsl:with-param name="codeSystem" select="@codeSystem" />
-                                <xsl:with-param name="displayName" select="@displayName" />
-                            </xsl:call-template>
-                        </class>
-                    </xsl:for-each>
-
-                    <xsl:for-each select="cda:code/cda:translation">
-                        <xsl:call-template name="newCreateCodableConcept">
-                            <xsl:with-param name="pElementName" select="'type'" />
-                            <xsl:with-param name="includeCoding" select="true()" />
-                            <xsl:with-param name="includeTranslations" select="false()" />
-                        </xsl:call-template>
-                    </xsl:for-each>
+                <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{cda:code/cda:translation/@code}" />
+                    </class>
                 </xsl:when>
-               
-                <xsl:otherwise>   -->
-                    <!-- RG: If any code or translation is from the ActCode code system, use that to populate class, otherwise make it a nullFlavor -->
-                    <xsl:choose>
-                        <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.5.4']">
-                            <class>
-                                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-                                <code value="{cda:code/@code}" />
-                            </class>
-                        </xsl:when>
-                        <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']">
-                            <class>
-                                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-                                <code value="{cda:code/cda:translation/@code}" />
-                            </class>
-                        </xsl:when>
-                        
-                        <!-- MD: add for ambulatory encounter-->
-                        <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
-                            <class>
-                                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-                                <code value="{cda:code/@code}" />
-                            </class>
-                        </xsl:when>       
-                        <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
-                            <class>
-                                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-                                <code value="{cda:code/cda:translation/@code}" />
-                            </class>
-                        </xsl:when> 
-                        
-                        <xsl:otherwise>
-                            <class>
-                                <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
-                                <code value="NI" />
-                                <display value="NoInformtion" />
-                            </class>
-                        </xsl:otherwise>
-                    </xsl:choose>
-
-                    <xsl:for-each select="cda:code">
-                        <xsl:call-template name="newCreateCodableConcept">
-                            <xsl:with-param name="pElementName" select="'type'" />
-                            <xsl:with-param name="includeCoding" select="true()" />
-                            <xsl:with-param name="includeTranslations" select="true()" />
-                        </xsl:call-template>
-                    </xsl:for-each>
-
-            <!-- MD: Using RG suggestion 
+                <!-- also check encounter -->
+                <xsl:when test="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']/@code}" />
+                    </class>
+                </xsl:when>
+                <xsl:when test="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']/@code}" />
+                    </class>
+                </xsl:when>
+                <!-- MD: add for ambulatory encounter-->
+                <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{cda:code/@code}" />
+                    </class>
+                </xsl:when>
+                <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{cda:code/cda:translation/@code}" />
+                    </class>
+                </xsl:when>
+                <!-- Also check encounter -->
+                <xsl:when test="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']/@code}" />
+                    </class>
+                </xsl:when>
+                <xsl:when test="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+                        <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']/@code}" />
+                    </class>
+                </xsl:when>
+                <xsl:otherwise>
+                    <class>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
+                        <code value="NI" />
+                        <display value="NoInformtion" />
+                    </class>
                 </xsl:otherwise>
-            </xsl:choose>  -->
+            </xsl:choose>
 
+            <xsl:for-each select="cda:code[not(@codeSystem = '2.16.840.1.113883.1.11.13955')]">
+                <xsl:call-template name="newCreateCodableConcept">
+                    <xsl:with-param name="pElementName" select="'type'" />
+                    <xsl:with-param name="pIncludeCoding" select="true()" />
+                    <xsl:with-param name="includeTranslations" select="true()" />
+                </xsl:call-template>
+            </xsl:for-each>
+            
+            <!-- Also get any encounter codes -->
+            <xsl:for-each select="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[not(@codeSystem = '2.16.840.1.113883.1.11.13955')]">
+                <xsl:call-template name="newCreateCodableConcept">
+                    <xsl:with-param name="pElementName" select="'type'" />
+                    <xsl:with-param name="pIncludeCoding" select="true()" />
+                    <xsl:with-param name="includeTranslations" select="true()" />
+                </xsl:call-template>
+            </xsl:for-each>
+            
             <xsl:call-template name="subject-reference" />
 
             <xsl:choose>
                 <xsl:when test="cda:performer[not(@nullFlavor)] | cda:responsibleParty[not(@nullFlavor)]">
-                    <xsl:for-each select="cda:performer[not(@nullFlavor)] | cda:responsibleParty[not(@nullFlavor)]">
+                    <xsl:for-each select="cda:performer[not(@nullFlavor)] | cda:responsibleParty[not(@nullFlavor)] | cda:encounterParticipant[not(@nullFlavor)]">
                         <participant>
                             <xsl:comment>In participant</xsl:comment>
                             <xsl:choose>
                                 <xsl:when test="local-name(.) = 'performer'">
                                     <type>
                                         <coding>
-                                            <!-- MD: fix validate error 
-                                            <system value="http://hl7.org/fhir/v3/ParticipationType" />
-                                            -->
-                                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
                                             <code value="PPRF" />
                                         </coding>
                                     </type>
@@ -276,10 +267,11 @@
                         </participant>
                     </xsl:for-each>
                 </xsl:when>
-                <xsl:when test="cda:author/cda:assignedAuthor/cda:assignedPerson or 
-                    ancestor::cda:section[1]/cda:author[1]/cda:assignedAuthor or 
-                    /cda:ClinicalDocument/cda:author[1]/cda:assignedAuthor/cda:assignedPerson or 
-                    /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">
+                <xsl:when test="
+                        cda:author/cda:assignedAuthor/cda:assignedPerson or
+                        ancestor::cda:section[1]/cda:author[1]/cda:assignedAuthor or
+                        /cda:ClinicalDocument/cda:author[1]/cda:assignedAuthor/cda:assignedPerson or
+                        /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">
                     <participant>
                         <xsl:call-template name="author-reference">
                             <xsl:with-param name="pElementName">individual</xsl:with-param>
@@ -339,6 +331,33 @@
                     </xsl:for-each>
                 </xsl:otherwise>
             </xsl:choose>
+            
+            <!-- Can only have one dischargeDisposition use the one in the encompassingEncounter first,
+                 otherwise use the body encounter one-->
+            <xsl:choose>
+                <xsl:when test="cda:dischargeDispositionCode">
+                    <hospitalization>
+                    <xsl:apply-templates select="cda:dischargeDispositionCode">
+                        <xsl:with-param name="pElementName" select="'dischargeDisposition'" />
+                        <xsl:with-param name="pIncludeCoding" select="true()" />
+                    </xsl:apply-templates>
+                    </hospitalization>
+                </xsl:when>
+                <xsl:when test="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/sdtc:dischargeDispositionCode">
+                    <hospitalization>
+                        <xsl:apply-templates select="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/sdtc:dischargeDispositionCode">
+                            <xsl:with-param name="pElementName" select="'dischargeDisposition'" />
+                            <xsl:with-param name="pIncludeCoding" select="true()" />
+                        </xsl:apply-templates>
+                    </hospitalization>
+                </xsl:when>
+            </xsl:choose>
+            
+                
+                <!--<sdtc:dischargeDispositionCode code="1" codeSystem="1.2.840.114350.1.13.671.3.7.4.698084.18888" codeSystemName="EPC" displayName="DISCHARGED TO HOME OR SELF CARE (ROUTINE DISCHARGE)">
+                    <originalText>DISCHARGED TO HOME OR SELF CARE (ROUTINE DISCHARGE)</originalText>
+                </sdtc:dischargeDispositionCode>-->
+            
             <xsl:if test="cda:location[not(@nullFlavor)]">
                 <location>
                     <location>

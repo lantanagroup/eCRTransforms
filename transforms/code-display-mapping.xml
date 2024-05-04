@@ -24,11 +24,33 @@
     <map code="86188-0" display="History of Occupation industry" />
     <map code="74165-2" display="History of employment status NIOSH" />
     <map code="16310003" display="Ultrasonography (procedure)" />
-    <map code="74728-7" display="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel - HL7.CCDAr1.1" />
     <map code="8302-2" display="Body height" />
     <map code="3141-9" display="Body weight Measured" />
     <map code="39156-5" display="Body mass index (BMI) [Ratio]" />
     <map code="2710-2" display="Deprecated Oxygen saturation in Capillary blood by Oximetry" />
     <map code="63893-2" display="Outcome of pregnancy" />
     <map code="11369-6" display="History of Immunization Narrative" />
+    <map code="42349-1" display="Reason for referral (narrative)" />
+    <map code="94307-6" display="SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N1" />
+    <map code="2284960" display="remdesivir 100 MG Injection" />
+    <map code="90660" display="Influenza virus vaccine, trivalent, live (LAIV3), for intranasal use" />
+    <map code="48765-2" display="Allergies and adverse reactions Document" />
+    <map code="74728-7" display="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel" />
+    <map code="17856-6" display="Hemoglobin A1c/Hemoglobin.total in Blood by HPLC" />
+    <map code="94308-4" display="SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N2" />
+    <map code="10160-0" display="History of Medication use Narrative" />
+    <map code="51848-0" display="Evaluation note" />
+    <map code="10154-3" display="Chief complaint Narrative - Reported" />
+    <map code="308540004" display="Inpatient stay" />
+    <map code="186747009" display="Coronavirus infection" />
+    <map code="74506000" display="Bereavement reaction" />
+    <map code="257656006" display="Penal institution" />
+    <map code="86648" display="Antibody; Diphtheria" />
+    <map code="99252" display="Inpatient or observation consultation for a new or established patient, which requires a medically appropriate history and/or examination and straightforward medical decision making. When using total time on the date of the encounter for code selection, 35 minutes must be met or exceeded." />
+    <map code="840539006" display="Disease caused by SARS-CoV-2" />
+    <map code="266927001" display="Tobacco smoking consumption unknown" />
+    <map code="S" display="Never Married" />
+    <map code="160245001" display="No current problems or disability" />
+    <map code="94500-6" display="SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory system specimen by NAA with probe detection" />
+    <map code="IMP" display="inpatient encounter" />
 </mapping>

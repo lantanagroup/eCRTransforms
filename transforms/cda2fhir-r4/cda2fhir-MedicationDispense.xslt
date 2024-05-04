@@ -65,8 +65,8 @@
     
     <xsl:template match="cda:effectiveTime[@xsi:type='IVL_TS'][cda:high/@value][cda:low/@value]" mode="medication-dispense">
         <xsl:variable name="days">
-            <xsl:value-of select="days-from-duration(xs:date(lcg:cdaTS2date(cda:high/@value)) -
-                xs:date(lcg:cdaTS2date(cda:low/@value)))"/>
+            <xsl:value-of select="days-from-duration(xs:date(substring(lcg:cdaTS2date(cda:high/@value),1,10)) -
+                xs:date(substring(lcg:cdaTS2date(cda:low/@value),1,10)))"/>
         </xsl:variable>
         <daysSupply>
             <value value="{$days}"/>

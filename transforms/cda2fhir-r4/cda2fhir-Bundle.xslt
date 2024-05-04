@@ -18,10 +18,7 @@
            documents as the CDA document id should be unique-->
             <id value="{concat($vCurrentIg, '-bundle-', generate-id(cda:ClinicalDocument/cda:id))}" />
 
-            <!-- Adding meta for eICR - needs to conform to eICR document bundle profile 
-           **TODO** hard coding these for now - because the bundles are usually one level
-           higher than the mapping in the template-profile-mapping.xml file
-           but need to add in more scaleable solution -->
+            <!-- Adding meta for eICR - needs to conform to eICR document bundle profile -->
             <xsl:variable as="xs:string" name="vBundleProfile">
                 <xsl:choose>
                     <xsl:when test="$vCurrentIg = 'eICR'">
@@ -61,8 +58,6 @@
                 </xsl:attribute>
             </timestamp>
             <xsl:apply-templates mode="bundle-entry" select="cda:ClinicalDocument" />
-
-            <xsl:message>TODO: Add remaining header resources</xsl:message>
 
             <xsl:for-each select="//descendant::cda:entry">
                 <xsl:apply-templates mode="bundle-entry" select="cda:*[not(@nullFlavor)]" />

@@ -435,7 +435,7 @@
     <map oid="2.16.840.1.113883.5.1070" uri="http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution" />
     <map oid="2.16.840.1.113883.1.18" uri="http://terminology.hl7.org/CodeSystem/v3-triggerEventID" />
 
-    <map oid="2.16.840.1.113883.6.259" uri="http://terminology.hl7.org/CodeSystem/v3-hsloc" />
+    <!--<map oid="2.16.840.1.113883.6.259" uri="http://terminology.hl7.org/CodeSystem/v3-hsloc" />-->
     <map oid="2.16.840.1.113883.6.259" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/hsloc.html" />
     
     <map oid="2.16.840.1.113883.6.277" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/cdcnhsn.html" />

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+
+    <x:scenario label="A. Test trigger code template generation">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
+        
+        <x:expect label="A1. Must be 2 trigger code flags sdtc:valueSet" test="count(//@sdtc:valueSet)=2" />
+        <x:expect label="A2. Must be 2 trigger code flags sdtc:valueSetVersion" test="count(//@sdtc:valueSetVersion)=2" />
+    </x:scenario>
+    
+</x:description>

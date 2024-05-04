@@ -1,5 +1,5 @@
 <mapping>
-    <!-- TODO: unmapped -->
+    
     <!-- eCR-Organization, eCR-patient, eCR-Practitioner, eCR-PractitionerRole, eCR-task, eicr-encounter, eicr-location  -->
     <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.131:2015-08-01" />
     <!-- Done: mapped -->

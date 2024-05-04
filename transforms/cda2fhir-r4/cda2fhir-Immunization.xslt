@@ -7,6 +7,7 @@
     
   <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.52'][@moodCode = 'EVN']" mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />
+      <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
   </xsl:template>
 
   <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.52'][@moodCode = 'EVN']">
@@ -43,8 +44,6 @@
         <xsl:with-param name="pElementName">doseQuantity</xsl:with-param>
         <xsl:with-param name="pSimpleQuantity" select="true()" />
       </xsl:apply-templates>
-      <!-- RG: Commented out for demo -->
-      <!--
       <xsl:if test="cda:performer">
         <performer>
           <xsl:call-template name="performer-reference">
@@ -52,7 +51,6 @@
           </xsl:call-template>
         </performer>
       </xsl:if>
-      -->
     </Immunization>
   </xsl:template>
 

@@ -12,12 +12,10 @@
         mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry"/>
         <xsl:apply-templates select="cda:author" mode="bundle-entry"/>
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
     </xsl:template>
     
-    
-
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]">
-        
 
         <Condition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
             
@@ -55,7 +53,7 @@
             <!-- 
             <xsl:call-template name="add-meta"/>
              -->
-            <xsl:apply-templates select="../preceding-sibling::cda:id"/>
+<!--            <xsl:apply-templates select="../preceding-sibling::cda:id"/>-->
             <xsl:apply-templates select="cda:id"/>
             <xsl:choose>
                 <xsl:when

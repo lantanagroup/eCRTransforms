@@ -70,7 +70,7 @@
     <xsl:template match="cda:code" mode="relationship">
         <xsl:call-template name="newCreateCodableConcept">
             <xsl:with-param name="pElementName">relationship</xsl:with-param>
-            <xsl:with-param name="includeCoding" select="true()"/>
+            <xsl:with-param name="pIncludeCoding" select="true()"/>
         </xsl:call-template>
     </xsl:template>
 

@@ -18,13 +18,13 @@ limitations under the License.
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" version="2.0"
     exclude-result-prefixes="lcg xsl cda fhir">
-
+    
     <xsl:import href="fhir2cda-utility.xslt" />
     <xsl:import href="fhir2cda-TS.xslt" />
-
-    <!-- Only interested in the attester that has mode = legal and only one legalAuthenticator is allowed in CDA
-         will put any others in the Authenticator-->
-    <xsl:template match="fhir:attester[1][parent::fhir:Composition][fhir:mode/@value = 'legal']">
+    
+    <!-- All the attesters that aren't the first attester with mode = legal will be Authenticators because
+         CDA only allows one legalAuthenticator -->
+    <xsl:template match="fhir:attester[position()!=1][parent::fhir:Composition][fhir:mode/@value = 'legal'] | fhir:attester[parent::fhir:Composition][not(fhir:mode/@value = 'legal')]">
         <xsl:for-each select="fhir:party/fhir:reference">
             <xsl:variable name="vAttesterTime">
                 <xsl:value-of select="../../fhir:time/@value"/>
@@ -35,30 +35,28 @@ limitations under the License.
                 </xsl:call-template>
             </xsl:variable>
             <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
-                <xsl:apply-templates select="fhir:resource/fhir:*" mode="legal">
+                <xsl:apply-templates select="fhir:resource/fhir:*" mode="not-legal">
                     <xsl:with-param name="pAttesterTime" select="$vAttesterTime"/>
                 </xsl:apply-templates>
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
-
+    
     <!-- MD: for attester.mode can be legal, personal, professtional or official
     now we just handle the case with mode is legal, with party as Pracitioner and PractitionerRole
     the other possible cases are Patient, ReleatedPerson, or Organization -->
-    <xsl:template match="fhir:Practitioner" mode="legal">
+    <xsl:template match="fhir:Practitioner" mode="not-legal">
         <xsl:param name="pAttesterTime"/>
-        <legalAuthenticator>
+        <authenticator>
             <time>
                 <xsl:attribute name="value">
                     <xsl:call-template name="Date2TS">
-                        <!-- only want the attester time fromt the first legal attester -->
-                        <!--<xsl:with-param name="date" select="//fhir:Composition[1]/fhir:attester[fhir:mode/@value = 'legal'][1]/fhir:time/@value" />-->
                         <xsl:with-param name="date" select="$pAttesterTime" />
                         <xsl:with-param name="includeTime" select="true()" />
                     </xsl:call-template>
                 </xsl:attribute>
             </time>
-
+            
             <signatureCode code="S" />
             <assignedEntity>
                 <xsl:choose>
@@ -69,41 +67,39 @@ limitations under the License.
                         <id nullFlavor="NI" />
                     </xsl:otherwise>
                 </xsl:choose>
-
+                
                 <xsl:call-template name="get-addr" />
-
+                
                 <xsl:for-each select="fhir:telecom">
                     <xsl:apply-templates select="." />
                 </xsl:for-each>
-
+                
                 <assignedPerson>
                     <xsl:for-each select="fhir:name">
                         <xsl:apply-templates select="." />
                     </xsl:for-each>
                 </assignedPerson>
             </assignedEntity>
-        </legalAuthenticator>
+        </authenticator>
     </xsl:template>
     <!--  
   For now just using PractitionerRole, we may need to relate it to organization. 
   older standard, the legal was with Practitioner. See we still need to support it 
-  <xsl:template match="//fhir:entry/fhir:resource/fhir:Practitioner" mode="legal">
+  <xsl:template match="//fhir:entry/fhir:resource/fhir:Practitioner" mode="not-legal">
  -->
-    <xsl:template match="fhir:PractitionerRole" mode="legal">
+    <xsl:template match="fhir:PractitionerRole" mode="not-legal">
         <xsl:param name="pAttesterTime"/>
-        <xsl:call-template name="make-legal-authenticator">
+        <xsl:call-template name="make-authenticator">
             <xsl:with-param name="pAttesterTime" select="$pAttesterTime"></xsl:with-param>    
         </xsl:call-template>
     </xsl:template>
-
-    <xsl:template name="make-legal-authenticator">
+    
+    <xsl:template name="make-authenticator">
         <xsl:param name="pAttesterTime"/>
-        <legalAuthenticator>
+        <authenticator>
             <time>
                 <xsl:attribute name="value">
                     <xsl:call-template name="Date2TS">
-                        <!-- only want the attester time fromt the first legal attester -->
-                        <!--<xsl:with-param name="date" select="//fhir:Composition[1]/fhir:attester[fhir:mode/@value = 'legal'][1]/fhir:time/@value" />-->
                         <xsl:with-param name="date" select="$pAttesterTime" />
                         <xsl:with-param name="includeTime" select="true()" />
                     </xsl:call-template>
@@ -123,7 +119,7 @@ limitations under the License.
                 <xsl:for-each select="fhir:telecom">
                     <xsl:apply-templates select="." />
                 </xsl:for-each>
-
+                
                 <!-- MD: assignedPerson  -->
                 <xsl:variable name="referenceURI">
                     <xsl:call-template name="resolve-to-full-url">
@@ -131,11 +127,11 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:comment>Processing entry <xsl:value-of select="$referenceURI" /></xsl:comment>
-
+                
                 <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
-                    <xsl:apply-templates select="fhir:resource/fhir:*" mode="legalAuthenticator-assignedPerson" />
+                    <xsl:apply-templates select="fhir:resource/fhir:*" mode="authenticator-assignedPerson" />
                 </xsl:for-each>
-
+                
                 <!-- MD: representedOrganization  -->
                 <xsl:variable name="referenceURI">
                     <xsl:call-template name="resolve-to-full-url">
@@ -143,22 +139,22 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:comment>Processing entry <xsl:value-of select="$referenceURI" /></xsl:comment>
-
+                
                 <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
-                    <xsl:apply-templates select="fhir:resource/fhir:*" mode="legalAuthenticator-representedOrganization" />
+                    <xsl:apply-templates select="fhir:resource/fhir:*" mode="authenticator-representedOrganization" />
                 </xsl:for-each>
-
+                
             </assignedEntity>
-        </legalAuthenticator>
+        </authenticator>
     </xsl:template>
-
-    <xsl:template match="fhir:Practitioner" mode="legalAuthenticator-assignedPerson">
+    
+    <xsl:template match="fhir:Practitioner" mode="authenticator-assignedPerson">
         <assignedPerson>
             <xsl:apply-templates select="fhir:name" />
         </assignedPerson>
     </xsl:template>
-
-    <xsl:template match="fhir:Organization" mode="legalAuthenticator-representedOrganization">
+    
+    <xsl:template match="fhir:Organization" mode="authenticator-representedOrganization">
         <representedOrganization>
             <xsl:choose>
                 <xsl:when test="fhir:identifier">
@@ -168,7 +164,7 @@ limitations under the License.
                     <id nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
-
+            
             <xsl:choose>
                 <xsl:when test="fhir:name">
                     <xsl:call-template name="get-org-name" />
@@ -178,7 +174,7 @@ limitations under the License.
             <xsl:for-each select="fhir:telecom">
                 <xsl:apply-templates select="." />
             </xsl:for-each>
-
+            
             <xsl:choose>
                 <xsl:when test="fhir:address">
                     <xsl:apply-templates select="fhir:address" />
@@ -187,7 +183,7 @@ limitations under the License.
                     <addr nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
-
+            
         </representedOrganization>
     </xsl:template>
 </xsl:stylesheet>

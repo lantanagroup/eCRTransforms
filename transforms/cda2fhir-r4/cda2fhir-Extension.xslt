@@ -31,7 +31,7 @@
                 <extension url="triggerCode">
                     <xsl:apply-templates select=".">
                         <xsl:with-param name="pElementName">valueCoding</xsl:with-param>
-                        <xsl:with-param name="includeCoding" select="false()" />
+                        <xsl:with-param name="pIncludeCoding" select="false()" />
                     </xsl:apply-templates>
                 </extension>
             </extension>

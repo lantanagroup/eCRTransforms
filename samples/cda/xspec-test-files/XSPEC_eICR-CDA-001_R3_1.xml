@@ -16,7 +16,7 @@
     <id root="2.16.840.1.113883.9.9.9.9.9" extension="db734647-fc99-424c-a864-7e3cda82e704" />
     <!-- Document Code -->
     <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" displayName="Public Health Case Report" codeSystemName="LOINC" />
-    <title>Initial Public Health Case Report</title>
+    <title>Initial Public Health Case Report: XSPEC_eICR-CDA-001_R3_1</title>
     <effectiveTime value="20201107094421-0500" />
     <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" displayName="Normal" />
     <languageCode code="en-US" />
@@ -129,10 +129,11 @@
                     <!-\- Preferred Language -\->
                     <preferenceInd value="true" />
                 </languageCommunication>-->
-                <languageCommunication>
+                <!-- 3 letter code causing issues with validation, so removing -->
+                <!--<languageCommunication>
                     <languageCode code="eng" />
                     <preferenceInd value="true" />
-                </languageCommunication>
+                </languageCommunication>-->
                 <languageCommunication>
                     <languageCode code="en" />
                     <modeCode code="EWR" codeSystem="2.16.840.1.113883.5.60" displayName="Expressed Written" />
@@ -662,7 +663,7 @@
                             <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09" />
                             <id root="6c844c75-aa34-411c-b7bd-5e4a9f206e29" />
                             <statusCode code="completed" />
-                            <effectiveTime xsi:type="PIVL_TS" operator="A" value="202011071159-0700" />
+                            <effectiveTime value="202011071115-0700" />
                             <routeCode code="C38288" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="NCI Thesaurus" displayName="ORAL" />
                             <doseQuantity value="1" unit="g" />
                             <consumable>
@@ -1109,6 +1110,9 @@
                                     <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
                                     <id root="7c0704bb-9c40-41b5-9c7d-26b2d59e234f" />
                                     <code code="20570-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Hematocrit" />
+                                    <text>
+                                        <reference nullFlavor="NI"/>
+                                    </text>
                                     <statusCode code="completed" />
                                     <effectiveTime value="20201107" />
                                     <value unit="%" value="35.3" xsi:type="PQ" />
@@ -1238,14 +1242,11 @@
                                             <value xsi:type="CD" code="F" displayName="Final results" codeSystem="2.16.840.1.113883.18.34" codeSystemName="HL7ObservationResultStatusCodesInterpretation" />
                                         </observation>
                                     </entryRelationship>
+                                    <!-- Reference range for testing missing high, low, and text (fhir needs one of those three)
+                                         FHIR doesn't have a mapping for referenceRange/observationRange/interpretationCode, so this will get lost -->
                                     <referenceRange>
                                         <observationRange>
-                                            <!-- Reference range: PT IgG: <45 IU/mL -->
-                                            <value xsi:type="IVL_PQ">
-                                                <high inclusive="false" unit="[iU]/mL" value="45" />
-                                            </value>
-                                            <!-- This interpretation code denotes that this reference range is for normal results. 
-                           This is not the interpretation of a specific patient value-->
+                                            <value xsi:type="ST" nullFlavor="UNK"/>
                                             <interpretationCode code="N" codeSystem="2.16.840.1.113883.5.83" displayName="Normal" />
                                         </observationRange>
                                     </referenceRange>
@@ -2933,7 +2934,6 @@
 
                 </section>
             </component>
-
         </structuredBody>
     </component>
 </ClinicalDocument>

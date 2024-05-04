@@ -17,52 +17,53 @@ limitations under the License.
 
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" version="2.0"
-  exclude-result-prefixes="lcg cda fhir">
+    exclude-result-prefixes="lcg cda fhir">
 
-  <xsl:include href="fhir2cda-ClinicalDocument.xslt" />
+    <xsl:include href="fhir2cda-ClinicalDocument.xslt" />
 
-  <!-- Data Types -->
-  <xsl:include href="fhir2cda-CD.xslt" />
-  <xsl:include href="fhir2cda-II.xslt" />
-  <xsl:include href="fhir2cda-TEL.xslt" />
-  <xsl:include href="fhir2cda-ADDR.xslt" />
-  <xsl:include href="fhir2cda-PQ.xslt" />
-  <xsl:include href="fhir2cda-TS.xslt" />
-  <xsl:include href="fhir2cda-PN.xslt" />
-  <xsl:include href="fhir2cda-ON.xslt" />
+    <!-- Data Types -->
+    <xsl:include href="fhir2cda-CD.xslt" />
+    <xsl:include href="fhir2cda-II.xslt" />
+    <xsl:include href="fhir2cda-TEL.xslt" />
+    <xsl:include href="fhir2cda-ADDR.xslt" />
+    <xsl:include href="fhir2cda-PQ.xslt" />
+    <xsl:include href="fhir2cda-TS.xslt" />
+    <xsl:include href="fhir2cda-PN.xslt" />
+    <xsl:include href="fhir2cda-ON.xslt" />
 
-  <!-- Header Participants -->
-  <xsl:include href="fhir2cda-RecordTarget.xslt" />
-  <xsl:include href="fhir2cda-Author.xslt" />
-  <xsl:include href="fhir2cda-Custodian.xslt" />
-  <xsl:include href="fhir2cda-ExternalDocument.xslt" />
-  <xsl:include href="fhir2cda-InformationRecipient.xslt" />
-  <xsl:include href="fhir2cda-LegalAuthenticator.xslt" />
-  <xsl:include href="fhir2cda-EncompassingEncounter.xslt" />
+    <!-- Header Participants -->
+    <xsl:include href="fhir2cda-RecordTarget.xslt" />
+    <xsl:include href="fhir2cda-Author.xslt" />
+    <xsl:include href="fhir2cda-Custodian.xslt" />
+    <xsl:include href="fhir2cda-ExternalDocument.xslt" />
+    <xsl:include href="fhir2cda-InformationRecipient.xslt" />
+    <xsl:include href="fhir2cda-LegalAuthenticator.xslt" />
+    <xsl:include href="fhir2cda-Authenticator.xslt" />
+    <xsl:include href="fhir2cda-EncompassingEncounter.xslt" />
 
-  <!-- Other particpants -->
-  <xsl:include href="fhir2cda-Participant.xslt" />
-  
-  <xsl:include href="fhir2cda-Section.xslt" />
+    <!-- Other particpants -->
+    <xsl:include href="fhir2cda-Participant.xslt" />
 
-  <!-- ClinicalStatements -->
-  <xsl:include href="fhir2cda-Act.xslt" />
-  <xsl:include href="fhir2cda-Encounter.xslt" />
-  <xsl:include href="fhir2cda-SubstanceAdministration.xslt" />
-  <xsl:include href="fhir2cda-Supply.xslt" />
-  <xsl:include href="fhir2cda-ServiceEvent.xslt" />
-  <xsl:include href="fhir2cda-Observation.xslt" />
-  <xsl:include href="fhir2cda-Organizer.xslt" />
-  <xsl:include href="fhir2cda-Procedure.xslt" />
-  <xsl:include href="fhir2cda-Coverage.xslt"/>
-  <xsl:include href="fhir2cda-Instruction.xslt"/>
+    <xsl:include href="fhir2cda-Section.xslt" />
 
-  <xsl:include href="native-xslt-uuid.xslt" />
-  <xsl:include href="fhir2cda-utility.xslt" />
-  <xsl:include href="fhir2cda-narrative.xslt" />
-  <xsl:include href="fhir2cda-mapProfileToTemplate.xslt" />
-  
-<!--  <xsl:include href="../hai-ltc/generate-narrative-ltc.xslt" />-->
-  
+    <!-- ClinicalStatements -->
+    <xsl:include href="fhir2cda-Act.xslt" />
+    <xsl:include href="fhir2cda-Encounter.xslt" />
+    <xsl:include href="fhir2cda-SubstanceAdministration.xslt" />
+    <xsl:include href="fhir2cda-Supply.xslt" />
+    <xsl:include href="fhir2cda-ServiceEvent.xslt" />
+    <xsl:include href="fhir2cda-Observation.xslt" />
+    <xsl:include href="fhir2cda-Organizer.xslt" />
+    <xsl:include href="fhir2cda-Procedure.xslt" />
+    <xsl:include href="fhir2cda-Coverage.xslt" />
+    <xsl:include href="fhir2cda-Instruction.xslt" />
+
+    <xsl:include href="native-xslt-uuid.xslt" />
+    <xsl:include href="fhir2cda-utility.xslt" />
+    <xsl:include href="fhir2cda-narrative.xslt" />
+    <xsl:include href="fhir2cda-mapProfileToTemplate.xslt" />
+
+    <!--  <xsl:include href="../hai-ltc/generate-narrative-ltc.xslt" />-->
+
 
 </xsl:stylesheet>

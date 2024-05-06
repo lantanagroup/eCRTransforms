@@ -1050,6 +1050,56 @@
         </Observation>
     </xsl:template>
 
+    <!-- US Core Smoking Status -->
+    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.78']]">
+        <Observation>
+            <xsl:call-template name="add-meta" />
+            <xsl:apply-templates select="cda:id" />
+            <status value="final" />
+            <category>
+                <coding>
+                    <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+                    <code value="social-history" />
+                </coding>
+            </category>
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">code</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:call-template name="subject-reference" />
+            <!-- effectiveDateTime is required in Smoking Status -->
+            <xsl:choose>
+                <xsl:when test="cda:effectiveTime and not(cda:effectiveTime/@nullFlavor)">
+                    <xsl:apply-templates select="cda:effectiveTime">
+                        <xsl:with-param name="pStartElementName">effective</xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:when test="cda:effectiveTime/@nullFlavor">
+                    <effectiveDateTime>
+                        <xsl:apply-templates select="cda:effectiveTime/@nullFlavor" mode="data-absent-reason-extension" />
+                    </effectiveDateTime>
+                </xsl:when>
+                <xsl:otherwise>
+                    <effectiveDateTime>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
+                    </effectiveDateTime>
+                </xsl:otherwise>
+            </xsl:choose>
+
+            <xsl:call-template name="performer-or-author" />
+
+            <xsl:choose>
+                <xsl:when test="cda:value[@xsi:type = 'CD']">
+                    <xsl:apply-templates select="cda:value" />
+                </xsl:when>
+                <xsl:when test="cda:value[@nullFlavor]">
+                    <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
+                </xsl:when>
+            </xsl:choose>
+        </Observation>
+    </xsl:template>
+
     <xsl:template name="performer-or-author">
         <xsl:param name="pPractitionerRole" as="xs:boolean" select="true()" />
         <xsl:choose>

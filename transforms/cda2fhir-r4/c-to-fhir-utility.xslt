@@ -883,34 +883,22 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:for-each select="cda:streetAddressLine[@nullFlavor]">
-                        <line>
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </line>
+                        <line><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></line>
                     </xsl:for-each>
                     <xsl:for-each select="cda:city[@nullFlavor]">
-                        <city>
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </city>
+                        <city><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></city>
                     </xsl:for-each>
                     <xsl:for-each select="cda:county[@nullFlavor]">
-                        <district>
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </district>
+                        <district><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></district>
                     </xsl:for-each>
                     <xsl:for-each select="cda:state[@nullFlavor]">
-                        <state>
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </state>
+                        <state><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></state>
                     </xsl:for-each>
                     <xsl:for-each select="cda:postalCode[@nullFlavor]">
-                        <postalCode>
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </postalCode>
+                        <postalCode><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></postalCode>
                     </xsl:for-each>
                     <xsl:for-each select="cda:country[@nullFlavor]">
-                        <country>
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </country>
+                        <country><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></country>
                     </xsl:for-each>
                 </xsl:otherwise>
             </xsl:choose>

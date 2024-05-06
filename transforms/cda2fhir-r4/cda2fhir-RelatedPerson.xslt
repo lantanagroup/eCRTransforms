@@ -134,8 +134,12 @@
         </RelatedPerson>
     </xsl:template>
 
+    <xsl:template match="cda:participant[cda:associatedEntity[@classCode='NOK']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+    
     <!-- NOK Person Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:associatedEntity[@classCode='NOK']">
+    <xsl:template match="cda:participant[cda:associatedEntity[@classCode='NOK']]">
         <RelatedPerson>
             <xsl:comment>cda:participant (NOK)</xsl:comment>
             <xsl:call-template name="subject-reference">
@@ -148,7 +152,7 @@
                     <display value="Next-of-Kin"/>
                 </coding>
             </relationship>
-            <xsl:apply-templates select="cda:code">
+            <xsl:apply-templates select="cda:associatedEntity/cda:code">
                 <xsl:with-param name="pElementName">relationship</xsl:with-param>
             </xsl:apply-templates>
             <xsl:apply-templates select="cda:associatedEntity/cda:id" />

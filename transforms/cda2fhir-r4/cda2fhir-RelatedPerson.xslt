@@ -134,6 +134,30 @@
         </RelatedPerson>
     </xsl:template>
 
+    <!-- NOK Person Participant to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:associatedEntity[@classCode='NOK']">
+        <RelatedPerson>
+            <xsl:comment>cda:participant (NOK)</xsl:comment>
+            <xsl:call-template name="subject-reference">
+                <xsl:with-param name="pElementName">patient</xsl:with-param>
+            </xsl:call-template>
+            <relationship>
+                <coding>
+                    <system value="http://terminology.hl7.org/CodeSystem/v2-0131"/>
+                    <code value="N"/>
+                    <display value="Next-of-Kin"/>
+                </coding>
+            </relationship>
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">relationship</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="cda:associatedEntity/cda:id" />
+            
+            <xsl:apply-templates select="cda:associatedEntity/cda:associatedPerson/cda:name" />
+            <xsl:apply-templates select="cda:associatedEntity/cda:telecom" />
+            <xsl:apply-templates select="cda:associatedEntity/cda:address" />
+        </RelatedPerson>
+    </xsl:template>
 
 
 </xsl:stylesheet>

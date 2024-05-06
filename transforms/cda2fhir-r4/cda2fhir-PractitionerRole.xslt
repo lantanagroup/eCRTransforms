@@ -19,7 +19,7 @@
                                      cda:participantRole" mode="bundle-entry" />
     </xsl:template>
 
-    <!-- Note: the informationRecipient structure is structure is informationRecipient/intendedRecipient/informationRecipient -->
+    <!-- Note: the informationRecipient structure is informationRecipient/intendedRecipient/informationRecipient -->
     <xsl:template match="cda:intendedRecipient | 
                          cda:assignedAuthor | 
                          cda:assignedEntity | 
@@ -27,15 +27,21 @@
                          cda:participantRole" mode="bundle-entry">
         <!-- Create up to 4 resources, PractitionerRole, Practitioner, Organization, Device-->
         <!-- PractitionerRole - if there isn't a person, don't create PractitionerRole -->
-        <xsl:if test="cda:informationRecipient[parent::cda:intendedRecipient] or cda:assignedPerson or cda:associatedPerson">
+        <xsl:if test="cda:informationRecipient[parent::cda:intendedRecipient] or 
+                      cda:assignedPerson or 
+                      cda:associatedPerson">
             <xsl:call-template name="create-bundle-entry" />
         </xsl:if>
         <!-- Practitioner -->
-        <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | cda:assignedPerson | cda:associatedPerson">
+        <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | 
+                              cda:assignedPerson | 
+                              cda:associatedPerson">
             <xsl:call-template name="create-bundle-entry" />
         </xsl:for-each>
         <!-- Organization -->
-        <xsl:for-each select="cda:receivedOrganization | cda:representedOrganization | cda:scopingOrganization">
+        <xsl:for-each select="cda:receivedOrganization | 
+                              cda:representedOrganization | 
+                              cda:scopingOrganization">
             <xsl:call-template name="create-bundle-entry" />
         </xsl:for-each>
         <!-- Device -->
@@ -43,7 +49,11 @@
     </xsl:template>
 
     <xsl:template
-        match="cda:intendedRecipient | cda:assignedAuthor[not(cda:assignedAuthoringDevice)] | cda:assignedEntity | cda:associatedEntity | cda:participantRole[not(@classCode = 'TERR')][not(parent::cda:participant/@typeCode = 'CSM')]">
+        match="cda:intendedRecipient | 
+               cda:assignedAuthor[not(cda:assignedAuthoringDevice)] | 
+               cda:assignedEntity | 
+               cda:associatedEntity | 
+               cda:participantRole[not(@classCode = 'TERR')][not(parent::cda:participant/@typeCode = 'CSM')]">
         <PractitionerRole>
 
             <!-- Check current Ig -->
@@ -80,12 +90,16 @@
             <xsl:call-template name="breadcrumb-comment" />
 
             <xsl:apply-templates select="cda:id[1]" />
-            <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | cda:assignedPerson | cda:associatedPerson">
+            <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | 
+                                  cda:assignedPerson | 
+                                  cda:associatedPerson">
                 <practitioner>
                     <xsl:apply-templates select="." mode="reference" />
                 </practitioner>
             </xsl:for-each>
-            <xsl:for-each select="cda:receivedOrganization | cda:representedOrganization | cda:scopingOrganization">
+            <xsl:for-each select="cda:receivedOrganization | 
+                                  cda:representedOrganization | 
+                                  cda:scopingOrganization">
                 <organization>
                     <xsl:apply-templates select="." mode="reference" />
                 </organization>
@@ -102,7 +116,7 @@
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
             <!-- eCR PractitionerRole must have a telecom, if there is no telecom at this level, look into the 
-                 person and organization for a telecom, otherwise need a data-absent-reason -->
+                 person and organization for a telecom, otherwise data-absent-reason -->
             <xsl:choose>
                 <xsl:when test="cda:telecom">
                     <xsl:apply-templates select="cda:telecom" />        
@@ -121,11 +135,12 @@
                     </telecom>
                 </xsl:otherwise>
             </xsl:choose>
-            
         </PractitionerRole>
     </xsl:template>
 
-    <xsl:template match="cda:informationRecipient[parent::cda:intendedRecipient] | cda:assignedPerson | cda:associatedPerson">
+    <xsl:template match="cda:informationRecipient[parent::cda:intendedRecipient] | 
+                         cda:assignedPerson | 
+                         cda:associatedPerson">
         <xsl:call-template name="make-practitioner">
             <xsl:with-param name="id" select="../cda:id" />
             <xsl:with-param name="name" select="cda:name" />
@@ -133,5 +148,4 @@
             <xsl:with-param name="address" select="../cda:addr" />
         </xsl:call-template>
     </xsl:template>
-
 </xsl:stylesheet>

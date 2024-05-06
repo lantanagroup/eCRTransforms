@@ -849,9 +849,75 @@
                     </xsl:if>
                 </xsl:for-each>
                 <xsl:apply-templates select="cda:useablePeriod" />
-
             </xsl:element>
         </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="
+            cda:addr[@nullFlavor] |
+            cda:addr[cda:streetAddressLine[@nullFlavor]] |
+            cda:addr[cda:city[@nullFlavor]] |
+            cda:addr[cda:county[@nullFlavor]] |
+            cda:addr[cda:state[@nullFlavor]] |
+            cda:addr[cda:postalCode[@nullFlavor]] |
+            cda:addr[country[@nullFlavor]]">
+        <xsl:param name="pElementName">address</xsl:param>
+
+
+        <xsl:element name="{$pElementName}">
+            <xsl:if test="@use">
+                <use>
+                    <xsl:attribute name="value">
+                        <xsl:choose>
+                            <xsl:when test="@use = 'H' or @use = 'HP' or @use = 'HV'">home</xsl:when>
+                            <xsl:when test="@use = 'WP' or @use = 'DIR' or @use = 'PUB'">work</xsl:when>
+                            <!-- default to work -->
+                            <xsl:otherwise>work</xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                </use>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@nullFlavor">
+                    <xsl:apply-templates select="." mode="data-absent-reason-extension" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:for-each select="cda:streetAddressLine[@nullFlavor]">
+                        <line>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </line>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:city[@nullFlavor]">
+                        <city>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </city>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:county[@nullFlavor]">
+                        <district>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </district>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:state[@nullFlavor]">
+                        <state>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </state>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:postalCode[@nullFlavor]">
+                        <postalCode>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </postalCode>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:country[@nullFlavor]">
+                        <country>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </country>
+                    </xsl:for-each>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="cda:useablePeriod" />
+        </xsl:element>
+
+
     </xsl:template>
 
     <!-- TEMPLATE: id, setId -->
@@ -951,34 +1017,34 @@
             <xsl:with-param name="pIncludeCoding" select="$pIncludeCoding" />
         </xsl:call-template>
     </xsl:template>
-    
+
     <xsl:template name="get-reference-text">
-        <xsl:param name="pTextElement"/>
+        <xsl:param name="pTextElement" />
         <xsl:variable name="vTextReference">
             <xsl:value-of select="substring($pTextElement/cda:reference/@value, 2)" />
         </xsl:variable>
-        
-            <xsl:choose>
-                <xsl:when test="$pTextElement/cda:reference">
-                    <xsl:choose>
-                        <xsl:when test="//*[@ID = $vTextReference]/text()">
-                            <xsl:value-of select="//*[@ID = $vTextReference]/text()" />
-                        </xsl:when>
-                        <xsl:when test="//*[@ID = $vTextReference]/../text()">
-                            <xsl:value-of select="//*[@ID = $vTextReference]/following-sibling::text()" />
-                        </xsl:when>
-                        <xsl:when test="//*[@ID = $vTextReference]">
-                            <xsl:apply-templates select="//*[@ID = $vTextReference]" mode="serialize"/>
-                            <!--<xsl:copy-of select="//*[@ID = $vTextReference]" />-->
-                        </xsl:when>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$pTextElement">
-                    <xsl:value-of select="$pTextElement" />
-                </xsl:when>
-            </xsl:choose>
-        
-<!--        <xsl:value-of select="$vText"/>-->
+
+        <xsl:choose>
+            <xsl:when test="$pTextElement/cda:reference">
+                <xsl:choose>
+                    <xsl:when test="//*[@ID = $vTextReference]/text()">
+                        <xsl:value-of select="//*[@ID = $vTextReference]/text()" />
+                    </xsl:when>
+                    <xsl:when test="//*[@ID = $vTextReference]/../text()">
+                        <xsl:value-of select="//*[@ID = $vTextReference]/following-sibling::text()" />
+                    </xsl:when>
+                    <xsl:when test="//*[@ID = $vTextReference]">
+                        <xsl:apply-templates select="//*[@ID = $vTextReference]" mode="serialize" />
+                        <!--<xsl:copy-of select="//*[@ID = $vTextReference]" />-->
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$pTextElement">
+                <xsl:value-of select="$pTextElement" />
+            </xsl:when>
+        </xsl:choose>
+
+        <!--        <xsl:value-of select="$vText"/>-->
     </xsl:template>
 
     <!-- TEMPLATE (named):newCreateCodeableConcept - creates a codeableConcept element-->
@@ -1494,9 +1560,12 @@
             <end>
                 <xsl:apply-templates select="cda:low/@nullFlavor" mode="data-absent-reason-extension" />
             </end>
-
         </xsl:if>
-
+        <xsl:if test="not(@value) and cda:low/@nullFlavor">
+            <start>
+                <xsl:apply-templates select="cda:low/@nullFlavor" mode="data-absent-reason-extension" />
+            </start>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="II2Identifier">

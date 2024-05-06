@@ -1,6 +1,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" version="2.0"
   exclude-result-prefixes="lcg cda fhir">
   <xsl:include href="cda2fhir-Bundle.xslt" />
+  <xsl:include href="cda2fhir-CareTeam.xslt" />
   <xsl:include href="cda2fhir-Composition.xslt" />
   <xsl:include href="cda2fhir-Patient.xslt" />
   <xsl:include href="cda2fhir-PractitionerRole.xslt" />

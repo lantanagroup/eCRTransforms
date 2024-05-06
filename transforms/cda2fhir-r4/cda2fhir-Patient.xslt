@@ -131,15 +131,21 @@
             </xsl:for-each>
 
             <!-- Add Communication -->
-            <!-- SG 20240402: Update to allow for multiple languageCommunication -->
             <xsl:for-each select="cda:patientRole/cda:patient/cda:languageCommunication">
                 <communication>
                     <language>
                         <coding>
                             <!-- Hard coding system because it's not in the CDA -->
                             <system value="urn:ietf:bcp:47" />
-                            <code value="{cda:languageCode/@code}" />
-                            <!-- **TODO** Add a mapping here to get the display -->
+                            <!-- eng is not allowed in FHIR - map to en -->
+                            <xsl:choose>
+                                <xsl:when test="cda:languageCode/@code = 'eng'">
+                                    <code value="en" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <code value="{cda:languageCode/@code}" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </coding>
                     </language>
                     <xsl:if test="cda:preferenceInd">
@@ -296,13 +302,6 @@
                             </extension>
                         </xsl:otherwise>
                     </xsl:choose>
-
-
-                    <!--MD  only one <extension url="text"> is allowed
-          <extension url="text">
-            <valueString value="{$text}" />
-          </extension>
-          -->
                 </xsl:for-each>
 
                 <!--MD: if patient has more than one race set the text as Mixed  -->
@@ -339,19 +338,6 @@
         <xsl:if test="cda:patientRole/cda:patient/cda:ethnicGroupCode or cda:patientRole/cda:patient/sdtc:ethnicGroupCode">
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
                 <xsl:for-each select="cda:patientRole/cda:patient/cda:ethnicGroupCode">
-                    <xsl:variable name="text">
-                        <xsl:choose>
-                            <xsl:when test="@displayName">
-                                <xsl:value-of select="@displayName" />
-                            </xsl:when>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:value-of select="@nullFlavor" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="@code" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
                     <xsl:variable name="code">
                         <xsl:choose>
                             <xsl:when test="@nullFlavor">
@@ -388,58 +374,65 @@
                             </xsl:if>
                         </valueCoding>
                     </extension>
-                    <extension url="text">
-                        <valueString value="{$text}" />
-                    </extension>
-
                 </xsl:for-each>
                 <xsl:for-each select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode">
-                    <xsl:variable name="text">
-                        <xsl:choose>
-                            <xsl:when test="@displayName">
-                                <xsl:value-of select="@displayName" />
-                            </xsl:when>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:value-of select="@nullFlavor" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="@code" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <xsl:variable name="code">
-                        <xsl:choose>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:value-of select="@nullFlavor" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="@code" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <xsl:variable name="codeSystemUri">
-                        <xsl:choose>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:text>http://terminology.hl7.org/CodeSystem/v3-NullFlavor</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>urn:oid:2.16.840.1.113883.6.238</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <extension url="detailed">
-                        <valueCoding>
-                            <system value="{$codeSystemUri}" />
-                            <code value="{$code}" />
-                            <xsl:if test="@displayName">
-                                <display value="{@displayName}" />
-                            </xsl:if>
-                        </valueCoding>
-                    </extension>
-                    <extension url="text">
-                        <valueString value="{$text}" />
-                    </extension>
+                    <xsl:choose>
+                        <xsl:when test="@nullFlavor"/>
+                        <xsl:otherwise>
+                            <extension url="detailed">
+                                <valueCoding>
+                                    <system value="urn:oid:2.16.840.1.113883.6.238" />
+                                    <code value="@code" />
+                                    <xsl:if test="@displayName">
+                                        <display value="{@displayName}" />
+                                    </xsl:if>
+                                </valueCoding>
+                            </extension>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:for-each>
+
+                <xsl:variable name="vOMBText">
+                    <xsl:choose>
+                        <xsl:when test="cda:patientRole/cda:patient/cda:ethnicGroupCode/@displayName">
+                            <xsl:value-of select="cda:patientRole/cda:patient/cda:ethnicGroupCode/@displayName" />
+                        </xsl:when>
+                        <xsl:when test="cda:patientRole/cda:patient/cda:ethnicGroupCode/@nullFlavor">
+                            <xsl:value-of select="cda:patientRole/cda:patient/cda:ethnicGroupCode/@nullFlavor" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="cda:patientRole/cda:patient/cda:ethnicGroupCode/@code" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="vDetailedText">
+                    <xsl:choose>
+                        <xsl:when test="cda:patientRole/cda:patient/sdtc:ethnicGroupCode/@displayName">
+                            <xsl:value-of select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode/@displayName" separator=", " />
+                        </xsl:when>
+                        <xsl:when test="cda:patientRole/cda:patient/sdtc:ethnicGroupCode[1]/@nullFlavor">
+                            <xsl:value-of select="cda:patientRole/sdtc:patient/sdtc:ethnicGroupCode/@nullFlavor" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode/@code" separator=", " />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <extension url="text">
+                    <xsl:choose>
+                        <xsl:when test="string-length($vOMBText) > 0 and string-length($vDetailedText) > 0">
+                            <valueString value="{concat($vOMBText, ', ', $vDetailedText)}" />
+                        </xsl:when>
+                        <xsl:when test="string-length($vOMBText) > 0">
+                            <valueString value="{$vOMBText}" />
+                        </xsl:when>
+                        <xsl:when test="string-length($vDetailedText) > 0">
+                            <valueString value="{$vDetailedText}" />
+                        </xsl:when>
+                    </xsl:choose>
+                </extension>
+
             </extension>
         </xsl:if>
     </xsl:template>

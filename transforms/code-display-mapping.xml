@@ -53,4 +53,107 @@
     <map code="160245001" display="No current problems or disability" />
     <map code="94500-6" display="SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory system specimen by NAA with probe detection" />
     <map code="IMP" display="inpatient encounter" />
+    <map code="85847-2" display="Patient Care team information" />
+    <map code="20738-1" display="Campylobacter sp identified in Isolate by Organism specific culture" />
+    <map code="82197-5" display="Clostridioides difficile toxin A+B tcdA+tcdB genes [Presence] in Stool by NAA with non-probe detection" />
+    <map code="70296-9" display="Plesiomonas shigelloides DNA [Presence] in Stool by NAA with probe detection" />
+    <map code="82200-7" display="Vibrio cholerae+parahaemolyticus+vulnificus DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="82199-1" display="Salmonella enterica+bongori DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="92723-6" display="Yersinia enterocolitica DNA [Presence] in Stool by NAA with probe detection" />
+    <map code="80349-4" display="Escherichia coli enteroaggregative pAA plasmid aggR+aatA genes [Presence] in Stool by NAA with non-probe detection" />
+    <map code="80348-6" display="Escherichia coli enteropathogenic eae gene [Presence] in Stool by NAA with non-probe detection" />
+    <map code="80350-2" display="Shigella species+EIEC invasion plasmid antigen H ipaH gene [Presence] in Stool by NAA with non-probe detection" />
+    <map code="82203-1" display="Escherichia coli Stx1 and Stx2 toxin stx1+stx2 genes [Presence] in Stool by NAA with non-probe detection" />
+    <map code="82204-9" display="Escherichia coli O157 DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="70242-3" display="Shigella species+EIEC invasion plasmid antigen H ipaH gene [Presence] in Stool by NAA with probe detection" />
+    <map code="82205-6" display="Cryptosporidium sp DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="82206-4" display="Cyclospora cayetanensis DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="82207-2" display="Entamoeba histolytica DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="60544-4" display="Giardia lamblia DNA [Presence] in Specimen by NAA with probe detection" />
+    <map code="76628-7" display="Norovirus genogroup I and II RNA [Identifier] in Stool by NAA with probe detection" />
+    <map code="82212-2" display="Rotavirus A RNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="72166-2" display="Tobacco smoking status" />
+    <map code="87046" display="Culture, bacterial; stool, aerobic, additional pathogens, isolation and presumptive identification of isolates, each plate" />
+    <map code="122253004" display="Campylobacter species culture" />
+    <map code="118146008" display="Bacterial nucleic acid assay" />
+    <map code="97314-9" display="Vibrio cholerae DNA [Presence] in Stool by NAA with probe detection" />
+    <map code="87507" display="Infectious agent detection by nucleic acid (DNA or RNA); gastrointestinal pathogen (eg, Clostridium difficile, E. coli, Salmonella, Shigella, norovirus, Giardia), includes multiplex reverse transcription, when performed, and multiplex amplified probe technique, multiple types or subtypes, 12-25 targets" />
+    <map code="87798" display="Infectious agent detection by nucleic acid (DNA or RNA), not otherwise specified; amplified probe technique, each organism" />
+    <map code="82213-0" display="Sapovirus genogroups I+II+IV+V RNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="87797" display="Infectious agent detection by nucleic acid (DNA or RNA), not otherwise specified; direct probe technique, each organism" />
+    <map code="118149001" display="Parasite nucleic acid assay" />
+    <map code="82209-8" display="Adenovirus 40+41 DNA [Presence] in Stool by NAA with non-probe detection" />
+    <map code="92691-5" display="Astrovirus RNA [Presence] in Stool by NAA with probe detection" />
+    <map code="122298005" display="Astrovirus RNA assay', 'Astrovirus ribonucleic acid assay" />
+    <map code="122415007" display="Norwalk virus RNA assay" />
+    <!--<map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />
+    <map code="" display="" />-->
 </mapping>

@@ -32,7 +32,6 @@
             </xsl:when>
         </xsl:choose>
 
-
         <xsl:apply-templates select="cda:recordTarget" mode="bundle-entry" />
         <xsl:apply-templates select="cda:componentOf/cda:encompassingEncounter" mode="bundle-entry" />
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
@@ -46,7 +45,6 @@
         <xsl:apply-templates select="//cda:section/cda:author" mode="bundle-entry" />
         <!-- Create entries for the performers in the Problem Concern Acts -->
         <xsl:apply-templates select="//cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer" mode="bundle-entry" />
-
     </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument">
@@ -94,7 +92,7 @@
                 - for eCR versionNumber will go into the official FHIR extension
                 - for others versionNumber will go into the C-CDA on FHIR extension in Composition 
             -->
-            <!-- For eICR/RR we want to default version number to 1 when it's missing -->
+            <!-- For eICR/RR default version number to 1 when it's missing -->
             <xsl:comment>Version Number</xsl:comment>
             <xsl:choose>
                 <xsl:when test="
@@ -116,9 +114,9 @@
             </xsl:for-each>
 
             <!-- MD: add transform  
-      <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
-      there can be multiple OrderExtensions, each OrderExtension reference one ServiceRequest
-      -->
+            <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
+            there can be multiple OrderExtensions, each OrderExtension reference one ServiceRequest
+            -->
             <xsl:for-each select="cda:inFulfillmentOf">
                 <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
                     <valueReference>
@@ -219,7 +217,8 @@
                     <xsl:otherwise>NA</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
-
+            
+            <!-- Reason for Visit is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12')">
                 <section>
                     <title value="REASON FOR VISIT" />
@@ -236,6 +235,7 @@
                     </text>
                 </section>
             </xsl:if>
+            <!-- Chief Complaint is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1')">
                 <section>
                     <title value="CHIEF COMPLAINT" />
@@ -252,6 +252,7 @@
                     </text>
                 </section>
             </xsl:if>
+            <!-- History of Present Illness is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4')">
                 <section>
                     <title value="HISTORY OF PRESENT ILLNESS" />
@@ -268,6 +269,7 @@
                     </text>
                 </section>
             </xsl:if>
+            <!-- Problem List is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1')">
                 <section>
                     <title value="PROBLEM LIST" />
@@ -284,6 +286,7 @@
                     </text>
                 </section>
             </xsl:if>
+            <!-- Results is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1')">
                 <section>
                     <title value="RESULTS" />
@@ -301,6 +304,7 @@
 
                 </section>
             </xsl:if>
+            <!-- Medications Administered is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.38')">
                 <section>
                     <title value="MEDICATIONS ADMINISTERED" />
@@ -317,6 +321,7 @@
                     </text>
                 </section>
             </xsl:if>
+            <!-- Social History is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.17')">
                 <section>
                     <title value="SOCIAL HISTORY" />

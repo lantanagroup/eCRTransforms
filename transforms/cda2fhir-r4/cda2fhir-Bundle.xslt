@@ -37,12 +37,8 @@
                     <profile value="{$vBundleProfile}" />
                 </meta>
             </xsl:if>
-            <!--      <identifier>-->
+            
             <xsl:apply-templates select="cda:ClinicalDocument/cda:id" />
-            <!--<system value="urn:ietf:rfc:3986" />
-        <!-\-<value value="urn:uuid:{cda:ClinicalDocument/cda:id/@lcg:uuid}" /> -\->
-        <value value="urn:uuid:{cda:ClinicalDocument/cda:id/@root}"/>-->
-            <!--</identifier>-->
             <type value="document" />
             <timestamp>
                 <xsl:attribute name="value">
@@ -54,9 +50,9 @@
                             <xsl:value-of select="'NI'" />
                         </xsl:otherwise>
                     </xsl:choose>
-
                 </xsl:attribute>
             </timestamp>
+            
             <xsl:apply-templates mode="bundle-entry" select="cda:ClinicalDocument" />
 
             <xsl:for-each select="//descendant::cda:entry">

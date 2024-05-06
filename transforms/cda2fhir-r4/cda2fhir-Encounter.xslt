@@ -109,7 +109,7 @@
             </xsl:choose>
 
             <xsl:comment select="'Id from encompassingEncounter'" />
-            <xsl:apply-templates select="cda:id" />
+            <xsl:apply-templates select="cda:id[1]" />
             <!-- Note, there are also ids on the other Encounters. The Encounter in eCR only allows one identifier.
                 Commenting this code out for now - consider updating the FHIR IG to allow multiple identifiers
                 If this is eCR get the id from other encounters in the CDA -->

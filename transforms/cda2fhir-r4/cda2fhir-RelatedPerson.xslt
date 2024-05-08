@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
+    exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
@@ -134,12 +135,12 @@
         </RelatedPerson>
     </xsl:template>
 
-    <xsl:template match="cda:participant[cda:associatedEntity[@classCode='NOK']]" mode="bundle-entry">
+    <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
-    
+
     <!-- NOK Person Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:participant[cda:associatedEntity[@classCode='NOK']]">
+    <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]">
         <RelatedPerson>
             <xsl:comment>cda:participant (NOK)</xsl:comment>
             <xsl:call-template name="subject-reference">
@@ -147,21 +148,42 @@
             </xsl:call-template>
             <relationship>
                 <coding>
-                    <system value="http://terminology.hl7.org/CodeSystem/v2-0131"/>
-                    <code value="N"/>
-                    <display value="Next-of-Kin"/>
+                    <system value="http://terminology.hl7.org/CodeSystem/v2-0131" />
+                    <code value="N" />
+                    <display value="Next-of-Kin" />
                 </coding>
             </relationship>
             <xsl:apply-templates select="cda:associatedEntity/cda:code">
                 <xsl:with-param name="pElementName">relationship</xsl:with-param>
             </xsl:apply-templates>
             <xsl:apply-templates select="cda:associatedEntity/cda:id" />
-            
+
             <xsl:apply-templates select="cda:associatedEntity/cda:associatedPerson/cda:name" />
             <xsl:apply-templates select="cda:associatedEntity/cda:telecom" />
             <xsl:apply-templates select="cda:associatedEntity/cda:address" />
         </RelatedPerson>
     </xsl:template>
 
+    <xsl:template match="cda:informant[cda:relatedEntity]" mode="bundle-entry">
+        <xsl:for-each select="cda:relatedEntity">
+            <xsl:call-template name="create-bundle-entry" />
+        </xsl:for-each>
+    </xsl:template>
 
+    <!-- informant/relatedEntity to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:relatedEntity">
+        <RelatedPerson>
+            <xsl:comment>cda:informant/cda:relatedPerson</xsl:comment>
+            <xsl:call-template name="subject-reference">
+                <xsl:with-param name="pElementName">patient</xsl:with-param>
+            </xsl:call-template>
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">relationship</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="cda:id" />
+            <xsl:apply-templates select="cda:relatedPerson/cda:name" />
+            <xsl:apply-templates select="cda:telecom" />
+            <xsl:apply-templates select="cda:address" />
+        </RelatedPerson>
+    </xsl:template>
 </xsl:stylesheet>

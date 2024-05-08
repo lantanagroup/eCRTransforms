@@ -4,17 +4,31 @@
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
-    
+
     <xsl:template name="make-practitioner">
         <xsl:param name="id" />
         <xsl:param name="name" />
         <xsl:param name="telecom" />
         <xsl:param name="address" />
-        
+
         <xsl:variable name="vIdentifier">
             <xsl:apply-templates select="$id" />
+            <xsl:if test="not($id)">
+                <identifier>
+                    <system>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
+                    </system>
+                    <value>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
+                    </value>
+                </identifier>
+            </xsl:if>
         </xsl:variable>
-        
+
         <Practitioner>
             <xsl:call-template name="breadcrumb-comment" />
             <meta>
@@ -60,7 +74,7 @@
             </xsl:choose>
         </Practitioner>
     </xsl:template>
-    
+
     <xsl:template match="cda:code" mode="practitioner">
         <qualification>
             <xsl:call-template name="newCreateCodableConcept">
@@ -131,8 +145,8 @@
             <xsl:with-param name="address" select="cda:intendedRecipient/cda:addr" />
         </xsl:call-template>
     </xsl:template>-->
-    
-    
+
+
 
     <!--<xsl:template name="make-practitioner">
         <xsl:param name="id" />

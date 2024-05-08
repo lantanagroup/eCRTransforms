@@ -20,7 +20,10 @@
     <xsl:template match="cda:procedure[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]" mode="bundle-entry">
         <xsl:comment>Planned Procedure</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry"/>
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
     <!-- Planned Procedure (request or intent) -->

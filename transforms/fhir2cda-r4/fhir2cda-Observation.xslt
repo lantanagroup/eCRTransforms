@@ -275,7 +275,7 @@ limitations under the License.
             <!-- precondition -->
             <!-- performer -->
             <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/date-determined-extension']">
-                <perfomer>
+                <performer>
                     <xsl:comment select="' Pregnancy Status Determination Date '" />
                     <xsl:apply-templates select="fhir:valueDateTime">
                         <xsl:with-param name="pElementName" select="'time'" />
@@ -283,7 +283,7 @@ limitations under the License.
                     <assignedEntity>
                         <id nullFlavor="NA" />
                     </assignedEntity>
-                </perfomer>
+                </performer>
             </xsl:for-each>
             <!-- MD add this for now, need to know there is any difference between 
                 date-determined-extension with us-ph-date-determined-extension -->

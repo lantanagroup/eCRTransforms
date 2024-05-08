@@ -5,6 +5,17 @@
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
+    <!-- SG: Match if this is a substanceAdministration inside a Medication Administered section -->
+    <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']]"
+        mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+<!--        <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry" />-->
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
+    </xsl:template>
+
     <!-- SubstanceAdministration inside an Admission Medication -->
     <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.44']]">
         <xsl:variable name="dateAsserted">
@@ -58,16 +69,7 @@
         </MedicationAdministration>
     </xsl:template>
 
-    <!-- SG: Match if this is a substanceAdministration inside a Medication Administered section -->
-    <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']]"
-        mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-        <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
-    </xsl:template>
-
-    <!-- SG: Match if this is a substanceAdministration inside a Medication Administered section -->
+    <!-- Match if this is a substanceAdministration inside a Medication Administered section -->
     <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']]">
         <xsl:variable name="dateAsserted">
             <xsl:choose>
@@ -94,14 +96,35 @@
 
             <xsl:apply-templates select="cda:consumable" mode="medication-administration" />
             <xsl:call-template name="subject-reference" />
-            <xsl:apply-templates select="cda:effectiveTime">
-                <xsl:with-param name="pStartElementName">effective</xsl:with-param>
-            </xsl:apply-templates>
-            <performer>
-                <xsl:call-template name="author-reference">
-                    <xsl:with-param name="pElementName">actor</xsl:with-param>
-                </xsl:call-template>
-            </performer>
+            <!-- Doesn't make any sense to have a repeat instruction inside a MedicationAdministration 
+                 If there is an effectiveTime with operator='A', treat as either period or an instant
+                 Also there can only be one effective[x] in a MedicationAdministration so just take the first one-->
+            <xsl:choose>
+                <xsl:when test="cda:effectiveTime[1]/cda:low or cda:effectiveTime[1]/cda:high">
+                    <xsl:apply-templates select="cda:effectiveTime[1]" mode="period">
+                        <xsl:with-param name="pElementName">effectivePeriod</xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="cda:effectiveTime[1]" mode="instant">
+                        <xsl:with-param name="pElementName">effectiveDateTime</xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:for-each select="cda:performer">
+                <performer>
+                    <actor>
+                        <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
+                    </actor>
+                </performer>
+            </xsl:for-each>
+            <xsl:for-each select="cda:author">
+                <performer>
+                    <actor>
+                        <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
+                    </actor>
+                </performer>
+            </xsl:for-each>
             <xsl:call-template name="get-dosage" />
         </MedicationAdministration>
     </xsl:template>
@@ -132,7 +155,7 @@
             <xsl:when test="cda:routeCode/@nullFlavor and cda:approachSiteCode/@nullFlavor">
                 <dosage>
                     <route>
-                    <xsl:apply-templates select="cda:routeCode/@nullFlavor" mode="data-absent-reason-extension" />
+                        <xsl:apply-templates select="cda:routeCode/@nullFlavor" mode="data-absent-reason-extension" />
                     </route>
                     <method>
                         <xsl:apply-templates select="cda:approachSiteCode/@nullFlavor" mode="data-absent-reason-extension" />

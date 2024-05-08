@@ -14,7 +14,8 @@
     
     <xsl:import href="c-to-fhir-utility.xslt"/>
 
-    <xsl:template match="cda:serviceEvent" mode="bundle-entry">
+    <!-- Don't want the eCR serviceEvent that is just about a manually initiated eCR -->
+    <xsl:template match="cda:serviceEvent[not(cda:code[@code = 'PHC1464'])]" mode="bundle-entry">
         <xsl:comment>Creating CarePlan Bundle Entry</xsl:comment>
         <xsl:call-template name="create-bundle-entry"/>
         <xsl:for-each select="cda:performer">
@@ -22,8 +23,8 @@
         </xsl:for-each>
     </xsl:template>
     
-
-    <xsl:template match="cda:serviceEvent">
+    <!-- Don't want the eCR serviceEvent that is just about a manually initiated eCR -->
+    <xsl:template match="cda:serviceEvent[not(cda:code[@code = 'PHC1464'])]">
         <CarePlan>
             <xsl:call-template name="add-meta"/>
             <status value="unknown"/>

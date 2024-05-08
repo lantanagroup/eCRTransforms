@@ -156,7 +156,7 @@ limitations under the License.
                 <xsl:comment>Processing entry <xsl:value-of select="$referenceURI"/></xsl:comment>
                 <xsl:variable name="vTest" select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]"/>
                 <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
-                  <xsl:apply-templates select="fhir:resource/fhir:*" mode="insurance-perfomer-gura"/>
+                  <xsl:apply-templates select="fhir:resource/fhir:*" mode="insurance-performer-gura"/>
                 </xsl:for-each>        
               </assignedEntity>          
             </performer>
@@ -322,7 +322,7 @@ limitations under the License.
     
   </xsl:template>
   
-  <xsl:template match="fhir:Patient" mode="insurance-perfomer-gura">      
+  <xsl:template match="fhir:Patient" mode="insurance-performer-gura">      
     <xsl:choose>
       <xsl:when test="fhir:address">
         <xsl:call-template name="get-addr"/>

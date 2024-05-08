@@ -11,7 +11,9 @@
                          cda:authenticator[cda:assignedEntity] | 
                          cda:performer[cda:assignedEntity] | 
                          cda:participant[cda:associatedEntity] |
-                         cda:participent[cda:participantRole]" mode="bundle-entry">
+                         cda:participent[cda:participantRole] | 
+                         cda:dataEnterer[cda:assignedEntity] |
+                         cda:informant[cda:assignedEntity]" mode="bundle-entry">
         <xsl:apply-templates select="cda:intendedRecipient | 
                                      cda:assignedAuthor | 
                                      cda:assignedEntity |
@@ -26,7 +28,7 @@
                          cda:associatedEntity | 
                          cda:participantRole" mode="bundle-entry">
         <!-- Create up to 4 resources, PractitionerRole, Practitioner, Organization, Device-->
-        <!-- PractitionerRole - if there isn't a person, don't create PractitionerRole -->
+        <!-- PractitionerRole - if there isn't a person, don't create PractitionerRole for eCR -->
         <xsl:if test="cda:informationRecipient[parent::cda:intendedRecipient] or 
                       cda:assignedPerson or 
                       cda:associatedPerson">
@@ -90,6 +92,13 @@
             <xsl:call-template name="breadcrumb-comment" />
 
             <xsl:apply-templates select="cda:id[1]" />
+            <xsl:if test="not(cda:id)">
+                <identifier>
+                    <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                    </extension>
+                </identifier>
+            </xsl:if> 
             <xsl:for-each select="cda:informationRecipient[parent::cda:intendedRecipient] | 
                                   cda:assignedPerson | 
                                   cda:associatedPerson">

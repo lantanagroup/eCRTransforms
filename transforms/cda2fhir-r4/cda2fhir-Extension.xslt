@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
+<xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0"
+    exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
@@ -38,6 +39,16 @@
         </xsl:if>
     </xsl:template>
 
+    <!-- TEMPLATE: eICR Initiation Type Extension in Composition -->
+    <xsl:template match="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]" mode="extension">
+        <xsl:comment>eICR Initiation Type Extension</xsl:comment>
+        <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension">
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName" select="'valueCodeableConcept'" />
+            </xsl:apply-templates>
+        </extension>
+    </xsl:template>
+
     <!-- TEMPLATE: Address extension in eICR Travel History Observation profile -->
     <xsl:template match="cda:addr" mode="extension">
         <xsl:comment>Travel History Address Extension</xsl:comment>
@@ -67,8 +78,19 @@
         </extension>
     </xsl:template>
 
+    <!-- TEMPLATE: Patient Religion Extension -->
+    <xsl:template match="cda:religiousAffiliationCode" mode="extension">
+        <xsl:comment>FHIR Patient Religion Extension</xsl:comment>
+        <extension url="http://hl7.org/fhir/StructureDefinition/patient-religion">
+            <xsl:apply-templates select=".">
+                <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+            </xsl:apply-templates>
+        </extension>
+    </xsl:template>
+
     <!-- TEMPLATE: Date determined extension (Pregnancy Status, Estimated Date of Delivery, Estimated Gestational Age of Pregnancy) -->
-    <xsl:template match="cda:effectiveTime[parent::*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280']]] | cda:time[parent::cda:performer]" mode="extension">
+    <xsl:template match="cda:effectiveTime[parent::*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280']]] | cda:time[parent::cda:performer]"
+        mode="extension">
         <xsl:comment>Date Determined Extension</xsl:comment>
         <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
             <xsl:apply-templates select=".">
@@ -149,7 +171,7 @@
         </xsl:for-each>
 
         <!-- Received eICR Information -> fhir:extension rr-eicr-receipt-time-extension -->
-        <xsl:for-each select="cda:entry/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']">
+        <xsl:for-each select="cda:documentationOf/cda:serviceEvent[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']">
             <xsl:comment>eICR Receipt Time Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-receipt-time-extension">
                 <valueDateTime>

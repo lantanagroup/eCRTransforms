@@ -883,22 +883,34 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:for-each select="cda:streetAddressLine[@nullFlavor]">
-                        <line><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></line>
+                        <line>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </line>
                     </xsl:for-each>
                     <xsl:for-each select="cda:city[@nullFlavor]">
-                        <city><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></city>
+                        <city>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </city>
                     </xsl:for-each>
                     <xsl:for-each select="cda:county[@nullFlavor]">
-                        <district><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></district>
+                        <district>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </district>
                     </xsl:for-each>
                     <xsl:for-each select="cda:state[@nullFlavor]">
-                        <state><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></state>
+                        <state>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </state>
                     </xsl:for-each>
                     <xsl:for-each select="cda:postalCode[@nullFlavor]">
-                        <postalCode><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></postalCode>
+                        <postalCode>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </postalCode>
                     </xsl:for-each>
                     <xsl:for-each select="cda:country[@nullFlavor]">
-                        <country><xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" /></country>
+                        <country>
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </country>
                     </xsl:for-each>
                 </xsl:otherwise>
             </xsl:choose>
@@ -1063,9 +1075,10 @@
         <xsl:variable name="isValue" select="false()" />
         <xsl:variable name="vCode" select="@code" />
         <xsl:variable name="display">
-            <xsl:choose>
-                <!-- code/display mapping checks for FHIR's more stringent display checks - obviously this isn't going to catch everything,
-                     but will clean up our testing warnings -->
+            <xsl:apply-templates select="@displayName" />
+            <!--<xsl:choose>
+                <!-\- code/display mapping checks for FHIR's more stringent display checks - obviously this isn't going to catch everything,
+                     but will clean up our testing warnings -\->
                 <xsl:when test="$code-display-mapping/map[@code = $vCode]">
                     <xsl:value-of select="$code-display-mapping/map[@code = $vCode]/@display" />
                 </xsl:when>
@@ -1075,7 +1088,7 @@
                 <xsl:otherwise>
                     <xsl:value-of select="$originalText" />
                 </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
         </xsl:variable>
         <xsl:variable name="vNullFlavor">
             <xsl:choose>
@@ -1755,21 +1768,16 @@
 
         <xsl:choose>
             <!-- direct performer/author - either contained in the template or in the containing act or organizer -->
-            <xsl:when
-                test="$pPractitionerRole = true() and (cda:performer or cda:author or ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer or /ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:author)">
+            <xsl:when test="
+                    $pPractitionerRole = true() and (cda:performer or
+                    cda:author or
+                    ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer or
+                    ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:author or
+                    ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:performer or
+                    ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:author)">
                 <xsl:for-each select="cda:performer">
                     <xsl:element name="{$pElementName}">
                         <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
-                    </xsl:element>
-                </xsl:for-each>
-                <xsl:for-each select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer">
-                    <xsl:element name="{$pElementName}">
-                        <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
-                    </xsl:element>
-                </xsl:for-each>
-                <xsl:for-each select="ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:author">
-                    <xsl:element name="{$pElementName}">
-                        <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
                     </xsl:element>
                 </xsl:for-each>
                 <xsl:for-each select="cda:author">
@@ -1777,21 +1785,50 @@
                         <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
                     </xsl:element>
                 </xsl:for-each>
+                <xsl:for-each select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer">
+                    <xsl:element name="{$pElementName}">
+                        <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
+                    </xsl:element>
+                </xsl:for-each>
+                <xsl:for-each select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:author">
+                    <xsl:element name="{$pElementName}">
+                        <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
+                    </xsl:element>
+                </xsl:for-each>
+                <xsl:for-each select="ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:performer">
+                    <xsl:element name="{$pElementName}">
+                        <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
+                    </xsl:element>
+                </xsl:for-each>
+                <xsl:for-each select="ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:author">
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
+                        <xsl:with-param name="pElementName" select="$pElementName"></xsl:with-param>
+                    </xsl:apply-templates>
+                    <!--<xsl:element name="{$pElementName}">
+                        <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
+                    </xsl:element>-->
+                </xsl:for-each>
             </xsl:when>
             <!-- when there is nothing above, start looking further afield - check the containing section/author -->
             <xsl:when test="$pPractitionerRole = true() and ancestor::cda:section/cda:author">
                 <xsl:for-each select="ancestor::cda:section/cda:author">
-                    <xsl:element name="{$pElementName}">
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
+                        <xsl:with-param name="pElementName" select="$pElementName"></xsl:with-param>
+                    </xsl:apply-templates>
+                    <!--<xsl:element name="{$pElementName}">
                         <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
-                    </xsl:element>
+                    </xsl:element>-->
                 </xsl:for-each>
             </xsl:when>
             <!-- when there is no section author - look at the ClinicalDocument/author -->
             <xsl:when test="$pPractitionerRole = true() and /cda:ClinicalDocument/cda:author">
                 <xsl:for-each select="/cda:ClinicalDocument/cda:author">
-                    <xsl:element name="{$pElementName}">
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
+                        <xsl:with-param name="pElementName" select="$pElementName"></xsl:with-param>
+                    </xsl:apply-templates>
+                    <!--<xsl:element name="{$pElementName}">
                         <reference value="urn:uuid:{cda:assignedAuthor/@lcg:uuid}" />
-                    </xsl:element>
+                    </xsl:element>-->
                 </xsl:for-each>
             </xsl:when>
             <!-- when there is none of the above authors - look at the encompassingEncounter/responsibleParty -->
@@ -2014,27 +2051,6 @@
                 </xsl:when>
 
             </xsl:choose>
-        </xsl:for-each>
-    </xsl:template>
-
-    <!-- TEMPLATE: Remove Concern wrappers -->
-    <xsl:template
-        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']]"
-        mode="reference">
-        <xsl:param name="wrapping-elements" />
-        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
-            <xsl:apply-templates select="." mode="reference">
-                <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
-            </xsl:apply-templates>
-        </xsl:for-each>
-    </xsl:template>
-
-    <!-- TEMPLATE: Remove Concern wrappers -->
-    <xsl:template
-        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']]"
-        mode="bundle-entry">
-        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
-            <xsl:apply-templates select="." mode="bundle-entry" />
         </xsl:for-each>
     </xsl:template>
 
@@ -2267,6 +2283,34 @@
             </coding>
         </dataAbsentReason>
     </xsl:template>
+    
+    <!-- TEMPLATE: Returns a referenced participant -->
+    <xsl:template match="cda:author | cda:performer" mode="rename-reference-participant">
+        <xsl:param name="pElementName" />
+        <xsl:choose>
+            <xsl:when test="cda:*/cda:assignedPerson">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:*[cda:assignedPerson]/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="cda:*/cda:assignedAuthoringDevice">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:*/cda:assignedAuthoringDevice/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="cda:*/cda:representedOrganization">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:*/cda:representedOrganization/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument" mode="currentIg">
         <xsl:choose>
@@ -2382,6 +2426,25 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="@displayName">
+        <xsl:variable name="vCode">
+            <xsl:value-of select="parent::node()/@code" />
+        </xsl:variable>
+        <xsl:variable name="vDisplay">
+            <xsl:choose>
+                <!-- code/display mapping checks for FHIR's more stringent display checks - obviously this isn't going to catch everything,
+                     but will clean up our testing warnings -->
+                <xsl:when test="$code-display-mapping/map[@code = $vCode]">
+                    <xsl:value-of select="$code-display-mapping/map[@code = $vCode]/@display" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="." />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:value-of select="$vDisplay" />
     </xsl:template>
 
     <xsl:template match="." mode="base64">

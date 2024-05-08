@@ -86,14 +86,14 @@
     <map code="92691-5" display="Astrovirus RNA [Presence] in Stool by NAA with probe detection" />
     <map code="122298005" display="Astrovirus RNA assay" />
     <map code="122415007" display="Norwalk virus RNA assay" />
+    <map code="2076-8" display="Native Hawaiian or Other Pacific Islander" />
+    <map code="99213" display="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter." />
+    <map code="207R00000X" display="Internal Medicine Physician" />
+    <map code="445518008" display="Age at onset of clinical finding (observable entity)" />
+    <map code="225773000" display="Preferences" />
+    <map code="11778-8" display="Delivery date Estimated" />
+    <map code="R19.5" display="Other fecal abnormalities" />
     <!--<map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
     <map code="" display="" />
     <map code="" display="" />
     <map code="" display="" />

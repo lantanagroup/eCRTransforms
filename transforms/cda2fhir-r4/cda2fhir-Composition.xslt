@@ -41,10 +41,20 @@
         <xsl:apply-templates select="cda:participant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent" mode="bundle-entry" />
         <!-- <xsl:apply-templates select="cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization" mode="bundle-entry" />-->
+        <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informationRecipient" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+
         <xsl:apply-templates select="//cda:section/cda:author" mode="bundle-entry" />
-        <!-- Create entries for the performers in the Problem Concern Acts -->
-        <xsl:apply-templates select="//cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer" mode="bundle-entry" />
+        <!--<!-\- Create entries for the performers in the Problem Concern Acts -\->
+        <xsl:apply-templates select="//cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer" mode="bundle-entry" />-->
+
+        <!-- Provenance -->
+        <!-- The ClinicalDocument/dataEnterer and informant can either be referenced from a C-CDA on FHIR extension (which requires a dependency
+             on that IG, or from a Provenance resource - choosing the latter for now-->
+        <xsl:apply-templates select="cda:dataEnterer" mode="provenance" />
+        <xsl:apply-templates select="cda:informant" mode="provenance" />
+
     </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument">
@@ -110,6 +120,10 @@
 
             <!-- InformationRecipient extension -->
             <xsl:for-each select="cda:informationRecipient">
+                <xsl:apply-templates select="." mode="extension" />
+            </xsl:for-each>
+            <!-- eICR Initiation Type Extension -->
+            <xsl:for-each select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]">
                 <xsl:apply-templates select="." mode="extension" />
             </xsl:for-each>
 
@@ -217,7 +231,7 @@
                     <xsl:otherwise>NA</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
-            
+
             <!-- Reason for Visit is a required eICR section, if it's missing, add it with text of "no information" -->
             <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12')">
                 <section>
@@ -396,10 +410,10 @@
             <!-- If this isn't a required section, but it's a section that has to have an entry and 
                 there is @nullFlavor but no entry, don't include it -->
             <xsl:when test="
-                ($vCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry)) and
-                (cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.10' or
-                cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.2.1' or
-                cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.7.1')"/>
+                    ($vCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry)) and
+                    (cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.10' or
+                    cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.2.1' or
+                    cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.7.1')" />
 
             <xsl:otherwise>
                 <section>
@@ -459,11 +473,9 @@
                                 <xsl:apply-templates select="cda:*" mode="reference">
                                     <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
                                 </xsl:apply-templates>
-
                             </xsl:for-each>
                         </xsl:when>
                     </xsl:choose>
-
 
                     <!-- Pregnancy Outcome is contained in Pregnancy Status in CDA but not in FHIR (it has a focus of the related pregnancy observation instead) -->
                     <xsl:if test="cda:code/@code = '90767-5'">
@@ -479,7 +491,8 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="cda:serviceEvent" mode="composition-event">
+    <!-- ServiceEvent is dealt with as an extension in eCR -->
+    <!--<xsl:template match="cda:serviceEvent" mode="composition-event">
         <event>
             <xsl:for-each select="cda:performer/cda:assignedEntity">
 
@@ -490,20 +503,20 @@
                 </extension>
             </xsl:for-each>
 
-            <!-- MD: transform cda:serviceEvent/cda:code to fhir:Composition/fhir:event/fhir:code -->
+            <!-\- MD: transform cda:serviceEvent/cda:code to fhir:Composition/fhir:event/fhir:code -\->
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
 
             <xsl:apply-templates select="cda:effectiveTime" mode="period" />
 
-            <!-- CarePlan resource not strictly needed for ONC-HIP use casem, but added at Clinician's on FHIR event.  -->
+            <!-\- CarePlan resource not strictly needed for ONC-HIP use casem, but added at Clinician's on FHIR event.  -\->
 
             <detail>
                 <xsl:apply-templates select="." mode="reference" />
             </detail>
         </event>
-    </xsl:template>
+    </xsl:template>-->
 
     <xsl:template name="create-empty-result">
         <entry>

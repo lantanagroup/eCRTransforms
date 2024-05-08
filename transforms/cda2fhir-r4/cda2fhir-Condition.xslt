@@ -5,10 +5,46 @@
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
+    <!-- Create bundle entries for the Problem Observation (Condition) and any authors or performers -->
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
+        
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        
+        <xsl:for-each select="cda:author[position() > 1] | cda:informant | cda:performer[position() > 1]">
+            <xsl:apply-templates select="." mode="provenance" />
+        </xsl:for-each>
+        
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
+    </xsl:template>
+
+    <!-- TEMPLATE: Remove Concern wrappers -->
+    <xsl:template
+        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']]"
+        mode="reference">
+        <xsl:param name="wrapping-elements" />
+        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+            <xsl:apply-templates select="." mode="reference">
+                <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
+            </xsl:apply-templates>
+        </xsl:for-each>
+    </xsl:template>
+
+    <!-- TEMPLATE: Remove Concern wrappers -->
+    <xsl:template
+        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']]"
+        mode="bundle-entry">
+        <!-- Create bundle entries for any authors or performers -->
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <!-- Create provenance entries for any authors or performers -->
+        <xsl:apply-templates select="cda:author" mode="provenance" />
+        <xsl:apply-templates select="cda:performer" mode="provenance" />
+        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+            <xsl:apply-templates select="." mode="bundle-entry" />
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]">
@@ -115,9 +151,16 @@
 
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime" mode="condition" />
-            <xsl:call-template name="author-reference">
+            
+            <!-- recorder (max 1)-->
+            <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">recorder</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- asserter (max 1)-->
+            <xsl:apply-templates select="cda:performer[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
-            </xsl:call-template>
+            </xsl:apply-templates>
 
             <xsl:for-each select="cda:entryRelationship[@typeCode = 'REFR']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']">
                 <xsl:apply-templates select="." mode="reference">

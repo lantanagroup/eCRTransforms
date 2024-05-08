@@ -17,7 +17,9 @@
     <xsl:template match="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry"/>
         <xsl:apply-templates select="cda:author" mode="bundle-entry"/>
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry"/>
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
 
@@ -40,13 +42,6 @@
                     <actor>
                         <xsl:apply-templates select="cda:performer/cda:assignedEntity" mode="reference"/>
                     </actor>
-                    <!--
-                    <xsl:for-each select="cda:performer/cda:assignedEntity/cda:representedOrganization">
-                        <onBehalfOf>
-                            <xsl:apply-templates select="." mode="reference"/>
-                        </onBehalfOf>
-                    </xsl:for-each>
-                    -->
                 </performer>
             </xsl:if>
             <xsl:if test="ancestor::cda:substanceAdministration[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.16'][@moodCode='INT']">

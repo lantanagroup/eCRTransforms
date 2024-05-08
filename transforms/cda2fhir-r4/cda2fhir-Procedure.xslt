@@ -6,16 +6,21 @@
 
     <xsl:import href="c-to-fhir-utility.xslt" />
 
-    <xsl:template match="cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']]" mode="bundle-entry">
+    <xsl:template match="
+            cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
+            cda:procedure[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']] |
+            cda:observation[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
-    <xsl:template match="cda:procedure[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
-    <xsl:template match="cda:observation[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
+        
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        
+        <xsl:for-each select="cda:author[position() > 1] | cda:informant[position() > 1]">
+            <xsl:apply-templates select="." mode="provenance" />
+        </xsl:for-each>
+        
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
     <xsl:template match="cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']]">
@@ -52,19 +57,26 @@
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">asserter</xsl:with-param>
-            </xsl:call-template>
 
-            <!--
-            <xsl:if test="cda:performer">
+            <!-- recorder (max 1)-->
+            <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">recorder</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- asserter (max 1)-->
+            <xsl:apply-templates select="cda:informant[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">asserter</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
                 <performer>
-                    <xsl:call-template name="performer-reference">
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
                         <xsl:with-param name="pElementName">actor</xsl:with-param>
-                    </xsl:call-template>
+                    </xsl:apply-templates>
                 </performer>
-            </xsl:if>
-            -->
+            </xsl:for-each>
+
         </Procedure>
     </xsl:template>
 
@@ -93,9 +105,25 @@
             <xsl:apply-templates select="cda:effectiveTime" mode="period">
                 <xsl:with-param name="pElementName">performedPeriod</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
+
+            <!-- recorder (max 1)-->
+            <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">recorder</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- asserter (max 1)-->
+            <xsl:apply-templates select="cda:informant[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
-            </xsl:call-template>
+            </xsl:apply-templates>
+            
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
+                <performer>
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
+                        <xsl:with-param name="pElementName">actor</xsl:with-param>
+                    </xsl:apply-templates>
+                </performer>
+            </xsl:for-each>
 
             <!-- BodySite -->
             <xsl:apply-templates select="cda:targetSiteCode">
@@ -103,14 +131,6 @@
             </xsl:apply-templates>
 
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.37']" />
-
-            <xsl:if test="cda:performer">
-                <performer>
-                    <xsl:call-template name="performer-reference">
-                        <xsl:with-param name="pElementName">actor</xsl:with-param>
-                    </xsl:call-template>
-                </performer>
-            </xsl:if>
         </Procedure>
     </xsl:template>
 
@@ -140,17 +160,25 @@
             <xsl:apply-templates select="cda:effectiveTime" mode="period">
                 <xsl:with-param name="pElementName">performedPeriod</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">asserter</xsl:with-param>
-            </xsl:call-template>
 
-            <xsl:if test="cda:performer">
+            <!-- recorder (max 1)-->
+            <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">recorder</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- asserter (max 1)-->
+            <xsl:apply-templates select="cda:informant[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">asserter</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
                 <performer>
-                    <xsl:call-template name="performer-reference">
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
                         <xsl:with-param name="pElementName">actor</xsl:with-param>
-                    </xsl:call-template>
+                    </xsl:apply-templates>
                 </performer>
-            </xsl:if>
+            </xsl:for-each>
 
             <xsl:if test="cda:value[@code or @nullFlavor]">
                 <!-- Only process value elements that actually have some content, not empty stuff like <value xsi:type="CD"/> -->
@@ -186,5 +214,4 @@
             </xsl:choose>
         </status>
     </xsl:template>
-
 </xsl:stylesheet>

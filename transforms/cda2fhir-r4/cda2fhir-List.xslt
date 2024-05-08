@@ -8,6 +8,9 @@
 
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.131']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry"/>
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
         <xsl:for-each select="cda:entryRelationship">
             <xsl:apply-templates select="cda:*" mode="bundle-entry"/>
         </xsl:for-each>

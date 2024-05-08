@@ -57,6 +57,7 @@
             <xsl:call-template name="add-birthplace-extension" />
             <xsl:call-template name="add-gender-identity-extension" />
             <xsl:call-template name="add-tribal-affiliation-extension" />
+            <xsl:apply-templates select="cda:patientRole/cda:patient/cda:religiousAffiliationCode" mode="extension"/>
             <xsl:apply-templates select="cda:patientRole/cda:id" />
             <xsl:apply-templates select="cda:patientRole/cda:patient/cda:id" />
             <xsl:apply-templates select="cda:patientRole/cda:patient/cda:name" />
@@ -170,13 +171,8 @@
                     </link>
                 </xsl:when>
             </xsl:choose>
-
-
-
         </Patient>
-
     </xsl:template>
-
 
     <xsl:template name="add-race-codes">
         <!-- Race -->
@@ -197,7 +193,8 @@
                     <xsl:variable name="text">
                         <xsl:choose>
                             <xsl:when test="@displayName">
-                                <xsl:value-of select="@displayName" />
+                                <!--<xsl:value-of select="@displayName" />-->
+                                <xsl:apply-templates select="@displayName" />
                             </xsl:when>
                             <xsl:when test="@nullFlavor">
                                 <xsl:value-of select="@nullFlavor" />
@@ -229,25 +226,22 @@
                                     <code value="{$code}" />
                                 </xsl:otherwise>
                             </xsl:choose>
-
                             <xsl:if test="@displayName">
-                                <display value="{@displayName}" />
+                                <display>
+                                    <xsl:attribute name="value">
+                                        <xsl:apply-templates select="@displayName" />
+                                    </xsl:attribute>
+                                </display>
                             </xsl:if>
                         </valueCoding>
                     </extension>
-                    <!--MD: this only work if patient has only one race. only one <extension url="text"> is allowed
-          <extension url="text">
-            <valueString value="{$text}" />
-          </extension>
-           -->
-
                 </xsl:for-each>
                 <xsl:for-each select="cda:patientRole/cda:patient/sdtc:raceCode[not(@nullFlavor)]">
-
                     <xsl:variable name="text">
                         <xsl:choose>
                             <xsl:when test="@displayName">
-                                <xsl:value-of select="@displayName" />
+                                <!--<xsl:value-of select="@displayName" />-->
+                                <xsl:apply-templates select="@displayName" />
                             </xsl:when>
                             <xsl:when test="@nullFlavor">
                                 <xsl:value-of select="@nullFlavor" />
@@ -284,8 +278,13 @@
                                 <valueCoding>
                                     <system value="{$codeSystemUri}" />
                                     <code value="{$code}" />
+
                                     <xsl:if test="@displayName">
-                                        <display value="{@displayName}" />
+                                        <display>
+                                            <xsl:attribute name="value">
+                                                <xsl:apply-templates select="@displayName" />
+                                            </xsl:attribute>
+                                        </display>
                                     </xsl:if>
                                 </valueCoding>
                             </extension>
@@ -296,7 +295,11 @@
                                     <system value="{$codeSystemUri}" />
                                     <code value="{$code}" />
                                     <xsl:if test="@displayName">
-                                        <display value="{@displayName}" />
+                                        <display>
+                                            <xsl:attribute name="value">
+                                                <xsl:apply-templates select="@displayName" />
+                                            </xsl:attribute>
+                                        </display>
                                     </xsl:if>
                                 </valueCoding>
                             </extension>
@@ -370,21 +373,31 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                             <xsl:if test="@displayName">
-                                <display value="{@displayName}" />
+                                <display>
+                                    <xsl:attribute name="value">
+                                        <xsl:apply-templates select="@displayName" />
+                                    </xsl:attribute>
+                                </display>
+                                <!--                                <display value="{@displayName}" />-->
                             </xsl:if>
                         </valueCoding>
                     </extension>
                 </xsl:for-each>
                 <xsl:for-each select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode">
                     <xsl:choose>
-                        <xsl:when test="@nullFlavor"/>
+                        <xsl:when test="@nullFlavor" />
                         <xsl:otherwise>
                             <extension url="detailed">
                                 <valueCoding>
                                     <system value="urn:oid:2.16.840.1.113883.6.238" />
-                                    <code value="@code" />
+                                    <code value="{@code}" />
                                     <xsl:if test="@displayName">
-                                        <display value="{@displayName}" />
+                                        <display>
+                                            <xsl:attribute name="value">
+                                                <xsl:apply-templates select="@displayName" />
+                                            </xsl:attribute>
+                                        </display>
+                                        <!--                                        <display value="{@displayName}" />-->
                                     </xsl:if>
                                 </valueCoding>
                             </extension>

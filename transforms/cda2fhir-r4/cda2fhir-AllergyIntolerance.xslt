@@ -16,6 +16,10 @@
     
     <xsl:template match="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.7' or @root='2.16.840.1.113883.10.20.24.3.90']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry"/>
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
     
     <xsl:template match="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.7' or @root='2.16.840.1.113883.10.20.24.3.90']]">

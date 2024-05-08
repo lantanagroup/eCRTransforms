@@ -89,7 +89,4 @@ limitations under the License.
                 <xsl:value-of select="$vLcgUuid" />
             </xsl:attribute>
     </xsl:template>
-
-
-
 </xsl:stylesheet>

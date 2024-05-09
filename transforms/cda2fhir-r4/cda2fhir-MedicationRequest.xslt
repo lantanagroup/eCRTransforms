@@ -48,8 +48,12 @@
                 </xsl:when>
             </xsl:choose>
 
-            <!-- requester (max 1)-->
-            <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
+            <!-- requester (required and max 1)-->
+            <!-- get closest author (work up the hierarchy if needed) -->
+            <xsl:variable name="vClosestAuthor">
+                <xsl:call-template name="get-closest-author"/>
+            </xsl:variable>
+            <xsl:apply-templates select="$vClosestAuthor[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">requester</xsl:with-param>
             </xsl:apply-templates>
 
@@ -160,21 +164,6 @@
             </xsl:if>
         </boundsPeriod>
     </xsl:template>
-
-    <!--<xsl:template match="cda:doseQuantity" mode="medication-request">
-        <doseQuantity>
-            <xsl:if test="@value">
-                <value value="{@value}"/>
-            </xsl:if>
-            <xsl:if test="@unit">
-                <unit value="{@unit}"/>
-            </xsl:if>
-            <xsl:if test="@nullFlavor">
-                <code value="{@nullFlavor}"/>
-              <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor"/>
-            </xsl:if>
-        </doseQuantity>
-    </xsl:template>-->
 
     <xsl:template match="cda:repeatNumber" mode="medication-request">
         <numberOfRepeatsAllowed value="{@value}" />

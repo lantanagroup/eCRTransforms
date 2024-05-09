@@ -11,5 +11,7 @@
             test="count(//fhir:MedicationRequest[fhir:identifier/fhir:value/@value='urn:uuid:cdbd33f0-6cde-11db-9fe1-0800200c9a66']/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest'])=1" />
         <x:expect label="A3. There should be one MedicationRequest for code 106"
             test="count(//fhir:MedicationRequest[fhir:identifier/fhir:value/@value='urn:uuid:cdbd33f0-6cde-11db-9fe1-0800200c9a66']/fhir:medicationCodeableConcept/fhir:coding/fhir:code[@value='106']) = 1" />
+        <x:expect label="A4. There should be one and only one MedicationRequest.requester for MedicationRequests"
+            test="count(//fhir:MedicationRequest[count(fhir:requester)=1])=1" />
     </x:scenario>
 </x:description>

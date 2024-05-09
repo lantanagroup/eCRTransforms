@@ -902,6 +902,23 @@
         </xsl:choose>
     </xsl:template>
 
+    <!-- TEMPLATE: get-closest-author: work up hierarchy and get closest author for resources that require an author (or whatever name) -->
+    <xsl:template name="get-closest-author">
+        <xsl:choose>
+            <xsl:when test="cda:author">
+                <xsl:copy-of select="cda:author"/>
+            </xsl:when>
+            <!-- when there is nothing above, start looking further afield - check the containing section/author -->
+            <xsl:when test="ancestor::cda:section/cda:author">
+                <xsl:copy-of select="ancestor::cda:section/cda:author"/>
+            </xsl:when>
+            <!-- when there is no section author - look at the ClinicalDocument/author -->
+            <xsl:when test="/cda:ClinicalDocument/cda:author">
+                <xsl:copy-of select="/cda:ClinicalDocument/cda:author"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template name="get-author-uuid">
         <xsl:param name="pAuthor" />
         <xsl:choose>

@@ -81,14 +81,44 @@
             </xsl:choose>
 
             <xsl:apply-templates select="cda:id" />
+            <!-- clinicalStatus -->
+            <clinicalStatus>
+                <xsl:choose>
+                    <xsl:when test="cda:effectiveTime/cda:high">
+                        <xsl:attribute name="value">resolved</xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="value">active</xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </clinicalStatus>
+            
+            
+            <!--<xsl:template match="cda:statusCode" mode="condition">
+                <clinicalStatus>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+                        <code>
+                            <xsl:choose>
+                                <xsl:when test="@code = 'completed'">
+                                    <xsl:attribute name="value">resolved</xsl:attribute>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="value" select="@code" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </code>
+                    </coding>
+                </clinicalStatus>
+            </xsl:template>
             <xsl:choose>
                 <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']">
                     <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- Observation could be in Encounter entryRelationship, there is no statusCode in ancestor::cda:entry/cda:act/cda:statusCode
+                    <!-\- Observation could be in Encounter entryRelationship, there is no statusCode in ancestor::cda:entry/cda:act/cda:statusCode
                         in the context of encounter, the cda:statusCode is in cda:entryRelationship level. Not sure we need enforce this by the 
-                        for cda2fhir in xSpec since clinicalStatus is option in fhir -->
+                        for cda2fhir in xSpec since clinicalStatus is option in fhir -\->
                     <xsl:choose>
                         <xsl:when test="ancestor::cda:entry/cda:act/cda:statusCode">
                             <xsl:apply-templates select="ancestor::cda:entry/cda:act/cda:statusCode" mode="condition" />
@@ -98,7 +128,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
             <!-- SG 2024-02-05: Updated negationInd processing for eCR -->
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']">
@@ -190,24 +220,6 @@
                 </note>
             </xsl:if>
         </Condition>
-    </xsl:template>
-
-    <xsl:template match="cda:statusCode" mode="condition">
-        <clinicalStatus>
-            <coding>
-                <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
-                <code>
-                    <xsl:choose>
-                        <xsl:when test="@code = 'completed'">
-                            <xsl:attribute name="value">resolved</xsl:attribute>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:attribute name="value" select="@code" />
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </code>
-            </coding>
-        </clinicalStatus>
     </xsl:template>
 
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition">

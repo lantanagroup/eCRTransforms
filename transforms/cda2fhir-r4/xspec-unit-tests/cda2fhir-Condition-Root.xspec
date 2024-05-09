@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
+
+    <!-- All Conditions - Create bundle entry -->
+    <x:scenario label="A. Scenario for testing template with match 'cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'] and mode 'bundle-entry'">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+
+        <x:expect label="A1. There should be six Condition resources" test="count(//fhir:entry/fhir:resource/fhir:Condition) = 6" />
+    </x:scenario>
+
+    <!-- Condition - create resource-->
+    <x:scenario label="B. Scenario for Creating the Condition profile from source 'cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4'][@moodCode = 'EVN']'">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+
+        <x:expect label="B1. There should be six Condition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"
+            test="count(//fhir:Condition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition'])=6" />
+        <x:expect label="B2. There should be six Condition.onsetDateTime" test="count(//fhir:Condition/fhir:onsetDateTime)=6" />
+        <x:expect label="B3. There should be at six Condition.category" test="count(//fhir:Condition/fhir:category)=6" />
+        <x:expect label="B4. There should be six Condition.code" test="count(//fhir:Condition/fhir:code)=6" />
+        <x:expect label="B5. There should be six Condition.clinicalStatus.coding.system.value=http://terminology.hl7.org/CodeSystem/condition-clinical"
+            test="count(//fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:system[@value='http://terminology.hl7.org/CodeSystem/condition-clinical'])=6" />
+        <x:expect label="B6. There should be six Condition.clinicalStatus.coding.code" test="count(//fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:code)=6" />
+        <x:expect label="B7. There should be one Condition.clinicalStatus.coding.code[@value] = resolved" test="count(//fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:code[@value='resolved'])=1" />
+        <x:expect label="B8. There should be five Condition.clinicalStatus.coding.code[@value] = active" test="count(//fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:code[@value='active'])=5" />
+    </x:scenario>
+</x:description>

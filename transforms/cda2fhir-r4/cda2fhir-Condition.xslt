@@ -83,17 +83,20 @@
             <xsl:apply-templates select="cda:id" />
             <!-- clinicalStatus -->
             <clinicalStatus>
-                <xsl:choose>
-                    <xsl:when test="cda:effectiveTime/cda:high">
-                        <xsl:attribute name="value">resolved</xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="value">active</xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <coding>
+                    <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+                    <code>
+                        <xsl:choose>
+                            <xsl:when test="cda:effectiveTime/cda:high">
+                                <xsl:attribute name="value">resolved</xsl:attribute>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="value">active</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </code>
+                </coding>
             </clinicalStatus>
-            
-            
             <!--<xsl:template match="cda:statusCode" mode="condition">
                 <clinicalStatus>
                     <coding>

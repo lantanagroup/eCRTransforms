@@ -603,6 +603,7 @@
                                             <statusCode code="completed" />
                                             <effectiveTime>
                                                 <low value="20201107" />
+                                                <high value="20201213" />
                                             </effectiveTime>
                                             <value xsi:type="CD" code="282291009" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="A non-trigger code diagnosis (disorder)" />
                                         </observation>

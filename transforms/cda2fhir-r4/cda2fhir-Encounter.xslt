@@ -12,15 +12,8 @@
     </xsl:template>
 
     <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']" mode="bundle-entry">
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
         <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.2']">DentalConsultNote</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.1']">DentalReferalNote</xsl:when>
-                <xsl:otherwise>NA</xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
         <!-- Don't want a second encounter if this is eICR -->
         <xsl:if test="$vCurrentIg != 'eICR'">
@@ -36,14 +29,7 @@
     <xsl:template
         match="cda:encompassingEncounter[not(@nullFlavor)] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']">
         <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-                <!-- MD add Dental templateId -->
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.2']">DentalConsultNote</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.1']">DentalReferalNote</xsl:when>
-                <xsl:otherwise>NA</xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
         <Encounter>
             <xsl:choose>

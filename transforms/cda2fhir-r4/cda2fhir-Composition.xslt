@@ -33,6 +33,7 @@
         <xsl:apply-templates select="cda:componentOf/cda:encompassingEncounter" mode="bundle-entry" />
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:custodian" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:authorization" mode="bundle-entry" />
         <xsl:apply-templates select="cda:legalAuthenticator" mode="bundle-entry" />
         <xsl:apply-templates select="cda:authenticator" mode="bundle-entry" />
         <xsl:apply-templates select="cda:participant" mode="bundle-entry" />
@@ -222,11 +223,7 @@
                  (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) 
                  add them with no data -->
             <xsl:variable name="vCurrentIg">
-                <xsl:choose>
-                    <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-                    <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-                    <xsl:otherwise>NA</xsl:otherwise>
-                </xsl:choose>
+                <xsl:apply-templates select="/" mode="currentIg" />
             </xsl:variable>
 
             <!-- Reason for Visit is a required eICR section, if it's missing, add it with text of "no information" -->
@@ -355,11 +352,7 @@
     <xsl:template match="cda:ClinicalDocument/cda:versionNumber">
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
         <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-                <xsl:otherwise>NA</xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
         <!-- SG 20191204: eCR & RR use the "official" FHIR extension for version number - added logic to use -->
         <xsl:choose>
@@ -386,7 +379,6 @@
         <xsl:variable name="vSectionText">
             <xsl:value-of select="cda:text/string()" />
         </xsl:variable>
-
 
         <xsl:choose>
             <!-- Don't want the encounters section if this is eICR - the encounter information goes in Composition.Encounter-->

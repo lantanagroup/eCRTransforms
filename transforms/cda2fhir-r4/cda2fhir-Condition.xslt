@@ -128,7 +128,16 @@
                         </coding>
                     </category>
                 </xsl:when>
-                <xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132']]">
+                <xsl:otherwise>
+                    <category>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+                            <code value="problem-list-item" />
+                        </coding>
+                    </category>
+                </xsl:otherwise>
+                
+                <!--<xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132']]">
                     <xsl:apply-templates select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132']]/cda:code">
                         <xsl:with-param name="pElementName">category</xsl:with-param>
                     </xsl:apply-templates>
@@ -142,7 +151,7 @@
 
                 <xsl:otherwise>
                     <xsl:apply-templates select="cda:code" mode="condition" />
-                </xsl:otherwise>
+                </xsl:otherwise>-->
             </xsl:choose>
 
             <xsl:apply-templates select="cda:value" mode="condition" />

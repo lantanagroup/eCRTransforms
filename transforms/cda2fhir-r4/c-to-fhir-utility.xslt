@@ -185,17 +185,8 @@
     <!-- TEMPLATE: Uses the template to profile file imported at the top of this file to match template oids with their structureDefinition profile -->
     <xsl:template match="cda:templateId" mode="template2profile">
         <xsl:variable name="vTemplateURI" select="lcg:fcnGetTemplateURI(.)" />
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
         <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.2']">DentalConsultNote</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.1']">DentalReferalNote</xsl:when>
-
-                <xsl:otherwise>NA</xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
 
         <!-- If this is eCR or RR don't want to add CCDA-on-FHIR-US-Realm-Header conformance so skip those -->

@@ -18,8 +18,6 @@
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
         <xsl:variable name="vCurrentIg">
             <xsl:choose>
-                <!--<xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-              <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>-->
                 <xsl:when test="cda:assignedAuthoringDevice">NA</xsl:when>
                 <xsl:otherwise>NA</xsl:otherwise>
             </xsl:choose>

@@ -11,6 +11,7 @@
     <xsl:include href="cda2fhir-Communication.xslt" />
     <xsl:include href="cda2fhir-Composition.xslt" />
     <xsl:include href="cda2fhir-Condition.xslt" />
+    <xsl:include href="cda2fhir-Consent.xslt" />
     <xsl:include href="cda2fhir-Coverage.xslt" />
     <xsl:include href="cda2fhir-Device.xslt" />
     <xsl:include href="cda2fhir-DocumentReference.xslt" />

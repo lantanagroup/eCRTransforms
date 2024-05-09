@@ -703,7 +703,7 @@
                 <xsl:with-param name="pElementName" select="'code'" />
                 <xsl:with-param name="pIncludeCoding" select="true()" />
             </xsl:apply-templates>
-            <valueDateTime value="{lcg:cdaTS2date(cda:effectiveTime/@value)}" />
+            <valueDateTime value="{lcg:cdaTS2date(cda:value/@value)}" />
         </component>
     </xsl:template>
 

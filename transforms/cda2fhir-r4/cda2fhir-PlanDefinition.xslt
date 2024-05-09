@@ -20,13 +20,8 @@
     <!-- Plan Definition (from "Reportability Response Coded Information Organizer") -->
     <!-- Plan Definition matches the Reportability Information Organizer (not 2.3.34) -->
     <!--<xsl:template match="cda:organizer[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.13']">
-        <!-\- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -\->
         <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
-                <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
-                <xsl:otherwise>NA</xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="/" mode="currentIg" />
         </xsl:variable>
         <PlanDefinition>
             <!-\- Generates an id that is unique for the node. It will always be the same for the same id. -\->

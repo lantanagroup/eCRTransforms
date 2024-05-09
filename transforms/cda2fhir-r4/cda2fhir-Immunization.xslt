@@ -79,6 +79,13 @@
                     </detail>
                 </reaction>
             </xsl:for-each>
+            <xsl:for-each select="cda:repeatNumber">
+                <protocolApplied>
+                    <doseNumberPositiveInt>
+                        <xsl:attribute name="value" select="@value"></xsl:attribute>
+                    </doseNumberPositiveInt>
+                </protocolApplied>
+            </xsl:for-each>
         </Immunization>
     </xsl:template>
 

@@ -1,53 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
-  
-  
-  <x:scenario label="Scenario for testing template with match 'cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.52'][@moodCode = 'EVN']'">
-    <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
-    <x:expect label="There should be two Immunization resources" 
-      test="count(//fhir:Immunization) = 2" />
-    <!-- Validate an Immunization profile exists-->
-    <x:expect label="There should be an Immunization.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" 
-      test="count(//fhir:Immunization/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization'])>0" />
-     <!--Validate the Identifier-->
-    <x:expect label="There should be two Immunization.identifier " 
-      test="count(//fhir:Immunization/fhir:identifier)=2" />
-    <x:expect label="There should be an Immunization.value exists"
-      test="count(//fhir:Immunization/fhir:identifier/fhir:value)=2" />
-    <!-- Validate the Status Code-->
-    <x:expect label="There should be two Immunization.status"
-        test="count(//fhir:Immunization/fhir:status)=2" />
-    <!-- Validate the Vaccine Code-->
-    <x:expect label="There should be two Immunization.vaccineCode.coding.system exists"
-        test="count(//fhir:Immunization/fhir:vaccineCode/fhir:coding/fhir:system)=2" />
-    <x:expect label="There should be an Immunization.vaccineCode.coding.code exists"
-        test="count(//fhir:Immunization/fhir:vaccineCode/fhir:coding/fhir:code)=2" />
-    <x:expect label="There should be an Immunization.vaccineCode.coding.display exists"
-        test="count(//fhir:Immunization/fhir:vaccineCode/fhir:coding/fhir:display)=2" />
-    <!-- Validate the Patient Reference-->
-    <x:expect label="There should be an Immunization.patient.reference exists"
-        test="count(//fhir:Immunization/fhir:patient/fhir:reference)=2" />
-    <!-- Validate the Occurance Date/Time-->
-    <x:expect label="There should be an Immunization.occurenceDateTime exists"
-        test="count(//fhir:Immunization/fhir:occurrenceDateTime)=2" />
-    <!-- Validate the Primary Source-->
-    <x:expect label="There should be an Immunization.primarySource exists"
-        test="count(//fhir:Immunization/fhir:primarySource)=2" />  
-    <!-- Validate the Route-->
-    <x:expect label="There should be an Immunization.route.coding.system exists"
-        test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:system)=2" />
-    <x:expect label="There should be an Immunization.route.coding.code exists"
-        test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:code)=2" />
-    <x:expect label="There should be an Immunization.route.coding.display exists"
-        test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:display)=2" />
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
 
-      <!-- Validate the Dose Quantity
-      SG: There should only be one of each of these, as one of the values is nullFlavor=NI which doesn't get transformed (doseQuantity is optional)-->
-    <x:expect label="There should be an Immunization.doseQuantity.value"
-        test="count(//fhir:Immunization/fhir:doseQuantity/fhir:value)=1" />
-    <x:expect label="There should be an Immunization.doseQuantity.unit"
-        test="count(//fhir:Immunization/fhir:doseQuantity/fhir:unit)=1" />
-  </x:scenario>
+    <x:scenario label="A. Scenario for testing template with match 'cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.52'][@moodCode = 'EVN']'">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
 
+        <x:expect label="A1. There should be two Immunization resources" test="count(//fhir:Immunization) = 2" />
+        <x:expect label="A2. There should be an Immunization.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"
+            test="count(//fhir:Immunization/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization'])>0" />
+        <x:expect label="A3. There should be two Immunization.identifier " test="count(//fhir:Immunization/fhir:identifier)=2" />
+        <x:expect label="A4. There should be two Immunization.value" test="count(//fhir:Immunization/fhir:identifier/fhir:value)=2" />
+        <x:expect label="A5. There should be two Immunization.status" test="count(//fhir:Immunization/fhir:status)=2" />
+        <x:expect label="A6. There should be two Immunization.vaccineCode.coding.system" test="count(//fhir:Immunization/fhir:vaccineCode/fhir:coding/fhir:system)=2" />
+        <x:expect label="A7. There should be two Immunization.vaccineCode.coding.code" test="count(//fhir:Immunization/fhir:vaccineCode/fhir:coding/fhir:code)=2" />
+        <x:expect label="A8. There should be two Immunization.vaccineCode.coding.display" test="count(//fhir:Immunization/fhir:vaccineCode/fhir:coding/fhir:display)=2" />
+        <x:expect label="A9. There should be two Immunization.patient.reference" test="count(//fhir:Immunization/fhir:patient/fhir:reference)=2" />
+        <x:expect label="A10. There should be two Immunization.occurenceDateTime" test="count(//fhir:Immunization/fhir:occurrenceDateTime)=2" />
+        <x:expect label="A11. There should be two Immunization.primarySource" test="count(//fhir:Immunization/fhir:primarySource)=2" />
+        <x:expect label="A12. There should be three Immunization.route.coding.system" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:system)=3" />
+        <x:expect label="A13. There should be three Immunization.route.coding.code" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:code)=3" />
+        <x:expect label="A14. There should be three Immunization.route.coding.display" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:display)=3" />
+        <!-- Validate the Dose Quantity - should only be one of each of these, as one of the values is nullFlavor=NI which doesn't get transformed (doseQuantity is optional)-->
+        <x:expect label="A15. There should be one Immunization.doseQuantity.value" test="count(//fhir:Immunization/fhir:doseQuantity/fhir:value)=1" />
+        <x:expect label="A16. There should be one Immunization.doseQuantity.unit" test="count(//fhir:Immunization/fhir:doseQuantity/fhir:unit)=1" />
+    </x:scenario>
 </x:description>

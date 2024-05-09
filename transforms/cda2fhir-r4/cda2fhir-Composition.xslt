@@ -36,7 +36,8 @@
         <xsl:apply-templates select="cda:authorization" mode="bundle-entry" />
         <xsl:apply-templates select="cda:legalAuthenticator" mode="bundle-entry" />
         <xsl:apply-templates select="cda:authenticator" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:participant" mode="bundle-entry" />
+        <!-- ECON (emergency contact) participants are dealt with separately -->
+        <xsl:apply-templates select="cda:participant[not(cda:associatedEntity[@classCode='ECON'])]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent" mode="bundle-entry" />
         <!-- <xsl:apply-templates select="cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization" mode="bundle-entry" />-->
         <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />

@@ -1111,8 +1111,11 @@
                                     <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
                                     <id root="7c0704bb-9c40-41b5-9c7d-26b2d59e234f" />
                                     <code code="20570-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Hematocrit" />
-                                    <text>
+                                    <!--<text>
                                         <reference nullFlavor="NI"/>
+                                    </text>-->
+                                    <text>
+                                        <reference value="#id_7c0704bb-9c40-41b5-9c7d-26b2d59e234f_ref"/>
                                     </text>
                                     <statusCode code="completed" />
                                     <effectiveTime value="20201107" />
@@ -1487,8 +1490,12 @@
                             <id root="00000000-5CF3-EC63-0513-4A4838595787" extension="11369-6_3-1_1.3.6.1.4.1.22812.11.2016.163.1_14168" />
                             <statusCode code="completed" />
                             <effectiveTime value="20201107" />
-                            <routeCode nullFlavor="NI" />
-                            <doseQuantity nullFlavor="NI" />
+                            <repeatNumber value="1" />
+                            <routeCode code="C28161" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="National Cancer Institute (NCI) Thesaurus" displayName="Intramuscular injection">
+                                <!-- sm 2-15-2024 -->
+                                <translation code="12130007" displayName="Intra-articular route (qualifier value)" codeSystemName="RxNORM" codeSystem="2.16.840.1.113883.6.96" />
+                            </routeCode>
+                            <doseQuantity value="50" unit="ug" />
                             <consumable>
                                 <manufacturedProduct classCode="MANU">
                                     <!-- [C-CDA R2.1] Immunization Medication Information (V3) -->
@@ -2749,9 +2756,9 @@
                 </section>
             </component>
             <!-- Reportability Response Information Section -->
-            <component>
+            <!--<component>
                 <section>
-                    <!-- [eICR R2 STU3] Reportability Response Information Section -->
+                    <!-\- [eICR R2 STU3] Reportability Response Information Section -\->
                     <templateId root="2.16.840.1.113883.10.20.15.2.2.5" extension="2021-01-01" />
                     <code code="88085-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Reportability response report Document Public health" />
                     <title>Reportability Response Information Section</title>
@@ -2771,46 +2778,46 @@
                             </tbody>
                         </table>
                     </text>
-                    <!-- Reportability Response Coded Information Organizer -->
+                    <!-\- Reportability Response Coded Information Organizer -\->
                     <entry typeCode="DRIV">
                         <organizer classCode="CLUSTER" moodCode="EVN">
-                            <!-- [RR R1S1] Reportability Response Coded Information Organizer -->
+                            <!-\- [RR R1S1] Reportability Response Coded Information Organizer -\->
                             <templateId root="2.16.840.1.113883.10.20.15.2.3.34" extension="2017-04-01" />
                             <code code="RR11" displayName="Reportability Response Coded Information" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" />
 
                             <statusCode code="completed" />
-                            <!-- Relevant Reportable Condition Observation: Zika -->
+                            <!-\- Relevant Reportable Condition Observation: Zika -\->
                             <component>
                                 <observation classCode="OBS" moodCode="EVN">
-                                    <!-- [RR R1S1] Relevant Reportable Condition Observation -->
+                                    <!-\- [RR R1S1] Relevant Reportable Condition Observation -\->
                                     <templateId root="2.16.840.1.113883.10.20.15.2.3.12" extension="2017-04-01" />
                                     <id root="a054d401-7b23-4b15-bc28-c889c156ba6a" />
 
                                     <code code="64572001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED" displayName="Condition">
                                         <translation code="75323-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Condition" />
                                     </code>
-                                    <!-- Condition code (SNOMED CT) -->
+                                    <!-\- Condition code (SNOMED CT) -\->
                                     <value xsi:type="CD" code="3928002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Zika virus disease (disorder)" />
 
-                                    <!-- Reportability Information Organizer: Both Home and Provider -->
+                                    <!-\- Reportability Information Organizer: Both Home and Provider -\->
                                     <entryRelationship typeCode="COMP">
                                         <organizer classCode="CLUSTER" moodCode="EVN">
-                                            <!-- [RR R1S1] Reportability Information Organizer: Both Home and Provider -->
+                                            <!-\- [RR R1S1] Reportability Information Organizer: Both Home and Provider -\->
                                             <templateId root="2.16.840.1.113883.10.20.15.2.3.13" extension="2017-04-01" />
                                             <id root="fcf92143-4289-450e-9550-8d574facf626" />
-                                            <!-- Relevant location (home, provider, or both) -->
+                                            <!-\- Relevant location (home, provider, or both) -\->
                                             <code code="RRVS7" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)"
                                                 displayName="Both patient home address and provider facility address"> </code>
 
                                             <statusCode code="completed" />
 
-                                            <!-- Responsible Agency: State Department of Health -->
-                                            <!-- In this case the responsible agency is the same as the rules authoring agency -->
+                                            <!-\- Responsible Agency: State Department of Health -\->
+                                            <!-\- In this case the responsible agency is the same as the rules authoring agency -\->
                                             <participant typeCode="LOC">
-                                                <!-- [RR R1S1] Responsible Agency -->
+                                                <!-\- [RR R1S1] Responsible Agency -\->
                                                 <templateId root="2.16.840.1.113883.10.20.15.2.4.2" extension="2017-04-01" />
-                                                <!-- If the responsible and authoring agencies are the same 
-                             then they will have the same identifying and contact details -->
+                                                <!-\- If the responsible and authoring agencies are the same 
+                             then they will have the same identifying and contact details -\->
                                                 <participantRole>
                                                     <id extension="12341234" root="2.16.840.1.113883.4.6" />
                                                     <code code="RR8" displayName="Responsible Agency" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions"> </code>
@@ -2831,13 +2838,13 @@
                                                 </participantRole>
                                             </participant>
 
-                                            <!-- Rules Authoring Agency: State Department of Health -->
-                                            <!-- In this case the rules authoring agency is the same as the responsible agency -->
+                                            <!-\- Rules Authoring Agency: State Department of Health -\->
+                                            <!-\- In this case the rules authoring agency is the same as the responsible agency -\->
                                             <participant typeCode="LOC">
-                                                <!-- [RR R1S1] Rules Authoring Agency -->
+                                                <!-\- [RR R1S1] Rules Authoring Agency -\->
                                                 <templateId root="2.16.840.1.113883.10.20.15.2.4.3" extension="2017-04-01" />
-                                                <!-- If the responsible and authoring agencies are the same 
-                             then they will have the same identifying and contact details -->
+                                                <!-\- If the responsible and authoring agencies are the same 
+                             then they will have the same identifying and contact details -\->
                                                 <participantRole>
                                                     <id extension="12341234" root="2.16.840.1.113883.4.6" />
                                                     <code code="RR12" displayName="Rules Authoring Agency" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" />
@@ -2858,10 +2865,10 @@
                                                 </participantRole>
                                             </participant>
 
-                                            <!-- Routing Entity: State Department of Health -->
-                                            <!-- The routing entity is optional -->
+                                            <!-\- Routing Entity: State Department of Health -\->
+                                            <!-\- The routing entity is optional -\->
                                             <participant typeCode="LOC">
-                                                <!-- [RR R1S1] Routing Agency -->
+                                                <!-\- [RR R1S1] Routing Agency -\->
                                                 <templateId root="2.16.840.1.113883.10.20.15.2.4.1" extension="2017-04-01" />
                                                 <participantRole>
                                                     <id extension="43214321" root="2.16.840.1.113883.4.6" />
@@ -2883,19 +2890,19 @@
                                                 </participantRole>
                                             </participant>
 
-                                            <!-- Determination of Reportability: Zika/State Department of Health -->
+                                            <!-\- Determination of Reportability: Zika/State Department of Health -\->
                                             <component typeCode="COMP">
                                                 <observation classCode="OBS" moodCode="EVN">
-                                                    <!-- [RR R1S1] Determination of Reportability -->
+                                                    <!-\- [RR R1S1] Determination of Reportability -\->
                                                     <templateId root="2.16.840.1.113883.10.20.15.2.3.19" extension="2017-04-01" />
                                                     <id root="e39d6ae2-8c6e-4638-9b33-412996586f41" />
                                                     <code code="RR1" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Determination of reportability" />
                                                     <value xsi:type="CD" code="RRVS1" displayName="Reportable" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" />
 
-                                                    <!-- Determination of Reportability Reason -->
+                                                    <!-\- Determination of Reportability Reason -\->
                                                     <entryRelationship typeCode="RSON">
                                                         <observation classCode="OBS" moodCode="EVN">
-                                                            <!-- [RR R1S1] Determination of Reportability Reason -->
+                                                            <!-\- [RR R1S1] Determination of Reportability Reason -\->
                                                             <templateId root="2.16.840.1.113883.10.20.15.2.3.26" extension="2017-04-01" />
                                                             <id root="8709a342-56ad-425a-b7b1-76a16c2dd2d5" />
                                                             <code code="RR2" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Determination of reportability reason" />
@@ -2903,10 +2910,10 @@
                                                         </observation>
                                                     </entryRelationship>
 
-                                                    <!-- Determination of Reportability Rule -->
+                                                    <!-\- Determination of Reportability Rule -\->
                                                     <entryRelationship typeCode="RSON">
                                                         <observation classCode="OBS" moodCode="EVN">
-                                                            <!-- [RR R1S1] Determination of Reportability Rule -->
+                                                            <!-\- [RR R1S1] Determination of Reportability Rule -\->
                                                             <templateId root="2.16.840.1.113883.10.20.15.2.3.27" extension="2017-04-01" />
                                                             <id root="f2dfdffb-bccb-4ee4-9b6c-0ae82b15ada6" />
                                                             <code code="RR3" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Determination of reportability rule" />
@@ -2916,15 +2923,15 @@
                                                 </observation>
                                             </component>
 
-                                            <!--<component typeCode="COMP">
+                                            <!-\-<component typeCode="COMP">
                                                 <observation classCode="OBS" moodCode="EVN">
-                                                    <!-\- [RR R1S1] Reporting Timeframe-\->
+                                                    <!-\\- [RR R1S1] Reporting Timeframe-\\->
                                                     <templateId root="2.16.840.1.113883.10.20.15.2.3.14" extension="2017-04-01" />
                                                     <id root="8334d0bd-a404-4e12-9e9c-e278669e59ba" />
                                                     <code code="RR4" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Timeframe to report (urgency)" />
                                                     <value xsi:type="PQ" value="24" unit="h" />
                                                 </observation>
-                                            </component>-->
+                                            </component>-\->
 
                                         </organizer>
                                     </entryRelationship>
@@ -2935,6 +2942,7 @@
 
                 </section>
             </component>
+        -->
         </structuredBody>
     </component>
 </ClinicalDocument>

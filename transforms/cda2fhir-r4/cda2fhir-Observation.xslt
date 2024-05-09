@@ -371,7 +371,7 @@
                     <xsl:when test="cda:code/@code = '89270-3'">39156-5</xsl:when>
                 </xsl:choose>
             </xsl:variable>
-
+            <!-- value -->
             <xsl:choose>
                 <xsl:when test="$vMagicVitalSignCode/string()">
                     <code>
@@ -393,12 +393,12 @@
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
-
+            <!-- subject -->
             <xsl:call-template name="subject-reference" />
+            <!-- effective[x] -->
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName" select="'effective'" />
             </xsl:apply-templates>
-
             <!-- performers (multiple) -->
             <xsl:for-each select="cda:performer">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
@@ -409,11 +409,13 @@
             <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
                 <xsl:call-template name="performer-or-author" />
             </xsl:for-each>
-
+            <!-- value -->
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pVitalSign" select="cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.27'" />
             </xsl:apply-templates>
-
+            <!-- interpretation -->
+            <xsl:apply-templates select="cda:interpretationCode" />
+            <!-- note -->
             <xsl:if test="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text | cda:text">
                 <xsl:for-each select="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text | cda:text">
 
@@ -423,7 +425,7 @@
                         </xsl:call-template>
                     </xsl:variable>
 
-                    <xsl:if test="$vText">
+                    <xsl:if test="string-length($vText) > 0">
                         <note>
                             <text>
                                 <xsl:attribute name="value" select="$vText" />
@@ -432,9 +434,8 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
-            <xsl:apply-templates select="cda:interpretationCode" />
+            <!-- referenceRange -->
             <xsl:apply-templates select="cda:referenceRange" />
-            <!-- TODO process entryRelationships -->
         </Observation>
     </xsl:template>
 

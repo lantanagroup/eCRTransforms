@@ -18,3 +18,4 @@
 /samples/fhir/eICR-R2_1
 /samples/fhir/testr1.1
 /samples/cda/20231115-Sprint-1
+/transforms/cda2fhir-r4/xspec-unit-tests/xspec

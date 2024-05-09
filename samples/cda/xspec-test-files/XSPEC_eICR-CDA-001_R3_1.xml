@@ -16,7 +16,7 @@
     <id root="2.16.840.1.113883.9.9.9.9.9" extension="db734647-fc99-424c-a864-7e3cda82e704" />
     <!-- Document Code -->
     <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" displayName="Public Health Case Report" codeSystemName="LOINC" />
-    <title>Initial Public Health Case Report: XSPEC_eICR-CDA-001_R3_1</title>
+    <title>Initial Public Health Case Report</title>
     <effectiveTime value="20201107094421-0500" />
     <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" displayName="Normal" />
     <languageCode code="en-US" />
@@ -416,6 +416,28 @@
                             <statusCode code="active" />
                             <effectiveTime value="20201108" />
                         </observation>
+                    </entry>
+                    <entry typeCode="DRIV">
+                        <substanceAdministration moodCode="INT" classCode="SBADM">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09" />
+                            <!-- Planned Medication Activity (V2)-->
+                            <id root="cdbd33f0-6cde-11db-9fe1-0800200c9a66" />
+                            <text>Heparin 0.25 ml Prefilled Syringe</text>
+                            <statusCode code="active" />
+                            <!-- The effectiveTime in a planned medication activity 
+    represents the time that the medication activity should occur. -->
+                            <effectiveTime value="20130905" />
+                            <consumable>
+                                <manufacturedProduct classCode="MANU">
+                                    <!-- [C-CDA R2.0] Medication Information (V2) -->
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09" />
+                                    <manufacturedMaterial>
+                                        <code code="106" codeSystem="2.16.840.1.113883.12.292" displayName="diphtheria, tetanus toxoids and acellular pertussis vaccine, 5 pertussis antigens" />
+                                        <lotNumberText nullFlavor="NI" />
+                                    </manufacturedMaterial>
+                                </manufacturedProduct>
+                            </consumable>
+                        </substanceAdministration>
                     </entry>
                 </section>
             </component>
@@ -1115,7 +1137,7 @@
                                         <reference nullFlavor="NI"/>
                                     </text>-->
                                     <text>
-                                        <reference value="#id_7c0704bb-9c40-41b5-9c7d-26b2d59e234f_ref"/>
+                                        <reference value="#id_7c0704bb-9c40-41b5-9c7d-26b2d59e234f_ref" />
                                     </text>
                                     <statusCode code="completed" />
                                     <effectiveTime value="20201107" />
@@ -1250,7 +1272,7 @@
                                          FHIR doesn't have a mapping for referenceRange/observationRange/interpretationCode, so this will get lost -->
                                     <referenceRange>
                                         <observationRange>
-                                            <value xsi:type="ST" nullFlavor="UNK"/>
+                                            <value xsi:type="ST" nullFlavor="UNK" />
                                             <interpretationCode code="N" codeSystem="2.16.840.1.113883.5.83" displayName="Normal" />
                                         </observationRange>
                                     </referenceRange>
@@ -1522,8 +1544,6 @@
                                 <manufacturedProduct classCode="MANU">
                                     <!-- [C-CDA R2.1] Immunization Medication Information (V3) -->
                                     <templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09" />
-                                    <!-- [eICR R2 STU2] Initial Case Report Trigger Code Problem Observation (V2) -->
-                                    <templateId root="2.16.840.1.113883.10.20.15.2.3.38" extension="2019-04-01" />
                                     <!-- Trigger code -->
                                     <manufacturedMaterial>
                                         <code code="24" codeSystem="2.16.840.1.113883.12.292" codeSystemName="CVX" displayName="anthrax vaccine" sdtc:valueSet="2.16.840.1.114222.4.11.7508"

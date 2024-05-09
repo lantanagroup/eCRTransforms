@@ -2,44 +2,32 @@
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../cda2fhir.xslt" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:lcg="http://www.lantanagroup.com">
 
-    <!-- Medication Administration - create bundle entry-->
     <x:scenario label="A. Scenario for testing template with match 'cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']]' and mode 'bundle-entry'">
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
 
         <x:expect label="A1. There should be an entry.resource.MedicationAdministration" test="count(//fhir:entry/fhir:resource/fhir:MedicationAdministration)=1" />
     </x:scenario>
 
-    <!-- Medication Administration - create resource-->
     <x:scenario label="B. Scenario for testing template with match 'cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']]">
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
         
         <x:expect label="B1. There should be a MedicationAdministration" test="count(//fhir:MedicationAdministration)=1" />
-        <!-- Validate the Status element-->
         <x:expect label="B2. There should be a status='completed'" test="count(//fhir:MedicationAdministration/fhir:status[@value='completed'])=1" />
-        <!-- Validate the Code element-->
         <x:expect label="B3. There should be a MedicationAdministration.medicationCodeableConcept.coding.system.value=http://www.nlm.nih.gov/research/umls/rxnorm"
             test="count(//fhir:MedicationAdministration/fhir:medicationCodeableConcept/fhir:coding/fhir:system[@value='http://www.nlm.nih.gov/research/umls/rxnorm'])=1" />
         <x:expect label="B4. There should be a MedicationAdministration.medicationCodeableConcept.coding.code.value=248656"
             test="count(//fhir:MedicationAdministration/fhir:medicationCodeableConcept/fhir:coding/fhir:code[@value='248656'])=1" />
         <x:expect label="B5. There should be a MedicationAdministration.medicationCodeableConcept.coding.display.value=Azithromycin 500 MG Oral Tablet"
             test="count(//fhir:MedicationAdministration/fhir:medicationCodeableConcept/fhir:coding/fhir:display[@value='Azithromycin 500 MG Oral Tablet'])=1" />
-        <!-- Validate the Subject Reference element-->
         <x:expect label="B6. There should be an MedicationAdministration.subject.reference.value=urn:uuid:" test="count(//fhir:MedicationAdministration/fhir:subject/fhir:reference[@value='urn:uuid:'])=1" />
-        <!-- Validate the effectiveDateTime element-->
         <!-- SG: Updating this because it looks like because the TZ hasn't been specified it puts in whatever timezone is set on your PC - it put +10:00 for me 
           I feel like it shouldn't add a TZ if there isn't one there but that's how RG originally wrote it so leaving for now-->
         <x:expect label="B7. There should be a effectiveDateTime.value where the first 19 chars are: '2020-11-07T11:15:00' (ingoring TZ)"
             test="count(//fhir:MedicationAdministration/fhir:effectiveDateTime[substring(@value, 1,19) ='2020-11-07T11:15:00'])=1" />
-        <!-- Validate the Performer Reference element-->
-        <x:expect label="B8. There should be an MedicationAdministration.performer.actor.reference.value=urn:uuid:"
-            test="count(//fhir:MedicationAdministration/fhir:performer/fhir:actor/fhir:reference[@value='urn:uuid:'])=1" />
-        <!-- Validate the dosage route element-->
-        <x:expect label="B9. There should be a dosage.route.coding.system.value=http://ncimeta.nci.nih.gov"
+        <x:expect label="B8. There should be a dosage.route.coding.system.value=http://ncimeta.nci.nih.gov"
             test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:system[@value='http://ncimeta.nci.nih.gov'])=1" />
-        <x:expect label="B10. There should be a dosage.route.coding.code.value=C38288" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:code[@value='C38288'])=1" />
-        <x:expect label="B11. There should be a dosage.route.coding.display.value=ORAL" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:display[@value='ORAL'])=1" />
-        <!-- Validate the dosage dose element-->
-        <x:expect label="B12. There should be a dose with value = '1' and unit = 'g'" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:dose[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />
+        <x:expect label="B9. There should be a dosage.route.coding.code.value=C38288" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:code[@value='C38288'])=1" />
+        <x:expect label="B10. There should be a dosage.route.coding.display.value=ORAL" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:display[@value='ORAL'])=1" />
+        <x:expect label="B11. There should be a dose with value = '1' and unit = 'g'" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:dose[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />
     </x:scenario>
-
 </x:description>

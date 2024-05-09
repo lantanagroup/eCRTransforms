@@ -3,12 +3,6 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="cda2fhir-DocumentReference.xslt" />
-
-    <xsl:import href="c-to-fhir-utility.xslt" />
-    <!-- Need to import this to get the XSpec working -->
-    <xsl:import href="cda2fhir-Extension.xslt" />
-
     <xsl:output indent="yes" />
 
     <!-- No longer using PlanDefinition for RR -->

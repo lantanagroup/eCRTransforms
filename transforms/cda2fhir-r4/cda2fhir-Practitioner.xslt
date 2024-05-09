@@ -3,8 +3,6 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
     <xsl:template name="make-practitioner">
         <xsl:param name="id" />
         <xsl:param name="name" />

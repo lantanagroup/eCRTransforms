@@ -17,36 +17,26 @@ limitations under the License.
 
 -->
 
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns="http://hl7.org/fhir"
-                xmlns:lcg="http://www.lantanagroup.com"
-                xmlns:cda="urn:hl7-org:v3"
-                xmlns:fhir="http://hl7.org/fhir"
-                xmlns:uuid="java:java.util.UUID"
-                version="2.0"
-                exclude-result-prefixes="lcg cda uuid fhir">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:uuid="java:java.util.UUID" version="2.0" exclude-result-prefixes="lcg cda uuid fhir">
 
-   <xsl:import href="cda2fhir-includes.xslt"/>
+    <xsl:import href="cda2fhir-includes.xslt" />
 
-   <xsl:output method="xml" indent="yes" encoding="UTF-8" />
-   <xsl:strip-space elements="*"/>
-   
-   <xsl:template match="/">
-      
-      <!-- 
-         
+    <xsl:output method="xml" indent="yes" encoding="UTF-8" />
+    <xsl:strip-space elements="*" />
+
+    <xsl:template match="/">
+
+        <!-- 
          ================================  WARNING ===================================
          This transforms assumes that lcg:uuid attributes have been added to all 
          elements of the input CDA document (the Java program that invokes this 
          transform adds those attributes automatically). If that is not true (such as 
-         for transform development/debugging) you should be using SaxonPE-cda2fhir.xslt 
-         with the Saxon-PE XSLT processor.
+         for transform development/debugging) you should be using either
+         SaxonPE-cda2fhir.xslt Saxon-PE XSLT processor or NativeUUIDGen-cda2fhir.xslt 
+         with other processors.
          ==============================================================================
-         
       -->
-      
-      <xsl:apply-templates select="." mode="convert"/>
-   </xsl:template>
-  
-   
+        <xsl:apply-templates select="." mode="convert" />
+    </xsl:template>
 </xsl:stylesheet>

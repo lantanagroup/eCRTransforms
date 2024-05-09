@@ -3,26 +3,30 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
     <xsl:template match="
             cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
             cda:procedure[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']] |
             cda:observation[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-        
+
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
-        
+
         <xsl:for-each select="cda:author[position() > 1] | cda:informant[position() > 1]">
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
-        
+
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
+    <!-- Suppress Reaction Observation in a procedure since matched as complication (only code) -->
+    <xsl:template match="
+            cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9'][../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
+            cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9'][../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']] |
+            cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9'][../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]" mode="bundle-entry" />
+
+    <!-- Procedure Activity Act -->
     <xsl:template match="cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
             <!-- Check current Ig -->
@@ -40,11 +44,37 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="cda:id" />
+            
+            <!-- partOf: if this is contained in a procedure or substanceAdministration, reference that -->
+            <xsl:if test="
+                parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'] or
+                parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14'] or
+                parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13'] or
+                parent::cda:*/cda:substanceAdministration">
+                <partOf>
+                    <reference value="urn:uuid:{parent::cda:*/parent::cda:*/@lcg:uuid}" />
+                </partOf>
+            </xsl:if>
+            
             <xsl:apply-templates select="cda:statusCode" mode="procedure" />
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
+            <!-- encounter -->
+            <xsl:if test="cda:entryRelationship/cda:encounter/cda:id">
+                <xsl:variable name="vEncounterExtension">
+                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@extension" />
+                </xsl:variable>
+                <xsl:variable name="vEncounterRoot">
+                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@root" />
+                </xsl:variable>
+                <xsl:if test="cda:entryRelationship/cda:encounter/cda:id[@root = $vEncounterRoot][@extension = $vEncounterExtension]">
+                    <encounter>
+                        <reference value="urn:uuid:{//cda:encompassingEncounter/@lcg:uuid}" />
+                    </encounter>
+                </xsl:if>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="cda:effectiveTime/@nullFlavor and ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.131']]">
                     <xsl:apply-templates select="ancestor::cda:act/cda:effectiveTime" mode="period">
@@ -62,12 +92,12 @@
             <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- asserter (max 1)-->
             <xsl:apply-templates select="cda:informant[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- performers (multiple) -->
             <xsl:for-each select="cda:performer">
                 <performer>
@@ -77,9 +107,24 @@
                 </performer>
             </xsl:for-each>
 
+            <!-- complication -->
+            <xsl:if test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value/@code">
+                <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value">
+                    <xsl:with-param name="pElementName">complication</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:if>
+
+            <!-- usedReference:medication -->
+            <xsl:for-each select="cda:entryRelationship/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct">
+                <usedReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </usedReference>
+            </xsl:for-each>
+
         </Procedure>
     </xsl:template>
 
+    <!-- Procedure Activity Procedure -->
     <xsl:template match="cda:procedure[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
             <!-- Check current Ig -->
@@ -102,6 +147,21 @@
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
+            <!-- encounter -->
+            <xsl:if test="cda:entryRelationship/cda:encounter/cda:id">
+                <xsl:variable name="vEncounterExtension">
+                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@extension" />
+                </xsl:variable>
+                <xsl:variable name="vEncounterRoot">
+                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@root" />
+                </xsl:variable>
+                <xsl:if test="cda:entryRelationship/cda:encounter/cda:id[@root = $vEncounterRoot][@extension = $vEncounterExtension]">
+                    <encounter>
+                        <reference value="urn:uuid:{//cda:encompassingEncounter/@lcg:uuid}" />
+                    </encounter>
+                </xsl:if>
+            </xsl:if>
+
             <xsl:apply-templates select="cda:effectiveTime" mode="period">
                 <xsl:with-param name="pElementName">performedPeriod</xsl:with-param>
             </xsl:apply-templates>
@@ -110,12 +170,12 @@
             <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- asserter (max 1)-->
             <xsl:apply-templates select="cda:informant[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- performers (multiple) -->
             <xsl:for-each select="cda:performer">
                 <performer>
@@ -131,9 +191,24 @@
             </xsl:apply-templates>
 
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.37']" />
+
+            <!-- complication -->
+            <xsl:if test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value/@code">
+                <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value">
+                    <xsl:with-param name="pElementName">complication</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:if>
+
+            <!-- usedReference:medication -->
+            <xsl:for-each select="cda:entryRelationship/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct">
+                <usedReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </usedReference>
+            </xsl:for-each>
         </Procedure>
     </xsl:template>
 
+    <!-- Procedure Activity Observation -->
     <xsl:template match="cda:observation[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
             <!-- Check current Ig -->
@@ -157,6 +232,20 @@
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
+            <!-- encounter -->
+            <xsl:if test="cda:entryRelationship/cda:encounter/cda:id">
+                <xsl:variable name="vEncounterExtension">
+                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@extension" />
+                </xsl:variable>
+                <xsl:variable name="vEncounterRoot">
+                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@root" />
+                </xsl:variable>
+                <xsl:if test="cda:entryRelationship/cda:encounter/cda:id[@root = $vEncounterRoot][@extension = $vEncounterExtension]">
+                    <encounter>
+                        <reference value="urn:uuid:{//cda:encompassingEncounter/@lcg:uuid}" />
+                    </encounter>
+                </xsl:if>
+            </xsl:if>
             <xsl:apply-templates select="cda:effectiveTime" mode="period">
                 <xsl:with-param name="pElementName">performedPeriod</xsl:with-param>
             </xsl:apply-templates>
@@ -165,12 +254,12 @@
             <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- asserter (max 1)-->
             <xsl:apply-templates select="cda:informant[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- performers (multiple) -->
             <xsl:for-each select="cda:performer">
                 <performer>
@@ -193,6 +282,20 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
+
+            <!-- complication -->
+            <xsl:if test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value/@code">
+                <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value">
+                    <xsl:with-param name="pElementName">complication</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:if>
+
+            <!-- usedReference:medication -->
+            <xsl:for-each select="cda:entryRelationship/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct">
+                <usedReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </usedReference>
+            </xsl:for-each>
         </Procedure>
     </xsl:template>
 

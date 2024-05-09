@@ -41,7 +41,7 @@ limitations under the License.
         <!-- This is where processing actually starts -->
         <xsl:apply-templates select="$pre-processed-cda" mode="convert" />
     </xsl:template>
-    
+
     <xsl:template match="@* | node()" mode="update-referenced-actor-uuids">
         <xsl:copy>
             <xsl:apply-templates select="@* | node()" mode="update-referenced-actor-uuids" />
@@ -63,21 +63,45 @@ limitations under the License.
                 <xsl:when test="string-length($vAuthorIdRoot) > 0 and string-length($vAuthorIdExtension) > 0">
                     <xsl:for-each select="//cda:*[cda:id/@root = $vAuthorIdRoot][cda:id/@extension = $vAuthorIdExtension][descendant::node()/descendant::node()]">
                         <xsl:if test="position() = 1">
-                            <xsl:value-of select="@lcg:uuid" />
+                            <!-- if this is patient need to go up one level to recordTarget -->
+                            <xsl:choose>
+                                <xsl:when test="parent::cda:recordTarget">
+                                    <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="@lcg:uuid" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:when test="string-length($vAuthorIdRoot) > 0">
                     <xsl:for-each select="//cda:*[cda:id/@root = $vAuthorIdRoot][descendant::node()/descendant::node()]">
                         <xsl:if test="position() = 1">
-                            <xsl:value-of select="@lcg:uuid" />
+                            <!-- if this is patient need to go up one level to recordTarget -->
+                            <xsl:choose>
+                                <xsl:when test="parent::cda:recordTarget">
+                                    <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="@lcg:uuid" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:when test="string-length($vAuthorIdExtension) > 0">
                     <xsl:for-each select="//cda:*[cda:id/@extension = $vAuthorIdExtension][descendant::node()/descendant::node()]">
                         <xsl:if test="position() = 1">
-                            <xsl:value-of select="@lcg:uuid" />
+                            <!-- if this is patient need to go up one level to recordTarget -->
+                            <xsl:choose>
+                                <xsl:when test="parent::cda:recordTarget">
+                                    <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="@lcg:uuid" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:when>

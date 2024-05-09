@@ -3,8 +3,6 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
     <xsl:template match="cda:recordTarget" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
@@ -57,7 +55,7 @@
             <xsl:call-template name="add-birthplace-extension" />
             <xsl:call-template name="add-gender-identity-extension" />
             <xsl:call-template name="add-tribal-affiliation-extension" />
-            <xsl:apply-templates select="cda:patientRole/cda:patient/cda:religiousAffiliationCode" mode="extension"/>
+            <xsl:apply-templates select="cda:patientRole/cda:patient/cda:religiousAffiliationCode" mode="extension" />
             <xsl:apply-templates select="cda:patientRole/cda:id" />
             <xsl:apply-templates select="cda:patientRole/cda:patient/cda:id" />
             <xsl:apply-templates select="cda:patientRole/cda:patient/cda:name" />

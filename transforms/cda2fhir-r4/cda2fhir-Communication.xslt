@@ -3,25 +3,30 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="cda2fhir-DocumentReference.xslt" />
-    <xsl:import href="cda2fhir-Extension.xslt" />
-    <xsl:import href="cda2fhir-Narrative.xslt" />
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
-    <xsl:output indent="yes" />
+    <!-- Add Communication for Instruction template -->
+    <!-- Want to exclude Reportability Response Summary and Subject from this transform -->
+    <xsl:template
+        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.20']]
+        [not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.8'])]
+        [not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7'])]"
+        mode="bundle-entry">
+        
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
 
     <xsl:template match="cda:effectiveTime" mode="communication">
         <sent value="{lcg:cdaTS2date(@value)}" />
     </xsl:template>
 
-    <!-- Add Communication for Instruction template -->
-    <!-- Want to exclude Reportability Response Summary and Subject from this transform -->
-    <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.20']][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.8'])][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7'])]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
-    <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.20']][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.8'])][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7'])]">
+    <xsl:template
+        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.20']][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.8'])][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7'])]">
         <Communication>
+            <xsl:apply-templates select="cda:id" />
+            
+            <!-- partOf: point back to the containing resource -->
+            <partOf>
+                <reference value="urn:uuid:{../../../cda:*/@lcg:uuid}" />
+            </partOf>
             <status>
                 <xsl:attribute name="value">
                     <xsl:value-of select="cda:statusCode/@code" />
@@ -39,7 +44,7 @@
                                 <sent value="{lcg:cdaTS2date(cda:act/cda:effectiveTime/@value)}" />
                             </xsl:when>
                         </xsl:choose>
-                        
+
                     </xsl:when>
                     <xsl:when test="cda:act/cda:participant[@typeCode = 'IRCP']">
                         <xsl:choose>
@@ -48,7 +53,7 @@
                                 <received value="{lcg:cdaTS2date(cda:act/cda:effectiveTime/@value)}" />
                             </xsl:when>
                         </xsl:choose>
-                       
+
                     </xsl:when>
                 </xsl:choose>
             </xsl:for-each>
@@ -60,7 +65,7 @@
             <xsl:call-template name="author-reference">
                 <xsl:with-param name="pElementName" select="'sender'" />
             </xsl:call-template>
-            
+
             <xsl:if test="cda:text">
                 <payload>
                     <contentString>

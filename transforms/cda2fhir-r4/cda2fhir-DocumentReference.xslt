@@ -2,7 +2,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://hl7.org/fhir" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fhir="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3"
     xmlns:lcg="http://www.lantanagroup.com" exclude-result-prefixes="xs fhir cda lcg" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
     <xsl:output indent="yes" />
 
     <!-- create bundle-entry for RR externalDocument as DocumentReference -->
@@ -178,12 +177,11 @@
             <!-- category -->
             <category>
                 <coding>
-                    <system
-                        value="http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"/>
-                    <code value="clinical-note"/>
-                    <display value="Clinical Note"/>
+                    <system value="http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category" />
+                    <code value="clinical-note" />
+                    <display value="Clinical Note" />
                 </coding>
-                <text value="Clinical Note"/>
+                <text value="Clinical Note" />
             </category>
             <!-- subject -->
             <subject>
@@ -192,7 +190,7 @@
 
             <content>
                 <attachment>
-                    <contentType value="text/plain"/>
+                    <contentType value="text/plain" />
                     <url>
                         <xsl:choose>
                             <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
@@ -207,8 +205,8 @@
                         </xsl:choose>
                     </url>
                 </attachment>
-                
-                
+
+
             </content>
         </DocumentReference>
     </xsl:template>

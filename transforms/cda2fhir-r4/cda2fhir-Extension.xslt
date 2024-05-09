@@ -3,13 +3,15 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
     <!-- TEMPLATE: eICR Trigger Code extension
        Check to see if there is a @sdtc:valueSet value in the template - this should mean it's an eICR Trigger Code template -->
-    <xsl:template
-        match="cda:*/cda:code[@sdtc:valueSet] | cda:*/cda:code/cda:translation[@sdtc:valueSet] | cda:*/cda:value[@sdtc:valueSet] | cda:*/cda:value/cda:translation[@sdtc:valueSet] | cda:*/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@sdtc:valueSet] | cda:*/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:translation[@sdtc:valueSet]"
-        mode="entry-extension">
+    <xsl:template match="
+            cda:*/cda:code[@sdtc:valueSet] |
+            cda:*/cda:code/cda:translation[@sdtc:valueSet] |
+            cda:*/cda:value[@sdtc:valueSet] |
+            cda:*/cda:value/cda:translation[@sdtc:valueSet] |
+            cda:*/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@sdtc:valueSet] |
+            cda:*/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:translation[@sdtc:valueSet]" mode="entry-extension">
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
         <xsl:variable name="vCurrentIg">
             <xsl:choose>

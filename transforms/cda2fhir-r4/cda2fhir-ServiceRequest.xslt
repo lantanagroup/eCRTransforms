@@ -3,20 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
-    <!-- SG 20211126: I think that all of the following need to be ServiceRequest
-        (need to double check with Ming)
-            Planned Procedure [2.16.840.1.113883.10.20.22.4.41] (included in code)
-                Initial Case Report Trigger Code Planned Procedure [2.16.840.1.113883.10.20.15.2.3.42] (not included, taken care of by parent?)
-            Planned Act [2.16.840.1.113883.10.20.22.4.39] (ADDED)
-                Initial Case Report Trigger Code Planned Act [2.16.840.1.113883.10.20.15.2.3.41] (not included, taken care of by parent) 
-            Planned Observation [2.16.840.1.113883.10.20.22.4.44] (ADDED)
-                Initial Case Report Trigger Code Lab Test Order [2.16.840.1.113883.10.20.15.2.3.4] (included in code, REMOVED, taken care of by parent)
-                Initial Case Report Trigger Code Planned Observation [2.16.840.1.113883.10.20.15.2.3.43] (not included, taken care of by parent?)
-    -->
-
-    <!-- MD: add transfer Planned Procedure (request or intent) to fhir ServiceRequest -->
+    <!-- Add transfer Planned Procedure (request or intent) to fhir ServiceRequest -->
     <xsl:template match="cda:procedure[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]" mode="bundle-entry">
         <xsl:comment>Planned Procedure</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
@@ -32,7 +19,7 @@
             <!-- set meta profile based on Ig -->
             <xsl:call-template name="add-servicerequest-meta" />
             <xsl:apply-templates select="cda:id" />
-           
+
             <xsl:choose>
                 <xsl:when test="cda:statusCode/@code = 'active'">
                     <status value="active" />
@@ -66,10 +53,8 @@
             <xsl:when test="@typeCode != 'SUBJ'">
                 <xsl:variable name="vTest" select="cda:encounter/cda:code/cda:translation/@code" />
                 <encounter>
-                    <reference
-                        value="urn:uuid:{/cda:ClinicalDocument/cda:component/cda:structuredBody/
-                        cda:component/cda:section/cda:entry/cda:encounter[cda:code/cda:translation/@code=$vTest]/@lcg:uuid}"
-                     />
+                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:component/cda:structuredBody/
+                        cda:component/cda:section/cda:entry/cda:encounter[cda:code/cda:translation/@code=$vTest]/@lcg:uuid}" />
                 </encounter>
             </xsl:when>
         </xsl:choose>
@@ -109,7 +94,7 @@
                     <status value="active" />
                 </xsl:otherwise>
             </xsl:choose>
-            
+
             <!--MD: handle case no cda:order, cda:act, cda:observation, cda:procedure -->
             <xsl:choose>
                 <xsl:when test="cda:order | cda:act | cda:observation | cda:procedure">
@@ -119,7 +104,7 @@
                     <intent value="plan" />
                 </xsl:otherwise>
             </xsl:choose>
-            
+
             <xsl:apply-templates select="cda:priorityCode" mode="priorityCode" />
             <xsl:apply-templates select="cda:code" mode="procedure-request" />
             <xsl:call-template name="subject-reference" />
@@ -172,12 +157,10 @@
             cda:act[@moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'][@extension = '2014-06-09']] |
             cda:observation[@moodCode = 'RQO'][cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.4']]"
         mode="bundle-entry">-->
-    <xsl:template
-        match="
+    <xsl:template match="
             cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
             cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
-            cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]"
-        mode="bundle-entry">
+            cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
@@ -189,8 +172,7 @@
             cda:act[@moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'][@extension = '2014-06-09']] |
             cda:observation[@moodCode = 'RQO'][cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.4']]">
     -->
-    <xsl:template
-        match="
+    <xsl:template match="
             cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
             cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
             cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]">

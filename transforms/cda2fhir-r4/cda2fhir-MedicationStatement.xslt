@@ -3,25 +3,32 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
-    <!-- SG: Don't want this to match if it is inside a Medications Administered section -->
-    <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38'])]"
-        mode="bundle-entry">
+    <!-- Don't want this to match if it is inside a Medications Admin, Admission Meds, Procedures Section -->
+    <xsl:template match="
+            cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN']
+            [not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']) and
+            not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.44']) and
+            not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.7.1'])]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-        <!--<xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry" />
-    <xsl:apply-templates select="cda:author" mode="bundle-entry" />-->
+
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer[cda:assignedEntity]" mode="bundle-entry" />
+
+        <xsl:for-each select="cda:author | cda:informant[position() > 1] | cda:performer">
+            <xsl:apply-templates select="." mode="provenance" />
+        </xsl:for-each>
+
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
 
-
+    <!-- Don't want this to match if it is inside a Medications Admin, Admission Meds, Procedures Section -->
     <xsl:template match="
             cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN']
-            [not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']) and not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.44'])]">
+            [not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38']) and
+            not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.44']) and
+            not(ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.7.1'])]">
         <xsl:variable name="dateAsserted">
             <xsl:choose>
                 <xsl:when test="ancestor-or-self::cda:*/cda:author/cda:time/@value">
@@ -50,9 +57,12 @@
             <xsl:apply-templates select="cda:consumable" mode="medication-statement" />
             <xsl:call-template name="subject-reference" />
             <dateAsserted value="{lcg:cdaTS2date($dateAsserted)}" />
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">informationSource</xsl:with-param>
-            </xsl:call-template>
+
+            <xsl:for-each select="cda:informant[1]">
+                <informationSource>
+                    <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
+                </informationSource>
+            </xsl:for-each>
             <!--
             <taken value="unk"/>
             -->
@@ -89,22 +99,6 @@
             </xsl:if>
         </boundsPeriod>
     </xsl:template>
-
-    <!-- Moved to utilities -->
-    <!--<xsl:template match="cda:doseQuantity" mode="medication-statement">
-        <doseQuantity>
-            <xsl:if test="@value">
-                <value value="{@value}"/>
-            </xsl:if>
-            <xsl:if test="@unit">
-                <unit value="{@unit}"/>
-            </xsl:if>
-            <xsl:if test="@nullFlavor">
-                <code value="{@nullFlavor}"/>
-              <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor"/>
-            </xsl:if>
-        </doseQuantity>
-    </xsl:template>-->
 
     <xsl:template match="cda:effectiveTime[@operator = 'A'][@xsi:type = 'PIVL_TS']" mode="medication-statement">
         <xsl:if test="cda:period">

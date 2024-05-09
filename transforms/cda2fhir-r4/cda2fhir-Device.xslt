@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0" xmlns="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-    <xsl:import href="c-to-fhir-utility.xslt" />
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0" xmlns="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="cda:assignedAuthoringDevice" mode="bundle-entry">
         <xsl:comment>cda:assignedAuthoringDevice</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
-        <xsl:apply-templates select="parent::cda:assignedAuthor"/>
+        <xsl:apply-templates select="parent::cda:assignedAuthor" />
     </xsl:template>
 
     <xsl:template match="cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']" mode="bundle-entry">

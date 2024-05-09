@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0" xmlns="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-    <xsl:import href="c-to-fhir-utility.xslt" />
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0" xmlns="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="/" mode="convert">
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
@@ -37,7 +36,7 @@
                     <profile value="{$vBundleProfile}" />
                 </meta>
             </xsl:if>
-            
+
             <xsl:apply-templates select="cda:ClinicalDocument/cda:id" />
             <type value="document" />
             <timestamp>
@@ -52,7 +51,7 @@
                     </xsl:choose>
                 </xsl:attribute>
             </timestamp>
-            
+
             <xsl:apply-templates mode="bundle-entry" select="cda:ClinicalDocument" />
 
             <xsl:for-each select="//descendant::cda:entry">
@@ -60,7 +59,8 @@
             </xsl:for-each>
 
             <!-- Organization resources from participants of type LOC -->
-            <xsl:for-each select="//descendant::cda:participant[@typeCode = 'LOC'][not(cda:participantRole/@classCode = 'TERR') and not(cda:participantRole/@classCode = 'SDLOC')][not(@nullFlavor)]">
+            <xsl:for-each
+                select="//descendant::cda:participant[@typeCode = 'LOC'][not(cda:participantRole/@classCode = 'TERR') and not(cda:participantRole/@classCode = 'SDLOC')][not(@nullFlavor)][not(parent::cda:substanceAdministration)]">
                 <xsl:apply-templates mode="bundle-entry" select="." />
             </xsl:for-each>
 

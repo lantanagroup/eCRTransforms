@@ -3,21 +3,18 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
     <xsl:template match="cda:custodian" mode="bundle-entry">
         <xsl:for-each select="cda:assignedCustodian/cda:representedCustodianOrganization">
             <xsl:apply-templates select="." mode="bundle-entry" />
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template
-        match="cda:representedCustodianOrganization | 
-               cda:representedOrganization | 
-               cda:receivedOrganization | 
-               cda:serviceProviderOrganization | 
-               cda:participant[@typeCode = 'LOC'][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4'])]"
-        mode="bundle-entry">
+    <xsl:template match="
+            cda:representedCustodianOrganization |
+            cda:representedOrganization |
+            cda:receivedOrganization |
+            cda:serviceProviderOrganization |
+            cda:participant[@typeCode = 'LOC'][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4'])]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 

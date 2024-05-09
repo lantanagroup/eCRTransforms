@@ -3,7 +3,6 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
-
     <xsl:template match="cda:text">
         <xsl:apply-templates />
     </xsl:template>
@@ -48,9 +47,7 @@
         <xsl:param name="wrapping-elements" />
         <xsl:param name="reference-uuid" />
         <xsl:param name="pElementName">reference</xsl:param>
-        <!--
-        <xsl:comment>Called wrap-reference with '<xsl:value-of select="$wrapping-elements"/>'</xsl:comment>
-        -->
+
         <xsl:choose>
             <xsl:when test="$wrapping-elements">
                 <xsl:choose>

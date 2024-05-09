@@ -3,20 +3,18 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <xsl:import href="c-to-fhir-utility.xslt" />
-
     <!-- Create bundle entries for the Problem Observation (Condition) and any authors or performers -->
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-        
+
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
-        
+
         <xsl:for-each select="cda:author[position() > 1] | cda:informant | cda:performer[position() > 1]">
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
-        
+
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
@@ -151,12 +149,12 @@
 
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime" mode="condition" />
-            
+
             <!-- recorder (max 1)-->
             <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
-            
+
             <!-- asserter (max 1)-->
             <xsl:apply-templates select="cda:performer[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>

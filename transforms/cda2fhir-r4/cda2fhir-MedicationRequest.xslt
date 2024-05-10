@@ -53,7 +53,7 @@
             <xsl:variable name="vClosestAuthor">
                 <xsl:call-template name="get-closest-author"/>
             </xsl:variable>
-            <xsl:apply-templates select="$vClosestAuthor[1]" mode="rename-reference-participant">
+            <xsl:apply-templates select="$vClosestAuthor/cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">requester</xsl:with-param>
             </xsl:apply-templates>
 

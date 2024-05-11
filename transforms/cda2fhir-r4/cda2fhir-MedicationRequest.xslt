@@ -63,7 +63,7 @@
             </xsl:apply-templates>
 
             <!-- SG 202201: dosageInstruction isn't required, so if there is no data we don't want an empty element -->
-            <xsl:if test="cda:text or cda:routeCode or (not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or cda:effectiveTime[@xsi:type = 'IVL_TS'] or cda:effectiveTime[@operator = 'A']">
+            <xsl:if test="cda:text or cda:approachSiteCode or cda:routeCode or (not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or cda:effectiveTime[@xsi:type = 'IVL_TS'] or cda:effectiveTime[@operator = 'A']">
                 <dosageInstruction>
                     <xsl:choose>
                         <xsl:when test="cda:text">
@@ -100,6 +100,9 @@
                             </repeat>
                         </timing>
                     </xsl:if>
+                    <xsl:apply-templates select="cda:approachSiteCode">
+                        <xsl:with-param name="pElementName">site</xsl:with-param>
+                    </xsl:apply-templates>
                     <xsl:apply-templates select="cda:routeCode">
                         <xsl:with-param name="pElementName">route</xsl:with-param>
                     </xsl:apply-templates>

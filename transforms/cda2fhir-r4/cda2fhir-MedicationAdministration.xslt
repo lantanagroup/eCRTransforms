@@ -66,7 +66,7 @@
                     </actor>
                 </performer>
             </xsl:for-each>
-            <dosage>
+            <!--<dosage>
                 <xsl:apply-templates select="cda:routeCode">
                     <xsl:with-param name="pElementName">route</xsl:with-param>
                 </xsl:apply-templates>
@@ -79,7 +79,7 @@
                     <xsl:with-param name="pElementName">dose</xsl:with-param>
                     <xsl:with-param name="pSimpleQuantity" select="true()" />
                 </xsl:apply-templates>
-            </dosage>
+            </dosage>-->
             <xsl:call-template name="get-dosage" />
         </MedicationAdministration>
     </xsl:template>
@@ -186,11 +186,11 @@
         <xsl:choose>
             <xsl:when test="cda:routeCode/@code or cda:doseQuantity/@value or cda:approachSiteCode/@code">
                 <dosage>
+                    <xsl:apply-templates select="cda:approachSiteCode">
+                        <xsl:with-param name="pElementName">site</xsl:with-param>
+                    </xsl:apply-templates>
                     <xsl:apply-templates select="cda:routeCode">
                         <xsl:with-param name="pElementName">route</xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="cda:approachSiteCode">
-                        <xsl:with-param name="pElementName">method</xsl:with-param>
                     </xsl:apply-templates>
                     <xsl:apply-templates select="cda:doseQuantity">
                         <xsl:with-param name="pElementName">dose</xsl:with-param>
@@ -206,12 +206,12 @@
             </xsl:when>
             <xsl:when test="cda:routeCode/@nullFlavor and cda:approachSiteCode/@nullFlavor">
                 <dosage>
+                    <site>
+                        <xsl:apply-templates select="cda:approachSiteCode/@nullFlavor" mode="data-absent-reason-extension" />
+                    </site>
                     <route>
                         <xsl:apply-templates select="cda:routeCode/@nullFlavor" mode="data-absent-reason-extension" />
                     </route>
-                    <method>
-                        <xsl:apply-templates select="cda:approachSiteCode/@nullFlavor" mode="data-absent-reason-extension" />
-                    </method>
                 </dosage>
             </xsl:when>
             <xsl:when test="cda:routeCode/@nullFlavor">
@@ -223,9 +223,9 @@
             </xsl:when>
             <xsl:when test="cda:approachSiteCode/@nullFlavor">
                 <dosage>
-                    <method>
+                    <site>
                         <xsl:apply-templates select="cda:approachSiteCode/@nullFlavor" mode="data-absent-reason-extension" />
-                    </method>
+                    </site>
                 </dosage>
             </xsl:when>
         </xsl:choose>

@@ -49,6 +49,9 @@
             <xsl:for-each select="cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:lotNumberText/@value">
                 <lotNumber value="{.}" />
             </xsl:for-each>
+            <xsl:apply-templates select="cda:approachSiteCode">
+                <xsl:with-param name="pElementName">site</xsl:with-param>
+            </xsl:apply-templates>
             <xsl:apply-templates select="cda:routeCode">
                 <xsl:with-param name="pElementName">route</xsl:with-param>
             </xsl:apply-templates>

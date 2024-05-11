@@ -20,12 +20,13 @@
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
+    <!-- Moved all suppression processing to c-to-fhir-utility and templates-to-suppress.xml holds the list of templateIds to suppress -->
     <!-- Suppress Reaction Observation in a procedure since matched as complication (only code) -->
-    <xsl:template match="
+    <!--<xsl:template match="
             cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9'][../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
             cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9'][../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']] |
             cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9'][../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]" mode="bundle-entry" />
-
+-->
     <!-- Procedure Activity Act -->
     <xsl:template match="cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">

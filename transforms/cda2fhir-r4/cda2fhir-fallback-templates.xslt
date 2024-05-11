@@ -16,14 +16,10 @@
             <xsl:for-each select="cda:templateId">
                 <xsl:choose>
                     <xsl:when test="@extension">
-                        <xsl:comment>
-              <xsl:value-of select="concat(@root, ':', @extension)" />
-            </xsl:comment>
+                        <xsl:comment><xsl:value-of select="concat(@root, ':', @extension)" /></xsl:comment>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:comment>
-              <xsl:value-of select="@root" />
-            </xsl:comment>
+                        <xsl:comment><xsl:value-of select="@root" /></xsl:comment>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:for-each>
@@ -42,6 +38,9 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
+    
+    <!-- don't create reference -->
+    <xsl:template match="cda:sequenceNumber" mode="reference"/>
 
     <xsl:template name="wrap-reference">
         <xsl:param name="wrapping-elements" />
@@ -77,6 +76,10 @@
         </xsl:choose>
     </xsl:template>
 
+    <!-- don't create reference -->
+    <xsl:template match="cda:entryRelationship" mode="entry-extension"/>
+        
+    
     <xsl:template match="cda:statusCode" priority="-1">
         <status value="{@code}" />
     </xsl:template>

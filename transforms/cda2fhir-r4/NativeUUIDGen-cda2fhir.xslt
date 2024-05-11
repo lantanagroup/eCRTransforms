@@ -38,12 +38,10 @@ limitations under the License.
         <xsl:variable name="pre-processed-cda">
             <xsl:apply-templates select="$pre-pre-processed-cda" mode="update-referenced-actor-uuids" />
         </xsl:variable>
-
         <!-- This is where processing actually starts -->
         <xsl:apply-templates select="$pre-processed-cda" mode="convert" />
     </xsl:template>
-
-
+    
     <xsl:template match="@* | node()" mode="update-referenced-actor-uuids">
         <xsl:copy>
             <xsl:apply-templates select="@* | node()" mode="update-referenced-actor-uuids" />

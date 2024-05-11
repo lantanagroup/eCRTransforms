@@ -37,7 +37,7 @@
         <xsl:apply-templates select="cda:legalAuthenticator" mode="bundle-entry" />
         <xsl:apply-templates select="cda:authenticator" mode="bundle-entry" />
         <!-- ECON (emergency contact) participants are dealt with separately -->
-        <xsl:apply-templates select="cda:participant[not(cda:associatedEntity[@classCode='ECON'])]" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:participant[not(cda:associatedEntity[@classCode = 'ECON'])]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent" mode="bundle-entry" />
         <!-- <xsl:apply-templates select="cda:informationRecipient/cda:intendedRecipient/cda:receivedOrganization" mode="bundle-entry" />-->
         <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
@@ -446,26 +446,34 @@
 
                         </div>
                     </text>
-                    <!-- SG: Birth Sex, Gender Identity, eICR Processing Status, Manually Initiated eICR, Reportability Response Priority are put in extensions in FHIR so we'll skip them -->
+                    
+                    <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
+                    <xsl:for-each select="
+                            cda:entry[
+                            cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])]
+                            [not(cda:code/@code = '8462-4')]
+                            ]">
+                        
 
-                    <xsl:choose>
-                        <!-- MD:  History of Past illness Narrative should not have entry -->
-                        <xsl:when test="not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.65'])">
-                            <xsl:for-each select="
-                                    cda:entry[not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200')]
-                                    [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45')]
-                                    [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.48')]
-                                    [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.29')]
-                                    [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.22')]
-                                    [not(cda:act/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.7')]
-                                    [not(cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.30')]">
+                        <xsl:apply-templates select="cda:*" mode="reference">
+                            <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
+                        </xsl:apply-templates>
+                    </xsl:for-each>
 
-                                <xsl:apply-templates select="cda:*" mode="reference">
-                                    <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
-                                </xsl:apply-templates>
-                            </xsl:for-each>
-                        </xsl:when>
-                    </xsl:choose>
+                    <!-- get triggers lower in the hierarchy -->
+                    <xsl:for-each select="
+                            descendant::cda:entryRelationship
+                            [descendant::cda:*/descendant::cda:*[3]]
+                            [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])]
+                            [cda:*
+                            [not(cda:templateId[key('templates-to-suppress-key', @root)])]
+                            [not(cda:code/@code = '8462-4')]
+                            ]">
+
+                        <xsl:apply-templates select="cda:*" mode="reference">
+                            <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
+                        </xsl:apply-templates>
+                    </xsl:for-each>
 
                     <!-- Pregnancy Outcome is contained in Pregnancy Status in CDA but not in FHIR (it has a focus of the related pregnancy observation instead) -->
                     <xsl:if test="cda:code/@code = '90767-5'">
@@ -475,6 +483,7 @@
                             </xsl:apply-templates>
                         </xsl:for-each>
                     </xsl:if>
+
                     <xsl:apply-templates select="cda:component/cda:section" />
                 </section>
             </xsl:otherwise>

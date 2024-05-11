@@ -9,6 +9,8 @@
     <xsl:param name="lab-obs-status-mapping-file">../lab-obs-status-mapping.xml</xsl:param>
     <xsl:param name="lab-status-mapping-file">../lab-status-mapping.xml</xsl:param>
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
+    <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
+    <xsl:param name="templates-to-suppress-file">../templates-to-suppress.xml</xsl:param>
 
     <xsl:variable name="template-profile-mapping" select="document($template-profile-mapping-file)/mapping" />
     <xsl:variable name="participant-profile-mapping" select="document($participant-profile-mapping-file)/mapping" />
@@ -16,37 +18,16 @@
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
+    <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
+    <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
 
     <xsl:key name="referenced-acts" match="cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122'])]" use="cda:id/@root" />
+    <!-- Key to match templates that are suppresee because they are not full resources in FHIR (extension, components, data elements, etc.) -->
+    <xsl:key name="templates-to-suppress-key" match="$templates-to-suppress" use="templateToSuppress/@templateIdRoot" />
 
-    <xsl:template name="breadcrumb-comment">
-        <xsl:comment>
-            <xsl:call-template name="breadcrumb-path-walker" />
-        </xsl:comment>
-    </xsl:template>
-
-    <xsl:template name="breadcrumb-path-walker">
-        <xsl:for-each select="parent::cda:*">
-            <xsl:call-template name="breadcrumb-path-walker" />
-        </xsl:for-each>
-        <xsl:text>/</xsl:text>
-        <xsl:value-of select="local-name(.)" />
-        <xsl:for-each select="cda:id">
-            <xsl:text>[cda:id</xsl:text>
-            <xsl:if test="@root">
-                <xsl:text>[@root="</xsl:text>
-                <xsl:value-of select="@root" />
-                <xsl:text>"]</xsl:text>
-            </xsl:if>
-            <xsl:if test="@extension">
-                <xsl:text>[@extension="</xsl:text>
-                <xsl:value-of select="@extension" />
-                <xsl:text>"]</xsl:text>
-            </xsl:if>
-            <xsl:text>]</xsl:text>
-        </xsl:for-each>
-    </xsl:template>
-
+    <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
+    <xsl:template match="cda:*[cda:templateId[key('templates-to-suppress-key', @root)]]" mode="bundle-entry" />
+    
     <!-- TEMPLATE: Create the bundle entry -->
     <xsl:template name="create-bundle-entry">
         <!-- MD: do not create entry for Diastolic Blood Pressure, since it has been created
@@ -61,6 +42,41 @@
                 </entry>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
+    
+    <!-- TEMPLATE: act reference -->
+    <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122']]" mode="reference">
+        <xsl:param name="wrapping-elements" />
+        <xsl:variable name="reference-id" select="cda:id" />
+        
+        <xsl:for-each select="key('referenced-acts', $reference-id/@root)">
+            <xsl:variable name="vTemplateIdRoot" select="cda:templateId/@root"/>
+            <!-- Skip creating a reference for a suppressed template -->
+            <xsl:if test="empty(key('templates-to-suppress-key', $vTemplateIdRoot))">
+                <xsl:comment>
+                <xsl:text>Found reference to </xsl:text>
+                <xsl:text>&lt;id root=</xsl:text>
+                <xsl:value-of select="cda:id/@root" />
+                <xsl:if test="cda:id/@extention">
+                    <xsl:text> extension=</xsl:text>
+                    <xsl:value-of select="cda:id/@extension" />
+                </xsl:if>
+                <xsl:text>/&gt;</xsl:text>
+            </xsl:comment>
+                <xsl:choose>
+                    <xsl:when test="$reference-id/@extension = cda:id/@extension">
+                        <xsl:apply-templates select="." mode="reference">
+                            <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:when test="$reference-id[not(@extension)] and cda:id[not(@extension)]">
+                        <xsl:apply-templates select="." mode="reference">
+                            <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
+                        </xsl:apply-templates>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- TEMPLATE: convert elements to markdown string -->
@@ -610,40 +626,6 @@
         </referenceRange>
     </xsl:template>
 
-    <!-- TEMPLATE: act reference -->
-    <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122']]" mode="reference">
-        <xsl:param name="wrapping-elements" />
-        <xsl:variable name="reference-id" select="cda:id" />
-        <xsl:for-each select="key('referenced-acts', $reference-id/@root)">
-            <xsl:comment>
-        <xsl:text>Found reference to </xsl:text>
-        <xsl:text>&lt;id root=</xsl:text>
-        <xsl:value-of select="cda:id/@root" />
-        <xsl:if test="cda:id/@extention">
-          <xsl:text> extension=</xsl:text>
-          <xsl:value-of select="cda:id/@extension" />
-        </xsl:if>
-        <xsl:text>/&gt;</xsl:text>
-      </xsl:comment>
-            <!--  
-			<xsl:comment>wrapping-elements=<xsl:value-of select="$wrapping-elements"/></xsl:comment>
-			-->
-            <xsl:choose>
-                <xsl:when test="$reference-id/@extension = cda:id/@extension">
-                    <xsl:apply-templates select="." mode="reference">
-                        <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
-                    </xsl:apply-templates>
-                </xsl:when>
-                <xsl:when test="$reference-id[not(@extension)] and cda:id[not(@extension)]">
-                    <xsl:apply-templates select="." mode="reference">
-                        <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
-                    </xsl:apply-templates>
-                </xsl:when>
-
-            </xsl:choose>
-        </xsl:for-each>
-    </xsl:template>
-
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <!-- Remove Encounter Diagnosis wrappers, since maps to Condition.category -->
@@ -906,15 +888,15 @@
     <xsl:template name="get-closest-author">
         <xsl:choose>
             <xsl:when test="cda:author">
-                <xsl:copy-of select="cda:author"/>
+                <xsl:copy-of select="cda:author" />
             </xsl:when>
             <!-- when there is nothing above, start looking further afield - check the containing section/author -->
             <xsl:when test="ancestor::cda:section/cda:author">
-                <xsl:copy-of select="ancestor::cda:section/cda:author"/>
+                <xsl:copy-of select="ancestor::cda:section/cda:author" />
             </xsl:when>
             <!-- when there is no section author - look at the ClinicalDocument/author -->
             <xsl:when test="/cda:ClinicalDocument/cda:author">
-                <xsl:copy-of select="/cda:ClinicalDocument/cda:author"/>
+                <xsl:copy-of select="/cda:ClinicalDocument/cda:author" />
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -1085,4 +1067,32 @@
         </xsl:choose>
     </xsl:template>
 
+    <xsl:template name="breadcrumb-comment">
+        <xsl:comment>
+            <xsl:call-template name="breadcrumb-path-walker" />
+        </xsl:comment>
+    </xsl:template>
+    
+    <xsl:template name="breadcrumb-path-walker">
+        <xsl:for-each select="parent::cda:*">
+            <xsl:call-template name="breadcrumb-path-walker" />
+        </xsl:for-each>
+        <xsl:text>/</xsl:text>
+        <xsl:value-of select="local-name(.)" />
+        <xsl:for-each select="cda:id">
+            <xsl:text>[cda:id</xsl:text>
+            <xsl:if test="@root">
+                <xsl:text>[@root="</xsl:text>
+                <xsl:value-of select="@root" />
+                <xsl:text>"]</xsl:text>
+            </xsl:if>
+            <xsl:if test="@extension">
+                <xsl:text>[@extension="</xsl:text>
+                <xsl:value-of select="@extension" />
+                <xsl:text>"]</xsl:text>
+            </xsl:if>
+            <xsl:text>]</xsl:text>
+        </xsl:for-each>
+    </xsl:template>
+    
 </xsl:stylesheet>

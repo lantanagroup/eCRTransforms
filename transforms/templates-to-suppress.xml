@@ -1,0 +1,25 @@
+<templatesToSuppress>
+  <!-- CDA templates that are standalone in CDA but map to a FHIR extension, Observation.component, resource data element etc. -->
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.200" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.34.3.45" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.48" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.29" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.22" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.7" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.30" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.33" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.2.65" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.37" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.297" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.280" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.53" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.418" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.419" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.219" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.216" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.215" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.64" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.9" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.51" />
+    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.50" />
+</templatesToSuppress>

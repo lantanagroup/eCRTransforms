@@ -12,46 +12,6 @@
     
     <!-- NOTE: to suppress templates, add the templateId/@root to the file templates-to-suppress.xml
          these are matched in c-to-fhir-utilty.xlst -->
-    
-    <!--<!-\- Suppress C-CDA Immunization Refusal Reason: processed and used for statusReason in Immunization -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.53']]" mode="bundle-entry" />
-    
-    <!-\- Suppress Laboratory Result Status (ID) and Laboratory Result Observation Status (ID): processed and used for status value in containing Observations -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.418' or @root = '2.16.840.1.113883.10.20.22.4.419']]" mode="bundle-entry" />
-    
-    <!-\- Suppress Therapeutic Response to Medication: processed as an extension -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.37']]" mode="bundle-entry" />
-    
-    <!-\- Suppress Estimated Date of Delivery and Estimated Gestation Age of Pregnancy: processed as Observation.components of Pregnancy Status Observation-\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280']]" mode="bundle-entry" />
-
-    <!-\- Suppress ODH Usual Industry Observation: processed as Observation.component of ODH Usual Work -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.219']]" mode="bundle-entry" />
-
-    <!-\- Suppress ODH Past or Present Industry Observation: processed as Observation.component of ODH Usual Work -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.216']]" mode="bundle-entry" />
-
-    <!-\- Suppress ODH Occupational Hazard Observation: processed as Observation.component of ODH Usual Work -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.215']]" mode="bundle-entry" />
-
-    <!-\- Suppress Birth Sex Observation: processed in add-birth-sex-extension in cda2fhir-Patient.xslt -\->
-    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200']" mode="bundle-entry" />
-
-    <!-\- Supress Gender Identity: processed in gender-identity-extension in cda2fhir-Patient.xslt -\->
-    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45']" mode="bundle-entry" />
-
-    <!-\- Suppress Reportability Response Priority, Validation Output, Subject: processed in extension in cda2fhir-Composition.xslt -\->
-    <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.30' or @root = '2.16.840.1.113883.10.20.15.2.3.33']]" mode="bundle-entry" />
-
-    <!-\- Suppress Subject, Initiation: processed in extension in cda2fhir-Composition.xslt -\->
-    <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7' or @root = '2.16.840.1.113883.10.20.15.2.3.22']]" mode="bundle-entry" />
-
-    <!-\- Suppress Tribal Affiliation Observation: processsed in add-tribal-affiliation-extension in cda2fhir-Patient.xslt -\->
-    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.48']" mode="bundle-entry" />
-
-    <!-\- Suppress C-CDA Comment: processed in Observation processing -\->
-    <xsl:template match="cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.64']" mode="bundle-entry" />-->
-    <!-- ******************************************************************************************************* -->
 
     <!-- *********************************************************************************************************** 
          Bundle Entry processing 

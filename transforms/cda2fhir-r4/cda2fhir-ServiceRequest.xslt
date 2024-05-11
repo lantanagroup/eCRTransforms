@@ -3,13 +3,28 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
+    <!-- C-CDA Patient Referral Act, C-CDA Planned Act, C-CDA Planned Observation -->
+    <xsl:template match="
+        cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
+        cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
+        cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+        
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
+    </xsl:template>
+    
     <!-- Add transfer Planned Procedure (request or intent) to fhir ServiceRequest -->
     <xsl:template match="cda:procedure[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]" mode="bundle-entry">
         <xsl:comment>Planned Procedure</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
+        
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
@@ -140,38 +155,6 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- SG 20211117
-        Might just be able to lump these all in with Planned Procedure above (but also might not!)
-        Patient Referral Act [2.16.840.1.113883.10.20.22.4.140] 
-        **Procedure Activity Act [2.16.840.1.113883.10.20.22.4.12] template has hardcoded moodCode of EVN, is always an act that has already happened,
-         so removing from the match below**
-        Deleted because taken care of by parent (Planned Observation) Initial Case Report Trigger Code Lab Test Order [2.16.840.1.113883.10.20.15.2.3.4] (hardcoded moodCode of RQO)
-        Adding: 
-            Planned Act [2.16.840.1.113883.10.20.22.4.39]
-            Planned Observation [2.16.840.1.113883.10.20.22.4.44]
-            
-    -->
-    <!--<xsl:template
-        match="
-            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
-            cda:act[@moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'][@extension = '2014-06-09']] |
-            cda:observation[@moodCode = 'RQO'][cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.4']]"
-        mode="bundle-entry">-->
-    <xsl:template match="
-            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
-            cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
-            cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
-    </xsl:template>
-
-    <!--<xsl:template
-        match="
-            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
-            cda:act[@moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'][@extension = '2014-06-09']] |
-            cda:observation[@moodCode = 'RQO'][cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.4']]">
-    -->
     <xsl:template match="
             cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
             cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |

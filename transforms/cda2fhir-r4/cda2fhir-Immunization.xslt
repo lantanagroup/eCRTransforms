@@ -79,6 +79,8 @@
                     </detail>
                 </reaction>
             </xsl:for-each>
+            
+            <!-- protocolApplied/doseNumberPositiveInt -->
             <xsl:for-each select="cda:repeatNumber">
                 <protocolApplied>
                     <doseNumberPositiveInt>

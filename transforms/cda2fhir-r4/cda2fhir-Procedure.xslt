@@ -45,18 +45,18 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="cda:id" />
-            
+
             <!-- partOf: if this is contained in a procedure or substanceAdministration, reference that -->
             <xsl:if test="
-                parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'] or
-                parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14'] or
-                parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13'] or
-                parent::cda:*/cda:substanceAdministration">
+                    parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12'] or
+                    parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14'] or
+                    parent::cda:*/parent::cda:*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13'] or
+                    parent::cda:*/cda:substanceAdministration">
                 <partOf>
                     <reference value="urn:uuid:{parent::cda:*/parent::cda:*/@lcg:uuid}" />
                 </partOf>
             </xsl:if>
-            
+
             <xsl:apply-templates select="cda:statusCode" mode="procedure" />
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
@@ -194,11 +194,11 @@
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.37']" />
 
             <!-- complication -->
-            <xsl:if test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value/@code">
-                <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value">
-                    <xsl:with-param name="pElementName">complication</xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:if>
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']">
+                <complicationDetail>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </complicationDetail>
+            </xsl:for-each>
 
             <!-- usedReference:medication -->
             <xsl:for-each select="cda:entryRelationship/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct">

@@ -454,7 +454,6 @@
                             [not(cda:code/@code = '8462-4')]
                             ]">
                         
-
                         <xsl:apply-templates select="cda:*" mode="reference">
                             <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
                         </xsl:apply-templates>
@@ -489,33 +488,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
-    <!-- ServiceEvent is dealt with as an extension in eCR -->
-    <!--<xsl:template match="cda:serviceEvent" mode="composition-event">
-        <event>
-            <xsl:for-each select="cda:performer/cda:assignedEntity">
-
-                <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/PerformerExtension"> http://hl7.org/fhir/us/ccda/StructureDefinition/PerformerExtension <xsl:apply-templates select="."
-                        mode="reference">
-                        <xsl:with-param name="wrapping-elements">valueReference</xsl:with-param>
-                    </xsl:apply-templates>
-                </extension>
-            </xsl:for-each>
-
-            <!-\- MD: transform cda:serviceEvent/cda:code to fhir:Composition/fhir:event/fhir:code -\->
-            <xsl:apply-templates select="cda:code">
-                <xsl:with-param name="pElementName">code</xsl:with-param>
-            </xsl:apply-templates>
-
-            <xsl:apply-templates select="cda:effectiveTime" mode="period" />
-
-            <!-\- CarePlan resource not strictly needed for ONC-HIP use casem, but added at Clinician's on FHIR event.  -\->
-
-            <detail>
-                <xsl:apply-templates select="." mode="reference" />
-            </detail>
-        </event>
-    </xsl:template>-->
 
     <xsl:template name="create-empty-result">
         <entry>

@@ -183,7 +183,25 @@
     </xsl:template>
 
     <xsl:template name="get-dosage">
-        <xsl:choose>
+        <xsl:if test="cda:routeCode or cda:doseQuantity or cda:approachSiteCode or cda:rateQuantity">
+            <dosage>
+                <xsl:apply-templates select="cda:approachSiteCode">
+                    <xsl:with-param name="pElementName">site</xsl:with-param>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="cda:routeCode">
+                    <xsl:with-param name="pElementName">route</xsl:with-param>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="cda:doseQuantity">
+                    <xsl:with-param name="pElementName">dose</xsl:with-param>
+                    <xsl:with-param name="pSimpleQuantity" select="true()" />
+                </xsl:apply-templates>
+                <xsl:apply-templates select="cda:rateQuantity">
+                    <xsl:with-param name="pElementName">rateQuantity</xsl:with-param>
+                    <xsl:with-param name="pSimpleQuantity" select="true()" />
+                </xsl:apply-templates>
+            </dosage>
+        </xsl:if>
+        <!--<xsl:choose>
             <xsl:when test="cda:routeCode/@code or cda:doseQuantity/@value or cda:approachSiteCode/@code">
                 <dosage>
                     <xsl:apply-templates select="cda:approachSiteCode">
@@ -228,7 +246,7 @@
                     </site>
                 </dosage>
             </xsl:when>
-        </xsl:choose>
+        </xsl:choose>-->
     </xsl:template>
 
     <xsl:template match="cda:effectiveTime[@xsi:type = 'IVL_TS']" mode="medication-administration">

@@ -234,7 +234,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <!-- TEMPLATE: usablePeriod -->
     <xsl:template match="cda:useablePeriod[@value or cda:low/@value or cda:high/@value]">
         <xsl:choose>
@@ -259,7 +259,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="cda:birthTime | sdtc:birthTime">
         <xsl:param name="pElementName">birthDate</xsl:param>
         <xsl:if test="not(@nullFlavor)">
@@ -268,10 +268,10 @@
             </xsl:element>
         </xsl:if>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime | cda:time" mode="instant">
         <xsl:param name="pElementName">date</xsl:param>
-        <xsl:param name="pDataType"/>
+        <xsl:param name="pDataType" />
         <xsl:choose>
             <xsl:when test="./@value and not(cda:low) and not(cda:center)">
                 <xsl:element name="{$pElementName}">
@@ -280,11 +280,11 @@
                     </xsl:variable>
                     <xsl:attribute name="value">
                         <xsl:choose>
-                            <xsl:when test="$pDataType='instant' and string-length($vValue)=10">
-                                <xsl:value-of select="concat($vValue, 'T00:00:00Z')"/>
+                            <xsl:when test="$pDataType = 'instant' and string-length($vValue) = 10">
+                                <xsl:value-of select="concat($vValue, 'T00:00:00Z')" />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="$vValue"/>
+                                <xsl:value-of select="$vValue" />
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
@@ -307,32 +307,32 @@
             <xsl:otherwise />
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime[@value or cda:low or cda:high] | cda:time[@value or cda:low or cda:high]" mode="period">
         <xsl:param name="pElementName">period</xsl:param>
         <xsl:element name="{$pElementName}">
             <xsl:call-template name="effectiveTimeInner" />
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime | cda:time" mode="timingPeriod">
         <timingPeriod>
             <xsl:call-template name="effectiveTimeInner" />
         </timingPeriod>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime" mode="whenGiven">
         <whenGiven>
             <xsl:call-template name="effectiveTimeInner" />
         </whenGiven>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime" mode="event">
         <event>
             <xsl:call-template name="effectiveTimeInner" />
         </event>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime[@operator = 'A']">
         <repeat>
             <frequency value="1" />
@@ -359,7 +359,7 @@
                     </duration>
                 </xsl:when>
             </xsl:choose>
-            
+
             <xsl:choose>
                 <xsl:when test="cda:period/@unit and not(cda:period/cda:low) and not(cda:period/cda:high)">
                     <units>
@@ -385,14 +385,14 @@
             </xsl:choose>
         </repeat>
     </xsl:template>
-    
+
     <xsl:template match="cda:ClinicalDocument/cda:effectiveTime" mode="observation">
         <xsl:comment>Using document effective time as issued date</xsl:comment>
         <xsl:apply-templates select="." mode="instant">
             <xsl:with-param name="pElementName">issued</xsl:with-param>
         </xsl:apply-templates>
     </xsl:template>
-    
+
     <xsl:template name="effectiveTimeInner">
         <xsl:if test="cda:width/@value and cda:width/@unit = 'weeks' and cda:high">
             <!-- Convert date string into date - only care about the first 8 chars -->
@@ -431,7 +431,7 @@
             </start>
         </xsl:if>
     </xsl:template>
-    
+
     <!-- Helper templates -->
     <xsl:template match="cda:effectiveTime" mode="extension-effectiveTime">
         <extension url="http://lantana.com/fhir/Profile/organizer#effectiveTime">
@@ -453,7 +453,7 @@
             </valuePeriod>
         </extension>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime" mode="applies">
         <xsl:choose>
             <xsl:when test="@value and @value != ''">
@@ -490,7 +490,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="cda:effectiveTime" mode="appliesPeriod">
         <appliesPeriod>
             <xsl:choose>
@@ -520,7 +520,7 @@
             </xsl:choose>
         </appliesPeriod>
     </xsl:template>
-    
+
     <!-- TEMPLATE: If effectiveTime has no mode figure out what mode it's supposed to have -->
     <xsl:template match="cda:effectiveTime | cda:time" priority="-1">
         <xsl:param name="pStartElementName" />
@@ -554,7 +554,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="cda:high | cda:low" mode="range">
         <xsl:variable name="pElementName" select="local-name()" />
         <xsl:element name="{$pElementName}">
@@ -566,7 +566,7 @@
                 </value>
             </xsl:if>
             <xsl:if test="@unit">
-                
+
                 <unit>
                     <xsl:attribute name="value">
                         <xsl:value-of select="@unit" />
@@ -575,7 +575,7 @@
             </xsl:if>
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template match="cda:value[@xsi:type = 'INT']" mode="scale">
         <xsl:param name="pElementName" select="'valueQuantity'" />
         <xsl:element name="{$pElementName}">
@@ -590,9 +590,9 @@
             </code>
         </xsl:element>
     </xsl:template>
-    
+
     <!-- TEMPLATE: doseQuantity -->
-    <xsl:template match="cda:doseQuantity">
+    <xsl:template match="cda:doseQuantity | cda:rateQuantity">
         <!-- RG: Refactoring note - Look for use of this template, and see if we can refactor the whole Dosage datatype out of the resources and into this file -->
         <xsl:param name="pElementName">doseQuantity</xsl:param>
         <xsl:param name="pSimpleQuantity" select="false()" />
@@ -1017,9 +1017,11 @@
             cda:methodCode | cda:approachSiteCode | sdtc:functionCode | cda:dischargeDispositionCode | sdtc:dischargeDispositionCode">
         <xsl:param name="pElementName" select="'CodeableConcept'" />
         <xsl:param name="pIncludeCoding" select="true()" />
+        <xsl:param name="pRequireDataAbsentReason" select="false()" />
         <xsl:call-template name="newCreateCodableConcept">
             <xsl:with-param name="pElementName" select="$pElementName" />
             <xsl:with-param name="pIncludeCoding" select="$pIncludeCoding" />
+            <xsl:with-param name="pRequireDataAbsentReason" select="$pRequireDataAbsentReason" />
         </xsl:call-template>
     </xsl:template>
 
@@ -1028,6 +1030,7 @@
         <xsl:param name="pElementName" />
         <xsl:param name="pIncludeCoding" select="true()" />
         <xsl:param name="includeTranslations" select="true()" />
+        <xsl:param name="pRequireDataAbsentReason" select="false()" />
         <xsl:variable name="originalTextReference">
             <xsl:value-of select="substring(cda:originalText/cda:reference/@value, 2)" />
         </xsl:variable>
@@ -1066,21 +1069,22 @@
                 </xsl:otherwise>
             </xsl:choose>-->
         </xsl:variable>
-        <xsl:variable name="vNullFlavor">
+        <!--<xsl:variable name="vNullFlavor">
             <xsl:choose>
                 <xsl:when test="not(@nullFlavor) and not(@code) and not(@codeSystem)">NI</xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="@nullFlavor" />
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:variable>
+        </xsl:variable>-->
         <xsl:variable name="content">
             <xsl:call-template name="createCodeableConceptContent">
                 <xsl:with-param name="codeSystem" select="@codeSystem" />
                 <xsl:with-param name="code" select="@code" />
                 <xsl:with-param name="displayName" select="$display" />
                 <xsl:with-param name="isValue" select="$isValue" />
-                <xsl:with-param name="pNullFlavor" select="$vNullFlavor" />
+                <!--                <xsl:with-param name="pNullFlavor" select="$vNullFlavor" />-->
+                <xsl:with-param name="pRequireDataAbsentReason" select="$pRequireDataAbsentReason" />
             </xsl:call-template>
         </xsl:variable>
 
@@ -1100,25 +1104,25 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <xsl:variable name="vNullFlavorInTranslation">
+                <!--<xsl:variable name="vNullFlavorInTranslation">
                     <xsl:choose>
                         <xsl:when test="not(@nullFlavor) and not(@code) and not(@codeSystem)">NI</xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="@nullFlavor" />
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:variable>
+                </xsl:variable>-->
                 <xsl:variable name="this-translation">
                     <xsl:call-template name="createCodeableConceptContent">
                         <xsl:with-param name="codeSystem" select="@codeSystem" />
                         <xsl:with-param name="code" select="@code" />
                         <xsl:with-param name="displayName" select="$vTranslationDisplay" />
                         <xsl:with-param name="isValue" select="$isValue" />
-                        <xsl:with-param name="pNullFlavor" select="$vNullFlavorInTranslation" />
+                        <!--                        <xsl:with-param name="pNullFlavor" select="$vNullFlavorInTranslation" />-->
+                        <xsl:with-param name="pRequireDataAbsentReason" />
                     </xsl:call-template>
                 </xsl:variable>
                 <xsl:choose>
-
                     <xsl:when test="$pIncludeCoding = true()">
                         <coding>
                             <xsl:copy-of select="$this-translation" />
@@ -1202,58 +1206,76 @@
         <xsl:param name="codeSystem" />
         <xsl:param name="code" />
         <xsl:param name="displayName" />
-        <!--
-		<xsl:param name="label"/>
-		-->
         <xsl:param name="isValue" select="false()" />
-        <xsl:param name="pNullFlavor" />
-        <xsl:variable name="codeOrValueElementName">
-            <xsl:choose>
-                <xsl:when test="not($isValue)">code</xsl:when>
-                <xsl:otherwise>value</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:if test="$codeSystem and $pNullFlavor = ''">
-            <system>
-                <xsl:attribute name="value">
-                    <xsl:call-template name="convertOID">
-                        <xsl:with-param name="oid" select="$codeSystem" />
-                    </xsl:call-template>
-                </xsl:attribute>
-            </system>
-        </xsl:if>
-        <xsl:if test="$code">
-            <xsl:element name="{$codeOrValueElementName}">
-                <xsl:attribute name="value">
-                    <xsl:value-of select="$code" />
-                </xsl:attribute>
-            </xsl:element>
-        </xsl:if>
+        <!--        <xsl:param name="pNullFlavor" />-->
+        <xsl:param name="pRequireDataAbsentReason" select="false()" />
 
-        <xsl:if test="not($pNullFlavor = '') and not($code)">
-            <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
-            <xsl:element name="{$codeOrValueElementName}">
-                <xsl:attribute name="value">
-                    <xsl:value-of select="$pNullFlavor" />
-                </xsl:attribute>
-            </xsl:element>
-        </xsl:if>
         <xsl:choose>
-            <xsl:when test="$displayName and not($displayName = '') and $pNullFlavor = ''">
-                <display>
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="$displayName" />
-                    </xsl:attribute>
-                </display>
+            <xsl:when test="(($pRequireDataAbsentReason and not($code) and not($codeSystem))) or @nullFlavor">
+                <xsl:choose>
+                    <xsl:when test="not(@nullFlavor)">
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="unknown" />
+                        </extension>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
-            <xsl:when test="not($pNullFlavor = '')">
-                <display>
-                    <xsl:attribute name="value" select="lcg:fcnMapNullFlavor($pNullFlavor)" />
-                </display>
-            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="codeOrValueElementName">
+                    <xsl:choose>
+                        <xsl:when test="not($isValue)">code</xsl:when>
+                        <xsl:otherwise>value</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <!--<xsl:if test="$codeSystem and $pNullFlavor = ''">-->
+                <xsl:if test="$codeSystem">
+                    <system>
+                        <xsl:attribute name="value">
+                            <xsl:call-template name="convertOID">
+                                <xsl:with-param name="oid" select="$codeSystem" />
+                            </xsl:call-template>
+                        </xsl:attribute>
+                    </system>
+                </xsl:if>
+                <!--</xsl:if>-->
+                <xsl:if test="$code">
+                    <xsl:element name="{$codeOrValueElementName}">
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$code" />
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:if>
+
+                <!--<xsl:if test="not($pNullFlavor = '') and not($code)">
+                    <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
+                    <xsl:element name="{$codeOrValueElementName}">
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$pNullFlavor" />
+                        </xsl:attribute>
+                    </xsl:element>
+                </xsl:if>-->
+                <!--                <xsl:choose>-->
+                <!--                    <xsl:when test="$displayName and not($displayName = '') and $pNullFlavor = ''">-->
+                <xsl:if test="string-length($displayName) > 0">
+                    <display>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="$displayName" />
+                        </xsl:attribute>
+                    </display>
+                </xsl:if>
+                <!--<xsl:when test="not($pNullFlavor = '')">
+                        <display>
+                            <xsl:attribute name="value" select="lcg:fcnMapNullFlavor($pNullFlavor)" />
+                        </display>
+                    </xsl:when>-->
+                <!--</xsl:choose>-->
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="cda:administrativeGenderCode">
         <xsl:param name="pElementName">gender</xsl:param>
         <xsl:variable name="cda-gender" select="@code" />
@@ -1382,7 +1404,7 @@
             <xsl:with-param name="pIncludeCoding" select="$pIncludeCoding" />
         </xsl:call-template>
     </xsl:template>
-    
+
     <xsl:template name="II2Identifier">
         <xsl:param name="this" />
 

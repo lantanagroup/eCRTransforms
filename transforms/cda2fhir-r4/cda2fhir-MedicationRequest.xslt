@@ -6,6 +6,9 @@
     <xsl:template match="cda:substanceAdministration[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.16' or @root = '2.16.840.1.113883.10.20.22.4.42']][@moodCode = 'INT']" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
         <!--<xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry" />-->
+
+        <xsl:apply-templates select="cda:consumable/cda:manufacturedProduct" mode="bundle-entry" />
+
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer[cda:assignedEntity]" mode="bundle-entry" />
@@ -26,18 +29,24 @@
             <status value="active" />
             <!-- This is an actual order in the Pharmacist's system -->
             <intent value="order" />
-            
-            <xsl:apply-templates select="cda:consumable" mode="medication-request" />
+
+            <!--            <xsl:apply-templates select="cda:consumable" mode="medication-request" />-->
+            <xsl:for-each select="cda:consumable/cda:manufacturedProduct">
+                <medicationReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </medicationReference>
+            </xsl:for-each>
+
             <!-- subject -->
             <xsl:call-template name="subject-reference" />
-            
+
             <!-- supportingInformation: anything in an entryRelationship that isn't already mapped -->
-            <xsl:for-each select="cda:entryRelationship/cda:*">
+            <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19'])]">
                 <supportingInformation>
                     <reference value="urn:uuid:{@lcg:uuid}" />
                 </supportingInformation>
             </xsl:for-each>
-            
+
             <!-- authoredOn -->
             <xsl:choose>
                 <xsl:when test="cda:author[1]/cda:time/@value">
@@ -51,7 +60,7 @@
             <!-- requester (required and max 1)-->
             <!-- get closest author (work up the hierarchy if needed) -->
             <xsl:variable name="vClosestAuthor">
-                <xsl:call-template name="get-closest-author"/>
+                <xsl:call-template name="get-closest-author" />
             </xsl:variable>
             <xsl:apply-templates select="$vClosestAuthor/cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">requester</xsl:with-param>
@@ -62,8 +71,16 @@
                 <xsl:with-param name="pElementName">performer</xsl:with-param>
             </xsl:apply-templates>
 
+            <!-- reasonReference (c-cda indication) -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']]">
+                <reasonReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </reasonReference>
+            </xsl:for-each>
+
             <!-- SG 202201: dosageInstruction isn't required, so if there is no data we don't want an empty element -->
-            <xsl:if test="cda:text or cda:approachSiteCode or cda:routeCode or (not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or cda:effectiveTime[@xsi:type = 'IVL_TS'] or cda:effectiveTime[@operator = 'A']">
+            <xsl:if
+                test="cda:text or cda:approachSiteCode or cda:routeCode or (not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or cda:effectiveTime[@xsi:type = 'IVL_TS'] or cda:effectiveTime[@operator = 'A']">
                 <dosageInstruction>
                     <xsl:choose>
                         <xsl:when test="cda:text">
@@ -125,19 +142,19 @@
                             <numerator>
                                 <value>
                                     <xsl:attribute name="value">
-                                        <xsl:value-of select="cda:maxDoseQuantity/cda:numerator/@value"/>
+                                        <xsl:value-of select="cda:maxDoseQuantity/cda:numerator/@value" />
                                     </xsl:attribute>
                                 </value>
                             </numerator>
                             <denominator>
                                 <value>
                                     <xsl:attribute name="value">
-                                        <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@value"/>
+                                        <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@value" />
                                     </xsl:attribute>
                                 </value>
                                 <unit>
                                     <xsl:attribute name="value">
-                                        <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@unit"/>
+                                        <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@unit" />
                                     </xsl:attribute>
                                 </unit>
                                 <system value="http://unitsofmeasure.org" />
@@ -147,10 +164,38 @@
                 </dosageInstruction>
             </xsl:if>
 
-            <xsl:if test="cda:repeatNumber/@value > 0">
+            <!-- dispenseRequest -->
+            <xsl:if test="cda:repeatNumber/@value > 0 or cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]">
                 <dispenseRequest>
-                    <xsl:apply-templates select="cda:repeatNumber" mode="medication-request" />
+                    <!-- dispenseInterval -->
+                    <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime" mode='period'>
+                        <xsl:with-param name="pElementName">dispenseInterval</xsl:with-param>
+                    </xsl:apply-templates>
+                    
+                    <!-- repeatNumber -->
+                    <!-- there can be a repeat number in the main substanceAdministration and in the Supply Order, use the main one first and 
+                     only if that doesn't exist use the one in the supply order-->
+                    <xsl:choose>
+                        <xsl:when test="cda:repeatNumber">
+                            <xsl:apply-templates select="cda:repeatNumber" mode="medication-request" />
+                        </xsl:when>
+                        <xsl:when test="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:repeatNumber">
+                            <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:repeatNumber" mode="medication-request" />
+                        </xsl:when>
+                    </xsl:choose>
+                    <!-- quantity -->
+                    <xsl:if test="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value">
+                        <quantity>
+                            <xsl:attribute name="value" select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value" />
+                        </quantity>
+                    </xsl:if>
+                    
+                    <!-- performer (max 1)-->
+                    <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:performer[1]" mode="rename-reference-participant">
+                        <xsl:with-param name="pElementName">performer</xsl:with-param>
+                    </xsl:apply-templates>
                 </dispenseRequest>
+
             </xsl:if>
         </MedicationRequest>
     </xsl:template>

@@ -58,11 +58,18 @@
 
     <!-- Entry-level participants -->
     <xsl:template match="cda:author | cda:performer" mode="provenance">
+        <xsl:param name="pTargetUUID"/>
         <entry>
             <fullUrl value="urn:uuid:{@lcg:uuid}" />
             <resource>
                 <Provenance>
                     <xsl:choose>
+                        <!-- when we've passed in a specific uuid, use that -->
+                        <xsl:when test="string-length($pTargetUUID)>0">
+                            <target>
+                                <reference value="urn:uuid:{$pTargetUUID}" />
+                            </target>
+                        </xsl:when>
                         <!-- When this is contained in a Problem Concern Act, because the Problem Concern Act doesn't have a target in FHIR,
                                  set the target to any contained Problem Observations -->
                         <xsl:when test="parent::cda:act/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']">

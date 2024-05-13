@@ -464,6 +464,7 @@
                             descendant::cda:entryRelationship
                             [descendant::cda:*/descendant::cda:*[3]]
                             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])]
+                            [not(cda:*[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode='INT']])]
                             [cda:*
                             [not(cda:templateId[key('templates-to-suppress-key', @root)])]
                             [not(cda:code/@code = '8462-4')]

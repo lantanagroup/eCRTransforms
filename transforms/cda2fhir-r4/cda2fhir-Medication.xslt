@@ -4,19 +4,27 @@
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
     <!-- SG: Match if this is a substanceAdministration inside a Medication Administered, Admission Medication, or Procedures section -->
-    <xsl:template match="
+    <!--<xsl:template match="
             cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
             cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']] |
             cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>-->
+    
+    <xsl:template match="cda:manufacturedProduct" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 
 
-    <xsl:template match="
+    <!--<xsl:template match="
             cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
             cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']] |
-            cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]">
+            cda:manufacturedProduct[../../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]">-->
+    <xsl:template match="cda:manufacturedProduct">
         <Medication>
+            <meta>
+                <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"/>
+            </meta>
             <code>
                 <xsl:for-each select="cda:manufacturedMaterial/cda:code[@code][@codeSystem]">
                     <xsl:variable name="vCode" select="@code" />
@@ -76,6 +84,11 @@
                     <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
                 </xsl:for-each>
             </code>
+            <xsl:for-each select="parent::cda:consumable/following-sibling::cda:participant[@typeCode='CSM']">
+                <xsl:apply-templates select="cda:participantRole/cda:playingEntity/cda:code">
+                    <xsl:with-param name="pElementName">form</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
         </Medication>
     </xsl:template>
 

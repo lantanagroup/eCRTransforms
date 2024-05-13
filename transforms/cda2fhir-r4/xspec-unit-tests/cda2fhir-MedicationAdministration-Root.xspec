@@ -13,12 +13,15 @@
         
         <x:expect label="B1. There should be a MedicationAdministration" test="count(//fhir:MedicationAdministration)=1" />
         <x:expect label="B2. There should be a status='completed'" test="count(//fhir:MedicationAdministration/fhir:status[@value='completed'])=1" />
-        <x:expect label="B3. There should be a MedicationAdministration.medicationCodeableConcept.coding.system.value=http://www.nlm.nih.gov/research/umls/rxnorm"
-            test="count(//fhir:MedicationAdministration/fhir:medicationCodeableConcept/fhir:coding/fhir:system[@value='http://www.nlm.nih.gov/research/umls/rxnorm'])=1" />
-        <x:expect label="B4. There should be a MedicationAdministration.medicationCodeableConcept.coding.code.value=248656"
-            test="count(//fhir:MedicationAdministration/fhir:medicationCodeableConcept/fhir:coding/fhir:code[@value='248656'])=1" />
-        <x:expect label="B5. There should be a MedicationAdministration.medicationCodeableConcept.coding.display.value=Azithromycin 500 MG Oral Tablet"
-            test="count(//fhir:MedicationAdministration/fhir:medicationCodeableConcept/fhir:coding/fhir:display[@value='Azithromycin 500 MG Oral Tablet'])=1" />
+        <x:expect label="B3.1. There should be a MedicationAdministration.medicationReference"
+            test="count(//fhir:MedicationAdministration/fhir:medicationReference)=1" />
+        
+        <x:expect label="B3.2. There should be a Medication.code.coding.system.value=http://www.nlm.nih.gov/research/umls/rxnorm"
+            test="count(//fhir:Medication/fhir:code/fhir:coding/fhir:system[@value='http://www.nlm.nih.gov/research/umls/rxnorm'])=1" />
+        <x:expect label="B4. There should be a Medication.code.coding.code.value=248656"
+            test="count(//fhir:Medication/fhir:code/fhir:coding/fhir:code[@value='248656'])=1" />
+        <x:expect label="B5. There should be a Medication.code.coding.display.value=Azithromycin 500 MG Oral Tablet"
+            test="count(//fhir:Medication/fhir:code/fhir:coding/fhir:display[@value='Azithromycin 500 MG Oral Tablet'])=1" />
         <x:expect label="B6. There should be an MedicationAdministration.subject.reference.value=urn:uuid:" test="count(//fhir:MedicationAdministration/fhir:subject/fhir:reference[@value='urn:uuid:'])=1" />
         <!-- SG: Updating this because it looks like because the TZ hasn't been specified it puts in whatever timezone is set on your PC - it put +10:00 for me 
           I feel like it shouldn't add a TZ if there isn't one there but that's how RG originally wrote it so leaving for now-->

@@ -9,7 +9,7 @@
     <!-- *********************************************************************************************************** 
          Suppress templates in CDA that are extensions or components etc. in FHIR i.e. anything without a bundle entry 
          ***********************************************************************************************************-->
-    
+
     <!-- NOTE: to suppress templates, add the templateId/@root to the file templates-to-suppress.xml
          these are matched in c-to-fhir-utilty.xlst -->
 
@@ -156,6 +156,7 @@
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:subject" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -895,6 +896,7 @@
         <Observation>
             <xsl:comment>Processing Status</xsl:comment>
             <xsl:call-template name="add-meta" />
+            <xsl:apply-templates select="cda:id" />
             <status value="final" />
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName" select="'code'" />
@@ -1005,7 +1007,27 @@
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="subject-reference" />
+            <!-- Have to use special processing for the subject here because there could be a relatedPerson subject (goes in focus) -->
+            <subject>
+                <xsl:choose>
+                    <xsl:when test="ancestor::cda:section[1]/cda:subject">
+                        <reference value="urn:uuid:{ancestor::cda:section[1]/cda:subject/@lcg:uuid}" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <reference value="urn:uuid:{/cda:ClinicalDocument/cda:recordTarget[1]/@lcg:uuid}" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </subject>
+
+            <!-- focus (relatedPerson) -->
+            <xsl:for-each select="cda:subject">
+                <focus>
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </focus>
+            </xsl:for-each>
+
             <xsl:apply-templates select="cda:effectiveTime">
                 <xsl:with-param name="pStartElementName">effective</xsl:with-param>
             </xsl:apply-templates>

@@ -2,6 +2,43 @@
 <xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
+    
+    <!-- (ODH) Subject (relatedSubject) to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:subject[preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.217']][cda:relatedSubject]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+    
+    <xsl:template match="cda:informant[cda:relatedEntity]" mode="bundle-entry">
+        <xsl:for-each select="cda:relatedEntity">
+            <xsl:call-template name="create-bundle-entry" />
+        </xsl:for-each>
+    </xsl:template>
+    
+    <!-- (eICR) Person Participant to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.6']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+    
+    <!-- (eICR) Animal Participant to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.5']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+    
+    <!-- (eICR) Person Participant to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.6']]">
+        <RelatedPerson>
+            <xsl:comment>cda:participant (Person Participant)</xsl:comment>
+            <xsl:call-template name="subject-reference">
+                <xsl:with-param name="pElementName">patient</xsl:with-param>
+            </xsl:call-template>
+            <xsl:apply-templates select="cda:participantRole/cda:playingEntity/cda:name" />
+            <xsl:apply-templates select="cda:participantRole/cda:playingEntity/sdtc:birthTime" />
+        </RelatedPerson>
+    </xsl:template>
+    
+    <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
 
     <xsl:template match="cda:section" mode="relatedPerson-entry">
         <xsl:for-each select="cda:entry/cda:organizer/cda:subject/cda:relatedSubject[@classCode = 'PRS']">
@@ -13,7 +50,6 @@
                 <resource>
                     <Patient>
                         <xsl:call-template name="generate-text-patient2" />
-                        <xsl:comment>need to find out how to transform identifier</xsl:comment>
                         <xsl:for-each select="cda:subject/sdtc:id">
                             <identifier>
                                 <system>
@@ -78,28 +114,6 @@
         </text>
     </xsl:template>
 
-    <!-- (eICR) Person Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.6']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
-    <!-- (eICR) Person Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.6']]">
-        <RelatedPerson>
-            <xsl:comment>cda:participant (Person Participant)</xsl:comment>
-            <xsl:call-template name="subject-reference">
-                <xsl:with-param name="pElementName">patient</xsl:with-param>
-            </xsl:call-template>
-            <xsl:apply-templates select="cda:participantRole/cda:playingEntity/cda:name" />
-            <xsl:apply-templates select="cda:participantRole/cda:playingEntity/sdtc:birthTime" />
-        </RelatedPerson>
-    </xsl:template>
-
-    <!-- (eICR) Animal Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.5']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
     <!-- (eICR) Animal Participant to Base FHIR RelatedPerson with extension -->
     <!--http://hl7.org/fhir/StructureDefinition/practitioner-animalSpecies-->
     <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.5']]">
@@ -133,10 +147,6 @@
         </RelatedPerson>
     </xsl:template>
 
-    <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
     <!-- NOK Person Participant to Base FHIR RelatedPerson -->
     <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]">
         <RelatedPerson>
@@ -161,12 +171,22 @@
             <xsl:apply-templates select="cda:associatedEntity/cda:address" />
         </RelatedPerson>
     </xsl:template>
-
-    <xsl:template match="cda:informant[cda:relatedEntity]" mode="bundle-entry">
-        <xsl:for-each select="cda:relatedEntity">
-            <xsl:call-template name="create-bundle-entry" />
-        </xsl:for-each>
+    
+    <!-- Observation/subject in an ODH template to Base FHIR RelatedPerson -->
+    <xsl:template match="cda:subject[preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.217']][cda:relatedSubject]">
+        <RelatedPerson>
+            <xsl:comment>ODH RelatedSubject</xsl:comment>
+            <!-- patient -->
+            <xsl:call-template name="subject-reference">
+                <xsl:with-param name="pElementName">patient</xsl:with-param>
+            </xsl:call-template>
+            <!-- relationship -->
+            <xsl:apply-templates select="cda:relatedSubject/cda:code">
+                <xsl:with-param name="pElementName">relationship</xsl:with-param>
+            </xsl:apply-templates>
+        </RelatedPerson>
     </xsl:template>
+
 
     <!-- informant/relatedEntity to Base FHIR RelatedPerson -->
     <xsl:template match="cda:relatedEntity">

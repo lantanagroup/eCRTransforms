@@ -14,18 +14,20 @@
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
-
+        
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
-
+        
+        <xsl:apply-templates select="cda:consumable/cda:manufacturedProduct" mode="bundle-entry" />
+        
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
 
-        <!-- If this substanceAdministration is inside a Procedure, create a Medication for later reference in the Procedure -->
+        <!--<!-\- If this substanceAdministration is inside a Procedure, create a Medication for later reference in the Procedure -\->
         <xsl:apply-templates select="
                 cda:consumable[../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']] |
                 cda:consumable[../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']] |
-                cda:consumable[../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]" mode="bundle-entry" />
+                cda:consumable[../../../cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]" mode="bundle-entry" />-->
     </xsl:template>
 
     <!-- SubstanceAdministration inside an Admission Medication -->
@@ -53,7 +55,13 @@
             <xsl:apply-templates select="cda:id" />
             <status value="completed" />
 
-            <xsl:apply-templates select="cda:consumable" mode="medication-administration" />
+            <!--<xsl:apply-templates select="cda:consumable" mode="medication-administration" />-->
+            
+            <xsl:for-each select="cda:consumable/cda:manufacturedProduct">
+                <medicationReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </medicationReference>
+            </xsl:for-each>
 
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime">
@@ -66,20 +74,14 @@
                     </actor>
                 </performer>
             </xsl:for-each>
-            <!--<dosage>
-                <xsl:apply-templates select="cda:routeCode">
-                    <xsl:with-param name="pElementName">route</xsl:with-param>
-                </xsl:apply-templates>
-
-                <xsl:apply-templates select="cda:approachSiteCode">
-                    <xsl:with-param name="pElementName">method</xsl:with-param>
-                </xsl:apply-templates>
-
-                <xsl:apply-templates select="cda:doseQuantity">
-                    <xsl:with-param name="pElementName">dose</xsl:with-param>
-                    <xsl:with-param name="pSimpleQuantity" select="true()" />
-                </xsl:apply-templates>
-            </dosage>-->
+            
+            <!-- reasonReference (C-CDA Indication) -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.19']">
+                <reasonReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </reasonReference>
+            </xsl:for-each>
+            
             <xsl:call-template name="get-dosage" />
         </MedicationAdministration>
     </xsl:template>
@@ -122,7 +124,7 @@
             </xsl:if>
 
             <status value="completed" />
-            <!-- If this is inside a Procedure we want to reference a medication here rather than have a medicationCodeableConcept so we can reference it from the Procedure -->
+            <!--<!-\- If this is inside a Procedure we want to reference a medication here rather than have a medicationCodeableConcept so we can reference it from the Procedure -\->
             <xsl:choose>
                 <xsl:when test="ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.7.1']">
                     <medicationReference>
@@ -134,7 +136,13 @@
                         <xsl:with-param name="pElementName">medicationCodeableConcept</xsl:with-param>
                     </xsl:apply-templates>
                 </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
+            
+            <xsl:for-each select="cda:consumable/cda:manufacturedProduct">
+                <medicationReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </medicationReference>
+            </xsl:for-each>
 
             <xsl:call-template name="subject-reference" />
 

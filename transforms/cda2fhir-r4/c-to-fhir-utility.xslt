@@ -22,12 +22,13 @@
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
 
     <xsl:key name="referenced-acts" match="cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122'])]" use="cda:id/@root" />
-    <!-- Key to match templates that are suppresee because they are not full resources in FHIR (extension, components, data elements, etc.) -->
+
+    <!-- Key to match templates that are suppresed because they are not full resources in FHIR (extension, components, data elements, etc.) -->
     <xsl:key name="templates-to-suppress-key" match="$templates-to-suppress" use="templateToSuppress/@templateIdRoot" />
 
     <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
     <xsl:template match="cda:*[cda:templateId[key('templates-to-suppress-key', @root)]]" mode="bundle-entry" />
-    
+
     <!-- TEMPLATE: Create the bundle entry -->
     <xsl:template name="create-bundle-entry">
         <!-- MD: do not create entry for Diastolic Blood Pressure, since it has been created
@@ -43,14 +44,14 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    
+
     <!-- TEMPLATE: act reference -->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <xsl:variable name="reference-id" select="cda:id" />
-        
+
         <xsl:for-each select="key('referenced-acts', $reference-id/@root)">
-            <xsl:variable name="vTemplateIdRoot" select="cda:templateId/@root"/>
+            <xsl:variable name="vTemplateIdRoot" select="cda:templateId/@root" />
             <!-- Skip creating a reference for a suppressed template -->
             <xsl:if test="empty(key('templates-to-suppress-key', $vTemplateIdRoot))">
                 <xsl:comment>
@@ -1072,7 +1073,7 @@
             <xsl:call-template name="breadcrumb-path-walker" />
         </xsl:comment>
     </xsl:template>
-    
+
     <xsl:template name="breadcrumb-path-walker">
         <xsl:for-each select="parent::cda:*">
             <xsl:call-template name="breadcrumb-path-walker" />
@@ -1094,5 +1095,5 @@
             <xsl:text>]</xsl:text>
         </xsl:for-each>
     </xsl:template>
-    
+
 </xsl:stylesheet>

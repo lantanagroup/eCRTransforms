@@ -168,10 +168,25 @@
             <xsl:if test="cda:repeatNumber/@value > 0 or cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]">
                 <dispenseRequest>
                     <!-- dispenseInterval -->
-                    <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime" mode='period'>
-                        <xsl:with-param name="pElementName">dispenseInterval</xsl:with-param>
-                    </xsl:apply-templates>
-                    
+                    <xsl:if test="
+                            cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:high/@value and
+                            cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:low/@value">
+                        <xsl:variable name="vIntervalDays">
+                            <xsl:value-of select="
+                                    days-from-duration(xs:date(lcg:cdaTS2date(cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:high/@value)) -
+                                    xs:date(lcg:cdaTS2date(cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:low/@value)))"
+                             />
+                        </xsl:variable>
+                        <dispenseInterval>
+                            <value>
+                                <xsl:attribute name="value" select="$vIntervalDays" />
+                            </value>
+                            <unit value="days" />
+                            <system value="http://unitsofmeasure.org" />
+                            <code value="d" />
+                        </dispenseInterval>
+                    </xsl:if>
+
                     <!-- repeatNumber -->
                     <!-- there can be a repeat number in the main substanceAdministration and in the Supply Order, use the main one first and 
                      only if that doesn't exist use the one in the supply order-->
@@ -186,13 +201,16 @@
                     <!-- quantity -->
                     <xsl:if test="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value">
                         <quantity>
-                            <xsl:attribute name="value" select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value" />
+                            <value>
+                                <xsl:attribute name="value" select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value" />
+                            </value>
                         </quantity>
                     </xsl:if>
-                    
-                    <!-- performer (max 1)-->
-                    <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:performer[1]" mode="rename-reference-participant">
+
+                    <!-- performer (max 1): can only be an Organization -->
+                    <xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:performer[1][cda:assignedEntity/cda:representedOrganization]" mode="rename-reference-participant">
                         <xsl:with-param name="pElementName">performer</xsl:with-param>
+                        <xsl:with-param name="pParticipantType">organization</xsl:with-param>
                     </xsl:apply-templates>
                 </dispenseRequest>
 

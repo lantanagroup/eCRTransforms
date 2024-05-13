@@ -860,7 +860,19 @@
     <!-- TEMPLATE: Returns a referenced participant -->
     <xsl:template match="cda:author | cda:performer" mode="rename-reference-participant">
         <xsl:param name="pElementName" />
+        <xsl:param name="pParticipantType"/>
         <xsl:choose>
+            <xsl:when test="$pParticipantType = 'organization'">
+                <xsl:choose>
+                    <xsl:when test="cda:*/cda:representedOrganization">
+                        <xsl:element name="{$pElementName}">
+                            <xsl:element name="reference">
+                                <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:*/cda:representedOrganization/@lcg:uuid" /></xsl:attribute>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:when>
             <xsl:when test="cda:*/cda:assignedPerson">
                 <xsl:element name="{$pElementName}">
                     <xsl:element name="reference">

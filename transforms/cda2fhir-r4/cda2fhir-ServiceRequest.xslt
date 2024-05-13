@@ -5,87 +5,173 @@
 
     <!-- C-CDA Patient Referral Act, C-CDA Planned Act, C-CDA Planned Observation -->
     <xsl:template match="
-        cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
-        cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
-        cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]" mode="bundle-entry">
+            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
+            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
+            cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-        
+
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         
+        <xsl:for-each select="cda:author[position() > 1] | cda:informant">
+            <xsl:apply-templates select="." mode="provenance" />
+        </xsl:for-each>
+
+        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
+    </xsl:template>
+
+    <!-- Add transfer Planned Procedure to fhir ServiceRequest -->
+    <xsl:template match="cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]" mode="bundle-entry">
+        <xsl:comment>Planned Procedure</xsl:comment>
+        <xsl:call-template name="create-bundle-entry" />
+
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        
+        <xsl:for-each select="cda:author[position() > 1] | cda:informant">
+            <xsl:apply-templates select="." mode="provenance" />
+        </xsl:for-each>
+
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
     
-    <!-- Add transfer Planned Procedure (request or intent) to fhir ServiceRequest -->
-    <xsl:template match="cda:procedure[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]" mode="bundle-entry">
-        <xsl:comment>Planned Procedure</xsl:comment>
-        <xsl:call-template name="create-bundle-entry" />
-        
-        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
-        
-        <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
-    </xsl:template>
-
-    <!-- Planned Procedure (request or intent) -->
-    <xsl:template match="cda:procedure[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]">
-        <ServiceRequest>
+    <!-- C-CDA Patient Referral Act, Planned Act, Planned Observation  -->
+    <xsl:template match="
+        cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
+        cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
+        cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]">
+        <ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
             <!-- set meta profile based on Ig -->
             <xsl:call-template name="add-servicerequest-meta" />
+            <!-- id -->
             <xsl:apply-templates select="cda:id" />
-
+            <!-- status -->
+            <status value="{cda:statusCode/@code}" />
+            <!-- intent -->
+            <xsl:apply-templates select="." mode="intent" />
+            
+            <!-- priority -->
             <xsl:choose>
-                <xsl:when test="cda:statusCode/@code = 'active'">
-                    <status value="active" />
+                <xsl:when test="cda:priorityCode/@code = 'A'">
+                    <priority value="asap" />
+                </xsl:when>
+                <xsl:when test="cda:priorityCode/@code = 'S'">
+                    <priority value="stat" />
+                </xsl:when>
+                <xsl:when test="cda:priorityCode/@code = 'UR'">
+                    <priority value="urgent" />
+                </xsl:when>
+                <xsl:when test="cda:priorityCode/@code = 'R'">
+                    <priority value="routine" />
                 </xsl:when>
             </xsl:choose>
-            <xsl:apply-templates select="." mode="intent" />
+            
+            <!-- code -->
             <xsl:apply-templates select="cda:code" mode="procedure-request" />
-            <xsl:call-template name="subject-reference" />
-            <xsl:apply-templates select="cda:entryRelationship" mode="encounter-reference" />
-
-            <!-- MD: add Occured time -->
-            <xsl:apply-templates select="cda:effectiveTime" mode="instant">
-                <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
+            
+            <!-- orderDetail (mapping from Observation.method (could also add others?) -->
+            <xsl:apply-templates select="cda:methodCode">
+                <xsl:with-param name="pElementName">orderDetail</xsl:with-param>
             </xsl:apply-templates>
-            <!-- SG 20231122: add ServiceRequest.authoredOn -->
-            <xsl:apply-templates select="cda:author/cda:time" mode="instant">
+            
+            <!-- subject -->
+            <xsl:call-template name="subject-reference" />
+            
+            <!-- occurrenceDateTime -->
+            <xsl:apply-templates select="cda:effectiveTime" mode="instant">
+                <xsl:with-param name="pElementName" select="'occurrenceDateTime'" />
+            </xsl:apply-templates>
+            
+            <!-- authoredOn -->
+            <xsl:apply-templates select="cda:author[1]/cda:time" mode="instant">
                 <xsl:with-param name="pElementName">authoredOn</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">requester</xsl:with-param>
-            </xsl:call-template>
+            
+            <!-- requester (max 1)-->
+            <xsl:for-each select="cda:author[1]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">requester</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            
+            <!-- bodySite -->
             <xsl:apply-templates select="cda:targetSiteCode">
                 <xsl:with-param name="pElementName" select="'bodySite'" />
             </xsl:apply-templates>
         </ServiceRequest>
     </xsl:template>
+    
 
-    <!-- MD: add encounter-reference -->
-    <xsl:template match="cda:entryRelationship" mode="encounter-reference">
-        <xsl:choose>
-            <xsl:when test="@typeCode != 'SUBJ'">
-                <xsl:variable name="vTest" select="cda:encounter/cda:code/cda:translation/@code" />
-                <encounter>
-                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:component/cda:structuredBody/
-                        cda:component/cda:section/cda:entry/cda:encounter[cda:code/cda:translation/@code=$vTest]/@lcg:uuid}" />
-                </encounter>
-            </xsl:when>
-        </xsl:choose>
+    <!-- Planned Procedure -->
+    <xsl:template match="cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.41']]">
+        <ServiceRequest>
+            <!-- set meta profile based on Ig -->
+            <xsl:call-template name="add-servicerequest-meta" />
+            <!--  -->
+            <xsl:apply-templates select="cda:id" />
+            
+            <!-- status -->
+            <xsl:choose>
+                <xsl:when test="cda:statusCode/@code = 'active'">
+                    <status value="active" />
+                </xsl:when>
+            </xsl:choose>
+           
+            <!-- intent -->
+            <xsl:apply-templates select="." mode="intent" />
+            
+            <!-- code -->
+            <xsl:apply-templates select="cda:code" mode="procedure-request" />
+            
+            <!-- subject -->
+            <xsl:call-template name="subject-reference" />
+            <xsl:apply-templates select="cda:entryRelationship" mode="encounter-reference" />
 
+            <!-- occurrenceDateTime -->
+            <xsl:apply-templates select="cda:effectiveTime" mode="instant">
+                <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- authoredOn -->
+            <xsl:apply-templates select="cda:author[1]/cda:time" mode="instant">
+                <xsl:with-param name="pElementName">authoredOn</xsl:with-param>
+            </xsl:apply-templates>
+            
+            <!-- requester (max 1)-->
+            <xsl:for-each select="cda:author[1]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">requester</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            
+            <!-- bodySite -->
+            <xsl:apply-templates select="cda:targetSiteCode">
+                <xsl:with-param name="pElementName" select="'bodySite'" />
+            </xsl:apply-templates>
+        </ServiceRequest>
     </xsl:template>
-
-    <!-- MD: add transfer inFullfillmentOf to fhir ServiceRequest -->
-    <xsl:template match="cda:inFulfillmentOf/cda:order" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
+    
     <xsl:template match="cda:inFulfillmentOf/cda:order">
         <ServiceRequest>
             <!-- set meta profile based on Ig -->
             <xsl:call-template name="add-servicerequest-meta" />
-
+            
             <xsl:choose>
                 <xsl:when test="cda:id/@root">
                     <!-- This identifier is linked back to the referral order if there is an identifier in the referral order -->
@@ -99,7 +185,7 @@
                     </identifier>
                 </xsl:when>
             </xsl:choose>
-
+            
             <!--MD: handle the case @classCode is not present -->
             <xsl:choose>
                 <xsl:when test="@classCode = 'ACT'">
@@ -109,7 +195,7 @@
                     <status value="active" />
                 </xsl:otherwise>
             </xsl:choose>
-
+            
             <!--MD: handle case no cda:order, cda:act, cda:observation, cda:procedure -->
             <xsl:choose>
                 <xsl:when test="cda:order | cda:act | cda:observation | cda:procedure">
@@ -119,15 +205,75 @@
                     <intent value="plan" />
                 </xsl:otherwise>
             </xsl:choose>
-
+            
             <xsl:apply-templates select="cda:priorityCode" mode="priorityCode" />
             <xsl:apply-templates select="cda:code" mode="procedure-request" />
             <xsl:call-template name="subject-reference" />
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName">requester</xsl:with-param>
-            </xsl:call-template>
-
+            
+            <!-- requester (max 1)-->
+            <xsl:for-each select="cda:author[1]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">requester</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            
         </ServiceRequest>
+    </xsl:template>
+
+    <!-- code -->
+    <xsl:template match="cda:code" mode="procedure-request">
+        <xsl:call-template name="newCreateCodableConcept">
+            <xsl:with-param name="pElementName">code</xsl:with-param>
+        </xsl:call-template>
+    </xsl:template>
+    
+    <!-- intent -->
+    <xsl:template match="cda:order | cda:act | cda:observation | cda:procedure" mode="intent">
+        <xsl:choose>
+            <xsl:when test="@moodCode = 'INT'">
+                <intent value="plan" />
+            </xsl:when>
+            <xsl:when test="@moodCode = 'RQO'">
+                <intent value="order" />
+            </xsl:when>
+            <xsl:when test="@moodCode = 'ARQ'">
+                <intent value="plan" />
+            </xsl:when>
+            <xsl:when test="@moodCode = 'PRMS'">
+                <intent value="plan" />
+            </xsl:when>
+            <xsl:when test="@moodCode = 'PRP'">
+                <intent value="plan" />
+            </xsl:when>
+            <xsl:when test="@moodCode = 'APT'">
+                <intent value="plan" />
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+    
+    <!-- add encounter-reference -->
+    <xsl:template match="cda:entryRelationship" mode="encounter-reference">
+        <xsl:choose>
+            <xsl:when test="@typeCode != 'SUBJ'">
+                <xsl:variable name="vTest" select="cda:encounter/cda:code/cda:translation/@code" />
+                <encounter>
+                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:component/cda:structuredBody/
+                        cda:component/cda:section/cda:entry/cda:encounter[cda:code/cda:translation/@code=$vTest]/@lcg:uuid}" />
+                </encounter>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <!-- add transfer inFullfillmentOf to fhir ServiceRequest -->
+    <xsl:template match="cda:inFulfillmentOf/cda:order" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 
     <xsl:template match="cda:priorityCode" mode="priorityCode">
@@ -155,72 +301,6 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="
-            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.140']] |
-            cda:act[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.39']] |
-            cda:observation[@moodCode = 'RQO' or @moodCode = 'INT'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.44']]">
-        <ServiceRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-            <!-- set meta profile based on Ig -->
-            <xsl:call-template name="add-servicerequest-meta" />
-            <xsl:apply-templates select="cda:id" />
-            <status value="{cda:statusCode/@code}" />
-            <xsl:apply-templates select="." mode="intent" />
-
-            <!-- need to add .priority -->
-            <xsl:choose>
-                <xsl:when test="cda:priorityCode/@code = 'A'">
-                    <priority value="asap" />
-                </xsl:when>
-                <xsl:when test="cda:priorityCode/@code = 'S'">
-                    <priority value="stat" />
-                </xsl:when>
-                <xsl:when test="cda:priorityCode/@code = 'UR'">
-                    <priority value="urgent" />
-                </xsl:when>
-                <xsl:when test="cda:priorityCode/@code = 'R'">
-                    <priority value="routine" />
-                </xsl:when>
-            </xsl:choose>
-
-            <xsl:apply-templates select="cda:code" mode="procedure-request" />
-            <xsl:call-template name="subject-reference" />
-            <xsl:apply-templates select="cda:effectiveTime" mode="instant">
-                <xsl:with-param name="pElementName" select="'occurrenceDateTime'" />
-            </xsl:apply-templates>
-            <!-- SG 20231122: add ServiceRequest.authoredOn -->
-            <xsl:apply-templates select="cda:author/cda:time" mode="instant">
-                <xsl:with-param name="pElementName">authoredOn</xsl:with-param>
-            </xsl:apply-templates>
-            <xsl:if test="cda:author">
-                <xsl:call-template name="author-reference">
-                    <xsl:with-param name="pElementName">requester</xsl:with-param>
-                </xsl:call-template>
-            </xsl:if>
-        </ServiceRequest>
-    </xsl:template>
-
-
-    <xsl:template match="cda:code" mode="procedure-request">
-        <xsl:call-template name="newCreateCodableConcept">
-            <xsl:with-param name="pElementName">code</xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
-
-
-    <!-- SG 20211126: This was already here but added to matches and deleted replicated code above -->
-    <xsl:template match="cda:order | cda:act | cda:observation | cda:procedure" mode="intent">
-        <xsl:choose>
-            <xsl:when test="@moodCode = 'INT'">
-                <intent value="plan" />
-            </xsl:when>
-            <xsl:when test="@moodCode = 'RQO'">
-                <intent value="order" />
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
-
-
-    <!-- SG 20211126: Moved out from code above for reuse -->
     <xsl:template name="add-servicerequest-meta">
         <!-- Check current Ig -->
         <xsl:variable name="vCurrentIg">
@@ -251,5 +331,4 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
 </xsl:stylesheet>

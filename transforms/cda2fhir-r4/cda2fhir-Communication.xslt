@@ -27,12 +27,28 @@
             <partOf>
                 <reference value="urn:uuid:{../../../cda:*/@lcg:uuid}" />
             </partOf>
+            <!-- status -->
             <status>
-                <xsl:attribute name="value">
-                    <xsl:value-of select="cda:statusCode/@code" />
-                </xsl:attribute>
+                <xsl:choose>
+                    <xsl:when test="cda:statusCode/@code">
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="cda:statusCode/@code" />
+                        </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="'completed'" />
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
+                
             </status>
             <xsl:call-template name="subject-reference" />
+            
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">topic</xsl:with-param>
+            </xsl:apply-templates>
+            
             <xsl:call-template name="encompassingEncounter-reference" />
 
             <xsl:for-each select="cda:entryRelationship">
@@ -62,10 +78,6 @@
                 <xsl:with-param name="pElementName" select="'recipient'" />
             </xsl:call-template>
             
-            <xsl:apply-templates select="cda:code">
-                <xsl:with-param name="pElementName">topic</xsl:with-param>
-            </xsl:apply-templates>
-
             <xsl:call-template name="author-reference">
                 <xsl:with-param name="pElementName" select="'sender'" />
             </xsl:call-template>

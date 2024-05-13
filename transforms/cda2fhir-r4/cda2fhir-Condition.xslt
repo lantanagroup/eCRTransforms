@@ -45,10 +45,9 @@
         </xsl:for-each>
     </xsl:template>
 
+    <!-- C-CDA Problem Observation -->
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]">
-
         <Condition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-
             <!-- Check current Ig -->
             <xsl:variable name="vCurrentIg">
                 <xsl:apply-templates select="/" mode="currentIg" />
@@ -97,41 +96,6 @@
                     </code>
                 </coding>
             </clinicalStatus>
-            <!--<xsl:template match="cda:statusCode" mode="condition">
-                <clinicalStatus>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
-                        <code>
-                            <xsl:choose>
-                                <xsl:when test="@code = 'completed'">
-                                    <xsl:attribute name="value">resolved</xsl:attribute>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:attribute name="value" select="@code" />
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </code>
-                    </coding>
-                </clinicalStatus>
-            </xsl:template>
-            <xsl:choose>
-                <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']">
-                    <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <!-\- Observation could be in Encounter entryRelationship, there is no statusCode in ancestor::cda:entry/cda:act/cda:statusCode
-                        in the context of encounter, the cda:statusCode is in cda:entryRelationship level. Not sure we need enforce this by the 
-                        for cda2fhir in xSpec since clinicalStatus is option in fhir -\->
-                    <xsl:choose>
-                        <xsl:when test="ancestor::cda:entry/cda:act/cda:statusCode">
-                            <xsl:apply-templates select="ancestor::cda:entry/cda:act/cda:statusCode" mode="condition" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates select="cda:statusCode" mode="condition" />
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>-->
             <!-- SG 2024-02-05: Updated negationInd processing for eCR -->
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']">
@@ -170,21 +134,6 @@
                     </category>
                 </xsl:otherwise>
                 
-                <!--<xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132']]">
-                    <xsl:apply-templates select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132']]/cda:code">
-                        <xsl:with-param name="pElementName">category</xsl:with-param>
-                    </xsl:apply-templates>
-                </xsl:when>
-
-                <xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]">
-                    <xsl:apply-templates select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:code">
-                        <xsl:with-param name="pElementName">category</xsl:with-param>
-                    </xsl:apply-templates>
-                </xsl:when>
-
-                <xsl:otherwise>
-                    <xsl:apply-templates select="cda:code" mode="condition" />
-                </xsl:otherwise>-->
             </xsl:choose>
 
             <xsl:apply-templates select="cda:value" mode="condition" />
@@ -192,6 +141,20 @@
             <xsl:call-template name="subject-reference" />
             <xsl:apply-templates select="cda:effectiveTime" mode="condition" />
 
+            <!-- recordedDate (max 1) -->
+            <xsl:choose>
+                <xsl:when test="cda:author[1]/cda:time">
+                    <xsl:apply-templates select="cda:author[1]/cda:time" mode="instant">
+                        <xsl:with-param name="pElementName">recordedDate</xsl:with-param>
+                    </xsl:apply-templates>        
+                </xsl:when>
+                <xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:effectiveTime/cda:low/@value">
+                    <xsl:apply-templates select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:effectiveTime" mode="instant">
+                        <xsl:with-param name="pElementName">recordedDate</xsl:with-param>
+                    </xsl:apply-templates>        
+                </xsl:when>
+            </xsl:choose>
+            
             <!-- recorder (max 1)-->
             <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
@@ -225,8 +188,8 @@
         </Condition>
     </xsl:template>
 
+    <!-- C-CDA Problem Status -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition">
-
         <xsl:for-each select="cda:value">
             <clinicalStatus>
                 <coding>
@@ -246,7 +209,6 @@
                 </coding>
             </clinicalStatus>
         </xsl:for-each>
-
     </xsl:template>
 
     <xsl:template match="cda:effectiveTime" mode="condition">
@@ -282,37 +244,4 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
-    <!-- Using the assumption that all ids of cda MTP medications always have a root and an extension as a way
-                to distinguish when a medication reference is being made -->
-    <!--
-    <xsl:template name="create-medication-entry">
-        <xsl:for-each select="cda:entryRelationship[@typeCode='REFR']/cda:act[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.122']">
-
-            <xsl:if test="cda:id/@root and cda:id/@extension">
-                <entry>
-                    <fullUrl value="urn:uuid:{@lcg:uuid}"/>
-                    <resource>
-                        <xsl:apply-templates select="." mode="medication"/>
-                    </resource>
-                </entry>
-            </xsl:if>
-        </xsl:for-each>
-    </xsl:template>
-    
-    <xsl:template match="cda:act" mode="medication">
-        <xsl:variable name="root" select="cda:id/@root"/>
-        <xsl:variable name="extension" select="cda:id/@extension"/>
-        <Medication>
-            <xsl:for-each select="//cda:substanceAdministration
-                [cda:templateId[@root='2.16.840.1.113883.10.20.37.3.10'][@extension='2017-08-01']]
-                [cda:id[@root=$root][@extension=$extension]]">
-                <xsl:apply-templates select="cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code">
-                    <xsl:with-param name="pElementName">code</xsl:with-param>
-                </xsl:apply-templates>
-                <status value="{cda:statusCode/@code}"/>
-            </xsl:for-each>
-        </Medication>
-    </xsl:template>
-    -->
 </xsl:stylesheet>

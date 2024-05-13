@@ -485,8 +485,17 @@
 
     <xsl:template name="add-gender-identity-extension">
         <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45']">
-            <extension url="http://hl7.org/fhir/StructureDefinition/patient-genderIdentity">
-                <xsl:apply-templates select="cda:value" />
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
+                <extension url="value">
+                    <xsl:apply-templates select="cda:value" >
+                        <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+                    </xsl:apply-templates>
+                </extension>
+                <extension url="period">
+                    <xsl:apply-templates select="cda:effectiveTime" mode="period">
+                        <xsl:with-param name="pElementName">valuePeriod</xsl:with-param>
+                    </xsl:apply-templates>
+                </extension>
             </extension>
         </xsl:for-each>
     </xsl:template>

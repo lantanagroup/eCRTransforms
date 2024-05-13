@@ -6,6 +6,15 @@
     <xsl:template match="cda:location" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
+    
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+    
+    <xsl:template match="cda:participant[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+    
 
     <xsl:template match="cda:location">
 
@@ -77,12 +86,8 @@
         </entry>
     </xsl:template>
 
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
-    </xsl:template>
-
     <!-- (eICR) Location Participant to US Core Location -->
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]">
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
         <Location>
             <xsl:call-template name="add-meta" />
             <xsl:comment>cda:participant (Location Participant)</xsl:comment>
@@ -99,6 +104,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </name>
+            <xsl:apply-templates select="cda:participantRole/cda:telecom"/>
             <xsl:apply-templates select="cda:participantRole/cda:addr" />
         </Location>
     </xsl:template>

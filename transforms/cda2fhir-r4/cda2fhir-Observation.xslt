@@ -73,6 +73,22 @@
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
+
+        <xsl:apply-templates select="cda:entryRelationship/cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.50']]" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.52']]" mode="bundle-entry" />
+    </xsl:template>
+
+    <!-- (eICR) Transportation Details Organizer -->
+    <xsl:template match="cda:organizer[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.50']" mode="bundle-entry">
+        <xsl:call-template name="create-bundle-entry" />
+
+        <xsl:apply-templates select="cda:author" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+
+        <xsl:for-each select="cda:author | cda:informant">
+            <xsl:apply-templates select="." mode="provenance" />
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template match="cda:sequenceNumber[following-sibling::cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']" mode="bundle-entry" />
@@ -196,6 +212,65 @@
     <!-- *********************************************************************************************************** 
          Actual Creation of Bundle Entries
          ***********************************************************************************************************-->
+    <!-- (eICR) Transportation Details Organizer -->
+    <xsl:template match="cda:organizer[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.50']">
+        
+        <Observation>
+            <xsl:call-template name="add-meta" />
+            <!-- id -->
+            <xsl:apply-templates select="cda:id" />
+            <status value="final"/>
+            <category>
+                <coding>
+                    <system value="http://terminology.hl7.org/CodeSystem/v3-ActClass"/>
+                    <code value="TRNS"/>
+                    <display value="Transportation"/>
+                </coding>
+                <text value="Transportation"/>
+            </category>
+            
+            <code>
+                <coding>
+                    <system value="http://snomed.info/sct"/>
+                    <code value="424483007"/>
+                    <display value="Transportation details (observable entity)"/>
+                </coding>
+            </code>
+            
+            <xsl:call-template name="subject-reference" />
+
+            <xsl:apply-templates select="cda:effectiveTime">
+                <xsl:with-param name="pStartElementName" select="'effective'" />
+            </xsl:apply-templates>
+            
+            <xsl:apply-templates select="cda:code">
+                <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+            </xsl:apply-templates>
+
+            <!-- performers (multiple) -->
+            <xsl:for-each select="cda:performer">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
+            <!-- if there are any specific performers in the component observations, get them -->
+            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>
+            
+            <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.49']]">
+
+                <component>
+                    <xsl:apply-templates select="cda:code">
+                        <xsl:with-param name="pElementName">code</xsl:with-param>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates select="cda:value" />
+                </component>
+
+            </xsl:for-each>
+        </Observation>
+    </xsl:template>
+
     <!-- C-CDA Result Organizer, C-CDA Vital Signs Organizer, Functional Status Organizer  -->
     <xsl:template match="cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1' or @root = '2.16.840.1.113883.10.20.22.4.26' or @root = '2.16.840.1.113883.10.20.22.4.66']]">
         <xsl:variable name="category">
@@ -399,6 +474,18 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
+
+            <!-- BodySite -->
+            <xsl:apply-templates select="cda:targetSiteCode">
+                <xsl:with-param name="pElementName" select="'bodySite'" />
+            </xsl:apply-templates>
+
+            <!-- method -->
+            <xsl:apply-templates select="cda:methodCode">
+                <xsl:with-param name="pElementName" select="'method'" />
+                <xsl:with-param name="pIncludeCoding" select="true()" />
+            </xsl:apply-templates>
+
             <!-- referenceRange -->
             <xsl:apply-templates select="cda:referenceRange" />
         </Observation>
@@ -466,6 +553,7 @@
             <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
                 <xsl:call-template name="performer-or-author" />
             </xsl:for-each>
+            <!-- component:travelLocation -->
             <component>
                 <xsl:for-each select="cda:participant/cda:participantRole/cda:addr">
                     <xsl:apply-templates select="." mode="extension" />
@@ -494,6 +582,17 @@
                     </valueCodeableConcept>
                 </xsl:if>
             </component>
+            <!-- component:travelPurpose -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.51']]">
+                <component>
+                    <xsl:apply-templates select="cda:code">
+                        <xsl:with-param name="pElementName">code</xsl:with-param>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates select="cda:value">
+                        <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+                    </xsl:apply-templates>
+                </component>
+            </xsl:for-each>
         </Observation>
     </xsl:template>
 
@@ -1245,6 +1344,12 @@
             </xsl:choose>
             <xsl:apply-templates select="cda:interpretationCode" />
 
+            <!-- BodySite -->
+            <xsl:apply-templates select="cda:targetSiteCode">
+                <xsl:with-param name="pElementName" select="'bodySite'" />
+            </xsl:apply-templates>
+
+            <!-- method -->
             <xsl:apply-templates select="cda:methodCode">
                 <xsl:with-param name="pElementName" select="'method'" />
                 <xsl:with-param name="pIncludeCoding" select="true()" />

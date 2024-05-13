@@ -16,7 +16,8 @@
         <xsl:for-each select="cda:author[position() > 1] | cda:informant[position() > 1]">
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
-
+        <!-- C-CDA Service Delivery Location -->
+        <xsl:apply-templates select="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
@@ -107,6 +108,25 @@
                     </xsl:apply-templates>
                 </performer>
             </xsl:for-each>
+            
+            <!-- location -->
+            <xsl:if test="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
+                <location>
+                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]/@lcg:uuid}" />
+                </location>
+            </xsl:if>
+            
+            <!-- reasonReference (c-cda indication) -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']]">
+                <reasonReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </reasonReference>
+            </xsl:for-each>
+            
+            <!-- BodySite -->
+            <xsl:apply-templates select="cda:targetSiteCode">
+                <xsl:with-param name="pElementName" select="'bodySite'" />
+            </xsl:apply-templates>
 
             <!-- complication -->
             <xsl:if test="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']/cda:value/@code">
@@ -184,6 +204,20 @@
                         <xsl:with-param name="pElementName">actor</xsl:with-param>
                     </xsl:apply-templates>
                 </performer>
+            </xsl:for-each>
+            
+            <!-- location -->
+            <xsl:if test="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
+                <location>
+                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]/@lcg:uuid}" />
+                </location>
+            </xsl:if>
+            
+            <!-- reasonReference (c-cda indication) -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']]">
+                <reasonReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </reasonReference>
             </xsl:for-each>
 
             <!-- BodySite -->
@@ -269,6 +303,25 @@
                     </xsl:apply-templates>
                 </performer>
             </xsl:for-each>
+            
+            <!-- location -->
+            <xsl:if test="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
+                <location>
+                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]/@lcg:uuid}" />
+                </location>
+            </xsl:if>
+            
+            <!-- reasonReference (c-cda indication) -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']]">
+                <reasonReference>
+                    <reference value="urn:uuid:{@lcg:uuid}" />
+                </reasonReference>
+            </xsl:for-each>
+            
+            <!-- BodySite -->
+            <xsl:apply-templates select="cda:targetSiteCode">
+                <xsl:with-param name="pElementName" select="'bodySite'" />
+            </xsl:apply-templates>
 
             <xsl:if test="cda:value[@code or @nullFlavor]">
                 <!-- Only process value elements that actually have some content, not empty stuff like <value xsi:type="CD"/> -->

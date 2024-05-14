@@ -6,10 +6,11 @@
     <!-- Put CDA participants with nowhere to go in FHIR in Provenance resource -->
 
     <!-- ClinicalDocument level participants -->
-    <xsl:template match="cda:dataEnterer | cda:informant[parent::cda:ClinicalDocument]" mode="provenance">
+    <xsl:template match="cda:dataEnterer | cda:informant[parent::cda:ClinicalDocument] | cda:legalAuthenticator[sdtc:signatureText] | cda:authenticator[sdtc:signatureText]" mode="provenance">
         <entry>
             <fullUrl value="urn:uuid:{@lcg:uuid}" />
             <resource>
+                <!-- fill some variables that we may need to use in two places -->
                 <Provenance>
                     <target>
                         <reference value="urn:uuid:{/cda:ClinicalDocument/@lcg:uuid}" />
@@ -17,6 +18,7 @@
                     <xsl:choose>
                         <xsl:when test="cda:time">
                             <xsl:apply-templates select="cda:time" mode="instant">
+                                <xsl:with-param name="pElementName">recorded</xsl:with-param>
                                 <xsl:with-param name="pDataType">instant</xsl:with-param>
                             </xsl:apply-templates>
                         </xsl:when>
@@ -44,6 +46,12 @@
                                     <xsl:when test="self::cda:informant">
                                         <code value="informant" />
                                     </xsl:when>
+                                    <xsl:when test="self::cda:legalAuthenticator">
+                                        <code value="legal" />
+                                    </xsl:when>
+                                    <xsl:when test="self::cda:authenticator">
+                                        <code value="attester" />
+                                    </xsl:when>
                                 </xsl:choose>
                             </coding>
                         </type>
@@ -51,6 +59,26 @@
                             <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />
                         </who>
                     </agent>
+                    <!-- signature -->
+                    <xsl:for-each select="sdtc:signatureText">
+                        <signature>
+                            <type> 
+                                <system value="urn:iso-astm:E1762-95:2013"/> 
+                                <code value="1.2.840.10065.1.12.1.5"/> 
+                                <display value="Verification Signature"/> 
+                            </type>
+                            <xsl:apply-templates select="preceding-sibling::cda:time" mode="instant">
+                                <xsl:with-param name="pElementName">when</xsl:with-param>
+                                <xsl:with-param name="pDataType">instant</xsl:with-param>
+                            </xsl:apply-templates>
+                            <who>
+                                <reference value="urn:uuid:{following-sibling::cda:assignedEntity/@lcg:uuid}" />
+                            </who>
+                            <targetFormat value="application/cda+xml"/> 
+                            <sigFormat value="{@mediaType}"/>
+                            <data value="{.}"/>
+                        </signature>
+                    </xsl:for-each>
                 </Provenance>
             </resource>
         </entry>
@@ -58,14 +86,14 @@
 
     <!-- Entry-level participants -->
     <xsl:template match="cda:author | cda:performer" mode="provenance">
-        <xsl:param name="pTargetUUID"/>
+        <xsl:param name="pTargetUUID" />
         <entry>
             <fullUrl value="urn:uuid:{@lcg:uuid}" />
             <resource>
                 <Provenance>
                     <xsl:choose>
                         <!-- when we've passed in a specific uuid, use that -->
-                        <xsl:when test="string-length($pTargetUUID)>0">
+                        <xsl:when test="string-length($pTargetUUID) > 0">
                             <target>
                                 <reference value="urn:uuid:{$pTargetUUID}" />
                             </target>

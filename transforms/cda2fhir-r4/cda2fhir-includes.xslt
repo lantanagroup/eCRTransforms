@@ -16,6 +16,7 @@
     <xsl:include href="cda2fhir-Device.xslt" />
     <xsl:include href="cda2fhir-DocumentReference.xslt" />
     <xsl:include href="cda2fhir-Encounter.xslt" />
+    <xsl:include href="cda2fhir-EpisodeOfCare.xslt" />
     <xsl:include href="cda2fhir-Extension.xslt" />
     <xsl:include href="cda2fhir-FamilyMemberHistory.xslt" />
     <xsl:include href="cda2fhir-Goal.xslt" />

@@ -1014,7 +1014,7 @@
     <xsl:template match="
             cda:code | cda:confidentialityCode | cda:maritalStatusCode | cda:routeCode | cda:raceCode | sdtc:raceCode |
             cda:ethnicGroupCode | cda:religiousAffiliationCode | cda:targetSiteCode | cda:priorityCode | cda:translation |
-            cda:methodCode | cda:approachSiteCode | sdtc:functionCode | cda:dischargeDispositionCode | sdtc:dischargeDispositionCode">
+            cda:methodCode | cda:approachSiteCode | sdtc:functionCode | cda:functionCode | cda:dischargeDispositionCode | sdtc:dischargeDispositionCode">
         <xsl:param name="pElementName" select="'CodeableConcept'" />
         <xsl:param name="pIncludeCoding" select="true()" />
         <xsl:param name="pRequireDataAbsentReason" select="false()" />

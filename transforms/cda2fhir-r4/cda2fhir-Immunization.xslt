@@ -13,6 +13,9 @@
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
 
+        <!-- create organization from cda:consumable/cda:manufacturedProduct/cda:manufacturerOrganization -->
+        <xsl:apply-templates select="cda:consumable/cda:manufacturedProduct/cda:manufacturerOrganization" mode="bundle-entry" />
+
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
@@ -46,27 +49,35 @@
 
             <xsl:comment>Defaulting primarySource to false since this info is not in the C-CDA Immunization Activity template</xsl:comment>
             <primarySource value="false" />
-            <xsl:for-each select="cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:lotNumberText/@value">
+
+            <!-- manufacturer -->
+            <!-- create organization from cda:consumable/cda:manufacturedProduct/cda:manufacturerOrganization -->
+            <xsl:apply-templates select="cda:consumable/cda:manufacturedProduct/cda:manufacturerOrganization" mode="reference">
+                <xsl:with-param name="wrapping-elements">manufacturer</xsl:with-param>
+            </xsl:apply-templates>
+
+            <!-- lotNumber -->
+            <xsl:for-each select="cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:lotNumberText[not(@nullFlavor)]">
                 <lotNumber value="{.}" />
             </xsl:for-each>
+            <!-- site -->
             <xsl:apply-templates select="cda:approachSiteCode">
                 <xsl:with-param name="pElementName">site</xsl:with-param>
             </xsl:apply-templates>
+            <!-- route -->
             <xsl:apply-templates select="cda:routeCode">
                 <xsl:with-param name="pElementName">route</xsl:with-param>
             </xsl:apply-templates>
+            <!-- doseQuantity -->
             <xsl:apply-templates select="cda:doseQuantity">
                 <xsl:with-param name="pElementName">doseQuantity</xsl:with-param>
                 <xsl:with-param name="pSimpleQuantity" select="true()" />
             </xsl:apply-templates>
-            <xsl:if test="cda:performer">
-                <performer>
-                    <xsl:call-template name="performer-reference">
-                        <xsl:with-param name="pElementName">actor</xsl:with-param>
-                    </xsl:call-template>
-                </performer>
-            </xsl:if>
-            
+            <!-- performer -->
+            <xsl:apply-templates select="cda:performer/cda:assignedEntity" mode="reference">
+                <xsl:with-param name="wrapping-elements">performer/actor</xsl:with-param>
+            </xsl:apply-templates>
+
             <!-- reasonReference (C-CDA Indication) -->
             <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.19']">
                 <reasonReference>
@@ -82,12 +93,12 @@
                     </detail>
                 </reaction>
             </xsl:for-each>
-            
+
             <!-- protocolApplied/doseNumberPositiveInt -->
             <xsl:for-each select="cda:repeatNumber">
                 <protocolApplied>
                     <doseNumberPositiveInt>
-                        <xsl:attribute name="value" select="@value"></xsl:attribute>
+                        <xsl:attribute name="value" select="@value" />
                     </doseNumberPositiveInt>
                 </protocolApplied>
             </xsl:for-each>

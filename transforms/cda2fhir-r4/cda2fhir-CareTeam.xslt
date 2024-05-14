@@ -16,7 +16,6 @@
     </xsl:template>
 
     <xsl:template match="cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.500']]">
-
         <CareTeam>
             <!-- set meta profile based on Ig -->
             <xsl:call-template name="add-meta" />
@@ -36,9 +35,38 @@
             <!-- Care Team Member Act -->
             <xsl:for-each select="cda:component/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.500.1']]">
                 <participant>
-                    <xsl:apply-templates select="cda:performer/sdtc:functionCode">
-                        <xsl:with-param name="pElementName">role</xsl:with-param>
-                    </xsl:apply-templates>
+                    <!-- role -->
+                    <xsl:choose>
+                        <xsl:when test="cda:performer/cda:functionCode">
+                            <xsl:apply-templates select="cda:performer/cda:functionCode">
+                                <xsl:with-param name="pElementName">role</xsl:with-param>
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:when test="cda:performer/sdtc:functionCode">
+                            <xsl:apply-templates select="cda:performer/sdtc:functionCode">
+                                <xsl:with-param name="pElementName">role</xsl:with-param>
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <role>
+                                <coding>
+                                    <system value="http://terminology.hl7.org/ValueSet/v3-xServiceEventPerformer"/>
+                                    <code value="@typeCode"/>
+                                    <xsl:choose>
+                                        <xsl:when test="'PPRF'">
+                                            <display value="primary performer"/>
+                                        </xsl:when>
+                                        <xsl:when test="'PRF'">
+                                            <display value="performer"/>
+                                        </xsl:when>
+                                        <xsl:when test="'SPRF'">
+                                            <display value="secondary performer"/>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </coding>
+                            </role>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <member>
                         <xsl:apply-templates select="cda:performer/cda:assignedEntity" mode="reference" />
                     </member>
@@ -55,4 +83,77 @@
         </CareTeam>
     </xsl:template>
 
+    <!-- Create a CareTeam from a bunch of peformers for later reference in an Episode of Care -->
+    <xsl:template name="create-care-team">
+        <entry>
+            <!-- use the documentationOf uuid for this fullUrl because there isn't a corresponding one -->
+            <fullUrl value="urn:uuid:{parent::cda:documentationOf/@lcg:uuid}" />
+            <resource>
+                <CareTeam>
+                    <meta>
+                        <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam" />
+                    </meta>
+                    <!-- subject -->
+                    <xsl:call-template name="subject-reference">
+                        <xsl:with-param name="pElementName">subject</xsl:with-param>
+                    </xsl:call-template>
+                    <!-- period -->
+                    <xsl:apply-templates select="cda:effectiveTime" mode="period">
+                        <xsl:with-param name="pElementName">period</xsl:with-param>
+                    </xsl:apply-templates>
+
+                    <!-- participant -->
+                    <xsl:for-each select="cda:performer">
+                        <participant>
+                            <!-- role -->
+                            <xsl:choose>
+                                <xsl:when test="cda:functionCode">
+                                    <xsl:apply-templates select="cda:functionCode">
+                                        <xsl:with-param name="pElementName">role</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:when>
+                                <xsl:when test="sdtc:functionCode">
+                                    <xsl:apply-templates select="sdtc:functionCode">
+                                        <xsl:with-param name="pElementName">role</xsl:with-param>
+                                    </xsl:apply-templates>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <role>
+                                        <coding>
+                                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                                            <code value="{@typeCode}"/>
+                                            <xsl:choose>
+                                                <xsl:when test="'PPRF'">
+                                                    <display value="primary performer"/>
+                                                </xsl:when>
+                                                <xsl:when test="'PRF'">
+                                                    <display value="performer"/>
+                                                </xsl:when>
+                                                <xsl:when test="'SPRF'">
+                                                    <display value="secondary performer"/>
+                                                </xsl:when>
+                                            </xsl:choose>
+                                        </coding>
+                                    </role>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <!-- member -->
+                            <xsl:apply-templates select="cda:assignedEntity" mode="reference">
+                                <xsl:with-param name="wrapping-elements">member</xsl:with-param>
+                            </xsl:apply-templates>
+                            <xsl:if test="cda:assignedEntity/cda:representedOrganization">
+                                <!-- onBehalfOf -->
+                                <xsl:apply-templates select="cda:assignedEntity/cda:representedOrganization" mode="reference">
+                                    <xsl:with-param name="wrapping-elements">onBehalfOf</xsl:with-param>
+                                </xsl:apply-templates>
+                            </xsl:if>
+                            <xsl:apply-templates select="cda:time" mode="period">
+                                <xsl:with-param name="pElementName">period</xsl:with-param>
+                            </xsl:apply-templates>
+                        </participant>
+                    </xsl:for-each>
+                </CareTeam>
+            </resource>
+        </entry>
+    </xsl:template>
 </xsl:stylesheet>

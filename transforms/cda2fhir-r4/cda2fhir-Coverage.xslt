@@ -26,7 +26,6 @@
         </entry>
     </xsl:template>
 
-
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.60']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <xsl:for-each select="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.61']]">
@@ -35,7 +34,6 @@
             </xsl:apply-templates>
         </xsl:for-each>
     </xsl:template>
-
 
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.61']]">
         <Coverage>

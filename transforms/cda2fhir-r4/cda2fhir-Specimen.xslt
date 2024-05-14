@@ -16,22 +16,33 @@
     <xsl:template match="cda:organizer/cda:component/cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']] | cda:organizer/cda:component/cda:procedure[cda:code[@code = '17636008']]">
         <Specimen xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <xsl:call-template name="add-meta" />
+            <!-- id -->
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:id" />
+            <!-- status -->
             <xsl:apply-templates select="cda:statusCode" />
+            <!-- type -->
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:playingEntity/cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>
             </xsl:apply-templates>
+            <!-- collection -->
             <xsl:if test="cda:effectiveTime or cda:targetSiteCode">
                 <collection>
+                    <!-- collected -->
                     <xsl:apply-templates select="cda:effectiveTime">
                         <xsl:with-param name="pStartElementName" select="'collected'" />
                     </xsl:apply-templates>
+                    <!-- bodySite -->
                     <xsl:apply-templates select="cda:targetSiteCode">
                         <xsl:with-param name="pElementName" select="'bodySite'" />
                     </xsl:apply-templates>
                 </collection>
             </xsl:if>
-
+            <!-- condition -->
+            <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.421']]/cda:value">
+                <xsl:apply-templates select=".">
+                    <xsl:with-param name="pElementName">condition</xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:for-each>
         </Specimen>
     </xsl:template>
 

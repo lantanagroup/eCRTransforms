@@ -19,7 +19,7 @@
     </xsl:template>
     
     <!-- Suppress C-CDA Supply Order if it's in a SubstanceAdministration with a moodCode of INT because it's data elements will be part of the MedicationRequest
-         and not a standalone resource, but do want perfomer -->
+         and not a standalone resource, but do want performer -->
     <xsl:template match="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode='INT']]" mode="bundle-entry">
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
         

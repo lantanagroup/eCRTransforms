@@ -519,32 +519,6 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template name="performer-reference">
-        <xsl:param name="pElementName">actor</xsl:param>
-        <!-- TODO: handle multiple authors. May not be legal for all resources.  -->
-        <!-- SG: Updated to handle no performer (default to encompassingEncounter/responsibleParty/assignedEntity and
-         if there isn't one of those either, don't create element-->
-        <xsl:if
-            test="cda:performer/cda:assignedEntity or ancestor::cda:section[1]/cda:performer/cda:assignedEntity or /cda:ClinicalDocument/cda:documentation/cda:serviceEvent/cda:performer/cda:assignedEntity or /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty/cda:assignedEntity">
-            <xsl:element name="{$pElementName}">
-                <xsl:choose>
-                    <xsl:when test="cda:performer/cda:assignedEntity">
-                        <!-- TODO: test to see author.id is the same as an ancestor author, if so use that URN -->
-                        <reference value="urn:uuid:{cda:performer[1]/cda:assignedEntity/@lcg:uuid}" />
-                    </xsl:when>
-                    <xsl:when test="ancestor::cda:section[1]/cda:performer/cda:assignedEntity">
-                        <reference value="urn:uuid:{ancestor::cda:section[1]/cda:performer/cda:assignedEntity/@lcg:uuid}" />
-                    </xsl:when>
-                    <xsl:when test="/cda:ClinicalDocument/cda:documentation/cda:serviceEvent/cda:performer/cda:assignedEntity">
-                        <reference value="urn:uuid:{/cda:ClinicalDocument/cda:documentation/cda:serviceEvent/cda:performer/cda:assignedEntity/@lcg:uuid}" />
-                    </xsl:when>
-                    <xsl:when test="/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty/cda:assignedEntity">
-                        <reference value="urn:uuid:{/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty/cda:assignedEntity/@lcg:uuid}" />
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:element>
-        </xsl:if>
-    </xsl:template>
 
     <xsl:template match="cda:observation/cda:referenceRange">
         <!-- Rule: must have at least a low or a high or a text -->

@@ -5,11 +5,12 @@
 
     <xsl:template match="cda:recordTarget" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
+        
+        <xsl:apply-templates select="cda:patientRole/cda:providerOrganization" mode="bundle-entry" />
     </xsl:template>
 
     <xsl:template match="cda:recordTarget">
         <Patient>
-
             <!--MD: Check current Ig -->
             <xsl:variable name="vCurrentIg">
                 <xsl:apply-templates select="/" mode="currentIg" />
@@ -155,7 +156,14 @@
                 </communication>
             </xsl:for-each>
 
-            <!-- MD: Add transform RelatedPerson -->
+            <!-- managingOrganization -->
+            <xsl:if test="cda:patientRole/cda:providerOrganization">
+                <managingOrganization>
+                    <reference value="urn:uuid:{cda:patientRole/cda:providerOrganization/@lcg:uuid}" />
+                </managingOrganization>
+            </xsl:if>
+            
+            <!-- link (related Patient or RelatedPerson -->
             <xsl:choose>
                 <xsl:when test="
                         //cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']/

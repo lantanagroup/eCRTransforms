@@ -13,6 +13,8 @@
             cda:representedCustodianOrganization |
             cda:representedOrganization |
             cda:receivedOrganization |
+            cda:providerOrganization |
+            cda:manufacturerOrganization |
             cda:serviceProviderOrganization |
             cda:participant[@typeCode = 'LOC'][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4'])]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
@@ -35,7 +37,7 @@
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template match="cda:representedCustodianOrganization | cda:representedOrganization | cda:scopingOrganization | cda:receivedOrganization | cda:serviceProviderOrganization">
+    <xsl:template match="cda:representedCustodianOrganization | cda:representedOrganization | cda:scopingOrganization | cda:receivedOrganization | cda:serviceProviderOrganization | cda:providerOrganization | cda:manufacturerOrganization">
         <xsl:call-template name="create-organization" />
     </xsl:template>
 
@@ -221,7 +223,7 @@
                     </telecom>
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- SG: US Core Organization needs an address so if this is a organization that
+            <!-- SG: US Public Health Organization needs an address so if this is a organization that
             doesn't have a address, check to see if its containing role has an address(s) that
             we can use 
             in the case of location/serviceProviderOrganization, let's check siblings

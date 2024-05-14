@@ -3,8 +3,9 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
-    <!-- Don't want the eCR serviceEvent that is just about a manually initiated eCR -->
-    <xsl:template match="cda:serviceEvent[not(cda:code[@code = 'PHC1464'])]" mode="bundle-entry">
+    <!-- ClinicalDocument.serviceEvent will never have a moodCode of INT so this code should never run
+         but the FHIR mapping to CarePlan shows that the moodCode must be INT -->
+    <xsl:template match="cda:serviceEvent[@moodCode='ÍNT']" mode="bundle-entry">
         <xsl:comment>Creating CarePlan Bundle Entry</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
         <xsl:for-each select="cda:performer">
@@ -12,8 +13,9 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- Don't want the eCR serviceEvent that is just about a manually initiated eCR -->
-    <xsl:template match="cda:serviceEvent[not(cda:code[@code = 'PHC1464'])]">
+    <!-- ClinicalDocument.serviceEvent will never have a moodCode of INT so this code should never run
+         but the FHIR mapping to CarePlan shows that the moodCode must be INT-->
+    <xsl:template match="cda:serviceEvent[@moodCode='ÍNT']">
         <CarePlan>
             <xsl:call-template name="add-meta" />
             <status value="unknown" />

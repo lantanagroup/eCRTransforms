@@ -53,6 +53,10 @@
              on that IG, or from a Provenance resource - choosing the latter for now-->
         <xsl:apply-templates select="cda:dataEnterer" mode="provenance" />
         <xsl:apply-templates select="cda:informant" mode="provenance" />
+        <!-- The ClinicalDocument/legalAuthenticator and authenticator can have digital signatures. If this is the case, create Provenance resources, 
+            include the dig sig and a reference back to the Composition -->
+        <xsl:apply-templates select="cda:legalAuthenticator[sdtc:signatureText]" mode="provenance" />
+        <xsl:apply-templates select="cda:authenticator[sdtc:signatureText]" mode="provenance" />
 
     </xsl:template>
 
@@ -210,15 +214,36 @@
                 <xsl:apply-templates select="cda:custodian" mode="reference" />
             </custodian>
 
-            <!-- relatesTo contains the ClinicalDocument.id of the CDA document 
-           (versionNumber and setId can be found using id as id is unique across all documents) -->
+            <!-- relatesTo:sliceTransformed - Document or Composition that this Composition is transformed from 
+                 ClinicalDocument.id (globally unique)
+            -->
             <relatesTo>
                 <code value="transforms" />
                 <xsl:apply-templates select="cda:id">
                     <xsl:with-param name="pElementName">targetIdentifier</xsl:with-param>
                 </xsl:apply-templates>
             </relatesTo>
-            <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent" mode="composition-event" />
+
+            <!-- relatesTo:sliceReplaced - Document or Composition that this Composition replaces (later version) 
+                    Bundle.identifier = ClinicalDocument.id
+                    Composition.identifier is equivalent to ClinicalDocument.setId in CDA
+                    Composition.versionNumber = ClinicalDocument.versionNumber in CDA
+                    ClinicalDocument.id is globally unique, can get versionNumber and setId from this globally unique id
+            -->
+            <xsl:for-each select="cda:relatedDocument[@typeCode = 'RPLC']">
+                <relatesTo>
+                    <code value="replaces" />
+                    <xsl:apply-templates select="cda:parentDocument/cda:id">
+                        <xsl:with-param name="pElementName">targetIdentifier</xsl:with-param>
+                    </xsl:apply-templates>
+                </relatesTo>
+            </xsl:for-each>
+
+            <!-- event -->
+            <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[not(cda:code[@code = 'PHC1464'])]" mode="reference">
+                <xsl:with-param name="wrapping-elements">event/detail</xsl:with-param>
+            </xsl:apply-templates>
+            <!-- sections -->
             <xsl:apply-templates select="cda:component/cda:structuredBody/cda:component/cda:section" />
             <!-- If this is eICR and there are missing required sections 
                  (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) 
@@ -446,14 +471,14 @@
 
                         </div>
                     </text>
-                    
+
                     <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
                     <xsl:for-each select="
                             cda:entry[
                             cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])]
                             [not(cda:code/@code = '8462-4')]
                             ]">
-                        
+
                         <xsl:apply-templates select="cda:*" mode="reference">
                             <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
                         </xsl:apply-templates>
@@ -464,7 +489,7 @@
                             descendant::cda:entryRelationship
                             [descendant::cda:*/descendant::cda:*[3]]
                             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])]
-                            [not(cda:*[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode='INT']])]
+                            [not(cda:*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode = 'INT']])]
                             [cda:*
                             [not(cda:templateId[key('templates-to-suppress-key', @root)])]
                             [not(cda:code/@code = '8462-4')]

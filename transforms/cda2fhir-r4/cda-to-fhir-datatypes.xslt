@@ -69,7 +69,8 @@
                 </xsl:variable>
                 <xsl:sequence select="concat($date, 'T', $time, $timezone)" />
             </xsl:when>
-            <xsl:when test="string-length($cdaTS) > 8">
+            <!-- check to make sure the xs:time will work, otherwise this will crash -->
+            <xsl:when test="string-length($cdaTS) > 8 and concat(substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00.000') castable as xs:time">
                 <xsl:variable name="time" as="xs:time">
                     <xsl:sequence select="adjust-time-to-timezone(xs:time(concat(substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00.000')))" />
                 </xsl:variable>
@@ -395,13 +396,28 @@
 
     <xsl:template name="effectiveTimeInner">
         <xsl:if test="cda:width/@value and cda:width/@unit = 'weeks' and cda:high">
-            <!-- Convert date string into date - only care about the first 8 chars -->
-            <xsl:variable name="vDate" select="xs:date(concat(substring(cda:high/@value, 1, 4), '-', substring(cda:high/@value, 5, 2), '-', substring(cda:high/@value, 7, 2)))" />
-            <xsl:variable name="vNumDays" select="7 * cda:width/@value" />
-            <!-- Subtract number of days from start date -->
-            <xsl:variable name="vStartDate" select="format-date(($vDate - $vNumDays * xs:dayTimeDuration('P1D')), '[Y][M][D]')" />
-            <!-- Convert back to a string for futher processing -->
-            <start value="{lcg:cdaTS2date($vStartDate)}" />
+            <xsl:choose>
+                <!-- need this to fail gracefully if an invalid date -->
+                <xsl:when test="concat(substring(cda:high/@value, 1, 4), '-', substring(cda:high/@value, 5, 2), '-', substring(cda:high/@value, 7, 2)) castable as xs:date">
+                    <!-- Convert date string into date - only care about the first 8 chars -->
+                    <xsl:variable name="vDate" select="xs:date(concat(substring(cda:high/@value, 1, 4), '-', substring(cda:high/@value, 5, 2), '-', substring(cda:high/@value, 7, 2)))" />
+                    <xsl:variable name="vNumDays" select="7 * cda:width/@value" />
+                    <!-- Subtract number of days from start date -->
+                    <xsl:variable name="vStartDate" select="format-date(($vDate - $vNumDays * xs:dayTimeDuration('P1D')), '[Y][M][D]')" />
+                    <!-- Convert back to a string for futher processing -->
+                    <start value="{lcg:cdaTS2date($vStartDate)}" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:comment>Invalid source date</xsl:comment>
+                    <start>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <xsl:element name="valueCode">
+                                <xsl:attribute name="value">unknown</xsl:attribute>
+                            </xsl:element>
+                        </extension>
+                    </start>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:if test="cda:low[@value]">
             <start value="{lcg:cdaTS2date(cda:low/@value)}" />

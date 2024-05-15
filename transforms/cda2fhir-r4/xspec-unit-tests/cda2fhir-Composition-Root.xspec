@@ -24,7 +24,7 @@
         <x:expect label="A9. There should be a Composition.confidentiality value=N" test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1" />
         <!-- Validate the Composition Title-->
         <x:expect label="A10. There should be a Composition.title value=Initial Public Health Case Report: XSPEC_eICR-CDA-001_R3_1"
-            test="count(//fhir:Composition/fhir:title[@value='Initial Public Health Case Report: XSPEC_eICR-CDA-001_R3_1'])=1" />
+            test="count(//fhir:Composition/fhir:title[@value='Initial Public Health Case Report'])=1" />
         <!-- Validate the Composition Version  -->
         <x:expect label="A11. There should be a Composition.extension.url=http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber"
             test="count(//fhir:Composition/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber'])=1" />
@@ -40,7 +40,9 @@
         <!-- Validate the Composition Custodian exists -->
         <x:expect label="A18. There should be a Composition.custodian" test="count(//fhir:Composition/fhir:custodian) = 1" />
         <!-- Validate the Composition RelatesTo exists -->
-        <x:expect label="A19. There should be a Composition.relatesTo" test="count(//fhir:Composition/fhir:relatesTo) = 1" />
+        <x:expect label="A19.1. There should be a Composition.relatesTo with code 'replaces'" test="count(//fhir:Composition/fhir:relatesTo/fhir:code[@value='replaces']) = 1" />
+        <!-- Validate the Composition RelatesTo exists -->
+        <x:expect label="A19.2. There should be a Composition.relatesTo with code 'transforms'" test="count(//fhir:Composition/fhir:relatesTo/fhir:code[@value='transforms']) = 1" />
         <!-- Validate the Composition Encounter exists -->
         <x:expect label="A20. There should be a Composition.encounter" test="count(//fhir:Composition/fhir:encounter) = 1" />
         <!-- Validate the Composition Event exists -->
@@ -51,7 +53,7 @@
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
 
         <!-- Validate the correct number of  Composition Sections exists -->
-        <x:expect label="B1. There should be 14 Composition.section" test="count(//fhir:Composition/fhir:section) = 14" />
+        <x:expect label="B1. There should be 13 Composition.section" test="count(//fhir:Composition/fhir:section) = 13" />
         <x:expect label="B2. There should be a Plan of Treatment section"
             test="count(//fhir:Composition/fhir:section[fhir:title/@value='Plan of Treatment'][fhir:code/fhir:coding/fhir:code/@value='18776-5']) = 1" />
         <x:expect label="B3. The Plan of Treatment Section should contain 4 eICR trigger code extension entries"

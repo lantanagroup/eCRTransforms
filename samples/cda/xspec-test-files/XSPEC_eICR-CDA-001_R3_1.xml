@@ -146,7 +146,7 @@
     <!-- Where a trigger occurs outside of an encounter the author/assignedAuthor/authorPerson and 
        author/assignedAuthor/representedOrganization will represent the Provider and Facility for reporting purposes. -->
     <author>
-        <time value="20201107094421-0500" />
+        <time value="200130311" />
         <!--Author/authenticator may be software or may be a provider such as "infection control professional".-->
         <assignedAuthor>
             <!--Id for authoring device - made up application OID-->

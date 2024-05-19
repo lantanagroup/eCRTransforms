@@ -16,9 +16,9 @@
         <x:expect label="A9. There should be two Immunization.patient.reference" test="count(//fhir:Immunization/fhir:patient/fhir:reference)=2" />
         <x:expect label="A10. There should be two Immunization.occurenceDateTime" test="count(//fhir:Immunization/fhir:occurrenceDateTime)=2" />
         <x:expect label="A11. There should be two Immunization.primarySource" test="count(//fhir:Immunization/fhir:primarySource)=2" />
-        <x:expect label="A12. There should be three Immunization.route.coding.system" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:system)=3" />
-        <x:expect label="A13. There should be three Immunization.route.coding.code" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:code)=3" />
-        <x:expect label="A14. There should be three Immunization.route.coding.display" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:display)=3" />
+        <x:expect label="A12. There should be two Immunization.route" test="count(//fhir:Immunization/fhir:route)=2" />
+        <x:expect label="A13. There should be two Immunization.route.coding.code" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:code)=2" />
+        <x:expect label="A14. There should be two Immunization.route.coding.display" test="count(//fhir:Immunization/fhir:route/fhir:coding/fhir:display)=2" />
         <!-- Validate the Dose Quantity - should only be one of each of these, as one of the values is nullFlavor=NI which doesn't get transformed (doseQuantity is optional)-->
         <x:expect label="A15. There should be one Immunization.doseQuantity.value" test="count(//fhir:Immunization/fhir:doseQuantity/fhir:value)=1" />
         <x:expect label="A16. There should be one Immunization.doseQuantity.unit" test="count(//fhir:Immunization/fhir:doseQuantity/fhir:unit)=1" />

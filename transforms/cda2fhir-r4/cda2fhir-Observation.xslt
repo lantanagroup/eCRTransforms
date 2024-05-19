@@ -256,9 +256,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             
             <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.49']]">
 
@@ -310,7 +315,7 @@
                 <xsl:with-param name="pStartElementName" select="'effective'" />
             </xsl:apply-templates>
             
-            <!-- issued -->
+            <!-- issued: author -->
             <xsl:if test="cda:author[1]/cda:time/@value">
                 <issued value="{lcg:cdaTS2date(cda:author[1]/cda:time/@value)}" />
             </xsl:if>
@@ -429,9 +434,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <!-- value -->
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pVitalSign" select="cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.27'" />
@@ -599,9 +609,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:apply-templates select="cda:value" />
         </Observation>
     </xsl:template>
@@ -630,9 +645,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+           <!-- <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <!-- component:travelLocation -->
             <component>
                 <xsl:for-each select="cda:participant/cda:participantRole/cda:addr">
@@ -698,9 +718,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:comment>Start of last menstrual period</xsl:comment>
             <xsl:apply-templates select="cda:value" />
         </Observation>
@@ -730,9 +755,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+           <!-- <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:comment>Postpartum status</xsl:comment>
             <xsl:apply-templates select="cda:value" />
         </Observation>
@@ -762,9 +792,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:apply-templates select="cda:value" />
         </Observation>
     </xsl:template>
@@ -802,9 +837,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <!-- value is always a code in Pregnancy Status -->
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
@@ -880,9 +920,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:apply-templates select="cda:value" />
 
             <xsl:if test="parent::*/cda:sequenceNumber">
@@ -921,9 +966,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:variable name="vApos">'</xsl:variable>
             <xsl:variable name="vQuot">"</xsl:variable>
             <valueString value="{replace(cda:text/text(),$vQuot,$vApos)}" />
@@ -962,9 +1012,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
                     <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
@@ -1105,9 +1160,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pElementName" select="'valueCodeableConcept'" />
             </xsl:apply-templates>
@@ -1158,9 +1218,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
 
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
@@ -1218,9 +1283,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+           <!-- <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
 
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
@@ -1272,9 +1342,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
             <xsl:choose>
                 <xsl:when test="cda:value[@nullFlavor]">
                     <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
@@ -1350,9 +1425,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
 
             <xsl:for-each select="cda:participant[@typeCode = 'CSM']">
                 <component>
@@ -1376,12 +1456,33 @@
         <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/extension" /></xsl:comment>
         <Observation>
             <xsl:call-template name="add-meta" />
+            <!-- identifier -->
             <xsl:apply-templates select="cda:id" />
+            <!-- basedOn -->
+            <!-- partOf -->
+            <!-- status -->
             <status value="final" />
+            <!-- category -->
+            <xsl:choose>
+                <xsl:when test="ancestor::cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.22.2.17']">
+                    <category>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                            <code value="social-history"/>
+                            <display value="Social History"/>
+                        </coding>
+                    </category>
+                </xsl:when>
+            </xsl:choose>
+            <!-- code -->
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">code</xsl:with-param>
             </xsl:apply-templates>
+            <!-- sbuject -->
+            <!-- focus -->
+            <!-- encounter -->
             <xsl:call-template name="subject-reference" />
+            <!-- effective -->
             <xsl:choose>
                 <!-- MD: need to check the effectiveTime present and has value -->
                 <xsl:when test="cda:effectiveTime and not(cda:effectiveTime/@nullFlavor)">
@@ -1390,7 +1491,7 @@
                     </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
-
+            <!-- issued -->
             <xsl:apply-templates select="/cda:ClinicalDocument/cda:effectiveTime" mode="observation" />
 
             <!-- performers (multiple) -->
@@ -1400,10 +1501,15 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
-
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
+            <!-- value -->
             <xsl:choose>
                 <xsl:when test="cda:value[@xsi:type = 'INT']">
                     <!-- There is no valueInteger in observations. Assume is a scale instead -->
@@ -1422,9 +1528,11 @@
                     <xsl:apply-templates select="cda:value" />
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- dataAbsentReason -->
+            <!-- interpretation -->
             <xsl:apply-templates select="cda:interpretationCode" />
-
-            <!-- BodySite -->
+            <!-- note -->
+            <!-- bodySite -->
             <xsl:apply-templates select="cda:targetSiteCode">
                 <xsl:with-param name="pElementName" select="'bodySite'" />
             </xsl:apply-templates>
@@ -1438,13 +1546,17 @@
             <xsl:apply-templates select="ancestor::cda:organizer/cda:component/cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']] | ancestor::cda:organizer/cda:component/cda:procedure[cda:code[@code = '17636008']]" mode="reference">
                 <xsl:with-param name="wrapping-elements">specimen</xsl:with-param>
             </xsl:apply-templates>
-
+            <!-- device -->
+            <!-- referenceRange -->
             <xsl:apply-templates select="cda:referenceRange" />
+            <!-- hasMember -->
             <xsl:for-each select="cda:entryRelationship/cda:observation">
                 <hasMember>
                     <xsl:apply-templates select="." mode="reference" />
                 </hasMember>
             </xsl:for-each>
+            <!-- derivedFrom -->
+            <!-- component -->
         </Observation>
     </xsl:template>
 
@@ -1492,9 +1604,14 @@
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+                <xsl:apply-templates select="." mode="rename-reference-participant">
+                    <xsl:with-param name="pElementName">performer</xsl:with-param>
+                </xsl:apply-templates>
             </xsl:for-each>
+            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
+                <xsl:call-template name="performer-or-author" />
+            </xsl:for-each>-->
 
             <xsl:choose>
                 <xsl:when test="cda:value[@xsi:type = 'CD']">

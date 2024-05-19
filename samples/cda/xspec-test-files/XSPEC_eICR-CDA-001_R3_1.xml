@@ -81,15 +81,17 @@
                 </name>
                 <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
                 <!-- Patient Birthdate -->
-                <birthTime value="19741124" />
+                <birthTime value="19741123" />
                 <!-- If sdtc:deceasedInd is true then sdtc:deceasedTime must be present -->
                 <sdtc:deceasedInd value="false" />
                 <!-- Patient Race -->
                 <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race &amp; Ethnicity - CDC" displayName="White" />
                 <!-- Patient Ethnicity -->
                 <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race &amp; Ethnicity - CDC" displayName="Not Hispanic or Latino" />
+
                 <!-- Parent/Guardian information-->
                 <guardian>
+
                     <!-- Parent/Guardian Address -->
                     <addr use="H">
                         <streetAddressLine>4444 Home Street</streetAddressLine>
@@ -146,7 +148,7 @@
     <!-- Where a trigger occurs outside of an encounter the author/assignedAuthor/authorPerson and 
        author/assignedAuthor/representedOrganization will represent the Provider and Facility for reporting purposes. -->
     <author>
-        <time value="200130311" />
+        <time value="20130311" />
         <!--Author/authenticator may be software or may be a provider such as "infection control professional".-->
         <assignedAuthor>
             <!--Id for authoring device - made up application OID-->
@@ -689,6 +691,7 @@
                             <effectiveTime value="202011071115-0700" />
                             <routeCode code="C38288" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="NCI Thesaurus" displayName="ORAL" />
                             <doseQuantity value="1" unit="g" />
+                            <!--                            <doseQuantity nullFlavor="NI" />-->
                             <consumable>
                                 <manufacturedProduct classCode="MANU">
                                     <!-- [C-CDA R2.0] Medication Information (V2) -->
@@ -816,7 +819,7 @@
                                     <templateId root="2.16.840.1.113883.10.20.22.4.4" />
                                     <!-- [C-CDA R2.1] Problem Observation (V3) -->
                                     <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01" />
-                                    <id root="ab1791b0-5c71-11db-b0de-0800200c9a66" />
+                                    <id root="ab1791b0-5c71-11db-b0de-0800200c9a61" />
                                     <code code="75325-1" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Symptom">
                                         <translation code="418799008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Symptom" />
                                     </code>
@@ -827,6 +830,77 @@
                                         <low value="20201101" />
                                     </effectiveTime>
                                     <value code="35064005" codeSystem="2.16.840.1.113883.6.96" displayName="Dark stools (finding)" xsi:type="CD" />
+                                    <performer>
+                                        <assignedEntity>
+                                            <id root="2.16.840.1.113883.19.5.9999.456.1" extension="2981824" />
+                                            <addr>
+                                                <streetAddressLine>1007 Health Drive Performer Problem Observation</streetAddressLine>
+                                                <city>Portland</city>
+                                                <state>OR</state>
+                                                <postalCode>99123</postalCode>
+                                                <country>US</country>
+                                            </addr>
+                                            <telecom use="WP" value="tel: +(555)-555-1030" />
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>Harold Performer Problem Observation</given>
+                                                    <family>Hippocrates</family>
+                                                </name>
+                                            </assignedPerson>
+                                            <representedOrganization>
+                                                <id root="2.16.840.1.113883.19.5.9999.1394" />
+                                                <name>Good Health Clinic Performer Problem Observation</name>
+                                                <telecom use="WP" value="tel: +(555)-555-1030" />
+                                                <addr>
+                                                    <streetAddressLine>1007 Health Drive Performer Problem Observation</streetAddressLine>
+                                                    <city>Portland</city>
+                                                    <state>OR</state>
+                                                    <postalCode>99123</postalCode>
+                                                    <country>US</country>
+                                                </addr>
+                                            </representedOrganization>
+                                        </assignedEntity>
+                                    </performer>
+                                    <author>
+                                        <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                                        <time value="202011071235-0800" />
+                                        <!-- Author Participation added as per "SHOULD" Conf#1198-31153 -->
+                                        <assignedAuthor>
+                                            <id root="20cf14fb-b65c-4c8c-a54d-b0cca834c182" />
+                                            <code code="163W00000X" codeSystem="2.16.840.1.113883.5.53" codeSystemName="Health Care Provider Taxonomy" displayName="Registered nurse" />
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>Nurse Author Problem Observation</given>
+                                                    <family>Nightingale</family>
+                                                    <suffix>RN</suffix>
+                                                </name>
+                                            </assignedPerson>
+                                            <representedOrganization>
+                                                <id root="2.16.840.1.113883.19.5" />
+                                                <name>Good Health Hospital Author Problem Observation</name>
+                                            </representedOrganization>
+                                        </assignedAuthor>
+                                    </author>
+                                    <author>
+                                        <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                                        <time value="202011071235-0800" />
+                                        <!-- Author Participation added as per "SHOULD" Conf#1198-31153 -->
+                                        <assignedAuthor>
+                                            <id root="20cf14fb-b65c-4c8c-a54d-b0cca834c18g" />
+                                            <code code="163W00000X" codeSystem="2.16.840.1.113883.5.53" codeSystemName="Health Care Provider Taxonomy" displayName="Registered nurse" />
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>NurseAuthor Problem Observation</given>
+                                                    <family>Nightingale</family>
+                                                    <suffix>RN</suffix>
+                                                </name>
+                                            </assignedPerson>
+                                            <representedOrganization>
+                                                <id root="2.16.840.1.113883.19.5" />
+                                                <name>Good Health Hospital Author Problem Observation</name>
+                                            </representedOrganization>
+                                        </assignedAuthor>
+                                    </author>
                                 </observation>
                             </entryRelationship>
                             <entryRelationship typeCode="SUBJ">
@@ -1170,9 +1244,13 @@
                                     <interpretationCode code="H" codeSystem="2.16.840.1.113883.5.83" displayName="High" />
                                     <referenceRange>
                                         <observationRange>
-                                            <value xsi:type="IVL_PQ">
+                                            <!--<value xsi:type="IVL_PQ">
                                                 <low unit="10*3/uL" value="1.0" />
                                                 <high unit="10*3/uL" value="4.8" />
+                                            </value>-->
+                                            <value xsi:type="IVL_PQ">
+                                                <low value="200" unit="mg/dL" />
+                                                <high value="1000" unit="mg/dL" />
                                             </value>
                                             <interpretationCode code="N" codeSystem="2.16.840.1.113883.5.83" displayName="Normal" />
                                         </observationRange>
@@ -1558,11 +1636,63 @@
                         <observation classCode="OBS" moodCode="EVN">
                             <!-- [eICR R2 STU3] Vaccine Credential Patient Assertion -->
                             <templateId root="2.16.840.1.113883.10.20.15.2.3.55" extension="2021-01-01" />
-                            <id root="3adc7f4d-ff0a-4b38-9252-bd65edbe3dff" />
+                            <id root="3adc7f4d-ff0a-4b38-9252-bd65edbe3dfd" />
                             <code code="11370-4" displayName="Immunization status - Reported" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" />
                             <statusCode code="completed" />
                             <effectiveTime value="20201107" />
                             <value xsi:type="CD" code="Y" codeSystem="2.16.840.1.113883.12.136" displayName="Yes" codeSystemName="Yes/No Indicator (HL7 Table 0136)" />
+                            <performer>
+                                <assignedEntity>
+                                    <id root="2.16.840.1.113883.19.5.9999.456.1" extension="2981824" />
+                                    <addr>
+                                        <streetAddressLine>1007 Health Drive Perfomer Vaccine Credential</streetAddressLine>
+                                        <city>Portland</city>
+                                        <state>OR</state>
+                                        <postalCode>99123</postalCode>
+                                        <country>US</country>
+                                    </addr>
+                                    <telecom use="WP" value="tel: +(555)-555-1030" />
+                                    <assignedPerson>
+                                        <name>
+                                            <given>Harold Perfomer Vaccine Credential</given>
+                                            <family>Hippocrates</family>
+                                        </name>
+                                    </assignedPerson>
+                                    <representedOrganization>
+                                        <id root="2.16.840.1.113883.19.5.9999.1394" />
+                                        <name>Good Health Clinic Perfomer Vaccine Credential</name>
+                                        <telecom use="WP" value="tel: +(555)-555-1030" />
+                                        <addr>
+                                            <streetAddressLine>1007 Health Drive Perfomer Vaccine Credential</streetAddressLine>
+                                            <city>Portland</city>
+                                            <state>OR</state>
+                                            <postalCode>99123</postalCode>
+                                            <country>US</country>
+                                        </addr>
+                                    </representedOrganization>
+                                </assignedEntity>
+                            </performer>
+                            <author>
+                                <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                                <time value="202011071235-0800" />
+                                <!-- Author Participation added as per "SHOULD" Conf#1198-31153 -->
+                                <assignedAuthor>
+                                    <id root="20cf14fb-b65c-4c8c-a54d-b0cca834c182" />
+                                    <code code="163W00000X" codeSystem="2.16.840.1.113883.5.53" codeSystemName="Health Care Provider Taxonomy" displayName="Registered nurse" />
+                                    <assignedPerson>
+                                        <name>
+                                            <given>Nurse Author Vaccine Credential</given>
+                                            <family>Nightingale</family>
+                                            <suffix>RN</suffix>
+                                        </name>
+                                    </assignedPerson>
+                                    <representedOrganization>
+                                        <id root="2.16.840.1.113883.19.5" />
+                                        <name>Good Health Hospital Author Vaccine Credential</name>
+                                    </representedOrganization>
+                                </assignedAuthor>
+                            </author>
+
                         </observation>
                     </entry>
                 </section>
@@ -1979,7 +2109,7 @@
                                     <templateId root="2.16.840.1.113883.10.20.15.2.3.50" extension="2021-01-01" />
                                     <id root="afd5c96f-9289-4796-b8fa-faa50ac113ff" />
                                     <!-- Transport vehicle type -->
-                                    <code code="21812002" codeSystem="2.16.840.1.113883.6.1" displayName="Ocean liner, device (physical object)" codeSystemName="SNOMED CT" />
+                                    <code code="21812002" codeSystem="2.16.840.1.113883.6.96" displayName="Ocean liner, device (physical object)" codeSystemName="SNOMED CT" />
                                     <statusCode code="completed" />
                                     <effectiveTime>
                                         <low value="20200425" />

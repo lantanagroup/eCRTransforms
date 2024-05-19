@@ -53,9 +53,9 @@
                 <reference value="urn:uuid:{//cda:recordTarget/@lcg:uuid}" />
             </patient>
             <xsl:apply-templates select="cda:effectiveTime" mode="allergy" />
-            <xsl:call-template name="author-reference">
+            <xsl:apply-templates select="cda:informant" mode="reference">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
-            </xsl:call-template>
+            </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true'">
                     <xsl:comment>Negated manifestation not currently supported</xsl:comment>

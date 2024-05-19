@@ -533,9 +533,6 @@
                             <xsl:apply-templates select="cda:low" mode="range" />
                             <xsl:apply-templates select="cda:high" mode="range" />
                         </xsl:when>
-                        <!-- SG 2023-06-04: Remove terminate="yes" - whole transform doesn't need to stop because the reference range type can't be dealt with 
-                             (rule is that must have at least a low or a high or a text)
-                             and if it's a string, moving it down to text -->
                         <xsl:otherwise>
                             <xsl:message> Unsupported observation reference range type: <xsl:value-of select="@xsi:type" />
                             </xsl:message>
@@ -831,11 +828,13 @@
         </dataAbsentReason>
     </xsl:template>
 
-    <!-- TEMPLATE: Returns a referenced participant -->
+    <!-- TEMPLATE: Returns a referenced participant 
+         Need to figure out what is contained the participant so the reference can be returned at the correct level -->
     <xsl:template match="cda:author | cda:performer" mode="rename-reference-participant">
         <xsl:param name="pElementName" />
-        <xsl:param name="pParticipantType"/>
+        <xsl:param name="pParticipantType" />
         <xsl:choose>
+            <!-- Returns the uuid for just the Organization because some references require Organization -->
             <xsl:when test="$pParticipantType = 'organization'">
                 <xsl:choose>
                     <xsl:when test="cda:*/cda:representedOrganization">
@@ -847,6 +846,7 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
+            <!-- Returns the uuid at ParticipantRole level -->
             <xsl:when test="cda:*/cda:assignedPerson">
                 <xsl:element name="{$pElementName}">
                     <xsl:element name="reference">
@@ -854,6 +854,7 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
+            <!-- If there is only AuthoringDevice and no person Returns the uuid at the Device level -->
             <xsl:when test="cda:*/cda:assignedAuthoringDevice">
                 <xsl:element name="{$pElementName}">
                     <xsl:element name="reference">
@@ -861,6 +862,7 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
+            <!-- If there is no Person or Device, just return the uuid at the Organization level -->
             <xsl:when test="cda:*/cda:representedOrganization">
                 <xsl:element name="{$pElementName}">
                     <xsl:element name="reference">

@@ -234,13 +234,13 @@ limitations under the License.
 
     <!-- SG 20231123: Add birthplace -->
     <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-birthPlace']">
-<!--        <xsl:for-each select="fhir:address">        -->
+        <xsl:for-each select="fhir:valueAddress">        
             <birthplace>
                 <place>
                     <xsl:call-template name="get-addr" />
                 </place>
             </birthplace>
-        <!--</xsl:for-each>-->
+        </xsl:for-each>
     </xsl:template>
 
 </xsl:stylesheet>

@@ -78,9 +78,13 @@
                 <xsl:with-param name="pElementName" select="'recipient'" />
             </xsl:call-template>
             
-            <xsl:call-template name="author-reference">
-                <xsl:with-param name="pElementName" select="'sender'" />
-            </xsl:call-template>
+            <!-- get closest author (work up the hierarchy if needed) -->
+            <xsl:variable name="vClosestAuthor">
+                <xsl:call-template name="get-closest-author" />
+            </xsl:variable>
+            <xsl:apply-templates select="$vClosestAuthor/cda:author[1]" mode="rename-reference-participant">
+                <xsl:with-param name="pElementName">sender</xsl:with-param>
+            </xsl:apply-templates>
 
             <xsl:if test="cda:text">
                 <payload>
@@ -116,9 +120,13 @@
                     <!--<reference value="urn:uuid:{@lcg:uuid}"/>-->
                 </recipient>
             </xsl:for-each>
-            <xsl:call-template name="author-reference">
+            <!-- get closest author (work up the hierarchy if needed) -->
+            <xsl:variable name="vClosestAuthor">
+                <xsl:call-template name="get-closest-author" />
+            </xsl:variable>
+            <xsl:apply-templates select="$vClosestAuthor/cda:author[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">sender</xsl:with-param>
-            </xsl:call-template>
+            </xsl:apply-templates>
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">reasonCode</xsl:with-param>
             </xsl:apply-templates>

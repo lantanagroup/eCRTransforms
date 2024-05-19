@@ -5,7 +5,7 @@
     <!-- Result Observation -->
     <x:scenario label="A. Scenario for testing http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab">
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
-        
+
         <x:expect label="A1. There should be 7 Observation.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab']])=7" />
         <x:expect label="A2. There should be 1 Observation.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab with identifier = 7d5a02b0-67a4-11db-bd13-0800200c9a66"
@@ -29,9 +29,10 @@
         <x:expect label="A10. There should be a referenceRange in the Observation with identifier = '7c0704bb-9c40-41b5-9c7d-26b2d59e234g'"
             test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:7c0704bb-9c40-41b5-9c7d-26b2d59e234g']]/fhir:referenceRange)=1" />
         <x:expect label="A11. There should be a referenceRange with a data-absent-reason = unknown in the Observation with identifier = 'bf9c0a26-4524-4395-b3ce-100450b9c9ad'"
-            test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:bf9c0a26-4524-4395-b3ce-100450b9c9ad']]/fhir:referenceRange/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value='unknown')=1" />
+            test="count(//fhir:Observation[fhir:identifier/fhir:value[@value='urn:uuid:bf9c0a26-4524-4395-b3ce-100450b9c9ad']]/fhir:referenceRange/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value='unknown')=1"
+         />
     </x:scenario>
-    
+
 
     <!-- Pregnancy Status Observation -->
     <x:scenario label="B. Scenario for testing Pregnancy Status Observation">
@@ -128,7 +129,8 @@
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:code/fhir:coding/fhir:code)=1" />
         <x:expect label="G4. There should be an Observation.code.coding.display"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:code/fhir:coding/fhir:display)=1" />
-        <x:expect label="G5. There should be an Observation.valueString" test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:valueString)=1" />
+        <x:expect label="G5. There should be an Observation.valueString"
+            test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary']]/fhir:valueString)=1" />
     </x:scenario>
 
     <!-- (RR) rr-relevant-reportable-condition-observation -->
@@ -157,17 +159,13 @@
 
         <x:expect label="I1. There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
             test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation'])=1" />
-        <x:expect
-            label="I2. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension with code=RRVS1"
+        <x:expect label="I2. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension with code=RRVS1"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension']/fhir:valueCodeableConcept/fhir:coding/fhir:code[@value='RRVS1'])=1" />
-        <x:expect
-            label="I3. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension"
+        <x:expect label="I3. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension'])=1" />
-        <x:expect
-            label="I4. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension"
+        <x:expect label="I4. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension'])=1" />
-        <x:expect
-            label="I5. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension"
+        <x:expect label="I5. There should be an extension: http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:extension[@url='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension'])=13" />
         <x:expect label="I6. There should be an Observation.status=final"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:status[@value='final'])=1" />
@@ -182,6 +180,17 @@
         <x:expect label="I11. There should be an Observation.component.code for Reporting Timeframe with code RR4"
             test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:component/fhir:code/fhir:coding/fhir:code[@value='RR4'])=1" />
         <x:expect label="I12. There should be an Observation.component.valueQuantity with value 24"
-            test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:component/fhir:valueQuantity/fhir:value[@value='24'])=1" />
+            test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation']]/fhir:component/fhir:valueQuantity/fhir:value[@value='24'])=1"
+         />
+    </x:scenario>
+
+    <!-- Vaccine Credential Patient Assertion Observation -->
+    <x:scenario label="J. Scenario for testing Vaccine Credential Patient Assertion Observation">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+
+        <x:expect label="J1. There should be an Observation.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"
+            test="count(//fhir:Observation/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion'])=1" />
+        <x:expect label="J3. There should be an Observation.code.coding.code"
+            test="count(//fhir:Observation[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion']]/fhir:code/fhir:coding/fhir:code[@value='11370-4'])=1" />
     </x:scenario>
 </x:description>

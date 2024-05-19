@@ -130,12 +130,12 @@
                 </contact>
             </xsl:for-each>
 
-            <!-- Add Communication -->
+            <!-- Communication:  TODO - add extension patient-proficiency modeCode -> proficieny.type, proficiency.level -->
             <xsl:for-each select="cda:patientRole/cda:patient/cda:languageCommunication">
                 <communication>
                     <language>
                         <coding>
-                            <!-- Hard coding system because it's not in the CDA -->
+                            <!-- Hard coding system because it's not in CDA -->
                             <system value="urn:ietf:bcp:47" />
                             <!-- eng is not allowed in FHIR - map to en -->
                             <xsl:choose>
@@ -278,7 +278,7 @@
                         </xsl:choose>
                     </xsl:variable>
                     <xsl:choose>
-                        <!--MD: for file OMB category race code must use extension ombCategory -->
+                        <!--For file OMB category race code must use extension ombCategory -->
                         <xsl:when test="$code = '1002-5' or $code = '2028-9' or $code = '2054-5' or $code = '2076-8' or $code = '2106-3'">
                             <extension url="ombCategory">
                                 <valueCoding>
@@ -480,7 +480,7 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- SG 20240321: added -->
+    <!-- birthplace: TODO - add name as text -->
     <xsl:template name="add-birthplace-extension">
         <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place">
             <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
@@ -562,6 +562,7 @@
                 <xsl:for-each select="cda:patientRole/cda:patient/cda:birthTime[not(@nullFlavor)]">
                     <p>Birthdate: <xsl:value-of select="lcg:cdaTS2date(@value)" /></p>
                 </xsl:for-each>
+                <!-- communication -->
                 <xsl:for-each select="cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode[not(@nullFlavor)]">
                     <p>Language: <xsl:value-of select="@code" /></p>
                 </xsl:for-each>

@@ -28,7 +28,6 @@
         </xsl:variable>
 
         <Practitioner>
-            <xsl:call-template name="breadcrumb-comment" />
             <meta>
                 <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
             </meta>

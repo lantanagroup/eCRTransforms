@@ -2,11 +2,11 @@
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
     <!-- encompassingEncounter - create bundle entry-->
     <x:scenario label="A. Scenario for testing template with match 'cda:encompassingEncounter'and mode 'bundle-entry'">
-        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
         
         <x:expect label="A1. There should be one Encounter resource" test="count(//fhir:Encounter)=1" />
         <x:expect label="A2. There Encounter should have a period with a start date of 2020-11-07"
-            test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:period/fhir:start[@value='2020-11-07'])=1" />
+            test="count(//fhir:Encounter[fhir:identifier/fhir:value/@value='9937012']/fhir:period/fhir:start[substring(@value, 1, 23)='2020-11-07T08:44:21.000'])=1" />
         <x:expect label="A3. There should be one Encounter.identifier[value=9937012][system=2.16.840.1.113883.19]"
             test="count(//fhir:Encounter/fhir:identifier[fhir:value/@value='9937012'][fhir:system/@value='urn:oid:2.16.840.1.113883.19'])=1" />
         <x:expect label="A4. There should be one Encounter.class.code='AMB'" test="count(fhir:entry/fhir:resource/fhir:Encounter/fhir:class/fhir:code/@value='AMB')=1" />

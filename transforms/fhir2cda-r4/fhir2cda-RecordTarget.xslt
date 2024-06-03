@@ -232,15 +232,16 @@ limitations under the License.
         </xsl:for-each>
     </xsl:template>
 
-    <!-- SG 20231123: Add birthplace -->
+    <!-- birthplace -->
     <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-birthPlace']">
         <xsl:for-each select="fhir:valueAddress">        
             <birthplace>
                 <place>
-                    <xsl:call-template name="get-addr" />
+                    <xsl:call-template name="get-addr" >
+                        <xsl:with-param name="pElement" select="."/>
+                    </xsl:call-template>
                 </place>
             </birthplace>
         </xsl:for-each>
     </xsl:template>
-
 </xsl:stylesheet>

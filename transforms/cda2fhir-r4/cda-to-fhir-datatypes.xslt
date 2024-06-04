@@ -566,7 +566,7 @@
                 <xsl:copy />
             </xsl:when>
             <xsl:otherwise>
-                <xsl:message terminate="yes">Unknown effective time format</xsl:message>
+                <xsl:message terminate="no">Unknown effective time format</xsl:message>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -818,12 +818,14 @@
     <!-- TEMPLATE:addr -->
     <xsl:template match="cda:addr[not(@nullFlavor)]">
         <xsl:param name="pElementName">address</xsl:param>
+        <xsl:param name="pExtraText"/>
+        
         <xsl:variable name="addr-string">
             <xsl:for-each select="text() | cda:*">
                 <xsl:value-of select="normalize-space(.)" />
             </xsl:for-each>
         </xsl:variable>
-        <xsl:if test="string-length($addr-string) &gt; 0">
+        <xsl:if test="string-length($addr-string) > 0 or string-length($pExtraText) > 0">
             <xsl:element name="{$pElementName}">
                 <xsl:if test="@use">
                     <use>
@@ -836,6 +838,9 @@
                             </xsl:choose>
                         </xsl:attribute>
                     </use>
+                </xsl:if>
+                <xsl:if test="string-length($pExtraText)">
+                    <text value="{normalize-space($pExtraText)}" />
                 </xsl:if>
                 <xsl:for-each select="cda:streetAddressLine[not(@nullFlavor)]">
                     <xsl:if test="string-length(.) &gt; 0">
@@ -883,7 +888,6 @@
             cda:addr[cda:postalCode[@nullFlavor]] |
             cda:addr[country[@nullFlavor]]">
         <xsl:param name="pElementName">address</xsl:param>
-
 
         <xsl:element name="{$pElementName}">
             <xsl:if test="@use">

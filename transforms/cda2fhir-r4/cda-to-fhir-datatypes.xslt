@@ -1166,7 +1166,6 @@
         </xsl:element>
 
     </xsl:template>
-
     <xsl:template name="createCodeableConcept">
         <xsl:param name="pSystem" />
         <xsl:param name="pCode" />
@@ -1218,7 +1217,7 @@
         <xsl:param name="pRequireDataAbsentReason" select="false()" />
 
         <xsl:choose>
-            <xsl:when test="($pRequireDataAbsentReason and not($code) and not($codeSystem)) or (@nullFlavor and not($code) and not($codeSystem))">
+            <xsl:when test="($pRequireDataAbsentReason and not($code) and not($codeSystem)) or (@nullFlavor and (not($code) or not($codeSystem)))">
                 <xsl:choose>
                     <xsl:when test="not(@nullFlavor)">
                         <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">

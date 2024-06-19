@@ -6,15 +6,22 @@
     <!-- Put CDA participants with nowhere to go in FHIR in Provenance resource -->
 
     <!-- ClinicalDocument level participants -->
-    <xsl:template match="cda:dataEnterer | cda:informant[parent::cda:ClinicalDocument] | cda:legalAuthenticator[sdtc:signatureText] | cda:authenticator[sdtc:signatureText]" mode="provenance">
+    <xsl:template match="cda:dataEnterer | 
+        cda:informant[parent::cda:ClinicalDocument] | 
+        cda:legalAuthenticator[sdtc:signatureText] | 
+        cda:authenticator[sdtc:signatureText] | 
+        cda:encounterParticipant | 
+        cda:performer[parent::cda:serviceEvent[cda:code[@code = 'PHC1464']]]" mode="provenance">
         <entry>
             <fullUrl value="urn:uuid:{@lcg:uuid}" />
             <resource>
                 <!-- fill some variables that we may need to use in two places -->
                 <Provenance>
+                    <!-- target -->
                     <target>
                         <reference value="urn:uuid:{/cda:ClinicalDocument/@lcg:uuid}" />
                     </target>
+                    <!-- recorded -->
                     <xsl:choose>
                         <xsl:when test="cda:time">
                             <xsl:apply-templates select="cda:time" mode="instant">
@@ -35,26 +42,41 @@
                             </xsl:apply-templates>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <!-- agent -->
                     <agent>
+                        <!-- type -->
                         <type>
                             <coding>
-                                <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
                                 <xsl:choose>
                                     <xsl:when test="self::cda:dataEnterer">
+                                        <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
                                         <code value="enterer" />
                                     </xsl:when>
                                     <xsl:when test="self::cda:informant">
+                                        <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
                                         <code value="informant" />
                                     </xsl:when>
                                     <xsl:when test="self::cda:legalAuthenticator">
+                                        <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
                                         <code value="legal" />
                                     </xsl:when>
                                     <xsl:when test="self::cda:authenticator">
+                                        <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
                                         <code value="attester" />
+                                    </xsl:when>
+                                    <xsl:when test="self::cda:performer">
+                                        <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
+                                        <code value="performer" />
+                                    </xsl:when>
+                                    <xsl:when test="self::cda:encounterParticipant[@typeCode]">
+                                        <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+                                        <code value="{@typeCode}" />
                                     </xsl:when>
                                 </xsl:choose>
                             </coding>
                         </type>
+                        <!-- role -->
+                        <!-- who -->
                         <who>
                             <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />
                         </who>
@@ -91,6 +113,7 @@
             <fullUrl value="urn:uuid:{@lcg:uuid}" />
             <resource>
                 <Provenance>
+                    <!-- target/reference -->
                     <xsl:choose>
                         <!-- when we've passed in a specific uuid, use that -->
                         <xsl:when test="string-length($pTargetUUID) > 0">
@@ -127,7 +150,9 @@
                             </xsl:apply-templates>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <!-- agent -->
                     <agent>
+                        <!-- type -->
                         <type>
                             <coding>
                                 <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
@@ -141,6 +166,8 @@
                                 </xsl:choose>
                             </coding>
                         </type>
+                        <!-- role -->
+                        <!-- who -->
                         <who>
                             <xsl:choose>
                                 <xsl:when test="self::cda:author">
@@ -155,7 +182,6 @@
                                     <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
                                 </xsl:when>
                             </xsl:choose>
-
                         </who>
                     </agent>
                 </Provenance>

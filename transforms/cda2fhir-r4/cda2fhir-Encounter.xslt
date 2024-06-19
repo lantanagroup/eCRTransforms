@@ -5,10 +5,16 @@
 
     <xsl:template match="cda:encompassingEncounter" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
+
         <xsl:apply-templates select="cda:responsibleParty[not(@nullFlavor)]/cda:assignedEntity[not(@nullFlavor)]" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
         <xsl:apply-templates select="cda:encounterParticipant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:location[not(@nullFlavor)]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:location/cda:healthCareFacility/cda:serviceProviderOrganization[not(@nullFlavor)]" mode="bundle-entry" />
+
+        <!-- Provenance -->
+        <xsl:apply-templates select="cda:dataEnterer" mode="provenance" />
+        <xsl:apply-templates select="cda:encounterParticipant" mode="provenance" />
     </xsl:template>
 
     <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']" mode="bundle-entry">
@@ -211,57 +217,61 @@
 
             <xsl:call-template name="subject-reference" />
 
-            <xsl:choose>
-                <xsl:when test="
-                        cda:performer[not(@nullFlavor)] |
-                        cda:responsibleParty[not(@nullFlavor)] |
-                        cda:encounterParticipant[not(@nullFlavor)]">
-                    <xsl:for-each select="
-                            cda:performer[not(@nullFlavor)] |
-                            cda:responsibleParty[not(@nullFlavor)] |
-                            cda:encounterParticipant[not(@nullFlavor)]">
-                        <participant>
-                            <xsl:comment>In participant</xsl:comment>
-                            <xsl:choose>
-                                <xsl:when test="local-name(.) = 'performer'">
-                                    <type>
-                                        <coding>
-                                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
-                                            <code value="PPRF" />
-                                        </coding>
-                                    </type>
-                                </xsl:when>
-                                <xsl:when test="$vCurrentIg = 'eICR' or $vCurrentIg = 'RR'">
-                                    <type>
-                                        <coding>
-                                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
-                                            <code value="ATND" />
-                                        </coding>
-                                    </type>
-                                </xsl:when>
-                            </xsl:choose>
+            <xsl:for-each select="cda:responsibleParty[not(@nullFlavor)]">
+                <participant>
+                    <type>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+                            <code value="ATND" />
+                        </coding>
+                    </type>
+                    <xsl:apply-templates select="cda:assignedEntity/cda:code">
+                        <xsl:with-param name="pElementName">type</xsl:with-param>
+                    </xsl:apply-templates>
+                    <individual>
+                        <xsl:apply-templates select="cda:assignedEntity" mode="reference" />
+                    </individual>
+                </participant>
+            </xsl:for-each>
+            <xsl:for-each select="cda:encounterParticipant[not(@nullFlavor)] | cda:performer[not(@nullFlavor)]">
+                <participant>
+                    <!--<type>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+                            <code value="PPRF" />
+                        </coding>
+                    </type>-->
 
-                            <xsl:apply-templates select="cda:assignedEntity/cda:code">
-                                <xsl:with-param name="pElementName">type</xsl:with-param>
-                            </xsl:apply-templates>
-                            <individual>
-                                <xsl:apply-templates select="cda:assignedEntity" mode="reference" />
-                            </individual>
-                        </participant>
-                    </xsl:for-each>
-                </xsl:when>
+                    <xsl:apply-templates select="cda:assignedEntity/cda:code">
+                        <xsl:with-param name="pElementName">type</xsl:with-param>
+                    </xsl:apply-templates>
+                    <individual>
+                        <xsl:apply-templates select="cda:assignedEntity" mode="reference" />
+                    </individual>
+                </participant>
+            </xsl:for-each>
+
+            <!--<xsl:choose>
+                
                 <xsl:when test="
                         cda:author/cda:assignedAuthor/cda:assignedPerson or
                         ancestor::cda:section[1]/cda:author[1]/cda:assignedAuthor or
                         /cda:ClinicalDocument/cda:author[1]/cda:assignedAuthor/cda:assignedPerson or
-                        /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">
-                    <participant>
-                        <xsl:call-template name="author-reference">
+                        /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">-->
+            <xsl:for-each select="cda:author/cda:assignedAuthor[cda:assignedPerson]">
+                <participant>
+                    <xsl:for-each select="cda:assignedPerson">
+                        <xsl:apply-templates select="." mode="rename-reference-participant">
                             <xsl:with-param name="pElementName">individual</xsl:with-param>
-                        </xsl:call-template>
-                    </participant>
-                </xsl:when>
-            </xsl:choose>
+                        </xsl:apply-templates>
+                    </xsl:for-each>
+                    <!--<xsl:call-template name="author-reference">
+                        <xsl:with-param name="pElementName">individual</xsl:with-param>
+                    </xsl:call-template>-->
+                </participant>
+            </xsl:for-each>
+            <!--</xsl:when>
+            </xsl:choose>-->
             <xsl:for-each select="/cda:ClinicalDocument/cda:participant/cda:associatedEntity[@classCode = 'NOK']">
                 <participant>
                     <individual>

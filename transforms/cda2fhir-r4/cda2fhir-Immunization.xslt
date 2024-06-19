@@ -29,7 +29,7 @@
                     <status value="not-done" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="cda:statusCode" />
+                    <xsl:apply-templates select="cda:statusCode" mode="map-immunization-status" />
                 </xsl:otherwise>
             </xsl:choose>
             <!-- statusReason: C-CDA Immunization Refusal Reason (2.16.840.1.113883.10.20.22.4.53) -->

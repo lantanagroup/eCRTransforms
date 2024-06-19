@@ -43,6 +43,7 @@
         <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informationRecipient" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
+<!--        <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="bundle-entry" />-->
 
         <xsl:apply-templates select="//cda:section/cda:author" mode="bundle-entry" />
         <!--<!-\- Create entries for the performers in the Problem Concern Acts -\->
@@ -57,6 +58,7 @@
             include the dig sig and a reference back to the Composition -->
         <xsl:apply-templates select="cda:legalAuthenticator[sdtc:signatureText]" mode="provenance" />
         <xsl:apply-templates select="cda:authenticator[sdtc:signatureText]" mode="provenance" />
+        <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="provenance" />
 
     </xsl:template>
 

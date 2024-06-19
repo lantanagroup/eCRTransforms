@@ -53,7 +53,10 @@
             <!-- Therapeutic Response to Medication -->
             <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.37']" mode="extension" />
             <xsl:apply-templates select="cda:id" />
-            <status value="completed" />
+            <!-- status -->
+            <xsl:apply-templates select="cda:statusCode" mode='map-medication-status'>
+                <xsl:with-param name="pMoodCode" select="@moodCode"/>
+            </xsl:apply-templates>
 
             <!--<xsl:apply-templates select="cda:consumable" mode="medication-administration" />-->
             
@@ -123,20 +126,10 @@
                 </partOf>
             </xsl:if>
 
-            <status value="completed" />
-            <!--<!-\- If this is inside a Procedure we want to reference a medication here rather than have a medicationCodeableConcept so we can reference it from the Procedure -\->
-            <xsl:choose>
-                <xsl:when test="ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.7.1']">
-                    <medicationReference>
-                        <reference value="urn:uuid:{cda:consumable/cda:manufacturedProduct/@lcg:uuid}" />
-                    </medicationReference>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="cda:consumable" mode="medication-administration">
-                        <xsl:with-param name="pElementName">medicationCodeableConcept</xsl:with-param>
-                    </xsl:apply-templates>
-                </xsl:otherwise>
-            </xsl:choose>-->
+            <!-- status -->
+            <xsl:apply-templates select="cda:statusCode" mode='map-medication-status'>
+                <xsl:with-param name="pMoodCode" select="@moodCode"/>
+            </xsl:apply-templates>
             
             <xsl:for-each select="cda:consumable/cda:manufacturedProduct">
                 <medicationReference>

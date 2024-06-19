@@ -261,12 +261,8 @@
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
-            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
-            </xsl:for-each>-->
             
             <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.49']]">
-
                 <component>
                     <xsl:apply-templates select="cda:code">
                         <xsl:with-param name="pElementName">code</xsl:with-param>
@@ -297,7 +293,7 @@
                     <xsl:apply-templates select="cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.418']/cda:value" mode="map-lab-status" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <status value="final" />
+                    <xsl:apply-templates select="cda:statusCode" mode="map-result-status" />
                 </xsl:otherwise>
             </xsl:choose>
             <category>
@@ -367,7 +363,7 @@
                     <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.419']/cda:value" mode="map-lab-obs-status" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <status value="final" />
+                    <xsl:apply-templates select="cda:statusCode" mode="map-result-status" />
                 </xsl:otherwise>
             </xsl:choose>
             <category>
@@ -439,9 +435,6 @@
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
-            <!--<xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
-                <xsl:call-template name="performer-or-author" />
-            </xsl:for-each>-->
             <!-- value -->
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pVitalSign" select="cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.27'" />
@@ -1244,7 +1237,6 @@
         <xsl:comment>ODH Past or Present Job</xsl:comment>
         <Observation>
             <xsl:call-template name="add-meta" />
-            <xsl:comment>ohh-Employer-extension</xsl:comment>
             <xsl:apply-templates select="cda:participant[@typeCode = 'IND']" mode="extension" />
             <xsl:apply-templates select="cda:id" />
             <status value="final" />
@@ -1624,10 +1616,10 @@
         </Observation>
     </xsl:template>
 
-    <xsl:template name="performer-or-author">
+    <!--<xsl:template name="performer-or-author">
         <xsl:param name="pPractitionerRole" as="xs:boolean" select="true()" />
         <xsl:choose>
-            <!-- when performer can't be a PractitionerRole then use one of the person participants available -->
+            <!-\- when performer can't be a PractitionerRole then use one of the person participants available -\->
             <xsl:when test="$pPractitionerRole = false()">
                 <xsl:choose>
                     <xsl:when test="cda:author/cda:assignedAuthor/cda:assignedPerson or cda:performer/cda:assignedEntity/cda:assignedPerson">
@@ -1669,7 +1661,7 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="$pPractitionerRole = true()">
-                <!-- where there is a direct performer or author, use that -->
+                <!-\- where there is a direct performer or author, use that -\->
                 <xsl:choose>
                     <xsl:when test="cda:performer/cda:assignedEntity or cda:author/cda:assignedAuthor">
                         <xsl:for-each select="cda:performer/cda:assignedEntity[cda:assignedPerson]">
@@ -1677,7 +1669,7 @@
                                 <reference value="urn:uuid:{@lcg:uuid}" />
                             </performer>
                         </xsl:for-each>
-                        <!-- If there is only an organization have to use the Organization and not a PractitionerRole -->
+                        <!-\- If there is only an organization have to use the Organization and not a PractitionerRole -\->
                         <xsl:for-each select="cda:performer/cda:assignedEntity[not(cda:assignedPerson)]/cda:representedOrganization">
                             <performer>
                                 <reference value="urn:uuid:{@lcg:uuid}" />
@@ -1688,7 +1680,7 @@
                                 <reference value="urn:uuid:{@lcg:uuid}" />
                             </performer>
                         </xsl:for-each>
-                        <!-- If there is only an organization have to use the Organization and not a PractitionerRole -->
+                        <!-\- If there is only an organization have to use the Organization and not a PractitionerRole -\->
                         <xsl:for-each select="cda:author/cda:assignedAuthor[not(cda:assignedPerson)]/cda:representedOrganization">
                             <performer>
                                 <reference value="urn:uuid:{@lcg:uuid}" />
@@ -1713,5 +1705,5 @@
                 </xsl:choose>
             </xsl:when>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
 </xsl:stylesheet>

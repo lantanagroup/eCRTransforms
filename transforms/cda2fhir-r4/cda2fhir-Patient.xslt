@@ -480,12 +480,21 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- birthplace: TODO - add name as text -->
+    <!-- birthplace -->
     <xsl:template name="add-birthplace-extension">
+        <xsl:variable name="vName">
+            <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name | cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name/cda:*">
+                <xsl:variable name="vTextNamePart">
+                    <xsl:value-of select="."/>
+                </xsl:variable>
+                <xsl:value-of select="concat($vTextNamePart, ' ')"/>
+            </xsl:for-each>
+        </xsl:variable>
         <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place">
             <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
                 <xsl:apply-templates select="cda:addr">
                     <xsl:with-param name="pElementName" select="'valueAddress'" />
+                    <xsl:with-param name="pExtraText" select="$vName"/>
                 </xsl:apply-templates>
             </extension>
         </xsl:for-each>

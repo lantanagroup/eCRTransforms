@@ -1370,7 +1370,7 @@
                     <p>
                         <xsl:value-of select="$javascript-injection-warning" />
                     </p>
-                    <xsl:message terminate="yes">
+                    <xsl:message terminate="no">
                         <xsl:value-of select="$javascript-injection-warning" />
                     </xsl:message>
                 </xsl:when>

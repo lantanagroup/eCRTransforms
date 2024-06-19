@@ -3,6 +3,8 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
+
+
     <!-- ClinicalDocument.serviceEvent (other than the eCR special case) -->
     <xsl:template match="cda:serviceEvent[not(@moodCode = 'INT')][not(cda:code[@code = 'PHC1464'])]" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
@@ -56,6 +58,4 @@
             <!-- account -->
         </EpisodeOfCare>
     </xsl:template>
-
-
 </xsl:stylesheet>

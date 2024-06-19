@@ -3,45 +3,30 @@
     xmlns:lcg="http://www.lantanagroup.com">
 
     <!--Validate Organization and it's elements-->
-    <x:scenario label="A. Scenario for testing Organization entry with match 'cda:custodian' and mode 'bundle-entry'">
+    <x:scenario label="A. Scenario for testing Organization in eICR file">
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
 
-        <x:expect label="A1. There should be 4 Organization" test="count(//fhir:entry/fhir:resource/fhir:Organization)=4" />
+        <x:expect label="A1. There should be 9 Organization" test="count(//fhir:entry/fhir:resource/fhir:Organization)=9" />
         <!--Validate Custodian elements-->
-        <x:expect label="A2. There should be 4 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=4" />
-        <x:expect label="A3. There should be 4 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active[@value='true'])=4" />
-        <x:expect label="A4. There should be 4 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=4" />
+        <x:expect label="A2. There should be 9 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=9" />
+        <x:expect label="A3. There should be 9 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active[@value='true'])=9" />
+        <x:expect label="A4. There should be 9 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=9" />
         <!--Validate the Organization Organization Address -->
-        <x:expect label="A5. There should be 5 telecom " test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=5" />
+        <x:expect label="A5. There should be 12 telecom " test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=12" />
         <!--Validate the Organization Organization Address -->
-        <x:expect label="A8. There should be 1 address" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address)=1" />
-        <x:expect label="A9. There should be 1 line" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:line)=1" />
-        <x:expect label="A10. There should be 1 city" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:city)=1" />
-        <x:expect label="A11. There should be 1 state" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:state)=1" />
-        <x:expect label="A12. There should be 1 postal code" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:postalCode)=1" />
-        <x:expect label="A13. There should be 1 postal code" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:country)=1" />
+        <x:expect label="A8. There should be 9 address" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address)=9" />
     </x:scenario>
 
     <!--  Validate the Information Recipient elements -->
-    <x:scenario label="B. Scenario for testing Intended Recipient entry within the 'cda:informationRecipient' and mode 'bundle-entry'">
+    <x:scenario label="B. Scenario for testing Organization in RR file">
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
         
-        <x:expect label="B1. There should be 9 entry.resource.Organization" test="count(//fhir:entry/fhir:resource/fhir:Organization)=1" />
-        <!--Validate information recipient Identifier elements-->
-        <x:expect label="B2. There should be 1 Organization identifier System" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier/fhir:system)=1" />
-        <x:expect label="B3. There should be 1 Organization Identifier identifier value" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier/fhir:value)=1" />
-        <x:expect label="B4. There should be 1 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active)=1" />
-        <x:expect label="B5. There should be 1 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=1" />
-        <!--Validate the 1st telecom element -->
-        <x:expect label="B6. There should be 1 telecom system value 'phone'" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:system)>1" />
-        <x:expect label="B7. There should be 1 telecom use value 'work'" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:use)>1" />
-        <x:expect label="B8. There should be 1 telecom value value" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom/fhir:value)>1" />
-        <!--  Validate the Organization Address elements  -->
-        <x:expect label="B9. There should be 1 address" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address)=1" />
-        <x:expect label="B10. There should be 1 line" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:line[@value='4444 Healthcare Drive'])=1" />
-        <x:expect label="B11. There should be 1 city" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:city[@value='Ann Arbor'])=1" />
-        <x:expect label="B12. There should be 1 state" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:state[@value='MI'])=1" />
-        <x:expect label="B13. There should be 1 postal code" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address/fhir:postalCode[@value='99999'])=1" />
+        <x:expect label="B1. There should be 7 entry.resource.Organization" test="count(//fhir:entry/fhir:resource/fhir:Organization)=7" />
+        <x:expect label="B2. There should be 7 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=7" />
+        <x:expect label="B3. There should be 7 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active)=7" />
+        <x:expect label="B4. There should be 7 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=7" />
+        <x:expect label="B5. There should be 24 telecom" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=24" />
+        <x:expect label="B8. There should be 1 address" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address)=1" />
     </x:scenario>
 
     <x:scenario

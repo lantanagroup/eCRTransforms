@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt">
-    
-  <x:scenario label="Scenario for testing template with match 'cda:doseQuantity">
-    <x:context>
-      <x:param name="pElementName">doseQuantity</x:param>
-      <x:param name="pSimpleQuantity" select="false()" />
-      <cda:doseQuantity value="1" unit="g" />
-    </x:context>
-    <x:expect label="There should be a doseQuantity with value = '1' and unit = 'g'" test="count(fhir:doseQuantity[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />
-  </x:scenario>
+
+    <x:scenario label="Scenario for testing template with match 'cda:doseQuantity">
+        <x:context>
+            <x:param name="pElementName">doseQuantity</x:param>
+            <x:param name="pSimpleQuantity" select="false()" />
+            <cda:doseQuantity value="1" unit="g" />
+        </x:context>
+        <x:expect label="There should be a doseQuantity with value = '1' and unit = 'g'" test="count(fhir:doseQuantity[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />
+    </x:scenario>
 
     <!-- SG 20210623: This should work but it doesn't - causes the whole test to fail -->
-  <!--<x:scenario label="Scenario for testing template with match 'cda:doseQuantity' value nullFlavor and simpleQuantity data type">
+    <!--<x:scenario label="Scenario for testing template with match 'cda:doseQuantity' value nullFlavor and simpleQuantity data type">
     <x:context>
       <x:param name="pElementName">doseQuantity</x:param>
       <x:param name="pSimpleQuantity" select="true()" />
@@ -20,33 +20,48 @@
     <x:expect label="There should be zero doseQuantity element" test="count(fhir:doseQuantity)=0" />
   </x:scenario>-->
 
-  <x:scenario label="Scenario for testing template with match 'cda:doseQuantity' value nullFlavor and NOT simpleQuantity data type">
-    <x:context>
-      <x:param name="pElementName">doseQuantity</x:param>
-      <x:param name="pSimpleQuantity" select="false()" />
-      <cda:doseQuantity nullFlavor="NI" />
-    </x:context>
-    <!-- This doesn't seem right - I'm thinking there probably isn't a case of dose where a  nullFlavor is allowed and that they are all simpleQuantity -->
-    <x:expect label="There should be a doseQuantity with nullFlavor='NoInformation'"
-      test="count(fhir:doseQuantity[fhir:code/@value='NoInformation'][fhir:system/@value='http://terminology.hl7.org/CodeSystem/v3-NullFlavor'])=2" />
-  </x:scenario>
+    <x:scenario label="Scenario for testing template with match 'cda:doseQuantity' value nullFlavor and NOT simpleQuantity data type">
+        <x:context>
+            <x:param name="pElementName">doseQuantity</x:param>
+            <x:param name="pSimpleQuantity" select="false()" />
+            <cda:doseQuantity nullFlavor="NI" />
+        </x:context>
+        <!-- This doesn't seem right - I'm thinking there probably isn't a case of dose where a  nullFlavor is allowed and that they are all simpleQuantity -->
+        <x:expect label="There should be a doseQuantity with nullFlavor='NoInformation'"
+            test="count(fhir:doseQuantity[fhir:code/@value='NoInformation'][fhir:system/@value='http://terminology.hl7.org/CodeSystem/v3-NullFlavor'])=2" />
+    </x:scenario>
 
-  <x:scenario label="Scenario for testing cda:telecom">
-      <x:context>
-          <cda:telecom use="HP" value="tel:+1-555-555-2006" />
-          <cda:telecom use="WP" value="tel:+1-(555)555-1212;ext=9998" />
-          <cda:telecom use="WP" value="fax:+1(555)555-1234" />
-          <cda:telecom value="mailto:mail@guardian.com" />
-          <cda:telecom use="WP" value="https://www.healthauthoritywest.gov" />
-      </x:context>
+    <x:scenario label="Scenario for testing cda:telecom">
+        <x:context>
+            <cda:telecom use="HP" value="tel:+1-555-555-2006" />
+            <cda:telecom use="WP" value="tel:+1-(555)555-1212;ext=9998" />
+            <cda:telecom use="WP" value="fax:+1(555)555-1234" />
+            <cda:telecom value="mailto:mail@guardian.com" />
+            <cda:telecom use="WP" value="https://www.healthauthoritywest.gov" />
+        </x:context>
 
-    <x:expect label="Should produce 5 telecoms" test="count(fhir:telecom) = 5" />
-    <x:expect label="Should produce 2 'phone' telecom" test="count(fhir:telecom/fhir:system[@value='phone']) = 2" />
-      <x:expect label="Should produce 1 home 'phone' telecom" test="count(fhir:telecom[fhir:system[@value='phone']]/fhir:use[@value='home']) = 1" />
-      <x:expect label="Should produce 1 work 'phone' telecom" test="count(fhir:telecom[fhir:system[@value='phone']]/fhir:use[@value='work']) = 1" />
-    <x:expect label="Should produce 1 'fax' telecom" test="count(fhir:telecom/fhir:system[@value='fax']) = 1" />
-    <x:expect label="Should produce 1 'email' telecom" test="count(fhir:telecom/fhir:system[@value='email']) = 1" />
-    <x:expect label="Should produce 1 'uri' telecom" test="count(fhir:telecom/fhir:system[@value='url']) = 1" />
-      
-  </x:scenario>
+        <x:expect label="Should produce 5 telecoms" test="count(fhir:telecom) = 5" />
+        <x:expect label="Should produce 2 'phone' telecom" test="count(fhir:telecom/fhir:system[@value='phone']) = 2" />
+        <x:expect label="Should produce 1 home 'phone' telecom" test="count(fhir:telecom[fhir:system[@value='phone']]/fhir:use[@value='home']) = 1" />
+        <x:expect label="Should produce 1 work 'phone' telecom" test="count(fhir:telecom[fhir:system[@value='phone']]/fhir:use[@value='work']) = 1" />
+        <x:expect label="Should produce 1 'fax' telecom" test="count(fhir:telecom/fhir:system[@value='fax']) = 1" />
+        <x:expect label="Should produce 1 'email' telecom" test="count(fhir:telecom/fhir:system[@value='email']) = 1" />
+        <x:expect label="Should produce 1 'uri' telecom" test="count(fhir:telecom/fhir:system[@value='url']) = 1" />
+
+    </x:scenario>
+
+    <x:scenario label="Scenario for testing cda:addr">
+        <x:context>
+            <cda:addr>
+                <cda:streetAddressLine>4444 Home Street Birthplace</cda:streetAddressLine>
+                <cda:city>Beaverton Town</cda:city>
+                <cda:state>OR</cda:state>
+                <cda:postalCode>97867</cda:postalCode>
+                <cda:country>US</cda:country>
+            </cda:addr>
+        </x:context>
+
+        <x:expect label="Should produce 1 address" test="count(fhir:address) = 1" />
+
+    </x:scenario>
 </x:description>

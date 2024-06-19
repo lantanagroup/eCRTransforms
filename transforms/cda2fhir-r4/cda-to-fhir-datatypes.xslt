@@ -592,21 +592,6 @@
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="cda:value[@xsi:type = 'INT']" mode="scale">
-        <xsl:param name="pElementName" select="'valueQuantity'" />
-        <xsl:element name="{$pElementName}">
-            <value>
-                <xsl:attribute name="value">
-                    <xsl:value-of select="@value" />
-                </xsl:attribute>
-            </value>
-            <system value="http://unitsofmeasure.org" />
-            <code>
-                <xsl:attribute name="value">{score}</xsl:attribute>
-            </code>
-        </xsl:element>
-    </xsl:template>
-
     <!-- TEMPLATE: doseQuantity -->
     <xsl:template match="cda:doseQuantity | cda:rateQuantity">
         <!-- RG: Refactoring note - Look for use of this template, and see if we can refactor the whole Dosage datatype out of the resources and into this file -->
@@ -979,7 +964,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>urn:uuid:</xsl:text>
-                    <xsl:value-of select="@root" />
+                    <xsl:value-of select="lower-case(@root)" />
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -996,7 +981,6 @@
                     <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
                 </xsl:element>
             </xsl:when>
-
             <!-- Check assigningAuthorityName first -->
             <xsl:when test="@root and @extension and @assigningAuthorityName">
                 <xsl:element name="{$pElementName}">
@@ -1007,7 +991,6 @@
                     </assigner>
                 </xsl:element>
             </xsl:when>
-
             <!-- If no assigningAuthorityName -->
             <xsl:when test="@root and @extension">
                 <xsl:element name="{$pElementName}">
@@ -1015,11 +998,15 @@
                     <value value="{$value}" />
                 </xsl:element>
             </xsl:when>
-
             <xsl:when test="@root and not(@extension)">
                 <xsl:element name="{$pElementName}">
                     <system value="urn:ietf:rfc:3986" />
                     <value value="{$root-uri}" />
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="@extension and not(@root)">
+                <xsl:element name="{$pElementName}">
+                    <value value="{$value}" />
                 </xsl:element>
             </xsl:when>
         </xsl:choose>
@@ -1231,7 +1218,7 @@
         <xsl:param name="pRequireDataAbsentReason" select="false()" />
 
         <xsl:choose>
-            <xsl:when test="(($pRequireDataAbsentReason and not($code) and not($codeSystem))) or @nullFlavor">
+            <xsl:when test="($pRequireDataAbsentReason and not($code) and not($codeSystem)) or (@nullFlavor and not($code) and not($codeSystem))">
                 <xsl:choose>
                     <xsl:when test="not(@nullFlavor)">
                         <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
@@ -1250,7 +1237,6 @@
                         <xsl:otherwise>value</xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
-                <!--<xsl:if test="$codeSystem and $pNullFlavor = ''">-->
                 <xsl:if test="$codeSystem">
                     <system>
                         <xsl:attribute name="value">
@@ -1260,7 +1246,6 @@
                         </xsl:attribute>
                     </system>
                 </xsl:if>
-                <!--</xsl:if>-->
                 <xsl:if test="$code">
                     <xsl:element name="{$codeOrValueElementName}">
                         <xsl:attribute name="value">
@@ -1268,17 +1253,6 @@
                         </xsl:attribute>
                     </xsl:element>
                 </xsl:if>
-
-                <!--<xsl:if test="not($pNullFlavor = '') and not($code)">
-                    <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
-                    <xsl:element name="{$codeOrValueElementName}">
-                        <xsl:attribute name="value">
-                            <xsl:value-of select="$pNullFlavor" />
-                        </xsl:attribute>
-                    </xsl:element>
-                </xsl:if>-->
-                <!--                <xsl:choose>-->
-                <!--                    <xsl:when test="$displayName and not($displayName = '') and $pNullFlavor = ''">-->
                 <xsl:if test="string-length($displayName) > 0">
                     <display>
                         <xsl:attribute name="value">
@@ -1286,12 +1260,6 @@
                         </xsl:attribute>
                     </display>
                 </xsl:if>
-                <!--<xsl:when test="not($pNullFlavor = '')">
-                        <display>
-                            <xsl:attribute name="value" select="lcg:fcnMapNullFlavor($pNullFlavor)" />
-                        </display>
-                    </xsl:when>-->
-                <!--</xsl:choose>-->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1323,6 +1291,21 @@
         </xsl:call-template>
     </xsl:template>
 
+    <xsl:template match="cda:value[@xsi:type = 'INT']" mode="scale">
+        <xsl:param name="pElementName" select="'valueQuantity'" />
+        <xsl:element name="{$pElementName}">
+            <value>
+                <xsl:attribute name="value">
+                    <xsl:value-of select="@value" />
+                </xsl:attribute>
+            </value>
+            <system value="http://unitsofmeasure.org" />
+            <code>
+                <xsl:attribute name="value">{score}</xsl:attribute>
+            </code>
+        </xsl:element>
+    </xsl:template>
+    
     <xsl:template match="cda:value[@xsi:type = 'TS']">
         <xsl:param name="pElementName" select="'valueDateTime'" />
         <xsl:element name="{$pElementName}">
@@ -1347,6 +1330,11 @@
             <xsl:choose>
                 <xsl:when test="@nullFlavor">
                     <xsl:value-of select="@nullFlavor" />
+                </xsl:when>
+                <xsl:when test="cda:reference">
+                    <xsl:call-template name="get-reference-text">
+                        <xsl:with-param name="pTextElement" select="." />
+                    </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="." />
@@ -1416,6 +1404,21 @@
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="cda:value[@xsi:type = 'REAL'][not(@nullFlavor)]">
+        <xsl:param name="pElementName" select="'valueQuantity'" />
+        
+        <xsl:element name="{$pElementName}">
+            <xsl:if test="@value">
+                <value>
+                    <xsl:attribute name="value">
+                        <xsl:value-of select="@value" />
+                    </xsl:attribute>
+                </value>
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+    
+    
     <xsl:template match="cda:value[@xsi:type = 'CD' or @xsi:type = 'CE']">
         <xsl:param name="pElementName" select="'valueCodeableConcept'" />
         <xsl:param name="pIncludeCoding" select="true()" />

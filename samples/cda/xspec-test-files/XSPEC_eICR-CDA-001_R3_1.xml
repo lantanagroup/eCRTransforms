@@ -173,7 +173,7 @@
         <assignedCustodian>
             <representedCustodianOrganization>
                 <id extension="88888888" root="2.16.840.1.113883.4.6" />
-                <name>Good Health Hospital</name>
+                <name>1 Good Health Hospital</name>
                 <telecom use="WP" value="tel:+1(555)555-1212" />
                 <addr>
                     <streetAddressLine>1000 Hospital Lane</streetAddressLine>
@@ -268,7 +268,7 @@
                     <!-- Provider Facility/Office: The office or facility of the provider responsible for the patient's care when the case was triggered (not necessarily where care was provided to the patient) -->
                     <representedOrganization>
                         <!-- Provider Facility/Office Name: The name of the office or facility of the provider responsible for the patient's care when the case was triggered (not necessarily where care was provided to the patient) -->
-                        <name>Community Health and Hospitals</name>
+                        <name>2 Community Health and Hospitals</name>
                         <!-- Provider Facility/Office Address: The address of the office or facility of the provider responsible for the patient's care when the case was triggered (not necessarily where care was provided to the patient) -->
                         <addr>
                             <streetAddressLine>1002 Healthcare Drive</streetAddressLine>
@@ -301,7 +301,7 @@
                     <!-- Facility Contact: Contact information for the facility in which care was provided when the case was triggered -->
                     <serviceProviderOrganization>
                         <!-- Facility Contact Name: The contact name for the facility in which care was provided when the case was triggered -->
-                        <name>Good Health Hospital</name>
+                        <name>3 Good Health Hospital Third</name>
                         <!-- Facility Contact Telecom: A contact telecom address (phone, email, fax,etc.) for the facility in which care was provided when the case was triggered -->
                         <!-- Facility Phone -->
                         <telecom use="WP" value="tel: 1+(555)-555-1212" />
@@ -849,7 +849,7 @@
                                             </assignedPerson>
                                             <representedOrganization>
                                                 <id root="2.16.840.1.113883.19.5.9999.1394" />
-                                                <name>Good Health Clinic Performer Problem Observation</name>
+                                                <name>4 Good Health Clinic Performer Problem Observation</name>
                                                 <telecom use="WP" value="tel: +(555)-555-1030" />
                                                 <addr>
                                                     <streetAddressLine>1007 Health Drive Performer Problem Observation</streetAddressLine>
@@ -877,7 +877,7 @@
                                             </assignedPerson>
                                             <representedOrganization>
                                                 <id root="2.16.840.1.113883.19.5" />
-                                                <name>Good Health Hospital Author Problem Observation</name>
+                                                <name>5 Good Health Hospital Author Problem Observation</name>
                                             </representedOrganization>
                                         </assignedAuthor>
                                     </author>
@@ -897,7 +897,7 @@
                                             </assignedPerson>
                                             <representedOrganization>
                                                 <id root="2.16.840.1.113883.19.5" />
-                                                <name>Good Health Hospital Author Problem Observation</name>
+                                                <name>6 Good Health Hospital Author Problem Observation</name>
                                             </representedOrganization>
                                         </assignedAuthor>
                                     </author>
@@ -1660,7 +1660,7 @@
                                     </assignedPerson>
                                     <representedOrganization>
                                         <id root="2.16.840.1.113883.19.5.9999.1394" />
-                                        <name>Good Health Clinic Perfomer Vaccine Credential</name>
+                                        <name>7 Good Health Clinic Perfomer Vaccine Credential</name>
                                         <telecom use="WP" value="tel: +(555)-555-1030" />
                                         <addr>
                                             <streetAddressLine>1007 Health Drive Perfomer Vaccine Credential</streetAddressLine>
@@ -1688,7 +1688,7 @@
                                     </assignedPerson>
                                     <representedOrganization>
                                         <id root="2.16.840.1.113883.19.5" />
-                                        <name>Good Health Hospital Author Vaccine Credential</name>
+                                        <name>8 Good Health Hospital Author Vaccine Credential</name>
                                     </representedOrganization>
                                 </assignedAuthor>
                             </author>
@@ -2344,7 +2344,7 @@
                                     <telecom use="WP" value="555-1212" />
                                     <playingEntity>
                                         <!-- eICR Data element: Employer name -->
-                                        <name>University Hospital</name>
+                                        <name>9 University Hospital</name>
                                     </playingEntity>
                                 </participantRole>
                             </participant>

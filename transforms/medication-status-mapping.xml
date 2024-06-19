@@ -1,0 +1,12 @@
+<mapping>
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="active" fhirMedicationStatus="in-progress" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="suspended" fhirMedicationStatus="on-hold" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="completed" fhirMedicationStatus="completed" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="nullified" fhirMedicationStatus="entered-in-error" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="aborted" fhirMedicationStatus="stopped" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="active" fhirMedicationStatus="active" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="aborted" fhirMedicationStatus="stopped" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="suspended" fhirMedicationStatus="on-hold" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="completed" fhirMedicationStatus="completed" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="nullified" fhirMedicationStatus="entered-in-error" />
+</mapping>

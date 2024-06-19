@@ -71,12 +71,6 @@
                 <xsl:when test="cda:participantRole/cda:id">
                     <xsl:apply-templates select="cda:participantRole/cda:id" />
                 </xsl:when>
-                <xsl:otherwise>
-                    <identifier>
-                        <system value="urn:ietf:rfc:3986" />
-                        <value value="urn:uuid:{@lcg:uuid}" />
-                    </identifier>
-                </xsl:otherwise>
             </xsl:choose>
             <active value="true" />
 
@@ -171,12 +165,6 @@
                 <xsl:when test="cda:id">
                     <xsl:apply-templates select="cda:id" />
                 </xsl:when>
-                <xsl:otherwise>
-                    <identifier>
-                        <system value="urn:ietf:rfc:3986" />
-                        <value value="urn:uuid:{@lcg:uuid}" />
-                    </identifier>
-                </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>

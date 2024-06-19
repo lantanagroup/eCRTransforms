@@ -3,7 +3,7 @@
     <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.200" />
     <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.34.3.45" />
     <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.48" />
-    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.29" />
+<!--    <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.29" />-->
     <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.22" />
     <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.7" />
     <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.30" />

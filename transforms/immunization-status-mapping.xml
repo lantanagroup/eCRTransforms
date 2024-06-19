@@ -1,0 +1,11 @@
+<mapping>
+    <!-- note that if negationInd is present and true, maps to not-done -->
+    <map cdaImmunizationStatus="aborted" fhirImmunizationStatus="not-done" />
+    <map cdaImmunizationStatus="cancelled" fhirImmunizationStatus="not-done" />
+    <map cdaImmunizationStatus="completed" fhirImmunizationStatus="completed" />
+    <map cdaImmunizationStatus="held" fhirImmunizationStatus="not-done" />
+    <map cdaImmunizationStatus="new" fhirImmunizationStatus="not-done" />
+    <map cdaImmunizationStatus="nullified" fhirImmunizationStatus="entered-in-error" />
+    <map cdaImmunizationStatus="obsolete" fhirImmunizationStatus="not-done" />
+    <map cdaImmunizationStatus="suspended" fhirImmunizationStatus="not-done" />
+</mapping>

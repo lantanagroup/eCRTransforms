@@ -8,6 +8,9 @@
     <xsl:param name="template-subprofile-mapping-file">../template-subprofile-mapping.xml</xsl:param>
     <xsl:param name="lab-obs-status-mapping-file">../lab-obs-status-mapping.xml</xsl:param>
     <xsl:param name="lab-status-mapping-file">../lab-status-mapping.xml</xsl:param>
+    <xsl:param name="result-status-mapping-file">../result-status-mapping.xml</xsl:param>
+    <xsl:param name="medication-status-mapping-file">../medication-status-mapping.xml</xsl:param>
+    <xsl:param name="immunization-status-mapping-file">../immunization-status-mapping.xml</xsl:param>
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
     <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:param name="templates-to-suppress-file">../templates-to-suppress.xml</xsl:param>
@@ -16,6 +19,9 @@
     <xsl:variable name="participant-profile-mapping" select="document($participant-profile-mapping-file)/mapping" />
     <xsl:variable name="template-subprofile-mapping" select="document($template-subprofile-mapping-file)/mapping" />
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
+    <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
+    <xsl:variable name="medication-status-mapping" select="document($medication-status-mapping-file)/mapping" />
+    <xsl:variable name="immunization-status-mapping" select="document($immunization-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
@@ -631,6 +637,61 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="value" select="'final'" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- TEMPLATE: Uses the result-status-mapping file imported at the top of this file to match cda result status with fhir equivalents -->
+    <xsl:template match="cda:statusCode" mode="map-result-status">
+        <xsl:param name="pElementName" select="'status'" />
+        <xsl:variable name="vResultStatus" select="@code" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="$result-status-mapping/map[@cdaResultStatus = $vResultStatus]">
+                    <xsl:attribute name="value" select="$result-status-mapping/map[@cdaResultStatus = $vResultStatus]/@fhirLabStatus" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="value" select="'final'" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+
+    <!-- TEMPLATE: Uses the medication-status-mapping file imported at the top of this file to match cda medication status with fhir equivalents -->
+    <xsl:template match="cda:statusCode" mode="map-medication-status">
+        <xsl:param name="pMoodCode" />
+
+        <xsl:variable name="vMedicationStatus" select="@code" />
+        <xsl:element name="status">
+            <xsl:choose>
+                <xsl:when test="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode]">
+                    <xsl:attribute name="value" select="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode]/@fhirMedicationStatus" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="$pMoodCode = 'EVN'">
+                            <xsl:attribute name="value" select="'completed'" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="value" select="'active'" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+
+    <!-- TEMPLATE: Uses the immunization-status-mapping file imported at the top of this file to match cda immunization status with fhir equivalents -->
+    <xsl:template match="cda:statusCode" mode="map-immunization-status">
+        <xsl:variable name="vImmunizationStatus" select="@code" />
+        <xsl:element name="status">
+            <xsl:choose>
+                <xsl:when test="$immunization-status-mapping/map[@cdaImmunizationStatus = $vImmunizationStatus]">
+                    <xsl:attribute name="value" select="$immunization-status-mapping/map[@cdaImmunizationStatus = $vImmunizationStatus]/@fhirImmunizationStatus" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="value" select="'completed'" />
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>

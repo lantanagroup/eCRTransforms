@@ -102,7 +102,7 @@
         <assignedCustodian>
             <representedCustodianOrganization>
                 <id extension="88888888" root="2.16.840.1.113883.4.6" />
-                <name>Level Seven Healthcare, Inc.: Custodian</name>
+                <name>1 Level Seven Healthcare, Inc.: Custodian</name>
                 <telecom use="WP" value="tel:+1(555)555-3001" />
                 <addr>
                     <streetAddressLine>4444 Healthcare Drive: Custodian</streetAddressLine>
@@ -156,7 +156,8 @@
             <!-- Provider Facility/Office -->
             <receivedOrganization>
                 <!-- Provider Facility/Office Name  -->
-                <name>Level Seven Healthcare, Inc.: Information Recipient Provider Facility/Office</name>
+                <name>2 Level Seven Healthcare, Inc.: Information Recipient Provider Facility/Office</name>
+                <telecom use="WP" value="fax:+1-555-955-1444" />
                 <!-- Provider Facility/Office Address -->
                 <addr>
                     <streetAddressLine>4444 Healthcare Drive: Information Recipient Provider Facility/Office</streetAddressLine>
@@ -221,7 +222,7 @@
                     </assignedPerson>
                     <representedOrganization>
                         <!-- Provider Facility/Office Name -->
-                        <name>Level Seven Healthcare, Inc.: Encompassing Encounter Responsible Provider Facility</name>
+                        <name>3 Level Seven Healthcare, Inc.: Encompassing Encounter Responsible Provider Facility</name>
                         <!-- Provider Address -->
                         <addr>
                             <streetAddressLine>4444 Healthcare Drive: Encompassing Encounter Responsible Provider Facility</streetAddressLine>
@@ -254,7 +255,7 @@
                     </location>
                     <!-- Facility Name -->
                     <serviceProviderOrganization>
-                        <name>Level Seven Healthcare, Inc.: Encompassing Encounter Location Healthcare Facility Name</name>
+                        <name>4 Level Seven Healthcare, Inc.: Encompassing Encounter Location Healthcare Facility Name</name>
                         <!-- Facility Phone -->
                         <telecom use="WP" value="tel:+1(555)555-3001: Encompassing Encounter Location Healthcare Facility Phone" />
                     </serviceProviderOrganization>

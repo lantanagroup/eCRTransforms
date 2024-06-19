@@ -1,0 +1,8 @@
+<mapping>
+    <map cdaResultStatus="aborted" fhirLabStatus="cancelled" />
+    <map cdaResultStatus="active" fhirLabStatus="registered" />
+    <map cdaResultStatus="cancelled" fhirLabStatus="cancelled" />
+    <map cdaResultStatus="completed" fhirLabStatus="final" />
+    <map cdaResultStatus="held" fhirLabStatus="registered" />
+    <map cdaResultStatus="suspended" fhirLabStatus="registered" />
+</mapping>

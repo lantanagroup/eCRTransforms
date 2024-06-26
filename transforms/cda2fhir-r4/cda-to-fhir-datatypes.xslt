@@ -574,15 +574,28 @@
     <xsl:template match="cda:high | cda:low" mode="range">
         <xsl:variable name="pElementName" select="local-name()" />
         <xsl:element name="{$pElementName}">
-            <xsl:if test="@value">
-                <value>
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="@value" />
-                    </xsl:attribute>
-                </value>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <value>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="@value" />
+                        </xsl:attribute>
+                    </value>
+                </xsl:when>
+                <xsl:when test="cda:translation/@value">
+                    <value>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="cda:translation/@value" />
+                        </xsl:attribute>
+                    </value>
+                </xsl:when>
+                <xsl:when test="@nullFlavor">
+                    <value>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </value>
+                </xsl:when>
+            </xsl:choose>
             <xsl:if test="@unit">
-
                 <unit>
                     <xsl:attribute name="value">
                         <xsl:value-of select="@unit" />
@@ -617,7 +630,7 @@
                             </value>
                         </xsl:when>
                     </xsl:choose>
-<!--                    <value value="{@value}" />-->
+                    <!--                    <value value="{@value}" />-->
                 </xsl:if>
                 <xsl:if test="@unit">
                     <unit value="{@unit}" />

@@ -601,7 +601,23 @@
         <xsl:if test="$pSimpleQuantity = false() or not(@nullFlavor)">
             <xsl:element name="{$pElementName}">
                 <xsl:if test="@value">
-                    <value value="{@value}" />
+                    <xsl:choose>
+                        <xsl:when test="@value and starts-with(@value, '.')">
+                            <value>
+                                <xsl:attribute name="value">
+                                    <xsl:value-of select="concat('0', @value)" />
+                                </xsl:attribute>
+                            </value>
+                        </xsl:when>
+                        <xsl:when test="@value">
+                            <value>
+                                <xsl:attribute name="value">
+                                    <xsl:value-of select="@value" />
+                                </xsl:attribute>
+                            </value>
+                        </xsl:when>
+                    </xsl:choose>
+<!--                    <value value="{@value}" />-->
                 </xsl:if>
                 <xsl:if test="@unit">
                     <unit value="{@unit}" />
@@ -1407,11 +1423,22 @@
         </xsl:variable>
         <xsl:element name="{$pElementName}">
             <xsl:if test="@value">
-                <value>
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="@value" />
-                    </xsl:attribute>
-                </value>
+                <xsl:choose>
+                    <xsl:when test="@value and starts-with(@value, '.')">
+                        <value>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="concat('0', @value)" />
+                            </xsl:attribute>
+                        </value>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <value>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="@value" />
+                            </xsl:attribute>
+                        </value>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
             <xsl:if test="@unit">
                 <unit>
@@ -1436,13 +1463,22 @@
         <xsl:param name="pElementName" select="'valueQuantity'" />
 
         <xsl:element name="{$pElementName}">
-            <xsl:if test="@value">
-                <value>
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="@value" />
-                    </xsl:attribute>
-                </value>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@value and starts-with(@value, '.')">
+                    <value>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="concat('0', @value)" />
+                        </xsl:attribute>
+                    </value>
+                </xsl:when>
+                <xsl:when test="@value">
+                    <value>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="@value" />
+                        </xsl:attribute>
+                    </value>
+                </xsl:when>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
 

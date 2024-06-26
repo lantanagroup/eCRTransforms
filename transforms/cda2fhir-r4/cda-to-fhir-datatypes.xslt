@@ -657,67 +657,102 @@
                 <xsl:when test="descendant::*/@qualifier = 'BR'">maiden</xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:if test="string-length(normalize-space($name-string)) > 0">
-            <name>
-                <xsl:if test="string-length($use) > 0">
-                    <use value="{$use}" />
-                </xsl:if>
-                <xsl:if test="string-length(normalize-space(.)) > 0">
-                    <xsl:choose>
-                        <xsl:when test="cda:*">
-                            <text>
-                                <xsl:attribute name="value">
-                                    <xsl:value-of select="normalize-space(cda:family)" />
-                                    <xsl:text>,</xsl:text>
-                                    <xsl:for-each select="cda:suffix">
-                                        <xsl:text> </xsl:text>
-                                        <xsl:value-of select="normalize-space(.)" />
-                                        <xsl-text>,</xsl-text>
-                                    </xsl:for-each>
-                                    <xsl:for-each select="cda:prefix">
-                                        <xsl:text> </xsl:text>
-                                        <xsl:value-of select="normalize-space(.)" />
-                                    </xsl:for-each>
-                                    <xsl:for-each select="cda:given">
-                                        <xsl:text> </xsl:text>
-                                        <xsl:value-of select="normalize-space(.)" />
-                                    </xsl:for-each>
-                                    <xsl:if test="string-length($use) > 0">
-                                        <text> (</text>
-                                        <xsl:value-of select="$use" />
-                                        <text> name)</text>
-                                    </xsl:if>
-                                </xsl:attribute>
-                            </text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <text value="{$name-string}" />
-                        </xsl:otherwise>
-                    </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="string-length(normalize-space($name-string)) > 0">
+                <name>
+                    <xsl:if test="string-length($use) > 0">
+                        <use value="{$use}" />
+                    </xsl:if>
+                    <xsl:if test="string-length(normalize-space(.)) > 0">
+                        <xsl:choose>
+                            <xsl:when test="cda:*">
+                                <text>
+                                    <xsl:attribute name="value">
+                                        <xsl:value-of select="normalize-space(cda:family)" />
+                                        <xsl:text>,</xsl:text>
+                                        <xsl:for-each select="cda:suffix">
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="normalize-space(.)" />
+                                            <xsl-text>,</xsl-text>
+                                        </xsl:for-each>
+                                        <xsl:for-each select="cda:prefix">
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="normalize-space(.)" />
+                                        </xsl:for-each>
+                                        <xsl:for-each select="cda:given">
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="normalize-space(.)" />
+                                        </xsl:for-each>
+                                        <xsl:if test="string-length($use) > 0">
+                                            <text> (</text>
+                                            <xsl:value-of select="$use" />
+                                            <text> name)</text>
+                                        </xsl:if>
+                                    </xsl:attribute>
+                                </text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <text value="{$name-string}" />
+                            </xsl:otherwise>
+                        </xsl:choose>
 
-                </xsl:if>
-                <xsl:for-each select="cda:family">
-                    <xsl:if test="string-length(.) &gt; 0">
-                        <family value="{.}" />
                     </xsl:if>
-                </xsl:for-each>
-                <xsl:for-each select="cda:given">
-                    <xsl:if test="string-length(.) &gt; 0">
-                        <given value="{.}" />
-                    </xsl:if>
-                </xsl:for-each>
-                <xsl:for-each select="cda:prefix">
-                    <xsl:if test="string-length(.) &gt; 0">
-                        <prefix value="{.}" />
-                    </xsl:if>
-                </xsl:for-each>
-                <xsl:for-each select="cda:suffix">
-                    <xsl:if test="string-length(.) &gt; 0">
-                        <suffix value="{.}" />
-                    </xsl:if>
-                </xsl:for-each>
-            </name>
-        </xsl:if>
+                    <xsl:for-each select="cda:family">
+                        <xsl:if test="string-length(.) &gt; 0">
+                            <family value="{.}" />
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:given">
+                        <xsl:if test="string-length(.) &gt; 0">
+                            <given value="{.}" />
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:prefix">
+                        <xsl:if test="string-length(.) &gt; 0">
+                            <prefix value="{.}" />
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:suffix">
+                        <xsl:if test="string-length(.) &gt; 0">
+                            <suffix value="{.}" />
+                        </xsl:if>
+                    </xsl:for-each>
+                </name>
+            </xsl:when>
+            <xsl:when test="cda:*[@nullFlavor]">
+                <name>
+                    <xsl:for-each select="cda:family">
+                        <xsl:if test="@nullFlavor">
+                            <family>
+                                <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                            </family>
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:given">
+                        <xsl:if test="@nullFlavor">
+                            <given>
+                                <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                            </given>
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:prefix">
+                        <xsl:if test="@nullFlavor">
+                            <prefix>
+                                <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                            </prefix>
+                        </xsl:if>
+                    </xsl:for-each>
+                    <xsl:for-each select="cda:suffix">
+                        <xsl:if test="@nullFlavor">
+                            <suffix>
+                                <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                            </suffix>
+                        </xsl:if>
+                    </xsl:for-each>
+                </name>
+
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <!-- TEMPLATE: telecom -->
@@ -746,7 +781,14 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="@nullFlavor">
-                <xsl:comment>Omitting null telecom</xsl:comment>
+                <!--<xsl:comment>Omitting null telecom</xsl:comment>-->
+                <telecom>
+                    <!-- US Core forces a system value if telecom is present -->
+                    <system value="other" />
+                    <value>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </value>
+                </telecom>
             </xsl:when>
             <xsl:otherwise>
                 <telecom>
@@ -803,8 +845,8 @@
     <!-- TEMPLATE:addr -->
     <xsl:template match="cda:addr[not(@nullFlavor)]">
         <xsl:param name="pElementName">address</xsl:param>
-        <xsl:param name="pExtraText"/>
-        
+        <xsl:param name="pExtraText" />
+
         <xsl:variable name="addr-string">
             <xsl:for-each select="text() | cda:*">
                 <xsl:value-of select="normalize-space(.)" />
@@ -962,6 +1004,7 @@
                     <xsl:text>urn:oid:</xsl:text>
                     <xsl:value-of select="@root" />
                 </xsl:when>
+                <xsl:when test="not(@root) and not(@extension) and @nullFlavor" />
                 <xsl:otherwise>
                     <xsl:text>urn:uuid:</xsl:text>
                     <xsl:value-of select="lower-case(@root)" />
@@ -970,15 +1013,22 @@
         </xsl:variable>
 
         <xsl:choose>
-            <xsl:when test="$root-uri and @nullFlavor">
+            <xsl:when test="string-length($root-uri) > 0 and @nullFlavor">
                 <xsl:element name="{$pElementName}">
-                    <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
                     <system value="{lower-case($root-uri)}" />
+                    <value>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </value>
                 </xsl:element>
             </xsl:when>
             <xsl:when test="@nullFlavor">
                 <xsl:element name="{$pElementName}">
-                    <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    <system>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </system>
+                    <value>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </value>
                 </xsl:element>
             </xsl:when>
             <!-- Check assigningAuthorityName first -->
@@ -1062,28 +1112,7 @@
         <xsl:variable name="vCode" select="@code" />
         <xsl:variable name="display">
             <xsl:apply-templates select="@displayName" />
-            <!--<xsl:choose>
-                <!-\- code/display mapping checks for FHIR's more stringent display checks - obviously this isn't going to catch everything,
-                     but will clean up our testing warnings -\->
-                <xsl:when test="$code-display-mapping/map[@code = $vCode]">
-                    <xsl:value-of select="$code-display-mapping/map[@code = $vCode]/@display" />
-                </xsl:when>
-                <xsl:when test="@displayName">
-                    <xsl:value-of select="@displayName" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="$originalText" />
-                </xsl:otherwise>
-            </xsl:choose>-->
         </xsl:variable>
-        <!--<xsl:variable name="vNullFlavor">
-            <xsl:choose>
-                <xsl:when test="not(@nullFlavor) and not(@code) and not(@codeSystem)">NI</xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="@nullFlavor" />
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>-->
         <xsl:variable name="content">
             <xsl:call-template name="createCodeableConceptContent">
                 <xsl:with-param name="codeSystem" select="@codeSystem" />
@@ -1096,7 +1125,7 @@
         </xsl:variable>
 
         <xsl:variable name="translations">
-            <xsl:for-each select="cda:translation">
+            <xsl:for-each select="cda:translation | cda:code">
                 <xsl:variable name="vTranslationCode" select="@code" />
                 <xsl:variable name="vTranslationDisplay">
                     <xsl:choose>
@@ -1304,7 +1333,7 @@
             </code>
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template match="cda:value[@xsi:type = 'TS']">
         <xsl:param name="pElementName" select="'valueDateTime'" />
         <xsl:element name="{$pElementName}">
@@ -1405,7 +1434,7 @@
 
     <xsl:template match="cda:value[@xsi:type = 'REAL'][not(@nullFlavor)]">
         <xsl:param name="pElementName" select="'valueQuantity'" />
-        
+
         <xsl:element name="{$pElementName}">
             <xsl:if test="@value">
                 <value>
@@ -1416,8 +1445,8 @@
             </xsl:if>
         </xsl:element>
     </xsl:template>
-    
-    
+
+
     <xsl:template match="cda:value[@xsi:type = 'CD' or @xsi:type = 'CE']">
         <xsl:param name="pElementName" select="'valueCodeableConcept'" />
         <xsl:param name="pIncludeCoding" select="true()" />

@@ -37,7 +37,8 @@
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template match="cda:representedCustodianOrganization | cda:representedOrganization | cda:scopingOrganization | cda:receivedOrganization | cda:serviceProviderOrganization | cda:providerOrganization | cda:manufacturerOrganization">
+    <xsl:template
+        match="cda:representedCustodianOrganization | cda:representedOrganization | cda:scopingOrganization | cda:receivedOrganization | cda:serviceProviderOrganization | cda:providerOrganization | cda:manufacturerOrganization">
         <xsl:call-template name="create-organization" />
     </xsl:template>
 
@@ -107,12 +108,13 @@
                 <xsl:when test="cda:participantRole/cda:id">
                     <xsl:apply-templates select="cda:participantRole/cda:id" />
                 </xsl:when>
-                <xsl:otherwise>
+                <!-- identifier isn't a required field, so remove this -->
+                <!--<xsl:otherwise>
                     <identifier>
                         <system value="urn:ietf:rfc:3986" />
                         <value value="urn:uuid:{@lcg:uuid}" />
                     </identifier>
-                </xsl:otherwise>
+                </xsl:otherwise>-->
             </xsl:choose>
             <active value="true" />
 
@@ -154,16 +156,80 @@
                 <!-- If this is an Organization without a person preceding-sibling 
                      grab any ids that are preceding siblings because otherwise they will get
                      lost - if there was a preceding sibling that was a person the ids
-                     would get put into a PractitionerRole -->
+                     would get put into a PractitionerRole 
+                     However, can only have one NPI (2.16.840.1.113883.4.6) and one CLIA (2.16.840.1.113883.4.7), 
+                     so pick the first non-null NPI and first non-null CLIA and use that -->
+                
                 <xsl:when test="not(preceding-sibling::cda:assignedPerson) and cda:id">
-                    <xsl:apply-templates select="cda:id" />
-                    <xsl:apply-templates select="preceding-sibling::cda:id" />
+                    <xsl:variable name="vPossibleNPIOrgIdentifiers" select="cda:id[@root='2.16.840.1.113883.4.6'] | preceding-sibling::cda:id[@root='2.16.840.1.113883.4.6']" />
+                    <xsl:variable name="vPossibleCLIAOrgIdentifiers" select="cda:id[@root='2.16.840.1.113883.4.7'] | preceding-sibling::cda:id[@root='2.16.840.1.113883.4.7']" />
+                    <xsl:variable name="vPossibleOtherOrgIdentifiers" select="cda:id[not(@root='2.16.840.1.113883.4.6') and not(@root='2.16.840.1.113883.4.7')] | preceding-sibling::cda:id[not(@root='2.16.840.1.113883.4.6') and not(@root='2.16.840.1.113883.4.7')]" />
+                    <xsl:choose>
+                        <xsl:when test="count($vPossibleNPIOrgIdentifiers) > 1">
+                            <xsl:apply-templates select="$vPossibleNPIOrgIdentifiers[@extension][1]" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$vPossibleNPIOrgIdentifiers" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="count($vPossibleCLIAOrgIdentifiers) > 1">
+                            <xsl:apply-templates select="$vPossibleCLIAOrgIdentifiers[@extension][1]" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$vPossibleCLIAOrgIdentifiers" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates select="$vPossibleOtherOrgIdentifiers" />
+                    <!--<xsl:apply-templates select="cda:id" />
+                    <xsl:apply-templates select="preceding-sibling::cda:id" />-->
                 </xsl:when>
                 <xsl:when test="not(preceding-sibling::cda:assignedPerson)">
-                    <xsl:apply-templates select="preceding-sibling::cda:id" />
+                    <xsl:variable name="vPossibleNPIOrgIdentifiers" select="preceding-sibling::cda:id[@root='2.16.840.1.113883.4.6']" />
+                    <xsl:variable name="vPossibleCLIAOrgIdentifiers" select="preceding-sibling::cda:id[@root='2.16.840.1.113883.4.7']" />
+                    <xsl:variable name="vPossibleOtherOrgIdentifiers" select="preceding-sibling::cda:id[not(@root='2.16.840.1.113883.4.6') and not(@root='2.16.840.1.113883.4.7')]" />
+                    <xsl:choose>
+                        <xsl:when test="count($vPossibleNPIOrgIdentifiers) > 1">
+                            <xsl:apply-templates select="$vPossibleNPIOrgIdentifiers[@extension][1]" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$vPossibleNPIOrgIdentifiers" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="count($vPossibleCLIAOrgIdentifiers) > 1">
+                            <xsl:apply-templates select="$vPossibleCLIAOrgIdentifiers[@extension][1]" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$vPossibleCLIAOrgIdentifiers" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates select="$vPossibleOtherOrgIdentifiers" />
+<!--                    <xsl:apply-templates select="preceding-sibling::cda:id" />-->
                 </xsl:when>
                 <xsl:when test="cda:id">
-                    <xsl:apply-templates select="cda:id" />
+                    <xsl:variable name="vPossibleNPIOrgIdentifiers" select="cda:id[@root='2.16.840.1.113883.4.6']" />
+                    <xsl:variable name="vPossibleCLIAOrgIdentifiers" select="cda:id[@root='2.16.840.1.113883.4.7']" />
+                    <xsl:variable name="vPossibleOtherOrgIdentifiers" select="cda:id[not(@root='2.16.840.1.113883.4.6') and not(@root='2.16.840.1.113883.4.7')]" />
+                    <xsl:choose>
+                        <xsl:when test="count($vPossibleNPIOrgIdentifiers) > 1">
+                            <xsl:apply-templates select="$vPossibleNPIOrgIdentifiers[@extension][1]" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$vPossibleNPIOrgIdentifiers" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="count($vPossibleCLIAOrgIdentifiers) > 1">
+                            <xsl:apply-templates select="$vPossibleCLIAOrgIdentifiers[@extension][1]" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$vPossibleCLIAOrgIdentifiers" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:apply-templates select="$vPossibleOtherOrgIdentifiers" />
+                    
+                    <!--<xsl:apply-templates select="cda:id" />-->
                 </xsl:when>
             </xsl:choose>
             <xsl:apply-templates select="cda:code">
@@ -196,7 +262,7 @@
                 <xsl:when test="parent::*/cda:telecom">
                     <xsl:apply-templates select="parent::*/cda:telecom" />
                 </xsl:when>
-                <!-- else if a sibling has an address, use that -->
+                <!-- else if a sibling has a telecom, use that -->
                 <xsl:when test="preceding-sibling::*/cda:telecom">
                     <xsl:apply-templates select="preceding-sibling::*/cda:telecom" />
                 </xsl:when>

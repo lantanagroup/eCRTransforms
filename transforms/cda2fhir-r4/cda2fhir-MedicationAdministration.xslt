@@ -149,7 +149,7 @@
                 </supportingInformation>
             </xsl:for-each>
 
-            <!-- Doesn't make any sense to have a repeat instruction inside a MedicationAdministration 
+            <!-- Doesn't make sense to have a repeat instruction inside a MedicationAdministration 
                  If there is an effectiveTime with operator='A', treat as either period or an instant
                  Also there can only be one effective[x] in a MedicationAdministration so just take the first one-->
             <xsl:choose>
@@ -202,52 +202,6 @@
                 </xsl:apply-templates>
             </dosage>
         </xsl:if>
-        <!--<xsl:choose>
-            <xsl:when test="cda:routeCode/@code or cda:doseQuantity/@value or cda:approachSiteCode/@code">
-                <dosage>
-                    <xsl:apply-templates select="cda:approachSiteCode">
-                        <xsl:with-param name="pElementName">site</xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="cda:routeCode">
-                        <xsl:with-param name="pElementName">route</xsl:with-param>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="cda:doseQuantity">
-                        <xsl:with-param name="pElementName">dose</xsl:with-param>
-                        <xsl:with-param name="pSimpleQuantity" select="true()" />
-                    </xsl:apply-templates>
-                </dosage>
-            </xsl:when>
-            <xsl:when test="not(cda:routeCode) and not(cda:approachSiteCode) and not(cda:doseQuantity)" />
-            <xsl:when test="cda:doseQuanity/@nullFlavor and not(cda:routeCode) and not(cda:approachSiteCode)">
-                <dosage>
-                    <xsl:apply-templates select="cda:doseQuantity/@nullFlavor" mode="data-absent-reason-extension" />
-                </dosage>
-            </xsl:when>
-            <xsl:when test="cda:routeCode/@nullFlavor and cda:approachSiteCode/@nullFlavor">
-                <dosage>
-                    <site>
-                        <xsl:apply-templates select="cda:approachSiteCode/@nullFlavor" mode="data-absent-reason-extension" />
-                    </site>
-                    <route>
-                        <xsl:apply-templates select="cda:routeCode/@nullFlavor" mode="data-absent-reason-extension" />
-                    </route>
-                </dosage>
-            </xsl:when>
-            <xsl:when test="cda:routeCode/@nullFlavor">
-                <dosage>
-                    <route>
-                        <xsl:apply-templates select="cda:routeCode/@nullFlavor" mode="data-absent-reason-extension" />
-                    </route>
-                </dosage>
-            </xsl:when>
-            <xsl:when test="cda:approachSiteCode/@nullFlavor">
-                <dosage>
-                    <site>
-                        <xsl:apply-templates select="cda:approachSiteCode/@nullFlavor" mode="data-absent-reason-extension" />
-                    </site>
-                </dosage>
-            </xsl:when>
-        </xsl:choose>-->
     </xsl:template>
 
     <xsl:template match="cda:effectiveTime[@xsi:type = 'IVL_TS']" mode="medication-administration">

@@ -44,12 +44,7 @@
 
             <xsl:call-template name="generate-text-patient" />
             <xsl:call-template name="add-race-codes" />
-            <xsl:choose>
-                <xsl:when test="cda:patientRole/cda:patient/cda:ethnicGroupCode/@nullFlavor" />
-                <xsl:otherwise>
-                    <xsl:call-template name="add-ethnicity-codes" />
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:call-template name="add-ethnicity-codes" />
 
             <xsl:call-template name="add-birthtime-extension" />
             <xsl:call-template name="add-birth-sex-extension" />
@@ -347,7 +342,7 @@
         <xsl:if test="cda:patientRole/cda:patient/cda:ethnicGroupCode or cda:patientRole/cda:patient/sdtc:ethnicGroupCode">
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
                 <xsl:for-each select="cda:patientRole/cda:patient/cda:ethnicGroupCode">
-                    <xsl:variable name="code">
+                    <!--<xsl:variable name="code">
                         <xsl:choose>
                             <xsl:when test="@nullFlavor">
                                 <xsl:value-of select="@nullFlavor" />
@@ -366,25 +361,33 @@
                                 <xsl:text>urn:oid:2.16.840.1.113883.6.238</xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:variable>
+                    </xsl:variable>-->
                     <extension url="ombCategory">
                         <valueCoding>
-                            <system value="{$codeSystemUri}" />
                             <xsl:choose>
+                                <xsl:when test="@nullFlavor">
+                                    <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <system value="urn:oid:2.16.840.1.113883.6.238" />
+                                    <code value="@code" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+<!--                            <system value="{$codeSystemUri}" />-->
+                            <!--<xsl:choose>
                                 <xsl:when test="$code = 'NI'">
                                     <code value="UNK" />
                                 </xsl:when>
-                                <xsl:otherwise>
-                                    <code value="{$code}" />
-                                </xsl:otherwise>
-                            </xsl:choose>
+                                <xsl:otherwise>-->
+<!--                                    <code value="{$code}" />-->
+                                <!--</xsl:otherwise>
+                            </xsl:choose>-->
                             <xsl:if test="@displayName">
                                 <display>
                                     <xsl:attribute name="value">
                                         <xsl:apply-templates select="@displayName" />
                                     </xsl:attribute>
                                 </display>
-                                <!--                                <display value="{@displayName}" />-->
                             </xsl:if>
                         </valueCoding>
                     </extension>
@@ -403,7 +406,6 @@
                                                 <xsl:apply-templates select="@displayName" />
                                             </xsl:attribute>
                                         </display>
-                                        <!--                                        <display value="{@displayName}" />-->
                                     </xsl:if>
                                 </valueCoding>
                             </extension>

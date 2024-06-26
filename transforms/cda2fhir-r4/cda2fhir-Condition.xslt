@@ -133,7 +133,7 @@
                         </coding>
                     </category>
                 </xsl:otherwise>
-                
+
             </xsl:choose>
 
             <xsl:apply-templates select="cda:value" mode="condition" />
@@ -146,17 +146,17 @@
                 <xsl:when test="cda:author[1]/cda:time">
                     <xsl:apply-templates select="cda:author[1]/cda:time" mode="instant">
                         <xsl:with-param name="pElementName">recordedDate</xsl:with-param>
-                    </xsl:apply-templates>        
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:when test="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:effectiveTime/cda:low/@value">
                     <xsl:apply-templates select="ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:effectiveTime" mode="instant">
                         <xsl:with-param name="pElementName">recordedDate</xsl:with-param>
-                    </xsl:apply-templates>        
+                    </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
-            
-            <!-- recorder (max 1)-->
-            <xsl:apply-templates select="cda:author[1]" mode="rename-reference-participant">
+
+            <!-- recorder (max 1) (can only be Practitioner, PractitionerRole, Patient, RelatedPerson -->
+            <xsl:apply-templates select="cda:author[cda:assignedAuthor/cda:assignedPerson[1]]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
 

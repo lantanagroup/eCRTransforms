@@ -51,10 +51,12 @@ limitations under the License.
     <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids">
         <!-- get author id we need to match -->
         <xsl:variable name="vAuthorIdRoot">
-            <xsl:value-of select="parent::cda:assignedAuthor/cda:id/@root" />
+            <!-- can only match one -->
+            <xsl:value-of select="parent::cda:assignedAuthor/cda:id[1]/@root" />
         </xsl:variable>
         <xsl:variable name="vAuthorIdExtension">
-            <xsl:value-of select="parent::cda:assignedAuthor/cda:id/@extension" />
+            <!-- can only match one -->
+            <xsl:value-of select="parent::cda:assignedAuthor/cda:id[1]/@extension" />
         </xsl:variable>
         <!-- get the first instance of that author/patient id match (because there could be multiple) and
                      grab the @lcg:uuid value-->

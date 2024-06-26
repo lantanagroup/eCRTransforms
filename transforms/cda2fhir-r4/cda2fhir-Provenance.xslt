@@ -107,7 +107,7 @@
     </xsl:template>
 
     <!-- Entry-level participants -->
-    <xsl:template match="cda:author | cda:performer" mode="provenance">
+    <xsl:template match="cda:author | cda:performer | cda:informant" mode="provenance">
         <xsl:param name="pTargetUUID" />
         <entry>
             <fullUrl value="urn:uuid:{@lcg:uuid}" />
@@ -163,6 +163,9 @@
                                     <xsl:when test="self::cda:performer">
                                         <code value="performer" />
                                     </xsl:when>
+                                    <xsl:when test="self::cda:informant">
+                                        <code value="informant" />
+                                    </xsl:when>
                                 </xsl:choose>
                             </coding>
                         </type>
@@ -180,6 +183,15 @@
                                 </xsl:when>
                                 <xsl:when test="self::cda:performer">
                                     <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
+                                </xsl:when>
+                                <xsl:when test="self::cda:informant">
+                                    <xsl:variable name="vInformantUUID">
+                                        <xsl:call-template name="get-informant-uuid">
+                                            <xsl:with-param name="pInformant" select="." />
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <reference value="urn:uuid:{$vInformantUUID}" />
+                                    
                                 </xsl:when>
                             </xsl:choose>
                         </who>

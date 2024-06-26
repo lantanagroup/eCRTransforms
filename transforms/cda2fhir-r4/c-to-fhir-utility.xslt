@@ -12,6 +12,7 @@
     <xsl:param name="medication-status-mapping-file">../medication-status-mapping.xml</xsl:param>
     <xsl:param name="immunization-status-mapping-file">../immunization-status-mapping.xml</xsl:param>
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
+    <xsl:param name="vital-sign-codes-file">../vital-sign-codes.xml</xsl:param>
     <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:param name="templates-to-suppress-file">../templates-to-suppress.xml</xsl:param>
 
@@ -24,6 +25,7 @@
     <xsl:variable name="immunization-status-mapping" select="document($immunization-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
+    <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
 
@@ -959,8 +961,8 @@
                 <xsl:value-of select="$pAuthor/cda:assignedAuthor/@lcg:uuid" />
             </xsl:when>
             <!-- Organization -->
-            <xsl:when test="$pAuthor/cda:assignedAuthor/cda:assignedOrganization">
-                <xsl:value-of select="$pAuthor/cda:assignedAuthor/cda:assignedOrganization/@lcg:uuid" />
+            <xsl:when test="$pAuthor/cda:assignedAuthor/cda:representedOrganization">
+                <xsl:value-of select="$pAuthor/cda:assignedAuthor/cda:representedOrganization/@lcg:uuid" />
             </xsl:when>
             <!-- Device -->
             <xsl:when test="$pAuthor/cda:assignedAuthor/cda:assignedAuthoringDevice">
@@ -969,6 +971,24 @@
             <xsl:otherwise>
                 <xsl:value-of select="$pAuthor/cda:assignedAuthor/@lcg:uuid" />
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <xsl:template name="get-informant-uuid">
+        <xsl:param name="pInformant" />
+        <xsl:choose>
+            <!-- AssignedEntity - Person -->
+            <xsl:when test="$pInformant/cda:assignedEntity/cda:assignedPerson">
+                <xsl:value-of select="$pInformant/cda:assignedEntity/@lcg:uuid" />
+            </xsl:when>
+            <!-- AssignedEntity - Organization -->
+            <xsl:when test="$pInformant/cda:assignedEntity/cda:representedOrganization">
+                <xsl:value-of select="$pInformant/cda:assignedEntity/cda:representedOrganization/@lcg:uuid" />
+            </xsl:when>
+            <!-- RelatedEntity - Person -->
+            <xsl:when test="$pInformant/cda:relatedEntity/cda:relatedPerson">
+                <xsl:value-of select="$pInformant/cda:relatedEntity/@lcg:uuid" />
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 

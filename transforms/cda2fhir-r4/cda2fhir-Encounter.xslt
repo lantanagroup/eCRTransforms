@@ -225,9 +225,9 @@
                             <code value="ATND" />
                         </coding>
                     </type>
-                    <xsl:apply-templates select="cda:assignedEntity/cda:code">
+                    <!--<xsl:apply-templates select="cda:assignedEntity/cda:code">
                         <xsl:with-param name="pElementName">type</xsl:with-param>
-                    </xsl:apply-templates>
+                    </xsl:apply-templates>-->
                     <individual>
                         <xsl:apply-templates select="cda:assignedEntity" mode="reference" />
                     </individual>
@@ -242,9 +242,9 @@
                         </coding>
                     </type>-->
 
-                    <xsl:apply-templates select="cda:assignedEntity/cda:code">
+                    <!--<xsl:apply-templates select="cda:assignedEntity/cda:code">
                         <xsl:with-param name="pElementName">type</xsl:with-param>
-                    </xsl:apply-templates>
+                    </xsl:apply-templates>-->
                     <individual>
                         <xsl:apply-templates select="cda:assignedEntity" mode="reference" />
                     </individual>

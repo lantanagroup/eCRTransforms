@@ -31,7 +31,7 @@
             <meta>
                 <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
             </meta>
-            <text>
+            <!--<text>
                 <status value="generated" />
                 <div xmlns="http://www.w3.org/1999/xhtml">
                     <xsl:for-each select="$name">
@@ -53,11 +53,13 @@
                         <p>Telephone: <xsl:value-of select="@value" /></p>
                     </xsl:for-each>
                 </div>
-            </text>
+            </text>-->
             <xsl:for-each select="$vIdentifier/fhir:identifier">
                 <xsl:copy-of select="." />
             </xsl:for-each>
-            <xsl:apply-templates select="$name" />
+            <xsl:apply-templates select="$name">
+                <xsl:with-param name="pFamilyRequired" select="true()"/>
+            </xsl:apply-templates>
             <xsl:apply-templates select="$telecom" />
             <xsl:apply-templates select="$address" />
             <!-- Qualification -->

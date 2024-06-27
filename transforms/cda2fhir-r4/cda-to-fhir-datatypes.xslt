@@ -571,38 +571,18 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="cda:high | cda:low" mode="range">
-        <xsl:variable name="pElementName" select="local-name()" />
-        <xsl:element name="{$pElementName}">
-            <xsl:choose>
-                <xsl:when test="@value">
-                    <value>
-                        <xsl:attribute name="value">
-                            <xsl:value-of select="@value" />
-                        </xsl:attribute>
-                    </value>
-                </xsl:when>
-                <xsl:when test="cda:translation/@value">
-                    <value>
-                        <xsl:attribute name="value">
-                            <xsl:value-of select="cda:translation/@value" />
-                        </xsl:attribute>
-                    </value>
-                </xsl:when>
-                <xsl:when test="@nullFlavor">
-                    <value>
-                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                    </value>
-                </xsl:when>
-            </xsl:choose>
-            <xsl:if test="@unit">
-                <unit>
-                    <xsl:attribute name="value">
-                        <xsl:value-of select="@unit" />
-                    </xsl:attribute>
-                </unit>
-            </xsl:if>
-        </xsl:element>
+    <!-- TEMPLATE: Add a leading zero to a real number that start with .
+         FHIR doesn't like values such as ".4" -->
+    <xsl:template name="add-leading-zero-to-real">
+        <xsl:param name="pValue" />
+        <xsl:choose>
+            <xsl:when test="number($pValue) and starts-with($pValue, '.')">
+                <xsl:value-of select="concat('0', $pValue)" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$pValue" />
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- TEMPLATE: doseQuantity -->
@@ -614,7 +594,12 @@
         <xsl:if test="$pSimpleQuantity = false() or not(@nullFlavor)">
             <xsl:element name="{$pElementName}">
                 <xsl:if test="@value">
-                    <xsl:choose>
+                    <value>
+                        <xsl:call-template name="add-leading-zero-to-real">
+                            <xsl:with-param name="pValue" select="@value" />
+                        </xsl:call-template>
+                    </value>
+                    <!--<xsl:choose>
                         <xsl:when test="@value and starts-with(@value, '.')">
                             <value>
                                 <xsl:attribute name="value">
@@ -629,8 +614,7 @@
                                 </xsl:attribute>
                             </value>
                         </xsl:when>
-                    </xsl:choose>
-                    <!--                    <value value="{@value}" />-->
+                    </xsl:choose>-->
                 </xsl:if>
                 <xsl:if test="@unit">
                     <unit value="{@unit}" />
@@ -674,6 +658,7 @@
 
     <!-- TEMPLATE: name -->
     <xsl:template match="cda:name[not(@nullFlavor)]">
+        <xsl:param name="pFamilyRequired" select="false()" />
         <xsl:variable name="name-string">
             <xsl:for-each select="text() | cda:*">
                 <xsl:value-of select="normalize-space(.)" />
@@ -692,45 +677,22 @@
                     <xsl:if test="string-length($use) > 0">
                         <use value="{$use}" />
                     </xsl:if>
-                    <xsl:if test="string-length(normalize-space(.)) > 0">
-                        <xsl:choose>
-                            <xsl:when test="cda:*">
-                                <text>
-                                    <xsl:attribute name="value">
-                                        <xsl:value-of select="normalize-space(cda:family)" />
-                                        <xsl:text>,</xsl:text>
-                                        <xsl:for-each select="cda:suffix">
-                                            <xsl:text> </xsl:text>
-                                            <xsl:value-of select="normalize-space(.)" />
-                                            <xsl-text>,</xsl-text>
-                                        </xsl:for-each>
-                                        <xsl:for-each select="cda:prefix">
-                                            <xsl:text> </xsl:text>
-                                            <xsl:value-of select="normalize-space(.)" />
-                                        </xsl:for-each>
-                                        <xsl:for-each select="cda:given">
-                                            <xsl:text> </xsl:text>
-                                            <xsl:value-of select="normalize-space(.)" />
-                                        </xsl:for-each>
-                                        <xsl:if test="string-length($use) > 0">
-                                            <text> (</text>
-                                            <xsl:value-of select="$use" />
-                                            <text> name)</text>
-                                        </xsl:if>
-                                    </xsl:attribute>
-                                </text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <text value="{$name-string}" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-
-                    </xsl:if>
-                    <xsl:for-each select="cda:family">
-                        <xsl:if test="string-length(.) &gt; 0">
+                    <xsl:choose>
+                        <!-- US Core Practitioner requires a Family, so if it's not present add a DAR
+                                 pFamilyRequired parameter = true()-->
+                        <xsl:when test="string-length(cda:family) &gt; 0">
                             <family value="{.}" />
-                        </xsl:if>
-                    </xsl:for-each>
+                        </xsl:when>
+                        <xsl:when test="$pFamilyRequired">
+                            <family>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown"/>
+                                </extension>
+                            </family>
+                        </xsl:when>
+                        <xsl:otherwise />
+                    </xsl:choose>
+                    <!--</xsl:for-each>-->
                     <xsl:for-each select="cda:given">
                         <xsl:if test="string-length(.) &gt; 0">
                             <given value="{.}" />
@@ -1476,7 +1438,14 @@
         <xsl:param name="pElementName" select="'valueQuantity'" />
 
         <xsl:element name="{$pElementName}">
-            <xsl:choose>
+            <value>
+                <xsl:attribute name="value">
+                    <xsl:call-template name="add-leading-zero-to-real">
+                        <xsl:with-param name="pValue" select="@value" />
+                    </xsl:call-template>
+                </xsl:attribute>
+            </value>
+            <!--<xsl:choose>
                 <xsl:when test="@value and starts-with(@value, '.')">
                     <value>
                         <xsl:attribute name="value">
@@ -1491,10 +1460,9 @@
                         </xsl:attribute>
                     </value>
                 </xsl:when>
-            </xsl:choose>
+            </xsl:choose>-->
         </xsl:element>
     </xsl:template>
-
 
     <xsl:template match="cda:value[@xsi:type = 'CD' or @xsi:type = 'CE']">
         <xsl:param name="pElementName" select="'valueCodeableConcept'" />
@@ -1504,6 +1472,161 @@
             <xsl:with-param name="pIncludeCoding" select="$pIncludeCoding" />
         </xsl:call-template>
     </xsl:template>
+
+    <!--<xsl:template match="cda:value[@xsi:type = 'IVL_REAL']">
+        <valueRange>
+            <xsl:apply-templates select="cda:low" mode="range" />
+            <xsl:apply-templates select="cda:high" mode="range" />
+        </valueRange>
+    </xsl:template>-->
+
+    <xsl:template match="cda:high | cda:low" mode="range">
+        <xsl:variable name="pElementName" select="local-name()" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <value>
+                        <xsl:attribute name="value">
+                            <xsl:call-template name="add-leading-zero-to-real">
+                                <xsl:with-param name="pValue" select="@value" />
+                            </xsl:call-template>
+                            <!--<xsl:value-of select="@value" />-->
+                        </xsl:attribute>
+                    </value>
+                </xsl:when>
+                <xsl:when test="cda:translation/@value">
+                    <value>
+                        <xsl:attribute name="value">
+                            <xsl:call-template name="add-leading-zero-to-real">
+                                <xsl:with-param name="pValue" select="cda:translation/@value" />
+                            </xsl:call-template>
+                            <!--<xsl:value-of select="cda:translation/@value" />-->
+                        </xsl:attribute>
+                    </value>
+                </xsl:when>
+                <xsl:when test="@nullFlavor">
+                    <value>
+                        <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                    </value>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:if test="@unit">
+                <unit>
+                    <xsl:attribute name="value">
+                        <xsl:value-of select="@unit" />
+                    </xsl:attribute>
+                </unit>
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="cda:value[@xsi:type = 'IVL_REAL'] | cda:value[@xsi:type = 'IVL_PQ']">
+        <xsl:param name="pElementName" select="'valueRange'" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="cda:low/@nullFlavor and (cda:high/@value or cda:high/cda:translation/@value)" />
+                <xsl:otherwise>
+                    <xsl:apply-templates select="cda:low" mode="range" />
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="cda:high/@nullFlavor and (cda:low/@value or cda:low/cda:translation/@value)" />
+                <xsl:otherwise>
+                    <xsl:apply-templates select="cda:high" mode="range" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="cda:observation/cda:referenceRange">
+        <!-- Rule: must have at least a low or a high or a text -->
+        <referenceRange>
+            <xsl:for-each select="cda:observationRange">
+                <xsl:for-each select="cda:value">
+                    <xsl:choose>
+                        <xsl:when test="@nullFlavor">
+                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+                        </xsl:when>
+                        <xsl:when test="@xsi:type = 'IVL_PQ'">
+                            <xsl:choose>
+                                <xsl:when test="cda:low/@nullFlavor and (cda:high/@value or cda:high/cda:translation/@value)" />
+                                <xsl:otherwise>
+                                    <xsl:apply-templates select="cda:low" mode="range" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:choose>
+                                <xsl:when test="cda:high/@nullFlavor and (cda:low/@value or cda:low/cda:translation/@value)" />
+                                <xsl:otherwise>
+                                    <xsl:apply-templates select="cda:high" mode="range" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <!--<xsl:apply-templates select="." />-->
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:message> Unsupported observation reference range type: <xsl:value-of select="@xsi:type" />
+                            </xsl:message>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+                <!-- Put whatever is in text into a variable -->
+                <xsl:variable name="vText">
+                    <xsl:value-of select="cda:text" />
+                </xsl:variable>
+                <!-- Put whatever is in value with xsi:type = ST into a variable -->
+                <xsl:variable name="vValueST">
+                    <xsl:choose>
+                        <xsl:when test="cda:value/@xsi:type = 'ST'">
+                            <xsl:value-of select="cda:value[@xsi:type = 'ST']" />
+                        </xsl:when>
+                        <xsl:otherwise />
+                    </xsl:choose>
+                </xsl:variable>
+
+                <!-- If there is no value in either, AND there was no low or high, then put a note into text to pass FHIR validation
+                     If there is no value in either, there is no text. 
+                     If they are different concatenate, if they are the same just use text -->
+                <xsl:choose>
+                    <xsl:when test="not(cda:value/@xsi:type = 'IVL_PQ') and not(cda:value/cda:low) and not(cda:value/cda:high) and not($vText/string()) and not($vValueST/string())">
+                        <text>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="'No reference range supplied'" />
+                            </xsl:attribute>
+                        </text>
+                    </xsl:when>
+                    <xsl:when test="not($vText/string()) and not($vValueST/string())" />
+                    <xsl:when test="not($vText/string())">
+                        <text>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="$vValueST" />
+                            </xsl:attribute>
+                        </text>
+                    </xsl:when>
+                    <xsl:when test="not($vValueST/string())">
+                        <text>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="$vText" />
+                            </xsl:attribute>
+                        </text>
+                    </xsl:when>
+                    <xsl:when test="$vText = $vValueST">
+                        <text>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="$vText" />
+                            </xsl:attribute>
+                        </text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <text>
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="concat($vText, '; ', $vValueST)" />
+                            </xsl:attribute>
+                        </text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
+        </referenceRange>
+    </xsl:template>
+
 
     <xsl:template name="II2Identifier">
         <xsl:param name="this" />

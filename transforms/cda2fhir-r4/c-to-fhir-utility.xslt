@@ -527,85 +527,6 @@
         </xsl:choose>
     </xsl:template>
 
-
-    <xsl:template match="cda:observation/cda:referenceRange">
-        <!-- Rule: must have at least a low or a high or a text -->
-        <referenceRange>
-            <xsl:for-each select="cda:observationRange">
-                <xsl:for-each select="cda:value">
-                    <xsl:choose>
-                        <xsl:when test="@nullFlavor">
-                            <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                        </xsl:when>
-                        <xsl:when test="@xsi:type = 'IVL_PQ'">
-                            <xsl:apply-templates select="cda:low" mode="range" />
-                            <xsl:apply-templates select="cda:high" mode="range" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:message> Unsupported observation reference range type: <xsl:value-of select="@xsi:type" />
-                            </xsl:message>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <!-- Put whatever is in text into a variable -->
-                <xsl:variable name="vText">
-                    <xsl:value-of select="cda:text" />
-                </xsl:variable>
-                <!-- Put whatever is in value with xsi:type = ST into a variable -->
-                <xsl:variable name="vValueST">
-                    <xsl:choose>
-                        <xsl:when test="cda:value/@xsi:type = 'ST'">
-                            <xsl:value-of select="cda:value[@xsi:type = 'ST']" />
-                        </xsl:when>
-                        <xsl:otherwise />
-                    </xsl:choose>
-                </xsl:variable>
-
-                <!-- If there is no value in either, AND there was no low or high, then put a note into text to pass FHIR validation
-                     If there is no value in either, there is no text. 
-                     If they are different concatenate, if they are the same just use text -->
-                <xsl:choose>
-                    <xsl:when test="not(cda:value/@xsi:type = 'IVL_PQ') and not(cda:value/cda:low) and not(cda:value/cda:high) and not($vText/string()) and not($vValueST/string())">
-                        <text>
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="'No reference range supplied'" />
-                            </xsl:attribute>
-                        </text>
-                    </xsl:when>
-                    <xsl:when test="not($vText/string()) and not($vValueST/string())" />
-                    <xsl:when test="not($vText/string())">
-                        <text>
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="$vValueST" />
-                            </xsl:attribute>
-                        </text>
-                    </xsl:when>
-                    <xsl:when test="not($vValueST/string())">
-                        <text>
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="$vText" />
-                            </xsl:attribute>
-                        </text>
-                    </xsl:when>
-                    <xsl:when test="$vText = $vValueST">
-                        <text>
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="$vText" />
-                            </xsl:attribute>
-                        </text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <text>
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="concat($vText, '; ', $vValueST)" />
-                            </xsl:attribute>
-                        </text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each>
-        </referenceRange>
-    </xsl:template>
-
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <!-- Remove Encounter Diagnosis wrappers, since maps to Condition.category -->
@@ -643,7 +564,7 @@
             </xsl:choose>
         </xsl:element>
     </xsl:template>
-    
+
     <!-- TEMPLATE: Uses the result-status-mapping file imported at the top of this file to match cda result status with fhir equivalents -->
     <xsl:template match="cda:statusCode" mode="map-result-status">
         <xsl:param name="pElementName" select="'status'" />
@@ -973,7 +894,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template name="get-informant-uuid">
         <xsl:param name="pInformant" />
         <xsl:choose>

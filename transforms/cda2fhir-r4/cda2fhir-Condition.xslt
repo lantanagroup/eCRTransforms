@@ -11,17 +11,20 @@
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
 
-        <xsl:for-each select="cda:author[position() > 1] | cda:informant | cda:performer[position() > 1]">
+        <xsl:for-each select="cda:author | cda:informant | cda:performer[position() > 1]">
             <xsl:apply-templates select="." mode="provenance" />
         </xsl:for-each>
 
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
-    <!-- TEMPLATE: Remove Concern wrappers -->
-    <xsl:template
-        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']]"
-        mode="reference">
+    <!-- TEMPLATE: Remove Concern/Admission Diagnosis wrappers -->
+    <xsl:template match="
+            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136'] or
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
             <xsl:apply-templates select="." mode="reference">
@@ -30,9 +33,13 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- TEMPLATE: Remove Concern wrappers -->
-    <xsl:template
-        match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']]"
+    <!-- TEMPLATE: Remove Concern/Adminssion Diagnosis wrappers -->
+    <xsl:template match="
+            cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or 
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or 
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']or 
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34']]"
         mode="bundle-entry">
         <!-- Create bundle entries for any authors or performers -->
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
@@ -53,7 +60,7 @@
                 <xsl:apply-templates select="/" mode="currentIg" />
             </xsl:variable>
 
-            <!-- Set profiles based on Ig and Resource if it is needed -->
+            <!-- Set profiles based on IG and Resource if it is needed -->
             <xsl:choose>
                 <xsl:when test="$vCurrentIg = 'NA'">
                     <xsl:call-template name="add-meta" />
@@ -80,14 +87,26 @@
             </xsl:choose>
 
             <xsl:apply-templates select="cda:id" />
-            <!-- clinicalStatus -->
+            <!-- clinicalStatus: check both effectiveTime and potentially a contained Problem Status Observation -->
             <clinicalStatus>
                 <coding>
                     <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
                     <code>
                         <xsl:choose>
-                            <xsl:when test="cda:effectiveTime/cda:high">
+                            <xsl:when test="cda:effectiveTime/cda:high or cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='413322009'">
                                 <xsl:attribute name="value">resolved</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='246455001'">
+                                <xsl:attribute name="value">recurrence</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='263855007'">
+                                <xsl:attribute name="value">relapse</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='277022003'">
+                                <xsl:attribute name="value">remission</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='55561003'">
+                                <xsl:attribute name="value">active</xsl:attribute>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:attribute name="value">active</xsl:attribute>

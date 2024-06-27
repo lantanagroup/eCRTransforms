@@ -24,6 +24,12 @@
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:playingEntity/cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>
             </xsl:apply-templates>
+            <!-- receivedTime - this is an IHE template -->
+            <xsl:if test="cda:entryRelationship/cda:act/cda:templateId[@root='1.3.6.1.4.1.19376.1.3.1.3']">
+                <xsl:apply-templates select="cda:entryRelationship/cda:act[cda:templateId/@root='1.3.6.1.4.1.19376.1.3.1.3']/cda:effectiveTime" mode="instant">
+                    <xsl:with-param name="pElementName" select="'receivedTime'" />
+                </xsl:apply-templates>
+            </xsl:if>
             <!-- collection -->
             <xsl:if test="cda:effectiveTime or cda:targetSiteCode">
                 <collection>

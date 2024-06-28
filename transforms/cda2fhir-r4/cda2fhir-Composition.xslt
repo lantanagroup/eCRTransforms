@@ -3,6 +3,17 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" version="2.0"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml">
 
+    <!-- Creating a global var here to contain extra lcg:uuid for use later if Problem and/or Result section is missing -->
+    <xsl:variable name="vNodeExtraUUIDs">
+        <xsl:variable name="vExtraNodes">
+            <cda:extraNodes>
+                <cda:nodeCondition />
+                <cda:nodeResult />
+            </cda:extraNodes>
+        </xsl:variable>
+        <xsl:apply-templates select="$vExtraNodes" mode="add-uuids" />
+    </xsl:variable>
+
     <xsl:template match="cda:ClinicalDocument" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
 
@@ -12,7 +23,7 @@
       create the ReleatedPerson will be reference in Patient on recordTarget
       2.16.840.1.113883.10.20.22.2.15 family history section
     -->
-        <xsl:variable name="vTest" select="
+        <!--<xsl:variable name="vTest" select="
                 //cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']/following-sibling::cda:entry/
                 cda:organizer/cda:subject/cda:relatedSubject[@classCode = 'PRS']/cda:code/@code" />
         <xsl:choose>
@@ -27,7 +38,7 @@
                     </xsl:choose>
                 </xsl:for-each>
             </xsl:when>
-        </xsl:choose>
+        </xsl:choose>-->
 
         <xsl:apply-templates select="cda:recordTarget" mode="bundle-entry" />
         <xsl:apply-templates select="cda:componentOf/cda:encompassingEncounter" mode="bundle-entry" />
@@ -43,15 +54,14 @@
         <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informationRecipient" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-<!--        <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="bundle-entry" />-->
+        <!--        <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="bundle-entry" />-->
 
         <xsl:apply-templates select="//cda:section/cda:author" mode="bundle-entry" />
         <!--<!-\- Create entries for the performers in the Problem Concern Acts -\->
         <xsl:apply-templates select="//cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3']]/cda:performer" mode="bundle-entry" />-->
 
         <!-- Provenance -->
-        <!-- The ClinicalDocument/dataEnterer and informant can either be referenced from a C-CDA on FHIR extension (which requires a dependency
-             on that IG, or from a Provenance resource - choosing the latter for now-->
+        <!-- The ClinicalDocument/dataEnterer and informant will be referenced from the Provenance resource -->
         <xsl:apply-templates select="cda:dataEnterer" mode="provenance" />
         <xsl:apply-templates select="cda:informant" mode="provenance" />
         <!-- The ClinicalDocument/legalAuthenticator and authenticator can have digital signatures. If this is the case, create Provenance resources, 
@@ -60,6 +70,20 @@
         <xsl:apply-templates select="cda:authenticator[sdtc:signatureText]" mode="provenance" />
         <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="provenance" />
 
+        <!-- Problem List is a required eICR section, if it's missing, we need to add a empty Condition bundle entry to 
+             satisfy IG requirements, also get the id for use referencing later -->
+        <xsl:if test="not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1') or //cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1'][not(cda:entry)]">
+            <xsl:call-template name="create-empty-condition">
+                <xsl:with-param name="pUUID" select="$vNodeExtraUUIDs/cda:extraNodes/cda:nodeCondition/@lcg:uuid" />
+            </xsl:call-template>
+        </xsl:if>
+        <!-- Results is a required eICR section, if it's missing, we need to add a empty Lab Result Observation bundle entry to 
+             satisfy IG requirements, also get the id for use referencing later -->
+        <xsl:if test="not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1') or //cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1'][not(cda:entry)]">
+            <xsl:call-template name="create-empty-result">
+                <xsl:with-param name="pUUID" select="$vNodeExtraUUIDs/cda:extraNodes/cda:nodeResult/@lcg:uuid" />
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument">
@@ -320,6 +344,10 @@
                         <status value="generated" />
                         <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                     </text>
+                    <!-- Add an empty condition here to satisfy IG constraint -->
+                    <entry>
+                        <reference value="urn:uuid:{$vNodeExtraUUIDs/cda:extraNodes/cda:nodeCondition/@lcg:uuid}" />
+                    </entry>
                 </section>
             </xsl:if>
             <!-- Results is a required eICR section, if it's missing, add it with text of "no information" -->
@@ -337,7 +365,10 @@
                         <status value="generated" />
                         <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                     </text>
-
+                    <!-- Add an empty result here to satisfy IG constraint -->
+                    <entry>
+                        <reference value="urn:uuid:{$vNodeExtraUUIDs/cda:extraNodes/cda:nodeResult/@lcg:uuid}" />
+                    </entry>
                 </section>
             </xsl:if>
             <!-- Medications Administered is a required eICR section, if it's missing, add it with text of "no information" -->
@@ -414,7 +445,7 @@
             <!-- If this is eICR and there are sections with no data - we don't want to include them unless they are one of the required sections
                  (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) -->
             <!-- SG 20240429: Adding code to check that if there is a nullFlavor there is also no entry or section text (getting data that isn't correct with 
-                 the nullFlavor to indicated no information, but the section has data -->
+                 the nullFlavor to indicate no information, but the section has data -->
             <xsl:when test="
                     ($vCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry) and not($vSectionText/string())) and
                     not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12') and
@@ -474,17 +505,39 @@
                         </div>
                     </text>
 
-                    <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
-                    <xsl:for-each select="
-                            cda:entry[
-                            cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])]
-                            [not(cda:code/@code = '8462-4')]
-                            ]">
+                    <!-- When there are entries go ahead and process -->
+                    <xsl:choose>
+                        <xsl:when test="cda:entry">
+                            <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
+                            <xsl:for-each select="
+                                    cda:entry[
+                                    cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])]
+                                    [not(cda:code/@code = '8462-4')]
+                                    ]">
 
-                        <xsl:apply-templates select="cda:*" mode="reference">
-                            <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
-                        </xsl:apply-templates>
-                    </xsl:for-each>
+                                <xsl:apply-templates select="cda:*" mode="reference">
+                                    <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
+                                </xsl:apply-templates>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <!-- When there are no entries and this is either a Problem Section or a Results Section, 
+                            add a reference to the empty Condition or Lab Result Observation -->
+                        <xsl:otherwise>
+                            <xsl:choose>
+                                <!-- Add an empty condition here to satisfy IG constraint -->
+                                <xsl:when test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.5.1']">
+                                    <entry>
+                                        <reference value="urn:uuid:{$vNodeExtraUUIDs/cda:extraNodes/cda:nodeCondition/@lcg:uuid}" />
+                                    </entry>
+                                </xsl:when>
+                                <xsl:when test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.3.1']">
+                                    <entry>
+                                        <reference value="urn:uuid:{$vNodeExtraUUIDs/cda:extraNodes/cda:nodeResult/@lcg:uuid}" />
+                                    </entry>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
 
                     <!-- get triggers lower in the hierarchy 
                          skip wrappers like concern etc.-->
@@ -523,46 +576,73 @@
     </xsl:template>
 
     <xsl:template name="create-empty-result">
+        <xsl:param name="pUUID" />
         <entry>
-            <fullUrl value="urn:uuid:{@lcg:uuid}" />
+            <fullUrl value="urn:uuid:{$pUUID}" />
             <resource>
-                <entry>
-                    <Observation xmlns="http://hl7.org/fhir">
-                        <meta>
-                            <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab" />
-                        </meta>
-                        <text>
-                            <status value="generated" />
-                            <div xmlns="http://www.w3.org/1999/xhtml">
-                                <p>
-                                    <b>No test reported</b>
-                                </p>
-                            </div>
-                        </text>
-                        <status value="final" />
-                        <category>
-                            <coding>
-                                <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
-                                <code value="laboratory" />
-                                <display value="Laboratory" />
-                            </coding>
-                            <text value="Laboratory" />
-                        </category>
-                        <code>
-                            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                                <valueCode value="not performed" />
-                            </extension>
-                        </code>
-                        <subject>
-                            <reference value="urn:uuid:{cda:recordTarget/@lcg:uuid}" />
-                        </subject>
-                        <valueQuantity>
-                            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                                <valueCode value="not performed" />
-                            </extension>
-                        </valueQuantity>
-                    </Observation>
-                </entry>
+                <Observation xmlns="http://hl7.org/fhir">
+                    <meta>
+                        <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab" />
+                    </meta>
+                    <text>
+                        <status value="generated" />
+                        <div xmlns="http://www.w3.org/1999/xhtml">
+                            <p>
+                                <b>No test reported</b>
+                            </p>
+                        </div>
+                    </text>
+                    <status value="final" />
+                    <category>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+                            <code value="laboratory" />
+                            <display value="Laboratory" />
+                        </coding>
+                        <text value="Laboratory" />
+                    </category>
+                    <code>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="not-applicable" />
+                        </extension>
+                    </code>
+                    <subject>
+                        <reference value="urn:uuid:{cda:recordTarget/@lcg:uuid}" />
+                    </subject>
+                    <valueQuantity>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="not-applicable" />
+                        </extension>
+                    </valueQuantity>
+                </Observation>
+            </resource>
+        </entry>
+    </xsl:template>
+
+    <xsl:template name="create-empty-condition">
+        <xsl:param name="pUUID" />
+        <entry>
+            <fullUrl value="urn:uuid:{$pUUID}" />
+            <resource>
+                <Condition xmlns="http://hl7.org/fhir">
+                    <meta>
+                        <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+                    </meta>
+                    <category>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+                            <code value="problem-list-item" />
+                        </coding>
+                    </category>
+                    <code>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                            <valueCode value="not-applicable" />
+                        </extension>
+                    </code>
+                    <subject>
+                        <reference value="urn:uuid:{cda:recordTarget/@lcg:uuid}" />
+                    </subject>
+                </Condition>
             </resource>
         </entry>
     </xsl:template>

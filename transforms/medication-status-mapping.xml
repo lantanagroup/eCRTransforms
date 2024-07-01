@@ -1,12 +1,17 @@
 <mapping>
-    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="active" fhirMedicationStatus="in-progress" />
-    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="suspended" fhirMedicationStatus="on-hold" />
-    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="completed" fhirMedicationStatus="completed" />
-    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="nullified" fhirMedicationStatus="entered-in-error" />
-    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="aborted" fhirMedicationStatus="stopped" />
-    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="active" fhirMedicationStatus="active" />
-    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="aborted" fhirMedicationStatus="stopped" />
-    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="suspended" fhirMedicationStatus="on-hold" />
-    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="completed" fhirMedicationStatus="completed" />
-    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="nullified" fhirMedicationStatus="entered-in-error" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="active" fhirMedicationResource="MedicationAdministration" fhirMedicationStatus="in-progress" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="suspended" fhirMedicationResource="MedicationAdministration" fhirMedicationStatus="on-hold" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="completed" fhirMedicationResource="MedicationAdministration" fhirMedicationStatus="completed" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="nullified" fhirMedicationResource="MedicationAdministration" fhirMedicationStatus="entered-in-error" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="aborted" fhirMedicationResource="MedicationAdministration" fhirMedicationStatus="stopped" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="active" fhirMedicationResource="MedicationRequest" fhirMedicationStatus="active" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="aborted" fhirMedicationResource="MedicationRequest" fhirMedicationStatus="stopped" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="suspended" fhirMedicationResource="MedicationRequest" fhirMedicationStatus="on-hold" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="completed" fhirMedicationResource="MedicationRequest" fhirMedicationStatus="completed" />
+    <map cdaMedicationMoodCode= "INT" cdaMedicationStatus="nullified" fhirMedicationResource="MedicationRequest" fhirMedicationStatus="entered-in-error" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="active" fhirMedicationResource="MedicationStatement" fhirMedicationStatus="active" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="suspended" fhirMedicationResource="MedicationStatement" fhirMedicationStatus="on-hold" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="completed" fhirMedicationResource="MedicationStatement" fhirMedicationStatus="completed" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="nullified" fhirMedicationResource="MedicationStatement" fhirMedicationStatus="entered-in-error" />
+    <map cdaMedicationMoodCode= "EVN" cdaMedicationStatus="aborted" fhirMedicationResource="MedicationStatement" fhirMedicationStatus="stopped" />
 </mapping>

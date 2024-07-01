@@ -26,7 +26,8 @@
     <xsl:include href="cda2fhir-MedicationAdministration.xslt" />
     <xsl:include href="cda2fhir-MedicationDispense.xslt" />
     <xsl:include href="cda2fhir-MedicationRequest.xslt" />
-    <xsl:include href="cda2fhir-MedicationStatement.xslt" />
+    <!-- Removing mapping to MedicationStatement for now - this is an evoloving mapping in the C-CDA to FHIR project - will update when that group has decided on mapping -->
+<!--    <xsl:include href="cda2fhir-MedicationStatement.xslt" />-->
     <xsl:include href="cda2fhir-Narrative.xslt" />
     <xsl:include href="cda2fhir-Observation.xslt" />
     <xsl:include href="cda2fhir-Organization.xslt" />

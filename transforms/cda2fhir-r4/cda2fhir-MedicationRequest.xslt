@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
-
+    <!-- Match all substanceAdministration with moodCode of 'INT' - this is an evoloving mapping in the C-CDA to FHIR project - will update when that group has decided on mapping -->
     <xsl:template match="cda:substanceAdministration[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.16' or @root = '2.16.840.1.113883.10.20.22.4.42']][@moodCode = 'INT']" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
         <!--<xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry" />-->
@@ -30,6 +30,7 @@
             <!-- status -->
             <xsl:apply-templates select="cda:statusCode" mode='map-medication-status'>
                 <xsl:with-param name="pMoodCode" select="@moodCode"/>
+                <xsl:with-param name="pMedicationResource" select="'MedicationRequest'"/>
             </xsl:apply-templates>
             
             <!-- This is an actual order in the Pharmacist's system -->

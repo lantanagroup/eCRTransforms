@@ -595,9 +595,11 @@
             <xsl:element name="{$pElementName}">
                 <xsl:if test="@value">
                     <value>
-                        <xsl:call-template name="add-leading-zero-to-real">
-                            <xsl:with-param name="pValue" select="@value" />
-                        </xsl:call-template>
+                        <xsl:attribute name="value">
+                            <xsl:call-template name="add-leading-zero-to-real">
+                                <xsl:with-param name="pValue" select="@value" />
+                            </xsl:call-template>
+                        </xsl:attribute>
                     </value>
                     <!--<xsl:choose>
                         <xsl:when test="@value and starts-with(@value, '.')">
@@ -677,6 +679,39 @@
                     <xsl:if test="string-length($use) > 0">
                         <use value="{$use}" />
                     </xsl:if>
+                    <!--<xsl:if test="string-length(normalize-space(.)) > 0">
+                        <xsl:choose>
+                            <xsl:when test="cda:*">
+                                <text>
+                                    <xsl:attribute name="value">
+                                        <xsl:value-of select="normalize-space(cda:family)" />
+                                        <xsl:text>,</xsl:text>
+                                        <xsl:for-each select="cda:suffix">
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="normalize-space(.)" />
+                                            <xsl-text>,</xsl-text>
+                                        </xsl:for-each>
+                                        <xsl:for-each select="cda:prefix">
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="normalize-space(.)" />
+                                        </xsl:for-each>
+                                        <xsl:for-each select="cda:given">
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="normalize-space(.)" />
+                                        </xsl:for-each>
+                                        <xsl:if test="string-length($use) > 0">
+                                            <text> (</text>
+                                            <xsl:value-of select="$use" />
+                                            <text> name)</text>
+                                        </xsl:if>
+                                    </xsl:attribute>
+                                </text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <text value="{$name-string}" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>-->
                     <xsl:choose>
                         <!-- US Core Practitioner requires a Family, so if it's not present add a DAR
                                  pFamilyRequired parameter = true()-->
@@ -686,7 +721,7 @@
                         <xsl:when test="$pFamilyRequired">
                             <family>
                                 <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                                    <valueCode value="unknown"/>
+                                    <valueCode value="unknown" />
                                 </extension>
                             </family>
                         </xsl:when>

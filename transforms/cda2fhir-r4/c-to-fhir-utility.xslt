@@ -584,12 +584,13 @@
     <!-- TEMPLATE: Uses the medication-status-mapping file imported at the top of this file to match cda medication status with fhir equivalents -->
     <xsl:template match="cda:statusCode" mode="map-medication-status">
         <xsl:param name="pMoodCode" />
+        <xsl:param name="pMedicationResource" />
 
         <xsl:variable name="vMedicationStatus" select="@code" />
         <xsl:element name="status">
             <xsl:choose>
-                <xsl:when test="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode]">
-                    <xsl:attribute name="value" select="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode]/@fhirMedicationStatus" />
+                <xsl:when test="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode and @fhirMedicationResource = $pMedicationResource]">
+                    <xsl:attribute name="value" select="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode and @fhirMedicationResource = $pMedicationResource]/@fhirMedicationStatus" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>

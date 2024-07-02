@@ -1,0 +1,8 @@
+<mapping>
+    <map cdaSpecimenStatus="aborted" fhirSpecimenStatus="unavailable" />
+    <map cdaSpecimenStatus="active" fhirSpecimenStatus="available" />
+    <map cdaSpecimenStatus="cancelled" fhirSpecimenStatus="entered-in-error" />
+    <map cdaSpecimenStatus="completed" fhirSpecimenStatus="available" />
+    <map cdaSpecimenStatus="nullified" fhirSpecimenStatus="entered-in-error" />
+    <map cdaSpecimenStatus="obsolete" fhirSpecimenStatus="unavailable" />
+</mapping>

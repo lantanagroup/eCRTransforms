@@ -19,7 +19,7 @@
             <!-- id -->
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:id" />
             <!-- status -->
-            <xsl:apply-templates select="cda:statusCode" />
+            <xsl:apply-templates select="cda:statusCode" mode="map-specimen-status" />
             <!-- type -->
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:playingEntity/cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>

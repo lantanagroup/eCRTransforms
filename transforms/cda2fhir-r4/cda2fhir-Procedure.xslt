@@ -365,8 +365,23 @@
                 <xsl:when test="@code = 'aborted'">
                     <xsl:attribute name="value">stopped</xsl:attribute>
                 </xsl:when>
+                <xsl:when test="@code = 'new'">
+                    <xsl:attribute name="value">preparation</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="@code = 'completed'">
+                    <xsl:attribute name="value">completed</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="@code = 'held'">
+                    <xsl:attribute name="value">on-hold</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="@code = 'suspended'">
+                    <xsl:attribute name="value">on-hold</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="@code = 'nullified'">
+                    <xsl:attribute name="value">entered-in-error</xsl:attribute>
+                </xsl:when>
                 <xsl:otherwise>
-                    <xsl:attribute name="value" select="@code" />
+                    <xsl:attribute name="value" select="completed" />
                 </xsl:otherwise>
             </xsl:choose>
         </status>

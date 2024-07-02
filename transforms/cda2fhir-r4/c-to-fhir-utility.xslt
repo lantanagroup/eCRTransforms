@@ -11,6 +11,7 @@
     <xsl:param name="result-status-mapping-file">../result-status-mapping.xml</xsl:param>
     <xsl:param name="medication-status-mapping-file">../medication-status-mapping.xml</xsl:param>
     <xsl:param name="immunization-status-mapping-file">../immunization-status-mapping.xml</xsl:param>
+    <xsl:param name="specimen-status-mapping-file">../specimen-status-mapping.xml</xsl:param>
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
     <xsl:param name="vital-sign-codes-file">../vital-sign-codes.xml</xsl:param>
     <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
@@ -23,6 +24,7 @@
     <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
     <xsl:variable name="medication-status-mapping" select="document($medication-status-mapping-file)/mapping" />
     <xsl:variable name="immunization-status-mapping" select="document($immunization-status-mapping-file)/mapping" />
+    <xsl:variable name="specimen-status-mapping" select="document($specimen-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
     <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping" />
@@ -616,6 +618,21 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="value" select="'completed'" />
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- TEMPLATE: Uses the specimen-status-mapping file imported at the top of this file to match cda specimen status with fhir equivalents -->
+    <xsl:template match="cda:statusCode" mode="map-specimen-status">
+        <xsl:variable name="vSpecimenStatus" select="@code" />
+        <xsl:element name="status">
+            <xsl:choose>
+                <xsl:when test="$specimen-status-mapping/map[@cdaSpecimenStatus = $vSpecimenStatus]">
+                    <xsl:attribute name="value" select="$specimen-status-mapping/map[@cdaSpecimenStatus = $vSpecimenStatus]/@fhirSpecimenStatus" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="value" select="'available'" />
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>

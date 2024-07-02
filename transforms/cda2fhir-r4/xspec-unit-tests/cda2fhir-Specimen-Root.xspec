@@ -5,19 +5,26 @@
     <!-- Specimen Collection Procedure - Create Specimen bundle entry -->
     <x:scenario
         label="Scenario for testing template cda:procedure[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.415']">
-        <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
-        <x:expect label="There should be one Specimen resource" 
-            test="count(//fhir:Specimen) = 1" />
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="There should be two Specimen resources" 
+            test="count(//fhir:Specimen) = 2" />
         
         <x:expect label="The specimen should have identifier 44fd0410-6115-4b8e-8ee9-a51b3817df66" 
             test="count(//fhir:Specimen/fhir:identifier/fhir:value[@value='urn:uuid:44fd0410-6115-4b8e-8ee9-a51b3817df66']) = 1" />
+        <x:expect label="The specimen should have identifier 44fd0410-6115-4b8e-8ee9-a51b3817df67" 
+            test="count(//fhir:Specimen/fhir:identifier/fhir:value[@value='urn:uuid:44fd0410-6115-4b8e-8ee9-a51b3817df67']) = 1" />
         
         <x:expect label="The specimen should have type = 119297000" 
-            test="count(//fhir:Specimen/fhir:type/fhir:coding/fhir:code[@value='119297000']) = 1" />
+            test="count(//fhir:Specimen/fhir:type/fhir:coding/fhir:code[@value='119297000']) = 2" />
         <x:expect label="The specimen should have collectedPeriod.start = 2020-03-09" 
-            test="count(//fhir:Specimen/fhir:collection/fhir:collectedPeriod/fhir:start[@value='2020-03-09']) = 1" />
+            test="count(//fhir:Specimen/fhir:collection/fhir:collectedPeriod/fhir:start[@value='2020-03-09']) = 2" />
         <x:expect label="The specimen should have bodySite = 368208006" 
-            test="count(//fhir:Specimen/fhir:collection/fhir:bodySite/fhir:coding/fhir:code[@value='368208006']) = 1" />
+            test="count(//fhir:Specimen/fhir:collection/fhir:bodySite/fhir:coding/fhir:code[@value='368208006']) = 2" />
+        
+        <x:expect label="The specimen should have status='available'" 
+            test="count(//fhir:Specimen/fhir:status[@value='unavailable']) = 1" />
+        <x:expect label="The specimen should have status='available'" 
+            test="count(//fhir:Specimen/fhir:status[@value='unavailable']) = 1" />
     </x:scenario>
     
 </x:description>

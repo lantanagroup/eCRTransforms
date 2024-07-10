@@ -52,7 +52,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:message>Trying to convert timestamp: <xsl:value-of select="$cdaTS" /></xsl:message>
+<!--        <xsl:message>Trying to convert timestamp: <xsl:value-of select="$cdaTS" /></xsl:message>-->
         <xsl:choose>
             <!-- If there is a + or - this has a TZ -->
             <xsl:when test="matches($cdaTS, '[-+]')">

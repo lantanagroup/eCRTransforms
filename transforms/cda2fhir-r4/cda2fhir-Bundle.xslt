@@ -4,21 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="/" mode="convert">
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
         <Bundle>
             <!-- Generates an id that is unique for the node. It will always be the same for the same id. Should be unique across 
            documents as the CDA document id should be unique-->
-            <id value="{concat($vCurrentIg, '-bundle-', generate-id(cda:ClinicalDocument/cda:id))}" />
+            <id value="{concat($gvCurrentIg, '-bundle-', generate-id(cda:ClinicalDocument/cda:id))}" />
 
             <!-- Adding meta for eICR - needs to conform to eICR document bundle profile -->
             <xsl:variable as="xs:string" name="vBundleProfile">
                 <xsl:choose>
-                    <xsl:when test="$vCurrentIg = 'eICR'">
+                    <xsl:when test="$gvCurrentIg = 'eICR'">
                         <xsl:text>http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle</xsl:text>
                     </xsl:when>
-                    <xsl:when test="$vCurrentIg = 'RR'">
+                    <xsl:when test="$gvCurrentIg = 'RR'">
                         <xsl:text>http://hl7.org/fhir/us/ecr/StructureDefinition/rr-document-bundle</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>

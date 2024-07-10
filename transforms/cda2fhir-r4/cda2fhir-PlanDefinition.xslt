@@ -20,12 +20,10 @@
     <!-- Plan Definition (from "Reportability Response Coded Information Organizer") -->
     <!-- Plan Definition matches the Reportability Information Organizer (not 2.3.34) -->
     <!--<xsl:template match="cda:organizer[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.13']">
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
+        
         <PlanDefinition>
             <!-\- Generates an id that is unique for the node. It will always be the same for the same id. -\->
-            <id value="{concat($vCurrentIg, '-plandefinition-', generate-id(cda:id))}" />
+            <id value="{concat($gvCurrentIg, '-plandefinition-', generate-id(cda:id))}" />
             <xsl:call-template name="add-meta" />
 
             <!-\- Determination of Reportability -\->
@@ -43,7 +41,7 @@
                 </xsl:for-each>
             </xsl:for-each>
 
-            <url value="{concat($vCurrentIg, '-plandefinition-', generate-id(cda:id))}" />
+            <url value="{concat($gvCurrentIg, '-plandefinition-', generate-id(cda:id))}" />
             <status value="active" />
 
             <!-\- Rules Authoring Agency (2.16.840.1.113883.10.20.15.2.4.3) -> publisher -\->

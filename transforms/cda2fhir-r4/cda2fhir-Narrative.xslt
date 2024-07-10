@@ -42,9 +42,6 @@
     </xsl:template-->
     <!-- produce browser rendered, human readable clinical document -->
     <xsl:template name="CDAtext">
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
         <!-- START display top portion of clinical document -->
         <!-- Don't render the recordTarget, this wil come from the Patient resource -->
         <!-- 
@@ -69,7 +66,7 @@
         <br/>
         <br/> 
         -->
-        <xsl:if test="$vCurrentIg = 'RR'">
+        <xsl:if test="$gvCurrentIg = 'RR'">
             <xsl:apply-templates select="n1:component/n1:structuredBody" />
         </xsl:if>
     </xsl:template>

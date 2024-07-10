@@ -31,12 +31,8 @@
     <!-- Procedure Activity Act -->
     <xsl:template match="cda:act[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.12']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-            <!-- Check current Ig -->
-            <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg" />
-            </xsl:variable>
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <meta>
                         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure" />
                     </meta>
@@ -148,12 +144,8 @@
     <!-- Procedure Activity Procedure -->
     <xsl:template match="cda:procedure[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.14']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-            <!-- Check current Ig -->
-            <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg" />
-            </xsl:variable>
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <meta>
                         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure" />
                     </meta>
@@ -246,12 +238,8 @@
     <!-- Procedure Activity Observation -->
     <xsl:template match="cda:observation[@moodCode = 'EVN'][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.13']]">
         <Procedure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-            <!-- Check current Ig -->
-            <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg" />
-            </xsl:variable>
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <meta>
                         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure" />
                     </meta>

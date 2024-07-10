@@ -48,10 +48,7 @@
         </xsl:for-each>
         <!-- Don't process diastolic as it needs to be processed together with systolic -->
         <xsl:apply-templates select="cda:component/cda:*[not(cda:code[@code = '8462-4'])]" mode="bundle-entry" />
-
-        <!--<xsl:apply-templates select="cda:component/cda:observation/cda:performer" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:component/cda:observation/cda:author" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:component/cda:observation/cda:informant" mode="bundle-entry" />-->
+        
     </xsl:template>
 
     <!-- C-CDA Caregiver Characteristics - bundle entry-->
@@ -572,7 +569,7 @@
             <xsl:apply-templates select="cda:referenceRange" />
 
             <xsl:for-each
-                select="cda:code[@code = '8480-6'] | parent::cda:component/following-sibling::cda:*/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']]/cda:code[@code = '8462-4']">
+                select="cda:code[@code = '8480-6'] | parent::cda:component/following-sibling::cda:*[1]/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']]/cda:code[@code = '8462-4']">
                 <component>
                     <xsl:apply-templates select=".">
                         <xsl:with-param name="pElementName">code</xsl:with-param>

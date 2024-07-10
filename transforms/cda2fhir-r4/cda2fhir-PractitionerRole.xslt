@@ -62,20 +62,15 @@
             cda:participantRole[not(@classCode = 'TERR')][not(parent::cda:participant/@typeCode = 'CSM')]">
         <PractitionerRole>
 
-            <!-- Check current Ig -->
-            <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg" />
-            </xsl:variable>
-
             <!-- Set profiles based on IG and Resource if it is needed -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'NA'">
+                <xsl:when test="$gvCurrentIg = 'NA'">
                     <xsl:call-template name="add-meta" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="vProfileValue">
                         <xsl:call-template name="get-profile-for-ig">
-                            <xsl:with-param name="pIg" select="$vCurrentIg" />
+                            <xsl:with-param name="pIg" select="$gvCurrentIg" />
                             <xsl:with-param name="pResource" select="'PractitionerRole'" />
                         </xsl:call-template>
                     </xsl:variable>

@@ -12,11 +12,9 @@
             cda:*/cda:value/cda:translation[@sdtc:valueSet] |
             cda:*/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@sdtc:valueSet] |
             cda:*/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/cda:translation[@sdtc:valueSet]" mode="entry-extension">
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
+        
         <!-- Make sure it is a template in eICR - there could potentially be other templates that use @sdtc:valueSet -->
-        <xsl:if test="$vCurrentIg = 'eICR'">
+        <xsl:if test="$gvCurrentIg = 'eICR'">
             <xsl:comment>eICR Trigger Code Flag Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
                 <extension url="triggerCodeValueSet">
@@ -228,13 +226,9 @@
 
     <!-- TEMPLATE: ClinicalDocument/informationRecipient/intendedRecipient -->
     <xsl:template match="cda:informationRecipient/cda:intendedRecipient" mode="extension">
-        <!-- Get current IG -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
 
         <xsl:choose>
-            <xsl:when test="$vCurrentIg = 'eICR' or $vCurrentIg = 'RR'">
+            <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
                 <xsl:comment>US Public Health Information Recipient Extension</xsl:comment>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension">
                     <valueReference>

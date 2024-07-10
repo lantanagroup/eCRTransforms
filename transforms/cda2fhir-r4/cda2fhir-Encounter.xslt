@@ -18,11 +18,8 @@
     </xsl:template>
 
     <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']" mode="bundle-entry">
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
         <!-- Don't want a second encounter if this is eICR -->
-        <xsl:if test="$vCurrentIg != 'eICR'">
+        <xsl:if test="$gvCurrentIg != 'eICR'">
             <xsl:call-template name="create-bundle-entry" />
             <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
         </xsl:if>
@@ -34,12 +31,9 @@
 
     <xsl:template
         match="cda:encompassingEncounter[not(@nullFlavor)] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']">
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
         <Encounter>
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <xsl:call-template name="add-participant-meta" />
                     <!-- For eICR we need to grab the Encounter section text -->
                     <text>
@@ -59,21 +53,15 @@
                     </text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!--<xsl:call-template name="add-meta" /> -->
-                    <!-- Check current Ig -->
-                    <xsl:variable name="vCurrentIg">
-                        <xsl:apply-templates select="/" mode="currentIg" />
-                    </xsl:variable>
-
                     <!-- set meta profile based on Ig -->
                     <xsl:choose>
-                        <xsl:when test="$vCurrentIg = 'NA'">
+                        <xsl:when test="$gvCurrentIg = 'NA'">
                             <xsl:call-template name="add-meta" />
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:variable name="vProfileValue">
                                 <xsl:call-template name="get-profile-for-ig">
-                                    <xsl:with-param name="pIg" select="$vCurrentIg" />
+                                    <xsl:with-param name="pIg" select="$gvCurrentIg" />
                                     <xsl:with-param name="pResource" select="'Encounter'" />
                                 </xsl:call-template>
                             </xsl:variable>
@@ -99,7 +87,7 @@
             <!-- Note, there are also ids on the other Encounters. The Encounter in eCR only allows one identifier.
                 Commenting this code out for now - consider updating the FHIR IG to allow multiple identifiers
                 If this is eCR get the id from other encounters in the CDA -->
-            <!--<xsl:if test="$vCurrentIg = 'eICR'">
+            <!--<xsl:if test="$gvCurrentIg = 'eICR'">
                 <xsl:comment select="'Id from Encounter Activity'"/>
                 <xsl:apply-templates select="//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:id" />
                 <xsl:comment select="'Id from Encounter Diagnosis Act'"/>
@@ -296,7 +284,7 @@
             </xsl:choose>
             <xsl:choose>
                 <!-- When this is an eICR and we are inside the encompassingEncounter we want to put the encounter diagnoses in this encounter -->
-                <xsl:when test="local-name(.) = 'encompassingEncounter' and $vCurrentIg = 'eICR'">
+                <xsl:when test="local-name(.) = 'encompassingEncounter' and $gvCurrentIg = 'eICR'">
                     <xsl:for-each select="//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']">
                         <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']">
                             <diagnosis>

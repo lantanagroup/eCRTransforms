@@ -274,12 +274,9 @@
             <!-- If this is eICR and there are missing required sections 
                  (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) 
                  add them with no data -->
-            <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg" />
-            </xsl:variable>
-
+            
             <!-- Reason for Visit is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12')">
                 <section>
                     <title value="REASON FOR VISIT" />
                     <code>
@@ -296,7 +293,7 @@
                 </section>
             </xsl:if>
             <!-- Chief Complaint is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1')">
                 <section>
                     <title value="CHIEF COMPLAINT" />
                     <code>
@@ -313,7 +310,7 @@
                 </section>
             </xsl:if>
             <!-- History of Present Illness is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4')">
                 <section>
                     <title value="HISTORY OF PRESENT ILLNESS" />
                     <code>
@@ -330,7 +327,7 @@
                 </section>
             </xsl:if>
             <!-- Problem List is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1')">
                 <section>
                     <title value="PROBLEM LIST" />
                     <code>
@@ -351,7 +348,7 @@
                 </section>
             </xsl:if>
             <!-- Results is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1')">
                 <section>
                     <title value="RESULTS" />
                     <code>
@@ -372,7 +369,7 @@
                 </section>
             </xsl:if>
             <!-- Medications Administered is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.38')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.38')">
                 <section>
                     <title value="MEDICATIONS ADMINISTERED" />
                     <code>
@@ -389,7 +386,7 @@
                 </section>
             </xsl:if>
             <!-- Social History is a required eICR section, if it's missing, add it with text of "no information" -->
-            <xsl:if test="($vCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.17')">
+            <xsl:if test="($gvCurrentIg = 'eICR') and not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.17')">
                 <section>
                     <title value="SOCIAL HISTORY" />
                     <code>
@@ -409,13 +406,9 @@
     </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument/cda:versionNumber">
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
         <!-- SG 20191204: eCR & RR use the "official" FHIR extension for version number - added logic to use -->
         <xsl:choose>
-            <xsl:when test="($vCurrentIg = 'eICR' or $vCurrentIg = 'RR')">
+            <xsl:when test="($gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR')">
                 <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
                     <valueString value="{@value}" />
                 </extension>
@@ -430,24 +423,19 @@
 
     <xsl:template match="cda:section">
 
-        <!-- Check current Ig -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
-
         <xsl:variable name="vSectionText">
             <xsl:value-of select="cda:text/string()" />
         </xsl:variable>
 
         <xsl:choose>
             <!-- Don't want the encounters section if this is eICR - the encounter information goes in Composition.Encounter-->
-            <xsl:when test="$vCurrentIg = 'eICR' and cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.22.1'" />
+            <xsl:when test="$gvCurrentIg = 'eICR' and cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.22.1'" />
             <!-- If this is eICR and there are sections with no data - we don't want to include them unless they are one of the required sections
                  (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) -->
             <!-- SG 20240429: Adding code to check that if there is a nullFlavor there is also no entry or section text (getting data that isn't correct with 
                  the nullFlavor to indicate no information, but the section has data -->
             <xsl:when test="
-                    ($vCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry) and not($vSectionText/string())) and
+                    ($gvCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry) and not($vSectionText/string())) and
                     not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12') and
                     not(cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1') and
                     not(cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4') and
@@ -458,7 +446,7 @@
             <!-- If this isn't a required section, but it's a section that has to have an entry and 
                 there is @nullFlavor but no entry, don't include it -->
             <xsl:when test="
-                    ($vCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry)) and
+                    ($gvCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry)) and
                     (cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.10' or
                     cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.2.1' or
                     cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.7.1')" />

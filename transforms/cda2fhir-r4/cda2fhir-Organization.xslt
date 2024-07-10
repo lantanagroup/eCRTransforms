@@ -91,14 +91,14 @@
     <!-- Organization from Participant inside an [ODH R1] Past or Present Occupation Observation  -->
     <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']/cda:participant[@typeCode = 'IND']">
         <!-- MD: Check IG -->
-        <xsl:variable name="vCurrentIg">
+        <!--<xsl:variable name="vCurrentIg">
             <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
+        </xsl:variable>-->
 
         <Organization>
             <!-- MD: for eICR Organization using us-ph-organization profile -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <meta>
                         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
                     </meta>
@@ -134,14 +134,14 @@
     <!-- standard Organization from representedCustodianOrganization, representedOrganization, etc -->
     <xsl:template name="create-organization">
         <!-- MD: Check IG -->
-        <xsl:variable name="vCurrentIg">
+        <!--<xsl:variable name="vCurrentIg">
             <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
+        </xsl:variable>-->
 
         <Organization>
             <!-- MD: for eICR Organization using us-ph-organization profile -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <meta>
                         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
                     </meta>

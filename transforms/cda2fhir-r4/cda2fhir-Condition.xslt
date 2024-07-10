@@ -55,20 +55,16 @@
     <!-- C-CDA Problem Observation -->
     <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]">
         <Condition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
-            <!-- Check current Ig -->
-            <xsl:variable name="vCurrentIg">
-                <xsl:apply-templates select="/" mode="currentIg" />
-            </xsl:variable>
 
             <!-- Set profiles based on IG and Resource if it is needed -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'NA'">
+                <xsl:when test="$gvCurrentIg = 'NA'">
                     <xsl:call-template name="add-meta" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:variable name="vProfileValue">
                         <xsl:call-template name="get-profile-for-ig">
-                            <xsl:with-param name="pIg" select="$vCurrentIg" />
+                            <xsl:with-param name="pIg" select="$gvCurrentIg" />
                             <xsl:with-param name="pResource" select="'Condition'" />
                         </xsl:call-template>
                     </xsl:variable>

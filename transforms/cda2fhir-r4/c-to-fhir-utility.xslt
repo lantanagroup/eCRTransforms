@@ -30,6 +30,10 @@
     <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
+    
+    <xsl:variable name="gvCurrentIg">
+        <xsl:apply-templates select="/" mode="currentIg" />
+    </xsl:variable>
 
     <xsl:key name="referenced-acts" match="cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.122'])]" use="cda:id/@root" />
 
@@ -212,13 +216,10 @@
     <!-- TEMPLATE: Uses the template to profile file imported at the top of this file to match template oids with their structureDefinition profile -->
     <xsl:template match="cda:templateId" mode="template2profile">
         <xsl:variable name="vTemplateURI" select="lcg:fcnGetTemplateURI(.)" />
-        <xsl:variable name="vCurrentIg">
-            <xsl:apply-templates select="/" mode="currentIg" />
-        </xsl:variable>
 
         <!-- If this is eCR or RR don't want to add CCDA-on-FHIR-US-Realm-Header conformance so skip those -->
         <xsl:choose>
-            <xsl:when test="$vCurrentIg = 'eICR' or $vCurrentIg = 'RR'">
+            <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
                 <xsl:for-each select="$template-profile-mapping/map[@templateURI = $vTemplateURI][not(contains(@templateURI, '2.16.840.1.113883.10.20.22.1.1'))]">
                     <profile value="{@profileURI}" />
                     <xsl:comment>CDA templateId: <xsl:value-of select="$vTemplateURI" /></xsl:comment>
@@ -352,15 +353,15 @@
         <xsl:choose>
             <xsl:when test="$pTextElement/cda:reference">
                 <xsl:choose>
-                    <xsl:when test="//*[@ID = $vTextReference]/text()">
-                        <xsl:value-of select="//*[@ID = $vTextReference]/text()" />
+                    <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/text()">
+                        <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/text()" />
                     </xsl:when>
-                    <xsl:when test="//*[@ID = $vTextReference]/../text()">
-                        <xsl:value-of select="//*[@ID = $vTextReference]/following-sibling::text()" />
+                    <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/../text()">
+                        <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/following-sibling::text()" />
                     </xsl:when>
-                    <xsl:when test="//*[@ID = $vTextReference]">
-                        <xsl:apply-templates select="//*[@ID = $vTextReference]" mode="serialize" />
-                        <!--<xsl:copy-of select="//*[@ID = $vTextReference]" />-->
+                    <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $vTextReference]">
+                        <xsl:apply-templates select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]" mode="serialize" />
+                        <!--<xsl:copy-of select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]" />-->
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
@@ -1053,12 +1054,12 @@
         </xsl:call-template>
     </xsl:template>
 
-    <xsl:template name="get-current-ig">
+    <!--<xsl:template name="get-current-ig">
         <xsl:choose>
             <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2']">eICR</xsl:when>
             <xsl:when test="/cda:ClinicalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.1.2']">RR</xsl:when>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
 
     <xsl:template name="get-substring-after-last">
         <xsl:param name="pString" />

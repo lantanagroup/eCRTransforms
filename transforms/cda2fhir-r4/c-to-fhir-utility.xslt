@@ -14,6 +14,8 @@
     <xsl:param name="specimen-status-mapping-file">../specimen-status-mapping.xml</xsl:param>
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
     <xsl:param name="vital-sign-codes-file">../vital-sign-codes.xml</xsl:param>
+    <xsl:param name="oid-uri-mapping-file">../oid-uri-mapping-r4.xml</xsl:param>
+    
     <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:param name="templates-to-suppress-file">../templates-to-suppress.xml</xsl:param>
 
@@ -28,6 +30,7 @@
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
     <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping" />
+    <xsl:variable name="oid-uri-mapping" select="document($oid-uri-mapping-file)/mapping" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
     
@@ -328,10 +331,10 @@
     <!-- TEMPLATE: Convert OIDs to their uri equivalents - these are stored in mapping file oid-uri-mapping.xml -->
     <xsl:template name="convertOID">
         <xsl:param name="oid" />
-        <xsl:variable name="mapping" select="document('../oid-uri-mapping-r4.xml')/mapping" />
+        
         <xsl:choose>
-            <xsl:when test="$mapping/map[@oid = $oid]">
-                <xsl:value-of select="$mapping/map[@oid = $oid][1]/@uri" />
+            <xsl:when test="$oid-uri-mapping/map[@oid = $oid]">
+                <xsl:value-of select="$oid-uri-mapping/map[@oid = $oid][1]/@uri" />
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>

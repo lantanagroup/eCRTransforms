@@ -1001,7 +1001,7 @@
     <!-- TEMPLATE: id, setId -->
     <xsl:template match="cda:id | cda:setId">
         <xsl:param name="pElementName">identifier</xsl:param>
-        <xsl:variable name="mapping" select="document('../oid-uri-mapping-r4.xml')/mapping" />
+
         <xsl:variable name="oid" select="@root" />
         <xsl:variable name="value">
             <xsl:choose>
@@ -1023,8 +1023,8 @@
                 <xsl:when test="$oid = '2.16.840.1.113883.4.873'">
                     <xsl:value-of select="substring-before(@extension, concat('/', $value))" />
                 </xsl:when>
-                <xsl:when test="$mapping/map[@oid = $oid]">
-                    <xsl:value-of select="$mapping/map[@oid = $oid][1]/@uri" />
+                <xsl:when test="$oid-uri-mapping/map[@oid = $oid]">
+                    <xsl:value-of select="$oid-uri-mapping/map[@oid = $oid][1]/@uri" />
                 </xsl:when>
                 <xsl:when test="contains(@root, '.')">
                     <xsl:text>urn:oid:</xsl:text>
@@ -1121,11 +1121,11 @@
             <xsl:choose>
                 <xsl:when test="cda:originalText/cda:reference">
                     <xsl:choose>
-                        <xsl:when test="//*[@ID = $originalTextReference]/text()">
-                            <xsl:value-of select="//*[@ID = $originalTextReference]/text()" />
+                        <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/text()">
+                            <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/text()" />
                         </xsl:when>
-                        <xsl:when test="//*[@ID = $originalTextReference]/../text()">
-                            <xsl:value-of select="//*[@ID = $originalTextReference]/following-sibling::text()" />
+                        <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/../text()">
+                            <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/following-sibling::text()" />
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>

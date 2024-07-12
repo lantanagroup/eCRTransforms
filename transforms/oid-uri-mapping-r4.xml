@@ -434,6 +434,8 @@
     <map oid="2.16.840.1.113883.5.1095" uri="http://terminology.hl7.org/CodeSystem/v3-styleType" />
     <map oid="2.16.840.1.113883.5.1070" uri="http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution" />
     <map oid="2.16.840.1.113883.1.18" uri="http://terminology.hl7.org/CodeSystem/v3-triggerEventID" />
+    <!-- Note: the following code system has been retired as of 2021-11-09 -->
+    <map oid="2.16.840.1.113883.6.208" uri="http://terminology.hl7.org/CodeSystem/nddf" />
 
     <!--<map oid="2.16.840.1.113883.6.259" uri="http://terminology.hl7.org/CodeSystem/v3-hsloc" />-->
     <map oid="2.16.840.1.113883.6.259" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/hsloc.html" />
@@ -441,10 +443,7 @@
     <map oid="2.16.840.1.113883.6.277" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/cdcnhsn.html" />
     <map oid="2.16.840.1.113883.4.642.1.1093" uri="http://terminology.hl7.org/CodeSystem/discharge-disposition" />
 
-
     <map oid="2.16.840.1.113883.3.13" uri="http://hl7.org/fhir/sid/cvx" />
-
-
 
     <map oid="1.0.3166.1" uri="urn:iso:std:iso:3166" />
 
@@ -458,7 +457,4 @@
     <map oid="2.16.840.1.113883.3.13.999.200" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/200" />
     <map oid="2.16.840.1.113883.3.13.999.222" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/222" />
     <map oid="2.16.840.1.113883.3.13.999.6000" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/6000" />
-
-
-
 </mapping>

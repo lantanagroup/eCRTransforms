@@ -29,8 +29,8 @@
     <xsl:variable name="specimen-status-mapping" select="document($specimen-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
-    <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping" />
-    <xsl:variable name="oid-uri-mapping" select="document($oid-uri-mapping-file)/mapping" />
+    <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping/map" />
+    <xsl:variable name="oid-uri-mapping" select="document($oid-uri-mapping-file)/mapping/map" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
 
@@ -44,10 +44,10 @@
     <xsl:key name="templates-to-suppress-key" match="$templates-to-suppress" use="templateToSuppress/@templateIdRoot" />
     
     <!-- Key for oid uri mapping -->
-    <xsl:key name="oid-uri-mapping-key" match="$oid-uri-mapping" use="map/@oid" />
+    <xsl:key name="oid-uri-mapping-key" match="$oid-uri-mapping" use="@oid" />
     
     <!-- Key for vital sign codes -->
-    <xsl:key name="vital-sign-codes-key" match="$vital-sign-codes" use="map/@code" />
+    <xsl:key name="vital-sign-codes-key" match="$vital-sign-codes" use="@code" />
     
     <!-- Key to get all referenced text in section/text to speed up processing of matching references that reach back into section text -->
     <xsl:key name="text-reference-key" match="//cda:section/cda:text//*[@ID]" use="@ID" />

@@ -188,7 +188,7 @@
                     </name>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:comment>Missing cda:respresntedOrgainzation/cda:name in CCDA document</xsl:comment>
+                    <xsl:comment>WARNING: Missing cda:respresntedOrgainzation/cda:name in CCDA document</xsl:comment>
                 </xsl:otherwise>
             </xsl:choose>
             <!--

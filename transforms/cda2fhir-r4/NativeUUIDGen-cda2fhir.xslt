@@ -27,7 +27,7 @@ limitations under the License.
 
     <xsl:template match="/">
         <xsl:variable name="element-count" select="count(//cda:*)" />
-        <xsl:message>Element count: <xsl:value-of select="$element-count" /></xsl:message>
+        <xsl:comment>Element count: <xsl:value-of select="$element-count" /></xsl:comment>
         <!-- Preprocesses the CDA document, adding UUIDs where needed to generate resources and references later -->
         <xsl:variable name="pre-pre-processed-cda">
             <xsl:apply-templates select="." mode="add-uuids" />

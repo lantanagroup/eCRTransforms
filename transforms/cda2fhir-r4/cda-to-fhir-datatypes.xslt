@@ -52,7 +52,6 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-<!--        <xsl:message>Trying to convert timestamp: <xsl:value-of select="$cdaTS" /></xsl:message>-->
         <xsl:choose>
             <!-- If there is a + or - this has a TZ -->
             <xsl:when test="matches($cdaTS, '[-+]')">
@@ -231,7 +230,7 @@
                 </period>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:comment>Unable to map usablePeriod to a FHIR period</xsl:comment>
+                <xsl:comment>WARNING: Unable to map usablePeriod to a FHIR period</xsl:comment>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -256,7 +255,7 @@
                 </period>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:comment>Unable to map usablePeriod to a FHIR period</xsl:comment>
+                <xsl:comment>WARNING: Unable to map usablePeriod to a FHIR period</xsl:comment>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -388,7 +387,7 @@
     </xsl:template>
 
     <xsl:template match="cda:ClinicalDocument/cda:effectiveTime" mode="observation">
-        <xsl:comment>Using document effective time as issued date</xsl:comment>
+        <xsl:comment>INFO: Using document effective time as issued date</xsl:comment>
         <xsl:apply-templates select="." mode="instant">
             <xsl:with-param name="pElementName">issued</xsl:with-param>
         </xsl:apply-templates>
@@ -408,7 +407,7 @@
                     <start value="{lcg:cdaTS2date($vStartDate)}" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:comment>Invalid source date</xsl:comment>
+                    <xsl:comment>WARNING: Invalid source date</xsl:comment>
                     <start>
                         <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
                             <xsl:element name="valueCode">
@@ -562,11 +561,11 @@
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:when test="@nullFlavor">
-                <xsl:comment>CDA effectiveTime/time was null</xsl:comment>
+                <xsl:comment>INFO: CDA effectiveTime/time was null</xsl:comment>
                 <xsl:copy />
             </xsl:when>
             <xsl:otherwise>
-                <xsl:message terminate="no">Unknown effective time format</xsl:message>
+                <xsl:comment>WARNING: Unknown effective time format</xsl:comment>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -807,7 +806,6 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="@nullFlavor">
-                <!--<xsl:comment>Omitting null telecom</xsl:comment>-->
                 <telecom>
                     <!-- US Core forces a system value if telecom is present -->
                     <system value="other" />
@@ -1023,9 +1021,12 @@
                 <xsl:when test="$oid = '2.16.840.1.113883.4.873'">
                     <xsl:value-of select="substring-before(@extension, concat('/', $value))" />
                 </xsl:when>
-                <xsl:when test="$oid-uri-mapping/map[@oid = $oid]">
-                    <xsl:value-of select="$oid-uri-mapping/map[@oid = $oid][1]/@uri" />
+                <xsl:when test="key('oid-uri-mapping-key', $oid)">
+                    <xsl:value-of select="key('oid-uri-mapping-key', $oid)[1]/@uri" />
                 </xsl:when>
+                <!--<xsl:when test="$oid-uri-mapping/map[@oid = $oid]">
+                    <xsl:value-of select="$oid-uri-mapping/map[@oid = $oid][1]/@uri" />
+                </xsl:when>-->
                 <xsl:when test="contains(@root, '.')">
                     <xsl:text>urn:oid:</xsl:text>
                     <xsl:value-of select="@root" />
@@ -1114,20 +1115,15 @@
         <xsl:param name="pIncludeCoding" select="true()" />
         <xsl:param name="includeTranslations" select="true()" />
         <xsl:param name="pRequireDataAbsentReason" select="false()" />
-        <xsl:variable name="originalTextReference">
+        <!--<xsl:variable name="originalTextReference">
             <xsl:value-of select="substring(cda:originalText/cda:reference/@value, 2)" />
-        </xsl:variable>
+        </xsl:variable>-->
         <xsl:variable name="originalText">
             <xsl:choose>
                 <xsl:when test="cda:originalText/cda:reference">
-                    <xsl:choose>
-                        <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/text()">
-                            <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/text()" />
-                        </xsl:when>
-                        <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/../text()">
-                            <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $originalTextReference]/following-sibling::text()" />
-                        </xsl:when>
-                    </xsl:choose>
+                    <xsl:call-template name="get-reference-text">
+                        <xsl:with-param name="pTextElement" select="cda:originalText" />
+                    </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="cda:originalText">
                     <xsl:value-of select="cda:originalText" />
@@ -1598,8 +1594,8 @@
                             <!--<xsl:apply-templates select="." />-->
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:message> Unsupported observation reference range type: <xsl:value-of select="@xsi:type" />
-                            </xsl:message>
+                            <xsl:comment>WARNING: Unsupported observation reference range type: <xsl:value-of select="@xsi:type" />
+                            </xsl:comment>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>

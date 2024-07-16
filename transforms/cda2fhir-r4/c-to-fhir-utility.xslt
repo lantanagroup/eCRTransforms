@@ -15,7 +15,7 @@
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
     <xsl:param name="vital-sign-codes-file">../vital-sign-codes.xml</xsl:param>
     <xsl:param name="oid-uri-mapping-file">../oid-uri-mapping-r4.xml</xsl:param>
-    
+
     <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:param name="templates-to-suppress-file">../templates-to-suppress.xml</xsl:param>
 
@@ -33,7 +33,7 @@
     <xsl:variable name="oid-uri-mapping" select="document($oid-uri-mapping-file)/mapping" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
-    
+
     <xsl:variable name="gvCurrentIg">
         <xsl:apply-templates select="/" mode="currentIg" />
     </xsl:variable>
@@ -42,6 +42,15 @@
 
     <!-- Key to match templates that are suppresed because they are not full resources in FHIR (extension, components, data elements, etc.) -->
     <xsl:key name="templates-to-suppress-key" match="$templates-to-suppress" use="templateToSuppress/@templateIdRoot" />
+    
+    <!-- Key for oid uri mapping -->
+    <xsl:key name="oid-uri-mapping-key" match="$oid-uri-mapping" use="map/@oid" />
+    
+    <!-- Key for vital sign codes -->
+    <xsl:key name="vital-sign-codes-key" match="$vital-sign-codes" use="map/@code" />
+    
+    <!-- Key to get all referenced text in section/text to speed up processing of matching references that reach back into section text -->
+    <xsl:key name="text-reference-key" match="//cda:section/cda:text//*[@ID]" use="@ID" />
 
     <!-- use predefined key that uses a list of templates to suppress in the file templates-to-suppress.xml -->
     <xsl:template match="cda:*[cda:templateId[key('templates-to-suppress-key', @root)]]" mode="bundle-entry" />
@@ -72,7 +81,7 @@
             <!-- Skip creating a reference for a suppressed template -->
             <xsl:if test="empty(key('templates-to-suppress-key', $vTemplateIdRoot))">
                 <xsl:comment>
-                <xsl:text>Found reference to </xsl:text>
+                <xsl:text>INFO: Found reference to </xsl:text>
                 <xsl:text>&lt;id root=</xsl:text>
                 <xsl:value-of select="cda:id/@root" />
                 <xsl:if test="cda:id/@extention">
@@ -162,23 +171,23 @@
     <!-- TEMPLATE: Suppress any unknown clinical statements -->
     <xsl:template match="cda:*[cda:templateId]" mode="bundle-entry" priority="-1">
         <xsl:for-each select="cda:templateId">
-            <xsl:message terminate="no">
-                <xsl:text>No template match for </xsl:text>
+            <xsl:comment>
+                <xsl:text>WARNING: No template match for </xsl:text>
                 <xsl:value-of select="@root" />
                 <xsl:if test="@extension">
                     <xsl:text>: </xsl:text>
                     <xsl:value-of select="@extension" />
                 </xsl:if>
-            </xsl:message>
+            </xsl:comment>
 
-            <xsl:comment>
+            <!--<xsl:comment>
         <xsl:text>No template match for </xsl:text>
         <xsl:value-of select="@root" />
         <xsl:if test="@extension">
           <xsl:text>: </xsl:text>
           <xsl:value-of select="@extension" />
         </xsl:if>
-      </xsl:comment>
+      </xsl:comment>-->
         </xsl:for-each>
     </xsl:template>
 
@@ -197,7 +206,7 @@
                         <xsl:apply-templates select="cda:templateId" mode="template2profile" />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:comment>No profiles found for any of the following templates:
+                        <xsl:comment>WARNING: No profiles found for any of the following templates:
                         <xsl:for-each select="cda:templateId">
                             <xsl:variable name="vTemplateURI" select="lcg:fcnGetTemplateURI(.)" />
                             <xsl:value-of select="$vTemplateURI" />
@@ -328,11 +337,11 @@
         </xsl:choose>
     </xsl:function>
 
-    <!-- TEMPLATE: Convert OIDs to their uri equivalents - these are stored in mapping file oid-uri-mapping.xml -->
+    <!-- TEMPLATE: Convert OIDs to their uri equivalents - these are stored in mapping file oid-uri-mapping-r4.xml -->
     <xsl:template name="convertOID">
         <xsl:param name="oid" />
-        
-        <xsl:choose>
+
+        <!--<xsl:choose>
             <xsl:when test="$oid-uri-mapping/map[@oid = $oid]">
                 <xsl:value-of select="$oid-uri-mapping/map[@oid = $oid][1]/@uri" />
             </xsl:when>
@@ -342,38 +351,48 @@
                     <xsl:when test="contains($oid, '-')">urn:uuid:</xsl:when>
                 </xsl:choose>
                 <xsl:value-of select="$oid" />
-                <xsl:message>Warning: Unmapped OID - <xsl:value-of select="$oid" /></xsl:message>
+            </xsl:otherwise>
+        </xsl:choose>-->
+        <xsl:choose>
+            <xsl:when test="key('oid-uri-mapping-key', $oid)">
+                <xsl:value-of select="key('oid-uri-mapping-key', $oid)[1]/@uri" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="contains($oid, '.')">urn:oid:</xsl:when>
+                    <xsl:when test="contains($oid, '-')">urn:uuid:</xsl:when>
+                </xsl:choose>
+                <xsl:value-of select="$oid" />
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <xsl:template name="get-reference-text">
         <xsl:param name="pTextElement" />
-        <xsl:variable name="vTextReference">
-            <xsl:value-of select="substring($pTextElement/cda:reference/@value, 2)" />
-        </xsl:variable>
 
         <xsl:choose>
             <xsl:when test="$pTextElement/cda:reference">
-                <xsl:choose>
-                    <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/text()">
-                        <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/text()" />
-                    </xsl:when>
-                    <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/../text()">
-                        <xsl:value-of select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]/following-sibling::text()" />
-                    </xsl:when>
-                    <xsl:when test="ancestor::cda:section/cda:text//*[@ID = $vTextReference]">
-                        <xsl:apply-templates select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]" mode="serialize" />
-                        <!--<xsl:copy-of select="ancestor::cda:section/cda:text//*[@ID = $vTextReference]" />-->
-                    </xsl:when>
-                </xsl:choose>
+                <xsl:variable name="vTextReference">
+                    <xsl:value-of select="substring($pTextElement/cda:reference/@value, 2)" />
+                </xsl:variable>
+                <xsl:for-each select="key('text-reference-key', $vTextReference)">
+                    <xsl:choose>
+                        <xsl:when test="text()">
+                            <xsl:value-of select="text()" />
+                        </xsl:when>
+                        <!--<xsl:when test="cda:*/text()">
+                            <xsl:value-of select="cda:*/text()" />
+                        </xsl:when>-->
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="." mode="serialize" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
             </xsl:when>
             <xsl:when test="$pTextElement">
                 <xsl:value-of select="$pTextElement" />
             </xsl:when>
         </xsl:choose>
-
-        <!--        <xsl:value-of select="$vText"/>-->
     </xsl:template>
 
     <xsl:template name="resource-reference">
@@ -421,8 +440,6 @@
         <!-- SG: Updated to handle no author (default to encompassingEncounter/responsibleParty/assignedEntity and
          if there isn't one of those either, don't create element
          Updating for resources that can't take PractitionerRole (testing for pPractitionerRole) -->
-        <xsl:comment>Author reference</xsl:comment>
-
         <xsl:choose>
             <!-- direct performer/author - either contained in the template or in the containing act or organizer -->
             <xsl:when test="
@@ -528,7 +545,7 @@
                 <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
                     <valueCode value="unknown" />
                 </extension>
-                <xsl:comment>No author reference found</xsl:comment>
+                <xsl:comment>WARNING: No author reference found</xsl:comment>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -545,7 +562,6 @@
 
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]" mode="bundle-entry">
         <!-- Remove Encounter Diagnosis wrappers, since maps to Condition.category -->
-        <xsl:comment>Removed Encounter diagnosis wrapper</xsl:comment>
         <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
             <xsl:apply-templates select="." mode="bundle-entry" />
         </xsl:for-each>
@@ -596,7 +612,9 @@
         <xsl:element name="status">
             <xsl:choose>
                 <xsl:when test="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode and @fhirMedicationResource = $pMedicationResource]">
-                    <xsl:attribute name="value" select="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode and @fhirMedicationResource = $pMedicationResource]/@fhirMedicationStatus" />
+                    <xsl:attribute name="value"
+                        select="$medication-status-mapping/map[@cdaMedicationStatus = $vMedicationStatus and @cdaMedicationMoodCode = $pMoodCode and @fhirMedicationResource = $pMedicationResource]/@fhirMedicationStatus"
+                     />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
@@ -626,7 +644,7 @@
             </xsl:choose>
         </xsl:element>
     </xsl:template>
-    
+
     <!-- TEMPLATE: Uses the specimen-status-mapping file imported at the top of this file to match cda specimen status with fhir equivalents -->
     <xsl:template match="cda:statusCode" mode="map-specimen-status">
         <xsl:variable name="vSpecimenStatus" select="@code" />

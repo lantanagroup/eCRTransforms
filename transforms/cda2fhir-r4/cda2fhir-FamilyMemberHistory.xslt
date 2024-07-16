@@ -40,7 +40,6 @@
     <xsl:template match="cda:subject" mode="family-history">
         <xsl:for-each select="cda:relatedSubject">
 
-            <xsl:comment>Subject data here</xsl:comment>
             <xsl:if test="cda:subject/cda:name">
                 <name value="{cda:subject/cda:name}" />
             </xsl:if>

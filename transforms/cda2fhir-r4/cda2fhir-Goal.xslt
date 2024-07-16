@@ -75,32 +75,20 @@
                     <xsl:otherwise>false</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
-            <!--
-            <xsl:comment>Found reference in Goal: @root=<xsl:value-of select="$root"/> @extension=<xsl:value-of select="@extension"/></xsl:comment>
-            -->
             <xsl:for-each select="//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4'][@extension = '2015-08-01']][cda:id[@root = $root]]">
-                <!--
-                <xsl:comment> - Found referenced observation</xsl:comment>
-                -->
                 <xsl:choose>
                     <xsl:when test="@extension and $has-extension = 'true'">
-                        <!--
-                        <xsl:comment>   * Found linked problem observation with extension</xsl:comment>
-                        -->
                         <addresses>
                             <xsl:apply-templates select="." mode="reference" />
                         </addresses>
                     </xsl:when>
                     <xsl:when test="not(@extension) and $has-extension = 'false'">
-                        <!--
-                        <xsl:comment>   * Found linked problem observation without extension</xsl:comment>
-                        -->
                         <addresses>
                             <xsl:apply-templates select="." mode="reference" />
                         </addresses>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:comment>Found problem observation, but did not match both root and extension</xsl:comment>
+                        <xsl:comment>WARNING: Found problem observation, but did not match both root and extension</xsl:comment>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:for-each>
@@ -124,24 +112,21 @@
                 [cda:entryRelationship[@typeCode = 'GEVL']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']/cda:id[@root = $root]]">
             <xsl:choose>
                 <xsl:when test="@extension and $has-extension = 'true'">
-                    <xsl:comment>Found linked outcome observation</xsl:comment>
+                    <xsl:comment>INFO: Found linked outcome observation</xsl:comment>
                     <outcomeReference>
                         <xsl:apply-templates select="." mode="reference" />
                     </outcomeReference>
                 </xsl:when>
                 <xsl:when test="not(@extension) and $has-extension = 'false'">
-                    <xsl:comment>Found linked outcome observation</xsl:comment>
+                    <xsl:comment>INFO: Found linked outcome observation</xsl:comment>
                     <outcomeReference>
                         <xsl:apply-templates select="." mode="reference" />
                     </outcomeReference>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:comment>Found outcome observation, but did not match both root and extension</xsl:comment>
+                    <xsl:comment>WARNING: Found outcome observation, but did not match both root and extension</xsl:comment>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
-
-
-
 </xsl:stylesheet>

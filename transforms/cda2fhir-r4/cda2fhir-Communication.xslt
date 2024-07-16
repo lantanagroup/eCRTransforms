@@ -107,7 +107,7 @@
 
     <!-- Communication: cda Handoff Communication Participants template -->
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.141']]">
-        <xsl:comment>C-CDA Handoff Communication Participants</xsl:comment>
+        <xsl:comment>INFO: C-CDA Handoff Communication Participants</xsl:comment>
         <Communication xmlns="http://hl7.org/fhir">
             <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />

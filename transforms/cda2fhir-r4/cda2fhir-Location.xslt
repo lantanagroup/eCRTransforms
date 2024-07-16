@@ -71,7 +71,6 @@
             <resource>
                 <Location>
                     <xsl:call-template name="add-participant-meta" />
-                    <xsl:comment>cda:assignedAuthor[cda:assignedAuthoringDevice]</xsl:comment>
                     <xsl:if test="cda:representedOrganization/cda:name/text()">
                         <name value="{cda:representedOrganization/cda:name}" />
                     </xsl:if>
@@ -86,7 +85,6 @@
     <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
         <Location>
             <xsl:call-template name="add-meta" />
-            <xsl:comment>cda:participant (Location Participant)</xsl:comment>
             <name>
                 <xsl:choose>
                     <xsl:when test="preceding-sibling::cda:value/cda:originalText">

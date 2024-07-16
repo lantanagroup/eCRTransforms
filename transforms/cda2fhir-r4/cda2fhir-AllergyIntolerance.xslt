@@ -40,11 +40,10 @@
                     </xsl:choose>
                 </xsl:attribute>
             </type>
-            <xsl:comment>Should be no category here</xsl:comment>
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true'">
                     <code>
-                        <xsl:comment>Original negated code: <xsl:value-of select="cda:value/@code" /></xsl:comment>
+                        <xsl:comment>INFO: Original negated code: <xsl:value-of select="cda:value/@code" /></xsl:comment>
                         <coding>
                             <system value="http://snomed.info/sct" />
                             <code value="716186003" />
@@ -66,7 +65,7 @@
             </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true'">
-                    <xsl:comment>Negated manifestation not currently supported</xsl:comment>
+                    <xsl:comment>INFO: Negated manifestation not currently supported</xsl:comment>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="cda:entryRelationship/cda:observation/cda:value" mode="reaction" />

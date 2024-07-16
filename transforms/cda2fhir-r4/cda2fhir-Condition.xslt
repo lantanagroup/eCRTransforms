@@ -185,15 +185,25 @@
                     <xsl:with-param name="wrapping-elements">evidence/detail</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
-            <xsl:if test="cda:text">
-                <xsl:variable name="text">
-                    <xsl:apply-templates select="cda:text" />
-                </xsl:variable>
-                <xsl:if test="string-length($text) &gt; 0">
-                    <note>
-                        <text value="{normalize-space(cda:text)}" />
-                    </note>
-                </xsl:if>
+            
+            <!-- note -->
+            <xsl:if test="cda:text | cda:text">
+                <xsl:for-each select="cda:text">
+                    
+                    <xsl:variable name="vText">
+                        <xsl:call-template name="get-reference-text">
+                            <xsl:with-param name="pTextElement" select="." />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    
+                    <xsl:if test="string-length($vText) > 0">
+                        <note>
+                            <text>
+                                <xsl:attribute name="value" select="$vText" />
+                            </text>
+                        </note>
+                    </xsl:if>
+                </xsl:for-each>
             </xsl:if>
             <xsl:if test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
                 <note>

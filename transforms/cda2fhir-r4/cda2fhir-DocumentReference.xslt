@@ -150,7 +150,7 @@
                                 <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:comment>URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
+                                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
                             </xsl:otherwise>
                         </xsl:choose>
                     </url>
@@ -200,7 +200,7 @@
                                 <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:comment>URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
+                                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
                             </xsl:otherwise>
                         </xsl:choose>
                     </url>

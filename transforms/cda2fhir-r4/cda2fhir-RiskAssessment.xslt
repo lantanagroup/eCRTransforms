@@ -27,7 +27,7 @@
             <xsl:if test="cda:effectiveTime">
                 <xsl:choose>
                     <xsl:when test="@nullFlavor">
-                        <xsl:comment>Null effectiveTime</xsl:comment>
+                        <xsl:comment>INFO: null effectiveTime</xsl:comment>
                     </xsl:when>
                     <xsl:when test="cda:effectiveTime/@value">
                         <xsl:apply-templates select="." mode="instant">

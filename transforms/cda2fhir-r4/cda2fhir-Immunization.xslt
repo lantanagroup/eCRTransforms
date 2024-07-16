@@ -47,7 +47,7 @@
                 <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
             </xsl:apply-templates>
 
-            <xsl:comment>Defaulting primarySource to false since this info is not in the C-CDA Immunization Activity template</xsl:comment>
+            <xsl:comment>INFO: Defaulting primarySource to false since this info is not in the C-CDA Immunization Activity template</xsl:comment>
             <primarySource value="false" />
 
             <!-- manufacturer -->

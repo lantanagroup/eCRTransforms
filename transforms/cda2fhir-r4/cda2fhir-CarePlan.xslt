@@ -6,7 +6,6 @@
     <!-- ClinicalDocument.serviceEvent will never have a moodCode of INT so this code should never run
          but the FHIR mapping to CarePlan shows that the moodCode must be INT -->
     <xsl:template match="cda:serviceEvent[@moodCode='ÍNT']" mode="bundle-entry">
-        <xsl:comment>Creating CarePlan Bundle Entry</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
         <xsl:for-each select="cda:performer">
             <xsl:apply-templates select="." mode="bundle-entry" />
@@ -34,7 +33,7 @@
             </xsl:apply-templates>
             <!-- addresses -->
             <xsl:for-each select="//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4']]">
-                <xsl:comment>Observation <xsl:value-of select="cda:id/@root" /></xsl:comment>
+                <xsl:comment>INFO: Observation <xsl:value-of select="cda:id/@root" /></xsl:comment>
                 <xsl:apply-templates select="." mode="reference">
                     <xsl:with-param name="wrapping-elements">addresses</xsl:with-param>
                 </xsl:apply-templates>

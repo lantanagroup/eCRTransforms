@@ -320,7 +320,7 @@
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:message>Unknown procedure observation procedure value for <xsl:apply-templates select="cda:id" /></xsl:message>
+                        <xsl:comment>WARNING: Unknown procedure observation procedure value for <xsl:apply-templates select="cda:id" /></xsl:comment>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>

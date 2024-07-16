@@ -4,13 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:template match="cda:assignedAuthoringDevice" mode="bundle-entry">
-        <xsl:comment>cda:assignedAuthoringDevice</xsl:comment>
+        <xsl:comment>INFO: cda:assignedAuthoringDevice</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
         <xsl:apply-templates select="parent::cda:assignedAuthor" />
     </xsl:template>
 
     <xsl:template match="cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']" mode="bundle-entry">
-        <xsl:comment>cda:participant/cda:participantRole [C-CDA R1.1] Product Instance</xsl:comment>
+        <xsl:comment>INFO: cda:participant/cda:participantRole [C-CDA R1.1] Product Instance</xsl:comment>
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 
@@ -24,7 +24,7 @@
         </xsl:variable>
         <Device>
             <xsl:apply-templates select="../cda:id" />
-            <xsl:comment>cda:assignedAuthoringDevice</xsl:comment>
+            <xsl:comment>INFO: cda:assignedAuthoringDevice</xsl:comment>
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName" select="'type'" />
             </xsl:apply-templates>
@@ -47,7 +47,7 @@
     <xsl:template match="cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']">
         <Device>
             <xsl:apply-templates select="cda:id" />
-            <xsl:comment>cda:participant/cda:participantRole [C-CDA R1.1] Product Instance</xsl:comment>
+            <xsl:comment>INFO: cda:participant/cda:participantRole [C-CDA R1.1] Product Instance</xsl:comment>
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName" select="'type'" />
             </xsl:apply-templates>

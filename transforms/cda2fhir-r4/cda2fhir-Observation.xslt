@@ -355,7 +355,10 @@
         </xsl:variable>
         <xsl:variable name="vCode" select="cda:code/@code"/>
         <xsl:variable name="category2">
-            <xsl:if test="$category1 != 'vital-signs' and $vital-sign-codes/map[@code = $vCode]">
+            <!--<xsl:if test="$category1 != 'vital-signs' and $vital-sign-codes/map[@code = $vCode]">
+                <xsl:value-of select="'vital-signs'" />
+            </xsl:if>-->
+            <xsl:if test="$category1 != 'vital-signs' and key('vital-sign-codes-key', $vCode)">
                 <xsl:value-of select="'vital-signs'" />
             </xsl:if>
         </xsl:variable>
@@ -461,9 +464,16 @@
                 <xsl:for-each select="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text | cda:text">
 
                     <xsl:variable name="vText">
-                        <xsl:call-template name="get-reference-text">
-                            <xsl:with-param name="pTextElement" select="." />
-                        </xsl:call-template>
+                        <xsl:choose>
+                            <xsl:when test="cda:reference">
+                                <xsl:call-template name="get-reference-text">
+                                    <xsl:with-param name="pTextElement" select="." />
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="." />
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:variable>
 
                     <xsl:if test="string-length($vText) > 0">
@@ -1646,94 +1656,4 @@
         </Observation>
     </xsl:template>
 
-    <!--<xsl:template name="performer-or-author">
-        <xsl:param name="pPractitionerRole" as="xs:boolean" select="true()" />
-        <xsl:choose>
-            <!-\- when performer can't be a PractitionerRole then use one of the person participants available -\->
-            <xsl:when test="$pPractitionerRole = false()">
-                <xsl:choose>
-                    <xsl:when test="cda:author/cda:assignedAuthor/cda:assignedPerson or cda:performer/cda:assignedEntity/cda:assignedPerson">
-                        <xsl:for-each select="cda:author/cda:assignedAuthor/cda:assignedPerson">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                        <xsl:for-each select="cda:performer/cda:assignedEntity/cda:assignedPerson">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                    </xsl:when>
-                    <xsl:when test="cda:section[1]/cda:author/cda:assignedAuthor/cda:assignedPerson">
-                        <xsl:for-each select="cda:section[1]/cda:author/cda:assignedAuthor/cda:assignedPerson">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                    </xsl:when>
-                    <xsl:when test="/cda:ClinicalDocument/cda:author/cda:assignedAuthor/cda:assignedPerson">
-                        <xsl:for-each select="/cda:ClinicalDocument/cda:author/cda:assignedAuthor/cda:assignedPerson">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                    </xsl:when>
-                    <xsl:when test="/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty/cda:assignedEntity/cda:assignedPerson">
-                        <xsl:for-each select="/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty/cda:assignedEntity/cda:assignedPerson">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:comment>No author reference candidate found</xsl:comment>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:when test="$pPractitionerRole = true()">
-                <!-\- where there is a direct performer or author, use that -\->
-                <xsl:choose>
-                    <xsl:when test="cda:performer/cda:assignedEntity or cda:author/cda:assignedAuthor">
-                        <xsl:for-each select="cda:performer/cda:assignedEntity[cda:assignedPerson]">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                        <!-\- If there is only an organization have to use the Organization and not a PractitionerRole -\->
-                        <xsl:for-each select="cda:performer/cda:assignedEntity[not(cda:assignedPerson)]/cda:representedOrganization">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                        <xsl:for-each select="cda:author/cda:assignedAuthor[cda:assignedPerson]">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                        <!-\- If there is only an organization have to use the Organization and not a PractitionerRole -\->
-                        <xsl:for-each select="cda:author/cda:assignedAuthor[not(cda:assignedPerson)]/cda:representedOrganization">
-                            <performer>
-                                <reference value="urn:uuid:{@lcg:uuid}" />
-                            </performer>
-                        </xsl:for-each>
-                    </xsl:when>
-
-                    <xsl:when test="
-                            cda:author/cda:assignedAuthor or
-                            ancestor::cda:section[1]/cda:author/cda:assignedAuthor or
-                            /cda:ClinicalDocument/cda:author/cda:assignedAuthor/cda:assignedPerson or
-                            /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty or
-                            /ancestor::cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.1']]/cda:author/cda:assignedAuthor">
-                        <xsl:call-template name="author-reference">
-                            <xsl:with-param name="pElementName">performer</xsl:with-param>
-                            <xsl:with-param name="pPractitionerRole" select="$pPractitionerRole" />
-                        </xsl:call-template>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:comment>No author reference candidate found</xsl:comment>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>-->
 </xsl:stylesheet>

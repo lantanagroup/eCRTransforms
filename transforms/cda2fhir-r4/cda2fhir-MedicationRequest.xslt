@@ -311,7 +311,7 @@
     </xsl:template>
 
     <xsl:template match="cda:effectiveTime[@operator = 'A']" mode="medication-request" priority="-1">
-        <xsl:comment>Unknown effectiveTime pattern: 
+        <xsl:comment>WARNING: Unknown effectiveTime pattern: 
             <cda:effectiveTime>
                 <xsl:copy />
             </cda:effectiveTime>

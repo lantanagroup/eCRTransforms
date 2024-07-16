@@ -1048,23 +1048,23 @@
                 <xsl:variable name="source" select="string(n1:text/n1:reference/@value)" />
                 <xsl:variable name="lcSource" select="translate($source, $uc, $lc)" />
                 <xsl:variable name="scrubbedSource" select="translate($source, $simple-sanitizer-match, $simple-sanitizer-replace)" />
-                <xsl:message><xsl:value-of select="$source" />, <xsl:value-of select="$lcSource" /></xsl:message>
+                <xsl:comment><xsl:value-of select="$source" />, <xsl:value-of select="$lcSource" /></xsl:comment>
                 <xsl:choose>
                     <xsl:when test="contains($lcSource, 'javascript')">
                         <p>
                             <xsl:value-of select="$javascript-injection-warning" />
                         </p>
-                        <xsl:message>
+                        <xsl:comment>
                             <xsl:value-of select="$javascript-injection-warning" />
-                        </xsl:message>
+                        </xsl:comment>
                     </xsl:when>
                     <xsl:when test="not($source = $scrubbedSource)">
                         <p>
                             <xsl:value-of select="$malicious-content-warning" />
                         </p>
-                        <xsl:message>
+                        <xsl:comment>
                             <xsl:value-of select="$malicious-content-warning" />
-                        </xsl:message>
+                        </xsl:comment>
                     </xsl:when>
                     <xsl:otherwise>
                         <iframe name="nonXMLBody" id="nonXMLBody" width="100%" height="600" src="{$source}" />
@@ -1203,6 +1203,20 @@
             <xsl:apply-templates />
         </span>
     </xsl:template>
+    
+    <!--   footnote  -->
+    <xsl:template match="n1:footnote">
+        <span>
+            <xsl:apply-templates select="@styleCode" />
+            <xsl:if test="@ID">
+                <xsl:attribute name="id" select="@ID"/>
+            </xsl:if>
+            <xsl:apply-templates />
+        </span>
+    </xsl:template>
+    
+    <!--  linkHtml  -->
+    <xsl:template match="n1:linkHtml"/>
 
     <!-- line break -->
     <xsl:template match="n1:br">
@@ -1367,9 +1381,9 @@
                     <p>
                         <xsl:value-of select="$javascript-injection-warning" />
                     </p>
-                    <xsl:message terminate="no">
+                    <xsl:comment>
                         <xsl:value-of select="$javascript-injection-warning" />
-                    </xsl:message>
+                    </xsl:comment>
                 </xsl:when>
                 <xsl:when test="$attr-name = 'styleCode'">
                     <xsl:apply-templates select="." />
@@ -1381,7 +1395,7 @@
                 <xsl:when test="not(document('')/xsl:stylesheet/xsl:variable[@name = 'table-elem-attrs']/in:tableElems/in:elem[@name = $elem-name]/in:attr[@name = $attr-name])">
                     <!-- just silently suppress unused elements during FHIR conversion -->
                     <!--
-                    <xsl:message><xsl:value-of select="$attr-name"/> is not legal in <xsl:value-of select="$elem-name"/></xsl:message>
+                    <xsl:comment><xsl:value-of select="$attr-name"/> is not legal in <xsl:value-of select="$elem-name"/></xsl:comment>
                     -->
                 </xsl:when>
 
@@ -1389,9 +1403,9 @@
                     <p>
                         <xsl:value-of select="$malicious-content-warning" />
                     </p>
-                    <xsl:message>
+                    <xsl:comment>
                         <xsl:value-of select="$malicious-content-warning" />
-                    </xsl:message>
+                    </xsl:comment>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:copy-of select="." />
@@ -1501,7 +1515,7 @@
                                 <xsl:value-of select="$image-uri" />
                             </xsl:attribute>
                         </xsl:element>
-                        <xsl:message><xsl:value-of select="$image-uri" /> is in the whitelist</xsl:message>
+                        <xsl:comment>WARNING: <xsl:value-of select="$image-uri" /> is in the whitelist</xsl:comment>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="check-external-image-whitelist">
@@ -1514,8 +1528,6 @@
             </xsl:when>
             <xsl:otherwise>
                 <p>WARNING: non-local image found <xsl:value-of select="$image-uri" />. Removing. If you wish non-local images preserved please set the limit-external-images param to 'no'.</p>
-                <xsl:message>WARNING: non-local image found <xsl:value-of select="$image-uri" />. Removing. If you wish non-local images preserved please set the limit-external-images param to
-                    'no'.</xsl:message>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1547,17 +1559,8 @@
                                 <xsl:with-param name="current-whitelist" select="$external-image-whitelist" />
                                 <xsl:with-param name="image-uri" select="$image-uri" />
                             </xsl:call-template>
-                            <!--
-                            <p>WARNING: non-local image found <xsl:value-of select="$image-uri"/>. Removing. If you wish non-local images preserved please set the limit-external-images param to 'no'.</p>
-                            <xsl:message>WARNING: non-local image found <xsl:value-of select="$image-uri"/>. Removing. If you wish non-local images preserved please set the limit-external-images param to 'no'.</xsl:message>
                             -->
                         </xsl:when>
-                        <!--
-                        <xsl:when test="$limit-external-images='yes' and starts-with($image-uri,'\\')">
-                            <p>WARNING: non-local image found <xsl:value-of select="$image-uri"/></p>
-                            <xsl:message>WARNING: non-local image found <xsl:value-of select="$image-uri"/>. Removing. If you wish non-local images preserved please set the limit-external-images param to 'no'.</xsl:message>
-                        </xsl:when>
-                        -->
                         <xsl:otherwise>
                             <br clear="all" />
                             <xsl:element name="img">

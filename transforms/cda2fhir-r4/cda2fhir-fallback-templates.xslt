@@ -91,48 +91,38 @@
 
             <xsl:when test="cda:templateId">
                 <xsl:for-each select="cda:templateId">
-                    <xsl:message terminate="no">
-                        <xsl:text>No template match for </xsl:text>
+                    <xsl:comment>
+                        <xsl:text>WARNING: No template match for </xsl:text>
                         <xsl:value-of select="@root" />
                         <xsl:if test="@extension">
                             <xsl:text>: </xsl:text>
                             <xsl:value-of select="@extension" />
                         </xsl:if>
-                    </xsl:message>
-
-                    <xsl:comment>
-            <xsl:text>No template match for </xsl:text>
-            <xsl:value-of select="@root" />
-            <xsl:if test="@extension">
-              <xsl:text>: </xsl:text>
-              <xsl:value-of select="@extension" />
-            </xsl:if>
-          </xsl:comment>
+                    </xsl:comment>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:message terminate="no">
-                    <text>No match for </text>
-                    <xsl:value-of select="." />
-                </xsl:message>
                 <xsl:comment>
+                    <text>WARNING: No match for </text>
+                    <xsl:value-of select="local-name()" />
+                </xsl:comment>
+                <!--<xsl:comment>
           <text>No match for </text>
           <xsl:value-of select="." />
-        </xsl:comment>
+        </xsl:comment>-->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <!-- Add warning so we can see when default templates are running when we don't want them to -->
     <xsl:template match="cda:*" priority="-10">
-        <xsl:message terminate="no">WARNING: Unmatched element: <xsl:value-of select="name()" /></xsl:message>
-        <xsl:comment>WARNING: Unmatched element: <xsl:value-of select="name()" /></xsl:comment>
+        <xsl:message>WARNING: Unmatched element: <xsl:value-of select="name()" /></xsl:message>
         <xsl:apply-templates />
     </xsl:template>
 
     <!--<xsl:template match="text()|@*" priority="-10">
-    <xsl:message terminate="no">WARNING: Unmatched text: <xsl:value-of select="." />
-    </xsl:message>
+    <xsl:comment terminate="no">WARNING: Unmatched text: <xsl:value-of select="." />
+    </xsl:comment>
     <xsl:apply-templates />
   </xsl:template>-->
 

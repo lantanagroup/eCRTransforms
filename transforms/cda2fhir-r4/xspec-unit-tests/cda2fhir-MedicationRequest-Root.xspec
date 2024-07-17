@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../cda2fhir.xslt" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:lcg="http://www.lantanagroup.com">
+    xmlns:lcg="http://www.lantanagroup.com" run-as="external">
 
     <x:scenario label="A. Scenario for testing eICR MedicationRequest">
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />

@@ -15,9 +15,6 @@
             <Composition>
                 <id value="composition-eicr-zika" />
                 <meta>
-                    <versionId value="22" />
-                    <lastUpdated value="2021-08-17T03:24:45.575+00:00" />
-                    <source value="#vMaRLlyzDNjGkVuc" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
                 </meta>
                 <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
@@ -1927,9 +1924,6 @@
             <MedicationAdministration>
                 <id value="medicationadministration-eve-everywoman-azithromycin" />
                 <meta>
-                    <versionId value="6" />
-                    <lastUpdated value="2021-08-17T07:53:28.598+00:00" />
-                    <source value="#O8n4DNqcDuNHPfTJ" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-medicationadministration" />
                 </meta>
                 <status value="completed" />
@@ -1981,9 +1975,6 @@
             <Procedure>
                 <id value="us-ph-procedure-ecmo" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-06-28T08:12:56.829+00:00" />
-                    <source value="#A9FdbPgUT95j7Itd" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure" />
                 </meta>
                 <identifier>
@@ -2020,9 +2011,6 @@
             <MedicationAdministration>
                 <id value="medicationadministration-eve-everywoman-naloxone-response" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-08-17T07:53:28.597+00:00" />
-                    <source value="#5sOf7BOr595JpyG7" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-medicationadministration" />
                 </meta>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension">
@@ -2081,9 +2069,6 @@
             <ServiceRequest>
                 <id value="servicerequest-eicr-zika" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-08-17T08:02:21.928+00:00" />
-                    <source value="#w4zRDqhjQ9EZHgCs" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
                 </meta>
                 <identifier>
@@ -2125,9 +2110,6 @@
             <Condition>
                 <id value="condition-eicr-eve-everywoman-common-cold" />
                 <meta>
-                    <versionId value="6" />
-                    <lastUpdated value="2021-07-15T01:54:14.831+00:00" />
-                    <source value="#4g0ZpTNqldHFYLzr" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
                 </meta>
                 <category>
@@ -2162,9 +2144,6 @@
             <Encounter>
                 <id value="encounter-eicr-eve-everywoman-outpatient" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-07-19T03:02:05.806+00:00" />
-                    <source value="#Q5dlT8eND2UI2D6e" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
                 </meta>
                 <identifier>
@@ -2249,9 +2228,6 @@
             <Observation>
                 <id value="observation-pregnancy-status-eve-everywoman" />
                 <meta>
-                    <versionId value="8" />
-                    <lastUpdated value="2021-08-17T07:59:00.824+00:00" />
-                    <source value="#bBlVx7OsNPsZVCbu" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation" />
                 </meta>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension">
@@ -2327,9 +2303,6 @@
             <Observation>
                 <id value="observation-vaccine-credential-assertion-eve-everywoman" />
                 <meta>
-                    <versionId value="2" />
-                    <lastUpdated value="2021-08-13T04:25:18.607+00:00" />
-                    <source value="#12yO2DqhRxbXmEOy" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion" />
                 </meta>
                 <status value="final" />
@@ -2361,9 +2334,6 @@
             <Observation>
                 <id value="observation-us-ph-emergency-outbreak-info-eve-everywoman" />
                 <meta>
-                    <versionId value="4" />
-                    <lastUpdated value="2021-07-15T01:22:52.178+00:00" />
-                    <source value="#oAXhG2HyvbL70uEB" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information" />
                 </meta>
                 <status value="final" />
@@ -2388,9 +2358,6 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-country-of-nationality-eve-everywoman" />
                 <meta>
-                    <versionId value="1" />
-                    <lastUpdated value="2021-08-19T21:30:49.456+00:00" />
-                    <source value="#ABFWLRjmURVC23y1" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-nationality" />
                 </meta>
                 <status value="final" />
@@ -2422,9 +2389,6 @@
             <Patient>
                 <id value="patient-ecr-eve-everywoman" />
                 <meta>
-                    <versionId value="10" />
-                    <lastUpdated value="2021-08-17T08:00:32.356+00:00" />
-                    <source value="#zjFlzHDvZIYVyMAB" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient" />
                 </meta>
                 <text>
@@ -2617,9 +2581,6 @@
             <Immunization>
                 <id value="immunization-ecr-pneumo" />
                 <meta>
-                    <versionId value="8" />
-                    <lastUpdated value="2021-08-17T07:51:35.117+00:00" />
-                    <source value="#EdjaILZHXKHi4bdN" />
                     <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
                 </meta>
                 <status value="completed" />
@@ -2696,9 +2657,6 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-characteristics-of-home-environment-eve-everywoman" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-06-30T05:17:19.330+00:00" />
-                    <source value="#cgLJymHVJKry789c" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment" />
                 </meta>
                 <text>
@@ -2749,9 +2707,6 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-odh-past-or-present-job-eve-everywoman" />
                 <meta>
-                    <versionId value="4" />
-                    <lastUpdated value="2021-08-13T04:03:24.908+00:00" />
-                    <source value="#ftYoCauxSeEFK718" />
                     <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob" />
                 </meta>
                 <text>
@@ -2857,9 +2812,6 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-odh-usual-work-eve-everywoman" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-08-17T07:59:00.820+00:00" />
-                    <source value="#KYnvOUlssACaPh7w" />
                     <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork" />
                 </meta>
                 <text>
@@ -2947,9 +2899,6 @@
             <Observation>
                 <id value="observation-country-of-residence-eve-everywoman" />
                 <meta>
-                    <versionId value="1" />
-                    <lastUpdated value="2021-08-13T00:20:14.025+00:00" />
-                    <source value="#HDoLJzr0kfWKFp3F" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-residence" />
                 </meta>
                 <status value="final" />
@@ -2981,9 +2930,6 @@
             <PractitionerRole>
                 <id value="practitionerrole-henry-seven" />
                 <meta>
-                    <versionId value="11" />
-                    <lastUpdated value="2021-08-17T08:00:32.355+00:00" />
-                    <source value="#KJ942UxvfdYWoHCF" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole" />
                 </meta>
                 <identifier>
@@ -3029,9 +2975,6 @@
             <Observation>
                 <id value="observation-blood-pressure-eve-everywoman" />
                 <meta>
-                    <versionId value="2" />
-                    <lastUpdated value="2021-07-19T08:19:31.753+00:00" />
-                    <source value="#2PjceWUbU0gCYVZA" />
                     <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure" />
                 </meta>
                 <status value="final" />
@@ -3100,9 +3043,6 @@
             <Observation>
                 <id value="observation-us-ph-exposure-contact-info-football-game" />
                 <meta>
-                    <versionId value="4" />
-                    <lastUpdated value="2020-12-01T07:17:32.073+00:00" />
-                    <source value="#pMvWUdCWz4XOnrDf" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information" />
                 </meta>
                 <status value="final" />
@@ -3151,9 +3091,6 @@
             <Observation>
                 <id value="observation-travel-history-eve-everywoman-201801" />
                 <meta>
-                    <versionId value="9" />
-                    <lastUpdated value="2021-08-17T07:59:01.126+00:00" />
-                    <source value="#d6PrWfFFuxUIiLtX" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
                 </meta>
                 <status value="final" />
@@ -3230,9 +3167,6 @@
             <Observation>
                 <id value="observation-disability-status-eve-everywoman" />
                 <meta>
-                    <versionId value="2" />
-                    <lastUpdated value="2021-06-30T05:33:12.487+00:00" />
-                    <source value="#AVCvf6gXu6hyNuWr" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status" />
                 </meta>
                 <status value="final" />
@@ -3314,9 +3248,6 @@
             <Organization>
                 <id value="organization-ecr-acme-laboratory" />
                 <meta>
-                    <versionId value="4" />
-                    <lastUpdated value="2021-06-30T04:13:19.329+00:00" />
-                    <source value="#xp7CXcY2lPaNsDQL" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
                 </meta>
                 <identifier>
@@ -3355,9 +3286,6 @@
             <Location>
                 <id value="location-ecr-salem-medical-center" />
                 <meta>
-                    <versionId value="6" />
-                    <lastUpdated value="2021-08-17T07:53:02.099+00:00" />
-                    <source value="#VI2Nm5Ps5HqZ5HXV" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
                 </meta>
                 <identifier>
@@ -3404,9 +3332,6 @@
             <Location xmlns="http://hl7.org/fhir">
                 <id value="location-ecr-city-football-stadium" />
                 <meta>
-                    <versionId value="1" />
-                    <lastUpdated value="2020-12-01T01:55:32.705+00:00" />
-                    <source value="#KLUFk4w6CXKqrFEC" />
                     <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-location" />
                 </meta>
                 <status value="active" />
@@ -3434,9 +3359,6 @@
             <Organization>
                 <id value="organization-ecr-salem-medical-center" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-06-30T04:13:19.345+00:00" />
-                    <source value="#xa4yJZjn68xVavoM" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
                 </meta>
                 <identifier>
@@ -3468,9 +3390,6 @@
             <Condition>
                 <id value="condition-eicr-eve-everywoman-zika" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-07-15T01:54:14.835+00:00" />
-                    <source value="#rM2Pw6getjoE2UTV" />
                 </meta>
                 <category>
                     <coding>
@@ -3504,9 +3423,6 @@
             <Practitioner>
                 <id value="practitioner-us-core-henry-seven" />
                 <meta>
-                    <versionId value="5" />
-                    <lastUpdated value="2021-08-17T08:00:32.356+00:00" />
-                    <source value="#2MfA6kIjmOmtAlIb" />
                     <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
                 </meta>
                 <identifier>

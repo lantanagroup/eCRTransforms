@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../SaxonPE-cda2fhir.xslt" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lcg="http://www.lantanagroup.com">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lcg="http://www.lantanagroup.com" run-as="external">
 
     <!-- All Patients - Create bundle entry -->
     <x:scenario label="Scenario for testing template 'cda:recordTarget'">

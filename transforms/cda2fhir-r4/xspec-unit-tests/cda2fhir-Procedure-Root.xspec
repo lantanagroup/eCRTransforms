@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../SaxonPE-cda2fhir.xslt" run-as="external"> 
+
+    <!-- Procedure - create bundle entry-->
+    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']'and mode 'bundle-entry'">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
+        <x:expect label="There should be Two Procedure resources" test="count(//fhir:entry/fhir:resource/fhir:Procedure)=2" />
+    </x:scenario>
+
+    <!-- Procedure - create resource-->
+    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']'">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
+        <!--  Validate an Procedure profile exists-->
+        <!-- <x:expect label="There should be an Procedure.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" 
+     test="count(fhir:procedure/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure'])>0" />-->
+
+        <!--Validate the Identifier-->
+        <x:expect label="There should be two Procedure.system" test="count(//fhir:Procedure/fhir:identifier/fhir:system)=2" />
+        <x:expect label="There should be an Procedure.value.value" test="count(//fhir:Procedure/fhir:identifier/fhir:value)=2" />
+        <!-- Validate the Status Code -->
+        <x:expect label="There should be two Procedure.status.value=completed" test="count(//fhir:Procedure/fhir:status)=2" />
+
+        <!-- Validate the Procedure Code-->
+        <x:expect label="There should be two Procedure.code.coding.system" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:system)=2" />
+        <x:expect label="There should be an Procedure.code.coding.code" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:code)=2" />
+        <x:expect label="There should be an Procedure.code.coding.display" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:display)=2" />
+
+
+        <!-- Validate the Patient Reference -->
+        <x:expect label="There should be an Procedure.subject.reference" test="count(//fhir:Procedure/fhir:subject/fhir:reference)=2" />
+
+        <!-- Validate the Procedure Start and End Date/Time-->
+        <x:expect label="There should be a Procedure.performedPeriod.start" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:start)=2" />
+        <x:expect label="There should be a Procedure.performedPeriod.end" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:end)=2" />
+
+
+        <!-- Validate the Asserter  Reference -->
+        <x:expect label="There should be an Procedure.asserter.reference" test="count(//fhir:Procedure/fhir:asserter/fhir:reference)=2" />
+    </x:scenario>
+
+</x:description>

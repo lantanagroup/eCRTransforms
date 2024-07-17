@@ -894,6 +894,22 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
+            <!-- otherwise this is an participant that references another participant -->
+            <xsl:when test="cda:assignedAuthor">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:assignedAuthor/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <!-- otherwise this is an participant that references another participant -->
+            <xsl:when test="cda:assignedEntity">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:assignedEntity/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
 

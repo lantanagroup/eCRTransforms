@@ -47,7 +47,7 @@
             <xsl:call-template name="subject-reference" />
 
             <!-- supportingInformation: anything in an entryRelationship that isn't already mapped -->
-            <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19'])]">
+            <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.118'])]">
                 <supportingInformation>
                     <reference value="urn:uuid:{@lcg:uuid}" />
                 </supportingInformation>
@@ -258,7 +258,8 @@
     </xsl:template>
 
     <xsl:template match="cda:repeatNumber" mode="medication-request">
-        <numberOfRepeatsAllowed value="{@value}" />
+        <xsl:variable name="vRepeats" select="@value - 1"/>
+        <numberOfRepeatsAllowed value="{$vRepeats}" />
     </xsl:template>
 
     <xsl:template match="cda:effectiveTime[@operator = 'A'][@xsi:type = 'PIVL_TS']" mode="medication-request">

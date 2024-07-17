@@ -78,7 +78,7 @@
             <xsl:call-template name="subject-reference" />
             
             <!-- supportingInformation: anything in an entryRelationship that isn't already mapped -->
-            <xsl:for-each select="cda:entryRelationship/cda:*">
+            <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.118')]">
                 <supportingInformation>
                     <reference value="urn:uuid:{@lcg:uuid}" />
                 </supportingInformation>

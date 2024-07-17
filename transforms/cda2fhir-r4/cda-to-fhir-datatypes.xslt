@@ -715,7 +715,7 @@
                         <!-- US Core Practitioner requires a Family, so if it's not present add a DAR
                                  pFamilyRequired parameter = true()-->
                         <xsl:when test="string-length(cda:family) &gt; 0">
-                            <family value="{.}" />
+                            <family value="{cda:family}" />
                         </xsl:when>
                         <xsl:when test="$pFamilyRequired">
                             <family>

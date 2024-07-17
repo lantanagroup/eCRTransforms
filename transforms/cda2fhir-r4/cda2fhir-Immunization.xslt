@@ -21,9 +21,11 @@
 
     <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.52'][@moodCode = 'EVN']">
         <Immunization>
+            <!-- meta -->
             <xsl:call-template name="add-meta" />
+            <!-- identifier -->
             <xsl:apply-templates select="cda:id" />
-
+            <!-- status -->
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true'">
                     <status value="not-done" />
@@ -38,11 +40,14 @@
                     <xsl:with-param name="pElementName">statusReason</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:if>
+            <!-- vaccineCode -->
             <xsl:apply-templates select="cda:consumable" mode="immunization" />
-
+            <!-- patient -->
             <xsl:call-template name="subject-reference">
                 <xsl:with-param name="pElementName">patient</xsl:with-param>
             </xsl:call-template>
+            <!-- encounter -->
+            <!-- occurrence[x] -->
             <xsl:apply-templates select="cda:effectiveTime" mode="instant">
                 <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
             </xsl:apply-templates>
@@ -78,6 +83,30 @@
                 <xsl:with-param name="wrapping-elements">performer/actor</xsl:with-param>
             </xsl:apply-templates>
 
+            <!-- note -->
+            <xsl:for-each select="cda:text">
+                <xsl:variable name="vText">
+                    <xsl:choose>
+                        <xsl:when test="cda:reference">
+                            <xsl:call-template name="get-reference-text">
+                                <xsl:with-param name="pTextElement" select="." />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="." />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+
+                <xsl:if test="string-length($vText) > 0">
+                    <note>
+                        <text>
+                            <xsl:attribute name="value" select="$vText" />
+                        </text>
+                    </note>
+                </xsl:if>
+            </xsl:for-each>
+
             <!-- reasonReference (C-CDA Indication) -->
             <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.19']">
                 <reasonReference>
@@ -106,11 +135,14 @@
     </xsl:template>
 
     <xsl:template match="cda:consumable" mode="immunization">
-        <xsl:for-each select="cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@code][@codeSystem]">
+        <xsl:apply-templates select="cda:manufacturedProduct/cda:manufacturedMaterial/cda:code">
+            <xsl:with-param name="pElementName">vaccineCode</xsl:with-param>
+        </xsl:apply-templates>
+        <!--<xsl:for-each select="cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@code][@codeSystem]">
             <xsl:call-template name="newCreateCodableConcept">
                 <xsl:with-param name="pElementName">vaccineCode</xsl:with-param>
             </xsl:call-template>
-        </xsl:for-each>
+        </xsl:for-each>-->
     </xsl:template>
 
 </xsl:stylesheet>

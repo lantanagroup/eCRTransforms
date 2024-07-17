@@ -48,7 +48,7 @@
         </xsl:for-each>
         <!-- Don't process diastolic as it needs to be processed together with systolic -->
         <xsl:apply-templates select="cda:component/cda:*[not(cda:code[@code = '8462-4'])]" mode="bundle-entry" />
-        
+
     </xsl:template>
 
     <!-- C-CDA Caregiver Characteristics - bundle entry-->
@@ -353,7 +353,7 @@
                 <xsl:when test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']">vital-signs</xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="vCode" select="cda:code/@code"/>
+        <xsl:variable name="vCode" select="cda:code/@code" />
         <xsl:variable name="category2">
             <!--<xsl:if test="$category1 != 'vital-signs' and $vital-sign-codes/map[@code = $vCode]">
                 <xsl:value-of select="'vital-signs'" />
@@ -460,31 +460,34 @@
             <!-- interpretation -->
             <xsl:apply-templates select="cda:interpretationCode" />
             <!-- note -->
-            <xsl:if test="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text | cda:text">
-                <xsl:for-each select="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text | cda:text">
+            <!--            <xsl:if test="cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text | cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.202']]/cda:text | cda:text">-->
+            <xsl:for-each select="
+                    cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.64']]/cda:text |
+                    cda:entryRelationship/cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.202']]/cda:text |
+                    cda:text">
 
-                    <xsl:variable name="vText">
-                        <xsl:choose>
-                            <xsl:when test="cda:reference">
-                                <xsl:call-template name="get-reference-text">
-                                    <xsl:with-param name="pTextElement" select="." />
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="." />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
+                <xsl:variable name="vText">
+                    <xsl:choose>
+                        <xsl:when test="cda:reference">
+                            <xsl:call-template name="get-reference-text">
+                                <xsl:with-param name="pTextElement" select="." />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="." />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
 
-                    <xsl:if test="string-length($vText) > 0">
-                        <note>
-                            <text>
-                                <xsl:attribute name="value" select="$vText" />
-                            </text>
-                        </note>
-                    </xsl:if>
-                </xsl:for-each>
-            </xsl:if>
+                <xsl:if test="string-length($vText) > 0">
+                    <note>
+                        <text>
+                            <xsl:attribute name="value" select="$vText" />
+                        </text>
+                    </note>
+                </xsl:if>
+            </xsl:for-each>
+            <!--</xsl:if>-->
 
             <!-- BodySite -->
             <xsl:apply-templates select="cda:targetSiteCode">

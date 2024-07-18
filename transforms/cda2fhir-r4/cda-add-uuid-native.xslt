@@ -4,17 +4,17 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fhir="http://hl7.org/fhir" xmlns:math="http://exslt.org/math" xmlns:uuid="http://www.uuid.org" version="2.0">
 
     <xsl:template match="/" priority="-1">
-        <xsl:apply-templates select="*" mode="add-uuids" />
+        <xsl:apply-templates select="*" mode="add-uuids-native" />
     </xsl:template>
 
-    <xsl:template match="cda:ClinicalDocument" mode="add-uuids">
+    <xsl:template match="cda:ClinicalDocument" mode="add-uuids-native">
         <xsl:copy>
             <xsl:if test="not(@lcg:uuid)">
                 <xsl:attribute name="lcg:uuid">
                     <xsl:value-of select="lower-case(uuid:get-uuid(.))" />
                 </xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates select="@* | node()" mode="add-uuids" />
+            <xsl:apply-templates select="@* | node()" mode="add-uuids-native" />
             <lcg:binary>
                 <xsl:attribute name="lcg:uuid">
                     <xsl:value-of select="lower-case(uuid:get-uuid(.))" />
@@ -23,20 +23,20 @@
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="cda:*" mode="add-uuids">
+    <xsl:template match="cda:*" mode="add-uuids-native">
         <xsl:copy>
             <xsl:if test="not(@lcg:uuid)">
                 <xsl:attribute name="lcg:uuid">
                     <xsl:value-of select="lower-case(uuid:get-uuid(.))" />
                 </xsl:attribute>
             </xsl:if>
-            <xsl:apply-templates select="@* | node()" mode="add-uuids" />
+            <xsl:apply-templates select="@* | node()" mode="add-uuids-native" />
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="@* | node()" mode="add-uuids">
+    <xsl:template match="@* | node()" mode="add-uuids-native">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="add-uuids" />
+            <xsl:apply-templates select="@* | node()" mode="add-uuids-native" />
         </xsl:copy>
     </xsl:template>
 

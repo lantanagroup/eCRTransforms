@@ -25,30 +25,30 @@ limitations under the License.
     <xsl:output method="xml" indent="yes" encoding="UTF-8" />
     <xsl:strip-space elements="*" />
 
-    <xsl:template match="/">
+    <xsl:template match="/" mode="saxon">
         <xsl:variable name="element-count" select="count(//cda:*)" />
         <xsl:comment>INFO: Element count: <xsl:value-of select="$element-count" /></xsl:comment>
         <!-- Preprocesses the CDA document, adding UUIDs where needed to generate resources and references later -->
         <xsl:variable name="pre-pre-processed-cda">
-            <xsl:apply-templates select="." mode="add-uuids" />
+            <xsl:apply-templates select="." mode="add-uuids-saxon" />
         </xsl:variable>
         <!-- There are author cases where the author isn't a complete author and is referencing
             a complete participation (doesn't have to be another author) elsewhere in the document by id
             Find any of these authors and replace their @lcg:uuid with the matched complete author @lcg:uuid -->
         <xsl:variable name="pre-processed-cda">
-            <xsl:apply-templates select="$pre-pre-processed-cda" mode="update-referenced-actor-uuids" />
+            <xsl:apply-templates select="$pre-pre-processed-cda" mode="update-referenced-actor-uuids-saxon" />
         </xsl:variable>
         <!-- This is where processing actually starts -->
         <xsl:apply-templates select="$pre-processed-cda" mode="convert" />
     </xsl:template>
 
-    <xsl:template match="@* | node()" mode="update-referenced-actor-uuids">
+    <xsl:template match="@* | node()" mode="update-referenced-actor-uuids-saxon">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()" mode="update-referenced-actor-uuids" />
+            <xsl:apply-templates select="@* | node()" mode="update-referenced-actor-uuids-saxon" />
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids">
+    <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids-saxon">
         <!-- get author id we need to match -->
         <xsl:variable name="vAuthorIdRoot">
             <!-- can only match one -->

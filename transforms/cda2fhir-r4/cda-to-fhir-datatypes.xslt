@@ -440,7 +440,7 @@
                 <xsl:apply-templates select="cda:low/@nullFlavor" mode="data-absent-reason-extension" />
             </end>
         </xsl:if>
-        <xsl:if test="not(@value) and cda:low/@nullFlavor">
+        <xsl:if test="not(@value) and cda:low/@nullFlavor and not(cda:high)">
             <start>
                 <xsl:apply-templates select="cda:low/@nullFlavor" mode="data-absent-reason-extension" />
             </start>

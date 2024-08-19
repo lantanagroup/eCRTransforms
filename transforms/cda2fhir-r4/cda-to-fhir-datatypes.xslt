@@ -562,7 +562,7 @@
             </xsl:when>
             <xsl:when test="@nullFlavor">
                 <xsl:comment>INFO: CDA effectiveTime/time was null</xsl:comment>
-                <xsl:copy />
+<!--                <xsl:copy />-->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:comment>WARNING: Unknown effective time format</xsl:comment>

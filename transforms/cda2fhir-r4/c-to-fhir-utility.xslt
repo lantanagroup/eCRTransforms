@@ -15,6 +15,7 @@
     <xsl:param name="code-display-mapping-file">../code-display-mapping.xml</xsl:param>
     <xsl:param name="vital-sign-codes-file">../vital-sign-codes.xml</xsl:param>
     <xsl:param name="oid-uri-mapping-file">../oid-uri-mapping-r4.xml</xsl:param>
+    <xsl:param name="detailed-ethnicity-codes-file">../detailed-ethnicity-codes.xml</xsl:param>
 
     <!-- File listing the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:param name="templates-to-suppress-file">../templates-to-suppress.xml</xsl:param>
@@ -31,6 +32,7 @@
     <xsl:variable name="code-display-mapping" select="document($code-display-mapping-file)/mapping" />
     <xsl:variable name="vital-sign-codes" select="document($vital-sign-codes-file)/mapping/map" />
     <xsl:variable name="oid-uri-mapping" select="document($oid-uri-mapping-file)/mapping/map" />
+    <xsl:variable name="detailed-ethnicity-codes" select="document($detailed-ethnicity-codes-file)/codes/detailedEthnicity" />
     <!-- Variable with the list of all the templates that are suppressed because they are not full resources in FHIR (extensions, components, data elements, etc.) -->
     <xsl:variable name="templates-to-suppress" select="document($templates-to-suppress-file)/templatesToSuppress" />
 
@@ -48,6 +50,9 @@
     
     <!-- Key for vital sign codes -->
     <xsl:key name="vital-sign-codes-key" match="$vital-sign-codes" use="@code" />
+    
+    <!-- Key for detailed ethnicity codes -->
+    <xsl:key name="detailed-ethnicity-codes-key" match="$detailed-ethnicity-codes" use="@code" />
     
     <!-- Key to get all referenced text in section/text to speed up processing of matching references that reach back into section text -->
     <xsl:key name="text-reference-key" match="//cda:section/cda:text//*[@ID]" use="@ID" />

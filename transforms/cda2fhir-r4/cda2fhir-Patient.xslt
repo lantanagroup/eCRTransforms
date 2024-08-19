@@ -5,7 +5,7 @@
 
     <xsl:template match="cda:recordTarget" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
-        
+
         <xsl:apply-templates select="cda:patientRole/cda:providerOrganization" mode="bundle-entry" />
     </xsl:template>
 
@@ -153,7 +153,7 @@
                     <reference value="urn:uuid:{cda:patientRole/cda:providerOrganization/@lcg:uuid}" />
                 </managingOrganization>
             </xsl:if>
-            
+
             <!-- link (related Patient or RelatedPerson -->
             <xsl:choose>
                 <xsl:when test="
@@ -338,60 +338,42 @@
         <xsl:if test="cda:patientRole/cda:patient/cda:ethnicGroupCode or cda:patientRole/cda:patient/sdtc:ethnicGroupCode">
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
                 <xsl:for-each select="cda:patientRole/cda:patient/cda:ethnicGroupCode">
-                    <!--<xsl:variable name="code">
-                        <xsl:choose>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:value-of select="@nullFlavor" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="@code" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    <xsl:variable name="codeSystemUri">
-                        <xsl:choose>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:text>http://terminology.hl7.org/CodeSystem/v3-NullFlavor</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>urn:oid:2.16.840.1.113883.6.238</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>-->
-                    <extension url="ombCategory">
-                        <valueCoding>
-                            <xsl:choose>
-                                <xsl:when test="@nullFlavor">
+
+                    <xsl:choose>
+                        <xsl:when test="@nullFlavor">
+                            <extension url="ombCategory">
+                                <valueCoding>
                                     <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
-                                </xsl:when>
-                                <xsl:otherwise>
+                                </valueCoding>
+                            </extension>
+                        </xsl:when>
+                        <!-- Check to make sure there is a valid ethnicGroupCode (there are only 2 valid codes here) -->
+                        <xsl:when test="@code = '2135-2' or @code = '2186-5'">
+                            <extension url="ombCategory">
+                                <valueCoding>
                                     <system value="urn:oid:2.16.840.1.113883.6.238" />
-                                    <code value="@code" />
-                                </xsl:otherwise>
-                            </xsl:choose>
-<!--                            <system value="{$codeSystemUri}" />-->
-                            <!--<xsl:choose>
-                                <xsl:when test="$code = 'NI'">
-                                    <code value="UNK" />
-                                </xsl:when>
-                                <xsl:otherwise>-->
-<!--                                    <code value="{$code}" />-->
-                                <!--</xsl:otherwise>
-                            </xsl:choose>-->
-                            <xsl:if test="@displayName">
-                                <display>
-                                    <xsl:attribute name="value">
-                                        <xsl:apply-templates select="@displayName" />
-                                    </xsl:attribute>
-                                </display>
-                            </xsl:if>
-                        </valueCoding>
-                    </extension>
+                                    <code value="{@code}" />
+                                    <xsl:if test="@displayName">
+                                        <display>
+                                            <xsl:attribute name="value">
+                                                <xsl:apply-templates select="@displayName" />
+                                            </xsl:attribute>
+                                        </display>
+                                    </xsl:if>
+                                </valueCoding>
+                            </extension>
+                        </xsl:when>
+                        <!--<xsl:otherwise>
+                                    <system value="urn:oid:2.16.840.1.113883.6.238" />
+                                    <code value="{@code}" />
+                                </xsl:otherwise>-->
+                    </xsl:choose>
+
                 </xsl:for-each>
                 <xsl:for-each select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode">
                     <xsl:choose>
                         <xsl:when test="@nullFlavor" />
-                        <xsl:otherwise>
+                        <xsl:when test="key('detailed-ethnicity-codes-key', @code)">
                             <extension url="detailed">
                                 <valueCoding>
                                     <system value="urn:oid:2.16.840.1.113883.6.238" />
@@ -405,7 +387,7 @@
                                     </xsl:if>
                                 </valueCoding>
                             </extension>
-                        </xsl:otherwise>
+                        </xsl:when>
                     </xsl:choose>
                 </xsl:for-each>
 
@@ -483,16 +465,16 @@
         <xsl:variable name="vName">
             <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name | cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name/cda:*">
                 <xsl:variable name="vTextNamePart">
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="." />
                 </xsl:variable>
-                <xsl:value-of select="concat($vTextNamePart, ' ')"/>
+                <xsl:value-of select="concat($vTextNamePart, ' ')" />
             </xsl:for-each>
         </xsl:variable>
         <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place">
             <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
                 <xsl:apply-templates select="cda:addr">
                     <xsl:with-param name="pElementName" select="'valueAddress'" />
-                    <xsl:with-param name="pExtraText" select="$vName"/>
+                    <xsl:with-param name="pExtraText" select="$vName" />
                 </xsl:apply-templates>
             </extension>
         </xsl:for-each>
@@ -502,7 +484,7 @@
         <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45']">
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
                 <extension url="value">
-                    <xsl:apply-templates select="cda:value" >
+                    <xsl:apply-templates select="cda:value">
                         <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
                     </xsl:apply-templates>
                 </extension>

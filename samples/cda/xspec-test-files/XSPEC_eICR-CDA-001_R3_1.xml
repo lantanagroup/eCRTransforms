@@ -87,7 +87,8 @@
                 <!-- Patient Race -->
                 <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race &amp; Ethnicity - CDC" displayName="White" />
                 <!-- Patient Ethnicity -->
-                <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race &amp; Ethnicity - CDC" displayName="Not Hispanic or Latino" />
+                <ethnicGroupCode code="2135-2" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDC Race and Ethnicity" displayName="Hispanic or Latino" />
+                <sdtc:ethnicGroupCode code="ME" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDC Race and Ethnicity" displayName="Mexican, Mexican American, Chicano/a" />
 
                 <!-- Parent/Guardian information-->
                 <guardian>

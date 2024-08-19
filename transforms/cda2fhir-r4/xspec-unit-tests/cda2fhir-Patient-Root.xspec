@@ -49,8 +49,8 @@
         <x:expect label="There should be 1 address" test="count(//fhir:Patient/fhir:address)=1" />
         <x:expect label="There should be 1 guardian" test="count(//fhir:Patient/fhir:contact/fhir:relationship/fhir:coding/fhir:code[@value='GUARD'])=1" />
         <x:expect label="There should be 2 names" test="count(//fhir:Patient/fhir:name)=2" />
-        <x:expect label="There should be 2 communication.language" test="count(//fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code)=2" />
-        <x:expect label="There should be 2 communication.preferred" test="count(//fhir:Patient/fhir:communication/fhir:preferred)=2" />
+        <x:expect label="There should be 1 communication.language" test="count(//fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code)=1" />
+        <x:expect label="There should be 1 communication.preferred" test="count(//fhir:Patient/fhir:communication/fhir:preferred)=1" />
         <x:expect label="There should be 1 emergency contact" test="count(//fhir:Patient/fhir:contact/fhir:relationship/fhir:coding/fhir:code[@value='C'])=1" />
         <x:expect label="There should be 1 emergency contact name" test="count(//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value='C']]/fhir:name)=1" />
         <x:expect label="There should be 1 emergency contact address" test="count(//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value='C']]/fhir:address)=1" />

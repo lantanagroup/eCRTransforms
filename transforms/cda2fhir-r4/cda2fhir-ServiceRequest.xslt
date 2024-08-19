@@ -261,7 +261,7 @@
     <!-- add encounter-reference -->
     <xsl:template match="cda:entryRelationship" mode="encounter-reference">
         <xsl:choose>
-            <xsl:when test="@typeCode != 'SUBJ'">
+            <xsl:when test="cda:encounter and @typeCode != 'SUBJ'">
                 <xsl:variable name="vTest" select="cda:encounter/cda:code/cda:translation/@code" />
                 <encounter>
                     <reference value="urn:uuid:{/cda:ClinicalDocument/cda:component/cda:structuredBody/

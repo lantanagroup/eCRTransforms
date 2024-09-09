@@ -52,8 +52,12 @@
                 <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
             </xsl:apply-templates>
 
-            <xsl:comment>INFO: Defaulting primarySource to false since this info is not in the C-CDA Immunization Activity template</xsl:comment>
-            <primarySource value="false" />
+            <xsl:comment>INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template</xsl:comment>
+            <primarySource>
+                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                    <valueCode value="unknown" />
+                </extension>
+            </primarySource>
 
             <!-- manufacturer -->
             <!-- create organization from cda:consumable/cda:manufacturedProduct/cda:manufacturerOrganization -->

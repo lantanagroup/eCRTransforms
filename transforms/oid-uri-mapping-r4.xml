@@ -457,4 +457,14 @@
     <map oid="2.16.840.1.113883.3.13.999.200" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/200" />
     <map oid="2.16.840.1.113883.3.13.999.222" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/222" />
     <map oid="2.16.840.1.113883.3.13.999.6000" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/6000" />
+    
+    <!-- eCR RCTC value sets -->
+    <map oid="2.16.840.1.113762.1.4.1146.627" uri="http://ersd.aimsplatform.org/fhir/ValueSet/dxtc" />
+    <map oid="2.16.840.1.113762.1.4.1146.1059" uri="http://ersd.aimsplatform.org/fhir/ValueSet/ostc" />
+    <map oid="2.16.840.1.113762.1.4.1146.1056" uri="http://ersd.aimsplatform.org/fhir/ValueSet/lotc" />
+    <map oid="2.16.840.1.113762.1.4.1146.1057" uri="http://ersd.aimsplatform.org/fhir/ValueSet/lrtc" />
+    <map oid="2.16.840.1.113762.1.4.1146.1060" uri="http://ersd.aimsplatform.org/fhir/ValueSet/mrtc" />
+    <map oid="2.16.840.1.113762.1.4.1146.1479" uri="http://ersd.aimsplatform.org/fhir/ValueSet/sdtc" />
+    
+    
 </mapping>

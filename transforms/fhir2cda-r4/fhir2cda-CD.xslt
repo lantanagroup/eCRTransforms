@@ -198,7 +198,17 @@ limitations under the License.
                     <xsl:variable name="vCodeValue" select="fhir:code/@value" />
                     <xsl:for-each select="$pTriggerExtension[fhir:extension[@url = 'triggerCode']/fhir:valueCoding/fhir:code/@value = $vCodeValue]">
                         <xsl:attribute name="sdtc:valueSet">
-                            <xsl:value-of select="substring-after(fhir:extension[@url = 'triggerCodeValueSet']/fhir:valueOid/@value, 'urn:oid:')" />
+                            <!-- SG 20241118: Added to deal with non-oid values (having non-oid values is wrong and not in the spec, but it's what is coming from eCR Now -->
+                            <xsl:choose>
+                                <xsl:when test="fhir:extension[@url = 'triggerCodeValueSet']/fhir:valueString">
+                                    <xsl:call-template name="convertURI">
+                                        <xsl:with-param name="uri" select="fhir:extension[@url = 'triggerCodeValueSet']/fhir:valueString/@value" />
+                                    </xsl:call-template>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="substring-after(fhir:extension[@url = 'triggerCodeValueSet']/fhir:valueOid/@value, 'urn:oid:')" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:attribute>
                         <xsl:attribute name="sdtc:valueSetVersion">
                             <xsl:value-of select="fhir:extension[@url = 'triggerCodeValueSetVersion']/fhir:valueString/@value" />

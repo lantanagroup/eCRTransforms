@@ -36,17 +36,67 @@ limitations under the License.
                     </xsl:attribute>
                 </xsl:when>
             </xsl:choose>
+            
             <!-- Setting order for consistency and easier testing/compares -->
-            <xsl:apply-templates mode="address" select="fhir:line">
-                <xsl:with-param name="pElementName" select="'streetAddressLine'" />
-            </xsl:apply-templates>
-            <xsl:apply-templates mode="address" select="fhir:city" />
-            <xsl:apply-templates mode="address" select="fhir:district">
-                <xsl:with-param name="pElementName" select="'county'" />
-            </xsl:apply-templates>
-            <xsl:apply-templates mode="address" select="fhir:state" />
-            <xsl:apply-templates mode="address" select="fhir:postalCode" />
-            <xsl:apply-templates mode="address" select="fhir:country" />
+            <!-- Ming fix any missing elements and data-absent-reason -->
+            <xsl:choose>
+                <xsl:when test="fhir:line">
+                    <xsl:apply-templates mode="address" select="fhir:line">
+                        <xsl:with-param name="pElementName" select="'streetAddressLine'" />
+                    </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                    <streetAddressLine nullFlavor="UNK"/>
+                </xsl:otherwise>
+            </xsl:choose>
+             
+            <xsl:choose>    
+                <xsl:when test="fhir:city">
+                    <xsl:apply-templates mode="address" select="fhir:city" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <city nullFlavor="UNK"/> 
+                </xsl:otherwise>
+            </xsl:choose>
+                
+             <xsl:choose>
+                 <xsl:when test="fhir:district">
+                     <xsl:apply-templates mode="address" select="fhir:district">
+                         <xsl:with-param name="pElementName" select="'county'" />
+                     </xsl:apply-templates>
+                 </xsl:when>
+                 <xsl:otherwise>
+                     <county nullFlavor="UNK"/>
+                 </xsl:otherwise>
+             </xsl:choose>
+            
+            <xsl:choose>
+                <xsl:when test="fhir:state">
+                    <xsl:apply-templates mode="address" select="fhir:state" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <state nullFlavor="UNK"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            
+             <xsl:choose>
+                 <xsl:when test="fhir:postalCode">
+                     <xsl:apply-templates mode="address" select="fhir:postalCode" />
+                 </xsl:when>
+                 <xsl:otherwise>
+                     <postalCode nullFlavor="UNK"/>
+                 </xsl:otherwise>
+             </xsl:choose> 
+            
+            <xsl:choose>
+                <xsl:when test="fhir:country">
+                    <xsl:apply-templates mode="address" select="fhir:country" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <country nullFlavor="UNK"/>
+                </xsl:otherwise>
+            </xsl:choose>
+                       
             <xsl:apply-templates select="fhir:period">
                 <xsl:with-param name="pElementName" select="'useablePeriod'"/>
                 <xsl:with-param name="pXSIType" select="'IVL_TS'"/>
@@ -54,6 +104,79 @@ limitations under the License.
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="fhir:city" mode="address">
+        <xsl:param name="pElementName" select="local-name()" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <xsl:value-of select="@value" />
+                </xsl:when>
+                <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
+                    <city nullFlavor="UNK"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="fhir:state" mode="address">
+        <xsl:param name="pElementName" select="local-name()" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <xsl:value-of select="@value" />
+                </xsl:when>
+                <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
+                    <state nullFlavor="UNK"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="fhir:postalCode" mode="address">
+        <xsl:param name="pElementName" select="local-name()" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <xsl:value-of select="@value" />
+                </xsl:when>
+                <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
+                    <postalCode nullFlavor="UNK"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="fhir:country" mode="address">
+        <xsl:param name="pElementName" select="local-name()" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <xsl:value-of select="@value" />
+                </xsl:when>
+                <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
+                    <country nullFlavor="UNK"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    
+    <xsl:template match="fhir:line" mode="address">
+        <xsl:param name="pElementName" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <xsl:value-of select="@value" />
+                </xsl:when>
+                <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
+                    <streetAddressLine nullFlavor="UNK"/>
+                    
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- 
     <xsl:template match="fhir:*" mode="address">
         <xsl:param name="pElementName">
             <xsl:value-of select="local-name(.)" />
@@ -62,5 +185,6 @@ limitations under the License.
             <xsl:value-of select="@value" />
         </xsl:element>
     </xsl:template>
+    -->
 
 </xsl:stylesheet>

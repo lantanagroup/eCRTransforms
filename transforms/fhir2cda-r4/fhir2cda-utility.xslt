@@ -324,29 +324,6 @@ limitations under the License.
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted">
-        <!-- CDA element effectiveTime unless specified something else -->
-        <xsl:param name="pElementName" select="'effectiveTime'" />
-        <!-- This might be cast to a specific xsi-type in the cda -->
-        <xsl:param name="pXSIType" />
-        <xsl:param name="pOperator" />
-
-        <xsl:element name="{$pElementName}">
-            <xsl:if test="$pXSIType">
-                <xsl:attribute name="xsi:type" select="$pXSIType" />
-            </xsl:if>
-            <xsl:if test="$pOperator">
-                <xsl:attribute name="operator" select="$pOperator" />
-            </xsl:if>
-            <xsl:attribute name="value">
-                <xsl:call-template name="Date2TS">
-                    <xsl:with-param name="date" select="@value" />
-                    <xsl:with-param name="includeTime" select="true()" />
-                </xsl:call-template>
-            </xsl:attribute>
-        </xsl:element>
-
-    </xsl:template>
 
     <xsl:template match="fhir:status">
         <statusCode>

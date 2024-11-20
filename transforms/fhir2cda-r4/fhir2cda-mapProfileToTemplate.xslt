@@ -260,7 +260,7 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.22.2.7" extension="2014-06-09" />
             </xsl:when>
             <!-- Social History Section -->
-            <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '29762-2'">
+            <xsl:when test="fhir:code[parent::fhir:section]/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '29762-2'">
                 <xsl:comment select="' [C-CDA 1.1] Social History Section '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.17" />
                 <xsl:comment select="' [C-CDA 2.1] Social History Section (V3) '" />

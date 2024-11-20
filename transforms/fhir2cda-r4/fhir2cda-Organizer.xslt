@@ -54,6 +54,18 @@ limitations under the License.
         </entry>
     </xsl:template>
 
+    <!-- An DiagnosticReport from FHIR translates to an Lab Result Organizer if category = LAB -->
+    <xsl:template match="fhir:DiagnosticReport[fhir:category/fhir:coding[fhir:code/@value = 'LAB']]" mode="entry">
+        <xsl:param name="generated-narrative">additional</xsl:param>
+        <xsl:if test="$generated-narrative = 'generated'">
+            <xsl:attribute name="typeCode">DRIV</xsl:attribute>
+        </xsl:if>
+        <entry>
+            <xsl:call-template name="make-result-organizer" />
+        </entry>
+    </xsl:template>
+    
+
     <!-- Vital Signs Organizer (Organizer) -->
     <xsl:template name="make-vitalsign-organizer">
         <organizer classCode="CLUSTER" moodCode="EVN">
@@ -104,11 +116,6 @@ limitations under the License.
             <xsl:call-template name="check-for-trigger" />
         </xsl:variable>
         <xsl:variable name="vTriggerExtension" select="$vTriggerEntry/fhir:extension" />
-        <!--<!-\- Get all codes in the profile -\->
-    <xsl:variable name="vCodesToMatch">
-      <xsl:value-of select="descendant::*/fhir:coding/fhir:code/@value"/>
-    </xsl:variable>
-    <xsl:variable name="vTriggerExtension2" select="$vTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-->
 
         <organizer classCode="BATTERY" moodCode="EVN">
             <!-- templateId -->
@@ -143,7 +150,7 @@ limitations under the License.
                     <effectiveTime nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:for-each select="fhir:hasMember/fhir:reference">
+            <xsl:for-each select="fhir:result/fhir:reference">
                 <xsl:variable name="referenceURI">
                     <xsl:call-template name="resolve-to-full-url">
                         <xsl:with-param name="referenceURI" select="@value" />
@@ -178,6 +185,19 @@ limitations under the License.
                     </xsl:for-each>
                 </xsl:for-each>
             </xsl:if>
+            <xsl:for-each select="fhir:performer">
+                <xsl:for-each select="fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+                        <xsl:call-template name="make-performer" />
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:for-each>
 
         </organizer>
     </xsl:template>

@@ -315,16 +315,21 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:attribute>
             </low>
-            <xsl:if test="fhir:end">
-                <high>
-                    <xsl:attribute name="value">
-                        <xsl:call-template name="Date2TS">
-                            <xsl:with-param name="date" select="fhir:end/@value" />
-                            <xsl:with-param name="includeTime" select="true()" />
-                        </xsl:call-template>
-                    </xsl:attribute>
-                </high>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="fhir:end">
+                    <high>
+                        <xsl:attribute name="value">
+                            <xsl:call-template name="Date2TS">
+                                <xsl:with-param name="date" select="fhir:end/@value" />
+                                <xsl:with-param name="includeTime" select="true()" />
+                            </xsl:call-template>
+                        </xsl:attribute>
+                    </high>
+                </xsl:when>
+                <xsl:otherwise>
+                    <high nullFlavor="UNK"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
 

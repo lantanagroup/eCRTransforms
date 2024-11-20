@@ -120,6 +120,7 @@ limitations under the License.
                 <xsl:apply-templates select="fhir:status" />
                 <!-- effectiveTime -->
                 <xsl:apply-templates select="fhir:performedPeriod" />
+                <xsl:apply-templates select="fhir:performedDateTime" />
                 <!-- priorityCode -->
                 <!-- value (nullFlavor as FHIR doesn't have this) -->
                 <!--<value nullFlavor="NA" /> -->
@@ -127,6 +128,18 @@ limitations under the License.
                 <!-- targetSiteCode -->
                 <!-- specimen -->
                 <!-- performer -->
+                <xsl:for-each select="fhir:performer">
+                    <xsl:for-each select="fhir:actor">
+                        <xsl:variable name="referenceURI">
+                            <xsl:call-template name="resolve-to-full-url">
+                                <xsl:with-param name="referenceURI" select="fhir:reference/@value" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
+                            <xsl:apply-templates select="fhir:resource/fhir:*" mode="event-performer" />
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </xsl:for-each>
                 <!-- author -->
                 <!-- participant/ProductInstance -->
                 <xsl:for-each select="fhir:focalDevice/fhir:manipulated">

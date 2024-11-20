@@ -479,9 +479,41 @@ limitations under the License.
                     <doseQuantity nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
-            <consumable>
-                <xsl:call-template name="make-medication-information" />
-            </consumable>
+            
+            <!-- Ming handle both medicationReference and medicationCodeableConcept -->
+            <xsl:choose>
+                <xsl:when test="fhir:medicationReference">
+                    <xsl:for-each select="fhir:medicationReference">
+                        <consumable>
+                            <manufacturedProduct classCode="MANU">
+                                <xsl:comment select="' [C-CDA R2.0] Medication information (V2) '" />
+                                <templateId root="2.16.840.1.113883.10.20.22.4.23" />
+                                <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.23" />
+                                <id root="4b355395-790c-405d-826f-f5a8e242db89" />
+                                <manufacturedMaterial>
+                                    <!-- TODO: handle medication reference -->
+                                    <!-- MD: Add handle medication reference -->
+                                    <xsl:variable name="referenceURI">
+                                        <xsl:call-template name="resolve-to-full-url">
+                                            <xsl:with-param name="referenceURI" select="fhir:reference/@value" />
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:comment>Medication <xsl:value-of select="$referenceURI" /></xsl:comment>
+                                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
+                                        <xsl:apply-templates mode="medication-activity" select="fhir:resource/fhir:*" />
+                                    </xsl:for-each>
+                                </manufacturedMaterial>
+                            </manufacturedProduct>
+                        </consumable>
+                    </xsl:for-each>               
+                </xsl:when>
+                <xsl:when test="fhir:medicationCodeableConcept">
+                    <consumable>
+                        <xsl:call-template name="make-medication-information" />
+                    </consumable>
+                </xsl:when>
+            </xsl:choose>
+            
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/therapeutic-medication-response-extension']" />
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension']" />
             <!-- SG 2023-04 Moved this code into fhir2cda-Observation and called above (keeping the old ecr name for now - can remove later) -->

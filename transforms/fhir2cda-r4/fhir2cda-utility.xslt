@@ -16,7 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda xsi fhir xhtml sdtc" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda xsi fhir xhtml sdtc" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+    xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 
@@ -180,7 +181,8 @@ limitations under the License.
             <xsl:otherwise>
                 <xsl:variable name="fhirBaseUrl" select="substring-before($entryFullUrl, $currentResourceType)" />
 
-                <xsl:message> referenceURI: <xsl:value-of select="$referenceURI" /> entryFullUrl: <xsl:value-of select="$entryFullUrl" /> currentResourceType: <xsl:value-of select="$currentResourceType" /> fhirBaseUrl: <xsl:value-of select="$fhirBaseUrl" />
+                <xsl:message> referenceURI: <xsl:value-of select="$referenceURI" /> entryFullUrl: <xsl:value-of select="$entryFullUrl" /> currentResourceType: <xsl:value-of select="$currentResourceType" />
+                    fhirBaseUrl: <xsl:value-of select="$fhirBaseUrl" />
                 </xsl:message>
                 <!--
         <xsl:message>$entryFullUrl=<xsl:value-of select="$entryFullUrl"/>, $currentResourceType=<xsl:value-of select="$currentResourceType"/>, $fhirBaseUrl=<xsl:value-of select="$fhirBaseUrl"/></xsl:message>
@@ -290,7 +292,7 @@ limitations under the License.
             </assignedEntity>
         </xsl:element>
     </xsl:template>
-    
+
     <xsl:template match="fhir:effectivePeriod | fhir:period | fhir:collectedPeriod | fhir:performedPeriod | fhir:valuePeriod">
         <!-- CDA element effectiveTime unless specified something else -->
         <xsl:param name="pElementName" select="'effectiveTime'" />
@@ -326,6 +328,24 @@ limitations under the License.
         </xsl:element>
     </xsl:template>
 
+    <xsl:template match="fhir:effectiveDateTime" mode="period">
+        <!-- CDA element effectiveTime unless specified something else -->
+        <xsl:param name="pElementName" select="'effectiveTime'" />
+
+        <xsl:element name="{$pElementName}">
+            <low>
+                <xsl:attribute name="value">
+                    <xsl:call-template name="Date2TS">
+                        <xsl:with-param name="date" select="@value" />
+                        <xsl:with-param name="includeTime" select="true()" />
+                    </xsl:call-template>
+                </xsl:attribute>
+            </low>
+            <high>
+                <xsl:attribute name="nullFlavor" select="'NI'" />
+            </high>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="fhir:status">
         <statusCode>
@@ -397,11 +417,11 @@ limitations under the License.
     <xsl:template match="fhir:status" mode="map-lab-obs-status">
         <xsl:param name="pElementName" select="'value'" />
         <xsl:param name="pXSIType" select="'CD'" />
-        
+
         <xsl:variable name="vStatus">
-            <xsl:value-of select="@value"/>
+            <xsl:value-of select="@value" />
         </xsl:variable>
-        
+
         <xsl:element name="{$pElementName}">
             <xsl:attribute name="xsi:type" select="$pXSIType" />
             <xsl:choose>
@@ -423,11 +443,11 @@ limitations under the License.
     <xsl:template match="fhir:status" mode="map-lab-status">
         <xsl:param name="pElementName" select="'value'" />
         <xsl:param name="pXSIType" select="'CD'" />
-        
+
         <xsl:variable name="vStatus">
-            <xsl:value-of select="@value"/>
+            <xsl:value-of select="@value" />
         </xsl:variable>
-        
+
         <xsl:element name="{$pElementName}">
             <xsl:attribute name="xsi:type" select="$pXSIType" />
             <xsl:choose>
@@ -444,7 +464,7 @@ limitations under the License.
             <xsl:attribute name="codeSystemName" select="'HL7ResultStatus'" />
         </xsl:element>
     </xsl:template>
-    
+
     <!-- TEMPLATE: Uses the result-status-mapping file imported at the top of this file to match cda result status with fhir equivalents -->
     <xsl:template match="fhir:status" mode="map-result-status">
         <xsl:param name="pElementName" select="'statusCode'" />
@@ -460,13 +480,13 @@ limitations under the License.
             </xsl:choose>
         </xsl:element>
     </xsl:template>
-    
+
     <!-- TEMPLATE: Uses the section-title-mapping file imported at the top of this file to match section.code with section.title 
          when the title is missing from the fhir data-->
     <xsl:template match="fhir:code" mode="map-section-title">
         <xsl:variable name="vSectionCode">
-            <xsl:value-of select="fhir:coding/fhir:code/@value"/>
-        </xsl:variable>        
+            <xsl:value-of select="fhir:coding/fhir:code/@value" />
+        </xsl:variable>
         <title>
             <xsl:choose>
                 <xsl:when test="$section-title-mapping/map[@sectionCode = $vSectionCode]">

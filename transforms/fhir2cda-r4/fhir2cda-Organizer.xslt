@@ -54,8 +54,8 @@ limitations under the License.
         </entry>
     </xsl:template>
 
-    <!-- An DiagnosticReport from FHIR translates to an Lab Result Organizer if category = LAB -->
-    <xsl:template match="fhir:DiagnosticReport[fhir:category/fhir:coding[fhir:code/@value = 'LAB']]" mode="entry">
+    <!-- An DiagnosticReport from FHIR translates to an Lab Result Organizer if category = LAB and it has a result -->
+    <xsl:template match="fhir:DiagnosticReport[fhir:category/fhir:coding[fhir:code/@value = 'LAB']][fhir:result]" mode="entry">
         <xsl:param name="generated-narrative">additional</xsl:param>
         <xsl:if test="$generated-narrative = 'generated'">
             <xsl:attribute name="typeCode">DRIV</xsl:attribute>
@@ -140,16 +140,31 @@ limitations under the License.
             </xsl:apply-templates>
             <xsl:apply-templates select="fhir:status" mode="map-result-status"/>
             <xsl:choose>
+                <!-- effectiveTime in an Organizer is IVL TS and requires both high and low if it is present-->
                 <xsl:when test="fhir:effectiveDateTime">
-                    <xsl:apply-templates select="fhir:effectiveDateTime" />
+                    <xsl:apply-templates select="fhir:effectiveDateTime" mode="period" />
                 </xsl:when>
                 <xsl:when test="fhir:effectivePeriod">
                     <xsl:apply-templates select="fhir:effectivePeriod" />
                 </xsl:when>
-                <xsl:otherwise>
+                <!-- effectiveTime is optional in CDA -->
+                <!--<xsl:otherwise>
                     <effectiveTime nullFlavor="NI" />
-                </xsl:otherwise>
+                </xsl:otherwise>-->
             </xsl:choose>
+            <xsl:for-each select="fhir:performer">
+                <xsl:for-each select="fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+                        <xsl:call-template name="make-performer" />
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:for-each>
             <xsl:for-each select="fhir:result/fhir:reference">
                 <xsl:variable name="referenceURI">
                     <xsl:call-template name="resolve-to-full-url">
@@ -185,20 +200,6 @@ limitations under the License.
                     </xsl:for-each>
                 </xsl:for-each>
             </xsl:if>
-            <xsl:for-each select="fhir:performer">
-                <xsl:for-each select="fhir:reference">
-                    <xsl:variable name="referenceURI">
-                        <xsl:call-template name="resolve-to-full-url">
-                            <xsl:with-param name="referenceURI" select="@value" />
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
-                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
-                        <xsl:call-template name="make-performer" />
-                    </xsl:for-each>
-                </xsl:for-each>
-            </xsl:for-each>
-
         </organizer>
     </xsl:template>
 

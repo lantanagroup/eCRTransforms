@@ -36,11 +36,13 @@ limitations under the License.
     <xsl:param name="lab-status-mapping-file">../lab-status-mapping.xml</xsl:param>
     <xsl:param name="questionnaire-mapping-file">../questionnaire-mapping.xml</xsl:param>
     <xsl:param name="section-title-mapping-file">../section-title-mapping.xml</xsl:param>
+    <xsl:param name="result-status-mapping-file">../result-status-mapping.xml</xsl:param>
 
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="questionnaire-mapping" select="document($questionnaire-mapping-file)/mapping" />
     <xsl:variable name="section-title-mapping" select="document($section-title-mapping-file)/mapping" />
+    <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
 
     <!-- Get the HAI Document Questionnaire URL (**TODO** - might not use this and just use the select all the time) -->
     <xsl:variable name="gvQuestionnaireUrl" select="//fhir:QuestionnaireResponse/fhir:questionnaire/@value" />
@@ -440,6 +442,22 @@ limitations under the License.
             </xsl:choose>
             <xsl:attribute name="codeSystem" select="'2.16.840.1.113883.18.51'" />
             <xsl:attribute name="codeSystemName" select="'HL7ResultStatus'" />
+        </xsl:element>
+    </xsl:template>
+    
+    <!-- TEMPLATE: Uses the result-status-mapping file imported at the top of this file to match cda result status with fhir equivalents -->
+    <xsl:template match="fhir:status" mode="map-result-status">
+        <xsl:param name="pElementName" select="'statusCode'" />
+        <xsl:variable name="vResultStatus" select="@value" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="$result-status-mapping/map[@fhirLabStatus = $vResultStatus]">
+                    <xsl:attribute name="code" select="$result-status-mapping/map[@fhirLabStatus = $vResultStatus][1]/@cdaResultStatus" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="code" select="'completed'" />
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     

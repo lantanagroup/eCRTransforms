@@ -138,7 +138,7 @@ limitations under the License.
             <xsl:apply-templates select="fhir:code">
                 <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />
             </xsl:apply-templates>
-            <statusCode code="completed" />
+            <xsl:apply-templates select="fhir:status" mode="map-result-status"/>
             <xsl:choose>
                 <xsl:when test="fhir:effectiveDateTime">
                     <xsl:apply-templates select="fhir:effectiveDateTime" />

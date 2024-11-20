@@ -605,6 +605,13 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
             </xsl:when>
+            <xsl:when test="fhir:category[parent::fhir:DiagnosticReport]/fhir:coding[fhir:code/@value = 'LAB']">
+                <xsl:comment select="' [C-CDA R1.1] Result Organizer '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.1" />
+                <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+            </xsl:when>
+            
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'">
                 <xsl:comment select="' [C-CDA R1.1] Result Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.2" />
@@ -936,6 +943,14 @@ limitations under the License.
 
             <!-- If the us-core-observation-lab contains hasMember it maps to an Organizer (not Observation) -->
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab' and count(fhir:hasMember) > 0">
+                <xsl:comment select="' [C-CDA R1.1] Result Organizer '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.1" />
+                <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Result Organizer '" />
+                <templateId root="2.16.840.1.113883.10.20.15.2.3.35" extension="2019-04-01" />
+            </xsl:when>
+            <xsl:when test="fhir:category[parent::fhir:DiagnosticReport]/fhir:coding[fhir:code/@value = 'LAB']">
                 <xsl:comment select="' [C-CDA R1.1] Result Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.1" />
                 <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />

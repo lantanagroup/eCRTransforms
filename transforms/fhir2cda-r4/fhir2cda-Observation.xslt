@@ -236,6 +236,63 @@ limitations under the License.
             <!-- repeatNumber -->
             <!-- languageCode -->
             <!-- value -->
+            
+            <!-- Ming to handle the value is missing -->
+            <xsl:choose>
+                <!-- Check and apply templates for valueCodeableConcept -->
+                <xsl:when test="fhir:valueCodeableConcept">
+                    <xsl:for-each select="fhir:valueCodeableConcept">
+                        <xsl:apply-templates select=".">
+                            <xsl:with-param name="pElementName" select="'value'" />
+                            <xsl:with-param name="pXSIType" select="'CD'" />
+                            <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />
+                        </xsl:apply-templates>
+                    </xsl:for-each>
+                </xsl:when>
+                
+                <!-- Check and process valueBoolean -->
+                <xsl:when test="fhir:valueBoolean">
+                    <xsl:for-each select="fhir:valueBoolean">
+                        <value xsi:type="BL">
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="@value" />
+                            </xsl:attribute>
+                        </value>
+                    </xsl:for-each>
+                </xsl:when>
+                
+                <!-- Check and process valueString -->
+                <xsl:when test="fhir:valueString">
+                    <xsl:for-each select="fhir:valueString">
+                        <value xsi:type="ST">
+                            <xsl:value-of select="@value" />
+                        </value>
+                    </xsl:for-each>
+                </xsl:when>
+                
+                <!-- Check and apply templates for valueQuantity -->
+                <xsl:when test="fhir:valueQuantity">
+                    <xsl:apply-templates select="fhir:valueQuantity" />
+                </xsl:when>
+                
+                <!-- Check and apply templates for valueDateTime -->
+                <xsl:when test="fhir:valueDateTime">
+                    <xsl:apply-templates select="fhir:valueDateTime">
+                        <xsl:with-param name="pElementName" select="'value'" />
+                        <xsl:with-param name="pXSIType" select="'TS'" />
+                    </xsl:apply-templates>
+                </xsl:when>
+                
+                <!-- Default case: none of the expected elements are present -->
+                <xsl:otherwise>
+                    <value xsi:type="NULL">
+                        <xsl:attribute name="value">No valid value found</xsl:attribute>
+                    </value>
+                </xsl:otherwise>
+            </xsl:choose>
+            
+            
+            <!-- Ming Domment out 
             <xsl:for-each select="fhir:valueCodeableConcept">
                 <xsl:apply-templates select=".">
                     <xsl:with-param name="pElementName" select="'value'" />
@@ -243,7 +300,7 @@ limitations under the License.
                     <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />
                 </xsl:apply-templates>
             </xsl:for-each>
-            <!-- MD: add valueBollean -->
+            
             <xsl:for-each select="fhir:valueBoolean">
                 <value xsi:type="BL">
                     <xsl:attribute name="value">
@@ -261,6 +318,8 @@ limitations under the License.
                 <xsl:with-param name="pElementName" select="'value'" />
                 <xsl:with-param name="pXSIType" select="'TS'" />
             </xsl:apply-templates>
+            -->
+            
             <!-- interpretationCode -->
             <xsl:for-each select="fhir:interpretation">
                 <xsl:call-template name="CodeableConcept2CD">

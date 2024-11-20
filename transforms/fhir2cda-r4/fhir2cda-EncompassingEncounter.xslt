@@ -87,11 +87,11 @@ limitations under the License.
 
                 <!-- SG 20231126: Added dischargeDisposition processing -->
                 <xsl:for-each select="fhir:hospitalization/fhir:dischargeDisposition">
-                    <dischargeDispositionCode>
+                    <!-- <dischargeDispositionCode> -->
                         <xsl:apply-templates select=".">
                             <xsl:with-param name="pElementName" select="'dischargeDispositionCode'" />
-                        </xsl:apply-templates>
-                    </dischargeDispositionCode>
+                     </xsl:apply-templates>
+                    <!-- </dischargeDispositionCode> -->
                 </xsl:for-each>
 
                 <!-- SG 20210723: I've refactored this quite a bit - it wasn't picking up multiple participants in eICR 

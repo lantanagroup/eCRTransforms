@@ -1200,6 +1200,7 @@ limitations under the License.
                                 <xsl:apply-templates mode="display" select="./fhir:display" />
                             </targetSiteCode>
                         </xsl:for-each>
+                        
                         <!-- SG 20231124: ServiceRequest.performer -->
                         <xsl:for-each select="fhir:performer">
                             <xsl:for-each select="fhir:reference">
@@ -1215,16 +1216,16 @@ limitations under the License.
                             </xsl:for-each>
                         </xsl:for-each>
                         <!-- author (C-CDA Author Participation template) -->
-                        <xsl:if test="fhir:authoredOn">
-                            <!--<xsl:variable name="time">
+                        <!--<xsl:if test="fhir:authoredOn">
+                            <!-\-<xsl:variable name="time">
                                 <xsl:call-template name="Date2TS">
                                     <xsl:with-param name="date" select="fhir:authoredOn/@value" />
                                     <xsl:with-param name="includeTime" select="true()" />
                                 </xsl:call-template>
                             </xsl:variable>
-                            <time value="{$time}" />-->
+                            <time value="{$time}" />-\->
 
-                            <!-- SG 20231124: This comes from ServiceRequest.requester -->
+                            <!-\- SG 20231124: This comes from ServiceRequest.requester -\->
                             <xsl:choose>
                                 <xsl:when test="fhir:requester">
                                     <xsl:apply-templates select="fhir:requester" />
@@ -1233,8 +1234,9 @@ limitations under the License.
                                     <id nullFlavor="NI" />
                                 </xsl:otherwise>
                             </xsl:choose>
-                        </xsl:if>
-
+                        </xsl:if>-->
+                        <!-- author -->
+                        <xsl:apply-templates select="fhir:requester"/>
                     </observation>
                 </entry>
             </xsl:otherwise>

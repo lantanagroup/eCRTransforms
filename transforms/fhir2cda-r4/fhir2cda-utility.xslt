@@ -288,7 +288,7 @@ limitations under the License.
             </assignedEntity>
         </xsl:element>
     </xsl:template>
-
+    
     <xsl:template match="fhir:effectivePeriod | fhir:period | fhir:collectedPeriod | fhir:performedPeriod | fhir:valuePeriod">
         <!-- CDA element effectiveTime unless specified something else -->
         <xsl:param name="pElementName" select="'effectiveTime'" />

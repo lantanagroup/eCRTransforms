@@ -35,12 +35,6 @@ limitations under the License.
                         </xsl:choose>
                     </xsl:attribute>
                 </xsl:when>
-                <!-- SG 20231124: Removing this - not all addresses should default to WP (birthplace for one) -->
-                <!--<xsl:otherwise>
-          <xsl:attribute name="use">
-            <xsl:value-of select="'WP'"/>
-          </xsl:attribute>
-        </xsl:otherwise>-->
             </xsl:choose>
             <!-- Setting order for consistency and easier testing/compares -->
             <xsl:apply-templates mode="address" select="fhir:line">
@@ -53,6 +47,10 @@ limitations under the License.
             <xsl:apply-templates mode="address" select="fhir:state" />
             <xsl:apply-templates mode="address" select="fhir:postalCode" />
             <xsl:apply-templates mode="address" select="fhir:country" />
+            <xsl:apply-templates select="fhir:period">
+                <xsl:with-param name="pElementName" select="'useablePeriod'"/>
+                <xsl:with-param name="pXSIType" select="'IVL_TS'"/>
+            </xsl:apply-templates>
         </xsl:element>
     </xsl:template>
 

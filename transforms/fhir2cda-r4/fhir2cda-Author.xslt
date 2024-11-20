@@ -48,6 +48,16 @@ limitations under the License.
         </xsl:for-each>
     </xsl:template>
 
+    <!-- fhir:Patient -> cda:author -->
+    <xsl:template match="fhir:entry/fhir:resource/fhir:Patient" mode="author">
+        <xsl:param name="pAuthorParent" />
+        <xsl:param name="pAuthorParentId" />
+        <xsl:call-template name="make-author">
+            <xsl:with-param name="pAuthorParent" select="$pAuthorParent" />
+            <xsl:with-param name="pAuthorParentId" select="$pAuthorParentId" />
+        </xsl:call-template>
+    </xsl:template>
+
     <!-- fhir:Practitioner -> cda:author -->
     <xsl:template match="fhir:entry/fhir:resource/fhir:Practitioner" mode="author">
         <xsl:param name="pAuthorParent" />

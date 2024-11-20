@@ -86,7 +86,7 @@ limitations under the License.
                 <xsl:comment select="' [RR R1S1] Initial Public Health Case Report Reportability Response Document (RR) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition' or fhir:type/fhir:coding/fhir:code/@value = '55751-2'">
                 <xsl:comment select="' [C-CDA R1.1] US Realm Header '" />
                 <templateId root="2.16.840.1.113883.10.20.22.1.1" />
                 <xsl:comment select="' [C-CDA R2.1] US Realm Header (V3) '" />
@@ -651,7 +651,7 @@ limitations under the License.
             </xsl:when>
 
             <!-- SG 2023-04 eICR (updated for 3.1) -->
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history' or fhir:code/fhir:coding/fhir:code/@value = '420008001'">
                 <xsl:choose>
                     <xsl:when test="$gParamCDAeICRVersion = 'R1.1'">
                         <xsl:comment select="' [eICR R2 STU1.1] Travel History '" />

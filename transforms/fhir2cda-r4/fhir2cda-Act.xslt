@@ -702,7 +702,7 @@ limitations under the License.
   </xsl:template>
 
   <!-- fhir:Observation[us-ph-travel-history/travel-history] -> Travel History (Act) -->
-  <xsl:template match="fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']" mode="entry" priority="5">
+    <xsl:template match="fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']|fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '420008001']" mode="entry" priority="5">
     <entry>
       <act classCode="ACT" moodCode="EVN">
         <!-- templateId -->

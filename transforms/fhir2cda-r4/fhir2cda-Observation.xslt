@@ -196,7 +196,7 @@ limitations under the License.
                 </xsl:when>
                 <!-- SG 20240307: Catch any social history observations that don't have a LOINC code and add a empty LOINC code -->
                 <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
-               <xsl:when test="fhir:category[1]/fhir:coding/fhir:code/@value = 'social-history' and not(fhir:code/fhir:coding/fhir:system/@value = 'http://loinc.org')">
+                <xsl:when test="fhir:category[1]/fhir:coding/fhir:code/@value = 'social-history' and not(fhir:code/fhir:coding/fhir:system/@value = 'http://loinc.org')">
                     <xsl:variable name="vCodeWithLOINC">
                         <code xmlns="http://hl7.org/fhir">
                             <xsl:for-each select="fhir:code/fhir:coding">
@@ -239,7 +239,7 @@ limitations under the License.
             <!-- repeatNumber -->
             <!-- languageCode -->
             <!-- value -->
-            
+
             <!-- Ming to handle the value is missing -->
             <xsl:choose>
                 <!-- Check and apply templates for valueCodeableConcept -->
@@ -252,7 +252,7 @@ limitations under the License.
                         </xsl:apply-templates>
                     </xsl:for-each>
                 </xsl:when>
-                
+
                 <!-- Check and process valueBoolean -->
                 <xsl:when test="fhir:valueBoolean">
                     <xsl:for-each select="fhir:valueBoolean">
@@ -263,7 +263,7 @@ limitations under the License.
                         </value>
                     </xsl:for-each>
                 </xsl:when>
-                
+
                 <!-- Check and process valueString -->
                 <xsl:when test="fhir:valueString">
                     <xsl:for-each select="fhir:valueString">
@@ -272,12 +272,12 @@ limitations under the License.
                         </value>
                     </xsl:for-each>
                 </xsl:when>
-                
+
                 <!-- Check and apply templates for valueQuantity -->
                 <xsl:when test="fhir:valueQuantity">
                     <xsl:apply-templates select="fhir:valueQuantity" />
                 </xsl:when>
-                
+
                 <!-- Check and apply templates for valueDateTime -->
                 <xsl:when test="fhir:valueDateTime">
                     <xsl:apply-templates select="fhir:valueDateTime">
@@ -285,16 +285,20 @@ limitations under the License.
                         <xsl:with-param name="pXSIType" select="'TS'" />
                     </xsl:apply-templates>
                 </xsl:when>
-                
+
+                <xsl:when test="fhir:dataAbsentReason">
+                    <value xsi:type="CD">
+                        <xsl:apply-templates select="fhir:dataAbsentReason" mode="data-absent-reason" />
+                    </value>
+                </xsl:when>
+
                 <!-- Default case: none of the expected elements are present -->
                 <xsl:otherwise>
-                    <value xsi:type="NULL">
-                        <xsl:attribute name="value">No valid value found</xsl:attribute>
-                    </value>
+                    <value xsi:type="CD" nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
-            
-            
+
+
             <!-- Ming Domment out 
             <xsl:for-each select="fhir:valueCodeableConcept">
                 <xsl:apply-templates select=".">
@@ -322,7 +326,7 @@ limitations under the License.
                 <xsl:with-param name="pXSIType" select="'TS'" />
             </xsl:apply-templates>
             -->
-            
+
             <!-- interpretationCode -->
             <xsl:for-each select="fhir:interpretation">
                 <xsl:call-template name="CodeableConcept2CD">
@@ -1262,7 +1266,7 @@ limitations under the License.
                                 <xsl:apply-templates mode="display" select="./fhir:display" />
                             </targetSiteCode>
                         </xsl:for-each>
-                        
+
                         <!-- SG 20231124: ServiceRequest.performer -->
                         <xsl:for-each select="fhir:performer">
                             <xsl:for-each select="fhir:reference">
@@ -1298,7 +1302,7 @@ limitations under the License.
                             </xsl:choose>
                         </xsl:if>-->
                         <!-- author -->
-                        <xsl:apply-templates select="fhir:requester"/>
+                        <xsl:apply-templates select="fhir:requester" />
                     </observation>
                 </entry>
             </xsl:otherwise>

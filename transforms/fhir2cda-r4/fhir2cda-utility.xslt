@@ -723,6 +723,22 @@ limitations under the License.
             </xsl:choose>
         </xsl:attribute>
     </xsl:template>
+    
+    <xsl:template match="fhir:dataAbsentReason" mode="data-absent-reason">
+        <xsl:attribute name="nullFlavor">
+            <xsl:choose>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'unknown'">UNK</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'not-applicable'">NA</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'masked'">MSK</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'negative-infinity'">NINF</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'positive-infinity'">PINF</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'asked-unknown'">ASKU</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'temp-unknown'">NAV</xsl:when>
+                <xsl:when test="fhir:coding/fhir:code/@value = 'not-asked'">NASK</xsl:when>
+                <xsl:otherwise>UNK</xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+    </xsl:template>
 
     <xsl:template name="debug-element-stack">
         <xsl:message>

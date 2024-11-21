@@ -786,6 +786,12 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.0] Medication Information (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09" />
             </xsl:when>
+            
+            <!-- MedicationInformation -->
+            <xsl:when test="local-name() = 'medicationReference'">
+                <xsl:comment select="' [C-CDA R2.0] Medication Information (V2) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09" />
+            </xsl:when>
 
             <!--  Reportability Response Subject act -->
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '88084-9'">

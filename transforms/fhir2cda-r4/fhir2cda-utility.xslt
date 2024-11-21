@@ -89,10 +89,26 @@ limitations under the License.
         </xsl:variable>
         <xsl:variable name="vAssociatedTriggerExtension" select="$vTriggerEntry/fhir:extension" />
 
-        <!-- Get all codes in the profile -->
-        <xsl:variable name="vCodesToMatch" select="descendant::*/fhir:coding/fhir:code/@value" />
+        <!-- Get all codes in the profile, if this contains a MedicationReference, use the codes from Medication instead-->
+        <xsl:variable name="vCodesToMatch">
+            <xsl:choose>
+                <xsl:when test="fhir:medicationReference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="fhir:medicationReference/fhir:reference/@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="descendant::*/fhir:coding/fhir:code/@value"/>
+                    <!--<xsl:variable name="vCodesToMatch" select="descendant::*/fhir:coding/fhir:code/@value" />-->
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <!-- Check current Resource code against the trigger codes in the associated extensions -->
-        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />
+<!--        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-->
+        <xsl:copy-of select="$vAssociatedTriggerExtension[contains($vCodesToMatch, fhir:extension//fhir:code/@value)]" />
     </xsl:template>
 
     <xsl:template name="get-associated-trigger-extension">
@@ -327,7 +343,7 @@ limitations under the License.
                     </high>
                 </xsl:when>
                 <xsl:otherwise>
-                    <high nullFlavor="UNK"/>
+                    <high nullFlavor="UNK" />
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:element>

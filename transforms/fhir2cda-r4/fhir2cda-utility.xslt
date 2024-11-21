@@ -98,16 +98,16 @@ limitations under the License.
                             <xsl:with-param name="referenceURI" select="fhir:medicationReference/fhir:reference/@value" />
                         </xsl:call-template>
                     </xsl:variable>
-                    <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value"/>
+                    <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="descendant::*/fhir:coding/fhir:code/@value"/>
+                    <xsl:value-of select="descendant::*/fhir:coding/fhir:code/@value" />
                     <!--<xsl:variable name="vCodesToMatch" select="descendant::*/fhir:coding/fhir:code/@value" />-->
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <!-- Check current Resource code against the trigger codes in the associated extensions -->
-<!--        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-->
+        <!--        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-->
         <xsl:copy-of select="$vAssociatedTriggerExtension[contains($vCodesToMatch, fhir:extension//fhir:code/@value)]" />
     </xsl:template>
 
@@ -712,18 +712,44 @@ limitations under the License.
     </xsl:template>
 
     <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
-        <xsl:attribute name="nullFlavor">
-            <xsl:choose>
-                <xsl:when test="fhir:valueCode/@value = 'unknown'">UNK</xsl:when>
-                <xsl:when test="fhir:valueCode/@value = 'not-applicable'">NA</xsl:when>
-                <xsl:when test="fhir:valueCode/@value = 'masked'">MSK</xsl:when>
-                <xsl:when test="fhir:valueCode/@value = 'negative-infinity'">NINF</xsl:when>
-                <xsl:when test="fhir:valueCode/@value = 'positive-infinity'">PINF</xsl:when>
-                <xsl:otherwise>UNK</xsl:otherwise>
-            </xsl:choose>
-        </xsl:attribute>
+        <xsl:param name="pElementName">code</xsl:param>
+        <xsl:param name="pXSIType" />
+        <xsl:element name="{$pElementName}">
+            <xsl:if test="$pXSIType">
+                <xsl:attribute name="xsi:type" select="$pXSIType" />
+            </xsl:if>
+            <xsl:attribute name="nullFlavor">
+                <xsl:choose>
+                    <xsl:when test="fhir:valueCode/@value = 'unknown'">UNK</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'not-applicable'">NA</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'masked'">MSK</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'negative-infinity'">NINF</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'positive-infinity'">PINF</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'asked-unknown'">ASKU</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'temp-unknown'">NAV</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'not-asked'">NASK</xsl:when>
+                    <xsl:otherwise>UNK</xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </xsl:element>
     </xsl:template>
     
+    <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only">
+            <xsl:attribute name="nullFlavor">
+                <xsl:choose>
+                    <xsl:when test="fhir:valueCode/@value = 'unknown'">UNK</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'not-applicable'">NA</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'masked'">MSK</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'negative-infinity'">NINF</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'positive-infinity'">PINF</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'asked-unknown'">ASKU</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'temp-unknown'">NAV</xsl:when>
+                    <xsl:when test="fhir:valueCode/@value = 'not-asked'">NASK</xsl:when>
+                    <xsl:otherwise>UNK</xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+    </xsl:template>
+
     <xsl:template match="fhir:dataAbsentReason" mode="data-absent-reason">
         <xsl:attribute name="nullFlavor">
             <xsl:choose>

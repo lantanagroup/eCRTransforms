@@ -16,7 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir sdtc" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir sdtc" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+    xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:import href="fhir2cda-utility.xslt" />
     <xsl:import href="fhir2cda-TS.xslt" />
@@ -144,7 +145,7 @@ limitations under the License.
                             </guardianPerson>
                         </guardian>
                     </xsl:for-each>
-                    
+
                     <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-birthPlace']" />
 
                     <xsl:choose>
@@ -234,11 +235,11 @@ limitations under the License.
 
     <!-- birthplace -->
     <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-birthPlace']">
-        <xsl:for-each select="fhir:valueAddress">        
+        <xsl:for-each select="fhir:valueAddress">
             <birthplace>
                 <place>
-                    <xsl:call-template name="get-addr" >
-                        <xsl:with-param name="pElement" select="."/>
+                    <xsl:call-template name="get-addr">
+                        <xsl:with-param name="pElement" select="." />
                     </xsl:call-template>
                 </place>
             </birthplace>

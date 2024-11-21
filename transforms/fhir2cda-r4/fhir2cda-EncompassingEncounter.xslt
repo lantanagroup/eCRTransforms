@@ -16,9 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xhtml" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3"
-    xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:xhtml="http://www.w3.org/1999/xhtml"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xhtml" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:import href="fhir2cda-utility.xslt" />
     <xsl:import href="fhir2cda-CD.xslt" />
@@ -88,9 +87,9 @@ limitations under the License.
                 <!-- SG 20231126: Added dischargeDisposition processing -->
                 <xsl:for-each select="fhir:hospitalization/fhir:dischargeDisposition">
                     <!-- <dischargeDispositionCode> -->
-                        <xsl:apply-templates select=".">
-                            <xsl:with-param name="pElementName" select="'dischargeDispositionCode'" />
-                     </xsl:apply-templates>
+                    <xsl:apply-templates select=".">
+                        <xsl:with-param name="pElementName" select="'dischargeDispositionCode'" />
+                    </xsl:apply-templates>
                     <!-- </dischargeDispositionCode> -->
                 </xsl:for-each>
 
@@ -133,11 +132,8 @@ limitations under the License.
                              For now, if they are not in that short list, will default to CON (not ideal!!)-->
                         <xsl:variable name="vType">
                             <xsl:choose>
-                                <xsl:when
-                                    test="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value">
-                                    <xsl:value-of
-                                        select="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value"
-                                     />
+                                <xsl:when test="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value">
+                                    <xsl:value-of select="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value" />
                                 </xsl:when>
                                 <xsl:otherwise>CON</xsl:otherwise>
                             </xsl:choose>
@@ -208,7 +204,18 @@ limitations under the License.
                                     </xsl:choose>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:apply-templates select="$vLocation/fhir:Location/fhir:type" />
+                            <!-- healthCareFacility/code -->
+                            <xsl:variable name="vMergedTypes">
+                                <type xmlns="http://hl7.org/fhir">
+                                    <xsl:copy-of select="$vLocation/fhir:Location/fhir:type/fhir:coding" />
+                                    <text xmlns="http://hl7.org/fhir">
+                                        <xsl:attribute name="value" select="string-join($vLocation/fhir:Location/fhir:type/fhir:text/@value, ', ')"/>
+                                        <!--<xsl:value-of select="string-join($vLocation/fhir:Location/fhir:type/fhir:text/@value, ', ')" />-->
+                                    </text>
+                                </type>
+                            </xsl:variable>
+<!--                            <xsl:apply-templates select="$vLocation/fhir:Location/fhir:type" />-->
+                            <xsl:apply-templates select="$vMergedTypes/fhir:type" />
                             <location>
                                 <xsl:call-template name="get-org-name">
                                     <xsl:with-param name="pElement" select="$vLocation/fhir:Location/fhir:name" />
@@ -274,11 +281,11 @@ limitations under the License.
         <!-- parameter to pass to the named template to indicate whether it should allow returning nothing (i.e. no nullFlavor filled element) 
              if the FHIR element doesn't exist - the responsibleParty requires some elements, whereas there aren't the same constrains on the encounterParticipant-->
         <xsl:param name="pNoNullAllowed" select="false()" />
-        
+
         <xsl:variable name="vCurrentIg">
             <xsl:call-template name="get-current-ig" />
         </xsl:variable>
-        
+
         <assignedEntity>
             <!-- new 7/12/2021 -->
             <xsl:choose>
@@ -421,8 +428,7 @@ limitations under the License.
         <xsl:copy-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/fhir:Practitioner" />
     </xsl:template>
 
-    <xsl:template match="fhir:individual/fhir:reference[not(contains(@value, 'Practitioner/')) and not(contains(@value, 'PractitionerRole/'))]"
-        mode="encounter-participant">
+    <xsl:template match="fhir:individual/fhir:reference[not(contains(@value, 'Practitioner/')) and not(contains(@value, 'PractitionerRole/'))]" mode="encounter-participant">
         <xsl:for-each select=".">
             <xsl:variable name="referenceURI">
                 <xsl:call-template name="resolve-to-full-url">

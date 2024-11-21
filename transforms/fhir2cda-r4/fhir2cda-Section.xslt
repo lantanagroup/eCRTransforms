@@ -56,7 +56,6 @@ limitations under the License.
           </text>
         </xsl:when>
         <xsl:otherwise>
-
           <xsl:choose>
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '75310-3'">
               <text>
@@ -66,7 +65,6 @@ limitations under the License.
               </text>
             </xsl:when>
           </xsl:choose>
-
         </xsl:otherwise>
       </xsl:choose>
 

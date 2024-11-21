@@ -53,6 +53,11 @@ limitations under the License.
 					<xsl:value-of select="xhtml:div/xhtml:p"/>
 				</paragraph>
 			</xsl:when>
+		    <xsl:when test="xhtml:div">
+		        <paragraph>
+		            <xsl:value-of select="xhtml:div"/>
+		        </paragraph>
+		    </xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	

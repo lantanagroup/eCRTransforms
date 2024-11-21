@@ -112,7 +112,7 @@ limitations under the License.
                     <xsl:value-of select="@value" />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
-                    <city nullFlavor="UNK"/>
+                    <xsl:attribute name="nullFlavor" select="'UNK'"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>
@@ -126,7 +126,7 @@ limitations under the License.
                     <xsl:value-of select="@value" />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
-                    <state nullFlavor="UNK"/>
+                    <xsl:attribute name="nullFlavor" select="'UNK'"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>
@@ -140,7 +140,7 @@ limitations under the License.
                     <xsl:value-of select="@value" />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
-                    <postalCode nullFlavor="UNK"/>
+                    <xsl:attribute name="nullFlavor" select="'UNK'"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>
@@ -154,7 +154,7 @@ limitations under the License.
                     <xsl:value-of select="@value" />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
-                    <country nullFlavor="UNK"/>
+                    <xsl:attribute name="nullFlavor" select="'UNK'"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>
@@ -169,8 +169,7 @@ limitations under the License.
                     <xsl:value-of select="@value" />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
-                    <streetAddressLine nullFlavor="UNK"/>
-                    
+                    <xsl:attribute name="nullFlavor" select="'UNK'"/>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>

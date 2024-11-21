@@ -225,8 +225,11 @@ limitations under the License.
             <!-- effectiveTime -->
             <!-- MD: add fhir:issued -->
             <xsl:choose>
-                <xsl:when test="fhir:effectiveDateTime | fhir:effectivePeriod | fhir:effectiveTime | fhir:effectiveInstant | fhir:issued">
-                    <xsl:apply-templates select="fhir:effectiveDateTime | fhir:effectivePeriod | fhir:effectiveTime | fhir:effectiveInstant | fhir:issued" />
+                <xsl:when test="fhir:effectiveDateTime | fhir:effectivePeriod | fhir:effectiveTime | fhir:effectiveInstant">
+                    <xsl:apply-templates select="fhir:effectiveDateTime | fhir:effectivePeriod | fhir:effectiveTime | fhir:effectiveInstant" />
+                </xsl:when>
+                <xsl:when test="fhir:issued">
+                    <xsl:apply-templates select="fhir:issued" />
                 </xsl:when>
                 <xsl:otherwise>
                     <effectiveTime nullFlavor="NI" />

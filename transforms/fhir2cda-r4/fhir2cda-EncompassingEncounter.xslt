@@ -57,14 +57,19 @@ limitations under the License.
                 <!-- For some reason eICR is different than PCP for encompassingEncounter.code -->
                 <xsl:choose>
                     <xsl:when test="$vCurrentIg = 'eICR' or $vCurrentIg = 'RR'">
-                        <code>
-                            <xsl:apply-templates select="fhir:class" />
-                            <xsl:for-each select="fhir:type">
-                                <xsl:apply-templates select=".">
-                                    <xsl:with-param name="pElementName" select="'translation'" />
-                                </xsl:apply-templates>
-                            </xsl:for-each>
-                        </code>
+                        <!-- Merging class and type into one data element, and FHIR allows multiple types - merge them into a variable and process -->
+                        <xsl:variable name="vMergedTypes">
+                            <code xmlns="http://hl7.org/fhir">
+                                <xsl:copy-of select="fhir:class/fhir:coding" />
+                                <xsl:copy-of select="fhir:type/fhir:coding" />
+                                <xsl:if test="fhir:class/fhir:text or fhir:type/fhir:text">
+                                    <text xmlns="http://hl7.org/fhir">
+                                        <xsl:attribute name="value" select="string-join(fhir:class/fhir:text/@value | fhir:type/fhir:text/@value, ', ')" />
+                                    </text>
+                                </xsl:if>
+                            </code>
+                        </xsl:variable>
+                        <xsl:apply-templates select="$vMergedTypes/fhir:code" />
                     </xsl:when>
                     <xsl:when test="$vCurrentIg eq 'DentalConsultNote' or $vCurrentIg eq 'DentalReferalNote'">
                         <code>
@@ -206,16 +211,17 @@ limitations under the License.
                                 </xsl:otherwise>
                             </xsl:choose>
                             <!-- healthCareFacility/code -->
+                            <!-- FHIR type allows more than one so merge them into a variable, concat any texts and process -->
                             <xsl:variable name="vMergedTypes">
                                 <type xmlns="http://hl7.org/fhir">
                                     <xsl:copy-of select="$vLocation/fhir:Location/fhir:type/fhir:coding" />
-                                    <text xmlns="http://hl7.org/fhir">
-                                        <xsl:attribute name="value" select="string-join($vLocation/fhir:Location/fhir:type/fhir:text/@value, ', ')"/>
-                                        <!--<xsl:value-of select="string-join($vLocation/fhir:Location/fhir:type/fhir:text/@value, ', ')" />-->
-                                    </text>
+                                    <xsl:if test="$vLocation/fhir:Location/fhir:type/fhir:text">
+                                        <text xmlns="http://hl7.org/fhir">
+                                            <xsl:attribute name="value" select="string-join($vLocation/fhir:Location/fhir:type/fhir:text/@value, ', ')" />
+                                        </text>
+                                    </xsl:if>
                                 </type>
                             </xsl:variable>
-<!--                            <xsl:apply-templates select="$vLocation/fhir:Location/fhir:type" />-->
                             <xsl:apply-templates select="$vMergedTypes/fhir:type" />
                             <location>
                                 <xsl:call-template name="get-org-name">

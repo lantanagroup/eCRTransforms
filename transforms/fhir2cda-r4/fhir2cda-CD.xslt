@@ -97,7 +97,7 @@ limitations under the License.
         <xsl:param name="pXSIType" />
         <xsl:param name="pTriggerExtension" />
         <xsl:choose>
-            
+
             <xsl:when test="fhir:coding | fhir:valueCoding">
                 <xsl:element name="{$pElementName}">
                     <xsl:if test="$pXSIType">
@@ -161,6 +161,7 @@ limitations under the License.
     <xsl:template match="fhir:coding | fhir:valueCoding | fhir:class | fhir:item/fhir:code | fhir:dischargeDisposition">
         <xsl:param name="pElementName" />
         <xsl:param name="pTriggerExtension" />
+        
         <xsl:call-template name="debug-element-stack" />
         <xsl:choose>
             <!-- If this is a nullFlavor we need to process differently -->
@@ -170,8 +171,8 @@ limitations under the License.
                 </xsl:if>
                 <xsl:attribute name="nullFlavor" select="fhir:code/@value" />
             </xsl:when>
-            <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
-                <xsl:apply-templates select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only"/>
+            <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
+                <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
             </xsl:when>
             <xsl:otherwise>
                 <xsl:variable name="codeSystem">

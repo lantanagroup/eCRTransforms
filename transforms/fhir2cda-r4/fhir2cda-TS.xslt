@@ -52,7 +52,8 @@ limitations under the License.
         </xsl:element>
     </xsl:template>-->
 
-    <xsl:template match="fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted | fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime | fhir:issued">
+    <xsl:template
+        match="fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted | fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime | fhir:issued">
         <!-- CDA element effectiveTime unless specified something else -->
         <xsl:param name="pElementName" select="'effectiveTime'" />
         <!-- This might be cast to a specific xsi-type in the cda -->
@@ -66,12 +67,19 @@ limitations under the License.
             <xsl:if test="$pOperator">
                 <xsl:attribute name="operator" select="$pOperator" />
             </xsl:if>
-            <xsl:attribute name="value">
-                <xsl:call-template name="Date2TS">
-                    <xsl:with-param name="date" select="@value" />
-                    <xsl:with-param name="includeTime" select="true()" />
-                </xsl:call-template>
-            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="value">
+                        <xsl:call-template name="Date2TS">
+                            <xsl:with-param name="date" select="@value" />
+                            <xsl:with-param name="includeTime" select="true()" />
+                        </xsl:call-template>
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
 

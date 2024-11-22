@@ -35,6 +35,7 @@ limitations under the License.
         <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html -->
         <xsl:variable name="vConvertedSystem">
             <xsl:choose>
+                <xsl:when test="fhir:system/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">NULLFLAVOR</xsl:when>
                 <xsl:when test="fhir:system/@value">
                     <xsl:call-template name="convertURI">
                         <xsl:with-param name="uri" select="fhir:system/@value" />
@@ -66,6 +67,9 @@ limitations under the License.
 
         <xsl:element name="{$pElementName}">
             <xsl:choose>
+                <xsl:when test="$vConvertedSystem='NULLFLAVOR' and $vConvertedValue='NULLFLAVOR'">
+                    <xsl:apply-templates select="fhir:system/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                </xsl:when>
                 <xsl:when test="starts-with(fhir:value/@value, 'urn:uuid:') and not(fhir:system/@value)">
                     <xsl:attribute name="root" select="substring-after(fhir:value/@value, 'urn:uuid:')" />
                 </xsl:when>

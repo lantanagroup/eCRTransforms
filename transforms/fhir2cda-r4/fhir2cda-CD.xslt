@@ -49,7 +49,7 @@ limitations under the License.
 
     <!--    <xsl:import href="fhir2cda-utility.xslt" />-->
 
-    <xsl:template name="CodeableConcept2CD">
+    <!--<xsl:template name="CodeableConcept2CD">
         <xsl:param name="pElementName">code</xsl:param>
         <xsl:param name="pXSIType" />
         <xsl:choose>
@@ -88,7 +88,7 @@ limitations under the License.
                 </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
 
     <!-- Creating a match template similar to the above for more flexibility -->
     <xsl:template match="fhir:*[fhir:coding] | fhir:*[fhir:valueCoding] | fhir:code[fhir:text] | fhir:valueCodeableConcept | fhir:medicationCodeableConcept | fhir:route | fhir:vaccineCode">

@@ -78,7 +78,8 @@ limitations under the License.
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:for-each select="fhir:type">
-                            <xsl:call-template name="CodeableConcept2CD" />
+                            <xsl:apply-templates select="." />
+                            <!--<xsl:call-template name="CodeableConcept2CD" />-->
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>

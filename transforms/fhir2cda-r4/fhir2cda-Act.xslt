@@ -179,7 +179,8 @@ limitations under the License.
                 <participant typeCode="CSM">
                   <participantRole classCode="MANU">
                     <playingEntity classCode="MMAT">
-                      <xsl:call-template name="CodeableConcept2CD" />
+                        <xsl:apply-templates select="."/>
+<!--                      <xsl:call-template name="CodeableConcept2CD" />-->
                     </playingEntity>
                   </participantRole>
                 </participant>
@@ -366,7 +367,8 @@ limitations under the License.
       <templateId root="2.16.840.1.113883.10.20.37.3.7" extension="2017-08-01" />
       <xsl:call-template name="get-id" />
       <xsl:for-each select="fhir:description">
-        <xsl:call-template name="CodeableConcept2CD" />
+        <!--<xsl:call-template name="CodeableConcept2CD" />-->
+          <xsl:apply-templates select="."/>
       </xsl:for-each>
 
       <xsl:apply-templates select="fhir:status" mode="goal" />

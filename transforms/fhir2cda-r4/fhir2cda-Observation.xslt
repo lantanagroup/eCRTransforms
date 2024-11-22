@@ -159,9 +159,11 @@ limitations under the License.
             </xsl:apply-templates>
             <!-- interpretationCode -->
             <xsl:for-each select="fhir:interpretation">
-                <xsl:call-template name="CodeableConcept2CD">
+                <!--<xsl:call-template name="CodeableConcept2CD">-->
+                <xsl:apply-templates select=".">
                     <xsl:with-param name="pElementName">interpretationCode</xsl:with-param>
-                </xsl:call-template>
+                </xsl:apply-templates>
+                <!--</xsl:call-template>-->
             </xsl:for-each>
             <xsl:for-each select="fhir:component">
                 <entryRelationship> </entryRelationship>
@@ -328,11 +330,13 @@ limitations under the License.
             -->
 
             <!-- interpretationCode -->
-            <xsl:for-each select="fhir:interpretation">
-                <xsl:call-template name="CodeableConcept2CD">
-                    <xsl:with-param name="pElementName">interpretationCode</xsl:with-param>
-                </xsl:call-template>
-            </xsl:for-each>
+            <!--<xsl:for-each select="fhir:interpretation">-->
+            <!--<xsl:call-template name="CodeableConcept2CD">-->
+            <xsl:apply-templates select="fhir:interpretation">
+                <xsl:with-param name="pElementName">interpretationCode</xsl:with-param>
+            </xsl:apply-templates>
+            <!--</xsl:call-template>-->
+            <!--</xsl:for-each>-->
             <!-- methodCode -->
             <xsl:apply-templates select="fhir:method">
                 <xsl:with-param name="pElementName" select="'methodCode'" />
@@ -871,7 +875,8 @@ limitations under the License.
                 <templateId extension="2021-01-01" root="2.16.840.1.113883.10.20.15.2.3.48" />
                 <id nullFlavor="NI" />
                 <xsl:for-each select="fhir:extension[@url = 'TribeName']">
-                    <xsl:call-template name="CodeableConcept2CD" />
+                    <xsl:apply-templates select="." />
+                    <!--<xsl:call-template name="CodeableConcept2CD" />-->
                 </xsl:for-each>
                 <statusCode code="completed" />
                 <effectiveTime nullFlavor="NI" />
@@ -906,7 +911,8 @@ limitations under the License.
             <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.37.3.16" />
             <xsl:call-template name="get-id" />
             <xsl:for-each select="fhir:code">
-                <xsl:call-template name="CodeableConcept2CD" />
+                <xsl:apply-templates select="." />
+                <!--<xsl:call-template name="CodeableConcept2CD" />-->
             </xsl:for-each>
             <statusCode code="completed" />
             <effectiveTime>
@@ -944,10 +950,12 @@ limitations under the License.
             </effectiveTime>
             <xsl:message>Outputting infection-type observation</xsl:message>
             <xsl:for-each select="fhir:answer[fhir:valueCoding]">
-                <xsl:call-template name="CodeableConcept2CD">
+                <!--<xsl:call-template name="CodeableConcept2CD">-->
+                <xsl:apply-templates select=".">
                     <xsl:with-param name="pElementName">value</xsl:with-param>
                     <xsl:with-param name="pXSIType">CD</xsl:with-param>
-                </xsl:call-template>
+                </xsl:apply-templates>
+                <!--</xsl:call-template>-->
             </xsl:for-each>
             <xsl:apply-templates mode="diagnosis" select="//fhir:item[fhir:linkId[@value = 'criteria-used']]" />
             <xsl:apply-templates mode="condition" select="//fhir:item[fhir:linkId[@value = 'infection-condition']]" />
@@ -1056,9 +1064,11 @@ limitations under the License.
                 </value>
             </xsl:for-each>
             <xsl:for-each select="fhir:interpretation">
-                <xsl:call-template name="CodeableConcept2CD">
+                <!--<xsl:call-template name="CodeableConcept2CD">-->
+                <xsl:apply-templates select=".">
                     <xsl:with-param name="pElementName">interpretationCode</xsl:with-param>
-                </xsl:call-template>
+                </xsl:apply-templates>
+                <!--</xsl:call-template>-->
             </xsl:for-each>
         </observation>
     </xsl:template>
@@ -1318,10 +1328,12 @@ limitations under the License.
             <statusCode code="completed" />
             <effectiveTime nullFlavor="NA" />
             <xsl:for-each select="fhir:answer[fhir:valueCoding]">
-                <xsl:call-template name="CodeableConcept2CD">
+                <!--<xsl:call-template name="CodeableConcept2CD">-->
+                <xsl:apply-templates select=".">
                     <xsl:with-param name="pElementName">value</xsl:with-param>
                     <xsl:with-param name="pXSIType">CD</xsl:with-param>
-                </xsl:call-template>
+                </xsl:apply-templates>
+                <!--</xsl:call-template>-->
             </xsl:for-each>
         </observation>
     </xsl:template>
@@ -1336,10 +1348,12 @@ limitations under the License.
             <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
             <statusCode code="completed" />
             <xsl:for-each select="fhir:answer[fhir:valueCoding]">
-                <xsl:call-template name="CodeableConcept2CD">
+                <!--<xsl:call-template name="CodeableConcept2CD">-->
+                <xsl:apply-templates select=".">
                     <xsl:with-param name="pElementName">value</xsl:with-param>
                     <xsl:with-param name="pXSIType">CD</xsl:with-param>
-                </xsl:call-template>
+                </xsl:apply-templates>
+                <!--</xsl:call-template>-->
             </xsl:for-each>
         </observation>
     </xsl:template>

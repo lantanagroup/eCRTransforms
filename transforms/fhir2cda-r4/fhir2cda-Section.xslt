@@ -432,7 +432,6 @@ limitations under the License.
       </text>
       <xsl:for-each select="//fhir:item[fhir:linkId/@value = 'event-type']">
         <entry typeCode="DRIV">
-          <!-- somewhere/somehow in CodeableConcept2CD, entryRelationship/organizer/component/observation/value@codeSystem is pulling url, not OID as expected. Entry...value@codeSystem is ok though -->
           <xsl:apply-templates select="." mode="infection" />
         </entry>
       </xsl:for-each>

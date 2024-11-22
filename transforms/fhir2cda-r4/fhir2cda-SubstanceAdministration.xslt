@@ -665,7 +665,8 @@ limitations under the License.
                         <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.23" />
                         <id root="4b355395-790c-405d-826f-f5a8e242db89" />
                         <manufacturedMaterial>
-                            <xsl:call-template name="CodeableConcept2CD" />
+                            <xsl:apply-templates select="." />
+                            <!--<xsl:call-template name="CodeableConcept2CD" />-->
                         </manufacturedMaterial>
                     </manufacturedProduct>
                 </consumable>

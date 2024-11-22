@@ -91,7 +91,8 @@ limitations under the License.
             </xsl:choose>
 
             <xsl:for-each select="fhir:type">
-                <xsl:call-template name="CodeableConcept2CD" />
+                <xsl:apply-templates select="."/>
+                <!--<xsl:call-template name="CodeableConcept2CD" />-->
             </xsl:for-each>
             <!-- SG 20210701: Where are the other IG titles? Added a choice around this -->
             <xsl:choose>
@@ -460,10 +461,12 @@ limitations under the License.
                         <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
                         <statusCode code="completed" />
                         <xsl:for-each select="fhir:answer[fhir:valueCoding]">
-                            <xsl:call-template name="CodeableConcept2CD">
+                            <!--<xsl:call-template name="CodeableConcept2CD">-->
+                            <xsl:apply-templates select=".">
                                 <xsl:with-param name="pElementName">value</xsl:with-param>
                                 <xsl:with-param name="pXSIType">CD</xsl:with-param>
-                            </xsl:call-template>
+                            </xsl:apply-templates>
+                            <!--</xsl:call-template>-->
                         </xsl:for-each>
                     </observation>
                 </component>

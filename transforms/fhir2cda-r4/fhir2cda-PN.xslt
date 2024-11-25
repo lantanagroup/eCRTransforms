@@ -16,42 +16,46 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3"
-   xmlns:lcg="http://www.lantanagroup.com" xmlns:xslt="http://www.w3.org/1999/XSL/Transform"
-   xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" 
-   version="2.0"
-   
-   exclude-result-prefixes="lcg xsl cda fhir">
-  
-  <!-- (Generic) Name -->
-  <xsl:template match="fhir:name">
-    <xsl:param name="elementName" select="'name'" />
-    <xsl:element name="{$elementName}">
-      <xsl:if test="fhir:use">
-        <xsl:attribute name="use">
-          <xsl:choose>
-            <xsl:when test="fhir:use/@value = 'usual'">L</xsl:when>
-            <xsl:when test="fhir:use/@value = 'official'">L</xsl:when>
-            <xsl:when test="fhir:use/@value = 'nickname'">P</xsl:when>
-            <!-- Not sure of the exact condition of when to use this label -->
-            <xsl:when test="fhir:use/@value = 'maiden'">BR</xsl:when>
-          </xsl:choose>
-        </xsl:attribute>
-      </xsl:if>
-      <!-- Setting order for consistency and easier testing/compares -->
-      <!-- **TODO** map all fhir name elements to cda name elements -->
-      <xsl:apply-templates select="fhir:given" mode="name"/>
-      <xsl:apply-templates select="fhir:family" mode="name" />
-      <xsl:apply-templates select="fhir:suffix" mode="name"/>
-    </xsl:element>
-  </xsl:template>
-  
-  <xsl:template match="fhir:*" mode="name">
-    <xsl:param name="pElementName">
-      <xsl:value-of select="local-name(.)" />
-    </xsl:param>
-    <xsl:element name="{$pElementName}">
-      <xsl:value-of select="@value" />
-    </xsl:element>
-  </xsl:template>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:xslt="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3"
+    xmlns:fhir="http://hl7.org/fhir" version="2.0" exclude-result-prefixes="lcg xsl cda fhir">
+
+    <!-- (Generic) Name -->
+    <xsl:template match="fhir:name">
+        <xsl:param name="elementName" select="'name'" />
+        <xsl:element name="{$elementName}">
+            <xsl:choose>
+                <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
+                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="fhir:use">
+                        <xsl:attribute name="use">
+                            <xsl:choose>
+                                <xsl:when test="fhir:use/@value = 'usual'">L</xsl:when>
+                                <xsl:when test="fhir:use/@value = 'official'">L</xsl:when>
+                                <xsl:when test="fhir:use/@value = 'nickname'">P</xsl:when>
+                                <!-- Not sure of the exact condition of when to use this label -->
+                                <xsl:when test="fhir:use/@value = 'maiden'">BR</xsl:when>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <!-- Setting order for consistency and easier testing/compares -->
+                    <!-- **TODO** map all fhir name elements to cda name elements -->
+                    <xsl:apply-templates select="fhir:given" mode="name" />
+                    <xsl:apply-templates select="fhir:family" mode="name" />
+                    <xsl:apply-templates select="fhir:suffix" mode="name" />
+                </xsl:otherwise>
+            </xsl:choose>
+            
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="fhir:*" mode="name">
+        <xsl:param name="pElementName">
+            <xsl:value-of select="local-name(.)" />
+        </xsl:param>
+        <xsl:element name="{$pElementName}">
+            <xsl:value-of select="@value" />
+        </xsl:element>
+    </xsl:template>
 </xsl:stylesheet>

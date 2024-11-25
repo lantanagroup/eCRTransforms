@@ -31,10 +31,6 @@ limitations under the License.
 
     <!-- FHIR Composition -> CDA ClinicalDocument -->
     <xsl:template match="fhir:Composition">
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <!--<xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>-->
         <xsl:variable name="docId" select="lower-case(uuid:get-uuid())" />
         <ClinicalDocument>
             <realmCode code="US" />

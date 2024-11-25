@@ -157,7 +157,7 @@ limitations under the License.
           </xsl:choose>
           <xsl:choose>
             <xsl:when test="fhir:code/fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/cda-negated-code'">
-              <xsl:comment>TODO: Replace line below with code from extension http://hl7.org/fhir/StructureDefinition/cda-negated-code</xsl:comment>
+              <!--TODO: Replace line below with code from extension http://hl7.org/fhir/StructureDefinition/cda-negated-code-->
               <value xsi:type="CD" code="419199007" codeSystem="2.16.840.1.113883.6.96" displayName="Allergy to Substance" codeSystemName="SNOMED" />
             </xsl:when>
             <xsl:otherwise>
@@ -452,7 +452,7 @@ limitations under the License.
   <!-- INTERVENTION -->
   <xsl:template match="fhir:List[fhir:code/fhir:coding[fhir:system/@value = 'http://snomed.info/sct'][fhir:code/@value = '362956003']]" mode="entry">
     <xsl:param name="generated-narrative">additional</xsl:param>
-    <xsl:comment>TODO: replace match with profile id when available</xsl:comment>
+    <!--TODO: replace match with profile id when available-->
     <entry>
       <xsl:if test="$generated-narrative = 'generated'">
         <xsl:attribute name="typeCode">DRIV</xsl:attribute>
@@ -464,7 +464,7 @@ limitations under the License.
 
   <xsl:template match="fhir:RequestGroup" mode="entry">
     <xsl:param name="generated-narrative">additional</xsl:param>
-    <xsl:comment>TODO: replace match with profile id when available</xsl:comment>
+    <!--TODO: replace match with profile id when available-->
     <entry>
       <xsl:if test="$generated-narrative = 'generated'">
         <xsl:attribute name="typeCode">DRIV</xsl:attribute>

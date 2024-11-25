@@ -24,21 +24,18 @@ limitations under the License.
 
     <xsl:param name="gParamCDAeICRVersion" />
 
-    <!-- Get the CompositionFullUrl for later "workaround" if identifier.system is missing -->
-    <xsl:variable name="gvCompositionBaseUrl"
-        select="substring-before(//fhir:entry[fhir:resource/fhir:Composition]/fhir:fullUrl/@value, '/Composition')" />
-
     <xsl:output method="xml" indent="yes" encoding="UTF-8" />
 
     <xsl:template match="/">
         <xsl:message>Beginning transform</xsl:message>
         <xsl:choose>
-            <xsl:when test="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]">
-                <xsl:apply-templates select="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']]" />
+            <xsl:when test="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']] or 
+                            fhir:Bundle[fhir:type[@value = 'message']]/fhir:entry/fhir:resource/fhir:Bundle[fhir:type[@value = 'document']]">
+                <xsl:apply-templates select="fhir:Bundle[fhir:type[@value = 'document' or @value = 'collection']] | fhir:Bundle[fhir:type[@value = 'message']]/fhir:entry/fhir:resource/fhir:Bundle[fhir:type[@value = 'document']]" />
             </xsl:when>
             <xsl:otherwise>
                 <xsl:message terminate="yes">This transform can only be run on a FHIR Bundle resource where type = document or type =
-                    collection.</xsl:message>
+                    collection or type = message with a contained Document Bundle.</xsl:message>
             </xsl:otherwise>
         </xsl:choose>
 
@@ -52,6 +49,12 @@ limitations under the License.
         <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
         <xsl:message>Running collection bundle using root resource <xsl:value-of select="local-name(fhir:entry[1]/fhir:resource/fhir:*)"
              /></xsl:message>
+    </xsl:template>
+    
+    <xsl:template match="fhir:Bundle[fhir:type[@value = 'message']]/fhir:entry/fhir:resource/fhir:Bundle[fhir:type[@value = 'document']]">
+        <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
+        <xsl:message>Running message bundle using contained Document Bundle <xsl:value-of select="local-name(fhir:entry[1]/fhir:resource/fhir:*)"
+        /></xsl:message>
     </xsl:template>
 
     <xsl:template match="fhir:*" mode="entry" priority="-10">

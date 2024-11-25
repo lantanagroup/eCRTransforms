@@ -16,9 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xhtml" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3"
-    xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org"
-    xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xhtml" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+    xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
     <xsl:import href="fhir2cda-TS.xslt" />
     <xsl:import href="fhir2cda-CD.xslt" />
@@ -69,12 +69,12 @@ limitations under the License.
                 <xsl:call-template name="get-template-id" />
             </xsl:if>
             <!-- generate a new ID for this document. Save the FHIR document id in parentDocument with a type of XFRM -->
-            <!-- MD:   -->
-            <xsl:choose>
-                <xsl:when test="/fhir:Bundle/fhir:type/@value = 'document' and /fhir:Bundle/fhir:identifier">
+            <id root="{$docId}" />
+            <!--<xsl:choose>
+                <xsl:when test="//fhir:Bundle[fhir:type/@value = 'document']/fhir:identifier">
                     <xsl:choose>
-                        <xsl:when test="/fhir:Bundle/fhir:identifier">
-                            <xsl:apply-templates select="/fhir:Bundle/fhir:identifier" />
+                        <xsl:when test="//fhir:Bundle[fhir:type/@value = 'document']/fhir:identifier">
+                            <xsl:apply-templates select="//fhir:Bundle[fhir:type/@value = 'document']/fhir:identifier" />
                         </xsl:when>
                         <xsl:otherwise>
                             <id nullFlavor="NI" />
@@ -84,10 +84,10 @@ limitations under the License.
                 <xsl:otherwise>
                     <id root="{$docId}" />
                 </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
 
             <xsl:for-each select="fhir:type">
-                <xsl:apply-templates select="."/>
+                <xsl:apply-templates select="." />
                 <!--<xsl:call-template name="CodeableConcept2CD" />-->
             </xsl:for-each>
             <!-- SG 20210701: Where are the other IG titles? Added a choice around this -->
@@ -98,11 +98,11 @@ limitations under the License.
                 <xsl:when test="$gvCurrentIg = 'RR'">
                     <title>Reportability Response</title>
                 </xsl:when>
-                <xsl:when test="$gvCurrentIg = 'PCP'">
+                <!--<xsl:when test="$gvCurrentIg = 'PCP'">
                     <title>Pharmacist Care Plan</title>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- add handle for <fhir:title> -->
+                    <!-\- add handle for <fhir:title> -\->
                     <xsl:choose>
                         <xsl:when test="//fhir:Composition/fhir:title">
                             <title>
@@ -110,7 +110,7 @@ limitations under the License.
                             </title>
                         </xsl:when>
                     </xsl:choose>
-                </xsl:otherwise>
+                </xsl:otherwise>-->
             </xsl:choose>
 
             <xsl:call-template name="get-effective-time">
@@ -133,11 +133,6 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
 
-            <!-- 
-            <xsl:apply-templates select="../../../fhir:identifier">
-                <xsl:with-param name="pElementName" select="'setId'" />
-            </xsl:apply-templates>  -->
-
             <xsl:choose>
                 <xsl:when test="fhir:identifier">
                     <xsl:apply-templates select="fhir:identifier">
@@ -149,15 +144,11 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
-                <xsl:when
-                    test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value">
-                    <versionNumber
-                        value="{fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value}"
-                     />
+                <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value">
+                    <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value}" />
                 </xsl:when>
                 <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value">
-                    <versionNumber
-                        value="{fhir:extension[@url='http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value}" />
+                    <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value}" />
                 </xsl:when>
             </xsl:choose>
 
@@ -207,7 +198,7 @@ limitations under the License.
 
             <!-- fhir:attester -> cda:legalAuthenticator or cda:Authenticator-->
             <xsl:apply-templates select="fhir:attester" />
-                        
+
             <!-- SG 20231126: Check for Emergency Contact -->
             <xsl:for-each select="//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value = 'C']]">
                 <participant typeCode="IND">
@@ -221,6 +212,53 @@ limitations under the License.
                 </participant>
             </xsl:for-each>
 
+            <!-- relatedDocument/parentDocument -->
+            <relatedDocument typeCode="XFRM">
+                <parentDocument>
+                    <xsl:choose>
+                        <xsl:when test="//fhir:Bundle[fhir:type/@value = 'document']/fhir:identifier">
+                            <xsl:apply-templates select="//fhir:Bundle[fhir:type/@value = 'document']/fhir:identifier" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <id nullFlavor="NI" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="fhir:identifier">
+                            <xsl:apply-templates select="fhir:identifier">
+                                <xsl:with-param name="pElementName" select="'setId'" />
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <id nullFlavor="NI" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value">
+                            <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber']/fhir:valueString/@value}" />
+                        </xsl:when>
+                        <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value">
+                            <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value}" />
+                        </xsl:when>
+                    </xsl:choose>
+                </parentDocument>
+            </relatedDocument>
+            
+            <xsl:for-each select="fhir:relatesTo[fhir:code/@value='replaces']">
+                <relatedDocument typeCode="RPLC">
+                    <parentDocument>
+                        <xsl:choose>
+                            <xsl:when test="fhir:targetIdentifier">
+                                <xsl:apply-templates select="fhir:targetIdentifier" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <id nullFlavor="NI" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </parentDocument>
+                </relatedDocument>
+            </xsl:for-each>
+            
             <!-- fhir:extension  -->
             <!-- be aware a Composition can have multiple extensions to ensure in correct context -->
             <!-- MD: OrderExtension -> cda:inFulfillmentOf -->
@@ -728,7 +766,7 @@ limitations under the License.
         </xsl:if>
     </xsl:template>
 -->
-   <!-- <xsl:template match="fhir:List" mode="subject-list">
+    <!-- <xsl:template match="fhir:List" mode="subject-list">
         <xsl:for-each select="fhir:entry/fhir:item">
             <xsl:message>Processing <xsl:value-of select="fhir:reference/@value" /></xsl:message>
             <xsl:variable name="fullUrl">

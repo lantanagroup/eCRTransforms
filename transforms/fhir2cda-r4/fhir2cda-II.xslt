@@ -24,7 +24,7 @@ limitations under the License.
   -->
     <xsl:import href="native-xslt-uuid.xslt" />
 
-    <xsl:template match="fhir:identifier | fhir:masterIdentifier">
+    <xsl:template match="fhir:identifier | fhir:masterIdentifier | fhir:targetIdentifier">
         <xsl:param name="pElementName" select="'id'" />
         
         <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html

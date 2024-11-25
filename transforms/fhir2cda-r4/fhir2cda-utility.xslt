@@ -45,7 +45,67 @@ limitations under the License.
     <xsl:variable name="section-title-mapping" select="document($section-title-mapping-file)/mapping" />
     <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
 
-    <!-- Get the HAI Document Questionnaire URL (**TODO** - might not use this and just use the select all the time) -->
+    <xsl:variable name="gvTriggerExtensionUrl" select="'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension'" />
+    <!-- Key to get all the trigger code extension and their referenced top-level resources -->
+    <!--<xsl:key name="trigger-extension" match="//fhir:entry[fhir:extension/@url = $gvTriggerExtensionUrl] | //fhir:diagnosis[fhir:extension/@url = $gvTriggerExtensionUrl]"
+        use="fhir:reference/@value | fhir:condition/fhir:reference/@value" />-->
+
+    <!-- Key with all codes and their fullUrl -->
+    <xsl:key name="possible-trigger-codes" match="//fhir:entry[descendant::*/fhir:coding/fhir:code/@value]" use="fhir:fullUrl/@value" />
+
+    <xsl:variable name="gvTriggerCodeInfo">
+        <!-- Get a copy of each trigger code flag extension -->
+        <xsl:for-each select="//fhir:entry[fhir:extension/@url = $gvTriggerExtensionUrl] | //fhir:diagnosis[fhir:extension/@url = $gvTriggerExtensionUrl]">
+
+            <triggerCodeInfo xmlns="http://www.lantanagroup.com">
+                <xsl:copy-of select="." />
+
+                <!-- Put the trigger code into a variable for easy reference -->
+                <xsl:variable name="vTriggerCode" select="fhir:extension/fhir:extension[@url = 'triggerCode']/fhir:valueCoding/fhir:code/@value" />
+
+                <!-- Put the full url of the original trigger code resource into a variable for easy reference -->
+                <xsl:variable name="vOriginalFullUrl">
+                    <xsl:call-template name="resolve-to-full-url">
+                        <xsl:with-param name="referenceURI" select="fhir:reference/@value | fhir:condition/fhir:reference/@value" />
+                    </xsl:call-template>
+                </xsl:variable>
+                <!-- Add in the original reference fullUrl for each trigger code reference (put this in the lcg namespace for easy reference later) -->
+                <fullUrl>
+                    <xsl:attribute name="value" select="$vOriginalFullUrl" />
+                </fullUrl>
+                <!-- Get the fullUrls from the referenced resource from the trigger code extension references (trigger codes could be in a referenced resource such as medicationReference or hasMember) that also contain the trigger code-->
+                <matchedUrls>
+                    <!-- Use possibleTriggerCode key to check if the trigger code is in this resource -->
+                    <xsl:for-each select="key('possible-trigger-codes', $vOriginalFullUrl)">
+                        <xsl:if test="descendant::*/fhir:coding/fhir:code/@value = $vTriggerCode">
+                            <matchedUrl>
+                                <xsl:attribute name="value" select="$vOriginalFullUrl" />
+                            </matchedUrl>
+                        </xsl:if>
+                    </xsl:for-each>
+
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl[@value = $vOriginalFullUrl]]/descendant::fhir:hasMember/fhir:reference/@value">
+                        <!-- Put referenced full url into a variable for easy use -->
+                        <xsl:variable name="vReferencedFullUrl">
+                            <xsl:call-template name="resolve-to-full-url">
+                                <xsl:with-param name="referenceURI" select="." />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <!-- Use possibleTriggerCode key to check if the trigger code is in this resource -->
+                        <xsl:for-each select="key('possible-trigger-codes', $vReferencedFullUrl)">
+                            <xsl:if test="descendant::*/fhir:coding/fhir:code/@value = $vTriggerCode">
+                                <matchedUrl>
+                                    <xsl:attribute name="value" select="$vReferencedFullUrl" />
+                                </matchedUrl>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </matchedUrls>
+            </triggerCodeInfo>
+        </xsl:for-each>
+    </xsl:variable>
+
+    <!-- Get the HAI Document Questionnaire URL -->
     <xsl:variable name="gvQuestionnaireUrl" select="//fhir:QuestionnaireResponse/fhir:questionnaire/@value" />
 
     <!-- Put the contents of the Questionnaire resource instance into a global variable -->
@@ -82,14 +142,25 @@ limitations under the License.
         </xsl:choose>
     </xsl:template>
 
-    <!-- Check to see if this is a trigger code template -->
+    <!-- Check to see if this template contains a trigger code -->
     <xsl:template name="check-for-trigger">
+        <xsl:variable name="vFullUrl" select="parent::fhir:resource/preceding-sibling::fhir:fullUrl/@value"/>
+
+        <xsl:if test="$gvTriggerCodeInfo/lcg:triggerCodeInfo/lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl">
+            <xsl:copy-of select="$gvTriggerCodeInfo/lcg:triggerCodeInfo[lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl]/fhir:entry/fhir:extension|
+                                 $gvTriggerCodeInfo/lcg:triggerCodeInfo[lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl]/fhir:diagnosis/fhir:extension" />
+        </xsl:if>
+    </xsl:template>
+
+    <!--<xsl:template name="check-for-trigger">
         <xsl:variable name="vTriggerEntry">
             <xsl:call-template name="get-associated-trigger-extension" />
         </xsl:variable>
         <xsl:variable name="vAssociatedTriggerExtension" select="$vTriggerEntry/fhir:extension" />
 
-        <!-- Get all codes in the profile, if this contains a MedicationReference, use the codes from Medication instead-->
+        <!-\- Get all codes in the profile: 
+                if this contains a MedicationReference, use the codes from Medication instead
+                if this contains hasMembers, use the codes in the referenced resource as well-\->
         <xsl:variable name="vCodesToMatch">
             <xsl:choose>
                 <xsl:when test="fhir:medicationReference">
@@ -100,16 +171,26 @@ limitations under the License.
                     </xsl:variable>
                     <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value" />
                 </xsl:when>
+                <xsl:when test="fhir:hasMember">
+                    <xsl:for-each select="fhir:hasMember">
+                        <xsl:variable name="referenceURI">
+                            <xsl:call-template name="resolve-to-full-url">
+                                <xsl:with-param name="referenceURI" select="fhir:reference/@value" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value" />
+                    </xsl:for-each>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="descendant::*/fhir:coding/fhir:code/@value" />
-                    <!--<xsl:variable name="vCodesToMatch" select="descendant::*/fhir:coding/fhir:code/@value" />-->
+                    <!-\-<xsl:variable name="vCodesToMatch" select="descendant::*/fhir:coding/fhir:code/@value" />-\->
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <!-- Check current Resource code against the trigger codes in the associated extensions -->
-        <!--        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-->
+        <!-\- Check current Resource code against the trigger codes in the associated extensions -\->
+        <!-\-        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-\->
         <xsl:copy-of select="$vAssociatedTriggerExtension[contains($vCodesToMatch, fhir:extension//fhir:code/@value)]" />
-    </xsl:template>
+    </xsl:template>-->
 
     <xsl:template name="get-associated-trigger-extension">
         <xsl:variable name="vTriggerExtensionUrl" select="'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension'" />

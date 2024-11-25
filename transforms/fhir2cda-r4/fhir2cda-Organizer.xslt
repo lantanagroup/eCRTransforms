@@ -81,7 +81,7 @@ limitations under the License.
                     <id nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- **TODO** change this from hard coded to use what is in fhir? (I think anyway - wonder if it could ever be wrong for a vital signs organizer... -->
+            <!-- **TODO** change this from hard coded to use what is in fhir? -->
             <code code="46680005" displayName="Vital Signs" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT">
                 <translation code="74728-7" displayName="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel - HL7.CCDAr1.1" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" />
             </code>
@@ -166,6 +166,18 @@ limitations under the License.
                 </xsl:for-each>
             </xsl:for-each>
             <xsl:for-each select="fhir:result/fhir:reference">
+                <xsl:variable name="referenceURI">
+                    <xsl:call-template name="resolve-to-full-url">
+                        <xsl:with-param name="referenceURI" select="@value" />
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
+                    <xsl:apply-templates select="fhir:resource/fhir:*" mode="component">
+                        <xsl:with-param name="generated-narrative" />
+                    </xsl:apply-templates>
+                </xsl:for-each>
+            </xsl:for-each>
+            <xsl:for-each select="fhir:hasMember/fhir:reference">
                 <xsl:variable name="referenceURI">
                     <xsl:call-template name="resolve-to-full-url">
                         <xsl:with-param name="referenceURI" select="@value" />

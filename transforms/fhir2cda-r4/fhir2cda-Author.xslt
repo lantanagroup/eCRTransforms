@@ -231,12 +231,23 @@ limitations under the License.
 
 
                 <assignedAuthoringDevice>
-                    <xsl:if test="fhir:modelNumber[@value]">
-                        <manufacturerModelName displayName="{fhir:modelNumber/@value}" />
-                    </xsl:if>
-                    <xsl:if test="fhir:version/fhir:value/@value">
+                    <xsl:choose>
+                        <xsl:when test="fhir:modelNumber[@value]">
+                            <manufacturerModelName displayName="{fhir:modelNumber/@value}" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <manufacturerModelName nullFlavor="NI"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    
+                    <xsl:choose>
+                        <xsl:when test="fhir:version/fhir:value/@value">
                         <softwareName displayName="{fhir:version/fhir:value/@value}" />
-                    </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <softwareName nullFlavor="NI" />
+                    </xsl:otherwise>
+                    </xsl:choose>
                 </assignedAuthoringDevice>
             </assignedAuthor>
         </author>

@@ -426,13 +426,13 @@ limitations under the License.
     </xsl:template>
 
     <!-- fhir:item[findings-group] -> (HAI) Findings Organizer -->
-    <xsl:template match="//fhir:item[fhir:linkId[@value = 'findings-group']]" mode="findings-organizer">
+    <!--<xsl:template match="//fhir:item[fhir:linkId[@value = 'findings-group']]" mode="findings-organizer">
         <xsl:choose>
-            <!-- Check to see if there's a pathogen identified and a ranking for it.  If not, empty observation
-           The way ranking is set up is probably incorrect.  Most likely needs to be nested within the pathogen identified fhir:item -->
+            <!-\- Check to see if there's a pathogen identified and a ranking for it.  If not, empty observation
+           The way ranking is set up is probably incorrect.  Most likely needs to be nested within the pathogen identified fhir:item -\->
             <xsl:when test="fhir:item[fhir:linkId[@value = 'pathogen-identified']] and fhir:item[fhir:linkId[@value = 'pathogen-ranking']]">
                 <organizer classCode="CLUSTER" moodCode="EVN">
-                    <!-- Findings Organizer -->
+                    <!-\- Findings Organizer -\->
                     <templateId root="2.16.840.1.113883.10.20.5.6.182" />
                     <id nullFlavor="NA" />
                     <statusCode code="completed" />
@@ -448,5 +448,5 @@ limitations under the License.
                 <xsl:call-template name="no-pathogens-found" />
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
 </xsl:stylesheet>

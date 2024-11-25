@@ -51,11 +51,11 @@ limitations under the License.
              /></xsl:message>
     </xsl:template>
     
-    <xsl:template match="fhir:Bundle[fhir:type[@value = 'message']]/fhir:entry/fhir:resource/fhir:Bundle[fhir:type[@value = 'document']]">
+    <!--<xsl:template match="fhir:Bundle[fhir:type[@value = 'message']]/fhir:entry/fhir:resource/fhir:Bundle[fhir:type[@value = 'document']]">
         <xsl:apply-templates select="fhir:entry[1]/fhir:resource/fhir:*" />
         <xsl:message>Running message bundle using contained Document Bundle <xsl:value-of select="local-name(fhir:entry[1]/fhir:resource/fhir:*)"
         /></xsl:message>
-    </xsl:template>
+    </xsl:template>-->
 
     <xsl:template match="fhir:*" mode="entry" priority="-10">
         <xsl:comment>

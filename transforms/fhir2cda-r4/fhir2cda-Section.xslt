@@ -366,19 +366,19 @@ limitations under the License.
 
   <!-- HAI Questionnaire Response processing
   This uses the questionnaire-mapping.xml file (used in fhir2cda-ClinicalDocument)-->
-  <xsl:template match="fhir:item" mode="section">
+  <!--<xsl:template match="fhir:item" mode="section">
     <xsl:param name="pSectionEntries" />
     <xsl:param name="pSectionEntryRelationships" />
     
-    <!-- Get the link id for this section -->
+    <!-\- Get the link id for this section -\->
     <xsl:variable name="vSectionLinkId" select="fhir:linkId/@value" />
     <section>
-      <!-- templateId -->
+      <!-\- templateId -\->
       <xsl:call-template name="get-template-id" />
       <code>
         <xsl:apply-templates select="$gvHaiQuestionnaire/fhir:Questionnaire/fhir:item[fhir:linkId/@value = $vSectionLinkId]/fhir:code" />
       </code>
-      <!-- title -->
+      <!-\- title -\->
       <xsl:apply-templates select="." mode="map-to-title" />
 
       <text>We will generate the text using the HAI transform in the second phase of processing - this ensures we get the correct text in the correct section</text>
@@ -395,14 +395,14 @@ limitations under the License.
         </xsl:if>
       </xsl:if>
 
-      <!-- SG 20220210: HAI LTC -->
-      <!-- SG 20220209: Iterate through the entries for this section (entries determined by checking questionnaire-mapping.xml in fhir2cda-ClinicalDocument.xml -->
+      <!-\- SG 20220210: HAI LTC -\->
+      <!-\- SG 20220209: Iterate through the entries for this section (entries determined by checking questionnaire-mapping.xml in fhir2cda-ClinicalDocument.xml -\->
       <xsl:for-each select="$pSectionEntries">
         <xsl:variable name="vLinkId" select="fhir:linkId/@value"/>
-        <!-- Grab the entryRelationship linkIds for this entry and put into variable -->
+        <!-\- Grab the entryRelationship linkIds for this entry and put into variable -\->
         <xsl:variable name="vEntryRelationshipLinkIds" select="$questionnaire-mapping/fhir:map[@parent = $vLinkId][@type = 'entryRelationship']/@linkId" />
         
-        <!-- Get any matching entryRelationship items and put into variable -->
+        <!-\- Get any matching entryRelationship items and put into variable -\->
         <xsl:variable name="vEntryRelationships" select="$pSectionEntryRelationships/.[fhir:linkId/@value = $vEntryRelationshipLinkIds]" />
         <entry typeCode="DRIV">
           <xsl:apply-templates select="." >
@@ -411,17 +411,17 @@ limitations under the License.
         </entry>
       </xsl:for-each>
     </section>
-  </xsl:template>
+  </xsl:template>-->
 
   <!-- (HAI) Infection Details Section (Section) -->
-  <xsl:template name="infection-details-section">
+  <!--<xsl:template name="infection-details-section">
     <section>
       <templateId root="2.16.840.1.113883.10.20.5.4.26" />
-      <!-- [HAI R3D3] Infection Details in Late Onset Sepsis Report -->
+      <!-\- [HAI R3D3] Infection Details in Late Onset Sepsis Report -\->
       <templateId root="2.16.840.1.113883.10.20.5.5.64" extension="2018-04-01" />
       <code codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" code="51899-3" displayName="Details" />
       <title>Details Section</title>
-      <!-- **TODO** Let's generate the text using the HAI transform - otherwise there is no way to separate the text into sections -->
+      <!-\- **TODO** Let's generate the text using the HAI transform - otherwise there is no way to separate the text into sections -\->
       <text>
         <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
           <xsl:apply-templates select="fhir:text" mode="narrative" />
@@ -443,17 +443,17 @@ limitations under the License.
         </entry>
       </xsl:for-each>
     </section>
-  </xsl:template>
+  </xsl:template>-->
 
   <!-- (HAI) Risk Factors Section (Section) -->
-  <xsl:template name="risk-factors-section">
+  <!--<xsl:template name="risk-factors-section">
     <section>
       <templateId root="2.16.840.1.113883.10.20.5.4.26" />
-      <!-- [HAI R3D3] Risk Factors Section (LOS/Men) -->
+      <!-\- [HAI R3D3] Risk Factors Section (LOS/Men) -\->
       <templateId root="2.16.840.1.113883.10.20.5.5.65" extension="2018-04-01" />
       <code codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" code="51898-5" displayName="Risk Factors" />
       <title>Risk Factors</title>
-      <!-- **TODO** Let's generate the text using the HAI transform - otherwise there is no way to separate the text into sections -->
+      <!-\- **TODO** Let's generate the text using the HAI transform - otherwise there is no way to separate the text into sections -\->
       <text>
         <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
           <xsl:apply-templates select="fhir:text" mode="narrative" />
@@ -475,22 +475,22 @@ limitations under the License.
         </entry>
       </xsl:for-each>
     </section>
-  </xsl:template>
+  </xsl:template>-->
 
   <!-- (HAI) Findings Section in an Infection-Type Report (Section) -->
-  <xsl:template name="findings-section">
+  <!--<xsl:template name="findings-section">
     <section>
       <templateId root="2.16.840.1.113883.10.20.5.5.45" />
       <code code="18769-0" codeSystem="2.16.840.1.113883.6.1" displayName="Findings Section" />
       <title>Findings</title>
-      <!-- **TODO** Let's generate the text using the HAI transform - otherwise there is no way to separate the text into sections -->
+      <!-\- **TODO** Let's generate the text using the HAI transform - otherwise there is no way to separate the text into sections -\->
       <text>
         <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
           <xsl:apply-templates select="fhir:text" mode="narrative" />
         </xsl:if>
       </text>
       <xsl:choose>
-        <!-- Check to see if a finding's group exists. If it doesn't, create an empty observation entry -->
+        <!-\- Check to see if a finding's group exists. If it doesn't, create an empty observation entry -\->
         <xsl:when test="//fhir:item[fhir:linkId[@value = 'findings-group']]">
           <entry>
             <xsl:apply-templates select="//fhir:item[fhir:linkId[@value = 'findings-group']]" mode="findings-organizer" />
@@ -504,6 +504,6 @@ limitations under the License.
       </xsl:choose>
 
     </section>
-  </xsl:template>
+  </xsl:template>-->
 
 </xsl:stylesheet>

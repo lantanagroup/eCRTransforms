@@ -35,12 +35,12 @@ limitations under the License.
         <ClinicalDocument>
             <realmCode code="US" />
             <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3" />
-            <xsl:if test="$gvCurrentIg = 'PCP'">
+            <!--<xsl:if test="$gvCurrentIg = 'PCP'">
                 <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.1" />
                 <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.15" />
             </xsl:if>
 
-            <!-- MD: add dental template Id -->
+            <!-\- MD: add dental template Id -\->
             <xsl:if test="$gvCurrentIg = 'DentalConsultNote'">
                 <xsl:comment select="' [C-CDA R1.1] US Realm Header '" />
                 <templateId root="2.16.840.1.113883.10.20.22.1.1" />
@@ -60,7 +60,7 @@ limitations under the License.
                 <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.14" />
                 <xsl:comment select="' Dental Referral Note template ID '" />
                 <templateId extension="2020-08-01" root="2.16.840.1.113883.10.20.40.1.1.1" />
-            </xsl:if>
+            </xsl:if>-->
 
             <xsl:if test="$gvCurrentIg = 'eICR'">
                 <xsl:call-template name="get-template-id" />
@@ -302,28 +302,28 @@ limitations under the License.
 
     <!-- QUESTIONNAIRE RESPONSE -->
     <!-- SG: Dave, this is a global variable - wondering if this is what you really meant to do here or should this be inside a template? -->
-    <xsl:variable name="infection-id" select="generate-id(//fhir:item[fhir:linkId/@value = 'event-type'][1])" />
+    <!--<xsl:variable name="infection-id" select="generate-id(//fhir:item[fhir:linkId/@value = 'event-type'][1])" />
 
     <xsl:template match="fhir:QuestionnaireResponse">
         <xsl:variable name="vFHIR2CDAResult">
             <ClinicalDocument xmlns="urn:hl7-org:v3">
                 <realmCode code="US" />
                 <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3" />
-                <!-- templateId -->
+                <!-\- templateId -\->
                 <xsl:call-template name="get-template-id" />
-                <!-- id: Bundle.identifier -->
+                <!-\- id: Bundle.identifier -\->
                 <xsl:call-template name="get-id">
                     <xsl:with-param name="pElement" select="//fhir:Bundle/fhir:identifier" />
                     <xsl:with-param name="pNoNullAllowed" select="true()" />
                 </xsl:call-template>
-                <!-- code -->
+                <!-\- code -\->
                 <xsl:apply-templates mode="map-profile-to-code" select="." />
-                <!-- title -->
+                <!-\- title -\->
                 <xsl:apply-templates mode="map-to-title" select="." />
-                <!-- fhir:QuestionnaireResponse/fhir:authored OR fhir:Bundle/fhir:timestamp  -> effectiveTime -->
-                <!-- Because currently in HAI fhir:QuestionnaireResponse/fhir:authored isn't required, it might not be there, if it isn't 
-           use fhir:Bundle:timestamp instead-->
-                <!-- effectiveTime -->
+                <!-\- fhir:QuestionnaireResponse/fhir:authored OR fhir:Bundle/fhir:timestamp  -> effectiveTime -\->
+                <!-\- Because currently in HAI fhir:QuestionnaireResponse/fhir:authored isn't required, it might not be there, if it isn't 
+           use fhir:Bundle:timestamp instead-\->
+                <!-\- effectiveTime -\->
                 <xsl:choose>
                     <xsl:when test="fhir:authored">
                         <xsl:call-template name="get-effective-time">
@@ -336,7 +336,7 @@ limitations under the License.
                         </xsl:call-template>
                     </xsl:otherwise>
                 </xsl:choose>
-                <!-- confidentialityCode -->
+                <!-\- confidentialityCode -\->
                 <xsl:choose>
                     <xsl:when test="fhir:meta/fhir:security">
                         <xsl:apply-templates select="fhir:meta/fhir:security" />
@@ -346,7 +346,7 @@ limitations under the License.
                     </xsl:otherwise>
                 </xsl:choose>
                 <languageCode code="en-US" />
-                <!-- setId: QuestionnaireResponse.identifier -->
+                <!-\- setId: QuestionnaireResponse.identifier -\->
                 <xsl:choose>
                     <xsl:when test="fhir:identifier">
                         <xsl:apply-templates select="fhir:identifier">
@@ -357,17 +357,17 @@ limitations under the License.
                         <id nullFlavor="NI" />
                     </xsl:otherwise>
                 </xsl:choose>
-                <!--<setId>
+                <!-\-<setId>
           <xsl:attribute name="value" select="fhir:identifier/fhir:value/@value" />
-        </setId>-->
+        </setId>-\->
                 <versionNumber>
                     <xsl:attribute name="value">1</xsl:attribute>
                 </versionNumber>
-                <!-- recordTarget -->
+                <!-\- recordTarget -\->
                 <xsl:apply-templates select="fhir:subject" />
-                <!-- author -->
+                <!-\- author -\->
                 <xsl:apply-templates select="fhir:author" />
-                <!-- The custodian of the CDA document is NHSN -->
+                <!-\- The custodian of the CDA document is NHSN -\->
                 <custodian>
                     <assignedCustodian>
                         <representedCustodianOrganization>
@@ -375,30 +375,30 @@ limitations under the License.
                         </representedCustodianOrganization>
                     </assignedCustodian>
                 </custodian>
-                <!-- legalAuthenticator - missing in FHIR - this is just a SHOULD in the CDA IG though -->
-                <!--<legalAuthenticator>
+                <!-\- legalAuthenticator - missing in FHIR - this is just a SHOULD in the CDA IG though -\->
+                <!-\-<legalAuthenticator>
           <time value="20190201"/>
           <signatureCode code="S"/>
           <assignedEntity>
             <id root="2.16.840.1.113883.3.117.1.1.5.1.1.2" extension="aLegalAuthenticatorID"/>
           </assignedEntity>
-        </legalAuthenticator>-->
-                <!-- SG 20220213: Only want an encompassingEncounter if this is an event report -->
+        </legalAuthenticator>-\->
+                <!-\- SG 20220213: Only want an encompassingEncounter if this is an event report -\->
                 <xsl:if test="//fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-event'">
                     <xsl:call-template name="make-encompassing-encounter-hai" />
                 </xsl:if>
 
-                <!-- SG 20220213: Only want an serviceEvent if this is a summary report -->
+                <!-\- SG 20220213: Only want an serviceEvent if this is a summary report -\->
                 <xsl:if test="//fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary'">
                     <xsl:call-template name="make-service-event-hai" />
                 </xsl:if>
                 <component>
                     <structuredBody>
 
-                        <!-- SG 20220209: Put the working document into a variable -->
+                        <!-\- SG 20220209: Put the working document into a variable -\->
                         <xsl:variable name="vQuestionnaireResponse" select="." />
 
-                        <!-- SG 20220209: Iterate through the sections -->
+                        <!-\- SG 20220209: Iterate through the sections -\->
                         <xsl:for-each
                             select="$questionnaire-mapping/fhir:map[@type = ('section')][@linkId = ($vQuestionnaireResponse//fhir:linkId/@value)]">
                             <component>
@@ -406,27 +406,27 @@ limitations under the License.
                                     <xsl:value-of select="@linkId" />
                                 </xsl:variable>
 
-                                <!-- Grab the entry linkIds for this section and put into variable -->
+                                <!-\- Grab the entry linkIds for this section and put into variable -\->
                                 <xsl:variable name="vSectionEntryLinkIds"
                                     select="$questionnaire-mapping/fhir:map[@location = $vLinkId][@type = 'entry']/@linkId" />
 
-                                <!-- Get any matching entry items and put into variable -->
+                                <!-\- Get any matching entry items and put into variable -\->
                                 <xsl:variable name="vSectionEntries"
                                     select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vSectionEntryLinkIds]" />
 
-                                <!-- Grab the entryRelationship linkIds for this section and put into variable -->
+                                <!-\- Grab the entryRelationship linkIds for this section and put into variable -\->
                                 <xsl:variable name="vSectionEntryRelationshipLinkIds"
                                     select="$questionnaire-mapping/fhir:map[@location = $vLinkId][@type = 'entryRelationship']/@linkId" />
 
-                                <!-- Get any matching entryRelationship items and put into variable -->
+                                <!-\- Get any matching entryRelationship items and put into variable -\->
                                 <xsl:variable name="vSectionEntryRelationships"
                                     select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vSectionEntryRelationshipLinkIds]" />
 
-                                <!-- Create the sections and their entries -->
+                                <!-\- Create the sections and their entries -\->
                                 <xsl:apply-templates mode="section" select="$vQuestionnaireResponse//fhir:item[fhir:linkId/@value = $vLinkId]">
-                                    <!-- Pass through the entries for this section to process inside the section -->
+                                    <!-\- Pass through the entries for this section to process inside the section -\->
                                     <xsl:with-param name="pSectionEntries" select="$vSectionEntries" />
-                                    <!-- Pass through the entryRelationship for this section to process inside the section -->
+                                    <!-\- Pass through the entryRelationship for this section to process inside the section -\->
                                     <xsl:with-param name="pSectionEntryRelationships" select="$vSectionEntryRelationships" />
                                 </xsl:apply-templates>
                             </component>
@@ -436,17 +436,17 @@ limitations under the License.
             </ClinicalDocument>
         </xsl:variable>
 
-        <!-- Generate narrative using the hai ltc generate narrative transform -->
+        <!-\- Generate narrative using the hai ltc generate narrative transform -\->
         <xsl:apply-templates mode="gen-hai-narrative" select="$vFHIR2CDAResult" />
 
-        <!--    <xsl:copy-of select="$vFHIR2CDAResult"/>-->
+        <!-\-    <xsl:copy-of select="$vFHIR2CDAResult"/>-\->
     </xsl:template>
 
-    <!-- fhir:item[criteria-used] -> (HAI) Criterial of Diagnosis Organizer (Organizer) -->
+    <!-\- fhir:item[criteria-used] -> (HAI) Criterial of Diagnosis Organizer (Organizer) -\->
     <xsl:template match="fhir:item[fhir:linkId[@value = 'criteria-used']]" mode="diagnosis">
         <entryRelationship typeCode="SPRT">
             <organizer classCode="CLUSTER" moodCode="EVN">
-                <!-- [HAI R2N1] Criteria of Diagnosis Organizer -->
+                <!-\- [HAI R2N1] Criteria of Diagnosis Organizer -\->
                 <templateId root="2.16.840.1.113883.10.20.5.6.180" />
                 <statusCode code="completed" />
                 <component>
@@ -457,12 +457,12 @@ limitations under the License.
                         <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
                         <statusCode code="completed" />
                         <xsl:for-each select="fhir:answer[fhir:valueCoding]">
-                            <!--<xsl:call-template name="CodeableConcept2CD">-->
+                            <!-\-<xsl:call-template name="CodeableConcept2CD">-\->
                             <xsl:apply-templates select=".">
                                 <xsl:with-param name="pElementName">value</xsl:with-param>
                                 <xsl:with-param name="pXSIType">CD</xsl:with-param>
                             </xsl:apply-templates>
-                            <!--</xsl:call-template>-->
+                            <!-\-</xsl:call-template>-\->
                         </xsl:for-each>
                     </observation>
                 </component>
@@ -470,7 +470,7 @@ limitations under the License.
         </entryRelationship>
     </xsl:template>
 
-    <!-- fhir:item -->
+    <!-\- fhir:item -\->
     <xsl:template match="fhir:item" mode="questionnaireresponse-reference">
         <xsl:message>Processing QuestionnareResponse.item of type reference</xsl:message>
         <xsl:variable name="referenceURI">
@@ -484,12 +484,12 @@ limitations under the License.
         </xsl:for-each>
     </xsl:template>
 
-    <!-- DD adding NHSN Comments Section -->
+    <!-\- DD adding NHSN Comments Section -\->
     <xsl:template name="nhsn-comments-section">
         <section>
-            <!-- NHSN Comment Section Generic Constraints -->
+            <!-\- NHSN Comment Section Generic Constraints -\->
             <templateId root="2.16.840.1.113883.10.20.5.4.26" />
-            <!-- [HAI R3D2] NHSN Comment Section -->
+            <!-\- [HAI R3D2] NHSN Comment Section -\->
             <templateId root="2.16.840.1.113883.10.20.5.5.61" />
             <code code="86468-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Report comment Section" />
             <title>Comments</title>
@@ -507,7 +507,7 @@ limitations under the License.
             </text>
             <entry typeCode="DRIV">
                 <act classCode="ACT" moodCode="EVN">
-                    <!-- [HAI R3D2] NHSN Comment -->
+                    <!-\- [HAI R3D2] NHSN Comment -\->
                     <templateId extension="2017-04-01" root="2.16.840.1.113883.10.20.5.6.243" />
                     <code code="86467-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Report comment Narrative" />
                     <text>
@@ -519,7 +519,7 @@ limitations under the License.
     </xsl:template>
 
 
-    <!-- MeasureReport support. Added 2022-04-08 by RG -->
+    <!-\- MeasureReport support. Added 2022-04-08 by RG -\->
 
     <xsl:template match="fhir:MeasureReport">
         <ClinicalDocument xmlns="urn:hl7-org:v3">
@@ -547,7 +547,7 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
             <title>Quality Measure Report Converted from FHIR MeasureReport</title>
-            <!-- effectiveTime -->
+            <!-\- effectiveTime -\->
             <xsl:choose>
                 <xsl:when test="fhir:date">
                     <xsl:call-template name="get-effective-time">
@@ -560,7 +560,7 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- confidentialityCode -->
+            <!-\- confidentialityCode -\->
             <xsl:choose>
                 <xsl:when test="fhir:meta/fhir:security">
                     <xsl:apply-templates select="fhir:meta/fhir:security" />
@@ -574,7 +574,7 @@ limitations under the License.
             <versionNumber>
                 <xsl:attribute name="value">1</xsl:attribute>
             </versionNumber>
-            <!-- recordTarget -->
+            <!-\- recordTarget -\->
             <xsl:choose>
                 <xsl:when test="fhir:type/@value = 'individual'">
                     <xsl:apply-templates select="fhir:subject" />
@@ -587,7 +587,7 @@ limitations under the License.
                     </recordTarget>
                 </xsl:otherwise>
             </xsl:choose>
-            <!-- author -->
+            <!-\- author -\->
             <xsl:apply-templates select="fhir:reporter" />
             <xsl:if test="not(fhir:reporter)">
                 <author nullFlavor="NI">
@@ -598,7 +598,7 @@ limitations under the License.
 
                 </author>
             </xsl:if>
-            <!-- The custodian of the CDA document is NHSN -->
+            <!-\- The custodian of the CDA document is NHSN -\->
             <custodian>
                 <assignedCustodian>
                     <representedCustodianOrganization>
@@ -625,7 +625,7 @@ limitations under the License.
                                     <statusCode code="completed" />
                                     <reference typeCode="REFR">
                                         <externalDocument classCode="DOC" moodCode="EVN">
-                                            <!-- TODO: Will need to map FHIR measure URLs to OIDs -->
+                                            <!-\- TODO: Will need to map FHIR measure URLs to OIDs -\->
                                             <id root="{fhir:measure/@value}" />
                                         </externalDocument>
                                     </reference>
@@ -637,9 +637,9 @@ limitations under the License.
                     </component>
                     <component>
                         <section>
-                            <!-- Reporting Parameters section -->
+                            <!-\- Reporting Parameters section -\->
                             <templateId root="2.16.840.1.113883.10.20.17.2.1" />
-                            <!-- Reporting Parameters section CMS -->
+                            <!-\- Reporting Parameters section CMS -\->
                             <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.2.1.1" />
                             <code code="55187-9" codeSystem="2.16.840.1.113883.6.1" />
                             <title>Reporting Parameters</title>
@@ -650,9 +650,9 @@ limitations under the License.
                             </text>
                             <entry typeCode="DRIV">
                                 <act classCode="ACT" moodCode="EVN">
-                                    <!-- Reporting Parameters Act -->
+                                    <!-\- Reporting Parameters Act -\->
                                     <templateId root="2.16.840.1.113883.10.20.17.3.8" />
-                                    <!-- Reporting Parameters Act CMS -->
+                                    <!-\- Reporting Parameters Act CMS -\->
                                     <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.3.8.1" />
                                     <id root="daf49616-5212-49b4-bebb-1273d6c5a97d" />
                                     <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters" />
@@ -663,14 +663,14 @@ limitations under the License.
                     </component>
                     <xsl:choose>
                         <xsl:when test="fhir:type/@value = 'individual'">
-                            <!-- QRDA I sections -->
+                            <!-\- QRDA I sections -\->
                             <component>
                                 <section>
-                                    <!-- Patient Data Section -->
+                                    <!-\- Patient Data Section -\->
                                     <templateId root="2.16.840.1.113883.10.20.17.2.4" />
-                                    <!-- Patient Data Section QDM (V7) -->
+                                    <!-\- Patient Data Section QDM (V7) -\->
                                     <templateId extension="2019-12-01" root="2.16.840.1.113883.10.20.24.2.1" />
-                                    <!-- Patient Data Section QDM (V7) - CMS -->
+                                    <!-\- Patient Data Section QDM (V7) - CMS -\->
                                     <templateId extension="2020-02-01" root="2.16.840.1.113883.10.20.24.2.1.1" />
                                     <code code="55188-7" codeSystem="2.16.840.1.113883.6.1" />
                                     <title>Patient Data</title>
@@ -683,7 +683,7 @@ limitations under the License.
                             </component>
                         </xsl:when>
                         <xsl:otherwise>
-                            <!-- QRDA Iii sections -->
+                            <!-\- QRDA Iii sections -\->
                         </xsl:otherwise>
                     </xsl:choose>
                 </structuredBody>
@@ -703,10 +703,10 @@ limitations under the License.
                 <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode" displayName="Assertion" />
                 <statusCode code="completed" />
                 <value code="IPOP" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode" xsi:type="CD" />
-                <!--IPOP Count-->
+                <!-\-IPOP Count-\->
                 <entryRelationship inversionInd="true" typeCode="SUBJ">
                     <observation classCode="OBS" moodCode="EVN">
-                        <!-- Aggregate Count -->
+                        <!-\- Aggregate Count -\->
                         <templateId root="2.16.840.1.113883.10.20.27.3.3" />
                         <xsl:apply-templates select="fhir:code" />
                         <value value="{fhir:count/@value}" xsi:type="INT" />
@@ -721,14 +721,14 @@ limitations under the License.
     <xsl:template match="fhir:subjectResults">
         <xsl:message>In subjectResults</xsl:message>
         <xsl:if test="fhir:reference">
-            <!-- Assume contained resource for now, but in the future fix so it handles bundle entries too (see resolve-resource in fhir2cda-utility.xslt -->
+            <!-\- Assume contained resource for now, but in the future fix so it handles bundle entries too (see resolve-resource in fhir2cda-utility.xslt -\->
             <xsl:variable name="id" select="substring-after(fhir:reference/@value, '#')" />
             <xsl:apply-templates mode="subject-list" select="ancestor::fhir:entry[1]/fhir:resource/fhir:*/fhir:contained/fhir:*[fhir:id/@value = $id]"
              />
         </xsl:if>
     </xsl:template>
-
-    <xsl:template match="fhir:List" mode="subject-list">
+-->
+   <!-- <xsl:template match="fhir:List" mode="subject-list">
         <xsl:for-each select="fhir:entry/fhir:item">
             <xsl:message>Processing <xsl:value-of select="fhir:reference/@value" /></xsl:message>
             <xsl:variable name="fullUrl">
@@ -736,9 +736,9 @@ limitations under the License.
             </xsl:variable>
             <xsl:apply-templates mode="external-document" select="//fhir:entry[fhir:fullUrl/@value = $fullUrl]/fhir:resource/fhir:*" />
         </xsl:for-each>
-    </xsl:template>
+    </xsl:template>-->
 
-    <xsl:template match="fhir:MeasureReport" mode="external-document">
+    <!--<xsl:template match="fhir:MeasureReport" mode="external-document">
         <xsl:message>Reference to QRDA-I individual patient report</xsl:message>
         <xsl:variable name="qrda1-name">
             <xsl:value-of select="fhir:id/@value" />
@@ -762,6 +762,6 @@ limitations under the License.
         <xsl:result-document href="{$qrda1-name}" method="xml">
             <xsl:apply-templates mode="#default" select="." />
         </xsl:result-document>
-    </xsl:template>
+    </xsl:template>-->
 
 </xsl:stylesheet>

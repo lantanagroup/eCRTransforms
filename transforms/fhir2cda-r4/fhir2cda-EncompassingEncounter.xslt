@@ -78,19 +78,25 @@ limitations under the License.
                     <xsl:otherwise>
                         <xsl:for-each select="fhir:type">
                             <xsl:apply-templates select="." />
-                            <!--<xsl:call-template name="CodeableConcept2CD" />-->
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:apply-templates select="fhir:period" />
-
+                <!-- effectiveTime (required) -->
+                <xsl:choose>
+                <xsl:when test="fhir:period">
+                    <xsl:apply-templates select="fhir:period" />
+                </xsl:when>
+                    <xsl:otherwise>
+                        <effectiveTime>
+                            <low nullFlavor="NA" />
+                        </effectiveTime>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <!-- SG 20231126: Added dischargeDisposition processing -->
                 <xsl:for-each select="fhir:hospitalization/fhir:dischargeDisposition">
-                    <!-- <dischargeDispositionCode> -->
                     <xsl:apply-templates select=".">
                         <xsl:with-param name="pElementName" select="'dischargeDispositionCode'" />
                     </xsl:apply-templates>
-                    <!-- </dischargeDispositionCode> -->
                 </xsl:for-each>
 
                 <!-- SG 20210723: I've refactored this quite a bit - it wasn't picking up multiple participants in eICR 

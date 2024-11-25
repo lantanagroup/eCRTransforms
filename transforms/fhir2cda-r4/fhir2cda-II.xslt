@@ -28,7 +28,7 @@ limitations under the License.
         <xsl:param name="pElementName" select="'id'" />
         
         <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html
-                          "introspect steward organization OID" (SG: if this is missing use author.identifier.system) -->
+                          "introspect steward organization OID" (SG: if this is missing use encounter.identifier.system) -->
         <xsl:variable name="vConvertedSystem">
             <xsl:choose>
                 <xsl:when test="fhir:system/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">NULLFLAVOR</xsl:when>
@@ -38,17 +38,17 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:variable name="vCustodianReference" select="/fhir:Bundle/fhir:entry/fhir:resource/fhir:Composition[1]/fhir:custodian/fhir:reference/@value" />
-                    <xsl:variable name="vAuthorReference" select="/fhir:Bundle/fhir:entry/fhir:resource/fhir:Composition[1]/fhir:author[1]/fhir:reference/@value" />
+                    <xsl:variable name="vCustodianReference" select="//fhir:Composition[1]/fhir:custodian/fhir:reference/@value" />
+                    <xsl:variable name="vEncounterReference" select="//fhir:Composition[1]/fhir:encounter[1]/fhir:reference/@value" />                    
                     <xsl:choose>
-                        <xsl:when test="//fhir:entry[fhir:fullUrl/@value = $vCustodianReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value">
+                        <xsl:when test="//fhir:entry[fhir:fullUrl/@value = $vCustodianReference]/fhir:resource/fhir:*/fhir:identifier[1]/fhir:system/@value">
                             <xsl:call-template name="convertURI">
                                 <xsl:with-param name="uri" select="//fhir:entry[fhir:fullUrl/@value = $vCustodianReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value" />
                             </xsl:call-template>
                         </xsl:when>
-                        <xsl:when test="//fhir:entry[fhir:fullUrl/@value = $vAuthorReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value">
+                        <xsl:when test="//fhir:entry[fhir:fullUrl/@value = $vEncounterReference]/fhir:resource/fhir:*/fhir:identifier[1]/fhir:system/@value">
                             <xsl:call-template name="convertURI">
-                                <xsl:with-param name="uri" select="//fhir:entry[fhir:fullUrl/@value = $vAuthorReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value" />
+                                <xsl:with-param name="uri" select="//fhir:entry[fhir:fullUrl/@value = $vEncounterReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value" />
                             </xsl:call-template>
                         </xsl:when>
                     </xsl:choose>

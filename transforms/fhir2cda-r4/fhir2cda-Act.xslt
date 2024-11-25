@@ -336,7 +336,6 @@ limitations under the License.
   <!-- GOAL -->
   <xsl:template match="fhir:Goal" mode="entry">
     <xsl:param name="generated-narrative">additional</xsl:param>
-    <xsl:comment>TODO: replace match with profile id when available</xsl:comment>
     <entry>
       <xsl:if test="$generated-narrative = 'generated'">
         <xsl:attribute name="typeCode">DRIV</xsl:attribute>
@@ -357,17 +356,14 @@ limitations under the License.
     </entryRelationship>
   </xsl:template>
 
-  <!-- (PCP) Goal Observation (Pharmacist Care Plan) -->
-  <!-- **TODO** refactor - this should have a name specific to PCP as it's not generic -->
+  <!-- Goal Observation -->
   <xsl:template name="make-goal">
     <observation classCode="OBS" moodCode="GOL">
       <!-- [C-CDA R2.0] Goal Observation -->
       <templateId root="2.16.840.1.113883.10.20.22.4.121" />
-      <!-- [PCP R1 STU1] Goal Observation (Pharmacist Care Plan)  -->
-      <templateId root="2.16.840.1.113883.10.20.37.3.7" extension="2017-08-01" />
+      
       <xsl:call-template name="get-id" />
       <xsl:for-each select="fhir:description">
-        <!--<xsl:call-template name="CodeableConcept2CD" />-->
           <xsl:apply-templates select="."/>
       </xsl:for-each>
 

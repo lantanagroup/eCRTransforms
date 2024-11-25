@@ -1049,6 +1049,9 @@ limitations under the License.
                         </xsl:for-each>
                     </value>
                 </xsl:when>
+                <xsl:otherwise>
+                    <value xsi:type="PQ" unit="no_unit" nullFlavor="NI" />
+                </xsl:otherwise>
             </xsl:choose>
             <xsl:for-each select="fhir:component/fhir:valueQuantity">
                 <value xsi:type="PQ">

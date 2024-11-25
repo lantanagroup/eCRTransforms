@@ -32,7 +32,8 @@ limitations under the License.
             <xsl:call-template name="get-current-ig" />
         </xsl:variable>
 
-        <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html -->
+        <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html
+                          "introspect steward organization OID" (SG: if this is missing use author.identifier.system) -->
         <xsl:variable name="vConvertedSystem">
             <xsl:choose>
                 <xsl:when test="fhir:system/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">NULLFLAVOR</xsl:when>
@@ -42,10 +43,20 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- SG 20240306: Get the start of the full url of the Composition - this is a workaround for missing system  -->
-                    <!--<xsl:call-template name="resolve-to-full-url"/>-->
-                    <!--<xsl:variable name="vCompositionFullUrl" select="fhir:entry[parent::fhir:Bundle][1]/fhir:fullUrl/@value" />-->
-                    <xsl:value-of select="$gvCompositionBaseUrl" />
+                    <xsl:variable name="vCustodianReference" select="/fhir:Bundle/fhir:entry/fhir:resource/fhir:Composition[1]/fhir:custodian/fhir:reference/@value" />
+                    <xsl:variable name="vAuthorReference" select="/fhir:Bundle/fhir:entry/fhir:resource/fhir:Composition[1]/fhir:author[1]/fhir:reference/@value" />
+                    <xsl:choose>
+                        <xsl:when test="//fhir:entry[fhir:fullUrl/@value = $vCustodianReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value">
+                            <xsl:call-template name="convertURI">
+                                <xsl:with-param name="uri" select="//fhir:entry[fhir:fullUrl/@value = $vCustodianReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value" />
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:when test="//fhir:entry[fhir:fullUrl/@value = $vAuthorReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value">
+                            <xsl:call-template name="convertURI">
+                                <xsl:with-param name="uri" select="//fhir:entry[fhir:fullUrl/@value = $vAuthorReference]/fhir:resource/fhir:*/fhir:identifier/fhir:system/@value" />
+                            </xsl:call-template>
+                        </xsl:when>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
 
@@ -67,7 +78,7 @@ limitations under the License.
 
         <xsl:element name="{$pElementName}">
             <xsl:choose>
-                <xsl:when test="$vConvertedSystem='NULLFLAVOR' and $vConvertedValue='NULLFLAVOR'">
+                <xsl:when test="$vConvertedSystem = 'NULLFLAVOR' and $vConvertedValue = 'NULLFLAVOR'">
                     <xsl:apply-templates select="fhir:system/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                 </xsl:when>
                 <xsl:when test="starts-with(fhir:value/@value, 'urn:uuid:') and not(fhir:system/@value)">
@@ -112,7 +123,7 @@ limitations under the License.
                             <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:attribute name="extension" select="$vConvertedValue" />        
+                            <xsl:attribute name="extension" select="$vConvertedValue" />
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -124,7 +135,7 @@ limitations under the License.
                             <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:attribute name="extension" select="concat('urn:', substring-after(fhir:system/@value, 'urn:oid:'), ':', $vConvertedValue)" />        
+                            <xsl:attribute name="extension" select="concat('urn:', substring-after(fhir:system/@value, 'urn:oid:'), ':', $vConvertedValue)" />
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -135,7 +146,7 @@ limitations under the License.
                             <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:attribute name="extension" select="$vConvertedValue" />        
+                            <xsl:attribute name="extension" select="$vConvertedValue" />
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -166,10 +177,10 @@ limitations under the License.
                                     <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:attribute name="extension" select="concat($vConvertedSystem, '/', $vConvertedValue)" />        
+                                    <xsl:attribute name="extension" select="concat($vConvertedSystem, '/', $vConvertedValue)" />
                                 </xsl:otherwise>
                             </xsl:choose>
-                            
+
                             <!--<!-\- Did not find an entry in the oid uri mapping file, so use a UUID for the root and store the URI in assigning authority -\->
                             <xsl:attribute name="root" select="lower-case(uuid:get-uuid())" />
                             <xsl:attribute name="assigningAuthorityName" select="$vConvertedSystem" />-->
@@ -181,10 +192,10 @@ limitations under the License.
                                     <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:attribute name="extension" select="$vConvertedValue" />        
+                                    <xsl:attribute name="extension" select="$vConvertedValue" />
                                 </xsl:otherwise>
                             </xsl:choose>
-                            
+
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
@@ -196,7 +207,7 @@ limitations under the License.
                                 <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:attribute name="extension" select="$vConvertedValue" />        
+                                <xsl:attribute name="extension" select="$vConvertedValue" />
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>

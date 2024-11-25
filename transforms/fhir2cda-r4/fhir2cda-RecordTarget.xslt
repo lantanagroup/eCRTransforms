@@ -156,7 +156,15 @@ limitations under the License.
                             <xsl:for-each select="fhir:communication[fhir:language/fhir:coding/fhir:system/@value = 'urn:ietf:bcp:47']">
                                 <languageCommunication>
                                     <languageCode>
-                                        <xsl:attribute name="code" select="fhir:language/fhir:coding/fhir:code/@value" />
+                                        <xsl:choose>
+                                            <xsl:when test="fhir:language/fhir:coding/fhir:code/not(@value='')">
+                                                <xsl:attribute name="code" select="fhir:language/fhir:coding/fhir:code/@value" />        
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:attribute name="nullFlavor" select="'NI'" />
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        
                                     </languageCode>
                                     <xsl:if test="fhir:preferred/@value = 'true'">
                                         <preferenceInd value="true" />

@@ -259,10 +259,15 @@ limitations under the License.
                     <xsl:with-param name="includeTime" select="true()" />
                 </xsl:call-template>
             </xsl:variable>
-            <effectiveTime>
+            
+          
+            <xsl:choose>
+                <xsl:when test="not($vTime = '')">
+                    <effectiveTime>
                 <low value="{$vTime}" />
                 <high value="{$vTime}" />
-            </effectiveTime>
+            </effectiveTime></xsl:when>
+            </xsl:choose>
 
             <!--<xsl:choose>
         <xsl:when test="fhir:effectiveDateTime">

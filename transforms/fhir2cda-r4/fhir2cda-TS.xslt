@@ -19,7 +19,7 @@ limitations under the License.
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc" version="2.0" exclude-result-prefixes="lcg xsl cda fhir sdtc">
 
-    <xsl:template match="fhir:valueDate | fhir:collectedDateTime">
+    <xsl:template match="fhir:valueDate">
         <xsl:param name="pElementName">effectiveTime</xsl:param>
         <xsl:param name="pXSIType" />
         <xsl:element name="{$pElementName}">
@@ -34,9 +34,8 @@ limitations under the License.
             </xsl:attribute>
         </xsl:element>
     </xsl:template>
-
-    <!--<xsl:template
-        match="fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime">
+    
+    <!--<xsl:template match="fhir:collectedDateTime">
         <xsl:param name="pElementName">effectiveTime</xsl:param>
         <xsl:param name="pXSIType" />
         <xsl:element name="{$pElementName}">
@@ -46,14 +45,14 @@ limitations under the License.
             <xsl:attribute name="value">
                 <xsl:call-template name="Date2TS">
                     <xsl:with-param name="date" select="@value" />
-                    <xsl:with-param name="includeTime" select="true()" />
+                    <xsl:with-param name="includeTime" select="false()" />
                 </xsl:call-template>
             </xsl:attribute>
         </xsl:element>
     </xsl:template>-->
 
     <xsl:template
-        match="fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted | fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime | fhir:issued">
+        match="fhir:collectedDateTime | fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted | fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime | fhir:issued">
         <!-- CDA element effectiveTime unless specified something else -->
         <xsl:param name="pElementName" select="'effectiveTime'" />
         <!-- This might be cast to a specific xsi-type in the cda -->

@@ -494,7 +494,21 @@ limitations under the License.
     <xsl:template name="make-medication-information">
         <!-- Check to see if this is a trigger code template -->
         <xsl:variable name="vTriggerEntry">
-            <xsl:call-template name="check-for-trigger" />
+                <xsl:choose>
+                    <xsl:when test="fhir:medicationReference">
+                        <xsl:variable name="vReferenceURI">
+                            <xsl:call-template name="resolve-to-full-url">
+                                <xsl:with-param name="referenceURI" select="fhir:medicationReference/fhir:reference/@value" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $vReferenceURI]/fhir:resource/fhir:Medication">
+                            <xsl:call-template name="check-for-trigger" />
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="fhir:medicationCodeableConcept">
+                        <xsl:call-template name="check-for-trigger" />
+                    </xsl:when>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="vTriggerExtension" select="$vTriggerEntry/fhir:extension" />
         <!-- deal with both medicationReference and medicationCodeableConcept -->

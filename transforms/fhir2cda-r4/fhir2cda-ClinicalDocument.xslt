@@ -32,20 +32,20 @@ limitations under the License.
     <!-- FHIR Composition -> CDA ClinicalDocument -->
     <xsl:template match="fhir:Composition">
         <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
+        <!--<xsl:variable name="vCurrentIg">
             <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
+        </xsl:variable>-->
         <xsl:variable name="docId" select="lower-case(uuid:get-uuid())" />
         <ClinicalDocument>
             <realmCode code="US" />
             <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3" />
-            <xsl:if test="$vCurrentIg = 'PCP'">
+            <xsl:if test="$gvCurrentIg = 'PCP'">
                 <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.1" />
                 <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.15" />
             </xsl:if>
 
             <!-- MD: add dental template Id -->
-            <xsl:if test="$vCurrentIg = 'DentalConsultNote'">
+            <xsl:if test="$gvCurrentIg = 'DentalConsultNote'">
                 <xsl:comment select="' [C-CDA R1.1] US Realm Header '" />
                 <templateId root="2.16.840.1.113883.10.20.22.1.1" />
                 <xsl:comment select="' [C-CDA R2.1] US Realm Header (V3) '" />
@@ -55,7 +55,7 @@ limitations under the License.
                 <xsl:comment select="' Dental Consultation Note template ID '" />
                 <templateId extension="2020-08-01" root="2.16.840.1.113883.10.20.40.1.1.2" />
             </xsl:if>
-            <xsl:if test="$vCurrentIg = 'DentalReferalNote'">
+            <xsl:if test="$gvCurrentIg = 'DentalReferalNote'">
                 <xsl:comment select="' [C-CDA R1.1] US Realm Header '" />
                 <templateId root="2.16.840.1.113883.10.20.22.1.1" />
                 <xsl:comment select="' [C-CDA R2.1] US Realm Header (V3) '" />
@@ -66,10 +66,10 @@ limitations under the License.
                 <templateId extension="2020-08-01" root="2.16.840.1.113883.10.20.40.1.1.1" />
             </xsl:if>
 
-            <xsl:if test="$vCurrentIg = 'eICR'">
+            <xsl:if test="$gvCurrentIg = 'eICR'">
                 <xsl:call-template name="get-template-id" />
             </xsl:if>
-            <xsl:if test="$vCurrentIg = 'RR'">
+            <xsl:if test="$gvCurrentIg = 'RR'">
                 <xsl:call-template name="get-template-id" />
             </xsl:if>
             <!-- generate a new ID for this document. Save the FHIR document id in parentDocument with a type of XFRM -->
@@ -96,13 +96,13 @@ limitations under the License.
             </xsl:for-each>
             <!-- SG 20210701: Where are the other IG titles? Added a choice around this -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <title>Initial Public Health Case Report</title>
                 </xsl:when>
-                <xsl:when test="$vCurrentIg = 'RR'">
+                <xsl:when test="$gvCurrentIg = 'RR'">
                     <title>Reportability Response</title>
                 </xsl:when>
-                <xsl:when test="$vCurrentIg = 'PCP'">
+                <xsl:when test="$gvCurrentIg = 'PCP'">
                     <title>Pharmacist Care Plan</title>
                 </xsl:when>
                 <xsl:otherwise>
@@ -191,7 +191,7 @@ limitations under the License.
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
-                        <xsl:when test="$vCurrentIg = 'DentalReferalNote'">
+                        <xsl:when test="$gvCurrentIg = 'DentalReferalNote'">
                             <informationRecipient>
                                 <intendedRecipient>
                                     <xsl:call-template name="get-addr" />
@@ -239,7 +239,7 @@ limitations under the License.
                 <structuredBody>
                     <!-- If this is eICR we need to manually add an Encounters section -->
                     <xsl:choose>
-                        <xsl:when test="$vCurrentIg = 'eICR'">
+                        <xsl:when test="$gvCurrentIg = 'eICR'">
                             <component>
                                 <xsl:for-each select="//fhir:Encounter">
                                     <xsl:call-template name="create-eicr-encounters-section" />
@@ -247,7 +247,7 @@ limitations under the License.
                             </component>
                         </xsl:when>
                         <!-- If this is an RR we don't want an Encounters section -->
-                        <xsl:when test="$vCurrentIg = 'RR'" />
+                        <xsl:when test="$gvCurrentIg = 'RR'" />
                         <xsl:otherwise>
                             <!-- MD: to create encounters section based on the encounter reference in the resources -->
                             <xsl:choose>

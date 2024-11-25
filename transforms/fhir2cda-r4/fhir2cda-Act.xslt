@@ -45,15 +45,15 @@ limitations under the License.
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="vCurrentIg">
+    <!--<xsl:variable name="vCurrentIg">
       <xsl:choose>
         <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
         <xsl:when test="//fhir:Communication/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication'">RR</xsl:when>
         <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Care-Plan'">PCP</xsl:when>
-        <!-- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-->
+        <!-\- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-\->
         <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaireresponse'">HAI</xsl:when>
         <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-population-summary-questionnaireresponse'">HAI</xsl:when>
-        <!-- MD: Add dental data exchange IG -->
+        <!-\- MD: Add dental data exchange IG -\->
         <xsl:when test="
             //fhir:Composition/fhir:meta/fhir:profile/@value =
             'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
@@ -63,10 +63,10 @@ limitations under the License.
         <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '57134-9'">DentalReferalNote</xsl:when>
         <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '34756-7'">DentalConsultNote</xsl:when>
       </xsl:choose>
-    </xsl:variable>
+    </xsl:variable>-->
     <act classCode="ACT" moodCode="EVN">
       <xsl:choose>
-        <xsl:when test="$vCurrentIg eq 'DentalConsultNote' or $vCurrentIg eq 'DentalReferalNote'">
+        <xsl:when test="$gvCurrentIg eq 'DentalConsultNote' or $gvCurrentIg eq 'DentalReferalNote'">
           <templateId root="2.16.840.1.113883.10.20.22.4.30" extension="2015-08-01" />
           <id nullFlavor="NI" />
           <code code="CONC" codeSystem="2.16.840.1.113883.5.6" />
@@ -196,9 +196,6 @@ limitations under the License.
   <xsl:template match="fhir:Condition" mode="entry">
     <xsl:param name="generated-narrative">additional</xsl:param>
     <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-    <xsl:variable name="vCurrentIg">
-      <xsl:call-template name="get-current-ig" />
-    </xsl:variable>
     <entry>
       <xsl:if test="$generated-narrative = 'generated'">
         <xsl:attribute name="typeCode">DRIV</xsl:attribute>
@@ -210,7 +207,7 @@ limitations under the License.
         <xsl:when test="fhir:category/fhir:coding/fhir:code/@value = '75310-3'">
           <xsl:call-template name="make-health-concern-act" />
         </xsl:when>
-        <xsl:when test="$vCurrentIg = 'PCP'">
+        <xsl:when test="$gvCurrentIg = 'PCP'">
           <xsl:call-template name="make-health-concern-act" />
         </xsl:when>
         <xsl:otherwise>
@@ -219,7 +216,7 @@ limitations under the License.
       </xsl:choose>
       <!-- 
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'PCP'">
+                <xsl:when test="$gvCurrentIg = 'PCP'">
                     <xsl:call-template name="make-health-concern-act" />
                 </xsl:when>
                 <xsl:otherwise>
@@ -247,22 +244,22 @@ limitations under the License.
   <!-- (PCP) Health Concern Act (Pharmacist Care Plan) -->
   <xsl:template name="make-health-concern-act">
     <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-    <xsl:variable name="vCurrentIg">
+    <!--<xsl:variable name="gvCurrentIg">
       <xsl:choose>
         <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
         <xsl:when test="//fhir:Communication/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication'">RR</xsl:when>
         <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Care-Plan'">PCP</xsl:when>
-        <!-- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-->
+        <!-\- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-\->
         <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaireresponse'">HAI</xsl:when>
         <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-population-summary-questionnaireresponse'">HAI</xsl:when>
       </xsl:choose>
-    </xsl:variable>
+    </xsl:variable>-->
     <xsl:if test="fhir:category/@value = 'encounter-diagnosis'"> </xsl:if>
 
     <act classCode="ACT" moodCode="EVN">
       <xsl:comment select="' [C-CDA R2.1] Health Concern Act (V2) '" />
       <templateId root="2.16.840.1.113883.10.20.22.4.132" extension="2015-08-01" />
-      <xsl:if test="$vCurrentIg = 'PCP'">
+      <xsl:if test="$gvCurrentIg = 'PCP'">
         <xsl:comment select="' Health Concern Act (Pharmacist Care Plan) '" />
         <templateId root="2.16.840.1.113883.10.20.37.3.8" extension="2017-08-01" />
       </xsl:if>

@@ -44,19 +44,13 @@ limitations under the License.
     <!-- Template: make-encompassing-encounter 
          This template uses Composition.encounter to create the CDA EncompassingEncounter -->
     <xsl:template name="make-encompassing-encounter">
-
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
-
         <componentOf>
             <encompassingEncounter>
                 <xsl:call-template name="get-id" />
 
                 <!-- For some reason eICR is different than PCP for encompassingEncounter.code -->
                 <xsl:choose>
-                    <xsl:when test="$vCurrentIg = 'eICR' or $vCurrentIg = 'RR'">
+                    <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
                         <!-- Merging class and type into one data element, and FHIR allows multiple types - merge them into a variable and process -->
                         <xsl:variable name="vMergedTypes">
                             <code xmlns="http://hl7.org/fhir">
@@ -71,7 +65,7 @@ limitations under the License.
                         </xsl:variable>
                         <xsl:apply-templates select="$vMergedTypes/fhir:code" />
                     </xsl:when>
-                    <xsl:when test="$vCurrentIg eq 'DentalConsultNote' or $vCurrentIg eq 'DentalReferalNote'">
+                    <xsl:when test="$gvCurrentIg eq 'DentalConsultNote' or $gvCurrentIg eq 'DentalReferalNote'">
                         <code>
                             <xsl:apply-templates select="fhir:class" />
                             <xsl:for-each select="fhir:type">
@@ -232,7 +226,7 @@ limitations under the License.
                                 <xsl:choose>
                                     <xsl:when test="$vLocation/fhir:Location/fhir:address">
                                         <xsl:choose>
-                                            <xsl:when test="$vCurrentIg = 'eICR'">
+                                            <xsl:when test="$gvCurrentIg = 'eICR'">
                                                 <xsl:call-template name="get-addr">
                                                     <xsl:with-param name="pElement" select="$vLocation/fhir:Location/fhir:address[1]" />
                                                 </xsl:call-template>
@@ -246,7 +240,7 @@ limitations under the License.
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:choose>
-                                            <xsl:when test="$vCurrentIg = 'eICR'">
+                                            <xsl:when test="$gvCurrentIg = 'eICR'">
                                                 <xsl:call-template name="get-addr">
                                                     <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization/fhir:address[1]" />
                                                 </xsl:call-template>
@@ -288,11 +282,7 @@ limitations under the License.
         <!-- parameter to pass to the named template to indicate whether it should allow returning nothing (i.e. no nullFlavor filled element) 
              if the FHIR element doesn't exist - the responsibleParty requires some elements, whereas there aren't the same constrains on the encounterParticipant-->
         <xsl:param name="pNoNullAllowed" select="false()" />
-
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
-
+        
         <assignedEntity>
             <!-- new 7/12/2021 -->
             <xsl:choose>
@@ -345,7 +335,7 @@ limitations under the License.
                         <xsl:apply-templates select="$pEncounterParticipant/fhir:Organization/fhir:telecom" />
                         <!-- SG 20240308: eICR only allows one address here -->
                         <xsl:choose>
-                            <xsl:when test="$vCurrentIg = 'eICR'">
+                            <xsl:when test="$gvCurrentIg = 'eICR'">
                                 <xsl:call-template name="get-addr">
                                     <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization/fhir:address[1]" />
                                     <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
@@ -370,7 +360,7 @@ limitations under the License.
                         <xsl:apply-templates select="$pServiceProvider/fhir:Organization/fhir:telecom" />
                         <!-- SG 20240308: eICR only allows one address here -->
                         <xsl:choose>
-                            <xsl:when test="$vCurrentIg = 'eICR'">
+                            <xsl:when test="$gvCurrentIg = 'eICR'">
                                 <xsl:call-template name="get-addr">
                                     <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization/fhir:address[1]" />
                                     <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />

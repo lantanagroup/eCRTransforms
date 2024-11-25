@@ -105,17 +105,8 @@ limitations under the License.
             </triggerCodeInfo>
         </xsl:for-each>
     </xsl:variable>
-
-    <!-- Get the HAI Document Questionnaire URL -->
-    <xsl:variable name="gvQuestionnaireUrl" select="//fhir:QuestionnaireResponse/fhir:questionnaire/@value" />
-
-    <!-- Put the contents of the Questionnaire resource instance into a global variable -->
-    <xsl:variable name="gvHaiQuestionnaire">
-        <xsl:copy-of select="document($gvQuestionnaireUrl)/fhir:Questionnaire" />
-    </xsl:variable>
-
-    <xsl:template name="get-current-ig">
-        <!-- Identification of IG - moved out of Global var because XSpec can't deal with global vars -->
+    
+    <xsl:variable name="gvCurrentIg">
         <xsl:choose>
             <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
             <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '55751-2'">eICR</xsl:when>
@@ -130,18 +121,27 @@ limitations under the License.
             <!-- SG 20230206: Adding in Questionnaire in case the meta/profile isn't present -->
             <xsl:when test="//fhir:QuestionnaireResponse/fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-event'">HAI</xsl:when>
             <xsl:when test="//fhir:QuestionnaireResponse/fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary'">HAI</xsl:when>
-
+            
             <!-- MD: using Composition.meta.profile or Composition.type.coding.code to identify detal data exchange IG -->
             <xsl:when test="
-                    //fhir:Composition/fhir:meta/fhir:profile/@value =
-                    'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
+                //fhir:Composition/fhir:meta/fhir:profile/@value =
+                'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
             <xsl:when test="
-                    //fhir:Composition/fhir:meta/fhir:profile/@value =
-                    'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
+                //fhir:Composition/fhir:meta/fhir:profile/@value =
+                'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
             <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '57134-9'">DentalReferalNote</xsl:when>
             <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '34756-7'">DentalConsultNote</xsl:when>
         </xsl:choose>
-    </xsl:template>
+    </xsl:variable>
+
+    <!-- Get the HAI Document Questionnaire URL -->
+    <xsl:variable name="gvQuestionnaireUrl" select="//fhir:QuestionnaireResponse/fhir:questionnaire/@value" />
+
+    <!-- Put the contents of the Questionnaire resource instance into a global variable -->
+    <xsl:variable name="gvHaiQuestionnaire">
+        <xsl:copy-of select="document($gvQuestionnaireUrl)/fhir:Questionnaire" />
+    </xsl:variable>
+
 
     <!-- Check to see if this template contains a trigger code -->
     <xsl:template name="check-for-trigger">

@@ -126,16 +126,13 @@ limitations under the License.
 
 
       <!-- If this is the Social History Section (29762-2) -->
-      <xsl:variable name="vCurrentIg">
-        <xsl:call-template name="get-current-ig" />
-      </xsl:variable>
       <xsl:if test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '29762-2'">
         <!-- we need to process Birth Sex and Gender Identity (extensions on fhir Composition) as Observations onto CDA Social history Section-->
         <xsl:apply-templates select="//fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex']" mode="entry" />
         
         <!-- MD: eICR using different genderidentity extension -->
         <xsl:choose>
-          <xsl:when test="$vCurrentIg = 'eICR' ">
+          <xsl:when test="$gvCurrentIg = 'eICR' ">
             <xsl:apply-templates select="//fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']" mode="entry"/>
           </xsl:when>
           <xsl:otherwise>

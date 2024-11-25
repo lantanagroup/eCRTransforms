@@ -26,12 +26,7 @@ limitations under the License.
 
     <xsl:template match="fhir:identifier | fhir:masterIdentifier">
         <xsl:param name="pElementName" select="'id'" />
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
-
+        
         <!-- SG 20240306: Updating for case where there is no system - using guidance here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html
                           "introspect steward organization OID" (SG: if this is missing use author.identifier.system) -->
         <xsl:variable name="vConvertedSystem">

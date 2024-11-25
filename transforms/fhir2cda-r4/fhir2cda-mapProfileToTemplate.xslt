@@ -33,11 +33,6 @@ limitations under the License.
     <xsl:template match="fhir:*" mode="map-resource-to-template">
         <xsl:param name="pElementType" />
 
-        <!-- Variable for identification of IG - moved out of Global vars for all files because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
-
         <xsl:choose>
 
             <!-- Documents -->
@@ -515,7 +510,7 @@ limitations under the License.
                 <xsl:comment select="' [RR R1S1] Relevant Reportable Condition Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.12" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="$vCurrentIg = 'RR' and fhir:code/fhir:coding/fhir:code[@value = '304561000']">
+            <xsl:when test="$gvCurrentIg = 'RR' and fhir:code/fhir:coding/fhir:code[@value = '304561000']">
                 <xsl:comment select="' [C-CDA R2.1] Instruction (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.20" extension="2014-06-09" />
                 <xsl:comment select="' [RR R1S1] Reportability Response Summary '" />

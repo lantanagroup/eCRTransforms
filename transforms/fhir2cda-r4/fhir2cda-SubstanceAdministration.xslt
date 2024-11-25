@@ -363,19 +363,15 @@ limitations under the License.
 
     <xsl:template name="make-medication-administration">
         <xsl:param name="moodCode">EVN</xsl:param>
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
         <substanceAdministration classCode="SBADM" moodCode="{$moodCode}">
             <!-- templateId -->
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'PCP'">
+                <xsl:when test="$gvCurrentIg = 'PCP'">
                     <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.37.3.10" />
                     <xsl:comment select="' MEDICATION ACTIVITY V2  '" />
                     <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
                 </xsl:when>
-                <xsl:when test="$vCurrentIg = 'eICR'">
+                <xsl:when test="$gvCurrentIg = 'eICR'">
                     <xsl:comment select="' [C-CDA R1.1] Medication Activity '" />
                     <templateId root="2.16.840.1.113883.10.20.22.4.16" />
                     <xsl:comment select="' [C-CDA R2.0] Medication Activity (V2)  '" />
@@ -588,12 +584,12 @@ limitations under the License.
         <substanceAdministration classCode="SBADM" moodCode="{$moodCode}">
 
             <xsl:choose>
-                <xsl:when test="$vCurrentIg = 'DentalConsultNote' or $vCurrentIg = 'DentalReferalNote'">
+                <xsl:when test="$gvCurrentIg = 'DentalConsultNote' or $gvCurrentIg = 'DentalReferalNote'">
                     <xsl:comment select="' Medication Activity (V2) '" />
                     <templateId root="2.16.840.1.113883.10.20.22.4.16" />
                     <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
                 </xsl:when>
-                <xsl:when test="$vCurrentIg = 'PCP'">
+                <xsl:when test="$gvCurrentIg = 'PCP'">
                     <xsl:comment select="' Medication Activity (V2) '" />
                     <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.37.3.10" />
                 </xsl:when>
@@ -622,7 +618,7 @@ limitations under the License.
                 </xsl:when>
             </xsl:choose>
 
-            <xsl:if test="$vCurrentIg = 'PCP'">
+            <xsl:if test="$gvCurrentIg = 'PCP'">
                 <code code="16076005" codeSystem="2.16.840.1.113883.6.96" displayName="Prescription" />
             </xsl:if>
             <xsl:choose>

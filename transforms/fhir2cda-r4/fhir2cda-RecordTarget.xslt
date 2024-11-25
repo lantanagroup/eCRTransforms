@@ -48,17 +48,13 @@ limitations under the License.
     </xsl:template>
 
     <xsl:template name="make-record-target">
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
         <recordTarget>
             <patientRole>
 
                 <xsl:call-template name="get-id" />
                 <xsl:variable name="vNoNullAllowed">
                     <xsl:choose>
-                        <xsl:when test="$vCurrentIg = 'HAI'">true</xsl:when>
+                        <xsl:when test="$gvCurrentIg = 'HAI'">true</xsl:when>
                         <xsl:otherwise>false</xsl:otherwise>
                     </xsl:choose>
 

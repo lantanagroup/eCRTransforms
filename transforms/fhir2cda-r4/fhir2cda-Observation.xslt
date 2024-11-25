@@ -37,10 +37,6 @@ limitations under the License.
     <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
     <xsl:template match="fhir:Observation[count(fhir:hasMember) = 0][not(fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory'])]" mode="entry">
         <xsl:param name="generated-narrative">additional</xsl:param>
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:call-template name="get-current-ig" />
-        </xsl:variable>
         <entry>
             <xsl:if test="$generated-narrative = 'generated'">
                 <xsl:attribute name="typeCode">DRIV</xsl:attribute>
@@ -51,7 +47,7 @@ limitations under the License.
                 <xsl:when test="fhir:category[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/observation-category']/fhir:code/@value = 'vital-signs'">
                     <xsl:choose>
                         <!-- PCP creates the vital signs in a Health Concern -->
-                        <xsl:when test="$vCurrentIg = 'PCP'">
+                        <xsl:when test="$gvCurrentIg = 'PCP'">
                             <xsl:call-template name="make-vitalsign-in-health-concern" />
                         </xsl:when>
                         <!-- All others are going to be standalone inside an Organizer -->

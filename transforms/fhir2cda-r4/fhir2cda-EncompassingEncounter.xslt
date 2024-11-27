@@ -263,13 +263,16 @@ limitations under the License.
                             <serviceProviderOrganization>
                                 <!--  -->
                                 <xsl:call-template name="get-org-name">
-                                    <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization/fhir:name" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization[1]/fhir:name" />
                                 </xsl:call-template>
                                 <xsl:call-template name="get-telecom">
-                                    <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization/fhir:telecom" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization[1]/fhir:telecom" />
                                 </xsl:call-template>
                                 <xsl:call-template name="get-addr">
-                                    <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization/fhir:address[1]" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$vServiceProvider/fhir:Organization[1]/fhir:address[1]" />
                                     <xsl:with-param name="pNoNullAllowed" select="true()" />
                                 </xsl:call-template>
                             </serviceProviderOrganization>
@@ -333,23 +336,28 @@ limitations under the License.
             <xsl:choose>
                 <xsl:when test="$pEncounterParticipant/fhir:Organization">
                     <representedOrganization>
-                        <xsl:apply-templates select="$pEncounterParticipant/fhir:Organization/fhir:identifier" />
+                        <!-- address duplicate Organization issue -->
+                        <xsl:apply-templates select="$pEncounterParticipant/fhir:Organization[1]/fhir:identifier" />
                         <xsl:call-template name="get-org-name">
-                            <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization/fhir:name" />
+                            <!-- address duplicate Organization issue -->
+                            <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization[1]/fhir:name" />
                             <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
                         </xsl:call-template>
-                        <xsl:apply-templates select="$pEncounterParticipant/fhir:Organization/fhir:telecom" />
+                        <!-- address duplicate Organization issue -->
+                        <xsl:apply-templates select="$pEncounterParticipant/fhir:Organization[1]/fhir:telecom" />
                         <!-- SG 20240308: eICR only allows one address here -->
                         <xsl:choose>
                             <xsl:when test="$gvCurrentIg = 'eICR'">
                                 <xsl:call-template name="get-addr">
-                                    <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization/fhir:address[1]" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization[1]/fhir:address[1]" />
                                     <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:call-template name="get-addr">
-                                    <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization/fhir:address" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$pEncounterParticipant/fhir:Organization[1]/fhir:address" />
                                     <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
                                 </xsl:call-template>
                             </xsl:otherwise>
@@ -358,23 +366,27 @@ limitations under the License.
                 </xsl:when>
                 <xsl:when test="$pServiceProvider/fhir:Organization">
                     <representedOrganization>
-                        <xsl:apply-templates select="$pServiceProvider/fhir:Organization/fhir:identifier" />
+                        <!-- address duplicate Organization issue -->
+                        <xsl:apply-templates select="$pServiceProvider/fhir:Organization[1]/fhir:identifier" />
                         <xsl:call-template name="get-org-name">
-                            <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization/fhir:name" />
+                            <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization[1]/fhir:name" />
                             <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
                         </xsl:call-template>
-                        <xsl:apply-templates select="$pServiceProvider/fhir:Organization/fhir:telecom" />
+                        <!-- address duplicate Organization issue -->
+                        <xsl:apply-templates select="$pServiceProvider/fhir:Organization[1]/fhir:telecom" />
                         <!-- SG 20240308: eICR only allows one address here -->
                         <xsl:choose>
                             <xsl:when test="$gvCurrentIg = 'eICR'">
                                 <xsl:call-template name="get-addr">
-                                    <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization/fhir:address[1]" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization[1]/fhir:address[1]" />
                                     <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:call-template name="get-addr">
-                                    <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization/fhir:address" />
+                                    <!-- address duplicate Organization issue -->
+                                    <xsl:with-param name="pElement" select="$pServiceProvider/fhir:Organization[1]/fhir:address" />
                                     <xsl:with-param name="pNoNullAllowed" select="$pNoNullAllowed" />
                                 </xsl:call-template>
                             </xsl:otherwise>

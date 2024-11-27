@@ -37,6 +37,10 @@ limitations under the License.
                         <xsl:with-param name="uri" select="fhir:system/@value" />
                     </xsl:call-template>
                 </xsl:when>
+                <!-- when there is no system but the value is a GUID we can just put the GUID into the root (this is the case where urn:uuid isn't a prefix) -->
+                <xsl:when test="not(fhir:system/@value) and matches(fhir:value/@value, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$')"/>
+                <!-- when there is no system but the value is a GUID we can just put the GUID into the root-->
+                <xsl:when test="not(fhir:system/@value) and starts-with(fhir:value/@value, 'urn:uuid')"/>
                 <xsl:otherwise>
                     <xsl:variable name="vCustodianReference" select="//fhir:Composition[1]/fhir:custodian/fhir:reference/@value" />
                     <xsl:variable name="vEncounterReference" select="//fhir:Composition[1]/fhir:encounter[1]/fhir:reference/@value" />                    
@@ -78,6 +82,9 @@ limitations under the License.
                 </xsl:when>
                 <xsl:when test="starts-with(fhir:value/@value, 'urn:uuid:') and not(fhir:system/@value)">
                     <xsl:attribute name="root" select="substring-after(fhir:value/@value, 'urn:uuid:')" />
+                </xsl:when>
+                <xsl:when test="matches(fhir:value/@value, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$') and not(fhir:system/@value)">
+                    <xsl:attribute name="root" select="fhir:value/@value" />
                 </xsl:when>
                 <xsl:when test="fhir:system/@value = 'urn:ietf:rfc:3986'">
                     <xsl:choose>

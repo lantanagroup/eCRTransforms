@@ -16,7 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet xmlns="urn:hl7-org:v3" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" version="2.0" exclude-result-prefixes="lcg xsl cda fhir">
+<xsl:stylesheet xmlns="urn:hl7-org:v3" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" version="2.0"
+    exclude-result-prefixes="lcg xsl cda fhir">
 
 
     <xsl:import href="fhir2cda-utility.xslt" />
@@ -30,8 +31,8 @@ limitations under the License.
         <!-- check author Parent Resource -->
         <xsl:variable name="vAuthorParent" select="../local-name()" />
         <!-- SG 20231122: Add code to get parent id - won't only be one of everying (e.g. ServiceRequest) -->
-        <xsl:variable name="vAuthorParentId" select="../fhir:id/@value" /> 
-        
+        <xsl:variable name="vAuthorParentId" select="../fhir:id/@value" />
+
         <xsl:for-each select="fhir:reference">
             <xsl:variable name="referenceURI">
                 <xsl:call-template name="resolve-to-full-url">
@@ -66,7 +67,7 @@ limitations under the License.
             <xsl:with-param name="pAuthorParent" select="$pAuthorParent" />
         </xsl:call-template>
     </xsl:template>
-    
+
     <!-- fhir:Organization -> cda:author -->
     <xsl:template match="fhir:entry/fhir:resource/fhir:Organization" mode="author">
         <xsl:param name="pAuthorParent" />
@@ -159,15 +160,20 @@ limitations under the License.
                 <xsl:if test="$vOrganization">
                     <representedOrganization>
                         <xsl:call-template name="get-id">
-                            <xsl:with-param name="pElement" select="$vOrganization/fhir:identifier" />
+                            <!-- address a duplicate Organization issue -->
+                            <xsl:with-param name="pElement" select="$vOrganization[1]/fhir:identifier" />
                         </xsl:call-template>
                         <xsl:call-template name="get-org-name">
-                            <xsl:with-param name="pElement" select="$vOrganization/fhir:name" />
+                            <!-- address a duplicate Organization issue -->
+                            <xsl:with-param name="pElement" select="$vOrganization[1]/fhir:name" />
                         </xsl:call-template>
                         <!-- SG 2023-04 Get address -->
-                        <xsl:call-template name="get-addr">
-                            <xsl:with-param name="pElement" select="$vOrganization/fhir:address" />
-                        </xsl:call-template>
+                        <!-- address a duplicate Organization issue -->
+                        <xsl:for-each select="$vOrganization[1]/fhir:address[1]">
+                            <xsl:call-template name="get-addr">
+                                <xsl:with-param name="pElement" select="." />
+                            </xsl:call-template>
+                        </xsl:for-each>
                     </representedOrganization>
                 </xsl:if>
             </assignedAuthor>
@@ -236,17 +242,17 @@ limitations under the License.
                             <manufacturerModelName displayName="{fhir:modelNumber/@value}" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <manufacturerModelName nullFlavor="NI"/>
+                            <manufacturerModelName nullFlavor="NI" />
                         </xsl:otherwise>
                     </xsl:choose>
-                    
+
                     <xsl:choose>
                         <xsl:when test="fhir:version/fhir:value/@value">
-                        <softwareName displayName="{fhir:version/fhir:value/@value}" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <softwareName nullFlavor="NI" />
-                    </xsl:otherwise>
+                            <softwareName displayName="{fhir:version/fhir:value/@value}" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <softwareName nullFlavor="NI" />
+                        </xsl:otherwise>
                     </xsl:choose>
                 </assignedAuthoringDevice>
             </assignedAuthor>
@@ -295,9 +301,9 @@ limitations under the License.
                 <xsl:when test="$pAuthorParent = 'ServiceRequest'">
                     <xsl:comment select="' [C-CDA R2.0] Author Participation '" />
                     <templateId root="2.16.840.1.113883.10.20.22.4.119" />
-                    
+
                     <xsl:call-template name="get-time">
-                        <xsl:with-param name="pElement" select="//fhir:ServiceRequest[fhir:id/@value=$pAuthorParentId]/fhir:authoredOn" />
+                        <xsl:with-param name="pElement" select="//fhir:ServiceRequest[fhir:id/@value = $pAuthorParentId]/fhir:authoredOn" />
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>
@@ -313,13 +319,13 @@ limitations under the License.
                 <xsl:call-template name="get-id" />
                 <xsl:call-template name="get-addr" />
                 <xsl:call-template name="get-telecom" />
-                <xsl:if test="local-name()!='Organization'">
+                <xsl:if test="local-name() != 'Organization'">
                     <assignedPerson>
                         <xsl:apply-templates select="fhir:name" />
                     </assignedPerson>
                 </xsl:if>
                 <!-- SG 20231123: Check for Organization and add it -->
-                <xsl:if test="local-name()='Organization'">
+                <xsl:if test="local-name() = 'Organization'">
                     <representedOrganization>
                         <xsl:call-template name="get-id" />
                         <xsl:call-template name="get-org-name" />

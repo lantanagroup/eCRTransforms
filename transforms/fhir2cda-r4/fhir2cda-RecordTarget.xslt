@@ -127,7 +127,13 @@ limitations under the License.
                     </xsl:choose>
 
                     <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race']" />
+                    <xsl:if test="not(fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race'])">
+                        <raceCode nullFlavor="NI" />
+                    </xsl:if>
                     <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity']" />
+                    <xsl:if test="not(fhir:extension[@url = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity'])">
+                        <ethnicGroupCode nullFlavor="NI" />
+                    </xsl:if>
 
 
                     <!-- Check for guardian information -->

@@ -83,9 +83,9 @@ limitations under the License.
                 </xsl:choose>
                 <!-- effectiveTime (required) -->
                 <xsl:choose>
-                <xsl:when test="fhir:period">
-                    <xsl:apply-templates select="fhir:period" />
-                </xsl:when>
+                    <xsl:when test="fhir:period">
+                        <xsl:apply-templates select="fhir:period" />
+                    </xsl:when>
                     <xsl:otherwise>
                         <effectiveTime>
                             <low nullFlavor="NA" />
@@ -108,57 +108,62 @@ limitations under the License.
                 <!-- SG 20210723: TODO Need to decide what to do if there isn't a participant with type ATND - for now just leaving them
                       as encounterParticipants, but maybe if there is only one we would want to put it into responsibleParty?-->
                 <!-- responsibleParty (with type = ATND) needs to come first -->
+                <!-- only take the first ATND participant, put all the others into encounterParticipants -->
                 <xsl:for-each select="fhir:participant[fhir:type/fhir:coding/fhir:code/@value = 'ATND']">
-                    <!-- SG 2021/07/22 Adding: using a variable here to hold either the Provider or ProviderRole information-->
-                    <xsl:variable name="vEncounterParticipant">
-                        <xsl:apply-templates mode="encounter-participant" select="." />
-                    </xsl:variable>
-                    <xsl:variable name="vServiceProvider">
-                        <xsl:apply-templates mode="composition-encounter" select="../fhir:serviceProvider" />
-                    </xsl:variable>
-                    <responsibleParty>
-                        <!-- SG 2021/07/22: Adding: moved the code out for assignedEntity so we can reuse it in the encounterParticipant -->
-                        <xsl:call-template name="get-assigned-entity">
-                            <xsl:with-param name="pEncounterParticipant" select="$vEncounterParticipant" />
-                            <xsl:with-param name="pServiceProvider" select="$vServiceProvider" />
-                        </xsl:call-template>
-                    </responsibleParty>
-                </xsl:for-each>
-                <!-- all the other participants go into encounterParticipant -->
-                <xsl:for-each select="fhir:participant[not(fhir:type/fhir:coding/fhir:code/@value = 'ATND')]">
-
-                    <!-- SG 2021/07/22 Adding: using a variable here to hold either the Provider or ProviderRole information-->
-                    <xsl:variable name="vEncounterParticipant">
-                        <xsl:apply-templates mode="encounter-participant" select="." />
-                    </xsl:variable>
-                    <encounterParticipant>
-                        <!-- typeCode is required-->
-                        <!-- SG: There is a big mismatch in the codes allowed in CDA (ADM, ATND, CON, DIS, REF) and the codes allowed in FHIR: https://www.hl7.org/fhir/valueset-encounter-participant-type.html
-                             Need to do a mapping somehow - might be best in a file so we can reuse
-                             For now, if they are not in that short list, will default to CON (not ideal!!)-->
-                        <xsl:variable name="vType">
-                            <xsl:choose>
-                                <xsl:when test="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value">
-                                    <xsl:value-of select="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value" />
-                                </xsl:when>
-                                <xsl:otherwise>CON</xsl:otherwise>
-                            </xsl:choose>
+                    <xsl:if test="position() = 1">
+                        <!-- SG 2021/07/22 Adding: using a variable here to hold either the Provider or ProviderRole information-->
+                        <xsl:variable name="vEncounterParticipant">
+                            <xsl:apply-templates mode="encounter-participant" select="." />
                         </xsl:variable>
-                        <xsl:attribute name="typeCode" select="
-                                if (not($vType) or ($vType = 'CALLBCK' or $vType = 'ESC' or $vType = 'SPRF' or $vType = 'PPRF' or $vType = 'PART' or $vType = 'translator' or $vType = 'emergency'))
-                                then
-                                    'CON'
-                                else
-                                    $vType"> </xsl:attribute>
                         <xsl:variable name="vServiceProvider">
                             <xsl:apply-templates mode="composition-encounter" select="../fhir:serviceProvider" />
                         </xsl:variable>
-                        <!-- SG 2021/07/22: Adding: moved the code out for assignedEntity so we can reuse it in the encounterParticipant -->
-                        <xsl:call-template name="get-assigned-entity">
-                            <xsl:with-param name="pEncounterParticipant" select="$vEncounterParticipant" />
-                            <xsl:with-param name="pServiceProvider" select="$vServiceProvider" />
-                        </xsl:call-template>
-                    </encounterParticipant>
+                        <responsibleParty>
+                            <!-- SG 2021/07/22: Adding: moved the code out for assignedEntity so we can reuse it in the encounterParticipant -->
+                            <xsl:call-template name="get-assigned-entity">
+                                <xsl:with-param name="pEncounterParticipant" select="$vEncounterParticipant" />
+                                <xsl:with-param name="pServiceProvider" select="$vServiceProvider" />
+                            </xsl:call-template>
+                        </responsibleParty>
+                    </xsl:if>
+                </xsl:for-each>
+                <!-- all the other participants go into encounterParticipant -->
+                <!--<xsl:for-each select="fhir:participant[not(fhir:type/fhir:coding/fhir:code/@value = 'ATND')]">-->
+                <xsl:for-each select="fhir:participant">
+                    <xsl:if test="not(fhir:type/fhir:coding/fhir:code/@value = 'ATND') or (fhir:type/fhir:coding/fhir:code/@value = 'ATND' and position() > 1)">
+                        <!-- SG 2021/07/22 Adding: using a variable here to hold either the Provider or ProviderRole information-->
+                        <xsl:variable name="vEncounterParticipant">
+                            <xsl:apply-templates mode="encounter-participant" select="." />
+                        </xsl:variable>
+                        <encounterParticipant>
+                            <!-- typeCode is required-->
+                            <!-- SG: There is a big mismatch in the codes allowed in CDA (ADM, ATND, CON, DIS, REF) and the codes allowed in FHIR: https://www.hl7.org/fhir/valueset-encounter-participant-type.html
+                             Need to do a mapping somehow - might be best in a file so we can reuse
+                             For now, if they are not in that short list, will default to CON (not ideal!!)-->
+                            <xsl:variable name="vType">
+                                <xsl:choose>
+                                    <xsl:when test="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value">
+                                        <xsl:value-of select="fhir:type/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']/fhir:code/@value" />
+                                    </xsl:when>
+                                    <xsl:otherwise>CON</xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:variable>
+                            <xsl:attribute name="typeCode" select="
+                                    if (not($vType) or ($vType = 'CALLBCK' or $vType = 'ESC' or $vType = 'SPRF' or $vType = 'PPRF' or $vType = 'PART' or $vType = 'translator' or $vType = 'emergency'))
+                                    then
+                                        'CON'
+                                    else
+                                        $vType"> </xsl:attribute>
+                            <xsl:variable name="vServiceProvider">
+                                <xsl:apply-templates mode="composition-encounter" select="../fhir:serviceProvider" />
+                            </xsl:variable>
+                            <!-- SG 2021/07/22: Adding: moved the code out for assignedEntity so we can reuse it in the encounterParticipant -->
+                            <xsl:call-template name="get-assigned-entity">
+                                <xsl:with-param name="pEncounterParticipant" select="$vEncounterParticipant" />
+                                <xsl:with-param name="pServiceProvider" select="$vServiceProvider" />
+                            </xsl:call-template>
+                        </encounterParticipant>
+                    </xsl:if>
                 </xsl:for-each>
                 <!--  -->
                 <xsl:for-each select="fhir:location">
@@ -291,7 +296,7 @@ limitations under the License.
         <!-- parameter to pass to the named template to indicate whether it should allow returning nothing (i.e. no nullFlavor filled element) 
              if the FHIR element doesn't exist - the responsibleParty requires some elements, whereas there aren't the same constrains on the encounterParticipant-->
         <xsl:param name="pNoNullAllowed" select="false()" />
-        
+
         <assignedEntity>
             <!-- new 7/12/2021 -->
             <xsl:choose>

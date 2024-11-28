@@ -654,7 +654,7 @@ limitations under the License.
                     <xsl:copy-of select="current-group()[1]" />
                 </xsl:for-each-group>
             </xsl:when>
-            <xsl:when test="$pNoNullAllowed">
+            <xsl:when test="$pNoNullAllowed = true()">
                 <id root="{lower-case(uuid:get-uuid())}" />
             </xsl:when>
             <xsl:otherwise>
@@ -663,7 +663,7 @@ limitations under the License.
         </xsl:choose>
     </xsl:template>
 
-    <!-- If pNoNullAllowed is missing or set to false(): outputs an addr even if the address element doesn't exist
+    <!-- If pNoNullAllowed is missing or set to false(): outputs a nullFlavor addr even if the address element doesn't exist
        Use when the CDA requires an addr
        If pNoNullAllowed is set to true: outputs nothing if the address element doesn't exist -->
     <xsl:template name="get-addr">
@@ -673,7 +673,7 @@ limitations under the License.
             <xsl:when test="$pElement">
                 <xsl:apply-templates select="$pElement" />
             </xsl:when>
-            <xsl:when test="$pNoNullAllowed" />
+            <xsl:when test="$pNoNullAllowed = true()" />
             <xsl:otherwise>
                 <addr>
                     <streetAddressLine nullFlavor="NI" />
@@ -685,7 +685,7 @@ limitations under the License.
         </xsl:choose>
     </xsl:template>
 
-    <!-- If pNoNullAllowed is missing or set to false(): outputs a telecom even if the telecom element doesn't exist
+    <!-- If pNoNullAllowed is missing or set to false(): outputs a nullFlavor telecom even if the telecom element doesn't exist
        Use when the CDA requires a telecom 
         If pNoNullAllowed is set to true: outputs nothing if the telecom element doesn't exist -->
     <xsl:template name="get-telecom">
@@ -701,7 +701,7 @@ limitations under the License.
                     <xsl:copy-of select="current-group()[1]" />
                 </xsl:for-each-group>
             </xsl:when>
-            <xsl:when test="$pNoNullAllowed" />
+            <xsl:when test="$pNoNullAllowed = true()" />
             <xsl:otherwise>
                 <telecom nullFlavor="NI" />
             </xsl:otherwise>
@@ -721,7 +721,7 @@ limitations under the License.
                     <xsl:value-of select="$pElement/@value" />
                 </name>
             </xsl:when>
-            <xsl:when test="$pNoNullAllowed" />
+            <xsl:when test="$pNoNullAllowed = true()" />
             <xsl:otherwise>
                 <name nullFlavor="NI" />
             </xsl:otherwise>
@@ -739,7 +739,7 @@ limitations under the License.
             <xsl:when test="$pElement">
                 <xsl:apply-templates select="$pElement" />
             </xsl:when>
-            <xsl:when test="$pNoNullAllowed" />
+            <xsl:when test="$pNoNullAllowed = true()" />
             <xsl:otherwise>
                 <name>
                     <given nullFlavor="NI" />

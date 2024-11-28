@@ -59,11 +59,11 @@ limitations under the License.
                     </xsl:choose>
 
                 </xsl:variable>
-                <!-- SG NOTE: Address isn't required for HAI IGs like it is for US Realm Header based IGs and US Realm Header only has address as MS -->
+                <!-- SG NOTE: Address isn't required for HAI IGs like it is for US Realm Header based IGs and US Core only has address as MS -->
                 <xsl:call-template name="get-addr">
                     <xsl:with-param name="pNoNullAllowed" select="$vNoNullAllowed" />
                 </xsl:call-template>
-                <!-- SG NOTE: Telecom isn't required for HAI IGs like it is for US Realm Header based IGs and US Realm Header only has address as MS -->
+                <!-- SG NOTE: Telecom isn't required for HAI IGs like it is for US Realm Header based IGs and US Core only has address as MS -->
                 <xsl:call-template name="get-telecom">
                     <xsl:with-param name="pNoNullAllowed" select="$vNoNullAllowed" />
                 </xsl:call-template>

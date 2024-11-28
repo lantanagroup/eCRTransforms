@@ -38,8 +38,7 @@ limitations under the License.
                     </xsl:call-template>
                 </xsl:when>
                 <!-- when there is no system but the value is a GUID we can just put the GUID into the root -->
-                <xsl:when
-                    test="not(fhir:system/@value) and (matches(fhir:value/@value, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$') or matches(fhir:value/@value, 'urn:uuid:^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$'))" />
+                <xsl:when test="not(fhir:system/@value) and (matches(fhir:value/@value, $gvUUIDRegEx) or matches(fhir:value/@value, $gvUUIDRegExWithPrefix))" />
 
                 <xsl:otherwise>
                     <xsl:variable name="vCustodianReference" select="//fhir:Composition[1]/fhir:custodian/fhir:reference/@value" />
@@ -71,9 +70,12 @@ limitations under the License.
                 <xsl:when test="contains(fhir:value/@value, '#')">
                     <xsl:value-of select="substring-before(fhir:value/@value, '#')" />
                 </xsl:when>
-                <!-- when the value is a uuid (with or without proper urn:uuid: prefix) -->
-                <xsl:when
-                    test="matches(fhir:value/@value, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$') or matches(fhir:value/@value, 'urn:uuid:^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$')">
+                <!-- when the value is a uuid or oid (with or without proper prefix) -->
+                <xsl:when test="
+                        matches(fhir:value/@value, $gvUUIDRegEx) or
+                        matches(fhir:value/@value, $gvUUIDRegExWithPrefix) or
+                        matches(fhir:value/@value, $gvOIDRegEx) or
+                        matches(fhir:value/@value, $gvOIDRegExWithPrefix)">
                     <xsl:call-template name="convertURI">
                         <xsl:with-param name="uri" select="fhir:value/@value" />
                     </xsl:call-template>
@@ -94,12 +96,12 @@ limitations under the License.
                     <xsl:apply-templates select="fhir:system/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                 </xsl:when>
                 <!-- when there is no system but the value is a guid put the value in the root -->
-                <xsl:when test="string-length($vConvertedSystem) = 0 and matches($vConvertedValue, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$')">
+                <xsl:when test="string-length($vConvertedSystem) = 0 and matches($vConvertedValue, $gvUUIDRegEx)">
                     <!--<xsl:when test="starts-with(fhir:value/@value, 'urn:uuid:') and not(fhir:system/@value)">-->
                     <!--<xsl:attribute name="root" select="substring-after(fhir:value/@value, 'urn:uuid:')" />-->
                     <xsl:attribute name="root" select="$vConvertedValue" />
                 </xsl:when>
-                <!--<xsl:when test="matches(fhir:value/@value, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$') and not(fhir:system/@value)">
+                <!--<xsl:when test="matches(fhir:value/@value, '$gvUUIDRegEx') and not(fhir:system/@value)">
                     <xsl:attribute name="root" select="fhir:value/@value" />
                 </xsl:when>-->
                 <!--<xsl:when test="fhir:system/@value = 'urn:ietf:rfc:3986'">-->
@@ -109,13 +111,13 @@ limitations under the License.
                             <xsl:call-template name="get-nullFlavor" />
                         </xsl:when>
                         <!--<xsl:when test="starts-with($vConvertedValue, 'urn:oid:')">-->
-                        <xsl:when test="matches($vConvertedValue, '^([0-2])((\.0)|(\.[1-9][0-9]*))*')">
+                        <xsl:when test="matches($vConvertedValue, $gvOIDRegEx)">
                             <!--<xsl:attribute name="root" select="substring-after($vConvertedValue, 'urn:oid:')" />-->
                             <xsl:attribute name="root" select="$vConvertedValue" />
                         </xsl:when>
                         <!--<xsl:when test="starts-with($vConvertedValue, 'urn:uuid:')">-->
-                        <xsl:when test="matches($vConvertedValue, '^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$')">
-                            <xsl:attribute name="root" select="substring-after($vConvertedValue, 'urn:uuid:')" />
+                        <xsl:when test="matches($vConvertedValue, $gvUUIDRegEx)">
+                            <xsl:attribute name="root" select="$vConvertedValue" />
                         </xsl:when>
                         <xsl:when test="starts-with($vConvertedValue, 'urn:hl7ii:')">
                             <xsl:variable name="vSystemAfter">
@@ -239,11 +241,11 @@ limitations under the License.
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
-                    <!--<xsl:if test="fhir:system">
-                        <xsl:attribute name="assigningAuthorityName" select="fhir:system/@value" />
-                    </xsl:if>-->
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:if test="fhir:assigner/fhir:display/@value">
+                <xsl:attribute name="assigningAuthorityName" select="fhir:assigner/fhir:display/@value" />
+            </xsl:if>
         </xsl:element>
     </xsl:template>
 

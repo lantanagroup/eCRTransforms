@@ -20,7 +20,6 @@ limitations under the License.
     xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-
     <xsl:import href="fhir2cda-TS.xslt" />
     <xsl:import href="fhir2cda-II.xslt" />
     <xsl:import href="fhir2cda-ADDR.xslt" />
@@ -38,6 +37,13 @@ limitations under the License.
     <xsl:param name="questionnaire-mapping-file">../questionnaire-mapping.xml</xsl:param>
     <xsl:param name="section-title-mapping-file">../section-title-mapping.xml</xsl:param>
     <xsl:param name="result-status-mapping-file">../result-status-mapping.xml</xsl:param>
+    
+    <xsl:variable name="gvUUIDRegEx" select="'[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'"/>
+    <xsl:variable name="gvUUIDRegExWithPrefix" select="'urn:uuid:[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'"/>
+    <!--[0-2](.[1-9]\d*)+-->
+    <xsl:variable name="gvOIDRegEx" select="'([0-2])((\.0)|(\.[1-9][0-9]*))*'"/>
+                                              
+    <xsl:variable name="gvOIDRegExWithPrefix" select="'urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*'"/>
 
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />

@@ -37,7 +37,7 @@ limitations under the License.
                         <xsl:with-param name="uri" select="fhir:system/@value" />
                     </xsl:call-template>
                 </xsl:when>
-                <!-- when there is no system but the value is a GUID we can just put the GUID into the root -->
+                <!-- when there is no system but the value is a UUID we can just put the UUID into the root -->
                 <xsl:when test="not(fhir:system/@value) and (matches(fhir:value/@value, $gvUUIDRegEx) or matches(fhir:value/@value, $gvUUIDRegExWithPrefix))" />
 
                 <xsl:otherwise>

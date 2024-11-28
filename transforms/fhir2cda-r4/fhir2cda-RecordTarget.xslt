@@ -185,8 +185,48 @@ limitations under the License.
                         </xsl:otherwise>
                     </xsl:choose>
                 </patient>
+                <!-- providerOrganization -->
+                <xsl:for-each select="fhir:managingOrganization/fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
+                        <xsl:apply-templates select="fhir:resource/fhir:*" mode="providerOrganization" />
+                    </xsl:for-each>
+                </xsl:for-each>
             </patientRole>
         </recordTarget>
+    </xsl:template>
+    
+    <xsl:template match="fhir:Organization" mode="providerOrganization">
+        <providerOrganization>
+            <xsl:choose>
+                <xsl:when test="fhir:identifier">
+                    <xsl:apply-templates select="fhir:identifier" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <id nullFlavor="NI" />
+                </xsl:otherwise>
+            </xsl:choose>
+            
+            <xsl:if test="fhir:name">
+                <xsl:call-template name="get-org-name" />
+            </xsl:if>
+            
+            <xsl:call-template name="get-telecom"/>
+            
+            <xsl:choose>
+                <xsl:when test="fhir:address">
+                    <xsl:apply-templates select="fhir:address" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <addr nullFlavor="NI" />
+                </xsl:otherwise>
+            </xsl:choose>
+            
+        </providerOrganization>
     </xsl:template>
 
     <xsl:template name="make-record-target-from-group">

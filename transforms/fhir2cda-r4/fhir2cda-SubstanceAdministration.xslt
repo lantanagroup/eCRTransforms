@@ -219,8 +219,52 @@ limitations under the License.
                 <xsl:apply-templates select="fhir:vaccineCode">
                     <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />
                 </xsl:apply-templates>
+                <xsl:if test="fhir:lotNumber/@value">
+                    <lotNumberText>
+                        <xsl:value-of select="fhir:lotNumber/@value" />
+                    </lotNumberText>
+                </xsl:if>
             </manufacturedMaterial>
+            <xsl:for-each select="fhir:manufacturer/fhir:reference">
+                <xsl:variable name="referenceURI">
+                    <xsl:call-template name="resolve-to-full-url">
+                        <xsl:with-param name="referenceURI" select="@value" />
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]">
+                    <xsl:apply-templates select="fhir:resource/fhir:*" mode="manufacturer" />
+                </xsl:for-each>
+            </xsl:for-each>
         </manufacturedProduct>
+    </xsl:template>
+
+    <xsl:template match="fhir:Organization" mode="manufacturer">
+        <manufacturerOrganization>
+            <xsl:choose>
+                <xsl:when test="fhir:identifier">
+                    <xsl:apply-templates select="fhir:identifier" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <id nullFlavor="NI" />
+                </xsl:otherwise>
+            </xsl:choose>
+
+            <xsl:if test="fhir:name">
+                <xsl:call-template name="get-org-name" />
+            </xsl:if>
+            <!--<xsl:apply-templates select="fhir:name" />-->
+            <xsl:apply-templates select="fhir:telecom" />
+
+            <xsl:choose>
+                <xsl:when test="fhir:address">
+                    <xsl:apply-templates select="fhir:address" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <addr nullFlavor="NI" />
+                </xsl:otherwise>
+            </xsl:choose>
+
+        </manufacturerOrganization>
     </xsl:template>
 
     <xsl:template name="make-admission-medication">
@@ -490,20 +534,20 @@ limitations under the License.
     <xsl:template name="make-medication-information">
         <!-- Check to see if this is a trigger code template -->
         <xsl:variable name="vTriggerEntry">
-                <xsl:choose>
-                    <xsl:when test="fhir:medicationReference">
-                        <xsl:variable name="vReferenceURI">
-                            <xsl:call-template name="resolve-to-full-url">
-                                <xsl:with-param name="referenceURI" select="fhir:medicationReference/fhir:reference/@value" />
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $vReferenceURI]/fhir:resource/fhir:Medication">
-                            <xsl:call-template name="check-for-trigger" />
-                        </xsl:for-each>
-                    </xsl:when>
-                    <xsl:when test="fhir:medicationCodeableConcept">
+            <xsl:choose>
+                <xsl:when test="fhir:medicationReference">
+                    <xsl:variable name="vReferenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="fhir:medicationReference/fhir:reference/@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $vReferenceURI]/fhir:resource/fhir:Medication">
                         <xsl:call-template name="check-for-trigger" />
-                    </xsl:when>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="fhir:medicationCodeableConcept">
+                    <xsl:call-template name="check-for-trigger" />
+                </xsl:when>
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="vTriggerExtension" select="$vTriggerEntry/fhir:extension" />

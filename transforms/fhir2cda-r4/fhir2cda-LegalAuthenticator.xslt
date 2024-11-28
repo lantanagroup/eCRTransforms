@@ -174,7 +174,7 @@ limitations under the License.
                     <xsl:call-template name="get-org-name" />
                 </xsl:when>
             </xsl:choose>
-            <xsl:apply-templates select="fhir:name" />
+            <!--<xsl:apply-templates select="fhir:name" />-->
             <xsl:for-each select="fhir:telecom">
                 <xsl:apply-templates select="." />
             </xsl:for-each>

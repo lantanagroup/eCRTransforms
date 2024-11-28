@@ -30,8 +30,8 @@ limitations under the License.
         </xsl:variable>
         <xsl:element name="{$elementName}">
             <xsl:choose>
-                <xsl:when test="fhir:value/fhir:extension/@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
-                    <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                <xsl:when test="fhir:extension/@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="value">

@@ -153,83 +153,6 @@ limitations under the License.
         </xsl:if>
     </xsl:template>
 
-    <!--<xsl:template name="check-for-trigger">
-        <xsl:variable name="vTriggerEntry">
-            <xsl:call-template name="get-associated-trigger-extension" />
-        </xsl:variable>
-        <xsl:variable name="vAssociatedTriggerExtension" select="$vTriggerEntry/fhir:extension" />
-
-        <!-\- Get all codes in the profile: 
-                if this contains a MedicationReference, use the codes from Medication instead
-                if this contains hasMembers, use the codes in the referenced resource as well-\->
-        <xsl:variable name="vCodesToMatch">
-            <xsl:choose>
-                <xsl:when test="fhir:medicationReference">
-                    <xsl:variable name="referenceURI">
-                        <xsl:call-template name="resolve-to-full-url">
-                            <xsl:with-param name="referenceURI" select="fhir:medicationReference/fhir:reference/@value" />
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value" />
-                </xsl:when>
-                <xsl:when test="fhir:hasMember">
-                    <xsl:for-each select="fhir:hasMember">
-                        <xsl:variable name="referenceURI">
-                            <xsl:call-template name="resolve-to-full-url">
-                                <xsl:with-param name="referenceURI" select="fhir:reference/@value" />
-                            </xsl:call-template>
-                        </xsl:variable>
-                        <xsl:value-of select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/descendant::*/fhir:coding/fhir:code/@value" />
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="descendant::*/fhir:coding/fhir:code/@value" />
-                    <!-\-<xsl:variable name="vCodesToMatch" select="descendant::*/fhir:coding/fhir:code/@value" />-\->
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <!-\- Check current Resource code against the trigger codes in the associated extensions -\->
-        <!-\-        <xsl:copy-of select="$vAssociatedTriggerExtension[fhir:extension//fhir:code/@value = $vCodesToMatch]" />-\->
-        <xsl:copy-of select="$vAssociatedTriggerExtension[contains($vCodesToMatch, fhir:extension//fhir:code/@value)]" />
-    </xsl:template>-->
-
-    <!--<xsl:template name="get-associated-trigger-extension">
-        <xsl:variable name="vTriggerExtensionUrl" select="'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension'" />
-        <!-\- This profile might have been contained in another profile, need to get to top of tree for match -\->
-        <xsl:variable name="vFullUrl">
-            <xsl:value-of select="../../fhir:fullUrl/@value" />
-        </xsl:variable>
-        <!-\- Get the relative url because sometimes it's used in the reference -\->
-        <xsl:variable name="vRelativeUrl">
-            <xsl:value-of select="tokenize($vFullUrl, '/')[position() &gt;= last() - 1]" separator="/" />
-        </xsl:variable>
-        <xsl:choose>
-            <!-\- This means we need to move up the tree -\->
-            <xsl:when test="//fhir:hasMember[fhir:reference/@value = $vFullUrl]">
-                <xsl:for-each select="//fhir:*[fhir:hasMember[fhir:reference/@value = $vFullUrl]]">
-                    <xsl:call-template name="get-associated-trigger-extension" />
-                </xsl:for-each>
-            </xsl:when>
-            <xsl:when test="//fhir:entry[fhir:reference/@value = $vFullUrl]/fhir:extension[@url = $vTriggerExtensionUrl]">
-                <xsl:copy-of select="//fhir:entry[fhir:reference/@value = $vFullUrl]/fhir:extension[@url = $vTriggerExtensionUrl]" />
-            </xsl:when>
-
-            <!-\- Could also be a relative reference in the section.entry -\->
-            <xsl:when test="//fhir:entry[fhir:reference/@value = $vRelativeUrl]/fhir:extension[@url = $vTriggerExtensionUrl]">
-                <xsl:copy-of select="//fhir:entry[fhir:reference/@value = $vRelativeUrl]/fhir:extension[@url = $vTriggerExtensionUrl]" />
-            </xsl:when>
-
-
-            <xsl:when test="//fhir:diagnosis[fhir:condition/fhir:reference/@value = $vFullUrl]/fhir:extension[@url = $vTriggerExtensionUrl]">
-                <xsl:copy-of select="//fhir:diagnosis[fhir:condition/fhir:reference/@value = $vFullUrl]/fhir:extension[@url = $vTriggerExtensionUrl]" />
-            </xsl:when>
-
-            <!-\- Could also be a relative reference in Encounter.diagnosis -\->
-            <xsl:when test="//fhir:diagnosis[fhir:condition/fhir:reference/@value = $vRelativeUrl]/fhir:extension[@url = $vTriggerExtensionUrl]">
-                <xsl:copy-of select="//fhir:diagnosis[fhir:condition/fhir:reference/@value = $vRelativeUrl]/fhir:extension[@url = $vTriggerExtensionUrl]" />
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>-->
 
     <xsl:template name="convertURI">
         <xsl:param name="uri" />
@@ -693,6 +616,9 @@ limitations under the License.
         <xsl:param name="pNoNullAllowed" select="false()" />
 
         <xsl:choose>
+            <xsl:when test="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
+                <xsl:apply-templates select="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only"/>
+            </xsl:when>
             <xsl:when test="$pElement">
                 <xsl:variable name="vPotentialDupes">
                     <xsl:apply-templates select="$pElement" />

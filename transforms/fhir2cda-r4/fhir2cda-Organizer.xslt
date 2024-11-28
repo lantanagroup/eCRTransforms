@@ -190,7 +190,7 @@ limitations under the License.
                 </xsl:for-each>
             </xsl:for-each>
             <!-- If this is eICR and this is a Result Organizer Trigger Code template -->
-            <xsl:if test="$vTriggerExtension">
+<!--            <xsl:if test="$vTriggerExtension">-->
                 <component>
                     <observation classCode="OBS" moodCode="EVN">
                         <xsl:comment select="' [C-CDA ID] Laboratory Result Status (ID) '" />
@@ -211,7 +211,7 @@ limitations under the License.
                         </xsl:apply-templates>
                     </xsl:for-each>
                 </xsl:for-each>
-            </xsl:if>
+            <!--</xsl:if>-->
         </organizer>
     </xsl:template>
 

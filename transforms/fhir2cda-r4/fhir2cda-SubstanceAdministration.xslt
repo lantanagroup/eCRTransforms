@@ -60,16 +60,6 @@ limitations under the License.
         <entry>
             <xsl:call-template name="make-admission-medication" />
         </entry>
-        <!--<entry>
-            <xsl:if test="$generated-narrative = 'generated'">
-                <xsl:attribute name="typeCode">DRIV</xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="make-medication-activity">
-                <!-\- SG 2024-01: Updating this to EVN because Admission Medications are 
-                    "medications taken by the patient prior to and at the time of admission to the facility." -\->
-                <xsl:with-param name="moodCode">EVN</xsl:with-param>
-            </xsl:call-template>
-        </entry>-->
     </xsl:template>
 
     <!-- fhir:MedicationAdministration -> Medication Administration (cda:substanceAdministration)-->
@@ -452,10 +442,7 @@ limitations under the License.
 
             <!-- effective timing -->
             <!-- TODO: xsi:type="IVL_TS and null-->
-            <xsl:apply-templates select="fhir:effectiveDateTime">
-                <xsl:with-param name="pXSIType" select="'IVL_TS'" />
-                <xsl:with-param name="pOperator" select="'A'" />
-            </xsl:apply-templates>
+            <xsl:apply-templates select="fhir:effectiveDateTime"/>
 
             <xsl:apply-templates select="fhir:effectivePeriod">
                 <xsl:with-param name="pXSIType" select="'IVL_TS'" />

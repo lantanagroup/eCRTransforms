@@ -59,17 +59,6 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
                 
-             <xsl:choose>
-                 <xsl:when test="fhir:district">
-                     <xsl:apply-templates mode="address" select="fhir:district">
-                         <xsl:with-param name="pElementName" select="'county'" />
-                     </xsl:apply-templates>
-                 </xsl:when>
-                 <xsl:otherwise>
-                     <county nullFlavor="UNK"/>
-                 </xsl:otherwise>
-             </xsl:choose>
-            
             <xsl:choose>
                 <xsl:when test="fhir:state">
                     <xsl:apply-templates mode="address" select="fhir:state" />
@@ -77,6 +66,14 @@ limitations under the License.
                 <xsl:otherwise>
                     <state nullFlavor="UNK"/>
                 </xsl:otherwise>
+            </xsl:choose>
+            
+            <xsl:choose>
+                <xsl:when test="fhir:district">
+                    <xsl:apply-templates mode="address" select="fhir:district">
+                        <xsl:with-param name="pElementName" select="'county'" />
+                    </xsl:apply-templates>
+                </xsl:when>
             </xsl:choose>
             
              <xsl:choose>
@@ -133,6 +130,20 @@ limitations under the License.
     </xsl:template>
     
     <xsl:template match="fhir:postalCode" mode="address">
+        <xsl:param name="pElementName" select="local-name()" />
+        <xsl:element name="{$pElementName}">
+            <xsl:choose>
+                <xsl:when test="@value">
+                    <xsl:value-of select="@value" />
+                </xsl:when>
+                <xsl:when test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'">
+                    <xsl:attribute name="nullFlavor" select="'UNK'"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="fhir:district" mode="address">
         <xsl:param name="pElementName" select="local-name()" />
         <xsl:element name="{$pElementName}">
             <xsl:choose>

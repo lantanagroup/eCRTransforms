@@ -40,7 +40,7 @@ limitations under the License.
                         </xsl:attribute>
                     </xsl:if>
                     <!-- Setting order for consistency and easier testing/compares -->
-                    <!-- **TODO** map all fhir name elements to cda name elements -->
+                    <xsl:apply-templates select="fhir:prefix" mode="name" />
                     <xsl:apply-templates select="fhir:given" mode="name" />
                     <xsl:apply-templates select="fhir:family" mode="name" />
                     <xsl:apply-templates select="fhir:suffix" mode="name" />

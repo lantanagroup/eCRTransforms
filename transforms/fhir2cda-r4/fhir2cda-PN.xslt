@@ -44,6 +44,10 @@ limitations under the License.
                     <xsl:apply-templates select="fhir:given" mode="name" />
                     <xsl:apply-templates select="fhir:family" mode="name" />
                     <xsl:apply-templates select="fhir:suffix" mode="name" />
+                    <xsl:apply-templates select="fhir:period">
+                        <xsl:with-param name="pElementName" select="'validTime'"/>
+                        <xsl:with-param name="pXSIType" select="'IVL_TS'"/>
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
             

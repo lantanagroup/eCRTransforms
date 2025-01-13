@@ -89,9 +89,9 @@ limitations under the License.
                 <xsl:when test="fhir:country">
                     <xsl:apply-templates mode="address" select="fhir:country" />
                 </xsl:when>
-                <xsl:otherwise>
+                <!--<xsl:otherwise>
                     <country nullFlavor="UNK"/>
-                </xsl:otherwise>
+                </xsl:otherwise>-->
             </xsl:choose>
                        
             <xsl:apply-templates select="fhir:period">

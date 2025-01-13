@@ -30,8 +30,16 @@ limitations under the License.
         </xsl:variable>
         <xsl:element name="{$elementName}">
             <xsl:choose>
-                <xsl:when test="fhir:extension/@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
-                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                <xsl:when
+                    test="fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason' or fhir:value/fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                    <xsl:choose>
+                        <xsl:when test="fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                            <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                        </xsl:when>
+                        <xsl:when test="fhir:value/fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                            <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                        </xsl:when>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="value">
@@ -41,6 +49,10 @@ limitations under the License.
                     <xsl:call-template name="telecomUse" />
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:apply-templates select="fhir:period">
+                <xsl:with-param name="pElementName" select="'useablePeriod'"/>
+                <xsl:with-param name="pXSIType" select="'IVL_TS'"/>
+            </xsl:apply-templates>
         </xsl:element>
     </xsl:template>
 

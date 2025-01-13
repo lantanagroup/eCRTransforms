@@ -159,7 +159,7 @@ limitations under the License.
                     <xsl:with-param name="pElementName">interpretationCode</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
-            
+
             <xsl:for-each select="fhir:component">
                 <entryRelationship> </entryRelationship>
             </xsl:for-each>
@@ -254,9 +254,16 @@ limitations under the License.
                 <xsl:when test="fhir:valueBoolean">
                     <xsl:for-each select="fhir:valueBoolean">
                         <value xsi:type="BL">
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="@value" />
-                            </xsl:attribute>
+                            <xsl:choose>
+                                <xsl:when test="fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="value">
+                                        <xsl:value-of select="@value" />
+                                    </xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </value>
                     </xsl:for-each>
                 </xsl:when>
@@ -264,9 +271,16 @@ limitations under the License.
                 <!-- Check and process valueString -->
                 <xsl:when test="fhir:valueString">
                     <xsl:for-each select="fhir:valueString">
-                        <value xsi:type="ST">
-                            <xsl:value-of select="@value" />
-                        </value>
+                        <xsl:choose>
+                            <xsl:when test="fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                                <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <value xsi:type="ST">
+                                    <xsl:value-of select="@value" />
+                                </value>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:for-each>
                 </xsl:when>
 
@@ -301,9 +315,9 @@ limitations under the License.
             </xsl:apply-templates>
             <!-- if this is a trigger code template and the value is a string and there is no interpretation, add interpretationCode -->
             <xsl:if test="$vTriggerExtension and fhir:valueString and not(fhir:interpretation)">
-                <interpretationCode nullFlavor="NI"/>
+                <interpretationCode nullFlavor="NI" />
             </xsl:if>
-            
+
             <!-- methodCode -->
             <xsl:apply-templates select="fhir:method">
                 <xsl:with-param name="pElementName" select="'methodCode'" />
@@ -857,7 +871,7 @@ limitations under the License.
             </observation>
         </entry>
     </xsl:template>
-    
+
     <xsl:key match="fhir:Goal[fhir:outcomeReference]" name="outcome-references" use="fhir:outcomeReference/fhir:reference/@value" />
 
     <xsl:template match="fhir:Observation[ancestor::fhir:entry/fhir:fullUrl/@value = //fhir:Goal/fhir:outcomeReference/fhir:reference/@value]" mode="entry">
@@ -1288,7 +1302,7 @@ limitations under the License.
         </xsl:choose>
     </xsl:template>
 
-   <!-- <xsl:template match="//fhir:item[fhir:linkId[@value = 'pathogen-identified']]" mode="pathogen-identified">
+    <!-- <xsl:template match="//fhir:item[fhir:linkId[@value = 'pathogen-identified']]" mode="pathogen-identified">
         <observation classCode="OBS" moodCode="EVN">
             <templateId root="2.16.840.1.113883.10.20.22.4.2" />
             <templateId root="2.16.840.1.113883.10.20.5.6.145" />

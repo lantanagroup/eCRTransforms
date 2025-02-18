@@ -3,7 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
     exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
     <!-- Match all substanceAdministration with moodCode of 'INT' - this is an evoloving mapping in the C-CDA to FHIR project - will update when that group has decided on mapping -->
-    <xsl:template match="cda:substanceAdministration[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.16' or @root = '2.16.840.1.113883.10.20.22.4.42']][@moodCode = 'INT']" mode="bundle-entry">
+    <xsl:template match="cda:substanceAdministration[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.16' or @root = '2.16.840.1.113883.10.20.22.4.42']][@moodCode = 'INT' or @moodCode='RQO' or @moodCode='PRMS' or @moodCode='PRP']" mode="bundle-entry">
         <xsl:call-template name="create-bundle-entry" />
         <!--<xsl:apply-templates select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']]" mode="bundle-entry" />-->
 
@@ -20,21 +20,37 @@
         <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
     </xsl:template>
 
-    <xsl:template match="cda:substanceAdministration[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.16' or @root = '2.16.840.1.113883.10.20.22.4.42']][@moodCode = 'INT'][not(@nullFlavor)]">
+    <xsl:template match="cda:substanceAdministration[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.16' or @root = '2.16.840.1.113883.10.20.22.4.42']][@moodCode = 'INT' or @moodCode='RQO' or @moodCode='PRMS' or @moodCode='PRP'][not(@nullFlavor)]">
         <MedicationRequest>
             <meta>
                 <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest" />
             </meta>
             <xsl:apply-templates select="cda:id" />
-            
+
             <!-- status -->
-            <xsl:apply-templates select="cda:statusCode" mode='map-medication-status'>
-                <xsl:with-param name="pMoodCode" select="@moodCode"/>
-                <xsl:with-param name="pMedicationResource" select="'MedicationRequest'"/>
+            <xsl:apply-templates select="cda:statusCode" mode="map-medication-status">
+                <xsl:with-param name="pMoodCode" select="@moodCode" />
+                <xsl:with-param name="pMedicationResource" select="'MedicationRequest'" />
             </xsl:apply-templates>
-            
-            <!-- This is an actual order in the Pharmacist's system -->
-            <intent value="order" />
+
+            <!-- intent -->
+            <xsl:choose>
+                <xsl:when test="@moodCode = 'INT'">
+                    <intent value="plan" />
+                </xsl:when>
+                <xsl:when test="@moodCode = 'RQO'">
+                    <intent value="order" />
+                </xsl:when>
+                <xsl:when test="@moodCode = 'PRMS'">
+                    <intent value="plan" />
+                </xsl:when>
+                <xsl:when test="@moodCode = 'PRP'">
+                    <intent value="proposal" />
+                </xsl:when>
+                
+            </xsl:choose>
+
+<!--            <intent value="order" />-->
 
             <!--            <xsl:apply-templates select="cda:consumable" mode="medication-request" />-->
             <xsl:for-each select="cda:consumable/cda:manufacturedProduct">
@@ -166,6 +182,15 @@
                                         <xsl:value-of select="cda:maxDoseQuantity/cda:numerator/@value" />
                                     </xsl:attribute>
                                 </value>
+                                <!-- Update based on Sept 2024 Connectathon decision -->
+                                <xsl:if test="cda:maxDoseQuantity/cda:numerator/@unit">
+                                    <unit>
+                                        <xsl:attribute name="value">
+                                            <xsl:value-of select="cda:maxDoseQuantity/cda:numerator/@unit" />
+                                        </xsl:attribute>
+                                    </unit>
+                                    <system value="http://unitsofmeasure.org" />
+                                </xsl:if>
                             </numerator>
                             <denominator>
                                 <value>
@@ -258,7 +283,7 @@
     </xsl:template>
 
     <xsl:template match="cda:repeatNumber" mode="medication-request">
-        <xsl:variable name="vRepeats" select="@value - 1"/>
+        <xsl:variable name="vRepeats" select="@value - 1" />
         <numberOfRepeatsAllowed value="{$vRepeats}" />
     </xsl:template>
 

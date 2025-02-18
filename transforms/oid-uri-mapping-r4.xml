@@ -23,9 +23,11 @@
     <map oid="2.16.840.1.113883.6.90" uri="http://hl7.org/fhir/sid/icd-10-cm" />
 
 
-    <!-- This is not the OID that the FHIR terminology page has for this - they have 2.16.840.1.113883.3.26.1.2 but 
-       that OID doesn't exist in Trifolia and this VSAC page has the below OID https://cts.nlm.nih.gov/fhir/  -->
+    <!-- Seeing some different values for this. THO has: https://terminology.hl7.org/CodeSystem-v3-nciThesaurus.html  -->
+    <map oid="2.16.840.1.113883.3.26.1.1" uri="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl" />
     <map oid="2.16.840.1.113883.3.26.1.1" uri="http://ncimeta.nci.nih.gov" />
+    <map oid="2.16.840.1.113883.3.26.1.1" uri="https://ncit.nci.nih.gov" />
+    
     <!-- HL7 8.2674.1 Systematized Nomenclature of Dentistry (SNODENT) -->
     <map oid="2.16.840.1.113883.3.3150" uri="http://www.ada.org/snodent" />
     <!-- http://www.ama-assn.org/go/cdt -->
@@ -415,9 +417,18 @@
     <map oid="2.16.840.1.113883.5.144" uri="http://terminology.hl7.org/CodeSystem/v3-VaccineManufacturer" />
 
     <map oid="2.16.840.1.113883.5.1139" uri="http://terminology.hl7.org/CodeSystem/v3-WorkClassificationODH" />
+    
+    <!-- SG 20250218: Added https versions of these because we are seeing them come through in the data (plus other variations)  -->
     <map oid="2.16.840.1.114222.4.5.327" uri="http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
+    <map oid="2.16.840.1.114222.4.5.327" uri="https://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
     <map oid="2.16.840.1.114222.4.5.314" uri="http://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010" />
+    <map oid="2.16.840.1.114222.4.5.314" uri="https://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010" />
+    <map oid="2.16.840.1.114222.4.5.314" uri="https://terminology.hl7.org/2.0.0/CodeSystem-PHOccupationCDCCensus2010.html" />
+                                              
     <map oid="2.16.840.1.114222.4.5.315" uri="http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010" />
+    <map oid="2.16.840.1.114222.4.5.315" uri="https://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010" />
+    <map oid="2.16.840.1.114222.4.5.315" uri="https://terminology.hl7.org/2.0.0/CodeSystem-PHIndustryCDCCensus2010.html" />
+    
 
     <map oid="2.16.840.1.113883.5.1130" uri="http://terminology.hl7.org/CodeSystem/v3-hl7ApprovalStatus" />
     <map oid="2.16.840.1.113883.5.1132" uri="http://terminology.hl7.org/CodeSystem/v3-hl7CMETAttribution" />

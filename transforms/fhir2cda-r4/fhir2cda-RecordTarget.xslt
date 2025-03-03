@@ -87,6 +87,17 @@ limitations under the License.
                                 <xsl:apply-templates select="fhir:gender/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                             </administrativeGenderCode>
                         </xsl:when>
+                        <xsl:when test="lower-case(fhir:gender/@value) = 'other'">
+                            <administrativeGenderCode>
+                                <xsl:attribute name="nullFlavor">OTH</xsl:attribute>
+                            </administrativeGenderCode>
+                        </xsl:when>
+                        <xsl:when test="lower-case(fhir:gender/@value) = 'unknown'">
+                            <administrativeGenderCode>
+                                <xsl:attribute name="nullFlavor">UNK</xsl:attribute>
+                            </administrativeGenderCode>
+                        </xsl:when>
+                        
                         <xsl:otherwise>
                             <administrativeGenderCode codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender">
                                 <xsl:choose>
@@ -103,6 +114,14 @@ limitations under the License.
                                         <xsl:attribute name="code">UN</xsl:attribute>
                                         <xsl:attribute name="displayName">Undifferentiated</xsl:attribute>
                                     </xsl:when>
+                                    <xsl:when test="lower-case(fhir:gender/@value) = 'other'">
+                                        <xsl:apply-templates select="fhir:gender/@value" mode="attribute-only" />
+                                        
+                                    </xsl:when>
+                                    <xsl:when test="lower-case(fhir:gender/@value) = 'unknown'">
+                                        <xsl:apply-templates select="fhir:gender/@value" mode="attribute-only" />
+                                    </xsl:when>
+                                    
                                 </xsl:choose>
                             </administrativeGenderCode>
                         </xsl:otherwise>

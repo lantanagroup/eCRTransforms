@@ -151,7 +151,7 @@ limitations under the License.
                             </xsl:choose>
                         </xsl:when>
                         <!-- When deceasedDateTime isn't present and deceasedBoolean is present set deceasedInd to true and deceasedTime to a nullFlavor of NI -->
-                        <xsl:when test="fhir:deceasedBoolean">
+                        <xsl:when test="fhir:deceasedBoolean[@value='true']">
                             <sdtc:deceasedInd value="true" />
                             <sdtc:deceasedTime nullFlavor="NI" />
                         </xsl:when>

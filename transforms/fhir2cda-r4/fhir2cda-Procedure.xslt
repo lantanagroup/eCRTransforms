@@ -125,6 +125,20 @@ limitations under the License.
                         </entryRelationship>
                     </xsl:when>
                 </xsl:choose>
+                <!-- ServiceRequest.performer -->
+                <xsl:for-each select="fhir:performer">
+                    <xsl:for-each select="fhir:reference">
+                        <xsl:variable name="referenceURI">
+                            <xsl:call-template name="resolve-to-full-url">
+                                <xsl:with-param name="referenceURI" select="@value" />
+                            </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
+                        <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+                            <xsl:call-template name="make-performer" />
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </xsl:for-each>
             </procedure>
         </entry>
 

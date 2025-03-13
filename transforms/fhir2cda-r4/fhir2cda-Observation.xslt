@@ -914,7 +914,7 @@ limitations under the License.
         </organizer>
     </xsl:template>
 
-    <!-- Planned Observation (Observation) fhir:ServiceRequest -->
+    <!-- fhir:ServiceRequest -->
     <xsl:template match="fhir:ServiceRequest" mode="entry">
         <!-- Check to see if this is a trigger code template -->
         <xsl:variable name="vTriggerEntry">
@@ -960,9 +960,7 @@ limitations under the License.
                 </xsl:call-template>
             </xsl:when>
 
-            <!-- Trigger Code extension exists AND ServiceRequest.code = code in LOINC where CLASS 1 (query in LOINC is "class: lab") or CLASS 2 (query in LOINC is "class: clinical")
-                Map to Template: Initial Case Report Trigger Code Planned Observation-->
-            <!--Case 3: Trigger Code extension exists - map the rest to Initial Case Report Trigger Code Planned Observation (there is no triggering right now on Procedures or Acts so these will all be Observations 
+            <!-- Trigger Code extension exists - map the rest to Initial Case Report Trigger Code Planned Observation (there is no triggering right now on Procedures or Acts so these will all be Observations 
                 Map to template Initial Case Report Trigger Code Planned Observation-->
             <xsl:when test="$vTriggerExtension">
                 <!-- Initial Case Report Trigger Code Planned Observation -->
@@ -974,13 +972,33 @@ limitations under the License.
 
             <!-- Trigger Code extension does not exist and ServiceRequest.code.system = CDT or ICD 10 procedures -->
             <xsl:when test="$vCodeSystem = 'https://ada.org/en/publications/cdt' or $vCodeSystem = 'http://www.cms.gov/Medicare/Coding/ICD10'">
-                <!-- Initial Case Report Trigger Code Planned Procedure -->
+                <!-- Planned Procedure -->
+                <xsl:call-template name="make-planned-procedure">
+                    <xsl:with-param name="pMapping" select="$vMapping" />
+                </xsl:call-template>
+            </xsl:when>
+            
+            <!-- Trigger code extension does not exist AND ServiceRequest.category = sdoh, functional-status, disability-status, congnitive-status, 386053000, 108252007, 363679005
+                Map to template: Planned Observation -->
+            <xsl:when
+                test="$vCategoryValue = 'sdoh' or $vCategoryValue = 'functional-status' or $vCategoryValue = 'disability-status' or $vCategoryValue = 'cognitive-status' or $vCategoryValue = '386053000' or $vCategoryValue = '108252007' or $vCategoryValue = '363679005'">
+                <!-- Planned Observation -->
+                <xsl:call-template name="make-planned-observation">
+                    <xsl:with-param name="pMapping" select="$vMapping" />
+                </xsl:call-template>
+            </xsl:when>
+            
+            <!-- Trigger code extension does not exist AND ServiceRequest.category = 387713003, 410606002, 409063005, 409073007  
+                 Map to template: Planned Procedure-->
+            <xsl:when test="$vCategoryValue = '387713003' or $vCategoryValue = '410606002' or $vCategoryValue = '409063005' or $vCategoryValue = '409073007'">
+                <!-- Planned Procedure -->
                 <xsl:call-template name="make-planned-procedure">
                     <xsl:with-param name="pMapping" select="$vMapping" />
                 </xsl:call-template>
             </xsl:when>
 
-            <!--Case 5: Trigger Code extension does not exist and ServiceRequest.code.system = LOINC -->
+            <!-- Trigger Code extension does not exist and ServiceRequest.code.system = LOINC
+                 Map to template: Planned Observation-->
             <xsl:when test="$vCodeSystem = 'http://loinc.org'">
                 <!-- Planned Observation -->
                 <xsl:call-template name="make-planned-observation">

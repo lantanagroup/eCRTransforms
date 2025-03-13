@@ -104,6 +104,9 @@
                             <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='55561003'">
                                 <xsl:attribute name="value">active</xsl:attribute>
                             </xsl:when>
+                            <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='73425007'">
+                                <xsl:attribute name="value">inactive</xsl:attribute>
+                            </xsl:when>
                             <xsl:otherwise>
                                 <xsl:attribute name="value">active</xsl:attribute>
                             </xsl:otherwise>

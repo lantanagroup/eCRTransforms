@@ -576,12 +576,12 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.22.4.293" extension="2020-04-01" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.293" extension="2018-04-01" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest'">
+            <!--<xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest'">
                 <xsl:comment select="' [C-CDA R1.1] Plan of Care Activity Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" />
                 <xsl:comment select="' [C-CDA R2.0] Planned Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" extension="2014-06-09" />
-            </xsl:when>
+            </xsl:when>-->
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure'">
                 <xsl:comment select="' [C-CDA R2.0] Procedure Activity Procedure (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.14" extension="2014-06-09" />
@@ -925,14 +925,14 @@ limitations under the License.
     <!-- TRIGGER CODE TEMPLATES ONLY Map profile uri to trigger templates -->
     <xsl:template match="fhir:*" mode="map-trigger-resource-to-template">
         <xsl:choose>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest'">
+            <!--<xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest'">
                 <xsl:comment select="' [C-CDA R1.1] Plan of Care Activity Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" />
                 <xsl:comment select="' [C-CDA R2.0] Planned Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" extension="2014-06-09" />
                 <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Lab Test Order (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.4" extension="2019-04-01" />
-            </xsl:when>
+            </xsl:when>-->
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition'">
                 <xsl:comment select="' [C-CDA R1.1] Problem Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.4" />
@@ -1027,14 +1027,14 @@ limitations under the License.
                 <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Immunization Medication Information '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.38" extension="2019-04-01" />
             </xsl:when>
-            <xsl:when test="local-name() = 'ServiceRequest'">
+            <!--<xsl:when test="local-name() = 'ServiceRequest'">
                 <xsl:comment select="' [C-CDA R1.1] Plan of Care Activity Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" />
                 <xsl:comment select="' [C-CDA R2.0] Planned Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.44" extension="2014-06-09" />
                 <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Lab Test Order (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.4" extension="2019-04-01" />
-            </xsl:when>
+            </xsl:when>-->
             <!-- SG 20240306: Add more missing meta processing -->
             <!-- If this is a laboratory Observation and it contains hasMember(not Observation) -->
             <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->

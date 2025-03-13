@@ -21,13 +21,14 @@
     <map oid="2.16.840.1.113883.18.5" uri="http://terminology.hl7.org/CodeSystem/v2-0004" />
 
     <map oid="2.16.840.1.113883.6.90" uri="http://hl7.org/fhir/sid/icd-10-cm" />
+    <map oid="2.16.840.1.113883.6.4" uri="http://www.cms.gov/Medicare/Coding/ICD10" />
 
 
     <!-- Seeing some different values for this. THO has: https://terminology.hl7.org/CodeSystem-v3-nciThesaurus.html  -->
     <map oid="2.16.840.1.113883.3.26.1.1" uri="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl" />
     <map oid="2.16.840.1.113883.3.26.1.1" uri="http://ncimeta.nci.nih.gov" />
     <map oid="2.16.840.1.113883.3.26.1.1" uri="https://ncit.nci.nih.gov" />
-    
+
     <!-- HL7 8.2674.1 Systematized Nomenclature of Dentistry (SNODENT) -->
     <map oid="2.16.840.1.113883.3.3150" uri="http://www.ada.org/snodent" />
     <!-- http://www.ama-assn.org/go/cdt -->
@@ -49,7 +50,7 @@
     <map oid="2.16.840.1.113883.4.6" uri="http://hl7.org/fhir/sid/us-npi" />
     <!-- This isn't the correct url, but it keeps coming up so putting it second so it will translate url to oid but never back the other way -->
     <map oid="2.16.840.1.113883.4.6" uri="http://hl7.org.fhir/sid/us-npi" />
-    
+
     <map oid="2.16.840.1.113883.4.1" uri="http://hl7.org/fhir/sid/us-ssn" />
     <map oid="2.16.840.1.113883.4.572" uri="http://hl7.org/fhir/sid/us-medicare" />
     <map oid="2.16.840.1.113883.4.873" uri="urn:ietf:rfc:3986" />
@@ -284,7 +285,7 @@
          need to find out -->
     <map oid="2.16.840.1.113883.12.136" uri="http://terminology.hl7.org/CodeSystem/v2-0532" />
     <map oid="2.16.840.1.113883.18.347" uri="http://terminology.hl7.org/CodeSystem/v2-0532" />
-    
+
     <map oid="2.16.840.1.113883.4.642.4.1386" uri="http://terminology.hl7.org/CodeSystem/subscriber-relationship" />
 
     <!--HL7v3 OIDs/URIs-->
@@ -417,18 +418,18 @@
     <map oid="2.16.840.1.113883.5.144" uri="http://terminology.hl7.org/CodeSystem/v3-VaccineManufacturer" />
 
     <map oid="2.16.840.1.113883.5.1139" uri="http://terminology.hl7.org/CodeSystem/v3-WorkClassificationODH" />
-    
+
     <!-- SG 20250218: Added https versions of these because we are seeing them come through in the data (plus other variations)  -->
     <map oid="2.16.840.1.114222.4.5.327" uri="http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
     <map oid="2.16.840.1.114222.4.5.327" uri="https://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />
     <map oid="2.16.840.1.114222.4.5.314" uri="http://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010" />
     <map oid="2.16.840.1.114222.4.5.314" uri="https://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010" />
     <map oid="2.16.840.1.114222.4.5.314" uri="https://terminology.hl7.org/2.0.0/CodeSystem-PHOccupationCDCCensus2010.html" />
-                                              
+
     <map oid="2.16.840.1.114222.4.5.315" uri="http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010" />
     <map oid="2.16.840.1.114222.4.5.315" uri="https://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010" />
     <map oid="2.16.840.1.114222.4.5.315" uri="https://terminology.hl7.org/2.0.0/CodeSystem-PHIndustryCDCCensus2010.html" />
-    
+
 
     <map oid="2.16.840.1.113883.5.1130" uri="http://terminology.hl7.org/CodeSystem/v3-hl7ApprovalStatus" />
     <map oid="2.16.840.1.113883.5.1132" uri="http://terminology.hl7.org/CodeSystem/v3-hl7CMETAttribution" />
@@ -450,7 +451,7 @@
 
     <!--<map oid="2.16.840.1.113883.6.259" uri="http://terminology.hl7.org/CodeSystem/v3-hsloc" />-->
     <map oid="2.16.840.1.113883.6.259" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/hsloc.html" />
-    
+
     <map oid="2.16.840.1.113883.6.277" uri="https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/cdcnhsn.html" />
     <map oid="2.16.840.1.113883.4.642.1.1093" uri="http://terminology.hl7.org/CodeSystem/discharge-disposition" />
 
@@ -459,7 +460,7 @@
     <map oid="1.0.3166.1" uri="urn:iso:std:iso:3166" />
 
     <map oid="1.0.3166.1.2.2" uri="urn:iso:std:iso:3166" />
-    
+
     <!-- HIMSS workarounds -->
     <map oid="2.16.840.1.113883.3.13.999.36" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/36" />
     <map oid="2.16.840.1.113883.3.13.999.38" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/38" />
@@ -468,7 +469,7 @@
     <map oid="2.16.840.1.113883.3.13.999.200" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/200" />
     <map oid="2.16.840.1.113883.3.13.999.222" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/222" />
     <map oid="2.16.840.1.113883.3.13.999.6000" uri="https://fhir.cerner.com/ec2458f2-1e24-41c8-b71b-0e701af7583d/codeSet/6000" />
-    
+
     <!-- eCR RCTC value sets -->
     <map oid="2.16.840.1.113762.1.4.1146.627" uri="http://ersd.aimsplatform.org/fhir/ValueSet/dxtc" />
     <map oid="2.16.840.1.113762.1.4.1146.1059" uri="http://ersd.aimsplatform.org/fhir/ValueSet/ostc" />
@@ -476,6 +477,6 @@
     <map oid="2.16.840.1.113762.1.4.1146.1057" uri="http://ersd.aimsplatform.org/fhir/ValueSet/lrtc" />
     <map oid="2.16.840.1.113762.1.4.1146.1060" uri="http://ersd.aimsplatform.org/fhir/ValueSet/mrtc" />
     <map oid="2.16.840.1.113762.1.4.1146.1479" uri="http://ersd.aimsplatform.org/fhir/ValueSet/sdtc" />
-    
-    
+
+
 </mapping>

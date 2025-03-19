@@ -42,7 +42,7 @@ limitations under the License.
 
     <xsl:template name="make-planned-procedure">
         <xsl:param name="pTriggerExtension" />
-        <xsl:param name="pMapping" />
+        <!--<xsl:param name="pMapping" />-->
         
         <xsl:variable name="vMoodCode">
             <xsl:apply-templates select="fhir:intent" />
@@ -77,9 +77,9 @@ limitations under the License.
                         </xsl:attribute>
                         <xsl:variable name="vBodySiteSystemUri" select="./fhir:system/@value" />
                         <xsl:choose>
-                            <xsl:when test="$pMapping/map[@uri = $vBodySiteSystemUri]">
+                            <xsl:when test="$gvMapping/map[@uri = $vBodySiteSystemUri]">
                                 <xsl:attribute name="codeSystem">
-                                    <xsl:value-of select="$pMapping/map[@uri = $vBodySiteSystemUri][1]/@oid" />
+                                    <xsl:value-of select="$gvMapping/map[@uri = $vBodySiteSystemUri][1]/@oid" />
                                 </xsl:attribute>
                             </xsl:when>
                         </xsl:choose>

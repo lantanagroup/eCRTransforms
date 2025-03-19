@@ -178,6 +178,7 @@ limitations under the License.
             <xsl:call-template name="check-for-trigger" />
         </xsl:variable>
         <xsl:variable name="vTriggerExtension" select="$vTriggerEntry/fhir:extension" />
+
         <observation classCode="OBS" moodCode="EVN">
             <!-- templateId -->
             <xsl:call-template name="get-template-id">
@@ -295,6 +296,18 @@ limitations under the License.
                         <xsl:with-param name="pXSIType" select="'TS'" />
                     </xsl:apply-templates>
                 </xsl:when>
+                
+                <!-- Check and apply templates for valuePeriod -->
+                <xsl:when test="fhir:valuePeriod">
+                    <xsl:apply-templates select="fhir:valuePeriod">
+                        <xsl:with-param name="pElementName" select="'value'" />
+                        <xsl:with-param name="pXSIType" select="'IVL_TS'" />
+                    </xsl:apply-templates>
+                </xsl:when>
+                <!-- Check and apply templates for valueInteger -->
+                <xsl:when test="fhir:valueInteger/@value">
+                    <value xsi:type="INT" value="{fhir:valueInteger/@value}" />
+                </xsl:when>
 
                 <xsl:when test="fhir:dataAbsentReason">
                     <value xsi:type="CD">
@@ -322,6 +335,8 @@ limitations under the License.
                 <xsl:with-param name="pElementName" select="'methodCode'" />
             </xsl:apply-templates>
             <!-- targetSiteCode -->
+            <xsl:apply-templates select="fhir:bodySite" />
+
             <!-- precondition -->
             <!-- performer -->
             <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/date-determined-extension']">
@@ -349,30 +364,47 @@ limitations under the License.
                 </performer>
             </xsl:for-each>
             <!-- author -->
-            <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/date-recorded-extension']">
-                <author>
-                    <xsl:comment select="' Pregnancy Status Recorded Date '" />
-                    <xsl:apply-templates select="fhir:valueDateTime">
-                        <xsl:with-param name="pElementName" select="'time'" />
-                    </xsl:apply-templates>
-                    <assignedAuthor>
-                        <id nullFlavor="NA" />
-                    </assignedAuthor>
-                </author>
-            </xsl:for-each>
-            <!-- MD add this for now, need to know there is any difference between 
+            <xsl:choose>
+                <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/date-recorded-extension']">
+                    <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/date-recorded-extension']">
+                        <author>
+                            <xsl:comment select="' Pregnancy Status Recorded Date '" />
+                            <xsl:apply-templates select="fhir:valueDateTime">
+                                <xsl:with-param name="pElementName" select="'time'" />
+                            </xsl:apply-templates>
+                            <assignedAuthor>
+                                <id nullFlavor="NA" />
+                            </assignedAuthor>
+                        </author>
+                    </xsl:for-each>
+                </xsl:when>
+                <!-- MD add this for now, need to know there is any difference between 
                 date-recorded-extension with us-ph-date-recorded-extension -->
-            <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension']">
-                <author>
-                    <xsl:comment select="' Pregnancy Status Recorded Date '" />
-                    <xsl:apply-templates select="fhir:valueDateTime">
-                        <xsl:with-param name="pElementName" select="'time'" />
-                    </xsl:apply-templates>
-                    <assignedAuthor>
-                        <id nullFlavor="NA" />
-                    </assignedAuthor>
-                </author>
-            </xsl:for-each>
+                <xsl:when test="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension']">
+                    <xsl:for-each select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension']">
+                        <author>
+                            <xsl:comment select="' Pregnancy Status Recorded Date '" />
+                            <xsl:apply-templates select="fhir:valueDateTime">
+                                <xsl:with-param name="pElementName" select="'time'" />
+                            </xsl:apply-templates>
+                            <assignedAuthor>
+                                <id nullFlavor="NA" />
+                            </assignedAuthor>
+                        </author>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="fhir:issued">
+                    <author>
+                        <xsl:comment select="' Issued Date '" />
+                        <xsl:apply-templates select="fhir:issued">
+                            <xsl:with-param name="pElementName" select="'time'" />
+                        </xsl:apply-templates>
+                        <assignedAuthor>
+                            <id nullFlavor="NA" />
+                        </assignedAuthor>
+                    </author>
+                </xsl:when>
+            </xsl:choose>
             <!-- informant -->
             <!-- subject -->
             <!-- specimen -->
@@ -487,13 +519,38 @@ limitations under the License.
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
+            <!-- If this is an Emergency Outbreak Information Observation and there are hasMembers -->
+            <xsl:if test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information' and fhir:hasMember">
+                <!--<xsl:for-each select="fhir:hasMember">
+                    <entryRelationship typeCode="REFR">-->
+                <xsl:for-each select="fhir:hasMember/fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/fhir:*">
+                        <entryRelationship typeCode="REFR">
+                            <xsl:call-template name="make-generic-observation" />
+                        </entryRelationship>
+                        <!--<xsl:apply-templates select="fhir:resource/fhir:*" mode="component">
+                            <xsl:with-param name="generated-narrative" />
+                        </xsl:apply-templates>-->
+                    </xsl:for-each>
+                </xsl:for-each>
+                <!--</entryRelationship>
+                </xsl:for-each>-->
+            </xsl:if>
             <!-- reference -->
             <!-- referenceRange -->
             <xsl:for-each select="fhir:referenceRange">
                 <xsl:call-template name="get-reference-range" />
             </xsl:for-each>
+
         </observation>
     </xsl:template>
+    
+    
 
     <!-- fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension'] -> Reportability Response Priority (Observation) -->
     <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension']">
@@ -934,7 +991,7 @@ limitations under the License.
                 <!-- Initial Case Report Trigger Code Lab Test Order -->
                 <xsl:call-template name="make-trigger-lab-test-order">
                     <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />
-                    <xsl:with-param name="pMapping" select="$vMapping" />
+                    <!--<xsl:with-param name="pMapping" select="$vMapping" />-->
                 </xsl:call-template>
             </xsl:when>
 
@@ -942,7 +999,7 @@ limitations under the License.
             <xsl:when test="$vCodeSystem = 'https://ada.org/en/publications/cdt' or $vCodeSystem = 'http://www.cms.gov/Medicare/Coding/ICD10'">
                 <!-- Planned Procedure -->
                 <xsl:call-template name="make-planned-procedure">
-                    <xsl:with-param name="pMapping" select="$vMapping" />
+                    <!--<xsl:with-param name="pMapping" select="$vMapping" />-->
                 </xsl:call-template>
             </xsl:when>
 
@@ -952,7 +1009,7 @@ limitations under the License.
                 test="$vCategoryValue = 'sdoh' or $vCategoryValue = 'functional-status' or $vCategoryValue = 'disability-status' or $vCategoryValue = 'cognitive-status' or $vCategoryValue = '386053000' or $vCategoryValue = '108252007' or $vCategoryValue = '363679005'">
                 <!-- Planned Observation -->
                 <xsl:call-template name="make-planned-observation">
-                    <xsl:with-param name="pMapping" select="$vMapping" />
+                    <!--<xsl:with-param name="pMapping" select="$vMapping" />-->
                 </xsl:call-template>
             </xsl:when>
 
@@ -961,7 +1018,7 @@ limitations under the License.
             <xsl:when test="$vCategoryValue = '387713003' or $vCategoryValue = '410606002' or $vCategoryValue = '409063005' or $vCategoryValue = '409073007'">
                 <!-- Planned Procedure -->
                 <xsl:call-template name="make-planned-procedure">
-                    <xsl:with-param name="pMapping" select="$vMapping" />
+                    <!--<xsl:with-param name="pMapping" select="$vMapping" />-->
                 </xsl:call-template>
             </xsl:when>
 
@@ -970,13 +1027,13 @@ limitations under the License.
             <xsl:when test="$vCodeSystem = 'http://loinc.org'">
                 <!-- Planned Observation -->
                 <xsl:call-template name="make-planned-observation">
-                    <xsl:with-param name="pMapping" select="$vMapping" />
+                    <!--                    <xsl:with-param name="pMapping" select="$vMapping" />-->
                 </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
                 <!-- Planned Observation -->
                 <xsl:call-template name="make-planned-observation">
-                    <xsl:with-param name="pMapping" select="$vMapping" />
+                    <!--<xsl:with-param name="pMapping" select="$vMapping" />-->
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
@@ -985,7 +1042,7 @@ limitations under the License.
 
     <xsl:template name="make-trigger-lab-test-order">
         <xsl:param name="pTriggerExtension" />
-        <xsl:param name="pMapping" />
+        <!--        <xsl:param name="pMapping" />-->
 
         <entry typeCode="DRIV">
             <observation classCode="OBS" moodCode="RQO">
@@ -1011,22 +1068,7 @@ limitations under the License.
                     <xsl:with-param name="pElement" select="fhir:occurrenceDateTime" />
                 </xsl:call-template>
                 <!-- SG 20231124: Added bodySite (targetSiteCode) -->
-                <xsl:for-each select="fhir:bodySite/fhir:coding">
-                    <targetSiteCode>
-                        <xsl:attribute name="code">
-                            <xsl:value-of select="./fhir:code/@value" />
-                        </xsl:attribute>
-                        <xsl:variable name="vBodySiteSystemUri" select="./fhir:system/@value" />
-                        <xsl:choose>
-                            <xsl:when test="$pMapping/map[@uri = $vBodySiteSystemUri]">
-                                <xsl:attribute name="codeSystem">
-                                    <xsl:value-of select="$pMapping/map[@uri = $vBodySiteSystemUri][1]/@oid" />
-                                </xsl:attribute>
-                            </xsl:when>
-                        </xsl:choose>
-                        <xsl:apply-templates mode="display" select="./fhir:display" />
-                    </targetSiteCode>
-                </xsl:for-each>
+                <xsl:apply-templates select="fhir:bodySite" />
 
                 <!-- SG 20231124: ServiceRequest.performer -->
                 <xsl:for-each select="fhir:performer">
@@ -1070,7 +1112,7 @@ limitations under the License.
 
     <xsl:template name="make-planned-observation">
         <xsl:param name="pTriggerExtension" />
-        <xsl:param name="pMapping" />
+        <!--        <xsl:param name="pMapping" />-->
 
         <xsl:variable name="vMoodCode">
             <xsl:apply-templates select="fhir:intent" />
@@ -1104,22 +1146,7 @@ limitations under the License.
                     <xsl:with-param name="pElement" select="fhir:occurrenceDateTime" />
                 </xsl:call-template>
                 <!-- SG 20231124: Added bodySite (targetSiteCode) -->
-                <xsl:for-each select="fhir:bodySite/fhir:coding">
-                    <targetSiteCode>
-                        <xsl:attribute name="code">
-                            <xsl:value-of select="./fhir:code/@value" />
-                        </xsl:attribute>
-                        <xsl:variable name="vBodySiteSystemUri" select="./fhir:system/@value" />
-                        <xsl:choose>
-                            <xsl:when test="$pMapping/map[@uri = $vBodySiteSystemUri]">
-                                <xsl:attribute name="codeSystem">
-                                    <xsl:value-of select="$pMapping/map[@uri = $vBodySiteSystemUri][1]/@oid" />
-                                </xsl:attribute>
-                            </xsl:when>
-                        </xsl:choose>
-                        <xsl:apply-templates mode="display" select="./fhir:display" />
-                    </targetSiteCode>
-                </xsl:for-each>
+                <xsl:apply-templates select="fhir:bodySite" />
 
                 <!-- SG 20231124: ServiceRequest.performer -->
                 <xsl:for-each select="fhir:performer">
@@ -1287,7 +1314,7 @@ limitations under the License.
                 </xsl:when>
             </xsl:choose>
             <xsl:apply-templates select="fhir:clinicalStatus" />
-            
+
         </observation>
     </xsl:template>
 

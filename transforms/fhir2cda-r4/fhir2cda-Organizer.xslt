@@ -50,6 +50,10 @@ limitations under the License.
                 <xsl:when test="fhir:category[1]/fhir:coding[fhir:code/@value = 'social-history']">
                     <xsl:call-template name="make-generic-observation" />
                 </xsl:when>
+                <!-- Added for emergency outbreak information observation with hasMembers, just make a regular observation -->
+                <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information'">
+                    <xsl:call-template name="make-generic-observation" />
+                </xsl:when>
             </xsl:choose>
         </entry>
     </xsl:template>

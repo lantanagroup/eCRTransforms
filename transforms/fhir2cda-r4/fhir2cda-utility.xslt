@@ -39,22 +39,25 @@ limitations under the License.
     <xsl:param name="result-status-mapping-file">../result-status-mapping.xml</xsl:param>
     <!-- File containing the eRSD specification bundle -->
     <!--<xsl:param name="eRSD-file">../eRSDv3_specification_bundle.xml</xsl:param>-->
-    
-    <xsl:variable name="gvUUIDRegEx" select="'[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'"/>
-    <xsl:variable name="gvUUIDRegExWithPrefix" select="'urn:uuid:[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'"/>
+
+    <xsl:variable name="gvUUIDRegEx" select="'[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'" />
+    <xsl:variable name="gvUUIDRegExWithPrefix" select="'urn:uuid:[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'" />
     <!--[0-2](.[1-9]\d*)+-->
-    <xsl:variable name="gvOIDRegEx" select="'([0-2])((\.0)|(\.[1-9][0-9]*))*'"/>
-                                              
-    <xsl:variable name="gvOIDRegExWithPrefix" select="'urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*'"/>
+    <xsl:variable name="gvOIDRegEx" select="'([0-2])((\.0)|(\.[1-9][0-9]*))*'" />
+
+    <xsl:variable name="gvOIDRegExWithPrefix" select="'urn:oid:([0-2])((\.0)|(\.[1-9][0-9]*))*'" />
 
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
     <xsl:variable name="questionnaire-mapping" select="document($questionnaire-mapping-file)/mapping" />
     <xsl:variable name="section-title-mapping" select="document($section-title-mapping-file)/mapping" />
     <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
+    
+    <xsl:variable name="gvMapping" select="document('../oid-uri-mapping-r4.xml')/mapping" />
+    
     <!-- variable containing all the trigger result order test codes for use in determining whether a serviceRequest is a result test order -->
     <!--<xsl:variable name="result-order-valueset-expansion" select="document($eRSD-file)//fhir:Bundle/fhir:entry[fhir:fullUrl/@value='http://ersd.aimsplatform.org/fhir/ValueSet/lotc']/fhir:resource/fhir:ValueSet/fhir:expansion/fhir:contains/fhir:code" />-->
-    
+
     <!-- Key with all trigger result order test codes -->
     <!--<xsl:key name="result-order-valueset-key" match="$result-order-valueset-expansion" use="@value" />-->
 
@@ -97,8 +100,9 @@ limitations under the License.
                         </xsl:if>
                     </xsl:for-each>
 
-                    <xsl:for-each select="//fhir:entry[fhir:fullUrl[@value = $vOriginalFullUrl]]/descendant::fhir:hasMember/fhir:reference/@value | 
-                        //fhir:entry[fhir:fullUrl[@value = $vOriginalFullUrl]]/descendant::fhir:medicationReference/fhir:reference/@value">
+                    <xsl:for-each select="
+                            //fhir:entry[fhir:fullUrl[@value = $vOriginalFullUrl]]/descendant::fhir:hasMember/fhir:reference/@value |
+                            //fhir:entry[fhir:fullUrl[@value = $vOriginalFullUrl]]/descendant::fhir:medicationReference/fhir:reference/@value">
                         <!-- Put referenced full url into a variable for easy use -->
                         <xsl:variable name="vReferencedFullUrl">
                             <xsl:call-template name="resolve-to-full-url">
@@ -118,7 +122,7 @@ limitations under the License.
             </triggerCodeInfo>
         </xsl:for-each>
     </xsl:variable>
-    
+
     <xsl:variable name="gvCurrentIg">
         <xsl:choose>
             <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
@@ -134,14 +138,14 @@ limitations under the License.
             <!-- SG 20230206: Adding in Questionnaire in case the meta/profile isn't present -->
             <xsl:when test="//fhir:QuestionnaireResponse/fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-event'">HAI</xsl:when>
             <xsl:when test="//fhir:QuestionnaireResponse/fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary'">HAI</xsl:when>
-            
+
             <!-- MD: using Composition.meta.profile or Composition.type.coding.code to identify detal data exchange IG -->
             <xsl:when test="
-                //fhir:Composition/fhir:meta/fhir:profile/@value =
-                'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
+                    //fhir:Composition/fhir:meta/fhir:profile/@value =
+                    'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
             <xsl:when test="
-                //fhir:Composition/fhir:meta/fhir:profile/@value =
-                'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
+                    //fhir:Composition/fhir:meta/fhir:profile/@value =
+                    'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
             <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '57134-9'">DentalReferalNote</xsl:when>
             <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '34756-7'">DentalConsultNote</xsl:when>
         </xsl:choose>
@@ -158,11 +162,12 @@ limitations under the License.
 
     <!-- Check to see if this template contains a trigger code -->
     <xsl:template name="check-for-trigger">
-        <xsl:variable name="vFullUrl" select="parent::fhir:resource/preceding-sibling::fhir:fullUrl/@value"/>
+        <xsl:variable name="vFullUrl" select="parent::fhir:resource/preceding-sibling::fhir:fullUrl/@value" />
 
         <xsl:if test="$gvTriggerCodeInfo/lcg:triggerCodeInfo/lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl">
-            <xsl:copy-of select="$gvTriggerCodeInfo/lcg:triggerCodeInfo[lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl]/fhir:entry/fhir:extension|
-                                 $gvTriggerCodeInfo/lcg:triggerCodeInfo[lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl]/fhir:diagnosis/fhir:extension" />
+            <xsl:copy-of select="
+                    $gvTriggerCodeInfo/lcg:triggerCodeInfo[lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl]/fhir:entry/fhir:extension |
+                    $gvTriggerCodeInfo/lcg:triggerCodeInfo[lcg:matchedUrls/lcg:matchedUrl/@value = $vFullUrl]/fhir:diagnosis/fhir:extension" />
         </xsl:if>
     </xsl:template>
 
@@ -441,7 +446,7 @@ limitations under the License.
         </statusCode>
 
     </xsl:template>
-    
+
     <!-- intent -->
     <xsl:template match="fhir:intent">
         <xsl:choose>
@@ -455,7 +460,7 @@ limitations under the License.
             <xsl:otherwise>INT</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="fhir:meta/fhir:security">
         <xsl:choose>
             <xsl:when test="fhir:coding">
@@ -644,7 +649,7 @@ limitations under the License.
 
         <xsl:choose>
             <xsl:when test="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
-                <xsl:apply-templates select="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only"/>
+                <xsl:apply-templates select="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
             </xsl:when>
             <xsl:when test="$pElement">
                 <xsl:variable name="vPotentialDupes">
@@ -733,6 +738,27 @@ limitations under the License.
                 </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <!-- SG 20231124: Added bodySite (targetSiteCode) -->
+    <xsl:template match="fhir:bodySite[fhir:coding]">
+        
+        <xsl:for-each select="fhir:coding">
+            <targetSiteCode>
+                <xsl:attribute name="code">
+                    <xsl:value-of select="./fhir:code/@value" />
+                </xsl:attribute>
+                <xsl:variable name="vBodySiteSystemUri" select="./fhir:system/@value" />
+                <xsl:choose>
+                    <xsl:when test="$gvMapping/map[@uri = $vBodySiteSystemUri]">
+                        <xsl:attribute name="codeSystem">
+                            <xsl:value-of select="$gvMapping/map[@uri = $vBodySiteSystemUri][1]/@oid" />
+                        </xsl:attribute>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:apply-templates mode="display" select="./fhir:display" />
+            </targetSiteCode>
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="get-reference-range">

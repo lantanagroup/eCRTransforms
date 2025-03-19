@@ -38,7 +38,7 @@ limitations under the License.
     <xsl:param name="section-title-mapping-file">../section-title-mapping.xml</xsl:param>
     <xsl:param name="result-status-mapping-file">../result-status-mapping.xml</xsl:param>
     <!-- File containing the eRSD specification bundle -->
-    <xsl:param name="eRSD-file">../eRSDv3_specification_bundle.xml</xsl:param>
+    <!--<xsl:param name="eRSD-file">../eRSDv3_specification_bundle.xml</xsl:param>-->
     
     <xsl:variable name="gvUUIDRegEx" select="'[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'"/>
     <xsl:variable name="gvUUIDRegExWithPrefix" select="'urn:uuid:[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?'"/>
@@ -53,10 +53,10 @@ limitations under the License.
     <xsl:variable name="section-title-mapping" select="document($section-title-mapping-file)/mapping" />
     <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
     <!-- variable containing all the trigger result order test codes for use in determining whether a serviceRequest is a result test order -->
-    <xsl:variable name="result-order-valueset-expansion" select="document($eRSD-file)//fhir:Bundle/fhir:entry[fhir:fullUrl/@value='http://ersd.aimsplatform.org/fhir/ValueSet/lotc']/fhir:resource/fhir:ValueSet/fhir:expansion/fhir:contains/fhir:code" />
+    <!--<xsl:variable name="result-order-valueset-expansion" select="document($eRSD-file)//fhir:Bundle/fhir:entry[fhir:fullUrl/@value='http://ersd.aimsplatform.org/fhir/ValueSet/lotc']/fhir:resource/fhir:ValueSet/fhir:expansion/fhir:contains/fhir:code" />-->
     
     <!-- Key with all trigger result order test codes -->
-    <xsl:key name="result-order-valueset-key" match="$result-order-valueset-expansion" use="@value" />
+    <!--<xsl:key name="result-order-valueset-key" match="$result-order-valueset-expansion" use="@value" />-->
 
     <xsl:variable name="gvTriggerExtensionUrl" select="'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension'" />
     <!-- Key to get all the trigger code extension and their referenced top-level resources -->
@@ -441,7 +441,21 @@ limitations under the License.
         </statusCode>
 
     </xsl:template>
-
+    
+    <!-- intent -->
+    <xsl:template match="fhir:intent">
+        <xsl:choose>
+            <xsl:when test="@value = 'proposal'">PRP</xsl:when>
+            <xsl:when test="@value = 'plan'">INT</xsl:when>
+            <xsl:when test="@value = 'order'">RQO</xsl:when>
+            <xsl:when test="@value = 'original-order'">RQO</xsl:when>
+            <xsl:when test="@value = 'reflex-order'">RQO</xsl:when>
+            <xsl:when test="@value = 'filler-order'">RQO</xsl:when>
+            <xsl:when test="@value = 'instance-order'">RQO</xsl:when>
+            <xsl:otherwise>INT</xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="fhir:meta/fhir:security">
         <xsl:choose>
             <xsl:when test="fhir:coding">

@@ -960,18 +960,4 @@ limitations under the License.
         </effectiveTime>
     </xsl:template>
 
-    <!-- intent -->
-    <xsl:template match="fhir:intent">
-        <xsl:choose>
-            <xsl:when test="@value = 'proposal'">PRP</xsl:when>
-            <xsl:when test="@value = 'plan'">INT</xsl:when>
-            <xsl:when test="@value = 'order'">RQO</xsl:when>
-            <xsl:when test="@value = 'original-order'">RQO</xsl:when>
-            <xsl:when test="@value = 'reflex-order'">RQO</xsl:when>
-            <xsl:when test="@value = 'filler-order'">RQO</xsl:when>
-            <xsl:when test="@value = 'instance-order'">RQO</xsl:when>
-            <xsl:otherwise>INT</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
 </xsl:stylesheet>

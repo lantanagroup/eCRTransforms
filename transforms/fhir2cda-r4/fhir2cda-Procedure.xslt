@@ -43,22 +43,16 @@ limitations under the License.
     <xsl:template name="make-planned-procedure">
         <xsl:param name="pTriggerExtension" />
         <xsl:param name="pMapping" />
-
+        
+        <xsl:variable name="vMoodCode">
+            <xsl:apply-templates select="fhir:intent" />
+        </xsl:variable>
+        
         <entry>
-            <procedure classCode="PROC">
-                <xsl:choose>
-                    <xsl:when test="fhir:intent/@value = 'plan'">
-                        <xsl:attribute name="moodCode">
-                            <xsl:value-of select="'INT'" />
-                        </xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="fhir:intent/@value = 'order'">
-                        <xsl:attribute name="moodCode">
-                            <xsl:value-of select="'RQO'" />
-                        </xsl:attribute>
-                    </xsl:when>
-                </xsl:choose>
-
+            <procedure classCode="PROC" moodCode="{$vMoodCode}">
+                <xsl:if test="fhir:doNotPerform/@value = 'true'">
+                    <xsl:attribute name="negationInd" select="'true'" />
+                </xsl:if>
                 <!-- templateId -->
                 <xsl:comment select="' [C-CDA R2.1] Planned Procedure (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.41" extension="2014-06-09" />
@@ -72,22 +66,10 @@ limitations under the License.
                 <xsl:apply-templates select="fhir:code">
                     <xsl:with-param name="pTriggerExtension" select="$pTriggerExtension" />
                 </xsl:apply-templates>
-                <!--<code>
-                    <xsl:attribute name="code">
-                        <xsl:value-of select="fhir:code/fhir:coding/fhir:code/@value" />
-                    </xsl:attribute>
-                    <xsl:variable name="vCodeSystemUri" select="fhir:code/fhir:coding/fhir:system/@value" />
-                    <xsl:choose>
-                        <xsl:when test="$pMapping/map[@uri = $vCodeSystemUri]">
-                            <xsl:attribute name="codeSystem">
-                                <xsl:value-of select="$pMapping/map[@uri = $vCodeSystemUri][1]/@oid" />
-                            </xsl:attribute>
-                        </xsl:when>
-                    </xsl:choose>
-                    <xsl:apply-templates mode="display" select="fhir:code/fhir:coding/fhir:display" />
-                </code>-->
+
                 <xsl:apply-templates mode="text" select="fhir:code/fhir:text" />
-                <xsl:apply-templates select="fhir:status" />
+                <!-- C-CDA Planned Procedure has statusCode hard coded to 'active' -->
+                <statusCode code="active" />
                 <xsl:for-each select="fhir:bodySite/fhir:coding">
                     <targetSiteCode>
                         <xsl:attribute name="code">
@@ -139,6 +121,34 @@ limitations under the License.
                         </xsl:for-each>
                     </xsl:for-each>
                 </xsl:for-each>
+                <!-- author (C-CDA Author Participation template) -->
+                <xsl:choose>
+                    <xsl:when test="fhir:authoredOn and not(fhir:requester)">
+                        <author>
+                            <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                            <xsl:variable name="vAuthoredOn">
+                                <xsl:call-template name="Date2TS">
+                                    <xsl:with-param name="date" select="fhir:authoredOn/@value" />
+                                    <xsl:with-param name="includeTime" select="true()" />
+                                </xsl:call-template>
+                            </xsl:variable>
+                            <time>
+                                <xsl:attribute name="value">
+                                    <xsl:call-template name="Date2TS">
+                                        <xsl:with-param name="date" select="fhir:authoredOn/@value" />
+                                        <xsl:with-param name="includeTime" select="true()" />
+                                    </xsl:call-template>
+                                </xsl:attribute>
+                            </time>
+                            <assignedAuthor>
+                                <id nullFlavor="NI" />
+                            </assignedAuthor>
+                        </author>
+                    </xsl:when>
+                    <xsl:when test="fhir:requester">
+                        <xsl:apply-templates select="fhir:requester" />
+                    </xsl:when>
+                </xsl:choose>
             </procedure>
         </entry>
 

@@ -124,27 +124,10 @@ limitations under the License.
                 </xsl:when>
 
             </xsl:choose>
-            <!--  
-      
-      Old comment: Assuming we are never going to have more than one of these at a time in one bundle.. Could be wrong though! 
-      RG: Yup, that was absolutely the case! Had to change to a choice
-      <xsl:call-template name="get-time">
-        <xsl:with-param name="pElement" select="//fhir:Composition/fhir:date | //fhir:QuestionnaireResponse/fhir:authored | //fhir:Communication/fhir:sent" />
-      </xsl:call-template>
-      -->
             <assignedAuthor>
                 <xsl:call-template name="get-id">
                     <xsl:with-param name="pElement" select="fhir:identifier | $vPractitioner/fhir:identifier" />
                 </xsl:call-template>
-                <!--<xsl:choose>
-          <xsl:when test="fhir:identifier or $vPractitioner/fhir:identifier">
-            <xsl:apply-templates select="fhir:identifier" />
-            <xsl:apply-templates select="$vPractitioner/fhir:identifier" />
-          </xsl:when>
-          <xsl:otherwise>
-            <id nullFlavor="NI" />
-          </xsl:otherwise>
-        </xsl:choose>-->
                 <xsl:apply-templates select="fhir:code" />
                 <!-- PractitionerRole doesn't have an address, this will come from Practitioner (TODO - organization, location?) -->
                 <xsl:call-template name="get-addr">
@@ -234,7 +217,6 @@ limitations under the License.
                         <xsl:apply-templates select="fhir:contact" />
                     </xsl:when>
                 </xsl:choose>
-
 
                 <assignedAuthoringDevice>
                     <xsl:choose>

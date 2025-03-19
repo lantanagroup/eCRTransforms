@@ -62,10 +62,10 @@ limitations under the License.
                         </xsl:attribute>
                     </xsl:when>
                 </xsl:choose>
-                <!-- fhir:intent could have the value propsal, plan, directive, order, original-order, reflex-order, filler-order instance-order, option
-        not sure there is a mapping between fhir and cda. for now just hard code as RQO -->
+                <!-- moodCode -->
                 <xsl:attribute name="moodCode">
-                    <xsl:value-of select="'RQO'" />
+                    <xsl:apply-templates select="fhir:intent" />
+                    <!--                    <xsl:value-of select="'RQO'" />-->
                 </xsl:attribute>
 
                 <!-- MD: using the referral order identifier to link the referral note to the consult note -->

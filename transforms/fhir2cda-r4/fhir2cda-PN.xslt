@@ -29,15 +29,28 @@ limitations under the License.
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:if test="fhir:use">
-                        <xsl:attribute name="use">
-                            <xsl:choose>
-                                <xsl:when test="fhir:use/@value = 'usual'">L</xsl:when>
-                                <xsl:when test="fhir:use/@value = 'official'">L</xsl:when>
-                                <xsl:when test="fhir:use/@value = 'nickname'">P</xsl:when>
-                                <!-- Not sure of the exact condition of when to use this label -->
-                                <xsl:when test="fhir:use/@value = 'maiden'">BR</xsl:when>
-                            </xsl:choose>
-                        </xsl:attribute>
+                        <xsl:choose>
+                            <xsl:when test="fhir:use/@value = 'usual'">
+                                <xsl:attribute name="use">L</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="fhir:use/@value = 'official'">
+                                <xsl:attribute name="use">L</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="fhir:use/@value = 'nickname'">
+                                <xsl:attribute name="use">L</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="fhir:use/@value = 'old'">
+                                <xsl:attribute name="use">L</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="fhir:use/@value = 'maiden'">
+                                <xsl:attribute name="use">L</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="fhir:use/@value = 'anonymous'">
+                                <xsl:attribute name="use">ASGN</xsl:attribute>
+                            </xsl:when>
+                            <xsl:when test="fhir:use/@value = 'temp'" />
+                            
+                        </xsl:choose>
                     </xsl:if>
                     <!-- Setting order for consistency and easier testing/compares -->
                     <xsl:apply-templates select="fhir:prefix" mode="name" />
@@ -45,12 +58,12 @@ limitations under the License.
                     <xsl:apply-templates select="fhir:family" mode="name" />
                     <xsl:apply-templates select="fhir:suffix" mode="name" />
                     <xsl:apply-templates select="fhir:period">
-                        <xsl:with-param name="pElementName" select="'validTime'"/>
-                        <xsl:with-param name="pXSIType" select="'IVL_TS'"/>
+                        <xsl:with-param name="pElementName" select="'validTime'" />
+                        <xsl:with-param name="pXSIType" select="'IVL_TS'" />
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
-            
+
         </xsl:element>
     </xsl:template>
 

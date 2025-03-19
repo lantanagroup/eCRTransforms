@@ -27,7 +27,7 @@ limitations under the License.
 
     <!-- fhir:author[parent::fhir:Composition] | fhir:sender[parent::fhir:Communication] | fhir:author[parent::fhir:QuestionnaireResponse] -> get referenced resource entry url and process -->
     <!-- SG 20231122: Added fhir:requester[parent::fhir:ServiceRequest] -->
-    <xsl:template match="fhir:author[parent::fhir:Composition] | fhir:sender[parent::fhir:Communication] | fhir:author[parent::fhir:QuestionnaireResponse] | fhir:requester[parent::fhir:ServiceRequest]">
+    <xsl:template match="fhir:author[parent::fhir:Composition] | fhir:sender[parent::fhir:Communication] | fhir:author[parent::fhir:QuestionnaireResponse] | fhir:requester[parent::fhir:ServiceRequest] | fhir:recorder">
         <!-- check author Parent Resource -->
         <xsl:variable name="vAuthorParent" select="../local-name()" />
         <!-- SG 20231122: Add code to get parent id - won't only be one of everying (e.g. ServiceRequest) -->
@@ -62,9 +62,11 @@ limitations under the License.
     <!-- fhir:Practitioner -> cda:author -->
     <xsl:template match="fhir:entry/fhir:resource/fhir:Practitioner" mode="author">
         <xsl:param name="pAuthorParent" />
+        <xsl:param name="pAuthorParentId" />
         <xsl:param name="pPractitionerRole" />
         <xsl:call-template name="make-author">
             <xsl:with-param name="pAuthorParent" select="$pAuthorParent" />
+            <xsl:with-param name="pAuthorParentId" select="$pAuthorParentId" />
         </xsl:call-template>
     </xsl:template>
 
@@ -286,6 +288,14 @@ limitations under the License.
 
                     <xsl:call-template name="get-time">
                         <xsl:with-param name="pElement" select="//fhir:ServiceRequest[fhir:id/@value = $pAuthorParentId]/fhir:authoredOn" />
+                    </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$pAuthorParent = 'Condition'">
+                    <xsl:comment select="' [C-CDA R2.0] Author Participation '" />
+                    <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                    
+                    <xsl:call-template name="get-time">
+                        <xsl:with-param name="pElement" select="//fhir:Condition[fhir:id/@value = $pAuthorParentId]/fhir:recordedDate" />
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:otherwise>

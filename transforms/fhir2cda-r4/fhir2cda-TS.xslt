@@ -52,7 +52,7 @@ limitations under the License.
     </xsl:template>-->
 
     <xsl:template
-        match="fhir:collectedDateTime | fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted | fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime | fhir:issued">
+        match="fhir:collectedDateTime | fhir:effectiveDateTime | fhir:effectiveInstant | fhir:dateAsserted | fhir:valueDateTime | fhir:occurrenceDateTime | fhir:birthDate | fhir:deceasedDateTime | fhir:date | fhir:authored | fhir:sent | fhir:timestamp | fhir:time | fhir:authoredOn | fhir:performedDateTime | fhir:issued | fhir:recordedDate">
         <!-- CDA element effectiveTime unless specified something else -->
         <xsl:param name="pElementName" select="'effectiveTime'" />
         <!-- This might be cast to a specific xsi-type in the cda -->

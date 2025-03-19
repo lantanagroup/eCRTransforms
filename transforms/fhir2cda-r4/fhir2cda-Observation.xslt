@@ -1047,12 +1047,6 @@ limitations under the License.
                     <xsl:when test="fhir:authoredOn and not(fhir:requester)">
                         <author>
                             <templateId root="2.16.840.1.113883.10.20.22.4.119" />
-                            <xsl:variable name="vAuthoredOn">
-                                <xsl:call-template name="Date2TS">
-                                    <xsl:with-param name="date" select="fhir:authoredOn/@value" />
-                                    <xsl:with-param name="includeTime" select="true()" />
-                                </xsl:call-template>
-                            </xsl:variable>
                             <time>
                                 <xsl:attribute name="value">
                                     <xsl:call-template name="Date2TS">
@@ -1146,12 +1140,6 @@ limitations under the License.
                     <xsl:when test="fhir:authoredOn and not(fhir:requester)">
                         <author>
                             <templateId root="2.16.840.1.113883.10.20.22.4.119" />
-                            <xsl:variable name="vAuthoredOn">
-                                <xsl:call-template name="Date2TS">
-                                    <xsl:with-param name="date" select="fhir:authoredOn/@value" />
-                                    <xsl:with-param name="includeTime" select="true()" />
-                                </xsl:call-template>
-                            </xsl:variable>
                             <time>
                                 <xsl:attribute name="value">
                                     <xsl:call-template name="Date2TS">
@@ -1276,10 +1264,30 @@ limitations under the License.
                 <xsl:with-param name="pXSIType" select="'CD'" />
                 <xsl:with-param name="pTriggerExtension" select="$vTriggerExtension" />
             </xsl:apply-templates>
-            <!-- entryRelationship/Problem Status -->
-            <!--<xsl:for-each select="fhir:clinicalStatus">-->
+            <!-- author (C-CDA Author Participation template) -->
+            <xsl:choose>
+                <xsl:when test="fhir:recordedDate and not(fhir:recorder)">
+                    <author>
+                        <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                        <time>
+                            <xsl:attribute name="value">
+                                <xsl:call-template name="Date2TS">
+                                    <xsl:with-param name="date" select="fhir:recordedDate/@value" />
+                                    <xsl:with-param name="includeTime" select="true()" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                        </time>
+                        <assignedAuthor>
+                            <id nullFlavor="NI" />
+                        </assignedAuthor>
+                    </author>
+                </xsl:when>
+                <xsl:when test="fhir:recorder">
+                    <xsl:apply-templates select="fhir:recorder" />
+                </xsl:when>
+            </xsl:choose>
             <xsl:apply-templates select="fhir:clinicalStatus" />
-            <!--</xsl:for-each>-->
+            
         </observation>
     </xsl:template>
 

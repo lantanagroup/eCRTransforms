@@ -197,6 +197,11 @@ limitations under the License.
                             <xsl:when test="fhir:targetIdentifier">
                                 <xsl:apply-templates select="fhir:targetIdentifier" />
                             </xsl:when>
+                            <!-- going to have to put the target reference into the identifier because there is no other place to put it -->
+                            <xsl:when test="fhir:targetReference">
+                                <xsl:comment>This is a workaround to preserve the targetReference</xsl:comment>
+                                <id root="2.16.840.1.113883.4.873" extension="{fhir:targetReference/fhir:reference/@value}" />
+                            </xsl:when>
                             <xsl:otherwise>
                                 <id nullFlavor="NI" />
                             </xsl:otherwise>

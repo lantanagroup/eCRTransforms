@@ -449,7 +449,7 @@ limitations under the License.
             <xsl:apply-templates select="fhir:effectivePeriod">
                 <xsl:with-param name="pXSIType" select="'IVL_TS'" />
             </xsl:apply-templates>
-            
+
             <xsl:apply-templates select="fhir:dateAsserted" />
 
             <!-- SG 20230216: An issue here is that C-CDA specifies that routeCode has to come from SPL Drug Route of Administration Terminology
@@ -503,7 +503,7 @@ limitations under the License.
             <consumable>
                 <xsl:call-template name="make-medication-information" />
             </consumable>
-            
+
             <!-- performer -->
             <xsl:for-each select="fhir:performer/fhir:actor">
                 <xsl:for-each select="fhir:reference">
@@ -607,26 +607,6 @@ limitations under the License.
 
     <xsl:template name="make-medication-activity">
         <xsl:param name="moodCode">EVN</xsl:param>
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
-                <xsl:when test="//fhir:Communication/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication'">RR</xsl:when>
-                <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Care-Plan'">PCP</xsl:when>
-                <!-- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-->
-                <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaireresponse'">HAI</xsl:when>
-                <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-population-summary-questionnaireresponse'">HAI</xsl:when>
-                <!-- MD: Add dental data exchange IG -->
-                <xsl:when test="
-                        //fhir:Composition/fhir:meta/fhir:profile/@value =
-                        'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
-                <xsl:when test="
-                        //fhir:Composition/fhir:meta/fhir:profile/@value =
-                        'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
-                <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '57134-9'">DentalReferalNote</xsl:when>
-                <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '34756-7'">DentalConsultNote</xsl:when>
-            </xsl:choose>
-        </xsl:variable>
         <substanceAdministration classCode="SBADM" moodCode="{$moodCode}">
 
             <xsl:choose>
@@ -675,6 +655,7 @@ limitations under the License.
                     <statusCode nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- effectiveTime -->
             <xsl:choose>
                 <xsl:when test="fhir:dosageInstruction/fhir:timing">
                     <xsl:apply-templates mode="medication-activity" select="fhir:dosageInstruction/fhir:timing" />
@@ -725,27 +706,7 @@ limitations under the License.
     </xsl:template>
 
     <xsl:template name="make-planned-medication">
-        <!--        <xsl:param name="moodCode">INT</xsl:param>-->
-        <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-        <xsl:variable name="vCurrentIg">
-            <xsl:choose>
-                <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
-                <xsl:when test="//fhir:Communication/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication'">RR</xsl:when>
-                <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Care-Plan'">PCP</xsl:when>
-                <!-- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-->
-                <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaireresponse'">HAI</xsl:when>
-                <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-population-summary-questionnaireresponse'">HAI</xsl:when>
-                <!-- MD: Add dental data exchange IG -->
-                <xsl:when test="
-                        //fhir:Composition/fhir:meta/fhir:profile/@value =
-                        'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
-                <xsl:when test="
-                        //fhir:Composition/fhir:meta/fhir:profile/@value =
-                        'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
-                <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '57134-9'">DentalReferalNote</xsl:when>
-                <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '34756-7'">DentalConsultNote</xsl:when>
-            </xsl:choose>
-        </xsl:variable>
+
         <xsl:variable name="vMoodCode">
             <xsl:apply-templates select="fhir:intent" />
         </xsl:variable>
@@ -792,7 +753,7 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
 
-            <!-- MD: add route -->
+            <!-- routeCode -->
             <xsl:choose>
                 <xsl:when test="fhir:dosageInstruction/fhir:route">
                     <xsl:apply-templates select="fhir:dosageInstruction/fhir:route">
@@ -803,7 +764,12 @@ limitations under the License.
                     <routeCode nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- approachSiteCode -->
+            <xsl:apply-templates select="fhir:dosageInstruction/fhir:site">
+                <xsl:with-param name="pElementName" select="'approachSiteCode'" />
+            </xsl:apply-templates>
 
+            <!-- doseQuantity -->
             <xsl:choose>
                 <xsl:when test="fhir:dosageInstruction/fhir:doseAndRate/fhir:doseQuantity">
                     <xsl:apply-templates select="fhir:dosageInstruction/fhir:doseAndRate/fhir:doseQuantity">
@@ -815,9 +781,81 @@ limitations under the License.
                     <doseQuantity nullFlavor="NI" />
                 </xsl:otherwise>
             </xsl:choose>
+            <!-- rateQuantity -->
+            <xsl:apply-templates select="fhir:dosageInstruction/fhir:doseAndRate/fhir:rateQuantity">
+                <xsl:with-param name="pElementName" select="'rateQuantity'" />
+                <xsl:with-param name="pIncludeDatatype" select="false()" />
+            </xsl:apply-templates>
+            <!-- maxDoseQuantity -->
+            <xsl:if test="fhir:dosageInstruction/fhir:maxDosePerPeriod">
+                <maxDoseQuantity>
+                    <xsl:choose>
+                        <xsl:when test="fhir:dosageInstruction/fhir:maxDosePerPeriod/fhir:numerator">
+                            <xsl:apply-templates select="fhir:dosageInstruction/fhir:maxDosePerPeriod/fhir:numerator">
+                                <xsl:with-param name="pElementName" select="'numerator'" />
+                                <xsl:with-param name="pIncludeDatatype" select="false()" />
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <numerator nullFlavor="NI" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="fhir:dosageInstruction/fhir:maxDosePerPeriod/fhir:denominator">
+                            <xsl:apply-templates select="fhir:dosageInstruction/fhir:maxDosePerPeriod/fhir:denominator">
+                                <xsl:with-param name="pElementName" select="'denominator'" />
+                                <xsl:with-param name="pIncludeDatatype" select="false()" />
+                            </xsl:apply-templates>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <denominator nullFlavor="NI" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </maxDoseQuantity>
+            </xsl:if>
+            <!-- consumable -->
             <consumable>
                 <xsl:call-template name="make-medication-information" />
             </consumable>
+            <!-- author (C-CDA Author Participation template) -->
+            <xsl:choose>
+                <xsl:when test="fhir:authoredOn and not(fhir:requester)">
+                    <author>
+                        <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                        <time>
+                            <xsl:attribute name="value">
+                                <xsl:call-template name="Date2TS">
+                                    <xsl:with-param name="date" select="fhir:authoredOn/@value" />
+                                    <xsl:with-param name="includeTime" select="true()" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                        </time>
+                        <assignedAuthor>
+                            <id nullFlavor="NI" />
+                        </assignedAuthor>
+                    </author>
+                </xsl:when>
+                <xsl:when test="fhir:requester">
+                    <xsl:apply-templates select="fhir:requester" />
+                </xsl:when>
+            </xsl:choose>
+            <!-- performer -->
+            <xsl:variable name="vPerformerType" select="fhir:performerType"/>
+            <xsl:for-each select="fhir:performer">
+                <xsl:for-each select="fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+                        <xsl:call-template name="make-performer">
+                            <xsl:with-param name="pCode" select="$vPerformerType"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:for-each>
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/therapeutic-medication-response-extension']" />
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension']" />
         </substanceAdministration>

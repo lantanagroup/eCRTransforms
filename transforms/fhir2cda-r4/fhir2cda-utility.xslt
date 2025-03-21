@@ -48,12 +48,12 @@ limitations under the License.
 
     <xsl:variable name="lab-status-mapping" select="document($lab-status-mapping-file)/mapping" />
     <xsl:variable name="lab-obs-status-mapping" select="document($lab-obs-status-mapping-file)/mapping" />
-    
+
     <xsl:variable name="section-title-mapping" select="document($section-title-mapping-file)/mapping" />
     <xsl:variable name="result-status-mapping" select="document($result-status-mapping-file)/mapping" />
-    
+
     <xsl:variable name="gvMapping" select="document('../oid-uri-mapping-r4.xml')/mapping" />
-    
+
     <!-- variable containing all the trigger result order test codes for use in determining whether a serviceRequest is a result test order -->
     <!--<xsl:variable name="result-order-valueset-expansion" select="document($eRSD-file)//fhir:Bundle/fhir:entry[fhir:fullUrl/@value='http://ersd.aimsplatform.org/fhir/ValueSet/lotc']/fhir:resource/fhir:ValueSet/fhir:expansion/fhir:contains/fhir:code" />-->
 
@@ -205,13 +205,13 @@ limitations under the License.
                 <xsl:message> referenceURI: <xsl:value-of select="$referenceURI" /> entryFullUrl: <xsl:value-of select="$entryFullUrl" /> currentResourceType: <xsl:value-of select="$currentResourceType" />
                     fhirBaseUrl: <xsl:value-of select="$fhirBaseUrl" />
                 </xsl:message>
-                
+
                 <xsl:value-of select="$fhirBaseUrl" />
                 <xsl:value-of select="$referenceURI" />
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
     <!--<xsl:function name="lcg:fcnGetLocalName">
         <xsl:param name="referenceURI" as="attribute()" />
         <xsl:param name="entryFullUrl" as="attribute()" />
@@ -243,7 +243,7 @@ limitations under the License.
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>-->
-    
+
     <xsl:template name="resolve-reference">
         <xsl:param name="referenceURI" select="fhir:reference/@value" />
         <xsl:param name="entryFullUrl" select="ancestor::fhir:entry[parent::fhir:Bundle][1]/fhir:fullUrl/@value" />
@@ -292,12 +292,14 @@ limitations under the License.
         <xsl:param name="pTypeCode" select="'PRF'" />
         <xsl:param name="pPerformerTime" />
         <xsl:param name="pOrganization" />
+        <xsl:param name="pCode" />
         <xsl:element name="{$pElementName}">
             <xsl:attribute name="typeCode" select="$pTypeCode" />
             <xsl:if test="$pPerformerTime">
                 <time value="{pPerformerTime}" />
             </xsl:if>
             <assignedEntity>
+                <!-- id -->
                 <xsl:choose>
                     <xsl:when test="fhir:identifier">
                         <xsl:apply-templates select="fhir:identifier" />
@@ -306,7 +308,11 @@ limitations under the License.
                         <id nullFlavor="NI" />
                     </xsl:otherwise>
                 </xsl:choose>
-
+                <!-- code -->
+                <xsl:apply-templates select="$pCode">
+                    <xsl:with-param name="pElementName">code</xsl:with-param>
+                </xsl:apply-templates>
+                <!-- addr -->
                 <xsl:choose>
                     <xsl:when test="fhir:address">
                         <xsl:apply-templates select="fhir:address" />
@@ -321,11 +327,6 @@ limitations under the License.
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:apply-templates select="fhir:telecom" />
-                <!--<telecom value="{fhir:telecom/fhir:value/@value}">
-          <xsl:call-template name="telecomUse">
-            <xsl:with-param name="use" select="fhir:telecom/@use" />
-          </xsl:call-template>
-        </telecom>-->
                 <xsl:if test="local-name() != 'Organization'">
                     <assignedPerson>
                         <xsl:apply-templates select="fhir:name" />
@@ -752,7 +753,7 @@ limitations under the License.
 
     <!-- SG 20231124: Added bodySite (targetSiteCode) -->
     <xsl:template match="fhir:bodySite[fhir:coding]">
-        
+
         <xsl:for-each select="fhir:coding">
             <targetSiteCode>
                 <xsl:attribute name="code">

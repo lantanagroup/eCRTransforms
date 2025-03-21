@@ -681,7 +681,7 @@ limitations under the License.
                 <xsl:comment select="' [ODH R1] Past or Present Industry Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.216" extension="2017-11-30" />
             </xsl:when>
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '4163-7'">
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '74163-7'">
                 <xsl:comment select="' [ODH R1] Usual Occupation Duration Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.220" extension="2017-11-30" />
             </xsl:when>
@@ -699,7 +699,7 @@ limitations under the License.
             </xsl:when>
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '74159-5'">
                 <xsl:comment select="' [ODH R1] Work Schedule Observation '" />
-                <templateId root="2.16.840.1.113883.10.20.22.4.223" extension="2017-11-30" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.223" extension="2016-11-30" />
             </xsl:when>
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '74160-3'">
                 <xsl:comment select="' [ODH R1] Work Days Per Week Observation '" />

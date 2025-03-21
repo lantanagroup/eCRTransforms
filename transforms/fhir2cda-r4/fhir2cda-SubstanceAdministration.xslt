@@ -415,7 +415,6 @@ limitations under the License.
                     <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <!--<xsl:apply-templates select="." mode="map-resource-to-template" />  -->
                     <xsl:comment select="' MEDICATION ACTIVITY V2  '" />
                     <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
                 </xsl:otherwise>
@@ -450,7 +449,7 @@ limitations under the License.
             <xsl:apply-templates select="fhir:effectivePeriod">
                 <xsl:with-param name="pXSIType" select="'IVL_TS'" />
             </xsl:apply-templates>
-
+            
             <xsl:apply-templates select="fhir:dateAsserted" />
 
             <!-- SG 20230216: An issue here is that C-CDA specifies that routeCode has to come from SPL Drug Route of Administration Terminology
@@ -483,21 +482,10 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
 
-            <!-- MD: add handle dosage.method to approachSiteCode -->
-            <xsl:choose>
-                <xsl:when test="fhir:dosage/fhir:method">
-                    <xsl:choose>
-                        <xsl:when test="fhir:dosage/fhir:method/fhir:coding">
-                            <xsl:apply-templates select="fhir:dosage/fhir:method">
-                                <xsl:with-param name="pElementName" select="'approachSiteCode'" />
-                            </xsl:apply-templates>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <approachSiteCode nullFlavor="NI" />
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-            </xsl:choose>
+            <!-- approachSiteCode -->
+            <xsl:apply-templates select="fhir:dosage/fhir:site">
+                <xsl:with-param name="pElementName" select="'approachSiteCode'" />
+            </xsl:apply-templates>
 
             <xsl:choose>
                 <xsl:when test="fhir:dosage/fhir:dose">
@@ -515,6 +503,21 @@ limitations under the License.
             <consumable>
                 <xsl:call-template name="make-medication-information" />
             </consumable>
+            
+            <!-- performer -->
+            <xsl:for-each select="fhir:performer/fhir:actor">
+                <xsl:for-each select="fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+                        <xsl:call-template name="make-performer" />
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:for-each>
 
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/therapeutic-medication-response-extension']" />
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension']" />

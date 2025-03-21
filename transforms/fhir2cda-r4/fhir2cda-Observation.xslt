@@ -36,7 +36,8 @@ limitations under the License.
     <!-- Generic Observation entry (no contained hasMember - if contained hasMember then Organizer)-->
     <!-- These are contained in a Section-->
     <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
-    <xsl:template match="fhir:Observation[count(fhir:hasMember) = 0][not(fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory'])]" mode="entry">
+    <!--<xsl:template match="fhir:Observation[count(fhir:hasMember) = 0][not(fhir:category[1]/fhir:coding[fhir:code/@value = 'laboratory'])]" mode="entry">-->
+    <xsl:template match="fhir:Observation[count(fhir:hasMember) = 0][not(fhir:category/fhir:coding[fhir:code/@value = 'laboratory'])]" mode="entry">
         <xsl:param name="generated-narrative">additional</xsl:param>
         <entry>
             <xsl:if test="$generated-narrative = 'generated'">

@@ -681,6 +681,36 @@ limitations under the License.
                 <xsl:comment select="' [ODH R1] Past or Present Industry Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.216" extension="2017-11-30" />
             </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '4163-7'">
+                <xsl:comment select="' [ODH R1] Usual Occupation Duration Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.220" extension="2017-11-30" />
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '87707-6'">
+                <xsl:comment select="' [ODH R1] Supervisory Level Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.224" extension="2017-11-30" />
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '63761-1'">
+                <xsl:comment select="' [ODH R1] Job Duty Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.214" extension="2017-11-30" />
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '85104-8'">
+                <xsl:comment select="' [ODH R1] Work Classification Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.210" extension="2017-11-30" />
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '74159-5'">
+                <xsl:comment select="' [ODH R1] Work Schedule Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.223" extension="2017-11-30" />
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '74160-3'">
+                <xsl:comment select="' [ODH R1] Work Days Per Week Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.222" extension="2017-11-30" />
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '87512-0'">
+                <xsl:comment select="' [ODH R1] Work Hours Per Day Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.211" extension="2017-11-30" />
+            </xsl:when>
+            
+            
 
             <!-- Participants -->
             <xsl:when test="fhir:type/fhir:coding/fhir:code/@value = 'RR7'">

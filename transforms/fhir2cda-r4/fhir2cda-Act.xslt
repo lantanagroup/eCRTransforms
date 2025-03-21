@@ -474,7 +474,6 @@ limitations under the License.
   </xsl:template>
 
   <!-- (PCP) Planned Intervention Act (Pharmacist Care Plan) (Act) -->
-  <!-- **TODO** refactor - this should have a name specific to PCP as it's not generic -->
   <xsl:template name="make-intervention-request">
     <xsl:param name="time">
       <xsl:call-template name="Date2TS">
@@ -534,7 +533,6 @@ limitations under the License.
   </xsl:template>
 
   <!-- (PCP) Intervention Act (Pharmacist Care Plan) (Act) -->
-  <!-- **TODO** refactor - this should have a name specific to PCP as it's not generic -->
   <xsl:template name="make-intervention-list">
     <xsl:param name="time">
       <xsl:call-template name="Date2TS">
@@ -619,7 +617,6 @@ limitations under the License.
         </xsl:for-each>-->
   </xsl:template>
 
-  <!-- TODO -->
   <!-- //fhir:Observation[fhir:code/fhir:coding/fhir:code[@value='304561000']] -> Reportability Response Summary (Act) -->
   <xsl:template match="//fhir:Observation[fhir:code/fhir:coding/fhir:code[@value = '304561000']]" mode="rr">
     <entry typeCode="DRIV">
@@ -756,34 +753,6 @@ limitations under the License.
         <xsl:apply-templates select="fhir:valueCodeableConcept" />
       </act>
     </entry>
-  </xsl:template>
-
-  <!-- HAI LTC -->
-  <xsl:template
-    match="fhir:item[fhir:linkId/@value = ('no-lab-id-event-mrsa', 'no-lab-id-event-mssa', 'no-lab-id-event-vre', 'no-lab-id-event-cephr-klebsiella', 'no-lab-id-event-mrsa-cre-e-coli', 'no-lab-id-event-mrsa-cre-enterobacter', 'no-lab-id-event-cre-klebsiella', 'no-lab-id-event-mdr-acinetobacter', 'no-lab-id-event-c-difficile')]">
-    <xsl:variable name="vLinkId" select="fhir:linkId/@value" />
-    <xsl:if test="fhir:answer/fhir:valueBoolean/@value = 'true'">
-      <act classCode="ACT" moodCode="EVN">
-        <xsl:call-template name="get-template-id" />
-        <code>
-          <xsl:apply-templates select="$gvHaiQuestionnaire/fhir:Questionnaire//fhir:item[fhir:linkId/@value = $vLinkId]/fhir:code" />
-        </code>
-      </act>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="fhir:item[fhir:linkId/@value = 'nhsn-comment']">
-    <xsl:variable name="vLinkId" select="fhir:linkId/@value" />
-    <act classCode="ACT" moodCode="EVN">
-      <xsl:comment select="' [HAI R3D2] NHSN Comment '" />
-      <templateId root="2.16.840.1.113883.10.20.5.6.243" extension="2017-04-01" />
-      <code>
-        <xsl:apply-templates select="$questionnaire-mapping/fhir:map[@linkId = $vLinkId][@type='entry']/fhir:coding" />
-      </code>
-      <text>
-        <xsl:value-of select="fhir:answer/fhir:valueString/@value" />
-      </text>
-    </act>
   </xsl:template>
 
 </xsl:stylesheet>

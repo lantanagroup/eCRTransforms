@@ -66,7 +66,6 @@ limitations under the License.
                         <xsl:when test="$gvCurrentIg = 'HAI'">true</xsl:when>
                         <xsl:otherwise>false</xsl:otherwise>
                     </xsl:choose>
-
                 </xsl:variable>
                 <!-- SG NOTE: Address isn't required for HAI IGs like it is for US Realm Header based IGs and US Core only has address as MS -->
                 <xsl:call-template name="get-addr">
@@ -81,51 +80,8 @@ limitations under the License.
                 <patient>
                     <xsl:call-template name="get-person-name" />
 
-                    <xsl:choose>
-                        <xsl:when test="fhir:gender/fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
-                            <administrativeGenderCode>
-                                <xsl:apply-templates select="fhir:gender/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
-                            </administrativeGenderCode>
-                        </xsl:when>
-                        <xsl:when test="lower-case(fhir:gender/@value) = 'other'">
-                            <administrativeGenderCode>
-                                <xsl:attribute name="nullFlavor">OTH</xsl:attribute>
-                            </administrativeGenderCode>
-                        </xsl:when>
-                        <xsl:when test="lower-case(fhir:gender/@value) = 'unknown'">
-                            <administrativeGenderCode>
-                                <xsl:attribute name="nullFlavor">UNK</xsl:attribute>
-                            </administrativeGenderCode>
-                        </xsl:when>
-                        
-                        <xsl:otherwise>
-                            <administrativeGenderCode codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender">
-                                <xsl:choose>
-
-                                    <xsl:when test="lower-case(fhir:gender/@value) = 'female'">
-                                        <xsl:attribute name="code">F</xsl:attribute>
-                                        <xsl:attribute name="displayName">Female</xsl:attribute>
-                                    </xsl:when>
-                                    <xsl:when test="lower-case(fhir:gender/@value) = 'male'">
-                                        <xsl:attribute name="code">M</xsl:attribute>
-                                        <xsl:attribute name="displayName">Male</xsl:attribute>
-                                    </xsl:when>
-                                    <xsl:when test="lower-case(fhir:gender/@value) = 'undifferentiated'">
-                                        <xsl:attribute name="code">UN</xsl:attribute>
-                                        <xsl:attribute name="displayName">Undifferentiated</xsl:attribute>
-                                    </xsl:when>
-                                    <xsl:when test="lower-case(fhir:gender/@value) = 'other'">
-                                        <xsl:apply-templates select="fhir:gender/@value" mode="attribute-only" />
-                                        
-                                    </xsl:when>
-                                    <xsl:when test="lower-case(fhir:gender/@value) = 'unknown'">
-                                        <xsl:apply-templates select="fhir:gender/@value" mode="attribute-only" />
-                                    </xsl:when>
-                                    
-                                </xsl:choose>
-                            </administrativeGenderCode>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <!-- administrativeGenderCode -->
+                    <xsl:apply-templates select="fhir:gender" />
 
                     <xsl:call-template name="get-time">
                         <xsl:with-param name="pElement" select="fhir:birthDate" />
@@ -151,7 +107,7 @@ limitations under the License.
                             </xsl:choose>
                         </xsl:when>
                         <!-- When deceasedDateTime isn't present and deceasedBoolean is present set deceasedInd to true and deceasedTime to a nullFlavor of NI -->
-                        <xsl:when test="fhir:deceasedBoolean[@value='true']">
+                        <xsl:when test="fhir:deceasedBoolean[@value = 'true']">
                             <sdtc:deceasedInd value="true" />
                             <sdtc:deceasedTime nullFlavor="NI" />
                         </xsl:when>
@@ -260,6 +216,54 @@ limitations under the License.
                 </xsl:for-each>
             </patientRole>
         </recordTarget>
+    </xsl:template>
+
+    <xsl:template match="fhir:gender">
+        <xsl:choose>
+            <xsl:when test="fhir:extension/@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason'">
+                <administrativeGenderCode>
+                    <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                </administrativeGenderCode>
+            </xsl:when>
+            <xsl:when test="lower-case(@value) = 'other'">
+                <administrativeGenderCode>
+                    <xsl:attribute name="nullFlavor">OTH</xsl:attribute>
+                </administrativeGenderCode>
+            </xsl:when>
+            <xsl:when test="lower-case(@value) = 'unknown'">
+                <administrativeGenderCode>
+                    <xsl:attribute name="nullFlavor">UNK</xsl:attribute>
+                </administrativeGenderCode>
+            </xsl:when>
+
+            <xsl:otherwise>
+                <administrativeGenderCode codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender">
+                    <xsl:choose>
+
+                        <xsl:when test="lower-case(@value) = 'female'">
+                            <xsl:attribute name="code">F</xsl:attribute>
+                            <xsl:attribute name="displayName">Female</xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="lower-case(@value) = 'male'">
+                            <xsl:attribute name="code">M</xsl:attribute>
+                            <xsl:attribute name="displayName">Male</xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="lower-case(@value) = 'undifferentiated'">
+                            <xsl:attribute name="code">UN</xsl:attribute>
+                            <xsl:attribute name="displayName">Undifferentiated</xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="lower-case(@value) = 'other'">
+                            <xsl:apply-templates select="@value" mode="attribute-only" />
+
+                        </xsl:when>
+                        <xsl:when test="lower-case(@value) = 'unknown'">
+                            <xsl:apply-templates select="@value" mode="attribute-only" />
+                        </xsl:when>
+
+                    </xsl:choose>
+                </administrativeGenderCode>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="fhir:Organization" mode="providerOrganization">

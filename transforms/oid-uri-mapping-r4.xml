@@ -416,8 +416,10 @@
     <map oid="2.16.840.1.113883.5.1111" uri="http://terminology.hl7.org/CodeSystem/v3-TransmissionRelationshipTypeCode" />
     <map oid="2.16.840.1.113883.5.140" uri="http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS" />
     <map oid="2.16.840.1.113883.5.144" uri="http://terminology.hl7.org/CodeSystem/v3-VaccineManufacturer" />
-
     <map oid="2.16.840.1.113883.5.1139" uri="http://terminology.hl7.org/CodeSystem/v3-WorkClassificationODH" />
+    
+    <map oid="2.16.840.1.113883.18.58" uri="http://terminology.hl7.org/CodeSystem/v2-0131" />
+    
 
     <!-- SG 20250218: Added https versions of these because we are seeing them come through in the data (plus other variations)  -->
     <map oid="2.16.840.1.114222.4.5.327" uri="http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH" />

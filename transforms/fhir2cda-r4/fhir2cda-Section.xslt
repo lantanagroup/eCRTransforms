@@ -35,8 +35,6 @@ limitations under the License.
                 <xsl:attribute name="nullFlavor">NI</xsl:attribute>
             </xsl:if>
             <xsl:variable name="generated-narrative" select="fhir:text/fhir:status/@value" />
-            <!--xsl:apply-templates select="fhir:extension[1]" mode="templateId"/-->
-            <!--<xsl:call-template name="section-templates" />-->
 
             <!-- templateId -->
             <xsl:call-template name="get-template-id" />
@@ -46,7 +44,6 @@ limitations under the License.
                 <xsl:value-of select="$title" />
             </title>
 
-            <!-- MD: move the <text> from outside <xsl:choose> to inside -->
             <xsl:choose>
                 <xsl:when test="fhir:entry">
                     <text>
@@ -57,6 +54,7 @@ limitations under the License.
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
+                        <!-- Health Concern Section -->
                         <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '75310-3'">
                             <text>
                                 <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
@@ -139,137 +137,176 @@ limitations under the License.
 
     <xsl:template name="section-no-entry">
         <xsl:choose>
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '61146-7'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-                <entry>
-                    <observation classCode="OBS" moodCode="GOL">
-                        <xsl:comment select="' Goals Observation '" />
-                        <templateId root="2.16.840.1.113883.10.20.22.4.121" />
-                        <id nullFlavor="NI" />
-                        <code nullFlavor="UNK">
-                            <originalText>
-                                <xsl:value-of select="fhir:text" />
-                            </originalText>
-                        </code>
-                        <statusCode code="completed" />
-                    </observation>
-                </entry>
 
-            </xsl:when>
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '75310-3'">
-                <entry>
-                    <act classCode="ACT" moodCode="EVN">
-                        <xsl:comment select="' Health Concern Act '" />
-                        <templateId root="2.16.840.1.113883.10.20.22.4.132" extension="2015-08-01" />
-                        <id nullFlavor="NI" />
-                        <code code="75310-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Health Concern" />
-                        <text>
-                            <reference value="#HealthConcerns" />
-                        </text>
-
-                        <statusCode code="active" />
-
-                    </act>
-                </entry>
-            </xsl:when>
-
-            <!-- MD: handle Reason for visit Narrative -->
+            <!--Reason for Visit -->
+            <!-- If there is Encounter.reasonCode narrative, add this here as well -->
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '29299-5'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
+                <text>
+                    <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
+                    <!--Condition.code.coding.display
+                    Condition.code.text
+                    Procedure.code.coding.display
+                    Procedure.code.text
+                    ImmunizationRecommendation.recommendation.*.coding.display
+                    ImmunizationRecommendation.recommendation.*.text
+                    Observation.code.coding.display
+                    Observation.code.text-->
+                    <xsl:for-each select="//fhir:Encounter/fhir:reasonReference/fhir:reference">
+                        <xsl:variable name="referenceURI">
+                            <xsl:call-template name="resolve-to-full-url">
+                                <xsl:with-param name="referenceURI" select="@value" />
+                            </xsl:call-template>
+                        </xsl:variable>
 
-                    </text>
-                </xsl:if>
+                        <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+
+
+                            <xsl:variable name="vCode">
+                                <xsl:for-each select="fhir:code">
+                                    <xsl:value-of select="concat(local-name(), ': ')" />
+                                    <xsl:for-each select="descendant-or-self::*/@value">
+                                        <xsl:value-of select="concat(., ' | ')" />
+                                    </xsl:for-each>
+                                </xsl:for-each>
+                            </xsl:variable>
+
+                            <xsl:variable name="vValue">
+
+                                <xsl:for-each
+                                    select="fhir:valueQuantity | fhir:valueCodeableConcept | fhir:valueString | fhir:valueBoolean | fhir:valueInteger | fhir:valueRange | fhir:valueRatio | fhir:valueSampledData | fhir:valueTime | fhir:valueDateTime | fhir:valuePeriod">
+                                    <xsl:value-of select="concat(local-name(), ': ')" />
+                                    <xsl:for-each select="descendant-or-self::*/@value">
+                                        <xsl:value-of select="concat(., ' | ')" />
+                                    </xsl:for-each>
+                                </xsl:for-each>
+
+                            </xsl:variable>
+
+                            <xsl:variable name="vLocalName">
+                                <xsl:value-of select="local-name()" />
+                            </xsl:variable>
+
+                            <xsl:choose>
+                                <xsl:when test="$vCode and $vValue">
+                                    <paragraph>
+                                        <xsl:value-of select="$vLocalName" />: <xsl:value-of select="$vCode" />
+                                        <xsl:value-of select="$vValue" />
+                                    </paragraph>
+                                </xsl:when>
+                                <xsl:when test="$vCode">
+                                    <paragraph>
+                                        <xsl:value-of select="$vLocalName" />: <xsl:value-of select="$vCode" />
+                                    </paragraph>
+                                </xsl:when>
+                                <xsl:when test="$vValue">
+                                    <paragraph>
+                                        <xsl:value-of select="$vLocalName" />: <xsl:value-of select="$vValue" />
+                                    </paragraph>
+                                </xsl:when>
+                            </xsl:choose>
+                            <!--<xsl:choose>
+                                <xsl:when test="local-name() = 'Condition'">
+                                    <xsl:for-each select="fhir:code/fhir:coding/fhir:display | fhir:code/fhir:text">
+                                        <paragraph>Condition: <xsl:value-of select="@value" /></paragraph>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:when test="local-name() = 'Procedure'">
+                                    <xsl:for-each select="fhir:code/fhir:coding/fhir:display | fhir:code/fhir:text">
+                                        <paragraph>Procedure: <xsl:value-of select="@value" /></paragraph>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:when test="local-name() = 'ImmunizationRecommendation'">
+                                    <xsl:for-each select="fhir:*/fhir:coding/fhir:display | fhir:code/fhir:text">
+                                        <paragraph>Immunization Recommendation: <xsl:value-of select="@value" /></paragraph>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:when test="local-name() = 'Observation'">
+                                    <!-\-<xsl:variable name="vCodeText">
+                                        <xsl:call-template name="get-codeable-concept-text">
+                                            <xsl:with-param name="pCodeableConcept" select="fhir:code" />
+                                        </xsl:call-template>
+                                    </xsl:variable>
+                                    <xsl:variable name="vValueText">
+
+                                        <xsl:choose>
+                                            <xsl:when test="fhir:valueCodeableConcept">
+                                                <xsl:call-template name="get-codeable-concept-text">
+                                                    <xsl:with-param name="pCodeableConcept" select="fhir:valueCodeableConcept" />
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:when>
+                                                <xsl:call-template name="get-value-text">
+                                                    <xsl:with-param name="pValue" select="fhir:valueQuantity | fhir:valueString | valueBoolean " />
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:variable>-\->
+
+                                    <xsl:for-each select="fhir:code">
+                                        <xsl:choose>
+                                            <xsl:when test="fhir:coding/fhir:display and fhir:text">
+                                                <paragraph> Observation: <xsl:value-of select="fhir:coding/fhir:display/@value" /> | <xsl:value-of select="fhir:text/@value" />: <xsl:value-of
+                                                        select="fhir:valueCodeableConcept/@value" />
+                                                </paragraph>
+                                            </xsl:when>
+                                            <xsl:when test="fhir:coding/fhir:display">
+                                                <paragraph>Observation: <xsl:value-of select="fhir:coding/fhir:display/@value" /></paragraph>
+                                            </xsl:when>
+                                            <xsl:when test="fhir:coding/fhir:text">
+                                                <paragraph>Observation: <xsl:value-of select="fhir:text/@value" /></paragraph>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:for-each>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:for-each>-->
+                        </xsl:for-each>
+                    </xsl:for-each>
+                    <xsl:for-each select="//fhir:Encounter/fhir:reasonCode/fhir:coding/fhir:display">
+                        <paragraph>
+                            <xsl:value-of select="@value" />
+                        </paragraph>
+                    </xsl:for-each>
+                    <xsl:for-each select="//fhir:Encounter/fhir:reasonCode/fhir:text">
+                        <paragraph>
+                            <xsl:value-of select="@value" />
+                        </paragraph>
+                    </xsl:for-each>
+                </text>
             </xsl:when>
-
-            <!-- MD Review of System Narrative -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '10187-3'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD Chief complaint Narrative -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '10154-3'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD History of Present illness Narrative -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '10164-2'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD Past medical History Narrative -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '11348-0'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD Assessment Section (Evaluation Note) -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '51848-0'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD Procedure Secion no entry  -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '47519-4'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD Insurance Provides Secion no entry  -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '48768-6'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- MD Dental Findings Section no entry  -->
-            <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '8704-9'">
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
-            </xsl:when>
-
-            <!-- SG 20230216: Adding a catch all for these no entry -->
             <xsl:otherwise>
-                <xsl:if test="normalize-space(fhir:text/xhtml:div/xhtml:div[@class = 'custom']) != 'No information.'">
-                    <text>
-                        <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
-                    </text>
-                </xsl:if>
+                <text>
+                    <xsl:apply-templates select="fhir:text" mode="narrative-text-no-entries" />
+                </text>
             </xsl:otherwise>
         </xsl:choose>
 
+    </xsl:template>
+
+    <xsl:template name="get-codeable-concept-text">
+        <xsl:param name="pCodeableConcept" />
+
+        <xsl:variable name="vLocalName">
+            <xsl:value-of select="local-name(parent::*)" />
+        </xsl:variable>
+
+        <xsl:choose>
+            <xsl:when test="fhir:coding/fhir:display and fhir:text">
+                <paragraph>
+                    <xsl:value-of select="$vLocalName" /> :<xsl:value-of select="fhir:coding/fhir:display/@value" /> | <xsl:value-of select="fhir:text/@value" />
+                </paragraph>
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:display">
+                <paragraph>
+                    <xsl:value-of select="$vLocalName" /> : <xsl:value-of select="fhir:coding/fhir:display/@value" />
+                </paragraph>
+            </xsl:when>
+            <xsl:when test="fhir:code/fhir:coding/fhir:text">
+                <paragraph>
+                    <xsl:value-of select="$vLocalName" /> : <xsl:value-of select="fhir:text/@value" />
+                </paragraph>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
 

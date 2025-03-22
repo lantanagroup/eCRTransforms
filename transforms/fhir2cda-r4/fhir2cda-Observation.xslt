@@ -353,7 +353,7 @@ limitations under the License.
             </xsl:apply-templates>
             <!-- targetSiteCode -->
             <xsl:apply-templates select="fhir:bodySite" />
-            <!-- subject/relatedSubject/subjectPerson -->
+            <!-- subject/relatedSubject/subject -->
             <!-- Only check if this is an ODH Past or Present Job profile, must be a relatedPerson and only allowed one (it's possible to have multiple in FHIR) just take the first one -->
             <xsl:if test="fhir:code/fhir:coding/fhir:code/@value = '11341-5' and fhir:focus">
 
@@ -375,7 +375,7 @@ limitations under the License.
                                 <xsl:apply-templates select="$vFocusReference/fhir:address" />
                                 <!-- telecom -->
                                 <xsl:apply-templates select="$vFocusReference/fhir:telecom" />
-                                <subjectPerson>
+                                <subject>
                                     <!-- name -->
                                     <xsl:apply-templates select="$vFocusReference/fhir:name" />
                                     <!-- administrativeGenderCode -->
@@ -384,7 +384,7 @@ limitations under the License.
                                     <xsl:apply-templates select="$vFocusReference/fhir:birthDate">
                                         <xsl:with-param name="pElement" select="fhir:birthDate" />
                                     </xsl:apply-templates>
-                                </subjectPerson>
+                                </subject>
                             </relatedSubject>
                         </subject>
 

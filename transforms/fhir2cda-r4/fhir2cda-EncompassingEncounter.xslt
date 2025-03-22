@@ -46,41 +46,24 @@ limitations under the License.
     <xsl:template name="make-encompassing-encounter">
         <componentOf>
             <encompassingEncounter>
+                <!-- identifier -->
                 <xsl:call-template name="get-id" />
-
-                <!-- For some reason eICR is different than PCP for encompassingEncounter.code -->
-                <xsl:choose>
-                    <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
-                        <!-- Merging class and type into one data element, and FHIR allows multiple types - merge them into a variable and process -->
-                        <xsl:variable name="vMergedTypes">
-                            <code xmlns="http://hl7.org/fhir">
-                                <xsl:copy-of select="fhir:class/fhir:coding" />
-                                <xsl:copy-of select="fhir:type/fhir:coding" />
-                                <xsl:if test="fhir:class/fhir:text or fhir:type/fhir:text">
-                                    <text xmlns="http://hl7.org/fhir">
-                                        <xsl:attribute name="value" select="string-join(fhir:class/fhir:text/@value | fhir:type/fhir:text/@value, ', ')" />
-                                    </text>
-                                </xsl:if>
-                            </code>
-                        </xsl:variable>
-                        <xsl:apply-templates select="$vMergedTypes/fhir:code" />
-                    </xsl:when>
-                    <xsl:when test="$gvCurrentIg eq 'DentalConsultNote' or $gvCurrentIg eq 'DentalReferalNote'">
-                        <code>
+                <!-- code -->
+                <code>
+                    <xsl:choose>
+                        <xsl:when test="fhir:class or fhir:type">
                             <xsl:apply-templates select="fhir:class" />
                             <xsl:for-each select="fhir:type">
                                 <xsl:apply-templates select=".">
                                     <xsl:with-param name="pElementName" select="'translation'" />
                                 </xsl:apply-templates>
                             </xsl:for-each>
-                        </code>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:for-each select="fhir:type">
-                            <xsl:apply-templates select="." />
-                        </xsl:for-each>
-                    </xsl:otherwise>
-                </xsl:choose>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="nullFlavor">NI</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </code>
                 <!-- effectiveTime (required) -->
                 <xsl:choose>
                     <xsl:when test="fhir:period">
@@ -154,6 +137,10 @@ limitations under the License.
                                         'CON'
                                     else
                                         $vType"> </xsl:attribute>
+                            <!-- time -->
+                            <xsl:apply-templates select="fhir:period">
+                                <xsl:with-param name="pElementName">time</xsl:with-param>
+                            </xsl:apply-templates>
                             <xsl:variable name="vServiceProvider">
                                 <xsl:apply-templates mode="composition-encounter" select="../fhir:serviceProvider" />
                             </xsl:variable>

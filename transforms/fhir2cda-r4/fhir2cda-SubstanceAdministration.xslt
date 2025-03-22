@@ -817,6 +817,24 @@ limitations under the License.
             <consumable>
                 <xsl:call-template name="make-medication-information" />
             </consumable>
+            
+            <!-- performer -->
+            <xsl:variable name="vPerformerType" select="fhir:performerType"/>
+            <xsl:for-each select="fhir:performer">
+                <xsl:for-each select="fhir:reference">
+                    <xsl:variable name="referenceURI">
+                        <xsl:call-template name="resolve-to-full-url">
+                            <xsl:with-param name="referenceURI" select="@value" />
+                        </xsl:call-template>
+                    </xsl:variable>
+                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
+                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
+                        <xsl:call-template name="make-performer">
+                            <xsl:with-param name="pCode" select="$vPerformerType"/>
+                        </xsl:call-template>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:for-each>
             <!-- author (C-CDA Author Participation template) -->
             <xsl:choose>
                 <xsl:when test="fhir:authoredOn and not(fhir:requester)">
@@ -839,23 +857,7 @@ limitations under the License.
                     <xsl:apply-templates select="fhir:requester" />
                 </xsl:when>
             </xsl:choose>
-            <!-- performer -->
-            <xsl:variable name="vPerformerType" select="fhir:performerType"/>
-            <xsl:for-each select="fhir:performer">
-                <xsl:for-each select="fhir:reference">
-                    <xsl:variable name="referenceURI">
-                        <xsl:call-template name="resolve-to-full-url">
-                            <xsl:with-param name="referenceURI" select="@value" />
-                        </xsl:call-template>
-                    </xsl:variable>
-                    <xsl:comment>Performer <xsl:value-of select="$referenceURI" /></xsl:comment>
-                    <xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/*">
-                        <xsl:call-template name="make-performer">
-                            <xsl:with-param name="pCode" select="$vPerformerType"/>
-                        </xsl:call-template>
-                    </xsl:for-each>
-                </xsl:for-each>
-            </xsl:for-each>
+            
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/therapeutic-medication-response-extension']" />
             <xsl:apply-templates mode="entryRelationship" select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension']" />
         </substanceAdministration>

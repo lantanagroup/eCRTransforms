@@ -35,26 +35,34 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Encounter Activities (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01" />
                 <!-- We don't have an id to use here so generate one -->
+                <!-- identifier -->
                 <id root="{lower-case(uuid:get-uuid())}" />
-                
-                <!-- Merging class and type into one data element, and FHIR allows multiple types - merge them into a variable and process -->
-                <xsl:variable name="vMergedTypes">
-                    <code xmlns="http://hl7.org/fhir">
-                        <xsl:copy-of select="fhir:class/fhir:coding" />
-                        <xsl:copy-of select="fhir:type/fhir:coding" />
-                        <xsl:if test="fhir:class/fhir:text or fhir:type/fhir:text">
-                            <text xmlns="http://hl7.org/fhir">
-                                <xsl:attribute name="value" select="string-join(fhir:class/fhir:text/@value | fhir:type/fhir:text/@value, ', ')" />
-                            </text>
-                        </xsl:if>
-                    </code>
-                </xsl:variable>
-                <xsl:apply-templates select="$vMergedTypes/fhir:code" />
-                
-                <!--<xsl:apply-templates select="fhir:type" />-->
+                <!-- code -->
+                <code>
+                    <xsl:choose>
+                        <xsl:when test="fhir:class or fhir:type">
+                            <xsl:apply-templates select="fhir:class" />
+                            <xsl:for-each select="fhir:type">
+                                <xsl:apply-templates select=".">
+                                    <xsl:with-param name="pElementName" select="'translation'" />
+                                </xsl:apply-templates>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="nullFlavor">NI</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </code>
+                <!-- effectiveTime -->
                 <xsl:apply-templates select="fhir:period" />
-
+                <!-- sdtc:dischargeDispositionCode -->
+                <xsl:apply-templates select="fhir:hospitalization/fhir:dischargeDisposition" >
+                    <xsl:with-param name="pElementName">sdtc:dischargeDispositionCode</xsl:with-param>
+                </xsl:apply-templates>
+                <!-- entryRelationship/Encounter Diagnosis -->
                 <xsl:apply-templates select="fhir:diagnosis" />
+                
+                
             </encounter>
         </entry>
     </xsl:template>
@@ -170,52 +178,6 @@ limitations under the License.
             </xsl:choose>
             <xsl:apply-templates select="fhir:priority/fhir:coding/fhir:display" mode="display" />
         </priorityCode>
-    </xsl:template>
-
-    <!-- Generic Questionnaire Item Encounters -->
-    <!-- SG 20220209: Add HAI LTC First Admission Encounter in a Lab Identified Report LTCF -->
-    <xsl:template match="fhir:item[fhir:linkId/@value = ('date-of-first-admission-to-facility')][fhir:answer]">
-        <xsl:variable name="vLinkId" select="fhir:linkId/@value" />
-        <encounter classCode="ENC" moodCode="EVN">
-            <xsl:call-template name="get-template-id" />
-            <id nullFlavor="NA" />
-            <code code="1373-0" displayName="Date first admitted to facility" codeSystem="2.16.840.1.113883.6.277" codeSystemName="cdcNHSN" />
-            <effectiveTime>
-                <low>
-                    <xsl:attribute name="value">
-                        <xsl:call-template name="Date2TS">
-                            <xsl:with-param name="date" select="fhir:answer/fhir:valueDate/@value" />
-                            <xsl:with-param name="includeTime" select="true()" />
-                        </xsl:call-template>
-                    </xsl:attribute>
-                </low>
-            </effectiveTime>
-        </encounter>
-    </xsl:template>
-
-    <!-- Specific Questionnaire Item Encounters -->
-    <!-- SG 20220213: Summary Encounter LTCF -->
-    <xsl:template match="fhir:item[fhir:linkId/@value = ('facility-id')][fhir:answer]">
-        <xsl:param name="pEntryRelationships" />
-        <xsl:variable name="vLinkId" select="fhir:linkId/@value" />
-        <encounter classCode="ENC" moodCode="EVN">
-            <xsl:call-template name="get-template-id" />
-            <participant typeCode="LOC">
-                <participantRole classCode="SDLOC">
-                    <!-- In-facility locations, Facwidein require the root with an extension and code element. -->
-                    <xsl:apply-templates select="fhir:answer" />
-                    <xsl:apply-templates select="//fhir:item[fhir:linkId/@value = ('facility-location-code')][fhir:answer]" />
-                </participantRole>
-            </participant>
-
-            <xsl:for-each select="$pEntryRelationships">
-                <entryRelationship typeCode="COMP">
-                    <xsl:apply-templates select="." />
-                </entryRelationship>
-            </xsl:for-each>
-
-
-        </encounter>
     </xsl:template>
 
 </xsl:stylesheet>

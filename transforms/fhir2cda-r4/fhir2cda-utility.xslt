@@ -398,7 +398,7 @@ limitations under the License.
         </xsl:element>
     </xsl:template>
 
-    <xsl:template match="fhir:effectiveDateTime" mode="period">
+    <xsl:template match="fhir:effectiveDateTime | fhir:date" mode="period">
         <!-- CDA element effectiveTime unless specified something else -->
         <xsl:param name="pElementName" select="'effectiveTime'" />
 
@@ -451,6 +451,24 @@ limitations under the License.
                 </xsl:when>
                 <xsl:when test="@value = 'active'">
                     <xsl:attribute name="code" select="'active'" />
+                </xsl:when>
+                <xsl:when test="@value = 'preparation'">
+                    <xsl:attribute name="code" select="'active'" />
+                </xsl:when>
+                <xsl:when test="@value = 'in-progress'">
+                    <xsl:attribute name="code" select="'active'" />
+                </xsl:when>
+                <xsl:when test="@value = 'not-done'">
+                    <xsl:attribute name="code" select="'aborted'" />
+                </xsl:when>
+                <xsl:when test="@value = 'on-hold'">
+                    <xsl:attribute name="code" select="'active'" />
+                </xsl:when>
+                <xsl:when test="@value = 'stopped'">
+                    <xsl:attribute name="code" select="'cancelled'" />
+                </xsl:when>
+                <xsl:when test="@value = 'entered-in-error'">
+                    <xsl:attribute name="code" select="'cancelled'" />
                 </xsl:when>
 
             </xsl:choose>

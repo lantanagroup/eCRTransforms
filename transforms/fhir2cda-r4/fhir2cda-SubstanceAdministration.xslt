@@ -16,8 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet exclude-result-prefixes="sdtc lcg xsl cda fhir" version="2.0" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+    xmlns:sdtc="urn:hl7-org:sdtc" xmlns:uuid="http://www.uuid.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
     <xsl:import href="fhir2cda-CD.xslt" />
     <xsl:import href="fhir2cda-TS.xslt" />
@@ -726,6 +727,16 @@ limitations under the License.
 
             <!-- MD: add text since fhir:dosageInstruction/fhir:text needed to be supported -->
             <xsl:choose>
+                <xsl:when test="fhir:dosageInstruction/fhir:text and fhir:text">
+                    <text>
+                        <xsl:value-of select="fhir:text/xhtml:div" />, <xsl:value-of select="fhir:dosageInstruction/fhir:text/@value" /> 
+                    </text>
+                </xsl:when>
+                <xsl:when test="fhir:text">
+                    <text>
+                        <xsl:value-of select="fhir:text/xhtml:div" /> 
+                    </text>
+                </xsl:when>
                 <xsl:when test="fhir:dosageInstruction/fhir:text">
                     <text>
                         <xsl:value-of select="fhir:dosageInstruction/fhir:text/@value" />

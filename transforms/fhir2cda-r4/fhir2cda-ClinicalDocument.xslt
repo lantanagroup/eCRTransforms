@@ -97,10 +97,12 @@ limitations under the License.
                     <versionNumber value="{fhir:extension[@url='http://hl7.org/fhir/us/ccda/StructureDefinition/VersionNumber']/fhir:valueInteger/@value}" />
                 </xsl:when>
             </xsl:choose>
-
+            <!-- recordTarget -->
             <xsl:apply-templates select="fhir:subject" />
+            <!-- author -->
             <xsl:apply-templates select="fhir:author" />
 
+            <!-- custodian -->
             <xsl:choose>
                 <xsl:when test="fhir:custodian">
                     <xsl:apply-templates select="fhir:custodian" />
@@ -111,6 +113,7 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
 
+            <!-- informationRecipient -->
             <xsl:choose>
                 <!-- fhir:recipient -> cda:informationRecipient -->
                 <xsl:when
@@ -146,17 +149,53 @@ limitations under the License.
             <xsl:apply-templates select="fhir:attester" />
 
             <!-- SG 20231126: Check for Emergency Contact -->
-            <xsl:for-each select="//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value = 'C']]">
-                <participant typeCode="IND">
-                    <associatedEntity classCode="ECON">
-                        <xsl:call-template name="get-addr" />
-                        <xsl:call-template name="get-telecom" />
-                        <associatedPerson>
-                            <xsl:call-template name="get-person-name" />
-                        </associatedPerson>
-                    </associatedEntity>
-                </participant>
+
+            <xsl:for-each select="//fhir:Patient/fhir:contact">
+                <xsl:choose>
+                    <xsl:when test="fhir:relationship/fhir:coding/fhir:code[@value = 'N' or @value = 'GUARD']"/>
+                    <xsl:when test="fhir:relationship/fhir:coding/fhir:code[@value = 'C' or @value = 'ECON']">
+<!--                        <xsl:for-each select="//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value = 'C' or @value = 'ECON']]">-->
+                            <participant typeCode="IND">
+                                <associatedEntity classCode="ECON">
+                                    <xsl:call-template name="get-addr" />
+                                    <xsl:call-template name="get-telecom" />
+                                    <associatedPerson>
+                                        <xsl:call-template name="get-person-name" />
+                                    </associatedPerson>
+                                </associatedEntity>
+                            </participant>
+                        <!--</xsl:for-each>-->
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <participant typeCode="IND">
+                            <associatedEntity classCode="CON">
+                                
+                                <xsl:call-template name="get-addr" />
+                                <xsl:call-template name="get-telecom" />
+                                <associatedPerson>
+                                    <xsl:call-template name="get-person-name" />
+                                </associatedPerson>
+                            </associatedEntity>
+                        </participant>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:for-each>
+
+            <!-- documentationOf -->
+            <xsl:if test="$gvCurrentIg = 'eICR' and fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension']">
+                <documentationOf>
+                    <serviceEvent>
+                        <!-- code -->
+                        <xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension']/fhir:valueCodeableConcept">
+                            <xsl:with-param name="pElementName">code</xsl:with-param>
+                        </xsl:apply-templates>
+                        <!--<xsl:apply-templates select="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension']/fhir:effectiveTime">
+                            <xsl:with-param name="pElementName">effectiveTime</xsl:with-param>
+                        </xsl:apply-templates>-->
+                        <xsl:apply-templates select="//fhir:Composition/fhir:date" mode="period" />
+                    </serviceEvent>
+                </documentationOf>
+            </xsl:if>
 
             <!-- relatedDocument/parentDocument -->
             <relatedDocument typeCode="XFRM">
@@ -189,8 +228,8 @@ limitations under the License.
                     </xsl:choose>
                 </parentDocument>
             </relatedDocument>
-            
-            <xsl:for-each select="fhir:relatesTo[fhir:code/@value='replaces']">
+
+            <xsl:for-each select="fhir:relatesTo[fhir:code/@value = 'replaces']">
                 <relatedDocument typeCode="RPLC">
                     <parentDocument>
                         <xsl:choose>
@@ -209,7 +248,7 @@ limitations under the License.
                     </parentDocument>
                 </relatedDocument>
             </xsl:for-each>
-            
+
             <!-- fhir:extension  -->
             <!-- be aware a Composition can have multiple extensions to ensure in correct context -->
             <!-- MD: OrderExtension -> cda:inFulfillmentOf -->

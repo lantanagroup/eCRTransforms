@@ -638,6 +638,38 @@ limitations under the License.
         </entry>
     </xsl:template>
 
+    <!-- fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'] -> Initial Case Report Reason Observation -->
+    <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension']">
+        <entryRelationship typeCode="COMP">
+            <observation classCode="OBS" moodCode="EVN">
+                <xsl:call-template name="get-template-id" />
+                <xsl:call-template name="get-id">
+                    <xsl:with-param name="pNoNullAllowed" select="true()" />
+                </xsl:call-template>
+                <code code="75322-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Complaint">
+                    <translation code="409586006" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Complaint" />
+                </code>
+                <statusCode code="completed" />
+                <xsl:apply-templates select="//fhir:Composition/fhir:date" mode="period">
+                    <xsl:with-param name="pElementName" select="'effectiveTime'" />
+                </xsl:apply-templates>
+                <xsl:choose>
+                    <xsl:when test="fhir:valueCodeableConcept">
+                        <xsl:apply-templates select="fhir:valueCodeableConcept">
+                            <xsl:with-param name="pElementName" select="'value'" />
+                            <xsl:with-param name="pXSIType" select="'CD'" />
+                        </xsl:apply-templates>
+                    </xsl:when>
+                    <xsl:when test="fhir:valueString">
+                        <value xsi:type="CD" nullFlavor="OTH" >
+                            <originalText><xsl:value-of select="fhir:valueString/@value"/></originalText>
+                        </value>
+                    </xsl:when>
+                </xsl:choose>
+            </observation>
+        </entryRelationship>
+    </xsl:template>
+
     <!-- Gender Identity -->
     <xsl:template match="fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/patient-genderIdentity']" mode="entry">
         <xsl:param name="generated-narrative">additional</xsl:param>

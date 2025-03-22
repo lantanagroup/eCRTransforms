@@ -360,10 +360,19 @@ limitations under the License.
                 <xsl:comment select="' [RR R1S1] Reportability Response Summary '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.8" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension'">
+            <xsl:when test="$gvCurrentIg = 'RR' and @url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'">
                 <xsl:comment select="' [RR R1S1] Manually Initiated eICR '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.22" extension="2017-04-01" />
             </xsl:when>
+            <xsl:when test="$gvCurrentIg = 'eICR' and @url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'">
+                <xsl:comment select="' [C-CDA R1.1] Problem Observation '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.4" />
+                <xsl:comment select="' [C-CDA R2.1] Problem Observation (V3) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01" />
+                <xsl:comment select="' [eICR R1STU2] Initial Case Report Initiation Reason Observation (V2) '" />
+                <templateId root="2.16.840.1.113883.10.20.15.2.3.5" extension="2019-04-01" />
+            </xsl:when>
+            
             <xsl:when test="@url = 'eICRValidationOutput'">
                 <xsl:comment select="' [RR R1S1] eICR Validation Output '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.33" extension="2017-04-01" />

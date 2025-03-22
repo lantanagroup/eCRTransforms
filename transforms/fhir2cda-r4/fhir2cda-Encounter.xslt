@@ -56,13 +56,14 @@ limitations under the License.
                 <!-- effectiveTime -->
                 <xsl:apply-templates select="fhir:period" />
                 <!-- sdtc:dischargeDispositionCode -->
-                <xsl:apply-templates select="fhir:hospitalization/fhir:dischargeDisposition" >
+                <xsl:apply-templates select="fhir:hospitalization/fhir:dischargeDisposition">
                     <xsl:with-param name="pElementName">sdtc:dischargeDispositionCode</xsl:with-param>
                 </xsl:apply-templates>
+                <!-- entryRelationship/Initial Case Report Initiation Reason Observation -->
+                <xsl:apply-templates select="//fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension']" />
                 <!-- entryRelationship/Encounter Diagnosis -->
                 <xsl:apply-templates select="fhir:diagnosis" />
-                
-                
+
             </encounter>
         </entry>
     </xsl:template>

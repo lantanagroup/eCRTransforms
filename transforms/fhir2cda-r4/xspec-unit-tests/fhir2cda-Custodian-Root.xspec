@@ -7,7 +7,7 @@
 
     <!--Confirm the Custodian has been created -->
     <x:scenario label="A. Scenario for testing fhir:Composition/fhir:custodian -> cda:custodian ">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-003_R2_1.xml" />
 
         <!--Confirm the Custodian exists and all required CDA elements have been generated -->
         <x:expect label="A1. SHALL contain exactly one [1..1] custodian (CONF:1198-5519)." test="count(//cda:custodian)=1" />

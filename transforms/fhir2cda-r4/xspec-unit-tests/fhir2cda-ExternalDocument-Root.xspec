@@ -9,7 +9,6 @@
     <x:scenario
         label="Test fhir:DocumentReference -> eICR External Document Reference">
         <x:context href="../../../samples/fhir/RR-R2/RR-FHIR-001_R2.xml"/>
-        
      
         <x:expect label="Create one externalDocument with classCode=DOCCLIN" 
             test="count(//cda:reference/cda:externalDocument[@classCode='DOCCLIN'])=1" />

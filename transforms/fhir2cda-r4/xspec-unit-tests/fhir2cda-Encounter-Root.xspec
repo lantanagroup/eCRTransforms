@@ -19,7 +19,7 @@
         <!--Confirm the Encounter Entry contains a code element -->
         <x:expect label="A4. SHALL contain exactly one [1..1] code (CONF:1198-8714) " test="count(//cda:entry/cda:encounter/cda:code)=1" />
         <!--Confirm the Encounter Entry code element  contains an OriginalText -->
-        <x:expect label="A5. This code SHOULD contain zero or one [0..1] originalText (CONF:1198-8719)." test="count(//cda:entry/cda:encounter/cda:code/cda:originalText)=1" />
+        <x:expect label="A5. This code SHOULD contain zero or one [0..1] originalText (CONF:1198-8719)." test="count(//cda:entry/cda:encounter/cda:code/cda:translation/cda:originalText)=1" />
         <!--Confirm the Encounter Entry contains an effectiveTime element -->
         <x:expect label="A6. SHALL contain exactly one [1..1] effectiveTime (CONF:1198-8715)." test="count(//cda:entry/cda:encounter/cda:effectiveTime)=1" />
     </x:scenario>

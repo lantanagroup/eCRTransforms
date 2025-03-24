@@ -82,27 +82,29 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
             </xsl:when>
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition' or fhir:type/fhir:coding/fhir:code/@value = '55751-2'">
-                <xsl:comment select="' [C-CDA R1.1] US Realm Header '" />
-                <templateId root="2.16.840.1.113883.10.20.22.1.1" />
-                <xsl:comment select="' [C-CDA R2.1] US Realm Header (V3) '" />
-                <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01" />
                 <xsl:choose>
-                    <xsl:when test="$gParamCDAeICRVersion = 'R1.1'">
-                        <xsl:comment select="' [eICR R2 STU1.1] Initial Public Health Case Report Document (eICR) (V2) '" />
-                        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2016-12-01" />
+                    <xsl:when test="$gvCurrentIg = 'RR'">
+                        <xsl:comment select="' [C-CDA R2.0 External Document Reference] '" />
+                        <templateId root="2.16.840.1.113883.10.20.22.4.115" extension="2014-06-09" />
+                        <xsl:comment select="' [RR R1S1 eICR External Document Reference] '" />
+                        <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01" />
                     </xsl:when>
-                    <xsl:otherwise>
-                        <!--  MD: skip R2 
-                        <xsl:comment select="' [eICR R2 STU2] Initial Public Health Case Report Document (eICR) (V3) '" />
-                        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2019-04-01" />
-                        -->
-                        <!-- MD skip V4
-            <xsl:comment select="' [eICR R2 STU3] Initial Public Health Case Report Document (eICR) (V4) '" />
-            <templateId root="2.16.840.1.113883.10.20.15.2" extension="2021-01-01" />
-              -->
-                        <xsl:comment select="' [eICR R2 STU3] Initial Public Health Case Report Document (eICR) (V5) '" />
-                        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
-                    </xsl:otherwise>
+                    <xsl:when test="$gvCurrentIg = 'eICR'">
+                        <xsl:comment select="' [C-CDA R1.1] US Realm Header '" />
+                        <templateId root="2.16.840.1.113883.10.20.22.1.1" />
+                        <xsl:comment select="' [C-CDA R2.1] US Realm Header (V3) '" />
+                        <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01" />
+                        <xsl:choose>
+                            <xsl:when test="$gParamCDAeICRVersion = 'R1.1'">
+                                <xsl:comment select="' [eICR R2 STU1.1] Initial Public Health Case Report Document (eICR) (V2) '" />
+                                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2016-12-01" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:comment select="' [eICR R2 STU3] Initial Public Health Case Report Document (eICR) (V5) '" />
+                                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
                 </xsl:choose>
 
             </xsl:when>
@@ -360,7 +362,7 @@ limitations under the License.
                 <xsl:comment select="' [RR R1S1] Reportability Response Summary '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.8" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="$gvCurrentIg = 'RR' and @url='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'">
+            <xsl:when test="$gvCurrentIg = 'RR' and @url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'">
                 <xsl:comment select="' [RR R1S1] Manually Initiated eICR '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.22" extension="2017-04-01" />
             </xsl:when>
@@ -372,7 +374,7 @@ limitations under the License.
                 <xsl:comment select="' [eICR R1STU2] Initial Case Report Initiation Reason Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.5" extension="2019-04-01" />
             </xsl:when>
-            
+
             <xsl:when test="@url = 'eICRValidationOutput'">
                 <xsl:comment select="' [RR R1S1] eICR Validation Output '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.33" extension="2017-04-01" />
@@ -459,7 +461,7 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Result Organizer (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
             </xsl:when>
-            
+
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'">
                 <xsl:comment select="' [C-CDA R1.1] Result Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.2" />
@@ -634,7 +636,7 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.0] Medication Information (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09" />
             </xsl:when>
-            
+
             <!-- MedicationInformation -->
             <xsl:when test="local-name() = 'medicationReference'">
                 <xsl:comment select="' [C-CDA R2.0] Medication Information (V2) '" />
@@ -718,8 +720,8 @@ limitations under the License.
                 <xsl:comment select="' [ODH R1] Work Hours Per Day Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.211" extension="2017-11-30" />
             </xsl:when>
-            
-            
+
+
 
             <!-- Participants -->
             <xsl:when test="fhir:type/fhir:coding/fhir:code/@value = 'RR7'">
@@ -745,7 +747,7 @@ limitations under the License.
                 <xsl:comment select="' [eICR R2 STU3.1] Purpose of Travel Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.51" extension="2022-05-01" />
             </xsl:when>
-            
+
             <!-- SG 20240307: Adding social-history category -->
             <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
             <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'social-history'">
@@ -754,7 +756,7 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Social History Observation (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.38" extension="2015-08-01" />
             </xsl:when>
-            
+
             <!-- SG 20240307: Adding laboratory category -->
             <!-- SG 20240308: Sometimes there are multiple categories - only going to use first one -->
             <xsl:when test="local-name() = 'Observation' and fhir:category[1]/fhir:coding/fhir:code/@value = 'laboratory'">
@@ -763,14 +765,14 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Result Observation (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
             </xsl:when>
-            
+
             <xsl:when test="fhir:coding[parent::fhir:clinicalStatus]">
                 <xsl:comment select="' [C-CDA R1.1] Problem Status '" />
-                <templateId root="2.16.840.1.113883.10.20.22.4.6"/>
+                <templateId root="2.16.840.1.113883.10.20.22.4.6" />
                 <xsl:comment select="' [C-CDA R2.1] Problem Status '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.6" extension="2019-06-20" />
             </xsl:when>
-            
+
             <xsl:otherwise>
                 <xsl:comment select="'No profile-template map found'" />
             </xsl:otherwise>
@@ -944,7 +946,7 @@ limitations under the License.
                 <xsl:comment select="' [eICR R2 STU2] Initial Case Report Trigger Code Result Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.2" extension="2019-04-01" />
             </xsl:when>
-            
+
             <xsl:otherwise>
                 <xsl:comment select="'No profile-template map found'" />
             </xsl:otherwise>

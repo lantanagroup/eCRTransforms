@@ -58,4 +58,23 @@
         <x:expect label="B12. This observationRange SHALL contain exactly one [1..1] value (CONF:1198-32175)."
             test="count(//cda:entry/cda:organizer/cda:component/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']/cda:referenceRange/cda:observationRange/cda:value)=1" />
     </x:scenario>
+    
+    <x:scenario label="C. Scenario for Testing Reportability Response">
+        
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_RR-FHIR-001_R2_1.xml" />
+        
+        <!--Confirm eICR Processing Status Reason created -->
+        <x:expect label="C1. eICR Processing Status Reason exists" test="count(//cda:entryRelationship/cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.21'])=1" />
+        
+        
+    </x:scenario>
+    <x:scenario label="C. Scenario for Testing Reportability Response with no meta.profile">
+        
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_RR-FHIR-001_R2_1_NO_META_PROFILE.xml" />
+        
+        <!--Confirm eICR Processing Status Reason created -->
+        <x:expect label="C1. eICR Processing Status Reason exists" test="count(//cda:entryRelationship/cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.21'])=1" />
+        
+        
+    </x:scenario>
 </x:description>

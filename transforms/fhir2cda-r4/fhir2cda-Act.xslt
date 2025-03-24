@@ -23,7 +23,7 @@ limitations under the License.
   <xsl:import href="fhir2cda-utility.xslt" />
   <xsl:import href="fhir2cda-Observation.xslt" />
 
-  <!-- ALLERGY INTOLERANCE -->
+  <!-- Allergy Intolerance -->
   <xsl:template match="fhir:AllergyIntolerance" mode="entry">
     <xsl:param name="generated-narrative">additional</xsl:param>
     <entry>
@@ -45,25 +45,6 @@ limitations under the License.
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
-    <!--<xsl:variable name="vCurrentIg">
-      <xsl:choose>
-        <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
-        <xsl:when test="//fhir:Communication/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication'">RR</xsl:when>
-        <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Care-Plan'">PCP</xsl:when>
-        <!-\- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-\->
-        <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaireresponse'">HAI</xsl:when>
-        <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-population-summary-questionnaireresponse'">HAI</xsl:when>
-        <!-\- MD: Add dental data exchange IG -\->
-        <xsl:when test="
-            //fhir:Composition/fhir:meta/fhir:profile/@value =
-            'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note'">DentalReferalNote</xsl:when>
-        <xsl:when test="
-            //fhir:Composition/fhir:meta/fhir:profile/@value =
-            'http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note'">DentalConsultNote</xsl:when>
-        <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '57134-9'">DentalReferalNote</xsl:when>
-        <xsl:when test="//fhir:Composition/fhir:type/fhir:coding/fhir:code/@value = '34756-7'">DentalConsultNote</xsl:when>
-      </xsl:choose>
-    </xsl:variable>-->
     <act classCode="ACT" moodCode="EVN">
       <xsl:choose>
         <xsl:when test="$gvCurrentIg eq 'DentalConsultNote' or $gvCurrentIg eq 'DentalReferalNote'">
@@ -243,17 +224,6 @@ limitations under the License.
 
   <!-- (PCP) Health Concern Act (Pharmacist Care Plan) -->
   <xsl:template name="make-health-concern-act">
-    <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-    <!--<xsl:variable name="gvCurrentIg">
-      <xsl:choose>
-        <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'">eICR</xsl:when>
-        <xsl:when test="//fhir:Communication/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication'">RR</xsl:when>
-        <xsl:when test="//fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/ccda/StructureDefinition/CCDA-on-FHIR-Care-Plan'">PCP</xsl:when>
-        <!-\- Not sure if we will need to distinguish between HAI, HAI LTCF, single person, summary - for now, putting them all in the same bucket-\->
-        <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-single-person-report-questionnaireresponse'">HAI</xsl:when>
-        <xsl:when test="//fhir:QuestionnaireReponse/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/hai/StructureDefinition/hai-population-summary-questionnaireresponse'">HAI</xsl:when>
-      </xsl:choose>
-    </xsl:variable>-->
     <xsl:if test="fhir:category/@value = 'encounter-diagnosis'"> </xsl:if>
 
     <act classCode="ACT" moodCode="EVN">
@@ -449,7 +419,7 @@ limitations under the License.
     </xsl:for-each>
   </xsl:template>
 
-  <!-- INTERVENTION -->
+  <!-- Intervention -->
   <xsl:template match="fhir:List[fhir:code/fhir:coding[fhir:system/@value = 'http://snomed.info/sct'][fhir:code/@value = '362956003']]" mode="entry">
     <xsl:param name="generated-narrative">additional</xsl:param>
     <!--TODO: replace match with profile id when available-->
@@ -566,7 +536,6 @@ limitations under the License.
   </xsl:template>
 
   <!-- fhir: -> Received eICR Information (Act) -->
-  <!--  <xsl:template match="fhir:entry[fhir:reference][fhir:identifier]" mode="rr">-->
   <xsl:template match="fhir:entry[fhir:reference][fhir:identifier][preceding-sibling::fhir:code/fhir:coding/fhir:code/@value = '88082-3']" mode="rr">
     <xsl:variable name="referenceURI">
       <xsl:call-template name="resolve-to-full-url">
@@ -594,27 +563,6 @@ limitations under the License.
         </act>
       </entry>
     </xsl:for-each>
-
-
-    <!--<xsl:for-each select="//fhir:entry[fhir:fullUrl/@value = $referenceURI]/fhir:resource/fhir:Bundle">
-            <entry>
-                <act classCode="ACT" moodCode="EVN">
-                    <!-\- templateId -\->
-                    <xsl:call-template name="get-template-id" />
-                    <xsl:call-template name="get-id" />
-                    <code code="RR5" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Received eICR Information" />
-                    <text xsi:type="ST">
-                        <xsl:value-of select="fhir:display/@value" />
-                    </text>
-                    <statusCode code="completed" />
-                    <!-\- eICR Receipt Time (effectiveTime) -\->
-                    <xsl:apply-templates select="preceding-sibling::*[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-receipt-time-extension']/fhir:valueDateTime" />
-                    <!-\- eICR External Document Reference (External Document) -\->
-                    <xsl:variable name="vIdentifier" select="fhir:identifier" />
-                    <xsl:apply-templates select="//fhir:DocumentReference[fhir:masterIdentifier = $vIdentifier]" mode="reference" />
-                </act>
-            </entry>
-        </xsl:for-each>-->
   </xsl:template>
 
   <!-- //fhir:Observation[fhir:code/fhir:coding/fhir:code[@value='304561000']] -> Reportability Response Summary (Act) -->
@@ -668,7 +616,8 @@ limitations under the License.
   </xsl:template>
 
   <!-- fhir:Observation[rr-eicr-processing-status-observation] -> eICR Processing Status (Act) -->
-  <xsl:template match="fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation']" mode="rr">
+    <xsl:template match="fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation']|
+                         fhir:Observation[fhir:code/fhir:coding/fhir:code[@value = 'RRVS19' or @value = 'RRVS20' or @value = 'RRVS21' or @value = 'RRVS22']]" mode="rr">
     <entry>
       <act classCode="ACT" moodCode="EVN">
         <xsl:call-template name="get-template-id" />

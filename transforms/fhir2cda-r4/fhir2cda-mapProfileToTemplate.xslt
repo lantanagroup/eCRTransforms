@@ -36,45 +36,6 @@ limitations under the License.
         <xsl:choose>
 
             <!-- Documents -->
-            <xsl:when test="fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai/Questionnaire/hai-questionnaire-los-denom'">
-                <xsl:comment select="' Published in HAI IG R3D3 '" />
-                <templateId root="2.16.840.1.113883.10.20.5.7.3.3" />
-                <xsl:comment select="' Conformant to Healthcare Associated Infection Report '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.25" />
-                <xsl:comment select="' Conformant to HAI Single-Person Report Generic Constraints '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.27" />
-                <xsl:comment select="' [Conformant to the HAI Late Onset Sepsis/Meningitis Event (LOS) Report '" />
-                <templateId root="2.16.840.1.113883.10.20.5.53" extension="2018-04-01" />
-            </xsl:when>
-            <xsl:when test="fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai/Questionnaire/hai-questionnaire-los-event'">
-                <xsl:comment select="' Published in HAI IG R3D4 '" />
-                <templateId root="2.16.840.1.113883.10.20.5.7.3.4" />
-                <xsl:comment select="' Conformant to Healthcare Associated Infection Report '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.25" />
-                <xsl:comment select="' Conformant to HAI Single-Person Report Generic Constraints '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.27" />
-                <xsl:comment select="' [HAI R3D4] Late Onset Sepsis/Meningitis Denominator (LOS/Men Denom) Report '" />
-                <templateId root="2.16.840.1.113883.10.20.5.58" extension="2019-04-01" />
-            </xsl:when>
-
-            <xsl:when test="fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-event'">
-                <xsl:comment select="' [HAI Normative R1] Conformant to Healthcare Associated Infection Report '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.25" />
-                <xsl:comment select="' [HAI LTCF R1D1] Conformant to Laboratory Identified MDRO or CDI Event Report for LTCF '" />
-                <templateId root="2.16.840.1.113883.10.20.5.1.1.1" extension="2019-08-01" />
-                <xsl:comment select="' [HAI LTCF R1D1] Conformant to HAI Single-Person Report Generic Constraints LTCF '" />
-                <templateId root="2.16.840.1.113883.10.20.5.1.1.3" extension="2019-08-01" />
-            </xsl:when>
-
-            <xsl:when test="fhir:questionnaire/@value = 'http://hl7.org/fhir/us/hai-ltcf/Questionnaire/hai-ltcf-questionnaire-mdro-cdi-summary'">
-                <xsl:comment select="' [HAI Normative R1] Conformant to Healthcare Associated Infection Report '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.25" />
-                <xsl:comment select="' [HAI Normative R1] Conformant to the HAI Population Summary Report Generic Constraints '" />
-                <templateId root="2.16.840.1.113883.10.20.5.4.28" />
-                <xsl:comment select="' [HAI LTCF R1D1] Conformant to MDRO and CDI LabID Event Reporting Monthly Summary Data for LTCF '" />
-                <templateId root="2.16.840.1.113883.10.20.5.1.1.2" extension="2019-08-01" />
-            </xsl:when>
-
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition'">
                 <xsl:comment select="' [C-CDA R2.1] US Realm Header (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01" />
@@ -106,27 +67,29 @@ limitations under the License.
                         </xsl:choose>
                     </xsl:when>
                 </xsl:choose>
-
             </xsl:when>
 
             <!-- Sections -->
+            <!-- Health Concern Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '75310-3'">
                 <templateId root="2.16.840.1.113883.10.20.22.2.58" extension="2015-08-01" />
                 <templateId root="2.16.840.1.113883.10.20.37.2.1" extension="2017-08-01" />
             </xsl:when>
+            <!-- Goals Section (Pharmacist Care Plan) -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '61146-7'">
                 <templateId root="2.16.840.1.113883.10.20.22.2.60" />
                 <templateId root="2.16.840.1.113883.10.20.37.2.2" extension="2017-08-01" />
             </xsl:when>
+            <!-- Interventions Section (Pharmacist Care Plan) -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '62387-6'">
                 <templateId root="2.16.840.1.113883.10.20.21.2.3" extension="2015-08-01" />
                 <templateId root="2.16.840.1.113883.10.20.37.2.4" extension="2017-08-01" />
             </xsl:when>
+            <!-- Health Status Evaluations and Outcomes Section (Pharmacist Care Plan) -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '11383-7'">
                 <templateId root="2.16.840.1.113883.10.20.22.2.61" />
                 <templateId root="2.16.840.1.113883.10.20.37.2.3" extension="2017-08-01" />
             </xsl:when>
-
             <!-- Payers Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '48768-6'">
                 <xsl:comment select="' Payers Section (V3) '" />
@@ -173,26 +136,22 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Problem Section (entries required) (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.5.1" extension="2015-08-01" />
             </xsl:when>
-
             <!-- Reason for Visit Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '29299-5'">
                 <xsl:comment select="' [C-CDA R1.1] Reason for Visit Section '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.12" />
             </xsl:when>
-
             <!-- Reason for Referral Section (V3) -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '42349-1'">
                 <xsl:comment select="' Reason for Referral Section (V3) '" />
                 <templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.1" />
                 <templateId root="1.3.6.1.4.1.19376.1.5.3.1.3.1" extension="2014-06-09" />
             </xsl:when>
-
             <!-- Chief Complaint Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '10154-3'">
                 <xsl:comment select="' [C-CDA R1.1] Chief Complaint Section '" />
                 <templateId root="1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1" />
             </xsl:when>
-
             <!-- Results Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '30954-2'">
                 <xsl:comment select="' [C-CDA R1.1] Results Section (entries optional) '" />
@@ -209,43 +168,36 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Immunizations Section (entries required)(V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.2.1" extension="2015-08-01" />
             </xsl:when>
-
-            <!-- MD: add Instrctions Section -->
+            <!-- Instructions Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '69730-0'">
                 <xsl:comment select="' Instructions Section (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.21.2.45" extension="2014-06-09" />
             </xsl:when>
-
-            <!-- MD: add Medical Equipment Section -->
+            <!-- Medical Equipment Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '46264-8'">
                 <xsl:comment select="' Medical Equipment Section (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.23" extension="2014-06-09" />
             </xsl:when>
-
-            <!-- MD: add Allergies and Intolerance Section (entries required) V3 -->
+            <!-- Allergies and Intolerance Section (entries required) V3 -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '48765-2'">
                 <xsl:comment select="' Allergies and Intolerances Section (entries required) (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.6.1" extension="2015-08-01" />
             </xsl:when>
-
-            <!-- MD: add Assessment Section -->
+            <!-- Assessment Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '51848-0'">
                 <xsl:comment select="' Assessment Section '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.8" />
             </xsl:when>
-
-            <!-- MD: add Assessment and Plan Section (V2) -->
+            <!-- Assessment and Plan Section (V2) -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '51847-2'">
                 <xsl:comment select="' Assessment and Plan Section (V2)  '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.9" extension="2014-06-09" />
             </xsl:when>
-
-            <!-- MD: add Dental Findings Section Physical findings of Mouth and Throat and Teeth ) -->
+            <!-- Dental Findings Section Physical findings of Mouth and Throat and Teeth ) -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '8704-9'">
                 <xsl:comment select="' Dental Findings Section  '" />
                 <templateId root="2.16.840.1.113883.10.20.40.1.2.1" extension="2020-08-01" />
             </xsl:when>
-
             <!-- Procedures Section -->
             <xsl:when test="fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '47519-4'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
@@ -327,7 +279,6 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2] Medications Section (entries required)(V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.1.1" extension="2014-06-09" />
             </xsl:when>
-
             <!-- [RR R1S1] Reportability Response Subject Section -->
             <xsl:when test="fhir:code/fhir:coding/fhir:code/@value = '88084-9'">
                 <xsl:comment select="' [RR R1S1] Reportability Response Subject Section '" />
@@ -344,28 +295,35 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.2.3" extension="2017-04-01" />
             </xsl:when>
 
+            <!-- Entries -->
+            <!-- Reportability Response Priority -->
             <xsl:when test="@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension'">
                 <xsl:comment select="' Reportability Response Priority '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.30" extension="2017-04-01" />
             </xsl:when>
+            <!-- Reportability Response Coded Information Organizer -->
             <xsl:when test="$pElementType = 'organizer' and fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-plandefinition'">
                 <xsl:comment select="' [RR R1S1] Reportability Response Coded Information Organizer '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.34" extension="2017-04-01" />
             </xsl:when>
+            <!-- Relevant Reportable Condition Observation -->
             <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation'">
                 <xsl:comment select="' [RR R1S1] Relevant Reportable Condition Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.12" extension="2017-04-01" />
             </xsl:when>
+            <!-- Reportability Response Summary -->
             <xsl:when test="$gvCurrentIg = 'RR' and fhir:code/fhir:coding/fhir:code[@value = '304561000']">
                 <xsl:comment select="' [C-CDA R2.1] Instruction (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.20" extension="2014-06-09" />
                 <xsl:comment select="' [RR R1S1] Reportability Response Summary '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.8" extension="2017-04-01" />
             </xsl:when>
+            <!-- Manually Initiated eICR -->
             <xsl:when test="$gvCurrentIg = 'RR' and @url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'">
                 <xsl:comment select="' [RR R1S1] Manually Initiated eICR '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.22" extension="2017-04-01" />
             </xsl:when>
+            <!-- Initial Case Report Initiation Reason Observation -->
             <xsl:when test="$gvCurrentIg = 'eICR' and @url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-initiation-reason-extension'">
                 <xsl:comment select="' [C-CDA R1.1] Problem Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.4" />
@@ -374,16 +332,18 @@ limitations under the License.
                 <xsl:comment select="' [eICR R1STU2] Initial Case Report Initiation Reason Observation (V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.5" extension="2019-04-01" />
             </xsl:when>
-
+            <!-- eICR Validation Output -->
             <xsl:when test="@url = 'eICRValidationOutput'">
                 <xsl:comment select="' [RR R1S1] eICR Validation Output '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.33" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation'">
+            <!-- eICR Processing Status Reason Observation -->
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation' or fhir:code/fhir:coding/fhir:code[@value = 'RR6']">
                 <xsl:comment select="' [RR R1S1] eICR Processing Status Reason Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.21" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation'">
+            <!-- eICR Processing Status -->
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation' or fhir:code/fhir:coding/fhir:code[@value = 'RRVS19' or @value = 'RRVS20' or @value = 'RRVS21' or @value = 'RRVS22']">
                 <xsl:comment select="' [RR R1S1] eICR Processing Status '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.29" extension="2017-04-01" />
             </xsl:when>

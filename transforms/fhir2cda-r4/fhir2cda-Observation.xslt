@@ -661,8 +661,10 @@ limitations under the License.
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:when test="fhir:valueString">
-                        <value xsi:type="CD" nullFlavor="OTH" >
-                            <originalText><xsl:value-of select="fhir:valueString/@value"/></originalText>
+                        <value xsi:type="CD" nullFlavor="OTH">
+                            <originalText>
+                                <xsl:value-of select="fhir:valueString/@value" />
+                            </originalText>
                         </value>
                     </xsl:when>
                 </xsl:choose>
@@ -1461,7 +1463,8 @@ limitations under the License.
     </xsl:template>
 
     <!-- RR processing status reason -->
-    <xsl:template match="fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation']" mode="rr">
+    <xsl:template match="fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation'] | 
+                         fhir:Observation[fhir:code/fhir:coding/fhir:code[@value = 'RR6']]" mode="rr">
         <entryRelationship typeCode="RSON">
             <observation classCode="OBS" moodCode="EVN">
                 <xsl:call-template name="get-template-id" />

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+    xmlns:cda="urn:hl7-org:v3" 
+    xmlns:fhir="http://hl7.org/fhir" 
+    xmlns:lcg="http://www.lantanagroup.com" 
+    stylesheet="../fhir2cda.xslt" run-as="external">
+    
     <x:scenario label="Scenario for testing fhir:Patient with xspec-test-files/Complete-Document-Bundle-Example.xml">
 
         <x:context href="../../../samples/fhir/xspec-test-files/Complete-Document-Bundle-Example.xml" />

@@ -50,10 +50,38 @@ limitations under the License.
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="fhir:period">
-                <xsl:with-param name="pElementName" select="'useablePeriod'"/>
-                <xsl:with-param name="pXSIType" select="'IVL_TS'"/>
+                <xsl:with-param name="pElementName" select="'useablePeriod'" />
+                <xsl:with-param name="pXSIType" select="'IVL_TS'" />
             </xsl:apply-templates>
         </xsl:element>
+    </xsl:template>
+
+    <!-- If pNoNullAllowed is missing or set to false(): outputs a nullFlavor telecom even if the telecom element doesn't exist
+       Use when the CDA requires a telecom 
+        If pNoNullAllowed is set to true: outputs nothing if the telecom element doesn't exist -->
+    <xsl:template name="get-telecom">
+        <xsl:param name="pElement" select="fhir:telecom" />
+        <xsl:param name="pNoNullAllowed" select="false()" />
+
+        <xsl:choose>
+            <xsl:when test="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
+                <telecom>
+                    <xsl:apply-templates select="$pElement/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
+                </telecom>
+            </xsl:when>
+            <xsl:when test="$pElement">
+                <xsl:variable name="vPotentialDupes">
+                    <xsl:apply-templates select="$pElement" />
+                </xsl:variable>
+                <xsl:for-each-group group-by="concat(@value, @use)" select="$vPotentialDupes/cda:telecom">
+                    <xsl:copy-of select="current-group()[1]" />
+                </xsl:for-each-group>
+            </xsl:when>
+            <xsl:when test="$pNoNullAllowed = true()" />
+            <xsl:otherwise>
+                <telecom nullFlavor="NI" />
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="telecomUse">

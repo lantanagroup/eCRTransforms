@@ -1,5 +1,8 @@
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+    xmlns:cda="urn:hl7-org:v3" 
+    xmlns:fhir="http://hl7.org/fhir" 
+    xmlns:lcg="http://www.lantanagroup.com" 
+    stylesheet="../fhir2cda.xslt" run-as="external">
     
     <x:scenario label="Scenario for testing template with match 'fhir:Procedure' and mode 'entry'">
         <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />

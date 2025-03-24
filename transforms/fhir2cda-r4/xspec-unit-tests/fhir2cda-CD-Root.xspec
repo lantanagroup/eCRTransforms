@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+    xmlns:cda="urn:hl7-org:v3" 
+    xmlns:fhir="http://hl7.org/fhir" 
+    xmlns:lcg="http://www.lantanagroup.com" 
+    stylesheet="../fhir2cda.xslt" run-as="external">
+    
     <!--
       FHIR CodeableConcept information: https://hl7.org/fhir/R4/datatypes.html#CodeableConcept
       A CodeableConcept represents a value that is usually supplied by providing a reference to one or more terminologies 

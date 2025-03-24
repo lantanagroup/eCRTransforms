@@ -119,6 +119,7 @@ limitations under the License.
         <xsl:param name="pTriggerExtension" />
         
         <xsl:call-template name="debug-element-stack" />
+        
         <xsl:choose>
             <!-- If this is a nullFlavor we need to process differently -->
             <xsl:when test="fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor'">

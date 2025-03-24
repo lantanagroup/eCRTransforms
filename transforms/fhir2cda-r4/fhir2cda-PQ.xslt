@@ -28,19 +28,26 @@ limitations under the License.
                 <xsl:attribute name="xsi:type">PQ</xsl:attribute>
             </xsl:if>
             <xsl:choose>
-                <xsl:when test="fhir:value">
+                <xsl:when test="fhir:value/@value">
                     <xsl:attribute name="value" select="fhir:value/@value" />
+                </xsl:when>
+                <xsl:when test="fhir:value/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
+                    <xsl:apply-templates select="fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']" mode="attribute-only" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="nullFlavor">NI</xsl:attribute>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>
-                <xsl:when test="fhir:unit">
+                <xsl:when test="fhir:unit/@value">
                     <xsl:attribute name="unit" select="fhir:unit/@value" />
                 </xsl:when>
                 <xsl:when test="fhir:system/@value = 'http://unitsofmeasure.org'">
                     <xsl:attribute name="unit" select="fhir:code/@value" />
+                </xsl:when>
+                <xsl:when test="fhir:value/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']"/>
+                <xsl:when test="fhir:unit/fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/data-absent-reason']">
+                    <xsl:attribute name="unit" select="'no_unit'" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:attribute name="unit" select="'no_unit'" />

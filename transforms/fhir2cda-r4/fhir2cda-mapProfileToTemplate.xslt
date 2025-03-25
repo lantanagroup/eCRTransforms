@@ -204,9 +204,9 @@ limitations under the License.
                     <xsl:comment select="' NOTE: This section is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains this section so the data has been preserved. '" />
                 </xsl:if>
                 <xsl:comment select="' [C-CDA R2.1] Procedures Section (entries optional)(V2) '" />
-                <templateId root="2.16.840.1.113883.10.20.22.2.7.1" extension="2014-06-09" />
-                <xsl:comment select="' [C-CDA R2.1] Procedures Section (entries required)(V2) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.2.7" extension="2014-06-09" />
+                <xsl:comment select="' [C-CDA R2.1] Procedures Section (entries required)(V2) '" />
+                <templateId root="2.16.840.1.113883.10.20.22.2.7.1" extension="2014-06-09" />
             </xsl:when>
             <!-- Social History Section -->
             <xsl:when test="fhir:code[parent::fhir:section]/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '29762-2'">
@@ -370,21 +370,21 @@ limitations under the License.
                 <xsl:comment select="' [RR R1S1] Received eICR Information '" />
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.9" extension="2017-04-01" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork' or fhir:code/fhir:coding/fhir:code/@value = '21843-8'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains this template so the data has been preserved. '" />
                 </xsl:if>
                 <xsl:comment select="' [ODH R1] Usual Occupation Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.221" extension="2017-11-30" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob' or fhir:code/fhir:coding/fhir:code/@value = '11341-5'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains this template so the data has been preserved. '" />
                 </xsl:if>
                 <xsl:comment select="' [ODH R1] Past or Present Occupation Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2017-11-30" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation' or fhir:code/fhir:coding/fhir:code/@value = '82810-3'">
                 <xsl:comment select="' [C-CDA R1] Pregnancy Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.15.3.8" />
                 <xsl:comment select="' [C-CDA PREG] Pregnancy Observation (SUPPLEMENTAL PREGNANCY) '" />
@@ -446,7 +446,7 @@ limitations under the License.
             </xsl:when>
 
             <!-- SG 2023-04 eCR (added) -->
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus' or fhir:code/fhir:coding/fhir:code/@value = '74165-2'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains this template so the data has been preserved. '" />
                 </xsl:if>
@@ -462,7 +462,7 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R2.1] Immunization Medication Information (V3) '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09" />
             </xsl:when>
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment' or fhir:code/fhir:coding/fhir:code/@value = '75274-1'">
                 <xsl:comment select="' [C-CDA R2] Characteristics of Home Environment '" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.109" />
             </xsl:when>
@@ -511,7 +511,7 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.40" extension="2021-01-01" />
             </xsl:when>
 
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status' or fhir:code/fhir:coding/fhir:code[@value = '69856-3' or @value = '69857-1' or @value = '69858-9' or @value = '69859-7' or @value = '69860-8' or @value = '69861-3']">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains this template so the data has been preserved. '" />
                 </xsl:if>
@@ -527,7 +527,7 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.52" extension="2021-01-01" />
             </xsl:when>
 
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-residence'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-residence' or fhir:code/fhir:coding/fhir:code/@value = '77983-5'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains it so the data has been preserved. '" />
                 </xsl:if>
@@ -535,7 +535,7 @@ limitations under the License.
                 <templateId root="2.16.840.1.113883.10.20.15.2.3.53" extension="2021-01-01" />
             </xsl:when>
 
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-nationality'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-nationality' or fhir:code/fhir:coding/fhir:code/@value = '186034007'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains it so the data has been preserved. '" />
                 </xsl:if>
@@ -544,7 +544,7 @@ limitations under the License.
             </xsl:when>
 
             <!-- SG 2023-04 eCR (added for 3.1) -->
-            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion'">
+            <xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion' or fhir:code/fhir:coding/fhir:code/@value = '11370-4'">
                 <xsl:if test="$gParamCDAeICRVersion = 'R1.1'">
                     <xsl:comment select="' NOTE: This template is not contained in eICR R1.1 but the FHIR Bundle that has been converted contains this template so the data has been preserved. '" />
                 </xsl:if>

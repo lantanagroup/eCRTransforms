@@ -268,8 +268,10 @@ limitations under the License.
             <code code="42346-7" codeSystem="2.16.840.1.113883.6.1" displayName="Medications on admission (narrative)" />
             <entryRelationship typeCode="SUBJ">
                 <substanceAdministration classCode="SBADM" moodCode="EVN">
-                    <xsl:comment select="' MEDICATION ACTIVITY V2  '" />
-                    <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
+                    <xsl:comment select="'[C-CDA R1.1] Medication Activity '" />
+                    <templateId root="2.16.840.1.113883.10.20.22.4.16" />
+                    <xsl:comment select="'[C-CDA R2.0] Medication Activity (V2) '" />
+                    <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09" />
                     <xsl:choose>
                         <xsl:when test="fhir:identifier">
                             <xsl:apply-templates select="fhir:identifier" />
@@ -416,8 +418,10 @@ limitations under the License.
                     <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:comment select="' MEDICATION ACTIVITY V2  '" />
-                    <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.16" />
+                    <xsl:comment select="'[C-CDA R1.1] Medication Activity '" />
+                    <templateId root="2.16.840.1.113883.10.20.22.4.16" />
+                    <xsl:comment select="'[C-CDA R2.0] Medication Activity (V2) '" />
+                    <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09" />
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:choose>

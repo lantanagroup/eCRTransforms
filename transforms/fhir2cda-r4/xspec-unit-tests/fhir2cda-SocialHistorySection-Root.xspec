@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
-    <x:scenario label="A. Scenario for testing fhir:section:SocialHistory -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
+    <x:scenario label="A. Scenario for testing fhir:section:SocialHistory -> cda:section with /fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
+        
         <x:expect label="A1-1. [C-CDA 1.1] SocialHistorySection Section @templateId=2.16.840.1.113883.10.20.22.2.17 CONF#1198-7936, 1198-10449, 1198-32494 "
             test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.17'" />
         <x:expect label="A1-2. [C-CDA 2.1] SocialHistorySection Section (V3) @templateId=2.16.840.1.113883.10.20.22.2.17:2015-08-01 CONF#1198-7936, 1198-10449, 1198-32494 "
@@ -19,7 +16,7 @@
         <x:expect label="A3. Section title=Social History Section  CONF#1198-7938" test="//cda:component/cda:section/cda:title = 'Social History Section'" />
         <x:expect label="A4. Section text CONF#1198-7939" test="exists(//cda:component/cda:section[cda:templateId/@root='2.16.840.1.113883.10.20.22.2.17']/cda:text)" />
         <x:expect
-            label="A5. Section entry Observation for Home Enviroment Observation @classCode=OBS @moodCode=EVN @templateId=2.16.840.1.113883.10.20.22.4.109 CONF#1098-28825, 1098-27890, 1098-27891,1098-27893 "
+            label="A5. Section entry Characteristics of Home Enviroment Observation @classCode=OBS @moodCode=EVN @templateId=2.16.840.1.113883.10.20.22.4.109 CONF#1098-28825, 1098-27890, 1098-27891,1098-27893 "
             test="//cda:component/cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/@classCode='OBS' 
             and //cda:component/cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/@moodCode='EVN'
             and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109'" />

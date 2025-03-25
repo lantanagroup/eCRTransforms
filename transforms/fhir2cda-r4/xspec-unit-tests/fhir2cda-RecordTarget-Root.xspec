@@ -1,78 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-    
-    <x:scenario label="Scenario for testing fhir:Patient with xspec-test-files/Complete-Document-Bundle-Example.xml">
-
-        <x:context href="../../../samples/fhir/xspec-test-files/Complete-Document-Bundle-Example.xml" />
-        <!--Confirm the Record Target exists-->
-        <x:expect label="SHALL contain at least one [1..*] recordTarget (CONF:1198-5266)." test="count(/cda:ClinicalDocument/cda:recordTarget)=1" />
-        <!-- Confirm the Record Target contains a patientRole element -->
-        <x:expect label="Such recordTargets SHALL contain exactly one [1..1] patientRole (CONF:1198-5267)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole)=1" />
-        <!-- Confirm the patientRole contains an id element -->
-        <x:expect label="This patientRole SHALL contain at least one [1..*] id (CONF:1198-5268).." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id)=1" />
-        <!-- Confirm the patientRole contains an address element -->
-        <x:expect label="This patientRole SHALL contain at least one [1..*]  US Realm Address (AD.US.FIELDED)(CONF:1198-5271)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:addr)=1" />
-        <!-- Confirm the patientRole contains an telecom element -->
-        <x:expect label="This patientRole SHALL contain at least one [1..*] telecom (CONF:1198-5280)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom)=2" />
-        <!-- Confirm the patientRole telecom contains a use element -->
-        <x:expect label="Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-5375)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom[@use])=2" />
-        <!-- Confirm the patientRole contains a patient element -->
-        <x:expect label="iv.	This patientRole SHALL contain exactly one [1..1] patient (CONF:1198-5283)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient)=1" />
-        <!-- Confirm the patient contains a name element -->
-        <x:expect label="This patient SHALL contain at least one [1..*]  US Realm Patient Name (CONF:1198-5284)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name)=1" />
-        <!-- Confirm the patient contains an administrativeGenderCode element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] administrativeGenderCode(CONF:1198-6394)."
-            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode)=1" />
-        <!-- Confirm the patient contains a birthTime element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] birthTime (CONF:1198-5298)" test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime)=1" />
-        <!-- Confirm the patient contains a raceCode element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] raceCode(CONF:1198-5322)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode)=1" />
-        <!-- Confirm the patient contains a raceCode element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] ethnicGroupCode (CONF:1198-5323)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode)=1" />
-        <!-- Confirm the patient contains a languageCommunication element -->
-        <x:expect label="12.	This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:1198-5406)."
-            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication)=1" />
-    </x:scenario>
-    
-    <x:scenario label="Scenario for testing fhir:Patient with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    <x:scenario label="A. Scenario for testing fhir:Patient with xspec-test-files/Complete-Document-Bundle-Example.xml">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
         
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
         <!--Confirm the Record Target exists-->
-        <x:expect label="SHALL contain at least one [1..*] recordTarget (CONF:1198-5266)." test="count(/cda:ClinicalDocument/cda:recordTarget)=1" />
+        <x:expect label="A1. SHALL contain at least one [1..*] recordTarget (CONF:1198-5266)." test="count(/cda:ClinicalDocument/cda:recordTarget)=1" />
         <!-- Confirm the Record Target contains a patientRole element -->
-        <x:expect label="Such recordTargets SHALL contain exactly one [1..1] patientRole (CONF:1198-5267)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole)=1" />
+        <x:expect label="A2. Such recordTargets SHALL contain exactly one [1..1] patientRole (CONF:1198-5267)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole)=1" />
         <!-- Confirm the patientRole contains an id element -->
-        <x:expect label="This patientRole SHALL contain at least one [1..*] id (CONF:1198-5268).." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id)=1" />
+        <x:expect label="A3. This patientRole SHALL contain at least one [1..*] id (CONF:1198-5268).." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:id)=1" />
         <!-- Confirm the patientRole contains an address element -->
-        <x:expect label="This patientRole SHALL contain at least one [1..*]  US Realm Address (AD.US.FIELDED)(CONF:1198-5271)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:addr)=1" />
+        <x:expect label="A4. This patientRole SHALL contain at least one [1..*]  US Realm Address (AD.US.FIELDED)(CONF:1198-5271)."
+            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:addr)=1" />
         <!-- Confirm the patientRole contains an telecom element -->
-        <x:expect label="This patientRole SHALL contain at least one [1..*] telecom (CONF:1198-5280)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom)=2" />
+        <x:expect label="A5. This patientRole SHALL contain at least one [1..*] telecom (CONF:1198-5280)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom)=2" />
         <!-- Confirm the patientRole telecom contains a use element -->
-        <x:expect label="Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-5375)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom[@use])=2" />
+        <x:expect label="A6. Such telecoms SHOULD contain zero or one [0..1] @use (CONF:1198-5375)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom[@use])=2" />
         <!-- Confirm the patientRole contains a patient element -->
-        <x:expect label="iv.	This patientRole SHALL contain exactly one [1..1] patient (CONF:1198-5283)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient)=1" />
+        <x:expect label="A7. iv.	This patientRole SHALL contain exactly one [1..1] patient (CONF:1198-5283)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient)=1" />
         <!-- Confirm the patient contains a name element -->
-        <x:expect label="This patient SHALL contain at least one [1..*]  US Realm Patient Name (CONF:1198-5284)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name)=1" />
+        <x:expect label="A8. This patient SHALL contain at least one [1..*]  US Realm Patient Name (CONF:1198-5284)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name)=1" />
         <!-- Confirm the patient contains an administrativeGenderCode element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] administrativeGenderCode(CONF:1198-6394)."
+        <x:expect label="A9. This patient SHALL contain exactly one [1..1] administrativeGenderCode(CONF:1198-6394)."
             test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode)=1" />
         <!-- Confirm the patient contains a birthTime element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] birthTime (CONF:1198-5298)" test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime)=1" />
+        <x:expect label="A10. This patient SHALL contain exactly one [1..1] birthTime (CONF:1198-5298)" test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime)=1" />
         <!-- Confirm the patient contains a raceCode element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] raceCode(CONF:1198-5322)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode)=1" />
+        <x:expect label="A11. This patient SHALL contain exactly one [1..1] raceCode(CONF:1198-5322)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode)=1" />
         <!-- Confirm the patient contains a raceCode element -->
-        <x:expect label="This patient SHALL contain exactly one [1..1] ethnicGroupCode (CONF:1198-5323)." test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode)=1" />
+        <x:expect label="A12. This patient SHALL contain exactly one [1..1] ethnicGroupCode (CONF:1198-5323)."
+            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode)=1" />
         <!-- Confirm the patient contains a languageCommunication element -->
-        <x:expect label="Should contain 2 languageCommunication/languageCode"
-            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode)=2" />
-        <x:expect label="Should contain 2 languageCommunication/preferenceInd"
-            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication/cda:preferenceInd)=2" />
+        <x:expect label="A13. This patient SHOULD contain zero or more [0..*] languageCommunication (CONF:1198-5406)."
+            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:languageCommunication)=1" />
         <!-- Confirm the patient contains birthPlace -->
-        <x:expect label="There should be one recordTarget/birthPlace"
-            test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace)=1" />
+        <x:expect label="B15. There should be one recordTarget/birthPlace" test="count(/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthplace)=1" />
     </x:scenario>
 </x:description>

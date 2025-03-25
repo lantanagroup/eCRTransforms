@@ -1,37 +1,29 @@
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
     
-    <x:scenario label="Scenario for testing template with match 'fhir:Procedure' and mode 'entry'">
-        <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />
+    <x:scenario label="A. Scenario for testing template with match 'fhir:Procedure' and mode 'entry'">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
         
         <!--Confirm a Procedures Section (entries optional) (V2) template is created -->
-        <x:expect label="SHALL contain exactly one [1..1] @root='2.16.840.1.113883.10.20.22.2.7.1' (CONF:1098-10447)." 
+        <x:expect label="A1. SHALL contain exactly one [1..1] @root='2.16.840.1.113883.10.20.22.2.7.1' (CONF:1098-10447)."
             test="count(//cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.22.2.7.1'])=1" />
-        <x:expect label="b.	SHALL contain exactly one [1..1] @extension='2014-06-09' (CONF:1098-32533)." 
+        <x:expect label="A2. SHALL contain exactly one [1..1] @extension='2014-06-09' (CONF:1098-32533)."
             test="count(//cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.22.2.7.1'][@extension='2014-06-09'])=1" />
         <!--Confirm Procedure Activity Procedure (V2) contains all required elements-->
-        
-    <!--Confirm a Procedure Activity Procedure (V2) template is created -->
-        <x:expect label="SHALL contain exactly one [1..1] @root='2.16.840.1.113883.10.20.22.4.14' (CONF:1098-10521)." 
+        <!--Confirm a Procedure Activity Procedure (V2) template is created -->
+        <x:expect label="A3. SHALL contain exactly one [1..1] @root='2.16.840.1.113883.10.20.22.4.14' (CONF:1098-10521)."
             test="count(//cda:entry/cda:procedure/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.14'])=1" />
-        <x:expect label="SHALL contain exactly one [1..1] @extension='2014-06-09' (CONF:1098-32506)." 
+        <x:expect label="A4. SHALL contain exactly one [1..1] @extension='2014-06-09' (CONF:1098-32506)."
             test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:templateId[@extension='2014-06-09'])=1" />
         <!--Confirm Procedure Activity Procedure (V2) contains all required elements-->
-        <x:expect label="SHALL contain at least one [1..*] id (CONF:1098-7655)." 
-            test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:id)=1" />
-        <x:expect label="SHALL contain exactly one [1..1] code (CONF:1098-7656)." 
-            test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:code)=1" />
-         <x:expect label="This code SHOULD contain zero or one [0..1] originalText (CONF:1098-19203)." 
+        <x:expect label="A5. SHALL contain at least one [1..*] id (CONF:1098-7655)." test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:id)=1" />
+        <x:expect label="A6. SHALL contain exactly one [1..1] code (CONF:1098-7656)." test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:code)=1" />
+        <x:expect label="A7. This code SHOULD contain zero or one [0..1] originalText (CONF:1098-19203)."
             test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:code/cda:originalText)=1" />
-        <x:expect label="SHALL contain exactly one [1..1] statusCode (CONF:1098-7661)." 
-            test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:statusCode)=1" />
-        <x:expect label="This statusCode SHALL contain exactly one [1..1] @code (CONF:1098-32366)." 
+        <x:expect label="A8. SHALL contain exactly one [1..1] statusCode (CONF:1098-7661)." test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:statusCode)=1" />
+        <x:expect label="A9. This statusCode SHALL contain exactly one [1..1] @code (CONF:1098-32366)."
             test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:statusCode/@code)=1" />
-        <x:expect label="7.	SHOULD contain zero or one [0..1] effectiveTime (CONF:1098-7662)" 
+        <x:expect label="A10. SHOULD contain zero or one [0..1] effectiveTime (CONF:1098-7662)"
             test="count(//cda:entry/cda:procedure[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.14']/cda:effectiveTime)=1" />
     </x:scenario>
-    
 </x:description>

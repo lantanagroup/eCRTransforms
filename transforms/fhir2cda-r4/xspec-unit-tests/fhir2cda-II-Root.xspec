@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
     <!--
       FHIR Identifier information: https://hl7.org/fhir/R4/datatypes.html#Identifier
       A numeric or alphanumeric string that is associated with a single object or entity within a given system. 
@@ -14,18 +11,12 @@
       https://www.hl7.org/fhir/us/ccda/mappingGuidance.html
       
     -->
-    
-
-    <x:scenario label="Scenario for testing variations of the transform of the FHIR identifier data type to CDA II data type">
+    <x:scenario label="A. Scenario for testing variations of the transform of the FHIR identifier data type to CDA II data type">
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_II.xml" />
         
-        
-        <x:expect label="1. ClinicalDocument/id = 2be4b4e4-6df1-4cb2-a947-c70fa0eda54c" 
-            test="count(//cda:ClinicalDocument/cda:id[@root='2be4b4e4-6df1-4cb2-a947-c70fa0eda54c'])=1" />
-        
-        <x:expect label="2. Case: No OID exists (for translation of system) count(//cda:id[@root='2.16.840.1.113883.4.873'][@extension='http://lab.smarthealthit.org/061ef612-344f-4e7b-81a8-1059ae7bbe19'])=1" 
+        <x:expect label="A1. relatedDocument/parentDocument/id = 2be4b4e4-6df1-4cb2-a947-c70fa0eda54c Bundle.identifier is mapped to relatedDocument/parentDocument and ClinicalDocument/id gets a new id"
+            test="count(//cda:relatedDocument/cda:parentDocument/cda:id[@extension='2be4b4e4-6df1-4cb2-a947-c70fa0eda54c'][@root='2.16.840.1.113883.4.873'])=1" />
+        <x:expect label="A2. Case: No OID exists (for translation of system) count(//cda:id[@root='2.16.840.1.113883.4.873'][@extension='http://lab.smarthealthit.org/061ef612-344f-4e7b-81a8-1059ae7bbe19'])=1"
             test="count(//cda:id[@root='2.16.840.1.113883.4.873'][@extension='http://lab.smarthealthit.org/061ef612-344f-4e7b-81a8-1059ae7bbe19'])=1" />
-        
     </x:scenario>
-
 </x:description>

@@ -1,11 +1,11 @@
 <Bundle xmlns="http://hl7.org/fhir">
-    <id value="eICR-FHIR-002_R2_1" />
+    <id value="bundle-eicr-document-zika" />
     <meta>
         <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle" />
     </meta>
     <identifier>
         <system value="urn:ietf:rfc:3986" />
-        <value value="urn:uuid:2be4b4e4-6df1-4cb2-a947-c70fa0eda54c" />
+        <value value="urn:uuid:2be4b4e4-6df1-4cb2-a947-c70fa0eda54b" />
     </identifier>
     <type value="document" />
     <timestamp value="2021-08-02T22:13:23Z" />
@@ -15,14 +15,16 @@
             <Composition>
                 <id value="composition-eicr-zika" />
                 <meta>
+                    <versionId value="22" />
+                    <lastUpdated value="2021-08-17T03:24:45.575+00:00" />
+                    <source value="#vMaRLlyzDNjGkVuc" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
                 </meta>
                 <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
                     <valueString value="1" />
                 </extension>
                 <identifier>
-                    <system value="urn:ietf:rfc:3986" />
-                    <value value="urn:uuid:c03eab8c-11e8-4d0c-ad2a-b385395e27db" />
+                    <value value="c03eab8c-11e8-4d0c-ad2a-b385395e27db" />
                 </identifier>
                 <status value="final" />
                 <type>
@@ -46,6 +48,27 @@
                     <display value="Henry Seven, MD" />
                 </author>
                 <title value="Initial Public Health Case Report - Zika Example" />
+                <attester>
+                    <mode value="legal" />
+                    <time value="2012-09-15T22:36:15.000-08:00" />
+                    <party>
+                        <reference value="PractitionerRole/practitionerrole-henry-seven" />
+                    </party>
+                </attester>
+                <attester>
+                    <mode value="legal" />
+                    <time value="2023-09-15T22:36:15.000-08:00" />
+                    <party>
+                        <reference value="PractitionerRole/practitionerrole-henry-seven" />
+                    </party>
+                </attester>
+                <attester>
+                    <mode value="professional" />
+                    <time value="2024-09-15T10:30:00.000-08:00" />
+                    <party>
+                        <reference value="PractitionerRole/practitionerrole-henry-seven" />
+                    </party>
+                </attester>
                 <custodian>
                     <reference value="Organization/organization-ecr-salem-medical-center" />
                     <display value="Salem Medical Center" />
@@ -88,7 +111,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" lang="en-US" class="text-no-entries">
+                                    <td class="text-no-entries" colspan="2" lang="en-US">
                                         <p>Reason for Visit: Bad cough</p>
                                     </td>
                                 </tr>
@@ -134,7 +157,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" lang="en-US" class="text-no-entries">
+                                    <td class="text-no-entries" colspan="2" lang="en-US">
                                         <p>Chief Complaint: Bad cough</p>
                                     </td>
                                 </tr>
@@ -180,7 +203,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" lang="en-US" class="text-no-entries"> Persistent Cough REPORTED starting on 2018/03/05 <br /> Whooping Respiration not reported <br /> Paroxysms Of Coughing REPORTED starting on 2018/03/06 <br /> Post-tussive vomiting not reported </td>
+                                    <td class="text-no-entries" colspan="2" lang="en-US"> Persistent Cough REPORTED starting on 2018/03/05 <br /> Whooping Respiration not reported <br /> Paroxysms Of Coughing
+                                        REPORTED starting on 2018/03/06 <br /> Post-tussive vomiting not reported </td>
                                 </tr>
                             </table>
                         </div>
@@ -518,7 +542,8 @@
                                                                         <td style="font-weight: bold">system</td>
                                                                         <td>
                                                                             <div title="system">
-                                                                                <a href="http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm">http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm</a>
+                                                                                <a href="http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+                                                                                    >http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm</a>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -585,7 +610,7 @@
                                 <tr>
                                     <td style="font-weight: bold">entry</td>
                                     <td>
-                                        <a href="MedicationAdministration-medicationadministration-eve-everywoman-naloxone-response.html">naloxone HCl 0.4 MG in 1 ML Injection</a>
+                                        <a href="MedicationAdministration-medicationadministration-eve-everywoman-naloxone-response.html">1 ML naloxone hydrochloride 0.4 MG/ML Injection</a>
                                     </td>
                                 </tr>
                             </table>
@@ -593,7 +618,7 @@
                     </text>
                     <entry>
                         <reference value="MedicationAdministration/medicationadministration-eve-everywoman-naloxone-response" />
-                        <display value="naloxone HCl 0.4 MG in 1 ML Injection" />
+                        <display value="1 ML naloxone hydrochloride 0.4 MG/ML Injection" />
                     </entry>
                 </section>
                 <section>
@@ -810,7 +835,8 @@
                                                                     <div title="display">High</div> ( <div title="code">H</div> ) </li>
                                                                 <li>
                                                                     <div title="system">
-                                                                        <a href="http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation">http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation</a>
+                                                                        <a href="http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+                                                                            >http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation</a>
                                                                     </div>
                                                                 </li>
                                                             </ul>
@@ -1382,7 +1408,8 @@
                                                                                 <div title="display">Location</div> ( <div title="code">LOC</div> ) </li>
                                                                             <li>
                                                                                 <div title="system">
-                                                                                    <a href="http://terminology.hl7.org/CodeSystem/v3-ParticipationType">http://terminology.hl7.org/CodeSystem/v3-ParticipationType</a>
+                                                                                    <a href="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"
+                                                                                        >http://terminology.hl7.org/CodeSystem/v3-ParticipationType</a>
                                                                                 </div>
                                                                             </li>
                                                                         </ul>
@@ -1423,7 +1450,8 @@
                                                                                 <div title="display">Location</div> ( <div title="code">LOC</div> ) </li>
                                                                             <li>
                                                                                 <div title="system">
-                                                                                    <a href="http://terminology.hl7.org/CodeSystem/v3-ParticipationType">http://terminology.hl7.org/CodeSystem/v3-ParticipationType</a>
+                                                                                    <a href="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"
+                                                                                        >http://terminology.hl7.org/CodeSystem/v3-ParticipationType</a>
                                                                                 </div>
                                                                             </li>
                                                                         </ul>
@@ -1441,7 +1469,8 @@
                                                                                 <div title="display">Vanuatu</div> ( <div title="code">VUT</div> ) </li>
                                                                             <li>
                                                                                 <div title="system">
-                                                                                    <a href="https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1">https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1</a>
+                                                                                    <a href="https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1"
+                                                                                        >https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=1.0.3166.1</a>
                                                                                 </div>
                                                                             </li>
                                                                         </ul>
@@ -1479,12 +1508,12 @@
                         <display value="Country of Residence Observation Example" />
                     </entry>
                     <entry>
-                        <reference value="Observation/observation-odh-employment-status-ecr-eve-everywoman" />
-                        <display value="ODH Employment Status Example" />
-                    </entry>
-                    <entry>
                         <reference value="Observation/observation-characteristics-of-home-environment-eve-everywoman" />
                         <display value="US Public Health Characteristics of Home Environment Example: Eve Everywoman" />
+                    </entry>
+                    <entry>
+                        <reference value="Observation/observation-odh-employment-status-ecr-eve-everywoman" />
+                        <display value="ODH Employment Status Example" />
                     </entry>
                     <entry>
                         <reference value="Observation/observation-odh-past-or-present-job-eve-everywoman" />
@@ -1661,7 +1690,7 @@
                                                         <li>
                                                             <ul style="list-style:none; padding-left:0; margin:0 0;">
                                                                 <li>
-                                                                    <div title="display">Diagnostic ultrasonography (procedure)</div> ( <div title="code">16310003</div> ) </li>
+                                                                    <div title="display">Ultrasonography (procedure)</div> ( <div title="code">16310003</div> ) </li>
                                                                 <li>
                                                                     <div title="system">
                                                                         <a href="http://snomed.info/sct">http://snomed.info/sct</a>
@@ -1693,7 +1722,8 @@
                                                                     <li>
                                                                         <ul style="list-style:none; padding-left:0; margin:0 0;">
                                                                             <li>
-                                                                                <div title="display">Gestational age Estimated from patient reported estimated date of conception</div> ( <div title="code">53691-2</div> ) </li>
+                                                                                <div title="display">Gestational age Estimated from patient reported estimated date of conception</div> ( <div title="code"
+                                                                                    >53691-2</div> ) </li>
                                                                             <li>
                                                                                 <div title="system">
                                                                                     <a href="http://loinc.org">http://loinc.org</a>
@@ -1861,7 +1891,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" lang="en-US" class="text-no-entries">
+                                    <td class="text-no-entries" colspan="2" lang="en-US">
                                         <p>Past medical history</p>
                                     </td>
                                 </tr>
@@ -1907,7 +1937,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" lang="en-US" class="text-no-entries">
+                                    <td class="text-no-entries" colspan="2" lang="en-US">
                                         <p>Review of systems</p>
                                     </td>
                                 </tr>
@@ -1945,6 +1975,13 @@
                 </effectivePeriod>
                 <dosage>
                     <text value="Two tablets at once" />
+                    <site>
+                        <coding>
+                            <system value="http://snomed.info/sct" />
+                            <code value="123851003" />
+                            <display value="Mouth" />
+                        </coding>
+                    </site>
                     <route>
                         <coding>
                             <system value="http://snomed.info/sct" />
@@ -1975,6 +2012,9 @@
             <Procedure>
                 <id value="us-ph-procedure-ecmo" />
                 <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-06-28T08:12:56.829+00:00" />
+                    <source value="#A9FdbPgUT95j7Itd" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure" />
                 </meta>
                 <identifier>
@@ -2027,7 +2067,7 @@
                     <coding>
                         <system value="http://www.nlm.nih.gov/research/umls/rxnorm" />
                         <code value="1659929" />
-                        <display value="naloxone HCl 0.4 MG in 1 ML Injection" />
+                        <display value="1 ML naloxone hydrochloride 0.4 MG/ML Injection" />
                     </coding>
                 </medicationCodeableConcept>
                 <subject>
@@ -2069,6 +2109,9 @@
             <ServiceRequest>
                 <id value="servicerequest-eicr-zika" />
                 <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-08-17T08:02:21.928+00:00" />
+                    <source value="#w4zRDqhjQ9EZHgCs" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest" />
                 </meta>
                 <identifier>
@@ -2110,6 +2153,9 @@
             <Condition>
                 <id value="condition-eicr-eve-everywoman-common-cold" />
                 <meta>
+                    <versionId value="6" />
+                    <lastUpdated value="2021-07-15T01:54:14.831+00:00" />
+                    <source value="#4g0ZpTNqldHFYLzr" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
                 </meta>
                 <category>
@@ -2144,6 +2190,9 @@
             <Encounter>
                 <id value="encounter-eicr-eve-everywoman-outpatient" />
                 <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-07-19T03:02:05.806+00:00" />
+                    <source value="#Q5dlT8eND2UI2D6e" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
                 </meta>
                 <identifier>
@@ -2159,7 +2208,7 @@
                 <type>
                     <coding>
                         <system value="http://www.ama-assn.org/go/cpt" />
-                        <code value="99201" />
+                        <code value="99202" />
                     </coding>
                     <text value="Office Visit" />
                 </type>
@@ -2228,6 +2277,9 @@
             <Observation>
                 <id value="observation-pregnancy-status-eve-everywoman" />
                 <meta>
+                    <versionId value="8" />
+                    <lastUpdated value="2021-08-17T07:59:00.824+00:00" />
+                    <source value="#bBlVx7OsNPsZVCbu" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation" />
                 </meta>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension">
@@ -2262,7 +2314,7 @@
                     <coding>
                         <system value="http://snomed.info/sct" />
                         <code value="16310003" />
-                        <display value="Diagnostic ultrasonography (procedure)" />
+                        <display value="Ultrasonography (procedure)" />
                     </coding>
                 </method>
                 <component>
@@ -2303,6 +2355,9 @@
             <Observation>
                 <id value="observation-vaccine-credential-assertion-eve-everywoman" />
                 <meta>
+                    <versionId value="2" />
+                    <lastUpdated value="2021-08-13T04:25:18.607+00:00" />
+                    <source value="#12yO2DqhRxbXmEOy" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion" />
                 </meta>
                 <status value="final" />
@@ -2334,6 +2389,9 @@
             <Observation>
                 <id value="observation-us-ph-emergency-outbreak-info-eve-everywoman" />
                 <meta>
+                    <versionId value="4" />
+                    <lastUpdated value="2021-07-15T01:22:52.178+00:00" />
+                    <source value="#oAXhG2HyvbL70uEB" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information" />
                 </meta>
                 <status value="final" />
@@ -2358,6 +2416,9 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-country-of-nationality-eve-everywoman" />
                 <meta>
+                    <versionId value="1" />
+                    <lastUpdated value="2021-08-19T21:30:49.456+00:00" />
+                    <source value="#ABFWLRjmURVC23y1" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-nationality" />
                 </meta>
                 <status value="final" />
@@ -2389,6 +2450,9 @@
             <Patient>
                 <id value="patient-ecr-eve-everywoman" />
                 <meta>
+                    <versionId value="10" />
+                    <lastUpdated value="2021-08-17T08:00:32.356+00:00" />
+                    <source value="#zjFlzHDvZIYVyMAB" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient" />
                 </meta>
                 <text>
@@ -2449,16 +2513,6 @@
                 <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
                     <valueCode value="F" />
                 </extension>
-                <!--Birthplace-->
-                <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
-                    <address>
-                        <line value="5101 Peachtree St NE" />
-                        <city value="Atlanta" />
-                        <state value="GA" />
-                        <postalCode value="30302" />
-                        <country value="US" />
-                    </address>
-                </extension>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
                     <extension url="value">
                         <valueCodeableConcept>
@@ -2470,24 +2524,28 @@
                             <text value="asked but unknown" />
                         </valueCodeableConcept>
                     </extension>
-                    <extension url="period">
-                        <valuePeriod>
-                            <start value="2018-01-02" />
-                            <end value="2018-01-02" />
-                        </valuePeriod>
-                    </extension>
                 </extension>
                 <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-tribal-affiliation-extension">
                     <extension url="TribeName">
                         <valueCoding>
                             <system value="http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS" />
                             <code value="91" />
-                            <display value="Fort Mojave Indian Tribe of Arizona, California" />
+                            <display value="Fort Mojave Indian Tribe of Arizona, California &amp; Nevada" />
                         </valueCoding>
                     </extension>
                     <extension url="EnrolledTribeMember">
                         <valueBoolean value="true" />
                     </extension>
+                </extension>
+                <!--Birthplace-->
+                <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
+                    <valueAddress>
+                        <line value="5101 Peachtree St NE" />
+                        <city value="Atlanta" />
+                        <state value="GA" />
+                        <postalCode value="30302" />
+                        <country value="US" />
+                    </valueAddress>
                 </extension>
                 <identifier>
                     <use value="usual" />
@@ -2515,6 +2573,7 @@
                 <telecom>
                     <system value="email" />
                     <value value="eve.everywoman@example.com" />
+                    <use value="home" />
                 </telecom>
                 <gender value="female" />
                 <birthDate value="1974-11-24" />
@@ -2556,21 +2615,11 @@
                 <communication>
                     <language>
                         <coding>
-                            <system value="urn:ietf:bcp:47"/>
-                            <code value="eng"/>
-                        </coding>
-                    </language>
-                    <preferred value="true"/>
-                </communication>
-                <communication>
-                    <language>
-                        <coding>
-                            <system value="urn:ietf:bcp:47"/>
-                            <code value="en"/>
+                            <system value="urn:ietf:bcp:47" />
+                            <code value="en" />
                             <display value="English" />
                         </coding>
                     </language>
-                    <preferred value="false"/>
                 </communication>
             </Patient>
         </resource>
@@ -2581,6 +2630,9 @@
             <Immunization>
                 <id value="immunization-ecr-pneumo" />
                 <meta>
+                    <versionId value="8" />
+                    <lastUpdated value="2021-08-17T07:51:35.117+00:00" />
+                    <source value="#EdjaILZHXKHi4bdN" />
                     <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
                 </meta>
                 <status value="completed" />
@@ -2598,6 +2650,725 @@
                 <occurrenceDateTime value="2018-09-01" />
                 <primarySource value="true" />
             </Immunization>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-country-of-residence-eve-everywoman" />
+        <resource>
+            <Observation>
+                <id value="observation-country-of-residence-eve-everywoman" />
+                <meta>
+                    <versionId value="1" />
+                    <lastUpdated value="2021-08-13T00:20:14.025+00:00" />
+                    <source value="#HDoLJzr0kfWKFp3F" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-residence" />
+                </meta>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="77983-5" />
+                        <display value="Country of usual residence" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectiveDateTime value="2020-11-10T22:33:22Z" />
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="urn:iso:std:iso:3166" />
+                        <code value="GB" />
+                        <display value="United Kingdom of Great Britain and Northern Ireland" />
+                    </coding>
+                </valueCodeableConcept>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/PractitionerRole/practitionerrole-henry-seven" />
+        <resource>
+            <PractitionerRole>
+                <id value="practitionerrole-henry-seven" />
+                <meta>
+                    <versionId value="11" />
+                    <lastUpdated value="2021-08-17T08:00:32.355+00:00" />
+                    <source value="#KJ942UxvfdYWoHCF" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole" />
+                </meta>
+                <identifier>
+                    <system value="http://hl7.org/fhir/sid/us-npi" />
+                    <value value="9941339108" />
+                </identifier>
+                <practitioner>
+                    <reference value="Practitioner/practitioner-us-core-henry-seven" />
+                    <display value="Henry Seven, MD" />
+                </practitioner>
+                <organization>
+                    <reference value="Organization/organization-ecr-salem-medical-center" />
+                    <display value="Salem Medical Center" />
+                </organization>
+                <code>
+                    <coding>
+                        <system value="http://nucc.org/provider-taxonomy" />
+                        <code value="261QP2300X" />
+                        <display value="Primary Care Clinic/Center" />
+                    </coding>
+                </code>
+                <specialty>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="419772000" />
+                        <display value="Family practice" />
+                    </coding>
+                </specialty>
+                <location>
+                    <reference value="Location/location-ecr-salem-medical-center" />
+                    <display value="Salem Medical Center" />
+                </location>
+                <telecom>
+                    <system value="email" />
+                    <value value="henry.seven@example.com" />
+                    <use value="work" />
+                </telecom>
+            </PractitionerRole>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-blood-pressure-eve-everywoman" />
+        <resource>
+            <Observation>
+                <id value="observation-blood-pressure-eve-everywoman" />
+                <meta>
+                    <versionId value="2" />
+                    <lastUpdated value="2021-07-19T08:19:31.753+00:00" />
+                    <source value="#2PjceWUbU0gCYVZA" />
+                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure" />
+                </meta>
+                <status value="final" />
+                <category>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+                        <code value="vital-signs" />
+                        <display value="Vital Signs" />
+                    </coding>
+                    <text value="Vital Signs" />
+                </category>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="85354-9" />
+                        <display value="Blood pressure panel with all children optional" />
+                    </coding>
+                    <text value="Blood pressure systolic and diastolic" />
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <encounter>
+                    <display value="GP Visit" />
+                </encounter>
+                <effectiveDateTime value="2020-07-02" />
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="8480-6" />
+                            <display value="Systolic blood pressure" />
+                        </coding>
+                        <text value="Systolic blood pressure" />
+                    </code>
+                    <valueQuantity>
+                        <value value="109" />
+                        <unit value="mmHg" />
+                        <system value="http://unitsofmeasure.org" />
+                        <code value="mm[Hg]" />
+                    </valueQuantity>
+                </component>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://loinc.org" />
+                            <code value="8462-4" />
+                            <display value="Diastolic blood pressure" />
+                        </coding>
+                        <text value="Diastolic blood pressure" />
+                    </code>
+                    <valueQuantity>
+                        <value value="44" />
+                        <unit value="mmHg" />
+                        <system value="http://unitsofmeasure.org" />
+                        <code value="mm[Hg]" />
+                    </valueQuantity>
+                </component>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-us-ph-exposure-contact-info-football-game" />
+        <resource>
+            <Observation>
+                <id value="observation-us-ph-exposure-contact-info-football-game" />
+                <meta>
+                    <versionId value="4" />
+                    <lastUpdated value="2020-12-01T07:17:32.073+00:00" />
+                    <source value="#pMvWUdCWz4XOnrDf" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information" />
+                </meta>
+                <status value="final" />
+                <category>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActClass" />
+                        <code value="EXPOS" />
+                        <display value="exposure" />
+                    </coding>
+                    <text
+                        value="An interaction between entities that provides opportunity for transmission of a physical, chemical, or biological agent from an exposure source entity to an exposure target entity."
+                     />
+                </category>
+                <code>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/umls" />
+                        <code value="C3841750" />
+                        <display value="Mass gathering" />
+                    </coding>
+                    <text value="Mass gathering (football game)" />
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <focus>
+                    <reference value="Location/location-ecr-city-football-stadium" />
+                    <display value="City Football Stadium" />
+                </focus>
+                <effectivePeriod>
+                    <start value="2020-01-11T18:00:00Z" />
+                    <end value="2020-01-11T21:30:00Z" />
+                </effectivePeriod>
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="264379009" />
+                        <display value="Sports stadium (environment)" />
+                    </coding>
+                    <text value="City Football Stadium" />
+                </valueCodeableConcept>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-travel-history-eve-everywoman-201801" />
+        <resource>
+            <Observation>
+                <id value="observation-travel-history-eve-everywoman-201801" />
+                <meta>
+                    <versionId value="9" />
+                    <lastUpdated value="2021-08-17T07:59:01.126+00:00" />
+                    <source value="#d6PrWfFFuxUIiLtX" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
+                </meta>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="420008001" />
+                        <display value="Travel" />
+                    </coding>
+                    <text value="Travel History" />
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectivePeriod>
+                    <start value="2018-01-15" />
+                    <end value="2018-01-30" />
+                </effectivePeriod>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+                            <code value="LOC" />
+                            <display value="Location" />
+                        </coding>
+                    </code>
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="urn:iso:std:iso:3166" />
+                            <code value="FJI" />
+                            <display value="Fiji" />
+                        </coding>
+                    </valueCodeableConcept>
+                </component>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+                            <code value="LOC" />
+                            <display value="Location" />
+                        </coding>
+                    </code>
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="urn:oid:1.0.3166.1" />
+                            <code value="VUT" />
+                            <display value="Vanuatu" />
+                        </coding>
+                    </valueCodeableConcept>
+                </component>
+                <component>
+                    <code>
+                        <coding>
+                            <system value="http://snomed.info/sct" />
+                            <code value="280147009" />
+                            <display value="Type of activity (attribute)" />
+                        </coding>
+                    </code>
+                    <valueCodeableConcept>
+                        <coding>
+                            <system value="http://snomed.info/sct" />
+                            <code value="702348006" />
+                            <display value="Active duty military (occupation)" />
+                        </coding>
+                    </valueCodeableConcept>
+                </component>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-disability-status-eve-everywoman" />
+        <resource>
+            <Observation>
+                <id value="observation-disability-status-eve-everywoman" />
+                <meta>
+                    <versionId value="2" />
+                    <lastUpdated value="2021-06-30T05:33:12.487+00:00" />
+                    <source value="#AVCvf6gXu6hyNuWr" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status" />
+                </meta>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="69856-3" />
+                        <display value="Are you deaf, or do you have serious difficulty hearing" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectiveDateTime value="2020-11-10T22:33:22Z" />
+                <valueBoolean value="true" />
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
+        <resource>
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
+                <meta>
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation" />
+                </meta>
+                <status value="final" />
+                <category>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+                        <code value="laboratory" />
+                        <display value="Laboratory" />
+                    </coding>
+                    <text value="Laboratory" />
+                </category>
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="731-0" />
+                        <display value="Lymphocytes [#/volume] in Blood by Automated count" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectiveDateTime value="2018-03-07" />
+                <valueQuantity>
+                    <value value="5.2" />
+                    <system value="http://unitsofmeasure.org" />
+                    <code value="10*3/uL" />
+                </valueQuantity>
+                <interpretation>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation" />
+                        <code value="H" />
+                        <display value="High" />
+                    </coding>
+                </interpretation>
+                <referenceRange>
+                    <low>
+                        <value value="1" />
+                        <system value="http://unitsofmeasure.org" />
+                        <code value="10*3/uL" />
+                    </low>
+                    <high>
+                        <value value="4.8" />
+                        <system value="http://unitsofmeasure.org" />
+                        <code value="10*3/uL" />
+                    </high>
+                </referenceRange>
+            </Observation>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Organization/organization-ecr-acme-laboratory" />
+        <resource>
+            <Organization>
+                <id value="organization-ecr-acme-laboratory" />
+                <meta>
+                    <versionId value="4" />
+                    <lastUpdated value="2021-06-30T04:13:19.329+00:00" />
+                    <source value="#xp7CXcY2lPaNsDQL" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+                </meta>
+                <identifier>
+                    <system value="http://hl7.org.fhir/sid/us-npi" />
+                    <value value="1144221999" />
+                </identifier>
+                <active value="true" />
+                <type>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+                        <code value="OUTLAB" />
+                        <display value="outpatient laboratory" />
+                    </coding>
+                </type>
+                <name value="Acme_Labs" />
+                <telecom>
+                    <system value="phone" />
+                    <value value="+1-555-555-4444" />
+                </telecom>
+                <telecom>
+                    <system value="email" />
+                    <value value="mail@acme-labs.com" />
+                </telecom>
+                <address>
+                    <line value="7777 Laboratory Drive" />
+                    <city value="Ann Arbor" />
+                    <state value="MI" />
+                    <postalCode value="99999" />
+                </address>
+            </Organization>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Location/location-ecr-salem-medical-center" />
+        <resource>
+            <Location>
+                <id value="location-ecr-salem-medical-center" />
+                <meta>
+                    <versionId value="6" />
+                    <lastUpdated value="2021-08-17T07:53:02.099+00:00" />
+                    <source value="#VI2Nm5Ps5HqZ5HXV" />
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
+                </meta>
+                <identifier>
+                    <system value="http://hl7.org.fhir/sid/us-npi" />
+                    <value value="1144221995" />
+                </identifier>
+                <status value="active" />
+                <name value="Clinic Bldg A, Salem Medical Center" />
+                <type>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+                        <code value="HOSP" />
+                        <display value="Hospital" />
+                    </coding>
+                </type>
+                <telecom>
+                    <system value="phone" />
+                    <value value="(+1) (555)555-3001" />
+                </telecom>
+                <telecom>
+                    <system value="fax" />
+                    <value value="(+1) (555)555-3002" />
+                </telecom>
+                <telecom>
+                    <system value="email" />
+                    <value value="mail@smc.org" />
+                </telecom>
+                <address>
+                    <line value="Clinic Bldg A" />
+                    <line value="4444 Healthcare Drive" />
+                    <city value="Ann Arbor" />
+                    <state value="MI" />
+                    <postalCode value="99999" />
+                </address>
+                <managingOrganization>
+                    <reference value="Organization/organization-ecr-salem-medical-center" />
+                </managingOrganization>
+            </Location>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Location/location-ecr-city-football-stadium" />
+        <resource>
+            <Location xmlns="http://hl7.org/fhir">
+                <id value="location-ecr-city-football-stadium" />
+                <meta>
+                    <versionId value="1" />
+                    <lastUpdated value="2020-12-01T01:55:32.705+00:00" />
+                    <source value="#KLUFk4w6CXKqrFEC" />
+                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-location" />
+                </meta>
+                <status value="active" />
+                <name value="City Football Stadium" />
+                <type>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="264379009" />
+                        <display value="Sports stadium (environment)" />
+                    </coding>
+                    <text value="City Football Stadium" />
+                </type>
+                <address>
+                    <line value="99 Football Stadium Road" />
+                    <city value="My City" />
+                    <state value="AZ" />
+                    <postalCode value="8562" />
+                </address>
+            </Location>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Organization/organization-ecr-salem-medical-center" />
+        <resource>
+            <Organization>
+                <id value="organization-ecr-salem-medical-center" />
+                <meta>
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+                </meta>
+                <identifier>
+                    <system value="http://hl7.org.fhir/sid/us-npi" />
+                    <value value="55555555" />
+                </identifier>
+                <active value="true" />
+                <name value="Salem Medical Center" />
+                <telecom>
+                    <system value="phone" />
+                    <value value="+1-555-555-1111" />
+                    <use value="work" />
+                </telecom>
+                <telecom>
+                    <system value="email" />
+                    <value value="mail@salemmedicalcenter.com" />
+                    <use value="work" />
+                </telecom>
+                <address>
+                    <line value="22222 Health Authority Drive" />
+                    <city value="Ann Arbor" />
+                    <state value="MI" />
+                    <postalCode value="99999" />
+                </address>
+            </Organization>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Condition/condition-eicr-eve-everywoman-zika" />
+        <resource>
+            <Condition>
+                <id value="condition-eicr-eve-everywoman-zika" />
+                <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-07-15T01:54:14.835+00:00" />
+                    <source value="#rM2Pw6getjoE2UTV" />
+                </meta>
+                <category>
+                    <coding>
+                        <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+                        <code value="encounter-diagnosis" />
+                        <display value="Encounter Diagnosis" />
+                    </coding>
+                </category>
+                <code>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="3928002" />
+                        <display value="Zika virus disease (disorder)" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <onsetDateTime value="2017-08-23" />
+                <asserter>
+                    <reference value="Practitioner/practitioner-us-core-henry-seven" />
+                    <display value="Henry Seven, MD" />
+                </asserter>
+            </Condition>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Practitioner/practitioner-us-core-henry-seven" />
+        <resource>
+            <Practitioner>
+                <id value="practitioner-us-core-henry-seven" />
+                <meta>
+                    <versionId value="5" />
+                    <lastUpdated value="2021-08-17T08:00:32.356+00:00" />
+                    <source value="#2MfA6kIjmOmtAlIb" />
+                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
+                </meta>
+                <identifier>
+                    <system value="http://hl7.org/fhir/sid/us-npi" />
+                    <value value="9941339108" />
+                </identifier>
+                <name>
+                    <family value="Henry" />
+                    <given value="Seven" />
+                    <suffix value="M.D." />
+                </name>
+                <telecom>
+                    <system value="email" />
+                    <value value="henry.seven@example.com" />
+                </telecom>
+                <address>
+                    <line value="BMass Doctors" />
+                    <line value="2100 North Ave" />
+                    <city value="Burlington" />
+                    <state value="MA" />
+                    <postalCode value="02368" />
+                    <country value="US" />
+                </address>
+            </Practitioner>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Device/device-ecmo" />
+        <resource>
+            <Device xmlns="http://hl7.org/fhir">
+                <id value="device-ecmo" />
+                <meta>
+                    <versionId value="3" />
+                    <lastUpdated value="2021-06-30T07:22:44.658+00:00" />
+                    <source value="#WUV2SWqz3ej775gd" />
+                </meta>
+                <text>
+                    <status value="generated" />
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            <b>Manually Created Narrative</b>
+                        </p>
+                        <h3>UDI</h3>
+                        <p>
+                            <b>Device Identifier</b>: 99863313444317 </p>
+                        <p>
+                            <b>CarrierHRF</b>: (01)99863313444316(17)220101(10)M320(21)AC222 </p>
+                        <p>
+                            <b>EntryType</b>: rfid </p>
+                        <p>
+                            <b>Name</b>: ACME Extracorporeal membrane oxygenator </p>
+                        <p>
+                            <b>Type</b>: udi-label-name </p>
+                        <p>
+                            <b>status</b>: active </p>
+                        <p>
+                            <b>manufacturer</b>: ACME Biomedical </p>
+                        <p>
+                            <b>expirationDate</b>: 2024-01-01 </p>
+                        <p>
+                            <b>lotNumber</b>: M321 </p>
+                        <p>
+                            <b>serialNumber</b>: AC222 </p>
+                        <p>
+                            <b>modelNumber</b>: 4.0 </p>
+                        <p>
+                            <b>patient</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Eve Everywoman. Generated Summary: Medical Record Number: 1032702 (USUAL); active; Eve L Everywoman ; Phone:
+                                1-(404)555-1212, eve.everywoman@example.com; gender: female; birthDate: 1974-11-24</a>
+                        </p>
+                    </div>
+                </text>
+                <udiCarrier>
+                    <deviceIdentifier value="99863313444316" />
+                    <carrierHRF value="(01)99863313444316(17)220101(10)M320(21)AC222" />
+                    <entryType value="rfid" />
+                </udiCarrier>
+                <status value="active" />
+                <manufacturer value="ACME Biomedical" />
+                <expirationDate value="2022-01-01" />
+                <lotNumber value="M320" />
+                <serialNumber value="AC222" />
+                <deviceName>
+                    <name value="ACME Extracorporeal membrane oxygenator" />
+                    <type value="udi-label-name" />
+                </deviceName>
+                <modelNumber value="4.0" />
+                <type>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="469244005" />
+                        <display value="Extracorporeal membrane oxygenator (physical object)" />
+                    </coding>
+                    <text value="Extracorporeal membrane oxygenator (physical object)" />
+                </type>
+                <patient>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </patient>
+            </Device>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://example.org/fhir/Observation/observation-characteristics-of-home-environment-eve-everywoman" />
+        <resource>
+            <Observation xmlns="http://hl7.org/fhir">
+                <id value="observation-characteristics-of-home-environment-eve-everywoman" />
+                <meta>
+                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment" />
+                </meta>
+                <text>
+                    <status value="generated" />
+                    <div xmlns="http://www.w3.org/1999/xhtml">
+                        <p>
+                            <b>Generated Narrative: Observation</b>
+                            <a name="observation-characteristics-of-home-environment-eve-everywoman"> </a>
+                        </p>
+                        <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
+                            <p style="margin-bottom: 0px">Resource Observation &quot;observation-characteristics-of-home-environment-eve-everywoman&quot; Version &quot;5&quot; Updated &quot;2021-06-30 05:17:19+0000&quot; </p>
+                            <p style="margin-bottom: 0px">Information Source: #cgLJymHVJKry789c!</p>
+                            <p style="margin-bottom: 0px">Profile: <a href="StructureDefinition-us-ph-characteristics-of-home-environment.html">US Public Health Characteristics of Home Environment</a></p>
+                        </div>
+                        <p><b>status</b>: final</p>
+                        <p><b>code</b>: Characteristics of residence <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#75274-1)</span></p>
+                        <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
+                        <p><b>effective</b>: 2016-05-18 22:33:22+0000</p>
+                        <p><b>value</b>: Homeless <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://browser.ihtsdotools.org/">SNOMED CT</a>#32911000)</span></p>
+                    </div>
+                </text>
+                <status value="final" />
+                <code>
+                    <coding>
+                        <system value="http://loinc.org" />
+                        <code value="75274-1" />
+                        <display value="Characteristics of residence" />
+                    </coding>
+                </code>
+                <subject>
+                    <reference value="Patient/patient-ecr-eve-everywoman" />
+                    <display value="Eve Everywoman" />
+                </subject>
+                <effectiveDateTime value="2016-05-18T22:33:22Z" />
+                <valueCodeableConcept>
+                    <coding>
+                        <system value="http://snomed.info/sct" />
+                        <code value="32911000" />
+                        <display value="Homeless" />
+                    </coding>
+                </valueCodeableConcept>
+            </Observation>
         </resource>
     </entry>
     <entry>
@@ -2652,56 +3423,6 @@
         </resource>
     </entry>
     <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-characteristics-of-home-environment-eve-everywoman" />
-        <resource>
-            <Observation xmlns="http://hl7.org/fhir">
-                <id value="observation-characteristics-of-home-environment-eve-everywoman" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment" />
-                </meta>
-                <text>
-                    <status value="generated" />
-                    <div xmlns="http://www.w3.org/1999/xhtml">
-                        <p>
-                            <b>Generated Narrative: Observation</b>
-                            <a name="observation-characteristics-of-home-environment-eve-everywoman"> </a>
-                        </p>
-                        <div style="display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%">
-                            <p style="margin-bottom: 0px">Resource Observation &quot;observation-characteristics-of-home-environment-eve-everywoman&quot; Version &quot;5&quot; Updated &quot;2021-06-30 05:17:19+0000&quot; </p>
-                            <p style="margin-bottom: 0px">Information Source: #cgLJymHVJKry789c!</p>
-                            <p style="margin-bottom: 0px">Profile: <a href="StructureDefinition-us-ph-characteristics-of-home-environment.html">US Public Health Characteristics of Home Environment</a></p>
-                        </div>
-                        <p><b>status</b>: final</p>
-                        <p><b>code</b>: Characteristics of residence <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#75274-1)</span></p>
-                        <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
-                        <p><b>effective</b>: 2016-05-18 22:33:22+0000</p>
-                        <p><b>value</b>: Homeless <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://browser.ihtsdotools.org/">SNOMED CT</a>#32911000)</span></p>
-                    </div>
-                </text>
-                <status value="final" />
-                <code>
-                    <coding>
-                        <system value="http://loinc.org" />
-                        <code value="75274-1" />
-                        <display value="Characteristics of residence" />
-                    </coding>
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <effectiveDateTime value="2016-05-18T22:33:22Z" />
-                <valueCodeableConcept>
-                    <coding>
-                        <system value="http://snomed.info/sct" />
-                        <code value="32911000" />
-                        <display value="Homeless" />
-                    </coding>
-                </valueCodeableConcept>
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
         <fullUrl value="http://example.org/fhir/Observation/observation-odh-past-or-present-job-eve-everywoman" />
         <resource>
             <Observation xmlns="http://hl7.org/fhir">
@@ -2726,14 +3447,14 @@
                         <p><b>subject</b>: <a href="Patient-patient-ecr-eve-everywoman.html">Patient/patient-ecr-eve-everywoman: Eve Everywoman</a> &quot;&quot;</p>
                         <p><b>effective</b>: 2015-04-24 --&gt; (ongoing)</p>
                         <p><b>value</b>: Nursing, psychiatric, and home health aides <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationCDCCensus2010.html">Occupation CDC Census 2010</a>#3600; <a
-                                    href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationalDataForHealthODH.html">Occupational Data for Health (ODH)</a>#31-1014.00.007136 &quot;Certified Nursing Assistant (CNA) [Nursing Assistants]&quot;)</span></p>
+                            href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationalDataForHealthODH.html">Occupational Data for Health (ODH)</a>#31-1014.00.007136 &quot;Certified Nursing Assistant (CNA) [Nursing Assistants]&quot;)</span></p>
                         <blockquote>
                             <p>
                                 <b>component</b>
                             </p>
                             <p><b>code</b>: History of Occupation industry <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="https://loinc.org/">LOINC</a>#86188-0)</span></p>
                             <p><b>value</b>: Nursing care facilities <span style="background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki"> (<a href="http://terminology.hl7.org/5.0.0/CodeSystem-PHIndustryCDCCensus2010.html">Industry CDC Census 2010</a>#8270; <a
-                                        href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationalDataForHealthODH.html">Occupational Data for Health (ODH)</a>#621610.008495 &quot;Home nursing services&quot;)</span></p>
+                                href="http://terminology.hl7.org/5.0.0/CodeSystem-PHOccupationalDataForHealthODH.html">Occupational Data for Health (ODH)</a>#621610.008495 &quot;Home nursing services&quot;)</span></p>
                         </blockquote>
                         <blockquote>
                             <p>
@@ -2805,7 +3526,7 @@
             </Observation>
         </resource>
     </entry>
-
+    
     <entry>
         <fullUrl value="http://example.org/fhir/Observation/observation-odh-usual-work-eve-everywoman" />
         <resource>
@@ -2890,563 +3611,6 @@
                     </valueCodeableConcept>
                 </component>
             </Observation>
-        </resource>
-    </entry>
-
-    <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-country-of-residence-eve-everywoman" />
-        <resource>
-            <Observation>
-                <id value="observation-country-of-residence-eve-everywoman" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-country-of-residence" />
-                </meta>
-                <status value="final" />
-                <code>
-                    <coding>
-                        <system value="http://loinc.org" />
-                        <code value="77983-5" />
-                        <display value="Country of usual residence" />
-                    </coding>
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <effectiveDateTime value="2020-11-10T22:33:22Z" />
-                <valueCodeableConcept>
-                    <coding>
-                        <system value="urn:iso:std:iso:3166" />
-                        <code value="GB" />
-                        <display value="United Kingdom of Great Britain and Northern Ireland" />
-                    </coding>
-                </valueCodeableConcept>
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/PractitionerRole/practitionerrole-henry-seven" />
-        <resource>
-            <PractitionerRole>
-                <id value="practitionerrole-henry-seven" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole" />
-                </meta>
-                <identifier>
-                    <system value="http://hl7.org/fhir/sid/us-npi" />
-                    <value value="9941339108" />
-                </identifier>
-                <practitioner>
-                    <reference value="Practitioner/practitioner-us-core-henry-seven" />
-                    <display value="Henry Seven, MD" />
-                </practitioner>
-                <organization>
-                    <reference value="Organization/organization-ecr-salem-medical-center" />
-                    <display value="Salem Medical Center" />
-                </organization>
-                <code>
-                    <coding>
-                        <system value="http://nucc.org/provider-taxonomy" />
-                        <code value="261QP2300X" />
-                        <display value="Primary Care Clinic/Center" />
-                    </coding>
-                </code>
-                <specialty>
-                    <coding>
-                        <system value="http://snomed.info/sct" />
-                        <code value="419772000" />
-                        <display value="Family practice" />
-                    </coding>
-                </specialty>
-                <location>
-                    <reference value="Location/location-ecr-salem-medical-center" />
-                    <display value="Salem Medical Center" />
-                </location>
-                <telecom>
-                    <system value="email" />
-                    <value value="henry.seven@example.com" />
-                </telecom>
-            </PractitionerRole>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-blood-pressure-eve-everywoman" />
-        <resource>
-            <Observation>
-                <id value="observation-blood-pressure-eve-everywoman" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure" />
-                </meta>
-                <status value="final" />
-                <category>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
-                        <code value="vital-signs" />
-                        <display value="Vital Signs" />
-                    </coding>
-                    <text value="Vital Signs" />
-                </category>
-                <code>
-                    <coding>
-                        <system value="http://loinc.org" />
-                        <code value="85354-9" />
-                        <display value="Blood pressure panel with all children optional" />
-                    </coding>
-                    <text value="Blood pressure systolic and diastolic" />
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <encounter>
-                    <display value="GP Visit" />
-                </encounter>
-                <effectiveDateTime value="2020-07-02" />
-                <component>
-                    <code>
-                        <coding>
-                            <system value="http://loinc.org" />
-                            <code value="8480-6" />
-                            <display value="Systolic blood pressure" />
-                        </coding>
-                        <text value="Systolic blood pressure" />
-                    </code>
-                    <valueQuantity>
-                        <value value="109" />
-                        <unit value="mmHg" />
-                        <system value="http://unitsofmeasure.org" />
-                        <code value="mm[Hg]" />
-                    </valueQuantity>
-                </component>
-                <component>
-                    <code>
-                        <coding>
-                            <system value="http://loinc.org" />
-                            <code value="8462-4" />
-                            <display value="Diastolic blood pressure" />
-                        </coding>
-                        <text value="Diastolic blood pressure" />
-                    </code>
-                    <valueQuantity>
-                        <value value="44" />
-                        <unit value="mmHg" />
-                        <system value="http://unitsofmeasure.org" />
-                        <code value="mm[Hg]" />
-                    </valueQuantity>
-                </component>
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-us-ph-exposure-contact-info-football-game" />
-        <resource>
-            <Observation>
-                <id value="observation-us-ph-exposure-contact-info-football-game" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information" />
-                </meta>
-                <status value="final" />
-                <category>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/v3-ActClass" />
-                        <code value="EXPOS" />
-                        <display value="exposure" />
-                    </coding>
-                    <text value="An interaction between entities that provides opportunity for transmission of a physical, chemical, or biological agent from an exposure source entity to an exposure target entity." />
-                </category>
-                <code>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/umls" />
-                        <code value="C3841750" />
-                        <display value="Mass gathering" />
-                    </coding>
-                    <text value="Mass gathering (football game)" />
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <focus>
-                    <reference value="Location/location-ecr-city-football-stadium" />
-                    <display value="City Football Stadium" />
-                </focus>
-                <effectivePeriod>
-                    <start value="2020-01-11T18:00:00Z" />
-                    <end value="2020-01-11T21:30:00Z" />
-                </effectivePeriod>
-                <valueCodeableConcept>
-                    <coding>
-                        <system value="http://snomed.info/sct" />
-                        <code value="264379009" />
-                        <display value="Sports stadium (environment)" />
-                    </coding>
-                    <text value="City Football Stadium" />
-                </valueCodeableConcept>
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-travel-history-eve-everywoman-201801" />
-        <resource>
-            <Observation>
-                <id value="observation-travel-history-eve-everywoman-201801" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history" />
-                </meta>
-                <status value="final" />
-                <code>
-                    <coding>
-                        <system value="http://snomed.info/sct" />
-                        <code value="420008001" />
-                        <display value="Travel" />
-                    </coding>
-                    <text value="Travel History" />
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <effectivePeriod>
-                    <start value="2018-01-15" />
-                    <end value="2018-01-30" />
-                </effectivePeriod>
-                <component>
-                    <code>
-                        <coding>
-                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
-                            <code value="LOC" />
-                            <display value="Location" />
-                        </coding>
-                    </code>
-                    <valueCodeableConcept>
-                        <coding>
-                            <system value="urn:iso:std:iso:3166" />
-                            <code value="FJI" />
-                            <display value="Fiji" />
-                        </coding>
-                    </valueCodeableConcept>
-                </component>
-                <component>
-                    <code>
-                        <coding>
-                            <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
-                            <code value="LOC" />
-                            <display value="Location" />
-                        </coding>
-                    </code>
-                    <valueCodeableConcept>
-                        <coding>
-                            <system value="urn:oid:1.0.3166.1" />
-                            <code value="VUT" />
-                            <display value="Vanuatu" />
-                        </coding>
-                    </valueCodeableConcept>
-                </component>
-                <component>
-                    <code>
-                        <coding>
-                            <system value="http://snomed.info/sct" />
-                            <code value="280147009" />
-                            <display value="Type of activity (attribute)" />
-                        </coding>
-                    </code>
-                    <valueCodeableConcept>
-                        <coding>
-                            <system value="http://snomed.info/sct" />
-                            <code value="702348006" />
-                            <display value="Active duty military (occupation)" />
-                        </coding>
-                    </valueCodeableConcept>
-                </component>
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-disability-status-eve-everywoman" />
-        <resource>
-            <Observation>
-                <id value="observation-disability-status-eve-everywoman" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-disability-status" />
-                </meta>
-                <status value="final" />
-                <code>
-                    <coding>
-                        <system value="http://loinc.org" />
-                        <code value="69856-3" />
-                        <display value="Are you deaf, or do you have serious difficulty hearing?" />
-                    </coding>
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <effectiveDateTime value="2020-11-10T22:33:22Z" />
-                <valueBoolean value="true" />
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Observation/observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
-        <resource>
-            <Observation xmlns="http://hl7.org/fhir">
-                <id value="observation-us-ph-lab-result-eve-everywoman-lymphocytes" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation" />
-                </meta>
-                <status value="final" />
-                <category>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
-                        <code value="laboratory" />
-                        <display value="Laboratory" />
-                    </coding>
-                    <text value="Laboratory" />
-                </category>
-                <code>
-                    <coding>
-                        <system value="http://loinc.org" />
-                        <code value="731-0" />
-                        <display value="Lymphocytes [#/volume] in Blood by Automated count" />
-                    </coding>
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <effectiveDateTime value="2018-03-07" />
-                <valueQuantity>
-                    <value value="5.2" />
-                    <system value="http://unitsofmeasure.org" />
-                    <code value="10*3/uL" />
-                </valueQuantity>
-                <interpretation>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation" />
-                        <code value="H" />
-                        <display value="High" />
-                    </coding>
-                </interpretation>
-                <referenceRange>
-                    <low>
-                        <value value="1" />
-                        <system value="http://unitsofmeasure.org" />
-                        <code value="10*3/uL" />
-                    </low>
-                    <high>
-                        <value value="4.8" />
-                        <system value="http://unitsofmeasure.org" />
-                        <code value="10*3/uL" />
-                    </high>
-                </referenceRange>
-            </Observation>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Organization/organization-ecr-acme-laboratory" />
-        <resource>
-            <Organization>
-                <id value="organization-ecr-acme-laboratory" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
-                </meta>
-                <identifier>
-                    <system value="http://hl7.org.fhir/sid/us-npi" />
-                    <value value="1144221999" />
-                </identifier>
-                <active value="true" />
-                <type>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
-                        <code value="OUTLAB" />
-                        <display value="outpatient laboratory" />
-                    </coding>
-                </type>
-                <name value="Acme_Labs" />
-                <telecom>
-                    <system value="phone" />
-                    <value value="+1-555-555-4444" />
-                </telecom>
-                <telecom>
-                    <system value="email" />
-                    <value value="mail@acme-labs.com" />
-                </telecom>
-                <address>
-                    <line value="7777 Laboratory Drive" />
-                    <city value="Ann Arbor" />
-                    <state value="MI" />
-                    <postalCode value="99999" />
-                </address>
-            </Organization>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Location/location-ecr-salem-medical-center" />
-        <resource>
-            <Location>
-                <id value="location-ecr-salem-medical-center" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
-                </meta>
-                <identifier>
-                    <system value="http://hl7.org.fhir/sid/us-npi" />
-                    <value value="1144221995" />
-                </identifier>
-                <status value="active" />
-                <name value="Clinic Bldg A, Salem Medical Center" />
-                <type>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
-                        <code value="HOSP" />
-                        <display value="Hospital" />
-                    </coding>
-                </type>
-                <telecom>
-                    <system value="phone" />
-                    <value value="(+1) (555)555-3001" />
-                </telecom>
-                <telecom>
-                    <system value="fax" />
-                    <value value="(+1) (555)555-3002" />
-                </telecom>
-                <telecom>
-                    <system value="email" />
-                    <value value="mail@smc.org" />
-                </telecom>
-                <address>
-                    <line value="Clinic Bldg A" />
-                    <line value="4444 Healthcare Drive" />
-                    <city value="Ann Arbor" />
-                    <state value="MI" />
-                    <postalCode value="99999" />
-                </address>
-                <managingOrganization>
-                    <reference value="Organization/organization-ecr-salem-medical-center" />
-                </managingOrganization>
-            </Location>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Location/location-ecr-city-football-stadium" />
-        <resource>
-            <Location xmlns="http://hl7.org/fhir">
-                <id value="location-ecr-city-football-stadium" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-location" />
-                </meta>
-                <status value="active" />
-                <name value="City Football Stadium" />
-                <type>
-                    <coding>
-                        <system value="http://snomed.info/sct" />
-                        <code value="264379009" />
-                        <display value="Sports stadium (environment)" />
-                    </coding>
-                    <text value="City Football Stadium" />
-                </type>
-                <address>
-                    <line value="99 Football Stadium Road" />
-                    <city value="My City" />
-                    <state value="AZ" />
-                    <postalCode value="8562" />
-                </address>
-            </Location>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Organization/organization-ecr-salem-medical-center" />
-        <resource>
-            <Organization>
-                <id value="organization-ecr-salem-medical-center" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
-                </meta>
-                <identifier>
-                    <system value="http://hl7.org.fhir/sid/us-npi" />
-                    <value value="55555555" />
-                </identifier>
-                <active value="true" />
-                <name value="Salem Medical Center" />
-                <telecom>
-                    <system value="phone" />
-                    <value value="+1-555-555-1111" />
-                </telecom>
-                <telecom>
-                    <system value="email" />
-                    <value value="mail@salemmedicalcenter.com" />
-                </telecom>
-                <address>
-                    <line value="22222 Health Authority Drive" />
-                    <city value="Ann Arbor" />
-                    <state value="MI" />
-                    <postalCode value="99999" />
-                </address>
-            </Organization>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Condition/condition-eicr-eve-everywoman-zika" />
-        <resource>
-            <Condition>
-                <id value="condition-eicr-eve-everywoman-zika" />
-                <meta>
-                </meta>
-                <category>
-                    <coding>
-                        <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
-                        <code value="encounter-diagnosis" />
-                        <display value="Encounter Diagnosis" />
-                    </coding>
-                </category>
-                <code>
-                    <coding>
-                        <system value="http://snomed.info/sct" />
-                        <code value="3928002" />
-                        <display value="Zika virus disease (disorder)" />
-                    </coding>
-                </code>
-                <subject>
-                    <reference value="Patient/patient-ecr-eve-everywoman" />
-                    <display value="Eve Everywoman" />
-                </subject>
-                <onsetDateTime value="2017-08-23" />
-                <asserter>
-                    <reference value="Practitioner/practitioner-us-core-henry-seven" />
-                    <display value="Henry Seven, MD" />
-                </asserter>
-            </Condition>
-        </resource>
-    </entry>
-    <entry>
-        <fullUrl value="http://example.org/fhir/Practitioner/practitioner-us-core-henry-seven" />
-        <resource>
-            <Practitioner>
-                <id value="practitioner-us-core-henry-seven" />
-                <meta>
-                    <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
-                </meta>
-                <identifier>
-                    <system value="http://hl7.org/fhir/sid/us-npi" />
-                    <value value="9941339108" />
-                </identifier>
-                <name>
-                    <family value="Henry" />
-                    <given value="Seven" />
-                    <suffix value="M.D." />
-                </name>
-                <telecom>
-                    <system value="email" />
-                    <value value="henry.seven@example.com" />
-                </telecom>
-                <address>
-                    <line value="BMass Doctors" />
-                    <line value="2100 North Ave" />
-                    <city value="Burlington" />
-                    <state value="MA" />
-                    <postalCode value="02368" />
-                    <country value="US" />
-                </address>
-            </Practitioner>
         </resource>
     </entry>
 </Bundle>

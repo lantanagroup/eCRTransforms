@@ -19,3 +19,84 @@
 /samples/fhir/testr1.1
 /samples/cda/20231115-Sprint-1
 /transforms/cda2fhir-r4/xspec-unit-tests/xspec
+/samples/cda/20240531_Sujata/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_20240508.xml
+/samples/cda/20240531_Sujata/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_20240523.xml
+/samples/cda/20240531_Sujata/Trsfd-CDA-FHIR-R2_IG3.1_SAMPLE_20240521.xml
+/samples/cda/20240531_Sujata/Trsfd-FHIR-CDA-R2_IG3.1_SAMPLE_20240508.xml
+/samples/cda/20240531_Sujata/fhir-CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_20240523.xml
+/samples/cda/20240603_Dragon/EICR_CH_ORG_WI_05272024.xml
+/samples/cda/20240603_Dragon/FHIR_EICR_CH_ORG_WI_05272024.xml
+/samples/cda/20240604_Arun/CCD_EICR_2.XML
+/samples/cda/20240604_Arun/CCD_RR_2.XML
+/samples/cda/20240625-Anonymization/CDA_RR_mirth-test1_ae2be299-50d4-4f1a-a449-949570849959_5227117.xml
+/samples/cda/20240625-Anonymization/CDA_RR_mirth-test1_ae2be299-50d4-4f1a-a449-949570849959_5227532.xml
+/samples/cda/20240625-Anonymization/CDA_RR_mirth-test1_ae2be299-50d4-4f1a-a449-949570849959_5227631.xml
+/samples/cda/20240625-Anonymization/CDA_eICR_BIG_1.xml
+/samples/cda/20240625-Anonymization/CDA_eICR_BIG_2.xml
+/samples/cda/20240625-Anonymization/CDA_eICR_BIG_3.xml
+/samples/cda/20240625-Anonymization/CDA_eICR_mirth-test1_ae2be299-50d4-4f1a-a449-949570849959_5227117.xml
+/samples/cda/20240625-Anonymization/CDA_eICR_mirth-test1_ae2be299-50d4-4f1a-a449-949570849959_5227532.xml
+/samples/cda/20240625-Anonymization/CDA_eICR_mirth-test1_ae2be299-50d4-4f1a-a449-949570849959_5227631.xml
+/samples/cda/20240625-Anonymization/test.xml
+/samples/cda/20240709-Timing/Alice Newman Sample CCD with Author TemplateID.xml
+/samples/cda/20240709-Timing/CCD_EICR.xml
+/samples/cda/20240709-Timing/CCD_EICR_edited.xml
+/samples/cda/20240814-Greg/CDC Anonymizer Testing Results_081324.xlsx
+/samples/cda/20240814-Greg/Performer Test - CDA_eICR_1279507.xml
+/samples/cda/20240814-Greg/Redacted for Testing - CDA_RR_1279507.xml
+/samples/cda/20240814-Greg/Redacted for Testing - CDA_RR_1331902.xml
+/samples/cda/20240814-Greg/Redacted for Testing - CDA_eICR_1279507.xml
+/samples/cda/20240814-Greg/Redacted for Testing - CDA_eICR_1331902.xml
+/samples/cda/20240814-Greg/Redacted for Testing - FHIR_BUNDLE_1279507.xml
+/samples/cda/20240814-Greg/Redacted for Testing - FHIR_BUNDLE_1331902.xml
+/samples/cda/20240820-Jira-AIMSSD-413/MOD_IG_ jill.test ecr 05.6.24_NoSchemaErrors.xml
+/samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml
+/samples/cda/c-cda2fhir/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml
+/samples/cda/c-cda2fhir/Myra Jones v2.xml
+/samples/cda/c-cda2fhir/Myra Jones v5-final.xml
+/samples/cda/c-cda2fhir/Myra v6 20231218.xml
+/samples/cda/html/CCD_EICR_edited.html
+/samples/fhir/20240501-Sprint-4/fhir-CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_20240418.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - Atrium Health Floyd Medical Center.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - Christus Health.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - General Hospital.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - Lurie Childrens Lab.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - Montefiore Moses Division Lab.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - TouchWorks Clinic.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR - UCSF Health.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR 2 - UCSF Health.xml
+/samples/fhir/20241118-Greg/Test FHIR eICR.zip
+/samples/fhir/20241118-Greg/Test Files for Sarah's Transform Testing.zip
+/samples/fhir/20241118-Sujata/eCRNow_Alice_Newman_eicr.json
+/samples/fhir/20241118-Sujata/eCRNow_Alice_Newman_eicr.xml
+/samples/fhir/20241118-Sujata/eCRNow_Jeff_Harris_eicr.json
+/samples/fhir/20241118-Sujata/eCRNow_Jeff_Harris_eicr.xml
+/samples/fhir/20241119-Sujata/Argo_server_eicr_From_Gino.json
+/samples/fhir/20241119-Sujata/Argo_server_eicr_From_Gino.xml
+/samples/fhir/20241119-Sujata/Cerner_sandbox_eicr.json
+/samples/fhir/20241119-Sujata/Cerner_sandbox_eicr.xml
+/samples/fhir/20241119-Sujata/DHIT_eicr.json
+/samples/fhir/20241119-Sujata/DHIT_eicr.xml
+/samples/fhir/20241119-Sujata/athena_eicr.json
+/samples/fhir/20241119-Sujata/athena_eicr.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - ASHLEY REGION.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - Atrium Health.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - Children's Medical Center - Dallas.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - Good Health Hospital.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - Greenway.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - METHODIST HEALTH SYSTEM.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - Madison Medical Center.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - NCH Healthcare System TST.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR - Premier Midtown Outpatient Clinic.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR 2 - ASHLEY REGION.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR 2 - Atrium Health.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR 2 - Children's Medical Center - Dallas.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR 2 - Good Health Hospital.xml
+/samples/fhir/20241126-Greg/Test FHIR eICR 2 - NCH Healthcare System TST.xml
+/samples/fhir/20241126-Greg/Test FHIR eICRs for Transform Testing.zip
+/transforms/fhir2cda-r4/xspec-unit-tests/xspec-unit-test-results
+/transforms/fhir2cda-r4/xspec-unit-tests/xspec
+/samples/html/cda-Test FHIR eICR 2 - NCH Healthcare System TST.html
+/samples/fhir/xspec-test-files/archive
+/samples/fhir/20241216-Sprint-5
+/samples/fhir/20241126-Ming

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
     <x:scenario label="A. Scenario for testing RR sections">
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_RR-FHIR-001_R2_1.xml" />
-
+        
         <x:expect label="A1. ClinicalDocument contains 3 sections" test="count(//cda:section)=3" />
         <x:expect label="A2. ClinicalDocument contains 1 RR Subject Section" test="count(//cda:section/cda:code/@code='88084-9')=1" />
         <x:expect label="A3. ClinicalDocument contains 1 RR Summary Section" test="count(//cda:section/cda:code/@code='55112-7')=1" />

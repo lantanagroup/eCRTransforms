@@ -1,142 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
     
     <!--Scenario for testing template with match 'fhir:Encounter' and mode 'encounter' -->
-    <x:scenario label="Scenario for testing fhir:section:Pregnancy -> cda:section with xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
+    <x:scenario label="A. Scenario for testing fhir:section:Pregnancy -> cda:section with xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
         
-        <x:expect label="1-1 Pregnancy Section templateId=2.16.840.1.113883.10.20.22.2.80:2020-04-01 CONF#3368-3, 3368-9 " 
-            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.80' and //cda:component/cda:section/cda:templateId/@extension='2020-04-01'"/>
-        
-        <x:expect label="1-2 Section templateId=2.16.840.1.113883.10.20.22.2.80 2018-04-01 SHALL CONF#3368-3, 3368-9, 3368-10" 
-            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.80' and //cda:component/cda:section/cda:templateId/@extension='2018-04-01'"/>
-        
-        <x:expect label="2 Section code=90767-5 CONF#3368-4, 3368-11. 3368-12 " 
-            test="//cda:component/cda:section/cda:code/@code='90767-5' and //cda:component/cda:section/cda:code/@codeSystem='2.16.840.1.113883.6.1'"/>
-        
-        <x:expect label="3 Section title=Pregnancy Section CONF#3368-13" 
-            test="//cda:component/cda:section/cda:title='Pregnancy Section'" />
-        
-        <x:expect label="4 Section text present CONF#3368-14" 
-            test="exists(//cda:component/cda:section/cda:text)" />
-
-              
-        <x:expect label="5 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) 
+        <x:expect label="A1. Pregnancy Section templateId=2.16.840.1.113883.10.20.22.2.80:2020-04-01 CONF#3368-3, 3368-9 "
+            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.80' and //cda:component/cda:section/cda:templateId/@extension='2020-04-01'" />
+        <x:expect label="A2. Section templateId=2.16.840.1.113883.10.20.22.2.80 2018-04-01 SHALL CONF#3368-3, 3368-9, 3368-10"
+            test="//cda:component/cda:section/cda:templateId/@root='2.16.840.1.113883.10.20.22.2.80' and //cda:component/cda:section/cda:templateId/@extension='2018-04-01'" />
+        <x:expect label="A3. Section code=90767-5 CONF#3368-4, 3368-11. 3368-12 "
+            test="//cda:component/cda:section/cda:code/@code='90767-5' and //cda:component/cda:section/cda:code/@codeSystem='2.16.840.1.113883.6.1'" />
+        <x:expect label="A4. Section title=Pregnancy Section CONF#3368-13" test="//cda:component/cda:section/cda:title='Pregnancy Section'" />
+        <x:expect label="A5. Section text present CONF#3368-14" test="exists(//cda:component/cda:section/cda:text)" />
+        <x:expect label="A6. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) 
             @classCode=OBS @moodCode=EVN 
             @templateId 2.16.840.1.113883.10.20.15.3.8
             @templateId 2.16.840.1.113883.10.20.22.4.293:2020-04-01
             @templateId 2.16.840.1.113883.10.20.22.4.293:2018-04-01 
-            CONF#3368-26797, 3368-26798, 3368-26775, 3368-26795, 3368-26796 " 
-            test="//cda:component/cda:section/cda:entry/cda:observation/@classCode='OBS' 
+            CONF#3368-26797, 3368-26798, 3368-26775, 3368-26795, 3368-26796 " test="//cda:component/cda:section/cda:entry/cda:observation/@classCode='OBS' 
             and //cda:component/cda:section/cda:entry/cda:observation/@moodCode='EVN'
             and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.15.3.8'
             and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.293' 
             and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2020-04-01' 
             and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.293' 
             and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2018-04-01'" />
-             
-       
-        <!--
-        <x:expect label="Id @nullFlavor=NI should have correct root and extension" 
-            test="//cda:section/cda:entry/cda:observation/cda:id/@nullFlavor='NI'"/>
-     
-        <x:expect label="Id @nullFlavor=NI should have correct root and extension" 
-            test="if (exists(//cda:section/cda:entry/cda:observation/cda:id)) then //cda:section/cda:entry/cda:observation/cda:id/@nullFlavor='NI' else true()"/>
-        -->
-        
-        <x:expect label="6 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation Id present CONF#3368-26996" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:id)"/>
-        
-        <x:expect label="7 ??? Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation 
-            code @code=ASSERTION @codeSystem=2.16.840.1.113883.5.4 CONF#" 
-            test="//cda:section/cda:entry/cda:observation/cda:code/@code='ASSERTION' 
-            and //cda:section/cda:entry/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.5.4'"/>
-        
-        <x:expect label="8 ??? Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation statusCode=completed" 
-            test="//cda:section/cda:entry/cda:observation/cda:statusCode/@code='completed'"/>
-                
-        <x:expect label="9 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation effectiveTime CONF#3368-26807" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:effectiveTime)"/>
-        
-        <x:expect label="10 ??? Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation value " 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:value)"/>
-        
-        <x:expect label="11 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation methodCode 0..1 SHOULD CONF#3368-26801" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:methodCode)"/>
-        
-        <x:expect label="12 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation performer 0..1 SHOULD CONF#3368-26776" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:performer)"/>
-        
-        <x:expect label="13 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation 0..1 author SHOULD CONF#3368-26778" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:author)"/>
-        
-        <x:expect label="14 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship @typeCode=REFR CONF#3368-26673, 3368-26794" 
-            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/@typeCode='REFR'"/>
-        
-        <x:expect label="15 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship observation
-            templateId=2.16.840.1.113883.10.20.22.4.297:2020-04-01 Estimated Date of Delivery CONF#3368-26811, 3368-26812, 3368-26808, 3368-26809, 3368-26810 " 
+        <x:expect label="A7. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation Id present CONF#3368-26996" test="exists(//cda:section/cda:entry/cda:observation/cda:id)" />
+        <x:expect label="A8. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation 
+            code @code=ASSERTION @codeSystem=2.16.840.1.113883.5.4 CONF#" test="//cda:section/cda:entry/cda:observation/cda:code/@code='ASSERTION' 
+            and //cda:section/cda:entry/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.5.4'" />
+        <x:expect label="A9. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation statusCode=completed"
+            test="//cda:section/cda:entry/cda:observation/cda:statusCode/@code='completed'" />
+        <x:expect label="A10. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation effectiveTime CONF#3368-26807"
+            test="exists(//cda:section/cda:entry/cda:observation/cda:effectiveTime)" />
+        <x:expect label="A11. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation value " test="exists(//cda:section/cda:entry/cda:observation/cda:value)" />
+        <x:expect label="A12. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation methodCode 0..1 SHOULD CONF#3368-26801"
+            test="exists(//cda:section/cda:entry/cda:observation/cda:methodCode)" />
+        <x:expect label="A13. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation performer 0..1 SHOULD CONF#3368-26776"
+            test="exists(//cda:section/cda:entry/cda:observation/cda:performer)" />
+        <x:expect label="A14. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation 0..1 author SHOULD CONF#3368-26778"
+            test="exists(//cda:section/cda:entry/cda:observation/cda:author)" />
+        <x:expect label="A15. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship @typeCode=REFR CONF#3368-26673, 3368-26794"
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/@typeCode='REFR'" />
+        <x:expect label="A16. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship observation
+            templateId=2.16.840.1.113883.10.20.22.4.297:2020-04-01 Estimated Date of Delivery CONF#3368-26811, 3368-26812, 3368-26808, 3368-26809, 3368-26810 "
             test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS'
             and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'
             and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.297'
-            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2020-04-01'"/>
-        
-        
-        <x:expect label="16 ??? Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Date of Delivery observation Id present" 
-            test="(exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id))"/>
-        
-        <x:expect label="17 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Date of Delivery observation code present CONF#3368-26814" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code)"/>
-        
-        <x:expect label="18 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2020-04-01'" />
+        <x:expect label="A17. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Date of Delivery observation Id present" test="(exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id))" />
+        <x:expect label="A18. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Date of Delivery observation code present CONF#3368-26814" test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code)" />
+        <x:expect label="A19. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
             Estimated Date of Delivery observation statusCode 
-            @code=completed CONF#3368-26815, 3368-26816" 
-            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'"/>
-        
-        <x:expect label="19 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Date of Delivery observation effectiveTime CONF#3368-26813" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)"/>
-        
-        <x:expect label="20 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Date of Delivery observation value CONF#3368-26813" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)"/>
-        
-        <x:expect label="21 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship observation
-            templateId=2.16.840.1.113883.10.20.22.4.280:2020-04-01 Estimated Gestational Age of Pregnancy CONF#3368-26541, 3368-26542, 3368-26534, 3368-26537, 3368-26538 " 
+            @code=completed CONF#3368-26815, 3368-26816" test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'" />
+        <x:expect label="A20. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Date of Delivery observation effectiveTime CONF#3368-26813" test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)" />
+        <x:expect label="A21. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Date of Delivery observation value CONF#3368-26813" test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)" />
+        <x:expect label="A22. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship observation
+            templateId=2.16.840.1.113883.10.20.22.4.280:2020-04-01 Estimated Gestational Age of Pregnancy CONF#3368-26541, 3368-26542, 3368-26534, 3368-26537, 3368-26538 "
             test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@classCode='OBS'
             and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/@moodCode='EVN'
             and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.280'
-            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2020-04-01'"/>
-        
-        
-        <x:expect label="22 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Gestational Age of Pregnancy observation Id present CONF#3368-26980" 
-            test="(exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id))"/>
-        
-        <x:expect label="23 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Gestational Age of Pregnancy observation code present CONF#3368-26535" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code)"/>
-        
-        <x:expect label="24 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Gestational Age of Pregnancy observation statusCode @code=completed CONF#3368-26533, 3368-26536" 
-            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'"/>
-        
-        <x:expect label="25 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Gestational Age of Pregnancy observation effectiveTime CONF#3368-26544" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)"/>
-        
-        <x:expect label="26 Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
-            Estimated Gestational Age of Pregnancy observation value CONF#3368-26543" 
-            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)"/>
-           
-          
+            and //cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:templateId/@extension='2020-04-01'" />
+        <x:expect label="A23. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Gestational Age of Pregnancy observation Id present CONF#3368-26980" test="(exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:id))" />
+        <x:expect label="A24. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Gestational Age of Pregnancy observation code present CONF#3368-26535" test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:code)" />
+        <x:expect label="A25. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Gestational Age of Pregnancy observation statusCode @code=completed CONF#3368-26533, 3368-26536"
+            test="//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:statusCode/@code='completed'" />
+        <x:expect label="A26. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Gestational Age of Pregnancy observation effectiveTime CONF#3368-26544"
+            test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:effectiveTime)" />
+        <x:expect label="A27. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation entryRelationship 
+            Estimated Gestational Age of Pregnancy observation value CONF#3368-26543" test="exists(//cda:section/cda:entry/cda:observation/cda:entryRelationship/cda:observation/cda:value)" />
     </x:scenario>
-    
-    
-    
 </x:description>

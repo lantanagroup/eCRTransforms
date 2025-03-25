@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
     <x:scenario label="A. Scenario for testing function make-vitalsign-organizer">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
-
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
+        
         <!--Confirm a Vital Signs Organizer (V3) template is created with all required elements -->
         <x:expect label="A1. SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.4.26 (CONF:1198-10528)."
             test="count(//cda:entry/cda:organizer/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.26'])=2" />
@@ -28,10 +25,10 @@
             label="A9. SHALL contain at least one [1..*] component (CONF:1198-7285) that SHALL contain exactly one [1..1]  Vital Sign Observation (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09) (CONF:1198-15946)."
             test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.26']/cda:component/cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.27'])=4" />
     </x:scenario>
-
+    
     <x:scenario label="B. Scenario for testing template with match 'fhir:Observation[fhir:hasMember] | fhir:Observation[fhir:category/fhir:coding[fhir:code/@value = 'laboratory']]' and mode 'entry'">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
-
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
+        
         <!--Confirm a Result Organizer (V3) template is created with all required elements -->
         <x:expect label="B1. SHALL contain exactly one [1..1] templateId (CONF:1198-7126) @root=2.16.840.1.113883.10.20.22.4.1 (CONF:1198-9134)"
             test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1'])=1" />
@@ -45,6 +42,7 @@
             test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:statusCode[@code='completed'])=1" />
         <x:expect label="B7. MAY contain zero or one [0..1] effectiveTime (CONF:1198-31865)." test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:effectiveTime)=1" />
         <x:expect label="B8. SHALL contain one component Result Observation with a code of 731-0."
-            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:component/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']/cda:code/@code='731-0')=1" />
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:component/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']/cda:code/@code='731-0')=1"
+         />
     </x:scenario>
 </x:description>

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
     <!--Confirm the Custodian has been created -->
     <x:scenario label="A. Scenario for testing fhir:Composition/fhir:custodian -> cda:custodian ">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-003_R2_1.xml" />
-
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
+        
         <!--Confirm the Custodian exists and all required CDA elements have been generated -->
         <x:expect label="A1. SHALL contain exactly one [1..1] custodian (CONF:1198-5519)." test="count(//cda:custodian)=1" />
         <!--Confirm the Custodian contains an assignedCustodian element-->
@@ -17,9 +14,11 @@
         <x:expect label="A3. This assignedCustodian SHALL contain exactly one [1..1] representedCustodianOrganization (CONF:1198-5521)."
             test="count(//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization)=1" />
         <!--Confirm the representedCustodianOrganization contains an id element element-->
-        <x:expect label="A4. This representedCustodianOrganization SHALL contain at least one [1..*] id (CONF:1198-5522)." test="count(//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:id)=1" />
+        <x:expect label="A4. This representedCustodianOrganization SHALL contain at least one [1..*] id (CONF:1198-5522)."
+            test="count(//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:id)=1" />
         <!--Confirm the representedCustodianOrganization contains a name element element-->
-        <x:expect label="A5. This representedCustodianOrganization SHALL contain exactly one [1..1] name (CONF:1198-5524)." test="count(//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:name)=1" />
+        <x:expect label="A5. This representedCustodianOrganization SHALL contain exactly one [1..1] name (CONF:1198-5524)."
+            test="count(//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:name)=1" />
         <!--Confirm the representedCustodianOrganization contains a telecom element element-->
         <x:expect label="A6. This representedCustodianOrganization SHALL contain exactly one [1..1] telecom (CONF:1198-5525)."
             test="count(//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:telecom)=1" />

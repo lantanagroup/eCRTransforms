@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
-    <x:scenario label="Scenario for testing template with match 'fhir:MedicationAdministration'">
-        <x:context href="../../../samples/fhir/eICR-R2_1/eICR-FHIR-002_R2_1.xml" />
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
+    <x:scenario label="A. Scenario for testing template with match 'fhir:MedicationAdministration'">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
+        
         <!-- Confirm there is one SubstanceAdministration -->
-        <x:expect label="Confirm there is one SubstanceAdministration where drug is code=248656" test="count(//cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/@coade='248656')=1" />
-        <x:expect label="Confirm there is one SubstanceAdministration where routeCode is 26643006" test="count(//cda:substanceAdministration/cda:routeCode/@coade='26643006')=1" />
+        <x:expect label="A1. Confirm there is one SubstanceAdministration where drug is code=248656"
+            test="count(//cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/@coade='248656')=1" />
+        <x:expect label="A2. Confirm there is one SubstanceAdministration where routeCode is 26643006" test="count(//cda:substanceAdministration/cda:routeCode/@coade='26643006')=1" />
     </x:scenario>
-
 </x:description>

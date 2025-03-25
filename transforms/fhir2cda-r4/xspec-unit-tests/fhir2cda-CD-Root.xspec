@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" stylesheet="../fhir2cda.xslt" run-as="external">
     
     <!--
       FHIR CodeableConcept information: https://hl7.org/fhir/R4/datatypes.html#CodeableConcept
@@ -31,17 +28,15 @@
       
       See: https://hl7.org/fhir/R4/terminologies.html#4.1
     -->
-
     <x:scenario label="A. Scenario for testing variations of the transform of the FHIR codeableConcept data type to CDA CD data type">
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_CD.xml" />
         
-        <x:expect label="A1. One code with code = 33, codeSystem = 2.16.840.1.113883.3.13, and displayName = pneumococcal polysaccharide PPV23" 
+        <x:expect label="A1. One code with code = 33, codeSystem = 2.16.840.1.113883.3.13, and displayName = pneumococcal polysaccharide PPV23"
             test="count(//cda:code[@code='33'][@codeSystem='2.16.840.1.113883.3.13'][@displayName='pneumococcal polysaccharide PPV23'])=1" />
         <x:expect label="A2. One value with xsi:type=CD nullFlavor=OTH and originalText='This is only text'"
             test="count(//cda:value[@xsi:type='CD'][@nullFlavor='OTH']/cda:originalText[text()='This is only text'])=1" />
         <x:expect label="A3. One code with code=74165-2, codeSystem = 2.16.840.1.113883.6.1, displayName='History of employment status NIOSH', originalText='TEXT: History of employment status NIOSH'"
             test="count(//cda:code[@code='74165-2'][@codeSystem='2.16.840.1.113883.6.1'][@displayName='History of employment status NIOSH']/cda:originalText[text()='TEXT: History of employment status NIOSH'])=1" />
-        <x:expect label="A3. One code with code=3600 and translation/code=31-1014.00.007136"
-            test="count(//cda:code[@code='3600']/cda:translation/@code='31-1014.00.007136')=1" />
+        <x:expect label="A3. One code with code=3600 and translation/code=31-1014.00.007136" test="count(//cda:code[@code='3600']/cda:translation/@code='31-1014.00.007136')=1" />
     </x:scenario>
 </x:description>

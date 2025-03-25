@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
     <!--Scenario for testing template with match 'fhir:Encounter' and mode 'encounter' -->
-    <x:scenario label="Scenario for testing fhir:Encounter -> cda:encounter ">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
-
+    <x:scenario label="A. Scenario for testing fhir:Encounter -> cda:encounter ">
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
+        
         <!--Confirm the Encounter entry exists and the Encounter Entry contains a templateId @root  -->
         <x:expect label="A1. SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.4.49 (CONF:1198-26353). "
             test="count(//cda:entry/cda:encounter/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.49'])=2" />
@@ -23,10 +20,9 @@
         <!--Confirm the Encounter Entry contains an effectiveTime element -->
         <x:expect label="A6. SHALL contain exactly one [1..1] effectiveTime (CONF:1198-8715)." test="count(//cda:entry/cda:encounter/cda:effectiveTime)=1" />
     </x:scenario>
-
+    
     <x:scenario label="B. Scenario for testing template with match 'fhir:diagnosis">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
-
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
         <!--Confirm the Encounter Entry contains an Encounter Diagnosis Template  -->
         <x:expect label="B1. SHALL contain exactly one [1..1]  Encounter Diagnosis (V3) (CONF:1198-15973). " test="count(//cda:entry/cda:encounter/cda:entryRelationship/cda:act/cda:templateId)=2" />
         <!--Confirm the Encounter Entry contains a Encounter Diagnosis Template @root 2.16.840.1.113883.10.20.22.4.80  -->
@@ -39,5 +35,4 @@
         <x:expect label="B4. SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.15.2.3.3 (CONF:4482-169). "
             test="count(//cda:entry/cda:encounter/cda:entryRelationship/cda:act/cda:entryRelationship/cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.3'][@extension='2021-01-01'])=1" />
     </x:scenario>
-
 </x:description>

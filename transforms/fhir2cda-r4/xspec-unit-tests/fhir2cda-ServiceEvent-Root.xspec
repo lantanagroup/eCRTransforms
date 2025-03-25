@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
-    xmlns:cda="urn:hl7-org:v3" 
-    xmlns:fhir="http://hl7.org/fhir" 
-    xmlns:lcg="http://www.lantanagroup.com" 
-    stylesheet="../fhir2cda.xslt" run-as="external">
-
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../fhir2cda.xslt"
+    run-as="external">
+    
     <!--Scenario for testing template with match 'fhir:event[parent::fhir:Composition] - > cda:documentationOf/serviceEvent -->
     <x:scenario label="A. Scenario for testing fhir:PractitionerRole/fhir:Composition/fhir:event -> cda:serviceEvent">
-        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR-FHIR-002_R2_1.xml" />
-
+        <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1_MANUAL_INITIATION.xml" />
+        
         <!--Confirm the documentationOf exists to contain the serviceEvent -->
         <x:expect label="A1. Contains one documentationOf" test="count(//cda:documentationOf)=1" />
         <!--Confirm the Service Event exists  -->

@@ -1035,9 +1035,6 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-rr-eicr-processing-status" />
                 <meta>
-                    <versionId value="7" />
-                    <lastUpdated value="2021-08-17T07:59:00.920+00:00" />
-                    <source value="#qebn2OtR7MyyUBlm" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation" />
                 </meta>
                 <status value="final" />
@@ -1060,9 +1057,6 @@
             <Observation xmlns="http://hl7.org/fhir">
                 <id value="observation-rr-eicr-processing-status-reason" />
                 <meta>
-                    <versionId value="6" />
-                    <lastUpdated value="2021-08-17T07:59:00.881+00:00" />
-                    <source value="#vuZ3NTkJzu5MXnbK" />
                     <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation" />
                 </meta>
                 <status value="final" />

@@ -28,8 +28,9 @@
                     <profile value="{$vBundleProfile}" />
                 </meta>
             </xsl:if>
-
-            <xsl:apply-templates select="cda:ClinicalDocument/cda:id" />
+            <!--  identifier -->
+            <!-- 20250430: use the lcg:uuid (generated) as the identifier for this document. The Bundle needs a new identifier (i.e. not the CDA ClinicalDocument/id which is stored in parentDocument with a type of XFRM) -->
+            <identifier value="{concat('urn:uuid:', cda:ClinicalDocument/cda:id/@lcg:uuid)}"/>
             <type value="document" />
             <timestamp>
                 <xsl:attribute name="value">

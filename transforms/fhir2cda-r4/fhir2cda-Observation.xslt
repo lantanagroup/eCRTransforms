@@ -1360,27 +1360,27 @@ limitations under the License.
                 </effectiveTime>
                 <value>
                     <xsl:choose>
-                        <xsl:when test="fhir:code/@value = 'resolved'">
+                        <xsl:when test="fhir:coding/fhir:code/@value = 'resolved'">
                             <xsl:attribute name="code">413322009</xsl:attribute>
                             <xsl:attribute name="displayName">Problem resolved (finding)</xsl:attribute>
                         </xsl:when>
-                        <xsl:when test="fhir:code/@value = 'recurrence'">
+                        <xsl:when test="fhir:coding/fhir:code/@value = 'recurrence'">
                             <xsl:attribute name="code">246455001</xsl:attribute>
                             <xsl:attribute name="displayName">Recurrence (qualifier value)</xsl:attribute>
                         </xsl:when>
-                        <xsl:when test="fhir:code/@value = 'relapse'">
+                        <xsl:when test="fhir:coding/fhir:code/@value = 'relapse'">
                             <xsl:attribute name="code">263855007</xsl:attribute>
                             <xsl:attribute name="displayName">Relapse phase (qualifier value)</xsl:attribute>
                         </xsl:when>
-                        <xsl:when test="fhir:code/@value = 'remission'">
+                        <xsl:when test="fhir:coding/fhir:code/@value = 'remission'">
                             <xsl:attribute name="code">277022003</xsl:attribute>
                             <xsl:attribute name="displayName">Remission phase (qualifier value)</xsl:attribute>
                         </xsl:when>
-                        <xsl:when test="fhir:code/@value = 'active'">
+                        <xsl:when test="fhir:coding/fhir:code/@value = 'active'">
                             <xsl:attribute name="code">55561003</xsl:attribute>
                             <xsl:attribute name="displayName">Active (qualifier value)</xsl:attribute>
                         </xsl:when>
-                        <xsl:when test="fhir:code/@value = 'inactive'">
+                        <xsl:when test="fhir:coding/fhir:code/@value = 'inactive'">
                             <xsl:attribute name="code">73425007</xsl:attribute>
                             <xsl:attribute name="displayName">Inactive (qualifier value)</xsl:attribute>
                         </xsl:when>

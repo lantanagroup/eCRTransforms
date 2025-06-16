@@ -57,7 +57,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -72,7 +72,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -88,7 +88,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -103,7 +103,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -118,7 +118,7 @@
 
             <xsl:apply-templates select="cda:author" mode="bundle-entry" />
             <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-            <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+            <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
             <xsl:for-each select="cda:author | cda:informant">
                 <xsl:apply-templates select="." mode="provenance" />
@@ -132,7 +132,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -148,7 +148,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -161,7 +161,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -175,7 +175,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
         <xsl:apply-templates select="cda:subject" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
@@ -189,7 +189,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -202,7 +202,7 @@
 
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-        <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]" mode="bundle-entry" />
 
         <xsl:for-each select="cda:author | cda:informant">
             <xsl:apply-templates select="." mode="provenance" />
@@ -251,13 +251,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -318,7 +318,7 @@
             </xsl:if>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -442,13 +442,13 @@
                 <xsl:with-param name="pStartElementName" select="'effective'" />
             </xsl:apply-templates>
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -538,7 +538,7 @@
                 <xsl:with-param name="pStartElementName" select="'effective'" />
             </xsl:apply-templates>
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -625,13 +625,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -661,13 +661,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -734,13 +734,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -771,13 +771,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -808,13 +808,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -853,13 +853,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -948,13 +948,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -994,13 +994,13 @@
             <xsl:call-template name="subject-reference" />
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1040,13 +1040,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1188,13 +1188,13 @@
                 <xsl:with-param name="pElementName" select="'code'" />
             </xsl:apply-templates>
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1246,13 +1246,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1310,13 +1310,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1369,13 +1369,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1452,13 +1452,13 @@
             </xsl:apply-templates>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1528,13 +1528,13 @@
             <xsl:apply-templates select="/cda:ClinicalDocument/cda:effectiveTime" mode="observation" />
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
@@ -1633,13 +1633,13 @@
             </xsl:choose>
 
             <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <!-- if there are any specific performers in the component observations, get them -->
-            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity]">
+            <xsl:for-each select="cda:component/cda:observation/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
                 <xsl:apply-templates select="." mode="rename-reference-participant">
                     <xsl:with-param name="pElementName">performer</xsl:with-param>
                 </xsl:apply-templates>

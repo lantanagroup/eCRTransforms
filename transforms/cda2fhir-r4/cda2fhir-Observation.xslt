@@ -139,6 +139,7 @@
         </xsl:for-each>
 
         <xsl:apply-templates select="cda:component/cda:act" mode="bundle-entry" />
+        <xsl:apply-templates select="cda:component/cda:observation" mode="bundle-entry" />
     </xsl:template>
 
     <!-- (RR) eICR Processing Status -> eICR Processing Status Observation - bundle entry -->

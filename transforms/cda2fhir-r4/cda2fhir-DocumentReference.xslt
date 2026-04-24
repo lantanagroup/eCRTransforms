@@ -185,7 +185,7 @@
   <!-- 20260424 SG: Create DocumentReference for transform relatedDocument entries -->
   <xsl:template match="cda:relatedDocument[@typeCode = 'XFRM']">
     <DocumentReference>
-      <xsl:call-template name="add-meta" />
+<!--      <xsl:call-template name="add-meta" />-->
       <!-- relatedDocument/parentDocument/id -->
       <xsl:comment>DocumentReference.masterIdentifier = ClinicalDocument/id</xsl:comment>
       <xsl:for-each select="cda:parentDocument">
@@ -243,7 +243,7 @@
   <!-- 20260424 SG: Create DocumentReference for CDA Document -->
   <xsl:template match="cda:ClinicalDocument" mode="doc-ref">
     <DocumentReference>
-      <xsl:call-template name="add-meta" />
+<!--      <xsl:call-template name="add-meta" />-->
       <!-- relatedDocument/parentDocument/id -->
       <xsl:comment>DocumentReference.masterIdentifier = ClinicalDocument/id</xsl:comment>
       
@@ -375,14 +375,14 @@
       <xsl:when test="cda:setId/@root and cda:setId/@extension and cda:versionNumber/@value">
         <xsl:element name="{$pElementName}">
           <system value="{$root-uri}" />
-          <value value="{concat(cda:setId/@extension, '#', cda:versionNumber/@value)}" />
+          <value value="{concat(cda:setId/@extension, ':', cda:versionNumber/@value)}" />
         </xsl:element>
       </xsl:when>
       <!-- 20260424 SG: Added case -->
       <xsl:when test="cda:setId/@root and not(cda:setId/@extension) and cda:versionNumber/@value">
         <xsl:element name="{$pElementName}">
           <system value="urn:ietf:rfc:3986" />
-          <value value="{concat($root-uri, '#', cda:versionNumber/@value)}" />
+          <value value="{concat($root-uri, ':', cda:versionNumber/@value)}" />
         </xsl:element>
       </xsl:when>
       <xsl:when test="cda:setId/@root and cda:setId/@extension">

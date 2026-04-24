@@ -1068,6 +1068,16 @@
                     </assigner>
                 </xsl:element>
             </xsl:when>
+            <!-- 20260423 SG: Added case where there is only a root and assigningAuthorityName -->
+            <xsl:when test="@root and not(@extension) and @assigningAuthorityName">
+              <xsl:element name="{$pElementName}">
+                <system value="urn:ietf:rfc:3986" />
+                <value value="{$root-uri}" />
+                <assigner>
+                  <display value="{@assigningAuthorityName}" />
+                </assigner>
+              </xsl:element>
+            </xsl:when>
             <!-- If no assigningAuthorityName -->
             <xsl:when test="@root and @extension">
                 <xsl:element name="{$pElementName}">

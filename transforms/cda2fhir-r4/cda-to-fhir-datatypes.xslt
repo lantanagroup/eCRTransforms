@@ -999,7 +999,8 @@
     <!-- TEMPLATE: id, setId -->
     <xsl:template match="cda:id | cda:setId">
         <xsl:param name="pElementName">identifier</xsl:param>
-
+        <xsl:param name="pAssigningAuthorityName" select="@assigningAuthorityName" />
+      
         <xsl:variable name="oid" select="@root" />
         <xsl:variable name="value">
             <xsl:choose>
@@ -1059,22 +1060,22 @@
                 </xsl:element>
             </xsl:when>
             <!-- Check assigningAuthorityName first -->
-            <xsl:when test="@root and @extension and @assigningAuthorityName">
+            <xsl:when test="@root and @extension and $pAssigningAuthorityName">
                 <xsl:element name="{$pElementName}">
                     <system value="{lower-case($root-uri)}" />
                     <value value="{$value}" />
                     <assigner>
-                        <display value="{@assigningAuthorityName}" />
+                        <display value="{$pAssigningAuthorityName}" />
                     </assigner>
                 </xsl:element>
             </xsl:when>
             <!-- 20260423 SG: Added case where there is only a root and assigningAuthorityName -->
-            <xsl:when test="@root and not(@extension) and @assigningAuthorityName">
+            <xsl:when test="@root and not(@extension) and $pAssigningAuthorityName">
               <xsl:element name="{$pElementName}">
                 <system value="urn:ietf:rfc:3986" />
                 <value value="{$root-uri}" />
                 <assigner>
-                  <display value="{@assigningAuthorityName}" />
+                  <display value="{$pAssigningAuthorityName}" />
                 </assigner>
               </xsl:element>
             </xsl:when>
@@ -1108,7 +1109,7 @@
     <xsl:template match="
             cda:code | cda:confidentialityCode | cda:maritalStatusCode | cda:routeCode | cda:raceCode | sdtc:raceCode |
             cda:ethnicGroupCode | cda:religiousAffiliationCode | cda:targetSiteCode | cda:priorityCode | cda:translation |
-            cda:methodCode | cda:approachSiteCode | sdtc:functionCode | cda:functionCode | cda:dischargeDispositionCode | sdtc:dischargeDispositionCode">
+            cda:methodCode | cda:approachSiteCode | sdtc:functionCode | cda:functionCode | cda:dischargeDispositionCode | sdtc:dischargeDispositionCode | cda:softwareName">
         <xsl:param name="pElementName" select="'CodeableConcept'" />
         <xsl:param name="pIncludeCoding" select="true()" />
         <xsl:param name="pRequireDataAbsentReason" select="false()" />

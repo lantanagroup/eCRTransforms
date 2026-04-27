@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://hl7.org/fhir" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fhir="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" exclude-result-prefixes="xs fhir cda lcg" version="2.0">
-
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://hl7.org/fhir" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fhir="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3"
+  xmlns:lcg="http://www.lantanagroup.com" exclude-result-prefixes="xs fhir cda lcg" version="2.0">
   <xsl:output indent="yes" />
-
   <!-- create bundle-entry for RR externalDocument as DocumentReference -->
   <xsl:template match="cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']" mode="bundle-entry">
     <entry>
@@ -12,7 +11,6 @@
       </resource>
     </entry>
   </xsl:template>
-  
   <!-- 20260424 SG: manually create bundle-entry for CDA Document as DocumentReference -->
   <xsl:template match="cda:ClinicalDocument" mode="manual-bundle-entry">
     <entry>
@@ -22,21 +20,18 @@
       </resource>
     </entry>
   </xsl:template>
-
   <!-- 20260424 SG: create bundle-entry for eICR relatedDocument as DocumentReference -->
   <xsl:template match="cda:relatedDocument[@typeCode = 'XFRM']" mode="bundle-entry">
     <xsl:for-each select=".">
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
   </xsl:template>
-  
   <!-- 20260424 SG: create bundle-entry for CDA Document as DocumentReference -->
   <xsl:template match="cda:ClinicalDocument/cda:setId" mode="bundle-entry">
     <xsl:for-each select=".">
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
   </xsl:template>
-
   <!-- SG: Not sure if this is the correct place for this - leaving it here for now -->
   <xsl:template match="cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']" mode="reference">
     <xsl:param name="wrapping-elements" />
@@ -69,17 +64,14 @@
           <xsl:attribute name="value" select="cda:text" />
         </display>
       </xsl:element>
-
     </xsl:if>
   </xsl:template>
-
   <!-- RR External Resource[1]/RR External Reference[1..*] -> RR DocumentReference - bundle entry -->
   <xsl:template match="cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.20']" mode="bundle-entry">
     <xsl:for-each select="cda:reference/cda:externalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.17']">
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
   </xsl:template>
-
   <!-- RR External Resource[1]/RR External Reference[1..*] -> RR DocumentReference -->
   <xsl:template match="cda:externalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.17']">
     <xsl:comment>RR DocumentReference</xsl:comment>
@@ -147,18 +139,14 @@
             </xsl:otherwise>
           </xsl:choose>
         </attachment>
-
       </content>
-
     </DocumentReference>
     <!--</xsl:for-each>-->
   </xsl:template>
-
   <!-- create DocumentReference from externalDocument -->
   <xsl:template match="cda:externalDocument">
     <DocumentReference>
       <status value="current" />
-
       <xsl:apply-templates select="cda:code">
         <xsl:with-param name="pElementName" select="'type'" />
       </xsl:apply-templates>
@@ -181,43 +169,42 @@
       </content>
     </DocumentReference>
   </xsl:template>
-
   <!-- 20260424 SG: Create DocumentReference for transform relatedDocument entries -->
   <xsl:template match="cda:relatedDocument[@typeCode = 'XFRM']">
     <DocumentReference>
-<!--      <xsl:call-template name="add-meta" />-->
+      <!--      <xsl:call-template name="add-meta" />-->
       <!-- relatedDocument/parentDocument/id -->
       <xsl:comment>DocumentReference.masterIdentifier = ClinicalDocument/id</xsl:comment>
       <xsl:for-each select="cda:parentDocument">
         <xsl:apply-templates select="cda:id">
           <xsl:with-param name="pElementName" select="'masterIdentifier'" />
         </xsl:apply-templates>
-        <xsl:comment>DocumentReference.identifier = ClinicalDocument/setId</xsl:comment>
-        <xsl:apply-templates select="cda:setId">
-          <xsl:with-param name="pElementName" select="'identifier'" />
-        </xsl:apply-templates>
+        <xsl:comment>DocumentReference.identifier = ClinicalDocument/setId and ClinicalDocument/versionNumber (output as setId:versionNumber)</xsl:comment>
+
         <!-- ClinicalDocument.setId and versionNumber -->
+        <xsl:variable name="vAssigningAuthorityName">
+          <xsl:choose>
+            <xsl:when test="cda:setId/@assigningAuthorityName">
+              <xsl:value-of select="cda:setId/@assigningAuthorityName"/>
+            </xsl:when>
+            <xsl:when test="cda:id/@assigningAuthorityName">
+              <xsl:value-of select="cda:id/@assigningAuthorityName"/>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="createIdentifierWithVersionNumber" >
+          <xsl:with-param name="pAssigningAuthorityName" select="$vAssigningAuthorityName" />
+        </xsl:call-template>
         
-        <xsl:call-template name="createIdentifierWithVersionNumber" />
         <status value="superseded" />
         <!-- type -->
         <xsl:apply-templates select="cda:code">
           <xsl:with-param name="pElementName" select="'type'" />
         </xsl:apply-templates>
-        <!-- category -->
-        <!--<category>
-        <coding>
-          <system value="http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category" />
-          <code value="clinical-note" />
-          <display value="Clinical Note" />
-        </coding>
-        <text value="Clinical Note" />
-      </category>-->
         <!-- subject -->
         <subject>
           <xsl:apply-templates select="../../cda:recordTarget" mode="reference" />
         </subject>
-
         <content>
           <attachment>
             <contentType value="text/plain" />
@@ -243,60 +230,58 @@
   <!-- 20260424 SG: Create DocumentReference for CDA Document -->
   <xsl:template match="cda:ClinicalDocument" mode="doc-ref">
     <DocumentReference>
-<!--      <xsl:call-template name="add-meta" />-->
+      <!--      <xsl:call-template name="add-meta" />-->
       <!-- relatedDocument/parentDocument/id -->
       <xsl:comment>DocumentReference.masterIdentifier = ClinicalDocument/id</xsl:comment>
+      <xsl:apply-templates select="cda:id">
+        <xsl:with-param name="pElementName" select="'masterIdentifier'" />
+      </xsl:apply-templates>
+      <xsl:comment>DocumentReference.identifier = ClinicalDocument/setId</xsl:comment>
       
-        <xsl:apply-templates select="cda:id">
-          <xsl:with-param name="pElementName" select="'masterIdentifier'" />
-        </xsl:apply-templates>
-        <xsl:comment>DocumentReference.identifier = ClinicalDocument/setId</xsl:comment>
-        <xsl:apply-templates select="cda:setId">
-          <xsl:with-param name="pElementName" select="'identifier'" />
-        </xsl:apply-templates>
-        <!-- ClinicalDocument.setId and versionNumber -->
-        
-        <xsl:call-template name="createIdentifierWithVersionNumber" />
-        <status value="superseded" />
-        <!-- type -->
-        <xsl:apply-templates select="cda:code">
-          <xsl:with-param name="pElementName" select="'type'" />
-        </xsl:apply-templates>
-        <!-- category -->
-        <!--<category>
-        <coding>
-          <system value="http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category" />
-          <code value="clinical-note" />
-          <display value="Clinical Note" />
-        </coding>
-        <text value="Clinical Note" />
-      </category>-->
-        <!-- subject -->
-        <subject>
-          <xsl:apply-templates select="cda:recordTarget" mode="reference" />
-        </subject>
-        
-        <content>
-          <attachment>
-            <contentType value="text/plain" />
-            <url>
-              <xsl:choose>
-                <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
-                  <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-                </xsl:when>
-                <xsl:when test="cda:setId/@root">
-                  <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
-                </xsl:otherwise>
-              </xsl:choose>
-            </url>
-          </attachment>
-        </content>
+      <!-- ClinicalDocument.setId and versionNumber -->
+      <xsl:variable name="vAssigningAuthorityName">
+        <xsl:choose>
+          <xsl:when test="cda:setId/@assigningAuthorityName">
+            <xsl:value-of select="cda:setId/@assigningAuthorityName"/>
+          </xsl:when>
+          <xsl:when test="cda:id/@assigningAuthorityName">
+            <xsl:value-of select="cda:id/@assigningAuthorityName"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:call-template name="createIdentifierWithVersionNumber" >
+        <xsl:with-param name="pAssigningAuthorityName" select="$vAssigningAuthorityName" />
+      </xsl:call-template>
+      <status value="superseded" />
+      <!-- type -->
+      <xsl:apply-templates select="cda:code">
+        <xsl:with-param name="pElementName" select="'type'" />
+      </xsl:apply-templates>
+      <!-- category -->
+      <!-- subject -->
+      <subject>
+        <xsl:apply-templates select="cda:recordTarget" mode="reference" />
+      </subject>
+      <content>
+        <attachment>
+          <contentType value="text/plain" />
+          <url>
+            <xsl:choose>
+              <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+                <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
+              </xsl:when>
+              <xsl:when test="cda:setId/@root">
+                <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
+              </xsl:otherwise>
+            </xsl:choose>
+          </url>
+        </attachment>
+      </content>
     </DocumentReference>
   </xsl:template>
-
   <!-- create DocumentReference from 2.16.840.1.113883.10.20.15.2.3.10 eICR External Document Reference externalDocument -->
   <xsl:template match="cda:externalDocument[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.10']">
     <DocumentReference>
@@ -305,7 +290,7 @@
       <xsl:apply-templates select="cda:id">
         <xsl:with-param name="pElementName" select="'masterIdentifier'" />
       </xsl:apply-templates>
-      <!-- ClinicalDocument.setId and versionNumber -->
+      <!-- ClinicalDocument.setId and versionNumber (output as setId:versionNumber) -->
       <xsl:call-template name="createIdentifierWithVersionNumber" />
       <status value="current" />
       <!-- type -->
@@ -325,7 +310,6 @@
       <subject>
         <xsl:apply-templates select="/cda:ClinicalDocument/cda:recordTarget" mode="reference" />
       </subject>
-
       <content>
         <attachment>
           <contentType value="text/plain" />
@@ -346,10 +330,12 @@
       </content>
     </DocumentReference>
   </xsl:template>
-
+  
   <!-- This is a workaround to get versionNumber in -->
   <xsl:template name="createIdentifierWithVersionNumber">
     <xsl:param name="pElementName">identifier</xsl:param>
+    <xsl:param name="pAssigningAuthorityName" select="cda:setId/@assigningAuthorityName" />
+    
     <xsl:variable name="mapping" select="document('../oid-uri-mapping-r4.xml')/mapping" />
     <xsl:variable name="root" select="cda:setId/@root" />
     <xsl:variable name="root-uri">
@@ -367,39 +353,59 @@
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
-
     <xsl:choose>
       <xsl:when test="cda:setId/@nullFlavor">
         <!-- TODO: ignore for now, add better handling later -->
       </xsl:when>
-      <xsl:when test="cda:setId/@root and cda:setId/@extension and cda:versionNumber/@value">
-        <xsl:element name="{$pElementName}">
-          <system value="{$root-uri}" />
-          <value value="{concat(cda:setId/@extension, ':', cda:versionNumber/@value)}" />
-        </xsl:element>
-      </xsl:when>
-      <!-- 20260424 SG: Added case -->
-      <xsl:when test="cda:setId/@root and not(cda:setId/@extension) and cda:versionNumber/@value">
-        <xsl:element name="{$pElementName}">
-          <system value="urn:ietf:rfc:3986" />
-          <value value="{concat($root-uri, ':', cda:versionNumber/@value)}" />
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="cda:setId/@root and cda:setId/@extension">
-        <xsl:element name="{$pElementName}">
-          <system value="{$root-uri}" />
-          <value value="{cda:setId/@extension}" />
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="cda:setId/@root and not(cda:setId/@extension)">
-        <xsl:element name="{$pElementName}">
-          <system value="urn:ietf:rfc:3986" />
-          <value value="{$root-uri}" />
-        </xsl:element>
+      <xsl:when test="cda:setId/@root">
+        <xsl:choose>
+          <xsl:when test="cda:setId/@extension and cda:versionNumber/@value">
+            <xsl:element name="{$pElementName}">
+              <system value="{$root-uri}" />
+              <value value="{concat(cda:setId/@extension, ':', cda:versionNumber/@value)}" />
+              <xsl:if test="$pAssigningAuthorityName">
+                <assigner>
+                  <display value="{$pAssigningAuthorityName}" />
+                </assigner>
+              </xsl:if>
+            </xsl:element>
+          </xsl:when>
+          <!-- 20260424 SG: Added case -->
+          <xsl:when test="not(cda:setId/@extension) and cda:versionNumber/@value">
+            <xsl:element name="{$pElementName}">
+              <system value="urn:ietf:rfc:3986" />
+              <value value="{concat($root-uri, ':', cda:versionNumber/@value)}" />
+              <xsl:if test="$pAssigningAuthorityName">
+                <assigner>
+                  <display value="{$pAssigningAuthorityName}" />
+                </assigner>
+              </xsl:if>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="cda:setId/@extension">
+            <xsl:element name="{$pElementName}">
+              <system value="{$root-uri}" />
+              <value value="{cda:setId/@extension}" />
+              <xsl:if test="$pAssigningAuthorityName">
+                <assigner>
+                  <display value="{$pAssigningAuthorityName}" />
+                </assigner>
+              </xsl:if>
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="not(cda:setId/@extension)">
+            <xsl:element name="{$pElementName}">
+              <system value="urn:ietf:rfc:3986" />
+              <value value="{$root-uri}" />
+              <xsl:if test="$pAssigningAuthorityName">
+                <assigner>
+                  <display value="{$pAssigningAuthorityName}" />
+                </assigner>
+              </xsl:if>
+            </xsl:element>
+          </xsl:when>
+        </xsl:choose>
       </xsl:when>
     </xsl:choose>
-
   </xsl:template>
-
-
 </xsl:stylesheet>

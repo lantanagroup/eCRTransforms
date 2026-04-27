@@ -3,10 +3,10 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
   exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
   <!-- Put CDA participants with nowhere to go in FHIR in Provenance resource -->
-  
   <!-- ClinicalDocument level participants -->
+  <!-- 20260427 SG: Add author -->
   <xsl:template
-    match="cda:dataEnterer | cda:informant[parent::cda:ClinicalDocument] | cda:legalAuthenticator[sdtc:signatureText] | cda:authenticator[sdtc:signatureText] | cda:encounterParticipant | cda:performer[parent::cda:serviceEvent[cda:code[@code = 'PHC1464']]]"
+    match="cda:author[parent::cda:ClinicalDocument] | cda:dataEnterer | cda:informant[parent::cda:ClinicalDocument] | cda:legalAuthenticator[sdtc:signatureText] | cda:authenticator[sdtc:signatureText] | cda:encounterParticipant | cda:performer[parent::cda:serviceEvent[cda:code[@code = 'PHC1464']]]"
     mode="provenance">
     <entry>
       <fullUrl value="urn:uuid:{@lcg:uuid}" />
@@ -68,13 +68,30 @@
                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
                     <code value="{@typeCode}" />
                   </xsl:when>
+                  <!-- 20260427 SG: Added for data augmentation -->
+                  <xsl:when test="self::cda:author">
+                    <code value="author" />
+                  </xsl:when>
                 </xsl:choose>
               </coding>
             </type>
             <!-- role -->
             <!-- who -->
             <who>
-              <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />
+              <xsl:choose>
+                <xsl:when test="self::cda:author">
+                  <xsl:variable name="vAuthorUUID">
+                    <xsl:call-template name="get-author-uuid">
+                      <xsl:with-param name="pAuthor" select="." />
+                    </xsl:call-template>
+                  </xsl:variable>
+                  <reference value="urn:uuid:{$vAuthorUUID}" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />  
+                </xsl:otherwise>
+                
+              </xsl:choose>
             </who>
           </agent>
           <!-- signature -->
@@ -101,7 +118,6 @@
       </resource>
     </entry>
   </xsl:template>
-  
   <!-- Entry-level participants -->
   <xsl:template match="cda:author | cda:performer | cda:informant" mode="provenance">
     <xsl:param name="pTargetUUID" />
@@ -200,7 +216,6 @@
       </resource>
     </entry>
   </xsl:template>
-  
   <!-- Provenance resource for the transform relatedDocuments -->
   <xsl:template match="cda:relatedDocument[@typeCode = 'XFRM']" mode="provenance">
     <entry>
@@ -250,11 +265,17 @@
       </resource>
     </entry>
   </xsl:template>
-  
   <!-- Provenance resource for the CDA Document -->
   <xsl:template match="cda:ClinicalDocument" mode="provenance">
     <entry>
-      <fullUrl value="urn:uuid:{cda:id/@lcg:uuid}" />
+      <!-- Creating to get an extra lcg:uuid -->
+      <xsl:variable name="vNodeExtraUUID">
+        <xsl:variable name="vExtraNode">
+          <cda:nodeProvenanceCDADocument />
+        </xsl:variable>
+        <xsl:apply-templates select="$vExtraNode" mode="add-uuids" />
+      </xsl:variable>
+      <fullUrl value="urn:uuid:{$vNodeExtraUUID/cda:nodeProvenanceCDADocument/@lcg:uuid}" />
       <resource>
         <Provenance>
           <!-- target -->

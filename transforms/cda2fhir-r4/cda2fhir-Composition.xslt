@@ -18,27 +18,6 @@
 
     <xsl:apply-templates select="cda:inFulfillmentOf" mode="bundle-entry" />
 
-    <!-- MD: create the Patient will be referenced in RelatedPerson
-      create the ReleatedPerson will be reference in Patient on recordTarget
-      2.16.840.1.113883.10.20.22.2.15 family history section
-    -->
-    <!--<xsl:variable name="vTest" select="
-                //cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']/following-sibling::cda:entry/
-                cda:organizer/cda:subject/cda:relatedSubject[@classCode = 'PRS']/cda:code/@code" />
-        <xsl:choose>
-            <xsl:when test="
-                    //cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']/
-                    following-sibling::cda:entry/cda:organizer/cda:subject/cda:relatedSubject[@classCode = 'PRS']">
-                <xsl:for-each select="cda:component/cda:structuredBody/cda:component">
-                    <xsl:choose>
-                        <xsl:when test="cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']">
-                            <xsl:apply-templates select="cda:section" mode="relatedPerson-entry" />
-                        </xsl:when>
-                    </xsl:choose>
-                </xsl:for-each>
-            </xsl:when>
-        </xsl:choose>-->
-
     <xsl:apply-templates select="cda:recordTarget" mode="bundle-entry" />
     <xsl:apply-templates select="cda:componentOf/cda:encompassingEncounter" mode="bundle-entry" />
     <xsl:apply-templates select="cda:author" mode="bundle-entry" />
@@ -53,7 +32,7 @@
     <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
     <xsl:apply-templates select="cda:informationRecipient" mode="bundle-entry" />
     <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
-    <!--        <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="bundle-entry" />-->
+    <!-- <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="bundle-entry" />-->
 
     <xsl:apply-templates select="//cda:section/cda:author" mode="bundle-entry" />
     <!-- Create a DocumentReference for any existing transform relatedDocument -->
@@ -64,6 +43,9 @@
     <!-- Provenance -->
     <!-- Create a Provenance for any existing transform relatedDocument -->
     <xsl:apply-templates select="//cda:relatedDocument[@typeCode = 'XFRM']" mode="provenance" />
+    <!-- Create a Provenance for ClinicalDocument/author so we can store the time -->
+    <xsl:apply-templates select="cda:author" mode="provenance" />
+    
     <!-- Create a Provenance for the CDA document that is being transformed so we can store the setId and versionNumber-->
     <xsl:apply-templates select="//cda:ClinicalDocument" mode="provenance" />
     

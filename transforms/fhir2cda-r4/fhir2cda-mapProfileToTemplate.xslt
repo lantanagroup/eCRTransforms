@@ -388,7 +388,6 @@ limitations under the License.
                 <xsl:comment select="' [C-CDA R1] Pregnancy Observation '" />
                 <templateId root="2.16.840.1.113883.10.20.15.3.8" />
                 <xsl:comment select="' [C-CDA PREG] Pregnancy Observation (SUPPLEMENTAL PREGNANCY) '" />
-                <templateId root="2.16.840.1.113883.10.20.22.4.293" extension="2020-04-01" />
                 <templateId root="2.16.840.1.113883.10.20.22.4.293" extension="2018-04-01" />
             </xsl:when>
             <!--<xsl:when test="fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest'">

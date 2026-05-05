@@ -69,7 +69,7 @@
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.284:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.284:2020-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation" />
   <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/pregnancy-status-observation" />-->
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2020-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.293" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.40:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information" />
   <!--<map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.2:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-communication" />-->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.2:2017-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition" />

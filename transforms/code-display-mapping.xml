@@ -97,11 +97,6 @@
   <map code="R19.5" display="Other fecal abnormalities" />
   <map code="29762-2" display="Social history note" />
   <map code="8716-3" display="Vital signs note" />
-  <map code="" display="" />
-  <map code="" display="" />
-  <map code="" display="" />
-  <map code="" display="" />
-  <map code="" display="" />
-  <map code="" display="" />
+  <map code="99212" display="Established patient office or other outpatient visit, 10-19 minutes" />
   <!--<map code="" display="" />-->
 </mapping>

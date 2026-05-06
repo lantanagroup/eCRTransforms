@@ -70,6 +70,7 @@
                   </xsl:when>
                   <!-- 20260427 SG: Added for data augmentation -->
                   <xsl:when test="self::cda:author">
+                    <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type" />
                     <code value="author" />
                   </xsl:when>
                 </xsl:choose>

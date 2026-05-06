@@ -15,8 +15,8 @@
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2022-05-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
   <!-- 20260425 SG: Add data augmentation templateIds -->
   <!-- [eICR Data Augmentations] eICR Data Augmentation Header (these uris don't exist anywhere)-->
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.3:2025-11-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-data-augmentation" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.4:2026-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-data-augmentation" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.3:2025-11-01" profileURI="http://hl7.org/fhir/us/ecr-data-aug/StructureDefinition/eicr-data-augmentation" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.4:2026-04-01" profileURI="http://hl7.org/fhir/us/ecr-data-aug/StructureDefinition/rr-data-augmentation" />
   <!-- MD: add dental data exchange -->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.40.1.1.2:2020-08-01" profileURI="http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-consult-note" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.40.1.1.1:2020-08-01" profileURI="http://hl7.org/fhir/us/dental-data-exchange/StructureDefinition/dental-referral-note" />

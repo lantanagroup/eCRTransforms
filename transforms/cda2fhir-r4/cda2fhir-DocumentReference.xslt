@@ -363,7 +363,7 @@
             <xsl:element name="{$pElementName}">
               <system value="{$root-uri}" />
               <value value="{concat(cda:setId/@extension, ':', cda:versionNumber/@value)}" />
-              <xsl:if test="$pAssigningAuthorityName">
+              <xsl:if test="string-length($pAssigningAuthorityName) > 0">
                 <assigner>
                   <display value="{$pAssigningAuthorityName}" />
                 </assigner>
@@ -375,7 +375,7 @@
             <xsl:element name="{$pElementName}">
               <system value="urn:ietf:rfc:3986" />
               <value value="{concat($root-uri, ':', cda:versionNumber/@value)}" />
-              <xsl:if test="$pAssigningAuthorityName">
+              <xsl:if test="string-length($pAssigningAuthorityName) > 0">
                 <assigner>
                   <display value="{$pAssigningAuthorityName}" />
                 </assigner>
@@ -386,7 +386,7 @@
             <xsl:element name="{$pElementName}">
               <system value="{$root-uri}" />
               <value value="{cda:setId/@extension}" />
-              <xsl:if test="$pAssigningAuthorityName">
+              <xsl:if test="string-length($pAssigningAuthorityName) > 0">
                 <assigner>
                   <display value="{$pAssigningAuthorityName}" />
                 </assigner>
@@ -397,7 +397,7 @@
             <xsl:element name="{$pElementName}">
               <system value="urn:ietf:rfc:3986" />
               <value value="{$root-uri}" />
-              <xsl:if test="$pAssigningAuthorityName">
+              <xsl:if test="string-length($pAssigningAuthorityName) > 0">
                 <assigner>
                   <display value="{$pAssigningAuthorityName}" />
                 </assigner>

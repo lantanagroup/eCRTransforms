@@ -1089,6 +1089,13 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+  
+  <!-- TEMPLATE: get values out of cda:td and concat together -->
+  <xsl:template match="cda:td" mode="textRefValue">
+    <xsl:for-each select=".">
+      <xsl:value-of select="concat(., '; ')" />
+    </xsl:for-each>
+  </xsl:template>
 
     <xsl:template match="." mode="base64">
         <xsl:call-template name="b64:encode">

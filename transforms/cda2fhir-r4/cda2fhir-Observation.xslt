@@ -698,7 +698,31 @@
                         </xsl:for-each>
                         <xsl:for-each select="cda:text">
                             <text>
-                                <xsl:attribute name="value" select="(.)" />
+                              <xsl:choose>
+                                <xsl:when test="cda:reference/@value">
+                                  <xsl:variable name="vRefValue" select="substring-after(cda:reference/@value, '#')" />
+                                  <xsl:variable name="vTest" select="//@ID" />
+                                  <xsl:choose>
+                                    <xsl:when test="//@ID = $vRefValue">
+                                      <xsl:variable name="vTextValue">
+                                        <xsl:apply-templates select="//cda:tr[@ID = $vRefValue]/cda:td" mode="textRefValue" />
+                                      </xsl:variable>
+                                      <text>
+                                        <xsl:attribute name="value" select="normalize-space($vTextValue)" />
+                                      </text>
+                                    </xsl:when>
+                                  </xsl:choose>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                  <text>
+                                    <xsl:attribute name="value">
+                                      <xsl:value-of select="." />
+                                    </xsl:attribute>
+                                  </text>
+                                </xsl:otherwise>
+                              </xsl:choose>
+                              
+<!--                                <xsl:attribute name="value" select="(.)" />-->
                             </text>
                         </xsl:for-each>
                     </valueCodeableConcept>

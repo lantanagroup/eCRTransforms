@@ -89,9 +89,9 @@
                   <reference value="urn:uuid:{$vAuthorUUID}" />
                 </xsl:when>
                 <xsl:otherwise>
-                  <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />  
+                  <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />
                 </xsl:otherwise>
-                
+
               </xsl:choose>
             </who>
           </agent>
@@ -253,7 +253,16 @@
           <agent>
             <!-- who -->
             <who>
-              <display value="{cda:parentDocument/cda:id/@assigningAuthorityName}" />
+              <xsl:choose>
+                <xsl:when test="cda:parentDocument/cda:id/@assigningAuthorityName">
+                  <display value="{cda:parentDocument/cda:id/@assigningAuthorityName}" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                    <valueCode value="unknown" />
+                  </extension>
+                </xsl:otherwise>
+              </xsl:choose>
             </who>
           </agent>
           <entity>

@@ -24,7 +24,8 @@
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136'] or
-            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34']]" mode="reference">
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34'] or
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.33']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
             <xsl:apply-templates select="." mode="reference">
@@ -38,8 +39,9 @@
             cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'] or
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'] or 
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'] or 
-            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136']or 
-            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34']]"
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136'] or 
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34'] or 
+            cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.33']]"
         mode="bundle-entry">
         <!-- Create bundle entries for any authors or performers -->
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />

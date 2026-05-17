@@ -526,9 +526,9 @@
           </xsl:choose>
 
           <!-- get triggers lower in the hierarchy 
-                         skip wrappers like concern etc.-->
+               skip wrappers like concern etc.-->
           <xsl:for-each
-            select="descendant::cda:entryRelationship[descendant::cda:*/descendant::cda:*[3]][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136'])][not(cda:*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode = 'INT']])][cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])][not(cda:code/@code = '8462-4')]]">
+            select="descendant::cda:entryRelationship[descendant::cda:*/descendant::cda:*[3]][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.33'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'])][not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136'])][not(cda:*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode = 'INT']])][cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])][not(cda:code/@code = '8462-4')]]">
 
             <xsl:apply-templates select="cda:*" mode="reference">
               <xsl:with-param name="wrapping-elements">entry</xsl:with-param>

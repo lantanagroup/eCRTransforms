@@ -971,9 +971,12 @@
     </xsl:variable>
     <xsl:variable name="root-uri">
       <xsl:choose>
-        <!-- SG 2023-11-15: Updating the below based on the rules here: 
-                    https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html (see: CDA id → FHIR Identifier with Example Mapping) Case: "Root = URI OID, Value = URL"-->
-        <xsl:when test="$oid = '2.16.840.1.113883.4.873'">
+        <!-- SG 20231115: Updating the below based on the rules here: 
+             https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html 
+             (see: CDA id → FHIR Identifier with Example Mapping) Case: "Root = URI OID, Value = URL"-->
+        <!-- SG 20260629: There is an (invalid) case where 2.16.840.1.113883.4.873 is being sent and the @extension is not a url
+             add code to deal with this-->
+        <xsl:when test="$oid = '2.16.840.1.113883.4.873' and contains(@extension, '/')">
           <xsl:value-of select="substring-before(@extension, concat('/', $value))" />
         </xsl:when>
         <xsl:when test="key('oid-uri-mapping-key', $oid)">

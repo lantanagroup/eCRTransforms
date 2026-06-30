@@ -225,12 +225,12 @@
   </xsl:template>
 
   <xsl:template name="get-dosage">
-    <xsl:if test="cda:routeCode[not(@nullFlavor)] or cda:doseQuantity[not(@nullFlavor)] or cda:approachSiteCode[not(@nullFlavor)] or cda:rateQuantity[not(@nullFlavor)]">
+    <xsl:if test="cda:routeCode[not(@nullFlavor) or cda:translation] or cda:doseQuantity[not(@nullFlavor)] or cda:approachSiteCode[not(@nullFlavor)] or cda:rateQuantity[not(@nullFlavor)]">
       <dosage>
         <xsl:apply-templates select="cda:approachSiteCode[not(@nullFlavor)]">
           <xsl:with-param name="pElementName">site</xsl:with-param>
         </xsl:apply-templates>
-        <xsl:apply-templates select="cda:routeCode[not(@nullFlavor)]">
+        <xsl:apply-templates select="cda:routeCode[not(@nullFlavor) or cda:translation]">
           <xsl:with-param name="pElementName">route</xsl:with-param>
         </xsl:apply-templates>
         <xsl:apply-templates select="cda:doseQuantity[not(@nullFlavor)]">

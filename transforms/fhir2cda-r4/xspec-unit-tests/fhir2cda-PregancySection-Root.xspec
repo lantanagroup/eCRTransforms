@@ -17,13 +17,10 @@
         <x:expect label="A6. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) 
             @classCode=OBS @moodCode=EVN 
             @templateId 2.16.840.1.113883.10.20.15.3.8
-            @templateId 2.16.840.1.113883.10.20.22.4.293:2020-04-01
             @templateId 2.16.840.1.113883.10.20.22.4.293:2018-04-01 
             CONF#3368-26797, 3368-26798, 3368-26775, 3368-26795, 3368-26796 " test="//cda:component/cda:section/cda:entry/cda:observation/@classCode='OBS' 
             and //cda:component/cda:section/cda:entry/cda:observation/@moodCode='EVN'
             and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.15.3.8'
-            and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.293' 
-            and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2020-04-01' 
             and //cda:section/cda:entry/cda:observation/cda:templateId/@root='2.16.840.1.113883.10.20.22.4.293' 
             and //cda:section/cda:entry/cda:observation/cda:templateId/@extension='2018-04-01'" />
         <x:expect label="A7. Section entry Observation for Pregnancy Observation (SUPPLEMENTAL PREGNANCY) Observation Id present CONF#3368-26996" test="exists(//cda:section/cda:entry/cda:observation/cda:id)" />

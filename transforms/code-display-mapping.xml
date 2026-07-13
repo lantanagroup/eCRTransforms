@@ -1,159 +1,102 @@
 <mapping>
   <!-- Common codes and their proper displays - CDA validators do not generally check displayNames and FHIR validators do, this is a listing of some common ones -->
-    <map code="64572001" display="Disease (disorder)" />
-    <map code="75323-6" display="Condition" />
-    <map code="55751-2" display="Public health Case report" />
-    <map code="RR6" display="eICR Processing Status Reason" />
-    <map code="18776-5" display="Plan of care note" />
-    <map code="80825-3" display="Zika virus envelope E gene [Presence] in Serum by NAA with probe detection" />
-    <map code="10164-2" display="History of Present illness Narrative" />
-    <map code="29549-3" display="Medication administered Narrative" />
-    <map code="11450-4" display="Problem list - Reported" />
-    <map code="30954-2" display="Relevant diagnostic tests/laboratory data Narrative" />
-    <map code="57021-8" display="CBC W Auto Differential panel - Blood" />
-    <map code="47519-4" display="History of Procedures Document" />
-    <map code="409524006" display="Airborne precautions (procedure)" />
-    <map code="29762-2" display="Social history Narrative" />
-    <map code="282291009" display="Diagnosis interpretation" />
-    <map code="20570-8" display="Hematocrit [Volume Fraction] of Blood" />
-    <map code="731-0" display="Lymphocytes [#/volume] in Blood by Automated count" />
-    <map code="69856-3" display="Are you deaf, or do you have serious difficulty hearing" />
-    <map code="91" display="Fort Mojave Indian Tribe of Arizona, California &amp; Nevada" />
-    <map code="21843-8" display="History of Usual occupation" />
-    <map code="21844-6" display="History of Usual industry" />
-    <map code="86188-0" display="History of Occupation industry" />
-    <map code="74165-2" display="History of employment status NIOSH" />
-    <map code="16310003" display="Ultrasonography (procedure)" />
-    <map code="8302-2" display="Body height" />
-    <map code="3141-9" display="Body weight Measured" />
-    <map code="39156-5" display="Body mass index (BMI) [Ratio]" />
-    <map code="2710-2" display="Deprecated Oxygen saturation in Capillary blood by Oximetry" />
-    <map code="63893-2" display="Outcome of pregnancy" />
-    <map code="11369-6" display="History of Immunization Narrative" />
-    <map code="42349-1" display="Reason for referral (narrative)" />
-    <map code="94307-6" display="SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N1" />
-    <map code="2284960" display="remdesivir 100 MG Injection" />
-    <map code="90660" display="Influenza virus vaccine, trivalent, live (LAIV3), for intranasal use" />
-    <map code="48765-2" display="Allergies and adverse reactions Document" />
-    <map code="74728-7" display="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel" />
-    <map code="17856-6" display="Hemoglobin A1c/Hemoglobin.total in Blood by HPLC" />
-    <map code="94308-4" display="SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N2" />
-    <map code="10160-0" display="History of Medication use Narrative" />
-    <map code="51848-0" display="Evaluation note" />
-    <map code="10154-3" display="Chief complaint Narrative - Reported" />
-    <map code="308540004" display="Inpatient stay" />
-    <map code="186747009" display="Coronavirus infection" />
-    <map code="74506000" display="Bereavement reaction" />
-    <map code="257656006" display="Penal institution" />
-    <map code="86648" display="Antibody; Diphtheria" />
-    <map code="99252" display="Inpatient or observation consultation for a new or established patient, which requires a medically appropriate history and/or examination and straightforward medical decision making. When using total time on the date of the encounter for code selection, 35 minutes must be met or exceeded." />
-    <map code="840539006" display="Disease caused by SARS-CoV-2" />
-    <map code="266927001" display="Tobacco smoking consumption unknown" />
-    <map code="S" display="Never Married" />
-    <map code="160245001" display="No current problems or disability" />
-    <map code="94500-6" display="SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory system specimen by NAA with probe detection" />
-    <map code="IMP" display="inpatient encounter" />
-    <map code="85847-2" display="Patient Care team information" />
-    <map code="20738-1" display="Campylobacter sp identified in Isolate by Organism specific culture" />
-    <map code="82197-5" display="Clostridioides difficile toxin A+B tcdA+tcdB genes [Presence] in Stool by NAA with non-probe detection" />
-    <map code="70296-9" display="Plesiomonas shigelloides DNA [Presence] in Stool by NAA with probe detection" />
-    <map code="82200-7" display="Vibrio cholerae+parahaemolyticus+vulnificus DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="82199-1" display="Salmonella enterica+bongori DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="92723-6" display="Yersinia enterocolitica DNA [Presence] in Stool by NAA with probe detection" />
-    <map code="80349-4" display="Escherichia coli enteroaggregative pAA plasmid aggR+aatA genes [Presence] in Stool by NAA with non-probe detection" />
-    <map code="80348-6" display="Escherichia coli enteropathogenic eae gene [Presence] in Stool by NAA with non-probe detection" />
-    <map code="80350-2" display="Shigella species+EIEC invasion plasmid antigen H ipaH gene [Presence] in Stool by NAA with non-probe detection" />
-    <map code="82203-1" display="Escherichia coli Stx1 and Stx2 toxin stx1+stx2 genes [Presence] in Stool by NAA with non-probe detection" />
-    <map code="82204-9" display="Escherichia coli O157 DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="70242-3" display="Shigella species+EIEC invasion plasmid antigen H ipaH gene [Presence] in Stool by NAA with probe detection" />
-    <map code="82205-6" display="Cryptosporidium sp DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="82206-4" display="Cyclospora cayetanensis DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="82207-2" display="Entamoeba histolytica DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="60544-4" display="Giardia lamblia DNA [Presence] in Specimen by NAA with probe detection" />
-    <map code="76628-7" display="Norovirus genogroup I and II RNA [Identifier] in Stool by NAA with probe detection" />
-    <map code="82212-2" display="Rotavirus A RNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="72166-2" display="Tobacco smoking status" />
-    <map code="87046" display="Culture, bacterial; stool, aerobic, additional pathogens, isolation and presumptive identification of isolates, each plate" />
-    <map code="122253004" display="Campylobacter species culture" />
-    <map code="118146008" display="Bacterial nucleic acid assay" />
-    <map code="97314-9" display="Vibrio cholerae DNA [Presence] in Stool by NAA with probe detection" />
-    <map code="87507" display="Infectious agent detection by nucleic acid (DNA or RNA); gastrointestinal pathogen (eg, Clostridium difficile, E. coli, Salmonella, Shigella, norovirus, Giardia), includes multiplex reverse transcription, when performed, and multiplex amplified probe technique, multiple types or subtypes, 12-25 targets" />
-    <map code="87798" display="Infectious agent detection by nucleic acid (DNA or RNA), not otherwise specified; amplified probe technique, each organism" />
-    <map code="82213-0" display="Sapovirus genogroups I+II+IV+V RNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="87797" display="Infectious agent detection by nucleic acid (DNA or RNA), not otherwise specified; direct probe technique, each organism" />
-    <map code="118149001" display="Parasite nucleic acid assay" />
-    <map code="82209-8" display="Adenovirus 40+41 DNA [Presence] in Stool by NAA with non-probe detection" />
-    <map code="92691-5" display="Astrovirus RNA [Presence] in Stool by NAA with probe detection" />
-    <map code="122298005" display="Astrovirus RNA assay" />
-    <map code="122415007" display="Norwalk virus RNA assay" />
-    <map code="2076-8" display="Native Hawaiian or Other Pacific Islander" />
-    <map code="99213" display="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter." />
-    <map code="207R00000X" display="Internal Medicine Physician" />
-    <map code="445518008" display="Age at onset of clinical finding (observable entity)" />
-    <map code="225773000" display="Preferences" />
-    <map code="11778-8" display="Delivery date Estimated" />
-    <map code="R19.5" display="Other fecal abnormalities" />
-    <!--<map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />
-    <map code="" display="" />-->
+  <map code="64572001" display="Disease (disorder)" />
+  <map code="75323-6" display="Condition" />
+  <map code="55751-2" display="Public health Case report" />
+  <map code="RR6" display="eICR Processing Status Reason" />
+  <map code="18776-5" display="Plan of care note" />
+  <map code="80825-3" display="Zika virus envelope E gene [Presence] in Serum by NAA with probe detection" />
+  <map code="10164-2" display="History of Present illness Narrative" />
+  <map code="29549-3" display="Medication administered Narrative" />
+  <map code="11450-4" display="Problem list - Reported" />
+  <map code="30954-2" display="Relevant diagnostic tests/laboratory data note" />
+  <map code="57021-8" display="CBC W Auto Differential panel - Blood" />
+  <map code="47519-4" display="History of Procedures Document" />
+  <map code="409524006" display="Airborne precautions (procedure)" />
+  <map code="282291009" display="Diagnosis interpretation" />
+  <map code="20570-8" display="Hematocrit [Volume Fraction] of Blood" />
+  <map code="731-0" display="Lymphocytes [#/volume] in Blood by Automated count" />
+  <map code="69856-3" display="Are you deaf, or do you have serious difficulty hearing" />
+  <map code="91" display="Fort Mojave Indian Tribe of Arizona, California &amp; Nevada" />
+  <map code="21843-8" display="History of Usual occupation" />
+  <map code="21844-6" display="History of Usual industry" />
+  <map code="86188-0" display="History of Occupation industry" />
+  <map code="74165-2" display="History of employment status NIOSH" />
+  <map code="16310003" display="Ultrasonography (procedure)" />
+  <map code="8302-2" display="Body height" />
+  <map code="3141-9" display="Body weight Measured" />
+  <map code="39156-5" display="Body mass index (BMI) [Ratio]" />
+  <map code="2710-2" display="Deprecated Oxygen saturation in Capillary blood by Oximetry" />
+  <map code="63893-2" display="Outcome of pregnancy" />
+  <map code="11369-6" display="History of Immunization note" />
+  <map code="42349-1" display="Reason for referral (narrative)" />
+  <map code="94307-6" display="SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N1" />
+  <map code="2284960" display="remdesivir 100 MG Injection" />
+  <map code="90660" display="Influenza virus vaccine, trivalent, live (LAIV3), for intranasal use" />
+  <map code="48765-2" display="Allergies and adverse reactions Document" />
+  <map code="74728-7" display="Vital signs, weight, height, head circumference, oximetry, BMI, and BSA panel" />
+  <map code="17856-6" display="Hemoglobin A1c/Hemoglobin.total in Blood by HPLC" />
+  <map code="94308-4" display="SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N2" />
+  <map code="10160-0" display="History of Medication use Narrative" />
+  <map code="51848-0" display="Evaluation note" />
+  <map code="10154-3" display="Chief complaint Narrative - Reported" />
+  <map code="308540004" display="Inpatient stay" />
+  <map code="186747009" display="Coronavirus infection" />
+  <map code="74506000" display="Bereavement reaction" />
+  <map code="257656006" display="Penal institution" />
+  <map code="86648" display="Antibody; Diphtheria" />
+  <map code="99252"
+    display="Inpatient or observation consultation for a new or established patient, which requires a medically appropriate history and/or examination and straightforward medical decision making. When using total time on the date of the encounter for code selection, 35 minutes must be met or exceeded." />
+  <map code="840539006" display="Disease caused by SARS-CoV-2" />
+  <map code="266927001" display="Tobacco smoking consumption unknown" />
+  <map code="S" display="Never Married" />
+  <map code="160245001" display="No current problems or disability" />
+  <map code="94500-6" display="SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory system specimen by NAA with probe detection" />
+  <map code="IMP" display="inpatient encounter" />
+  <map code="85847-2" display="Patient Care team information" />
+  <map code="20738-1" display="Campylobacter sp identified in Isolate by Organism specific culture" />
+  <map code="82197-5" display="Clostridioides difficile toxin A+B tcdA+tcdB genes [Presence] in Stool by NAA with non-probe detection" />
+  <map code="70296-9" display="Plesiomonas shigelloides DNA [Presence] in Stool by NAA with probe detection" />
+  <map code="82200-7" display="Vibrio cholerae+parahaemolyticus+vulnificus DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="82199-1" display="Salmonella enterica+bongori DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="92723-6" display="Yersinia enterocolitica DNA [Presence] in Stool by NAA with probe detection" />
+  <map code="80349-4" display="Escherichia coli enteroaggregative pAA plasmid aggR+aatA genes [Presence] in Stool by NAA with non-probe detection" />
+  <map code="80348-6" display="Escherichia coli enteropathogenic eae gene [Presence] in Stool by NAA with non-probe detection" />
+  <map code="80350-2" display="Shigella species+EIEC invasion plasmid antigen H ipaH gene [Presence] in Stool by NAA with non-probe detection" />
+  <map code="82203-1" display="Escherichia coli Stx1 and Stx2 toxin stx1+stx2 genes [Presence] in Stool by NAA with non-probe detection" />
+  <map code="82204-9" display="Escherichia coli O157 DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="70242-3" display="Shigella species+EIEC invasion plasmid antigen H ipaH gene [Presence] in Stool by NAA with probe detection" />
+  <map code="82205-6" display="Cryptosporidium sp DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="82206-4" display="Cyclospora cayetanensis DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="82207-2" display="Entamoeba histolytica DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="60544-4" display="Giardia lamblia DNA [Presence] in Specimen by NAA with probe detection" />
+  <map code="76628-7" display="Norovirus genogroup I and II RNA [Identifier] in Stool by NAA with probe detection" />
+  <map code="82212-2" display="Rotavirus A RNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="72166-2" display="Tobacco smoking status" />
+  <map code="87046" display="Culture, bacterial; stool, aerobic, additional pathogens, isolation and presumptive identification of isolates, each plate" />
+  <map code="122253004" display="Campylobacter species culture" />
+  <map code="118146008" display="Bacterial nucleic acid assay" />
+  <map code="97314-9" display="Vibrio cholerae DNA [Presence] in Stool by NAA with probe detection" />
+  <map code="87507"
+    display="Infectious agent detection by nucleic acid (DNA or RNA); gastrointestinal pathogen (eg, Clostridium difficile, E. coli, Salmonella, Shigella, norovirus, Giardia), includes multiplex reverse transcription, when performed, and multiplex amplified probe technique, multiple types or subtypes, 12-25 targets" />
+  <map code="87798" display="Infectious agent detection by nucleic acid (DNA or RNA), not otherwise specified; amplified probe technique, each organism" />
+  <map code="82213-0" display="Sapovirus genogroups I+II+IV+V RNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="87797" display="Infectious agent detection by nucleic acid (DNA or RNA), not otherwise specified; direct probe technique, each organism" />
+  <map code="118149001" display="Parasite nucleic acid assay" />
+  <map code="82209-8" display="Adenovirus 40+41 DNA [Presence] in Stool by NAA with non-probe detection" />
+  <map code="92691-5" display="Astrovirus RNA [Presence] in Stool by NAA with probe detection" />
+  <map code="122298005" display="Astrovirus RNA assay" />
+  <map code="122415007" display="Norwalk virus RNA assay" />
+  <map code="2076-8" display="Native Hawaiian or Other Pacific Islander" />
+  <map code="99213"
+    display="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter." />
+  <map code="207R00000X" display="Internal Medicine Physician" />
+  <map code="445518008" display="Age at onset of clinical finding (observable entity)" />
+  <map code="225773000" display="Preferences" />
+  <map code="11778-8" display="Delivery date Estimated" />
+  <map code="R19.5" display="Other fecal abnormalities" />
+  <map code="29762-2" display="Social history note" />
+  <map code="8716-3" display="Vital signs note" />
+  <map code="99212" display="Established patient office or other outpatient visit, 10-19 minutes" />
+  <!--<map code="" display="" />-->
 </mapping>

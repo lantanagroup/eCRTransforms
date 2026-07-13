@@ -842,61 +842,141 @@
         <xsl:value-of select="normalize-space(.)" />
       </xsl:for-each>
     </xsl:variable>
-    <xsl:if test="string-length($addr-string) > 0 or string-length($pExtraText) > 0">
-      <xsl:element name="{$pElementName}">
-        <xsl:if test="@use">
-          <use>
-            <xsl:attribute name="value">
-              <xsl:choose>
-                <xsl:when test="@use = 'H' or @use = 'HP' or @use = 'HV'">home</xsl:when>
-                <xsl:when test="@use = 'WP' or @use = 'DIR' or @use = 'PUB'">work</xsl:when>
-                <!-- default to work -->
-                <xsl:otherwise>work</xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </use>
-        </xsl:if>
-        <xsl:if test="string-length($pExtraText)">
-          <text value="{normalize-space($pExtraText)}" />
-        </xsl:if>
-        <xsl:for-each select="cda:streetAddressLine[not(@nullFlavor)]">
-          <xsl:if test="string-length(.) &gt; 0">
-            <line value="{normalize-space(.)}" />
+    <xsl:choose>
+      <xsl:when test="string-length($addr-string) > 0 or string-length($pExtraText) > 0">
+        <xsl:element name="{$pElementName}">
+          <xsl:if test="@use">
+            <use>
+              <xsl:attribute name="value">
+                <xsl:choose>
+                  <xsl:when test="@use = 'H' or @use = 'HP' or @use = 'HV'">home</xsl:when>
+                  <xsl:when test="@use = 'WP' or @use = 'DIR' or @use = 'PUB'">work</xsl:when>
+                  <!-- default to work -->
+                  <xsl:otherwise>work</xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+            </use>
           </xsl:if>
-        </xsl:for-each>
-        <xsl:for-each select="cda:city[not(@nullFlavor)]">
-          <xsl:if test="string-length(.) &gt; 0">
-            <city value="{normalize-space(.)}" />
+          <xsl:if test="string-length($pExtraText)">
+            <text value="{normalize-space($pExtraText)}" />
           </xsl:if>
-        </xsl:for-each>
-        <xsl:for-each select="cda:county[not(@nullFlavor)]">
-          <xsl:if test="string-length(.) &gt; 0">
-            <!-- SG: Updating this from county to district - no county in FHIR -->
-            <district value="{normalize-space(.)}" />
+          <xsl:for-each select="cda:streetAddressLine[not(@nullFlavor)]">
+            <xsl:if test="string-length(.) &gt; 0">
+              <line value="{normalize-space(.)}" />
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:for-each select="cda:streetAddressLine[@nullFlavor]">
+            <line>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </line>
+          </xsl:for-each>
+          <xsl:for-each select="cda:city[not(@nullFlavor)]">
+            <xsl:if test="string-length(.) &gt; 0">
+              <city value="{normalize-space(.)}" />
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:for-each select="cda:city[@nullFlavor]">
+            <city>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </city>
+          </xsl:for-each>
+          <xsl:for-each select="cda:county[not(@nullFlavor)]">
+            <xsl:if test="string-length(.) &gt; 0">
+              <!-- SG: Updating this from county to district - no county in FHIR -->
+              <district value="{normalize-space(.)}" />
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:for-each select="cda:county[@nullFlavor]">
+            <district>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </district>
+          </xsl:for-each>
+          <xsl:for-each select="cda:state[not(@nullFlavor)]">
+            <xsl:if test="string-length(.) &gt; 0">
+              <state value="{normalize-space(.)}" />
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:for-each select="cda:state[@nullFlavor]">
+            <state>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </state>
+          </xsl:for-each>
+          <xsl:for-each select="cda:postalCode[not(@nullFlavor)]">
+            <xsl:if test="string-length(.) &gt; 0">
+              <postalCode value="{normalize-space(.)}" />
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:for-each select="cda:postalCode[@nullFlavor]">
+            <postalCode>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </postalCode>
+          </xsl:for-each>
+          <xsl:for-each select="cda:country[not(@nullFlavor)]">
+            <xsl:if test="string-length(.) &gt; 0">
+              <country value="{normalize-space(.)}" />
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:for-each select="cda:country[@nullFlavor]">
+            <country>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </country>
+          </xsl:for-each>
+          <xsl:apply-templates select="cda:useablePeriod" />
+        </xsl:element>
+      </xsl:when>
+      <xsl:when test="cda:streetAddressLine[@nullFlavor] | cda:city[@nullFlavor] | cda:county[@nullFlavor] | cda:state[@nullFlavor] | cda:postalCode[@nullFlavor] | country[@nullFlavor]">
+        <xsl:element name="{$pElementName}">
+          <xsl:if test="@use">
+            <use>
+              <xsl:attribute name="value">
+                <xsl:choose>
+                  <xsl:when test="@use = 'H' or @use = 'HP' or @use = 'HV'">home</xsl:when>
+                  <xsl:when test="@use = 'WP' or @use = 'DIR' or @use = 'PUB'">work</xsl:when>
+                  <!-- default to work -->
+                  <xsl:otherwise>work</xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+            </use>
           </xsl:if>
-        </xsl:for-each>
-        <xsl:for-each select="cda:state[not(@nullFlavor)]">
-          <xsl:if test="string-length(.) &gt; 0">
-            <state value="{normalize-space(.)}" />
-          </xsl:if>
-        </xsl:for-each>
-        <xsl:for-each select="cda:postalCode[not(@nullFlavor)]">
-          <xsl:if test="string-length(.) &gt; 0">
-            <postalCode value="{normalize-space(.)}" />
-          </xsl:if>
-        </xsl:for-each>
-        <xsl:for-each select="cda:country[not(@nullFlavor)]">
-          <xsl:if test="string-length(.) &gt; 0">
-            <country value="{normalize-space(.)}" />
-          </xsl:if>
-        </xsl:for-each>
-        <xsl:apply-templates select="cda:useablePeriod" />
-      </xsl:element>
-    </xsl:if>
+          <xsl:for-each select="cda:streetAddressLine[@nullFlavor]">
+            <line>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </line>
+          </xsl:for-each>
+          <xsl:for-each select="cda:city[@nullFlavor]">
+            <city>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </city>
+          </xsl:for-each>
+          <xsl:for-each select="cda:county[@nullFlavor]">
+            <district>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </district>
+          </xsl:for-each>
+          <xsl:for-each select="cda:state[@nullFlavor]">
+            <state>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </state>
+          </xsl:for-each>
+          <xsl:for-each select="cda:postalCode[@nullFlavor]">
+            <postalCode>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </postalCode>
+          </xsl:for-each>
+          <xsl:for-each select="cda:country[@nullFlavor]">
+            <country>
+              <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
+            </country>
+          </xsl:for-each>
+          <xsl:apply-templates select="cda:useablePeriod" />
+        </xsl:element>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
   <!-- TEMPLATE:addr -->
-  <xsl:template
-    match="cda:addr[@nullFlavor] | cda:addr[cda:streetAddressLine[@nullFlavor]] | cda:addr[cda:city[@nullFlavor]] | cda:addr[cda:county[@nullFlavor]] | cda:addr[cda:state[@nullFlavor]] | cda:addr[cda:postalCode[@nullFlavor]] | cda:addr[country[@nullFlavor]]">
+  <!--<xsl:template
+    match="cda:addr[@nullFlavor] | cda:addr[cda:streetAddressLine[@nullFlavor]] | cda:addr[cda:city[@nullFlavor]] | cda:addr[cda:county[@nullFlavor]] | cda:addr[cda:state[@nullFlavor]] | cda:addr[cda:postalCode[@nullFlavor]] | cda:addr[country[@nullFlavor]]">-->
+  <xsl:template match="cda:addr[@nullFlavor]">
     <xsl:param name="pElementName">address</xsl:param>
     <xsl:element name="{$pElementName}">
       <xsl:if test="@use">

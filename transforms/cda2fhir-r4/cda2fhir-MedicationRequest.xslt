@@ -54,7 +54,7 @@
       <!-- subject -->
       <xsl:call-template name="subject-reference" />
       <!-- supportingInformation: anything in an entryRelationship that isn't already mapped -->
-      <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.118'])]">
+      <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.118']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17'])]">
         <supportingInformation>
           <reference value="urn:uuid:{@lcg:uuid}" />
         </supportingInformation>
@@ -143,9 +143,30 @@
           <xsl:apply-templates select="cda:approachSiteCode">
             <xsl:with-param name="pElementName">site</xsl:with-param>
           </xsl:apply-templates>
-          <xsl:apply-templates select="cda:routeCode">
+          
+          <!-- SG: Update to deal with a nullFlavor in the routeCode plus a translation -->
+          <!--<xsl:apply-templates select="cda:routeCode">
             <xsl:with-param name="pElementName">route</xsl:with-param>
-          </xsl:apply-templates>
+          </xsl:apply-templates>-->
+          <xsl:choose>
+            <xsl:when test="cda:routeCode[not(@nullFlavor)]">
+              <xsl:apply-templates select="cda:routeCode[not(@nullFlavor)]">
+                <xsl:with-param name="pElementName">route</xsl:with-param>
+              </xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test="cda:routeCode[@nullFlavor and cda:translation]">
+              <xsl:apply-templates select="cda:routeCode/cda:translation">
+                <xsl:with-param name="pElementName">route</xsl:with-param>
+              </xsl:apply-templates>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="cda:routeCode">
+                <xsl:with-param name="pElementName">route</xsl:with-param>
+              </xsl:apply-templates>
+            </xsl:otherwise>
+          </xsl:choose>
+          
+          
           <!--MD: doseAndRate must have at lease one child element -->
           <xsl:if test="(not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or (not(cda:rateQuantity/@nullFlavor) and cda:rateQuantity)">
             <doseAndRate>
@@ -195,7 +216,10 @@
         </dosageInstruction>
       </xsl:if>
       <!-- dispenseRequest -->
-      <xsl:if test="cda:repeatNumber/@value > 0 or cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]">
+      <xsl:if test="cda:repeatNumber/@value > 0 or 
+        cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:high/@value or
+        cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:repeatNumber or
+        cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value">
         <dispenseRequest>
           <!-- dispenseInterval -->
           <xsl:if

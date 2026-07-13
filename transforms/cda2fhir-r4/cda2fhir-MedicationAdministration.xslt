@@ -89,11 +89,11 @@
           </xsl:apply-templates>
         </xsl:otherwise>
       </xsl:choose>
-      
+
       <!--<xsl:apply-templates select="cda:effectiveTime">
         <xsl:with-param name="pStartElementName">effective</xsl:with-param>
       </xsl:apply-templates>-->
-      
+
       <xsl:for-each select="cda:performer">
         <performer>
           <actor>
@@ -230,9 +230,23 @@
         <xsl:apply-templates select="cda:approachSiteCode[not(@nullFlavor)]">
           <xsl:with-param name="pElementName">site</xsl:with-param>
         </xsl:apply-templates>
-        <xsl:apply-templates select="cda:routeCode[not(@nullFlavor) or cda:translation]">
-          <xsl:with-param name="pElementName">route</xsl:with-param>
-        </xsl:apply-templates>
+        <xsl:choose>
+          <xsl:when test="cda:routeCode[not(@nullFlavor)]">
+            <xsl:apply-templates select="cda:routeCode[not(@nullFlavor)]">
+              <xsl:with-param name="pElementName">route</xsl:with-param>
+            </xsl:apply-templates>
+          </xsl:when>
+          <xsl:when test="cda:routeCode[@nullFlavor and cda:translation]">
+            <xsl:apply-templates select="cda:routeCode/cda:translation">
+              <xsl:with-param name="pElementName">route</xsl:with-param>
+            </xsl:apply-templates>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="cda:routeCode">
+              <xsl:with-param name="pElementName">route</xsl:with-param>
+            </xsl:apply-templates>
+          </xsl:otherwise>
+        </xsl:choose>
         <xsl:apply-templates select="cda:doseQuantity[not(@nullFlavor)]">
           <xsl:with-param name="pElementName">dose</xsl:with-param>
           <xsl:with-param name="pSimpleQuantity" select="true()" />

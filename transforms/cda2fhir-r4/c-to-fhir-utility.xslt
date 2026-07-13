@@ -203,12 +203,13 @@
         <xsl:variable name="profiles">
             <xsl:apply-templates select="cda:templateId" mode="template2profile" />
         </xsl:variable>
-        <xsl:if test="$profiles/fhir:profile or cda:confidentialityCode[not(@nullFlavor)]">
-
-            <meta>
+        <!--<xsl:if test="$profiles/fhir:profile or cda:confidentialityCode[not(@nullFlavor)]">-->
+            
                 <xsl:choose>
                     <xsl:when test="$profiles/fhir:profile">
+                      <meta>
                         <xsl:apply-templates select="cda:templateId" mode="template2profile" />
+                      </meta>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:comment>WARNING: No profiles found for any of the following templates:
@@ -226,8 +227,7 @@
                         <code value="{cda:confidentialityCode/@code}" />
                     </security>
                 </xsl:if>-->
-            </meta>
-        </xsl:if>
+        <!--</xsl:if>-->
     </xsl:template>
 
     <!-- TEMPLATE: Uses the template to profile file imported at the top of this file to match template oids with their structureDefinition profile -->
@@ -571,6 +571,24 @@
             <xsl:apply-templates select="." mode="bundle-entry" />
         </xsl:for-each>
     </xsl:template>
+  
+  
+  <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.36']]" mode="reference">
+    <xsl:param name="wrapping-elements" />
+    <!-- Remove Admission Medication wrappers, since maps to MedicationAdministration -->
+    <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+      <xsl:apply-templates select="." mode="reference">
+        <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
+      </xsl:apply-templates>
+    </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.36']]" mode="bundle-entry">
+    <!-- Remove Admission Medication wrappers, since maps to MedicationAdministration -->
+    <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+      <xsl:apply-templates select="." mode="bundle-entry" />
+    </xsl:for-each>
+  </xsl:template>
 
     <xsl:template match="cda:*[@nullFlavor]" mode="bundle-entry">
         <!-- Suppress -->

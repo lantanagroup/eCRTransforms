@@ -30,19 +30,23 @@
                         <xsl:comment>INFO: null effectiveTime</xsl:comment>
                     </xsl:when>
                     <xsl:when test="cda:effectiveTime/@value">
+                        <!-- 20260727 Claude: Fix - element name was misspelled "occuranceDateTime" (invalid FHIR);
+                             RiskAssessment.occurrence[x] is occurrenceDateTime -->
                         <xsl:apply-templates select="." mode="instant">
-                            <xsl:with-param name="pElementName">occuranceDateTime</xsl:with-param>
+                            <xsl:with-param name="pElementName">occurrenceDateTime</xsl:with-param>
                         </xsl:apply-templates>
                     </xsl:when>
                     <xsl:otherwise>
-                        <occurencePeriod>
+                        <!-- 20260727 Claude: Fix - element name was misspelled "occurencePeriod" (invalid FHIR);
+                             RiskAssessment.occurrence[x] is occurrencePeriod -->
+                        <occurrencePeriod>
                             <xsl:if test="cda:effectiveTime/cda:low/@value">
                                 <start value="{lcg:cdaTS2date(cda:effectiveTime/cda:low/@value)}" />
                             </xsl:if>
                             <xsl:if test="cda:effectiveTime/cda:high/@value">
                                 <end value="{lcg:cdaTS2date(cda:effectiveTime/cda:high/@value)}" />
                             </xsl:if>
-                        </occurencePeriod>
+                        </occurrencePeriod>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>

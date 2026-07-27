@@ -18,7 +18,7 @@
     </xsl:template>
 
     <!-- ClinicalDocument.serviceEvent (other than the eCR special case) -->
-    <xsl:template match="cda:serviceEvent[not(@moodCode = 'ÍNT')][not(cda:code[@code = 'PHC1464'])]">
+    <xsl:template match="cda:serviceEvent[not(@moodCode = 'INT')][not(cda:code[@code = 'PHC1464'])]">
         <EpisodeOfCare>
             <xsl:call-template name="add-meta" />
             <!-- identifier -->

@@ -10,7 +10,7 @@
             cda:authenticator[cda:assignedEntity] |
             cda:performer[cda:assignedEntity] |
             cda:participant[cda:associatedEntity] |
-            cda:participent[cda:participantRole] |
+            cda:participant[cda:participantRole] |
             cda:dataEnterer[cda:assignedEntity] |
             cda:informant[cda:assignedEntity]" mode="bundle-entry">
         <xsl:apply-templates select="

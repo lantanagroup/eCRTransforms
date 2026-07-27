@@ -369,7 +369,9 @@
                     <xsl:attribute name="value">entered-in-error</xsl:attribute>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:attribute name="value" select="completed" />
+                    <!-- 20260727 Claude: Fix - select="completed" was an unquoted XPath (a child-element step selecting nothing),
+                         producing an empty status value=""; quoted so the fallback is the string 'completed' -->
+                    <xsl:attribute name="value" select="'completed'" />
                 </xsl:otherwise>
             </xsl:choose>
         </status>

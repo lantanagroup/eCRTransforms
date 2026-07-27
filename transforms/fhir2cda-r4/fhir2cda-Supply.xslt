@@ -41,7 +41,9 @@ limitations under the License.
             <templateId root="2.16.840.1.113883.10.20.22.4.18" extension="2014-06-09" />
             <templateId root="2.16.840.1.113883.10.20.37.3.11" extension="2017-08-01" />
             <xsl:choose>
-                <xsl:when test="fhir:identifer">
+                <!-- 20260727 Claude: Fix - test was "fhir:identifer" (typo, missing 'i'), so this branch never fired and
+                     every supply got id nullFlavor="NI" even when the MedicationDispense had an identifier -->
+                <xsl:when test="fhir:identifier">
                     <xsl:apply-templates select="fhir:identifier" />
                 </xsl:when>
                 <xsl:otherwise>

@@ -168,7 +168,7 @@
 
             <xsl:apply-templates select="cda:associatedEntity/cda:associatedPerson/cda:name" />
             <xsl:apply-templates select="cda:associatedEntity/cda:telecom" />
-            <xsl:apply-templates select="cda:associatedEntity/cda:address" />
+            <xsl:apply-templates select="cda:associatedEntity/cda:addr" />
         </RelatedPerson>
     </xsl:template>
     
@@ -201,7 +201,7 @@
             <xsl:apply-templates select="cda:id" />
             <xsl:apply-templates select="cda:relatedPerson/cda:name" />
             <xsl:apply-templates select="cda:telecom" />
-            <xsl:apply-templates select="cda:address" />
+            <xsl:apply-templates select="cda:addr" />
         </RelatedPerson>
     </xsl:template>
 </xsl:stylesheet>

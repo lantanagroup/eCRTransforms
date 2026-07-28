@@ -12,13 +12,19 @@
     </entry>
   </xsl:template>
   <!-- 20260424 SG: manually create bundle-entry for CDA Document as DocumentReference -->
+  <!-- 20260727 Claude: Fix - when the CDA has no setId this emitted an entry with an empty fullUrl ("urn:uuid:").
+       The DocumentReference records the prior/superseded document version identified by setId, so when there is no
+       setId there is nothing meaningful to record - skip the entry entirely (nothing references it: Composition's
+       relatesTo uses targetIdentifier, not a reference) -->
   <xsl:template match="cda:ClinicalDocument" mode="manual-bundle-entry">
-    <entry>
-      <fullUrl value="urn:uuid:{cda:setId/@lcg:uuid}" />
-      <resource>
-        <xsl:apply-templates select="." mode="doc-ref" />
-      </resource>
-    </entry>
+    <xsl:if test="cda:setId">
+      <entry>
+        <fullUrl value="urn:uuid:{cda:setId/@lcg:uuid}" />
+        <resource>
+          <xsl:apply-templates select="." mode="doc-ref" />
+        </resource>
+      </entry>
+    </xsl:if>
   </xsl:template>
   <!-- 20260424 SG: create bundle-entry for eICR relatedDocument as DocumentReference -->
   <xsl:template match="cda:relatedDocument[@typeCode = 'XFRM']" mode="bundle-entry">

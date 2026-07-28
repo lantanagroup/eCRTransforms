@@ -7,6 +7,14 @@
         <xsl:call-template name="create-bundle-entry" />
 
         <xsl:apply-templates select="cda:patientRole/cda:providerOrganization" mode="bundle-entry" />
+
+        <!-- 20260727 Claude: Fix - create the Patient/RelatedPerson entries for Family History-style related subjects
+             (section 2.16.840.1.113883.10.20.22.2.15). The mode="relatedPerson-entry" template in cda2fhir-RelatedPerson.xslt
+             was never invoked from anywhere, so the Patient.link references emitted below were dangling.
+             Guarded so it only runs once even when there are multiple recordTargets. -->
+        <xsl:if test="not(preceding::cda:recordTarget)">
+            <xsl:apply-templates select="//cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.15']" mode="relatedPerson-entry" />
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="cda:recordTarget">
@@ -58,15 +66,18 @@
             <!-- Updating from ifs allowing both boolean and time - only one allowed
                 Will check date first and use that otherwise will use boolean-->
             <!-- Update to handle nullFlavor -->
+            <!-- 20260727 Claude: Fixes - (1) sdtc:deceasedInd with a nullFlavor (no @value) previously matched no branch and
+                 emitted nothing; (2) sdtc:deceasedTime with neither @value nor nullFlavor previously passed an empty sequence
+                 to lcg:cdaTS2date (runtime type error); restructured so every input shape produces a deceased[x] -->
             <xsl:choose>
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime[@nullFlavor]">
                     <deceasedDateTime>
                         <xsl:apply-templates select="cda:patientRole/cda:patient/sdtc:deceasedTime/@nullFlavor" mode="data-absent-reason-extension" />
                     </deceasedDateTime>
                 </xsl:when>
-                <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime">
+                <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime[@value]">
                     <deceasedDateTime>
-                        <xsl:attribute name="value" select="cda:patientRole/cda:patient/sdtc:deceasedTime/lcg:cdaTS2date(@value)" />
+                        <xsl:attribute name="value" select="lcg:cdaTS2date(cda:patientRole/cda:patient/sdtc:deceasedTime[@value][1]/@value)" />
                     </deceasedDateTime>
                 </xsl:when>
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedInd/@value">
@@ -74,7 +85,12 @@
                         <xsl:attribute name="value" select="cda:patientRole/cda:patient/sdtc:deceasedInd/@value" />
                     </deceasedBoolean>
                 </xsl:when>
-                <xsl:when test="cda:patientRole/cda:patient[not(sdtc:deceasedTime) and not(sdtc:deceasedInd)]">
+                <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedInd[@nullFlavor]">
+                    <deceasedBoolean>
+                        <xsl:apply-templates select="cda:patientRole/cda:patient/sdtc:deceasedInd/@nullFlavor" mode="data-absent-reason-extension" />
+                    </deceasedBoolean>
+                </xsl:when>
+                <xsl:when test="cda:patientRole/cda:patient">
                     <deceasedBoolean>
                         <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
                             <valueCode value="unknown" />
@@ -154,20 +170,14 @@
                 </managingOrganization>
             </xsl:if>
 
-            <!-- link (related Patient or RelatedPerson -->
-            <xsl:choose>
-                <xsl:when test="
-                        //cda:section/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.15']/
-                        following-sibling::cda:entry/cda:organizer/cda:subject/cda:relatedSubject[@classCode = 'PRS']">
-                    <link>
-                        <other>
-                            <reference value="urn:uuid:{//cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.22.2.15']/
-                following-sibling::cda:entry/cda:organizer/cda:subject/cda:relatedSubject[@classCode='PRS']/@lcg:uuid}"> </reference>
-                        </other>
-                        <type value="seealso" />
-                    </link>
-                </xsl:when>
-            </xsl:choose>
+            <!-- link (related Patient or RelatedPerson) -->
+            <!-- 20260727 Claude: REMOVED (SG approved) - a seealso link previously pointed from the record patient to the
+                 Family History-style related subjects' RelatedPerson resources. Patient.link is defined as concerning the
+                 "same actual person", so linking the record patient to a *different* person's RelatedPerson was semantically
+                 incorrect (and originally also malformed/dangling). The related subjects' Patient/RelatedPerson entries are
+                 still created via mode="relatedPerson-entry" (invoked from the bundle-entry template above), and each
+                 related subject's own Patient carries the proper seealso link to its RelatedPerson - see
+                 cda2fhir-RelatedPerson.xslt. -->
         </Patient>
     </xsl:template>
 
@@ -187,20 +197,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:variable>
-                    <xsl:variable name="text">
-                        <xsl:choose>
-                            <xsl:when test="@displayName">
-                                <!--<xsl:value-of select="@displayName" />-->
-                                <xsl:apply-templates select="@displayName" />
-                            </xsl:when>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:value-of select="@nullFlavor" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="@code" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
+                    <!-- 20260727 Claude: removed unused $text variable (computed but never referenced) -->
                     <xsl:variable name="codeSystemUri">
                         <xsl:choose>
                             <xsl:when test="@nullFlavor">
@@ -215,8 +212,14 @@
                     <extension url="ombCategory">
                         <valueCoding>
                             <system value="{$codeSystemUri}" />
+                            <!-- 20260727 Claude: Fix - the us-core-race ombCategory slice only allows the five OMB codes
+                                 plus UNK/ASKU; previously only NI was remapped, so other nullFlavors (OTH, MSK, NAV, ...)
+                                 passed through as invalid codings -->
                             <xsl:choose>
-                                <xsl:when test="$code = 'NI'">
+                                <xsl:when test="@nullFlavor = 'ASKU'">
+                                    <code value="ASKU" />
+                                </xsl:when>
+                                <xsl:when test="@nullFlavor">
                                     <code value="UNK" />
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -234,20 +237,7 @@
                     </extension>
                 </xsl:for-each>
                 <xsl:for-each select="cda:patientRole/cda:patient/sdtc:raceCode[not(@nullFlavor)]">
-                    <xsl:variable name="text">
-                        <xsl:choose>
-                            <xsl:when test="@displayName">
-                                <!--<xsl:value-of select="@displayName" />-->
-                                <xsl:apply-templates select="@displayName" />
-                            </xsl:when>
-                            <xsl:when test="@nullFlavor">
-                                <xsl:value-of select="@nullFlavor" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="@code" />
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
+                    <!-- 20260727 Claude: removed unused $text variable (computed but never referenced) -->
                     <xsl:variable name="code">
                         <xsl:choose>
                             <xsl:when test="@nullFlavor">
@@ -305,30 +295,48 @@
                 </xsl:for-each>
 
                 <!--MD: if patient has more than one race set the text as Mixed  -->
-                <xsl:choose>
-                    <xsl:when test="//cda:patientRole/cda:patient/sdtc:raceCode[not(@nullFlavor)]">
-                        <extension url="text">
-                            <valueString value="'Mixed'" />
-                        </extension>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <extension url="text">
+                <!-- 20260727 Claude: Fixes - (1) valueString was "'Mixed'" with the quote characters inside the attribute;
+                     (2) "Mixed" fired whenever ANY sdtc:raceCode existed, not when more than one race is recorded: only
+                     distinct OMB category codes count as separate races - a detailed code alongside its OMB category
+                     (e.g. White + European) is one race, not mixed; (3) the fallback could emit an empty valueString when
+                     raceCode had a code but no displayName (us-core-race requires a non-empty text); (4) replaced
+                     document-wide //cda:patientRole paths with context-relative ones -->
+                <xsl:variable name="vOmbRaceCodes"
+                    select="distinct-values((cda:patientRole/cda:patient/cda:raceCode[not(@nullFlavor)]/@code, cda:patientRole/cda:patient/sdtc:raceCode[@code = ('1002-5', '2028-9', '2054-5', '2076-8', '2106-3')]/@code))" />
+                <xsl:variable name="vDetailedRaceCodes"
+                    select="cda:patientRole/cda:patient/sdtc:raceCode[not(@nullFlavor)][not(@code = ('1002-5', '2028-9', '2054-5', '2076-8', '2106-3'))]" />
+                <extension url="text">
+                    <xsl:choose>
+                        <xsl:when test="count($vOmbRaceCodes) > 1">
+                            <valueString value="Mixed" />
+                        </xsl:when>
+                        <xsl:when test="count($vOmbRaceCodes) = 1">
+                            <xsl:variable name="vPrimaryRace"
+                                select="(cda:patientRole/cda:patient/cda:raceCode[not(@nullFlavor)] | cda:patientRole/cda:patient/sdtc:raceCode[not(@nullFlavor)])[@code = $vOmbRaceCodes[1]][1]" />
                             <valueString>
                                 <xsl:attribute name="value">
                                     <xsl:choose>
-                                        <xsl:when test="//cda:patientRole/cda:patient/cda:raceCode[@nullFlavor]">
-                                            <xsl:value-of select="//cda:patientRole/cda:patient/cda:raceCode/@nullFlavor" />
+                                        <xsl:when test="$vPrimaryRace/@displayName">
+                                            <xsl:apply-templates select="$vPrimaryRace/@displayName" />
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <xsl:value-of select="cda:patientRole/cda:patient/cda:raceCode/@displayName" />
+                                            <xsl:value-of select="$vPrimaryRace/@code" />
                                         </xsl:otherwise>
                                     </xsl:choose>
-
                                 </xsl:attribute>
                             </valueString>
-                        </extension>
-                    </xsl:otherwise>
-                </xsl:choose>
+                        </xsl:when>
+                        <xsl:when test="count($vDetailedRaceCodes) > 0">
+                            <valueString value="{string-join($vDetailedRaceCodes/(if (@displayName) then @displayName else @code), ', ')}" />
+                        </xsl:when>
+                        <xsl:when test="cda:patientRole/cda:patient/cda:raceCode/@nullFlavor | cda:patientRole/cda:patient/sdtc:raceCode/@nullFlavor">
+                            <valueString value="{(cda:patientRole/cda:patient/cda:raceCode/@nullFlavor | cda:patientRole/cda:patient/sdtc:raceCode/@nullFlavor)[1]}" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <valueString value="Unknown" />
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </extension>
             </extension>
         </xsl:if>
     </xsl:template>
@@ -388,6 +396,11 @@
                                 </valueCoding>
                             </extension>
                         </xsl:when>
+                        <xsl:otherwise>
+                            <!-- 20260727 Claude: Fix - codes not found in detailed-ethnicity-codes.xml were previously
+                                 dropped with no trace; now flagged so missing table entries are visible -->
+                            <xsl:comment>WARNING: sdtc:ethnicGroupCode <xsl:value-of select="@code" /> not in detailed-ethnicity-codes.xml - not mapped to detailed ethnicity</xsl:comment>
+                        </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
 
@@ -410,7 +423,9 @@
                             <xsl:value-of select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode/@displayName" separator=", " />
                         </xsl:when>
                         <xsl:when test="cda:patientRole/cda:patient/sdtc:ethnicGroupCode[1]/@nullFlavor">
-                            <xsl:value-of select="cda:patientRole/sdtc:patient/sdtc:ethnicGroupCode/@nullFlavor" />
+                            <!-- 20260727 Claude: Fix - path selected the nonexistent sdtc:patient element, so this branch
+                                 always produced an empty string -->
+                            <xsl:value-of select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode[1]/@nullFlavor" />
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="cda:patientRole/cda:patient/sdtc:ethnicGroupCode/@code" separator=", " />
@@ -429,6 +444,11 @@
                         <xsl:when test="string-length($vDetailedText) > 0">
                             <valueString value="{$vDetailedText}" />
                         </xsl:when>
+                        <xsl:otherwise>
+                            <!-- 20260727 Claude: Fix - previously the wrapper extension was emitted with no value at all
+                                 when both text variables were empty (invalid FHIR extension; us-core-ethnicity requires text) -->
+                            <valueString value="Unknown" />
+                        </xsl:otherwise>
                     </xsl:choose>
                 </extension>
 
@@ -446,7 +466,10 @@
     </xsl:template>
 
     <xsl:template name="add-birth-sex-extension">
-        <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200']">
+        <!-- 20260727 Claude: Fixes - (1) exclude observations recorded about a related subject (e.g. inside a family
+             history organizer), which previously would have been attributed to the patient; (2) us-core-birthsex is 0..1,
+             so only the first matching observation is used (previously one extension per observation) -->
+        <xsl:for-each select="(/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.200'][not(ancestor::*[cda:subject/cda:relatedSubject])])[1]">
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
                 <xsl:choose>
                     <xsl:when test="cda:value/@code">
@@ -462,44 +485,74 @@
 
     <!-- birthplace -->
     <xsl:template name="add-birthplace-extension">
+        <!-- 20260727 Claude: Fixes - (1) $vName previously selected cda:name AND its child elements, so any name with
+             children had its text included twice; (2) a place with a name but no addr previously emitted an empty
+             patient-birthPlace extension (invalid FHIR) - the name-only case now emits a valueAddress with just text -->
         <xsl:variable name="vName">
-            <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name | cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name/cda:*">
-                <xsl:variable name="vTextNamePart">
-                    <xsl:value-of select="." />
-                </xsl:variable>
-                <xsl:value-of select="concat($vTextNamePart, ' ')" />
-            </xsl:for-each>
+            <xsl:value-of select="normalize-space(string-join(cda:patientRole/cda:patient/cda:birthplace/cda:place/cda:name, ' '))" />
         </xsl:variable>
         <xsl:for-each select="cda:patientRole/cda:patient/cda:birthplace/cda:place">
-            <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
-                <xsl:apply-templates select="cda:addr">
-                    <xsl:with-param name="pElementName" select="'valueAddress'" />
-                    <xsl:with-param name="pExtraText" select="$vName" />
-                </xsl:apply-templates>
-            </extension>
+            <xsl:choose>
+                <xsl:when test="cda:addr[* or @nullFlavor]">
+                    <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
+                        <xsl:apply-templates select="cda:addr">
+                            <xsl:with-param name="pElementName" select="'valueAddress'" />
+                            <xsl:with-param name="pExtraText" select="$vName" />
+                        </xsl:apply-templates>
+                    </extension>
+                </xsl:when>
+                <xsl:when test="string-length($vName) > 0">
+                    <extension url="http://hl7.org/fhir/StructureDefinition/patient-birthPlace">
+                        <valueAddress>
+                            <text value="{$vName}" />
+                        </valueAddress>
+                    </extension>
+                </xsl:when>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="add-gender-identity-extension">
-        <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45']">
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
-                <extension url="value">
-                    <xsl:apply-templates select="cda:value">
-                        <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
-                    </xsl:apply-templates>
-                </extension>
-                <extension url="period">
-                    <xsl:apply-templates select="cda:effectiveTime" mode="period">
-                        <xsl:with-param name="pElementName">valuePeriod</xsl:with-param>
-                    </xsl:apply-templates>
-                </extension>
-            </extension>
+        <!-- 20260727 Claude: Fixes - (1) exclude observations recorded about a related subject; (2) require cda:value
+             (previously an observation without a value produced an empty sub-extension, which is invalid FHIR); (3) the
+             period sub-extension is only emitted when the effectiveTime has content (previously an empty extension);
+             (4) the eCR us-ph extension URL is only used for eICR/RR - other documents get the standard
+             patient-genderIdentity extension (plain valueCodeableConcept), mirroring the fhir2cda direction -->
+        <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45'][not(ancestor::*[cda:subject/cda:relatedSubject])][cda:value]">
+            <xsl:choose>
+                <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
+                    <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
+                        <extension url="value">
+                            <xsl:apply-templates select="cda:value">
+                                <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+                            </xsl:apply-templates>
+                        </extension>
+                        <xsl:if test="cda:effectiveTime[@value or cda:low or cda:high]">
+                            <extension url="period">
+                                <xsl:apply-templates select="cda:effectiveTime" mode="period">
+                                    <xsl:with-param name="pElementName">valuePeriod</xsl:with-param>
+                                </xsl:apply-templates>
+                            </extension>
+                        </xsl:if>
+                    </extension>
+                </xsl:when>
+                <xsl:otherwise>
+                    <extension url="http://hl7.org/fhir/StructureDefinition/patient-genderIdentity">
+                        <xsl:apply-templates select="cda:value">
+                            <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
+                        </xsl:apply-templates>
+                    </extension>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
     </xsl:template>
 
     <!-- TEMPLATE: US Public Health Tribal Affiliation Extension -->
     <xsl:template name="add-tribal-affiliation-extension">
-        <xsl:for-each select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.48']">
+        <!-- 20260727 Claude: Fixes - (1) exclude observations recorded about a related subject; (2) require cda:code
+             (TribeName) so an empty sub-extension is never emitted; (3) EnrolledTribeMember only emitted when a boolean
+             value is present (previously a missing or non-BL value produced an empty sub-extension, invalid FHIR) -->
+        <xsl:for-each select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.48'][not(ancestor::*[cda:subject/cda:relatedSubject])][cda:code]">
             <xsl:comment>US Public Health Tribal Affiliation Extension</xsl:comment>
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-tribal-affiliation-extension">
                 <extension url="TribeName">
@@ -508,11 +561,13 @@
                         <xsl:with-param name="pIncludeCoding" select="false()" />
                     </xsl:apply-templates>
                 </extension>
-                <extension url="EnrolledTribeMember">
-                    <xsl:apply-templates select="cda:value">
-                        <xsl:with-param name="pElementName" select="'valueBoolean'" />
-                    </xsl:apply-templates>
-                </extension>
+                <xsl:if test="cda:value[@xsi:type = 'BL'][@value]">
+                    <extension url="EnrolledTribeMember">
+                        <xsl:apply-templates select="cda:value">
+                            <xsl:with-param name="pElementName" select="'valueBoolean'" />
+                        </xsl:apply-templates>
+                    </extension>
+                </xsl:if>
             </extension>
         </xsl:for-each>
     </xsl:template>

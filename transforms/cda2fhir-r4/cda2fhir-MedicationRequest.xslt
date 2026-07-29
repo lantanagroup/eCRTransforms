@@ -87,15 +87,18 @@
         </reasonReference>
       </xsl:for-each>
       <!-- SG 202201: dosageInstruction isn't required, so if there is no data we don't want an empty element -->
+      <!-- 20260729 Claude: Fix - the guard omitted cda:effectiveTime[@value] (a single administration time alone never
+           opened dosageInstruction although the timing logic inside handles it) and cda:maxDoseQuantity (a med with
+           only a max dose lost its maxDosePerPeriod) -->
       <xsl:if
-        test="cda:text or cda:approachSiteCode or cda:routeCode or (not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or cda:effectiveTime[@xsi:type = 'IVL_TS'] or cda:effectiveTime[@operator = 'A']">
+        test="cda:text or cda:approachSiteCode or cda:routeCode or (not(cda:doseQuantity/@nullFlavor) and cda:doseQuantity) or cda:effectiveTime[@xsi:type = 'IVL_TS'] or cda:effectiveTime[@operator = 'A'] or cda:effectiveTime[@value] or cda:maxDoseQuantity">
         <dosageInstruction>
           <xsl:choose>
             <xsl:when test="cda:text">
               <xsl:choose>
                 <xsl:when test="cda:text/cda:reference/@value">
+                  <!-- 20260729 Claude: removed unused $vTest variable -->
                   <xsl:variable name="vRefValue" select="substring-after(cda:text/cda:reference/@value, '#')" />
-                  <xsl:variable name="vTest" select="../../cda:text/cda:table/cda:tbody/cda:tr/@ID" />
                   <xsl:choose>
                     <xsl:when test="../../cda:text/cda:table/cda:tbody/cda:tr[@ID = $vRefValue]">
                       <xsl:variable name="vTextValue">
@@ -180,14 +183,19 @@
               </xsl:apply-templates>
             </doseAndRate>
           </xsl:if>
+          <!-- 20260729 Claude: Fix - the denominator emitted unit/system unconditionally, producing unit value="" when
+               the CDA had no @unit; both halves now guard value and unit on attribute presence (numerator pattern per
+               the Sept 2024 Connectathon decision) -->
           <xsl:if test="cda:maxDoseQuantity">
             <maxDosePerPeriod>
               <numerator>
-                <value>
-                  <xsl:attribute name="value">
-                    <xsl:value-of select="cda:maxDoseQuantity/cda:numerator/@value" />
-                  </xsl:attribute>
-                </value>
+                <xsl:if test="cda:maxDoseQuantity/cda:numerator/@value">
+                  <value>
+                    <xsl:attribute name="value">
+                      <xsl:value-of select="cda:maxDoseQuantity/cda:numerator/@value" />
+                    </xsl:attribute>
+                  </value>
+                </xsl:if>
                 <!-- Update based on Sept 2024 Connectathon decision -->
                 <xsl:if test="cda:maxDoseQuantity/cda:numerator/@unit">
                   <unit>
@@ -199,17 +207,21 @@
                 </xsl:if>
               </numerator>
               <denominator>
-                <value>
-                  <xsl:attribute name="value">
-                    <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@value" />
-                  </xsl:attribute>
-                </value>
-                <unit>
-                  <xsl:attribute name="value">
-                    <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@unit" />
-                  </xsl:attribute>
-                </unit>
-                <system value="http://unitsofmeasure.org" />
+                <xsl:if test="cda:maxDoseQuantity/cda:denominator/@value">
+                  <value>
+                    <xsl:attribute name="value">
+                      <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@value" />
+                    </xsl:attribute>
+                  </value>
+                </xsl:if>
+                <xsl:if test="cda:maxDoseQuantity/cda:denominator/@unit">
+                  <unit>
+                    <xsl:attribute name="value">
+                      <xsl:value-of select="cda:maxDoseQuantity/cda:denominator/@unit" />
+                    </xsl:attribute>
+                  </unit>
+                  <system value="http://unitsofmeasure.org" />
+                </xsl:if>
               </denominator>
             </maxDosePerPeriod>
           </xsl:if>
@@ -334,6 +346,8 @@
             </cda:effectiveTime>
         </xsl:comment>
   </xsl:template>
+  <!-- 20260729 Claude: NOTE - this template's only caller is commented out above (replaced by medicationReference);
+       kept in case the inline-CodeableConcept option is wanted again -->
   <xsl:template match="cda:consumable" mode="medication-request">
     <medicationCodeableConcept>
       <xsl:for-each select="cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@code][@codeSystem]">

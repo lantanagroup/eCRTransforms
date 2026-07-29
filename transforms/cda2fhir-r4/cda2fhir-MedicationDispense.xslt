@@ -4,7 +4,7 @@
   exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
   <xsl:template
-    match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']] | cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][not(../../../cda:substanceAdministration[@moodCode = 'INT'])]"
+    match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']] | cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][not(ancestor::cda:substanceAdministration[@moodCode = 'INT'])]"
     mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />
     <xsl:apply-templates select="cda:author" mode="bundle-entry" />
@@ -22,12 +22,15 @@
 
   <!-- Suppress C-CDA Supply Order if it's in a SubstanceAdministration with a moodCode of INT because it's data elements will be part of the MedicationRequest
          and not a standalone resource, but do want performer -->
-  <xsl:template match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode = 'INT']]" mode="bundle-entry">
+  <!-- 20260729 Claude: Fix - the INT-suppression test used a hard-coded ../../../ axis depth, which breaks when the
+       supply is nested one level deeper/shallower; now uses the ancestor axis (here, in the match above, and in the
+       pTargetUUID below) -->
+  <xsl:template match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][ancestor::cda:substanceAdministration[@moodCode = 'INT']]" mode="bundle-entry">
     <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
 
     <xsl:for-each select="cda:performer[position() > 1]">
       <xsl:apply-templates select="." mode="provenance">
-        <xsl:with-param name="pTargetUUID" select="../../../cda:substanceAdministration[@moodCode = 'INT']/@lcg:uuid" />
+        <xsl:with-param name="pTargetUUID" select="ancestor::cda:substanceAdministration[@moodCode = 'INT'][1]/@lcg:uuid" />
       </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
@@ -37,6 +40,8 @@
       <xsl:call-template name="add-meta" />
       <xsl:apply-templates select="cda:id" />
       <!-- status -->
+      <!-- 20260729 Claude: Fix - status was only emitted for INT mood or statusCode completed/aborted, but
+           MedicationDispense.status is required 1..1; added the remaining ActStatus mappings and an 'unknown' default -->
       <xsl:choose>
         <xsl:when test="@moodCode = 'INT'">
           <status value="preparation" />
@@ -47,6 +52,24 @@
         <xsl:when test="cda:statusCode/@code = 'aborted'">
           <status value="stopped" />
         </xsl:when>
+        <xsl:when test="cda:statusCode/@code = 'active'">
+          <status value="in-progress" />
+        </xsl:when>
+        <xsl:when test="cda:statusCode/@code = 'new'">
+          <status value="preparation" />
+        </xsl:when>
+        <xsl:when test="cda:statusCode/@code = 'held' or cda:statusCode/@code = 'suspended'">
+          <status value="on-hold" />
+        </xsl:when>
+        <xsl:when test="cda:statusCode/@code = 'cancelled'">
+          <status value="cancelled" />
+        </xsl:when>
+        <xsl:when test="cda:statusCode/@code = 'nullified'">
+          <status value="entered-in-error" />
+        </xsl:when>
+        <xsl:otherwise>
+          <status value="unknown" />
+        </xsl:otherwise>
       </xsl:choose>
       <!-- medicationCodeableConcept -->
       <!-- A cda supply doesn't have to have a product, but a FHIR MedicationDispense has to have a medication
@@ -135,6 +158,8 @@
     </quantity>
   </xsl:template>
 
+  <!-- 20260729 Claude: NOTE - the cda:product|cda:consumable mode="medication-dispense" template's only callers are
+       commented out above (replaced by medicationReference); kept in case the inline-CodeableConcept option is wanted -->
   <xsl:template match="cda:product | cda:consumable" mode="medication-dispense">
     <xsl:for-each select="cda:manufacturedProduct/cda:manufacturedMaterial/cda:code">
       <xsl:call-template name="newCreateCodableConcept">

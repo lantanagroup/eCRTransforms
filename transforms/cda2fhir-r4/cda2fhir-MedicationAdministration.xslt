@@ -36,23 +36,10 @@
   </xsl:template>
 
   <!-- SubstanceAdministration inside an Admission Medication -->
-  <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.44']]">
-    <xsl:variable name="dateAsserted">
-      <xsl:choose>
-        <xsl:when test="ancestor-or-self::cda:*/cda:author/cda:time/@value">
-          <xsl:value-of select="ancestor-or-self::cda:*[cda:author/cda:time/@value][1]/cda:author/cda:time/@value" />
-        </xsl:when>
-        <xsl:when test="ancestor-or-self::cda:*/cda:effectiveTime/@value">
-          <xsl:value-of select="ancestor-or-self::cda:*[cda:effectiveTime/@value][1]/cda:effectiveTime/@value" />
-        </xsl:when>
-        <xsl:when test="ancestor-or-self::cda:*/cda:effectiveTime/cda:low/@value">
-          <xsl:value-of select="ancestor-or-self::cda:*[cda:effectiveTime/cda:low/@value][1]/cda:effectiveTime/cda:low/@value" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="/cda:ClinicalDocument/cda:effectiveTime/@value" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+  <!-- 20260729 Claude: added explicit priority so this specific template beats the generalized one below -->
+  <xsl:template match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.44']]" priority="2">
+    <!-- 20260729 Claude: removed unused $dateAsserted variable (computed but never referenced; dateAsserted is a
+         MedicationStatement element, not MedicationAdministration) -->
     <MedicationAdministration>
       <xsl:call-template name="add-meta" />
       <!-- Therapeutic Response to Medication -->
@@ -113,25 +100,14 @@
     </MedicationAdministration>
   </xsl:template>
 
-  <!-- Match if this is a substanceAdministration inside a Medication Administered or Procedures section or Medications Section-->
+  <!-- 20260729 Claude: Fix - this body template was restricted to the Medications Administered / Procedures /
+       Medications sections, so a 4.16 EVN Medication Activity anywhere else got a bundle entry (the bundle-entry
+       match above is unrestricted) but only a fallback resource body. Section predicate removed; the Admission
+       Medication template above keeps its own handling via priority -->
   <xsl:template
-    match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN'][ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.38'] or ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.7.1'] or ancestor::*/cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.1.1']]">
-    <xsl:variable name="dateAsserted">
-      <xsl:choose>
-        <xsl:when test="ancestor-or-self::cda:*/cda:author/cda:time/@value">
-          <xsl:value-of select="ancestor-or-self::cda:*[cda:author/cda:time/@value][1]/cda:author/cda:time/@value" />
-        </xsl:when>
-        <xsl:when test="ancestor-or-self::cda:*/cda:effectiveTime/@value">
-          <xsl:value-of select="ancestor-or-self::cda:*[cda:effectiveTime/@value][1]/cda:effectiveTime/@value" />
-        </xsl:when>
-        <xsl:when test="ancestor-or-self::cda:*/cda:effectiveTime/cda:low/@value">
-          <xsl:value-of select="ancestor-or-self::cda:*[cda:effectiveTime/cda:low/@value][1]/cda:effectiveTime/cda:low/@value" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="/cda:ClinicalDocument/cda:effectiveTime/@value" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+    match="cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'EVN']" priority="1">
+    <!-- 20260729 Claude: removed unused $dateAsserted variable (computed but never referenced; dateAsserted is a
+         MedicationStatement element, not MedicationAdministration) -->
     <MedicationAdministration>
       <xsl:call-template name="add-meta" />
       <!-- Therapeutic Response to Medication -->
@@ -259,24 +235,11 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="cda:effectiveTime[@xsi:type = 'IVL_TS']" mode="medication-administration">
-    <xsl:element name="effectiveDateTime">
-      <xsl:choose>
-        <xsl:when test="@value">
-          <xsl:attribute name="value" select="lcg:cdaTS2date(@value)" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:if test="cda:low[not(@nullFlavor)]">
-            <start value="{lcg:cdaTS2date(cda:low/@value)}" />
-          </xsl:if>
-          <xsl:if test="cda:high[not(@nullFlavor)]">
-            <end value="{lcg:cdaTS2date(cda:high/@value)}" />
-          </xsl:if>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:element>
-  </xsl:template>
+  <!-- 20260729 Claude: removed dead template cda:effectiveTime[IVL_TS] mode="medication-administration" - never
+       invoked (and it emitted start/end children inside an effectiveDateTime element, which would have been invalid) -->
 
+  <!-- 20260729 Claude: NOTE - this template's only caller is commented out (line ~50, replaced by medicationReference);
+       kept in case the inline-CodeableConcept option is wanted again -->
   <xsl:template match="cda:consumable" mode="medication-administration">
     <medicationCodeableConcept>
       <xsl:for-each select="cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@code][@codeSystem]">

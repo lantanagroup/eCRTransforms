@@ -185,7 +185,8 @@
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
             <code value="NI" />
-            <display value="NoInformtion" />
+            <!-- 20260729 Claude: Fix - display was misspelled "NoInformtion"; v3-NullFlavor NI display is "NoInformation" -->
+            <display value="NoInformation" />
           </class>
         </xsl:otherwise>
       </xsl:choose>
@@ -250,16 +251,15 @@
                         ancestor::cda:section[1]/cda:author[1]/cda:assignedAuthor or
                         /cda:ClinicalDocument/cda:author[1]/cda:assignedAuthor/cda:assignedPerson or
                         /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:responsibleParty">-->
-      <xsl:for-each select="cda:author/cda:assignedAuthor[cda:assignedPerson]">
+      <!-- 20260729 Claude: Fix - cda:assignedPerson was applied in mode="rename-reference-participant", which has no
+           matching template (it matches cda:author | cda:performer), so XSLT built-in rules copied the person's name
+           text into the output instead of emitting a reference. Now the author itself is applied in that mode, which
+           resolves to the assignedAuthor's uuid (the PractitionerRole resource) -->
+      <xsl:for-each select="cda:author[cda:assignedAuthor/cda:assignedPerson]">
         <participant>
-          <xsl:for-each select="cda:assignedPerson">
-            <xsl:apply-templates select="." mode="rename-reference-participant">
-              <xsl:with-param name="pElementName">individual</xsl:with-param>
-            </xsl:apply-templates>
-          </xsl:for-each>
-          <!--<xsl:call-template name="author-reference">
-                        <xsl:with-param name="pElementName">individual</xsl:with-param>
-                    </xsl:call-template>-->
+          <xsl:apply-templates select="." mode="rename-reference-participant">
+            <xsl:with-param name="pElementName">individual</xsl:with-param>
+          </xsl:apply-templates>
         </participant>
       </xsl:for-each>
       <!--</xsl:when>
@@ -366,10 +366,7 @@
     </Encounter>
   </xsl:template>
 
-  <xsl:template match="cda:code" mode="encounter">
-    <xsl:call-template name="newCreateCodableConcept">
-      <xsl:with-param name="pElementName">type</xsl:with-param>
-    </xsl:call-template>
-  </xsl:template>
+  <!-- 20260729 Claude: removed dead template match="cda:code" mode="encounter" - a repo-wide search confirms nothing
+       invokes mode="encounter"; Encounter.type is built inline in the main template above -->
 
 </xsl:stylesheet>

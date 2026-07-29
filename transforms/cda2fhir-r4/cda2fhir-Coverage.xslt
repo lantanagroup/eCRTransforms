@@ -53,7 +53,19 @@
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:apply-templates select="cda:id" />
-            <status value="active" />
+            <!-- 20260729 Claude: Fix - status was hard-coded 'active'; now mapped from the Policy Activity statusCode
+                 (C-CDA fixes it to 'completed', meaning the recording is complete, so completed/active -> active;
+                 defensive mappings for other ActStatus codes; default active) -->
+            <status>
+                <xsl:attribute name="value">
+                    <xsl:choose>
+                        <xsl:when test="cda:statusCode/@code = 'cancelled' or cda:statusCode/@code = 'aborted'">cancelled</xsl:when>
+                        <xsl:when test="cda:statusCode/@code = 'nullified'">entered-in-error</xsl:when>
+                        <xsl:when test="cda:statusCode/@code = 'new'">draft</xsl:when>
+                        <xsl:otherwise>active</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+            </status>
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>
             </xsl:apply-templates>
@@ -67,20 +79,21 @@
                     <xsl:choose>
 
                         <xsl:when test="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']">
-                            <subscriberId>
-                                <xsl:choose>
-                                    <xsl:when test="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id/@nullFlavor">
-                                        <xsl:attribute name="value" select="'NI'" />
-                                    </xsl:when>
-                                    <xsl:when test="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id/@extension">
-                                        <xsl:variable name="vTemp" select="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id/@extension" />
-                                        <xsl:attribute name="value" select="xs:string($vTemp)" />
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:attribute name="value" select="'NI'" />
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </subscriberId>
+                            <!-- 20260729 Claude: Fix - subscriberId previously defaulted to the literal string "NI"
+                                 (fake data); a nullFlavor'd id now gets a data-absent-reason extension and when there is
+                                 no usable id at all the element is omitted -->
+                            <xsl:choose>
+                                <xsl:when test="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id/@extension">
+                                    <subscriberId>
+                                        <xsl:attribute name="value" select="xs:string(cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id[@extension][1]/@extension)" />
+                                    </subscriberId>
+                                </xsl:when>
+                                <xsl:when test="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id/@nullFlavor">
+                                    <subscriberId>
+                                        <xsl:apply-templates select="cda:participant[@typeCode = 'COV']/cda:participantRole[@classCode = 'PAT']/cda:id[@nullFlavor][1]/@nullFlavor" mode="data-absent-reason-extension" />
+                                    </subscriberId>
+                                </xsl:when>
+                            </xsl:choose>
                         </xsl:when>
                     </xsl:choose>
                 </xsl:when>
@@ -102,12 +115,9 @@
                 </xsl:when>
             </xsl:choose>
 
-            <xsl:variable name="vTest" select="cda:performer[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.87']/cda:time" />
-            <xsl:choose>
-                <xsl:when test="cda:performer[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.87']/cda:time">
-                    <xsl:apply-templates select="cda:performer[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.87']/cda:time" />
-                </xsl:when>
-            </xsl:choose>
+            <!-- 20260729 Claude: removed unused $vTest variable and the redundant choose (applying templates to an
+                 empty selection is already a no-op) -->
+            <xsl:apply-templates select="cda:performer[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.87']/cda:time" />
 
             <xsl:if test="
                     cda:performer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.87']]
@@ -154,20 +164,8 @@
         </Coverage>
     </xsl:template>
 
-    <xsl:template match="cda:entryRelationship" mode="SUBJ">
-        <class>
-            <xsl:apply-templates select="cda:act/cda:code">
-                <xsl:with-param name="pElementName">type</xsl:with-param>
-            </xsl:apply-templates>
-            <value>
-                <xsl:attribute name="value" select="cda:act/cda:id/@extension" />
-            </value>
-            <name>
-                <xsl:attribute name="value" select="cda:act/cda:text" />
-            </name>
-        </class>
-    </xsl:template>
-
+    <!-- 20260729 Claude: removed dead template match="cda:entryRelationship" mode="SUBJ" - its only caller is the
+         commented-out Coverage.class block above (which notes the mapping made an invalid assumption) -->
 
     <xsl:template match="cda:performer[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.87']]/cda:assignedEntity[cda:code[@code = 'PAYOR']]" mode="payor">
         <Organization>
@@ -176,7 +174,8 @@
             <xsl:apply-templates select="cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:comment>Pregnancy Status Recorded Date</xsl:comment>
+            <!-- 20260729 Claude: removed stray copy-pasted comment "Pregnancy Status Recorded Date" that was emitted
+                 into every payor Organization -->
 
             <!-- MD: add comment for CCDA missing name for cause validation error -->
             <xsl:choose>
@@ -188,7 +187,8 @@
                     </name>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:comment>WARNING: Missing cda:representedOrgainzation/cda:name in CDA document</xsl:comment>
+                    <!-- 20260729 Claude: Fix - typo "Orgainzation" in the warning message (same as Organization.xslt) -->
+                    <xsl:comment>WARNING: Missing cda:representedOrganization/cda:name in CDA document</xsl:comment>
                 </xsl:otherwise>
             </xsl:choose>
             <!--

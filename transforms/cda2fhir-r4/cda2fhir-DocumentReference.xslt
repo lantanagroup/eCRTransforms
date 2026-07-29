@@ -55,21 +55,33 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
-      <xsl:element name="{$wrapping-elements}">
-        <reference>
-          <xsl:attribute name="value">urn:uuid:<xsl:value-of select="@lcg:uuid" /></xsl:attribute>
-        </reference>
-        <!-- Special code for [RR R1S1] Received eICR Information -->
-        <identifier>
-          <system value="urn:ietf:rfc:3986" />
-          <value>
-            <xsl:attribute name="value" select="concat('urn:uuid:', cda:reference/cda:externalDocument/cda:id/@root)" />
-          </value>
-        </identifier>
-        <display>
-          <xsl:attribute name="value" select="cda:text" />
-        </display>
-      </xsl:element>
+      <!-- 20260729 Claude: Fix - xsl:element name="{$wrapping-elements}" was used unconditionally; when this template is
+           reached without a wrapping-elements param that is a runtime error (invalid empty QName). Now falls back to a
+           plain reference element named by pElementName -->
+      <xsl:choose>
+        <xsl:when test="string-length($wrapping-elements) > 0">
+          <xsl:element name="{$wrapping-elements}">
+            <reference>
+              <xsl:attribute name="value">urn:uuid:<xsl:value-of select="@lcg:uuid" /></xsl:attribute>
+            </reference>
+            <!-- Special code for [RR R1S1] Received eICR Information -->
+            <identifier>
+              <system value="urn:ietf:rfc:3986" />
+              <value>
+                <xsl:attribute name="value" select="concat('urn:uuid:', cda:reference/cda:externalDocument/cda:id/@root)" />
+              </value>
+            </identifier>
+            <display>
+              <xsl:attribute name="value" select="cda:text" />
+            </display>
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="{$pElementName}">
+            <xsl:attribute name="value">urn:uuid:<xsl:value-of select="@lcg:uuid" /></xsl:attribute>
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:if>
   </xsl:template>
   <!-- RR External Resource[1]/RR External Reference[1..*] -> RR DocumentReference - bundle entry -->
@@ -346,8 +358,10 @@
     <xsl:variable name="root" select="cda:setId/@root" />
     <xsl:variable name="root-uri">
       <xsl:choose>
-        <xsl:when test="$mapping/map[@oid = cda:setId/$root]">
-          <xsl:value-of select="$mapping/map[@oid = cda:setId/$root][1]/@uri" />
+        <!-- 20260729 Claude: Fix - the predicate was [@oid = cda:setId/$root], a malformed path that evaluated $root as
+             a location step and never matched, so the OID-to-URI mapping lookup always fell through to the urn heuristic -->
+        <xsl:when test="$mapping/map[@oid = $root]">
+          <xsl:value-of select="$mapping/map[@oid = $root][1]/@uri" />
         </xsl:when>
         <xsl:when test="contains($root, '-')">
           <xsl:text>urn:uuid:</xsl:text>

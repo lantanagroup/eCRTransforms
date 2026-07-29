@@ -12,13 +12,7 @@
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
   <xsl:template match="cda:assignedAuthoringDevice">
-    <!-- Variable for identification of IG - moved out of Global var because XSpec can't deal with global vars -->
-    <xsl:variable name="vCurrentIg">
-      <xsl:choose>
-        <xsl:when test="cda:assignedAuthoringDevice">NA</xsl:when>
-        <xsl:otherwise>NA</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+    <!-- 20260729 Claude: removed dead $vCurrentIg variable - both branches returned 'NA' and it was never referenced -->
     <Device>
       <xsl:apply-templates select="../cda:id" />
       <xsl:comment>INFO: cda:assignedAuthoringDevice</xsl:comment>

@@ -86,6 +86,10 @@
 
             <xsl:apply-templates select="cda:id" />
             <!-- clinicalStatus: check both effectiveTime and potentially a contained Problem Status Observation -->
+            <!-- 20260729 Claude: Fix - clinicalStatus was emitted unconditionally, but the negated eICR trigger case below
+                 sets verificationStatus=entered-in-error, and FHIR invariant con-5 forbids clinicalStatus when
+                 verificationStatus is entered-in-error - suppress it in that case -->
+            <xsl:if test="not(@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3'])">
             <clinicalStatus>
                 <coding>
                     <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
@@ -116,6 +120,7 @@
                     </code>
                 </coding>
             </clinicalStatus>
+            </xsl:if>
             <!-- SG 2024-02-05: Updated negationInd processing for eCR -->
             <xsl:choose>
                 <xsl:when test="@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']">
@@ -176,7 +181,10 @@
             </xsl:choose>
 
             <!-- recorder (max 1) (can only be Practitioner, PractitionerRole, Patient, RelatedPerson -->
-            <xsl:apply-templates select="cda:author[cda:assignedAuthor/cda:assignedPerson[1]]" mode="rename-reference-participant">
+            <!-- 20260729 Claude: Fix - the [1] predicate was on assignedPerson, so ALL authors with a person were
+                 selected and multiple recorder elements could be emitted (Condition.recorder is 0..1); now selects the
+                 first such author -->
+            <xsl:apply-templates select="cda:author[cda:assignedAuthor/cda:assignedPerson][1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
 
@@ -192,7 +200,8 @@
             </xsl:for-each>
             
             <!-- note -->
-            <xsl:if test="cda:text | cda:text">
+            <!-- 20260729 Claude: Fix - test was the self-union "cda:text | cda:text" -->
+            <xsl:if test="cda:text">
                 <xsl:for-each select="cda:text">
                     
                     <xsl:variable name="vText">
@@ -218,28 +227,8 @@
         </Condition>
     </xsl:template>
 
-    <!-- C-CDA Problem Status -->
-    <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.6']" mode="condition">
-        <xsl:for-each select="cda:value">
-            <clinicalStatus>
-                <coding>
-                    <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
-
-                    <xsl:choose>
-                        <xsl:when test="@code = '55561003'">
-                            <code value="active" />
-                        </xsl:when>
-                        <xsl:when test="@code = '73425007'">
-                            <code value="inactive" />
-                        </xsl:when>
-                        <xsl:when test="@code = '413322009'">
-                            <code value="resolved" />
-                        </xsl:when>
-                    </xsl:choose>
-                </coding>
-            </clinicalStatus>
-        </xsl:for-each>
-    </xsl:template>
+    <!-- 20260729 Claude: removed dead template match="cda:observation[4.6 Problem Status]" mode="condition" - it was
+         never invoked (the Problem Status -> clinicalStatus logic is inlined in the main Condition template above) -->
 
     <xsl:template match="cda:effectiveTime" mode="condition">
         <xsl:if test="cda:low/@value">
@@ -250,11 +239,8 @@
         </xsl:if>
     </xsl:template>
 
-    <xsl:template match="cda:code" mode="condition">
-        <xsl:call-template name="newCreateCodableConcept">
-            <xsl:with-param name="pElementName">category</xsl:with-param>
-        </xsl:call-template>
-    </xsl:template>
+    <!-- 20260729 Claude: removed dead template match="cda:code" mode="condition" - it was never invoked (category is
+         built inline in the main Condition template above) -->
 
     <xsl:template match="cda:value" mode="condition">
         <xsl:choose>

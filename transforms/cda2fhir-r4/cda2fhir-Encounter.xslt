@@ -9,6 +9,9 @@
     <xsl:apply-templates select="cda:responsibleParty[not(@nullFlavor)]/cda:assignedEntity[not(@nullFlavor)]" mode="bundle-entry" />
     <xsl:apply-templates select="cda:dataEnterer" mode="bundle-entry" />
     <xsl:apply-templates select="cda:encounterParticipant" mode="bundle-entry" />
+    <!-- 20260729 Claude: Fix - the Encounter body emits a participant/individual reference for each author (see the
+         author for-each below), but no bundle entry was ever created for them, leaving dangling references -->
+    <xsl:apply-templates select="cda:author" mode="bundle-entry" />
     <xsl:apply-templates select="cda:location[not(@nullFlavor)]" mode="bundle-entry" />
     <xsl:apply-templates select="cda:location/cda:healthCareFacility/cda:serviceProviderOrganization[not(@nullFlavor)]" mode="bundle-entry" />
 

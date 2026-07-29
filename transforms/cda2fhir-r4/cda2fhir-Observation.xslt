@@ -689,32 +689,24 @@
                 <xsl:with-param name="pIncludeCoding" select="false()" />
               </xsl:apply-templates>
             </xsl:for-each>
+            <!-- 20260729 Claude: Fixes - (1) the plain-text branch nested a second <text> element inside the outer
+                 <text> (invalid); (2) an unresolvable text reference produced an empty <text/> (invalid) - now omitted;
+                 removed unused $vTest variable -->
             <xsl:for-each select="cda:text">
-              <text>
-                <xsl:choose>
-                  <xsl:when test="cda:reference/@value">
-                    <xsl:variable name="vRefValue" select="substring-after(cda:reference/@value, '#')" />
-                    <xsl:variable name="vTest" select="//@ID" />
-                    <xsl:choose>
-                      <xsl:when test="//@ID = $vRefValue">
-                        <xsl:variable name="vTextValue">
-                          <xsl:apply-templates select="//cda:tr[@ID = $vRefValue]/cda:td" mode="textRefValue" />
-                        </xsl:variable>
-                        <xsl:attribute name="value" select="normalize-space($vTextValue)" />
-                      </xsl:when>
-                    </xsl:choose>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <text>
-                      <xsl:attribute name="value">
-                        <xsl:value-of select="." />
-                      </xsl:attribute>
-                    </text>
-                  </xsl:otherwise>
-                </xsl:choose>
-
-                <!--                                <xsl:attribute name="value" select="(.)" />-->
-              </text>
+              <xsl:choose>
+                <xsl:when test="cda:reference/@value">
+                  <xsl:variable name="vRefValue" select="substring-after(cda:reference/@value, '#')" />
+                  <xsl:if test="//@ID = $vRefValue">
+                    <xsl:variable name="vTextValue">
+                      <xsl:apply-templates select="//cda:tr[@ID = $vRefValue]/cda:td" mode="textRefValue" />
+                    </xsl:variable>
+                    <text value="{normalize-space($vTextValue)}" />
+                  </xsl:if>
+                </xsl:when>
+                <xsl:otherwise>
+                  <text value="{normalize-space(.)}" />
+                </xsl:otherwise>
+              </xsl:choose>
             </xsl:for-each>
           </valueCodeableConcept>
         </xsl:if>
@@ -1184,6 +1176,8 @@
       <xsl:apply-templates select="cda:code">
         <xsl:with-param name="pElementName" select="'code'" />
       </xsl:apply-templates>
+      <!-- 20260729 Claude: Fix - no subject was emitted (all other observations reference the patient) -->
+      <xsl:call-template name="subject-reference" />
       <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.21']">
         <hasMember>
           <reference value="urn:uuid:{@lcg:uuid}" />
@@ -1202,6 +1196,8 @@
       <xsl:apply-templates select="cda:code">
         <xsl:with-param name="pElementName" select="'code'" />
       </xsl:apply-templates>
+      <!-- 20260729 Claude: Fix - no subject was emitted (all other observations reference the patient) -->
+      <xsl:call-template name="subject-reference" />
       <!-- performers (multiple) -->
       <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
         <xsl:apply-templates select="." mode="rename-reference-participant">
@@ -1499,7 +1495,8 @@
 
   <!-- Generic Observation Processing -->
   <xsl:template match="cda:observation" priority="-1">
-    <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/extension" /></xsl:comment>
+    <!-- 20260729 Claude: Fix - was cda:templateId/extension (child element, always empty); the extension is an attribute -->
+    <xsl:comment>Processing as generic observation: <xsl:value-of select="cda:templateId/@root" />:<xsl:value-of select="cda:templateId/@extension" /></xsl:comment>
     <Observation>
       <xsl:call-template name="add-meta" />
       <!-- identifier -->
@@ -1564,8 +1561,11 @@
         <xsl:when test="cda:value[1][@xsi:type = 'CD']">
           <xsl:apply-templates select="cda:value[1]" />
         </xsl:when>
-        <xsl:when test="cda:value[1][@xsi:type = 'BL'][1]">
-          <valueBoolean value="true" />
+        <!-- 20260729 Claude: Fix - valueBoolean was hard-coded "true" regardless of the actual value, so
+             value xsi:type="BL" value="false" became true; now copies the value (a BL without @value falls through to
+             the nullFlavor/default branches) -->
+        <xsl:when test="cda:value[1][@xsi:type = 'BL'][@value]">
+          <valueBoolean value="{cda:value[1]/@value}" />
         </xsl:when>
         <xsl:when test="cda:value[1][@nullFlavor]">
           <xsl:apply-templates select="cda:value[1]/@nullFlavor" mode="data-absent-reason" />
@@ -1667,6 +1667,11 @@
         </xsl:when>
         <xsl:when test="cda:value[@nullFlavor]">
           <xsl:apply-templates select="cda:value/@nullFlavor" mode="data-absent-reason" />
+        </xsl:when>
+        <!-- 20260729 Claude: Fix - a smoking status value of any other type was silently dropped; now flagged so the
+             data loss is visible (US Core Smoking Status requires a coded value, so non-CD values cannot be mapped) -->
+        <xsl:when test="cda:value">
+          <xsl:comment>WARNING: Smoking status value of type <xsl:value-of select="cda:value/@xsi:type" /> could not be mapped (valueCodeableConcept required)</xsl:comment>
         </xsl:when>
       </xsl:choose>
     </Observation>

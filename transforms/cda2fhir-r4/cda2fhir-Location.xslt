@@ -6,11 +6,18 @@
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
-  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]" mode="bundle-entry">
+  <!-- 20260729 Claude: added priority="1" to the Location participant templates (here and the body template below) so
+       they beat cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole] match (equal default
+       priority; include order previously decided the winner) -->
+  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]" mode="bundle-entry" priority="1">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
-  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" mode="bundle-entry">
+  <!-- 20260729 Claude: Fix - matched cda:participant[cda:templateId 4.32], but the Service Delivery Location templateId
+       is on the participantRole (the body template below already uses the participantRole axis, as does
+       cda2fhir-Procedure.xslt), so this bundle-entry never fired and the Location entry referenced from
+       Procedure.location was never created -->
+  <xsl:template match="cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" mode="bundle-entry" priority="1">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
@@ -81,11 +88,17 @@
   </xsl:template>
 
   <!-- (eICR) Location Participant to US Core Location -->
-  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]">
+  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" priority="1">
     <Location>
       <xsl:call-template name="add-meta" />
+      <!-- 20260729 Claude: Fix - added participantRole/playingEntity/name (the actual location name in a Service
+           Delivery Location) ahead of the preceding-sibling value fallbacks; previously procedure SDL participants
+           always fell through to the hard-coded 'Unknown' -->
       <name>
         <xsl:choose>
+          <xsl:when test="cda:participantRole/cda:playingEntity/cda:name/text()">
+            <xsl:attribute name="value" select="cda:participantRole/cda:playingEntity/cda:name[1]" />
+          </xsl:when>
           <xsl:when test="preceding-sibling::cda:value/cda:originalText">
             <xsl:attribute name="value" select="preceding-sibling::cda:value/cda:originalText" />
           </xsl:when>

@@ -60,18 +60,15 @@
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
             <!-- encounter -->
-            <xsl:if test="cda:entryRelationship/cda:encounter/cda:id">
-                <xsl:variable name="vEncounterExtension">
-                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@extension" />
-                </xsl:variable>
-                <xsl:variable name="vEncounterRoot">
-                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@root" />
-                </xsl:variable>
-                <xsl:if test="cda:entryRelationship/cda:encounter/cda:id[@root = $vEncounterRoot][@extension = $vEncounterExtension]">
-                    <encounter>
-                        <reference value="urn:uuid:{//cda:encompassingEncounter/@lcg:uuid}" />
-                    </encounter>
-                </xsl:if>
+            <!-- 20260729 Claude: Fix - the match required @extension equality even when the encompassingEncounter id has
+                 no extension (an absent attribute never equals an empty string), so root-only ids could never match; now
+                 roots must match and extensions must either match or both be absent -->
+            <xsl:if test="
+                    cda:entryRelationship/cda:encounter/cda:id[some $e in /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:id
+                        satisfies (@root = $e/@root and ((@extension = $e/@extension) or (not(@extension) and not($e/@extension))))]">
+                <encounter>
+                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter[1]/@lcg:uuid}" />
+                </encounter>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="cda:effectiveTime/@nullFlavor and ancestor::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.131']]">
@@ -106,9 +103,11 @@
             </xsl:for-each>
             
             <!-- location -->
+            <!-- 20260729 Claude: Fix - added [1]; with more than one SDL participant the AVT space-joined all uuids into
+                 one malformed reference (Procedure.location is 0..1) -->
             <xsl:if test="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
                 <location>
-                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]/@lcg:uuid}" />
+                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']][1]/@lcg:uuid}" />
                 </location>
             </xsl:if>
             
@@ -161,18 +160,15 @@
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
             <!-- encounter -->
-            <xsl:if test="cda:entryRelationship/cda:encounter/cda:id">
-                <xsl:variable name="vEncounterExtension">
-                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@extension" />
-                </xsl:variable>
-                <xsl:variable name="vEncounterRoot">
-                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@root" />
-                </xsl:variable>
-                <xsl:if test="cda:entryRelationship/cda:encounter/cda:id[@root = $vEncounterRoot][@extension = $vEncounterExtension]">
-                    <encounter>
-                        <reference value="urn:uuid:{//cda:encompassingEncounter/@lcg:uuid}" />
-                    </encounter>
-                </xsl:if>
+            <!-- 20260729 Claude: Fix - the match required @extension equality even when the encompassingEncounter id has
+                 no extension (an absent attribute never equals an empty string), so root-only ids could never match; now
+                 roots must match and extensions must either match or both be absent -->
+            <xsl:if test="
+                    cda:entryRelationship/cda:encounter/cda:id[some $e in /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:id
+                        satisfies (@root = $e/@root and ((@extension = $e/@extension) or (not(@extension) and not($e/@extension))))]">
+                <encounter>
+                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter[1]/@lcg:uuid}" />
+                </encounter>
             </xsl:if>
 
             <xsl:apply-templates select="cda:effectiveTime" mode="period">
@@ -199,9 +195,11 @@
             </xsl:for-each>
             
             <!-- location -->
+            <!-- 20260729 Claude: Fix - added [1]; with more than one SDL participant the AVT space-joined all uuids into
+                 one malformed reference (Procedure.location is 0..1) -->
             <xsl:if test="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
                 <location>
-                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]/@lcg:uuid}" />
+                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']][1]/@lcg:uuid}" />
                 </location>
             </xsl:if>
             
@@ -217,13 +215,24 @@
                 <xsl:with-param name="pElementName" select="'bodySite'" />
             </xsl:apply-templates>
 
-            <xsl:apply-templates select="cda:participant/cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.37']" />
-
             <!-- complication -->
             <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.9']">
                 <complicationDetail>
                     <reference value="urn:uuid:{@lcg:uuid}" />
                 </complicationDetail>
+            </xsl:for-each>
+
+            <!-- focalDevice -->
+            <!-- 20260729 Claude: Fix - a stray apply-templates on the Product Instance templateId element (a no-op) sat
+                 where the device mapping belonged; Product Instance participants now map to focalDevice.manipulated
+                 (Bundle.xslt creates the Device entry with the participantRole's uuid, and fhir2cda maps
+                 focalDevice.manipulated back to a Product Instance participant) -->
+            <xsl:for-each select="cda:participant/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']">
+                <focalDevice>
+                    <manipulated>
+                        <reference value="urn:uuid:{@lcg:uuid}" />
+                    </manipulated>
+                </focalDevice>
             </xsl:for-each>
 
             <!-- usedReference:medication -->
@@ -256,18 +265,15 @@
             </xsl:apply-templates>
             <xsl:call-template name="subject-reference" />
             <!-- encounter -->
-            <xsl:if test="cda:entryRelationship/cda:encounter/cda:id">
-                <xsl:variable name="vEncounterExtension">
-                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@extension" />
-                </xsl:variable>
-                <xsl:variable name="vEncounterRoot">
-                    <xsl:value-of select="//cda:encompassingEncounter/cda:id/@root" />
-                </xsl:variable>
-                <xsl:if test="cda:entryRelationship/cda:encounter/cda:id[@root = $vEncounterRoot][@extension = $vEncounterExtension]">
-                    <encounter>
-                        <reference value="urn:uuid:{//cda:encompassingEncounter/@lcg:uuid}" />
-                    </encounter>
-                </xsl:if>
+            <!-- 20260729 Claude: Fix - the match required @extension equality even when the encompassingEncounter id has
+                 no extension (an absent attribute never equals an empty string), so root-only ids could never match; now
+                 roots must match and extensions must either match or both be absent -->
+            <xsl:if test="
+                    cda:entryRelationship/cda:encounter/cda:id[some $e in /cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter/cda:id
+                        satisfies (@root = $e/@root and ((@extension = $e/@extension) or (not(@extension) and not($e/@extension))))]">
+                <encounter>
+                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter[1]/@lcg:uuid}" />
+                </encounter>
             </xsl:if>
             <xsl:apply-templates select="cda:effectiveTime" mode="period">
                 <xsl:with-param name="pElementName">performedPeriod</xsl:with-param>
@@ -293,9 +299,11 @@
             </xsl:for-each>
             
             <!-- location -->
+            <!-- 20260729 Claude: Fix - added [1]; with more than one SDL participant the AVT space-joined all uuids into
+                 one malformed reference (Procedure.location is 0..1) -->
             <xsl:if test="cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]">
                 <location>
-                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']]/@lcg:uuid}" />
+                    <reference value="urn:uuid:{cda:participant[cda:participantRole/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.32']][1]/@lcg:uuid}" />
                 </location>
             </xsl:if>
             

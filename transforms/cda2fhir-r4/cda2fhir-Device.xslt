@@ -34,7 +34,10 @@
       <!-- TODO: Handle asMaintainedEntity -->
     </Device>
   </xsl:template>
-  <xsl:template match="cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']">
+  <!-- 20260729 Claude: added priority="1" - this template is ambiguous with cda2fhir-PractitionerRole.xslt's generic
+       cda:participantRole body template (equal default priority), and include order made PractitionerRole win, so a
+       Product Instance produced a PractitionerRole resource (with dangling references) instead of a Device -->
+  <xsl:template match="cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']" priority="1">
     <Device>
       <xsl:apply-templates select="cda:id" />
       <xsl:comment>INFO: cda:participant/cda:participantRole [C-CDA R1.1] Product Instance</xsl:comment>

@@ -28,7 +28,7 @@
      <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09" profileURI="http://hl7.org/fhir/StructureDefinition/vitalsigns" />
      -->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.26:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-vital-signs" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-vital-signs" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.27:2014-06-09" profileURI="ehttp://hl7.org/fhir/us/core/StructureDefinition/us-core-vital-signs" />
   <!-- This template no longer exists in US Core -->
   <!--  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.16:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationstatement" />-->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.16:2014-06-09" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-medicationadministration" />
@@ -94,10 +94,10 @@
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.61:2015-08-01" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-Coverage" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.40:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter" />
   <!-- MD: add mapping for eicr-encounter -->
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/eicr-encounter" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/eicr-encounter" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22.1" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/eicr-encounter" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22.1:2015-08-01" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/eicr-encounter" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22:2015-08-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22.1" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22.1:2015-08-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.13:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.14:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.12:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />

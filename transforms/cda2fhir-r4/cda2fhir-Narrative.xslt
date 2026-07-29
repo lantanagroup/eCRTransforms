@@ -1519,8 +1519,9 @@
                 <xsl:with-param name="current-whitelist" select="$external-image-whitelist" />
                 <xsl:with-param name="image-uri" select="$image-uri" />
               </xsl:call-template>
-                            -->
-                        </xsl:when>
+              <!-- 20260729 Claude: Fix - removed a stray literal "-\-\>" (leftover from a removed comment) that was
+                   emitted as text into the narrative whenever this branch fired -->
+            </xsl:when>
             <xsl:otherwise>
               <br clear="all" />
               <xsl:element name="img">
@@ -1834,9 +1835,9 @@
         <xsl:text>Pub</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>{$code='</xsl:text>
+        <!-- 20260729 Claude: Fix - unknown codes emitted the debug placeholder {$code='XX'?} into the narrative;
+             now just the raw code -->
         <xsl:value-of select="$code" />
-        <xsl:text>'?}</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -1888,9 +1889,9 @@
         <xsl:text>care giver</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>{$classCode='</xsl:text>
+        <!-- 20260729 Claude: Fix - unknown codes emitted the debug placeholder {$classCode='XX'?} into the narrative;
+             now just the raw code -->
         <xsl:value-of select="$classCode" />
-        <xsl:text>'?}</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:if test="($code/@code) and ($code/@codeSystem = '2.16.840.1.113883.5.111')">
@@ -1927,9 +1928,11 @@
           <xsl:text>(Significant other)</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:text>{$code/@code='</xsl:text>
+          <!-- 20260729 Claude: Fix - unknown codes emitted the debug placeholder {$code/@code='XX'?} into the
+               narrative; now the raw code in parentheses, matching the known-code branches -->
+          <xsl:text>(</xsl:text>
           <xsl:value-of select="$code/@code" />
-          <xsl:text>'?}</xsl:text>
+          <xsl:text>)</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:if>

@@ -34,9 +34,23 @@
     </xsl:template>
 
     <xsl:template match="cda:statusCode" mode="goal">
-        <!-- TODO: actually map the status codes, not always the same between CDA and FHIR -->
         <!-- TODO: the status might be better pulled from the outcome observation -->
-        <lifecycleStatus value="{@code}" />
+        <!-- 20260729 Claude: Fix - the CDA ActStatus code was copied raw into lifecycleStatus, but the Goal lifecycle
+             value set is proposed|planned|accepted|active|on-hold|completed|cancelled|entered-in-error|rejected;
+             now mapped with 'active' default -->
+        <lifecycleStatus>
+            <xsl:attribute name="value">
+                <xsl:choose>
+                    <xsl:when test="@code = 'active'">active</xsl:when>
+                    <xsl:when test="@code = 'completed'">completed</xsl:when>
+                    <xsl:when test="@code = 'suspended' or @code = 'held'">on-hold</xsl:when>
+                    <xsl:when test="@code = 'cancelled' or @code = 'aborted'">cancelled</xsl:when>
+                    <xsl:when test="@code = 'nullified'">entered-in-error</xsl:when>
+                    <xsl:when test="@code = 'new'">proposed</xsl:when>
+                    <xsl:otherwise>active</xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </lifecycleStatus>
     </xsl:template>
 
     <xsl:template match="cda:effectiveTime" mode="goal">
@@ -66,23 +80,15 @@
 
 
     <xsl:template name="goal-conditions">
+        <!-- 20260729 Claude: Fix - $has-extension was computed from @extension on the act/observation ELEMENTS (which
+             never have one), so extension-qualified Entry Reference ids could never match; now the id/@extension values
+             themselves are compared (equal, or absent on both sides) -->
         <xsl:for-each select="cda:entryRelationship[@typeCode = 'REFR']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']">
             <xsl:variable name="root" select="cda:id/@root" />
             <xsl:variable name="extension" select="cda:id/@extension" />
-            <xsl:variable name="has-extension">
-                <xsl:choose>
-                    <xsl:when test="@extension">true</xsl:when>
-                    <xsl:otherwise>false</xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
             <xsl:for-each select="//cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.4'][@extension = '2015-08-01']][cda:id[@root = $root]]">
                 <xsl:choose>
-                    <xsl:when test="@extension and $has-extension = 'true'">
-                        <addresses>
-                            <xsl:apply-templates select="." mode="reference" />
-                        </addresses>
-                    </xsl:when>
-                    <xsl:when test="not(@extension) and $has-extension = 'false'">
+                    <xsl:when test="cda:id[@root = $root][@extension = $extension or (not(@extension) and not($extension))]">
                         <addresses>
                             <xsl:apply-templates select="." mode="reference" />
                         </addresses>
@@ -98,26 +104,16 @@
 
 
     <xsl:template name="goal-outcomes">
+        <!-- 20260729 Claude: Fix - same wrong-node $has-extension bug as goal-conditions; now compares the Goal
+             observation's id/@extension with the GEVL Entry Reference act's id/@extension (equal, or absent on both) -->
         <xsl:variable name="root" select="cda:id/@root" />
         <xsl:variable name="extension" select="cda:id/@extension" />
-        <xsl:variable name="has-extension">
-            <xsl:choose>
-                <xsl:when test="@extension">true</xsl:when>
-                <xsl:otherwise>false</xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
         <xsl:for-each select="
                 //cda:observation
                 [cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.144']
                 [cda:entryRelationship[@typeCode = 'GEVL']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']/cda:id[@root = $root]]">
             <xsl:choose>
-                <xsl:when test="@extension and $has-extension = 'true'">
-                    <xsl:comment>INFO: Found linked outcome observation</xsl:comment>
-                    <outcomeReference>
-                        <xsl:apply-templates select="." mode="reference" />
-                    </outcomeReference>
-                </xsl:when>
-                <xsl:when test="not(@extension) and $has-extension = 'false'">
+                <xsl:when test="cda:entryRelationship[@typeCode = 'GEVL']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']/cda:id[@root = $root][@extension = $extension or (not(@extension) and not($extension))]">
                     <xsl:comment>INFO: Found linked outcome observation</xsl:comment>
                     <outcomeReference>
                         <xsl:apply-templates select="." mode="reference" />

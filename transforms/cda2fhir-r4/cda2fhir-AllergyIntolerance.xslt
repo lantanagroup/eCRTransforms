@@ -89,12 +89,25 @@
     </xsl:template>
 
     <xsl:template match="cda:statusCode" mode="allergy">
-        <!-- TODO: actually map the status codes, not always the same between CDA and FHIR -->
+        <!-- 20260729 Claude: Fix - the Allergy Concern Act statusCode (ActStatus) was copied raw into clinicalStatus,
+             but the allergyintolerance-clinical value set only allows active | inactive | resolved. Concern act status
+             tracks the *concern*: active -> active; completed/aborted -> inactive (concern closed; use 'resolved' only
+             when the allergy observation itself has an effectiveTime/high, handled via ancestor check); suspended ->
+             inactive; default active -->
         <xsl:if test="@code">
             <clinicalStatus>
                 <coding>
                     <system value="http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical" />
-                    <code value="{@code}" />
+                    <code>
+                        <xsl:attribute name="value">
+                            <xsl:choose>
+                                <xsl:when test="@code = 'active'">active</xsl:when>
+                                <xsl:when test="(@code = 'completed' or @code = 'aborted') and ../cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.7']/cda:effectiveTime/cda:high[@value]">resolved</xsl:when>
+                                <xsl:when test="@code = 'completed' or @code = 'aborted' or @code = 'suspended' or @code = 'held'">inactive</xsl:when>
+                                <xsl:otherwise>active</xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:attribute>
+                    </code>
                 </coding>
             </clinicalStatus>
         </xsl:if>

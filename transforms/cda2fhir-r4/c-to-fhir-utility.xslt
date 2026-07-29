@@ -413,10 +413,14 @@
     <xsl:template name="encompassingEncounter-reference">
         <xsl:param name="pElementName">encounter</xsl:param>
         <!-- TODO: handle multiple subjects (record as a group where allowed - needed for HAI) -->
-        <xsl:element name="{$pElementName}">
-            <reference value="urn:uuid:{/cda:ClinicalDocument/
-                cda:componentOf/cda:encompassingEncounter[1]/@lcg:uuid}" />
-        </xsl:element>
+        <!-- 20260729 Claude: Fix - the reference was emitted unconditionally, so a document with no
+             componentOf/encompassingEncounter produced an empty reference (urn:uuid:); now omitted when absent -->
+        <xsl:if test="/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter">
+            <xsl:element name="{$pElementName}">
+                <reference value="urn:uuid:{/cda:ClinicalDocument/
+                    cda:componentOf/cda:encompassingEncounter[1]/@lcg:uuid}" />
+            </xsl:element>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="subject-reference">

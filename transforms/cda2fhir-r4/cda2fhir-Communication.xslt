@@ -19,28 +19,32 @@
   <xsl:template
     match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.20']][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.8'])][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.7'])]">
     <Communication>
+      <!-- 20260729 Claude: Fix - this template never called add-meta (the 4.141 template below does) -->
+      <xsl:call-template name="add-meta" />
       <xsl:apply-templates select="cda:id" />
 
       <!-- partOf: point back to the containing resource -->
-      <partOf>
-        <reference value="urn:uuid:{../../../cda:*/@lcg:uuid}" />
-      </partOf>
+      <!-- 20260729 Claude: Fix - was ../../../cda:* (a fixed-depth wildcard that selects ALL children of the
+           great-grandparent; multiple matches space-joined into a malformed reference, and the wrong node when the
+           nesting depth varies); now the nearest containing clinical statement, omitted when there is none -->
+      <xsl:variable name="vContaining"
+        select="ancestor::cda:*[self::cda:act or self::cda:observation or self::cda:organizer or self::cda:substanceAdministration or self::cda:procedure or self::cda:encounter][1]" />
+      <xsl:if test="$vContaining">
+        <partOf>
+          <reference value="urn:uuid:{$vContaining/@lcg:uuid}" />
+        </partOf>
+      </xsl:if>
       <!-- status -->
-      <status>
-        <xsl:choose>
-          <xsl:when test="cda:statusCode/@code">
-            <xsl:attribute name="value">
-              <xsl:value-of select="cda:statusCode/@code" />
-            </xsl:attribute>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:attribute name="value">
-              <xsl:value-of select="'completed'" />
-            </xsl:attribute>
-          </xsl:otherwise>
-        </xsl:choose>
-
-      </status>
+      <!-- 20260729 Claude: Fix - the CDA ActStatus code was copied raw; now mapped to the Communication status value
+           set (shared template below); 'completed' kept as the no-statusCode default -->
+      <xsl:choose>
+        <xsl:when test="cda:statusCode/@code">
+          <xsl:apply-templates select="cda:statusCode" mode="map-communication-status" />
+        </xsl:when>
+        <xsl:otherwise>
+          <status value="completed" />
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="subject-reference" />
 
       <xsl:apply-templates select="cda:code">
@@ -116,7 +120,15 @@
     <Communication xmlns="http://hl7.org/fhir">
       <xsl:call-template name="add-meta" />
       <xsl:apply-templates select="cda:id" />
-      <status value="{cda:statusCode/@code}" />
+      <!-- 20260729 Claude: Fix - raw statusCode copy replaced with the shared status mapping -->
+      <xsl:choose>
+        <xsl:when test="cda:statusCode/@code">
+          <xsl:apply-templates select="cda:statusCode" mode="map-communication-status" />
+        </xsl:when>
+        <xsl:otherwise>
+          <status value="completed" />
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:call-template name="subject-reference" />
       <xsl:apply-templates select="cda:effectiveTime" mode="communication" />
       <xsl:for-each select="cda:participant">
@@ -136,6 +148,25 @@
         <xsl:with-param name="pElementName">reasonCode</xsl:with-param>
       </xsl:apply-templates>
     </Communication>
+  </xsl:template>
+
+  <!-- 20260729 Claude: Added - maps CDA ActStatus to the FHIR Communication status value set
+       (preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown) -->
+  <xsl:template match="cda:statusCode" mode="map-communication-status">
+    <status>
+      <xsl:attribute name="value">
+        <xsl:choose>
+          <xsl:when test="@code = 'completed'">completed</xsl:when>
+          <xsl:when test="@code = 'active'">in-progress</xsl:when>
+          <xsl:when test="@code = 'new'">preparation</xsl:when>
+          <xsl:when test="@code = 'held' or @code = 'suspended'">on-hold</xsl:when>
+          <xsl:when test="@code = 'aborted'">stopped</xsl:when>
+          <xsl:when test="@code = 'cancelled'">not-done</xsl:when>
+          <xsl:when test="@code = 'nullified'">entered-in-error</xsl:when>
+          <xsl:otherwise>unknown</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </status>
   </xsl:template>
 
 </xsl:stylesheet>

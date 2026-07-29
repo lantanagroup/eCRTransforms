@@ -24,6 +24,9 @@
             <xsl:apply-templates select="cda:participant/cda:participantRole/cda:playingEntity/cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>
             </xsl:apply-templates>
+            <!-- subject -->
+            <!-- 20260729 Claude: Fix - no subject was emitted; US Core Specimen requires subject 1..1 -->
+            <xsl:call-template name="subject-reference" />
             <!-- receivedTime - this is an IHE template -->
             <xsl:if test="cda:entryRelationship/cda:act/cda:templateId[@root='1.3.6.1.4.1.19376.1.3.1.3']">
                 <xsl:apply-templates select="cda:entryRelationship/cda:act[cda:templateId/@root='1.3.6.1.4.1.19376.1.3.1.3']/cda:effectiveTime" mode="instant">

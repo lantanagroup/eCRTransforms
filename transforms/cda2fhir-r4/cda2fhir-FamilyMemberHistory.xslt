@@ -25,16 +25,19 @@
     </xsl:template>
 
     <xsl:template match="cda:statusCode" mode="family-history">
-        <!-- TODO: actually map the status codes, not always the same between CDA and FHIR -->
-        <!-- TODO: the status might be better pulled from the outcome observation -->
-        <xsl:choose>
-            <xsl:when test="@code = 'active'">
-                <status value="partial" />
-            </xsl:when>
-            <xsl:otherwise>
-                <status value="{@code}" />
-            </xsl:otherwise>
-        </xsl:choose>
+        <!-- 20260729 Claude: Fix - only 'active' was mapped; every other ActStatus code was copied raw, but the
+             FamilyMemberHistory status value set is partial | completed | entered-in-error | health-unknown.
+             active -> partial (collection ongoing); aborted/cancelled/suspended/held -> partial (collection stopped
+             before completion); nullified -> entered-in-error; completed and default -> completed -->
+        <status>
+            <xsl:attribute name="value">
+                <xsl:choose>
+                    <xsl:when test="@code = 'active' or @code = 'aborted' or @code = 'cancelled' or @code = 'suspended' or @code = 'held'">partial</xsl:when>
+                    <xsl:when test="@code = 'nullified'">entered-in-error</xsl:when>
+                    <xsl:otherwise>completed</xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </status>
     </xsl:template>
 
     <xsl:template match="cda:subject" mode="family-history">

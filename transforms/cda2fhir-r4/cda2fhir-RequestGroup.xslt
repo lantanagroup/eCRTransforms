@@ -33,6 +33,11 @@
                 <xsl:when test="@moodCode = 'INT' and cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.146'">
                     <status value="active" />
                 </xsl:when>
+                <!-- 20260729 Claude: Fix - any other mood/template combination previously emitted no status, but
+                     RequestGroup.status is required 1..1 -->
+                <xsl:otherwise>
+                    <status value="unknown" />
+                </xsl:otherwise>
             </xsl:choose>
             <intent value="plan" />
             <xsl:if test="cda:effectiveTime">
@@ -52,22 +57,21 @@
                 </xsl:choose>
             </xsl:if>
             <!-- TODO: move Goal to RequestGroup.reason and remove as an action -->
-            <!-- RG: Commented out for demo -->
-            <!--
-            <xsl:for-each select="cda:entryRelationship[@typeCode='RSON'][cda:*[not(@nullFlavor)]]">
+            <!-- 20260729 Claude: Fix - the reasonReference and action/resource mappings were commented out
+                 ("RG: Commented out for demo"), so every RequestGroup was emitted with no actions and no reasons;
+                 re-enabled. The bundle entries for the referenced clinical statements are already created by the
+                 bundle-entry template above, so these references resolve -->
+            <xsl:for-each select="cda:entryRelationship[@typeCode = 'RSON'][cda:*[not(@nullFlavor)]]">
                 <xsl:apply-templates select="cda:*" mode="reference">
                     <xsl:with-param name="wrapping-elements">reasonReference</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
-            -->
-            <!-- RG: Commented out for demo -->
-            <!--
-            <xsl:for-each select="cda:entryRelationship[not(@typeCode='RSON')][cda:*[not(@nullFlavor)]]">
+            <xsl:for-each select="cda:entryRelationship[not(@typeCode = 'RSON')][cda:*[not(@nullFlavor)]]">
                 <xsl:for-each select="cda:*">
                     <xsl:apply-templates select="." mode="reference">
                         <xsl:with-param name="wrapping-elements">action/resource</xsl:with-param>
                     </xsl:apply-templates>
-                    <xsl:if test="local-name(.)='substanceAdministration'">
+                    <xsl:if test="local-name(.) = 'substanceAdministration'">
                         <xsl:for-each select="cda:entryRelationship/cda:supply">
                             <xsl:apply-templates select="." mode="reference">
                                 <xsl:with-param name="wrapping-elements">action/resource</xsl:with-param>
@@ -76,7 +80,6 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:for-each>
-            -->
         </RequestGroup>
     </xsl:template>
 

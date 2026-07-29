@@ -21,11 +21,21 @@
       <xsl:call-template name="add-meta" />
       <xsl:apply-templates select="cda:id" />
 
-      <xsl:choose>
-        <xsl:when test="cda:statusCode/@code = 'active'">
-          <status value="active" />
-        </xsl:when>
-      </xsl:choose>
+      <!-- 20260727 Claude: Fix - status was only emitted when statusCode was 'active', but us-core-careteam requires
+           status 1..1, so any other statusCode produced an invalid CareTeam. Now maps the C-CDA Care Team Organizer
+           statusCode (active|completed, plus defensive mappings for other ActStatus codes) and defaults to 'active' -->
+      <status>
+        <xsl:attribute name="value">
+          <xsl:choose>
+            <xsl:when test="cda:statusCode/@code = 'active'">active</xsl:when>
+            <xsl:when test="cda:statusCode/@code = 'completed'">inactive</xsl:when>
+            <xsl:when test="cda:statusCode/@code = 'suspended' or cda:statusCode/@code = 'held'">suspended</xsl:when>
+            <xsl:when test="cda:statusCode/@code = 'aborted' or cda:statusCode/@code = 'cancelled'">inactive</xsl:when>
+            <xsl:when test="cda:statusCode/@code = 'nullified'">entered-in-error</xsl:when>
+            <xsl:otherwise>active</xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </status>
 
       <xsl:call-template name="subject-reference" />
 
@@ -99,6 +109,13 @@
           <meta>
             <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam" />
           </meta>
+          <!-- 20260727 Claude: Fix - this CareTeam previously had no identifier and no status; us-core-careteam requires
+               status 1..1. identifier comes from serviceEvent/id when present; status defaults to 'active' since
+               documentationOf/serviceEvent has no statusCode -->
+          <!-- identifier -->
+          <xsl:apply-templates select="cda:id" />
+          <!-- status -->
+          <status value="active" />
           <!-- subject -->
           <xsl:call-template name="subject-reference">
             <xsl:with-param name="pElementName">subject</xsl:with-param>

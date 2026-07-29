@@ -252,7 +252,8 @@
           </name>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:comment>WARNING: Missing cda:representedOrgainzation/cda:name in CDA document</xsl:comment>
+          <!-- 20260729 Claude: Fix - typo "Orgainzation" in the warning message -->
+          <xsl:comment>WARNING: Missing cda:representedOrganization/cda:name in CDA document</xsl:comment>
         </xsl:otherwise>
       </xsl:choose>
 

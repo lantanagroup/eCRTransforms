@@ -48,7 +48,17 @@
             <!-- id -->
             <xsl:apply-templates select="cda:id" />
             <!-- status -->
-            <status value="{cda:statusCode/@code}" />
+            <!-- 20260729 Claude: Fix - status was copied raw from cda:statusCode/@code; CDA ActStatus codes such as
+                 aborted/new/held are not valid FHIR ServiceRequest statuses. Now mapped (see map-servicerequest-status),
+                 with 'unknown' when statusCode is missing (ServiceRequest.status is required) -->
+            <xsl:choose>
+                <xsl:when test="cda:statusCode">
+                    <xsl:apply-templates select="cda:statusCode" mode="map-servicerequest-status" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <status value="unknown" />
+                </xsl:otherwise>
+            </xsl:choose>
             <!-- intent -->
             <xsl:apply-templates select="." mode="intent" />
             
@@ -120,12 +130,18 @@
             <xsl:apply-templates select="cda:id" />
             
             <!-- status -->
+            <!-- 20260729 Claude: Fix - status was only emitted when statusCode='active' (C-CDA Planned Procedure fixes it
+                 to active, but ServiceRequest.status is required 1..1, so any other/missing statusCode produced an invalid
+                 resource). Now mapped, with 'unknown' when statusCode is missing -->
             <xsl:choose>
-                <xsl:when test="cda:statusCode/@code = 'active'">
-                    <status value="active" />
+                <xsl:when test="cda:statusCode">
+                    <xsl:apply-templates select="cda:statusCode" mode="map-servicerequest-status" />
                 </xsl:when>
+                <xsl:otherwise>
+                    <status value="unknown" />
+                </xsl:otherwise>
             </xsl:choose>
-           
+
             <!-- intent -->
             <xsl:apply-templates select="." mode="intent" />
             
@@ -172,37 +188,29 @@
             <!-- set meta profile based on Ig -->
             <xsl:call-template name="add-servicerequest-meta" />
             
+            <!-- This identifier is linked back to the referral order if there is an identifier in the referral order -->
+            <!-- 20260729 Claude: Fix - identifier was hand-built as concat('urn:uuid:', cda:id/@root), which (a) ignored
+                 cda:id/@extension and (b) mislabelled OID roots as urn:uuid. Now uses the standard cda:id template, which
+                 handles OID vs UUID roots, extensions, and the oid-uri mapping -->
+            <xsl:apply-templates select="cda:id" />
+
+            <!-- status -->
+            <!-- 20260729 Claude: Fix - the previous @classCode choose emitted 'active' in both branches (no-op); CDA
+                 Order has classCode fixed to ACT, and an order carried in inFulfillmentOf is a placed, in-force request,
+                 so status is simply 'active' -->
+            <status value="active" />
+
+            <!-- intent -->
+            <!-- 20260729 Claude: Fix - the previous choose tested for CHILD order/act/observation/procedure elements,
+                 which an order never has, so the moodCode-based branch was unreachable and intent was always 'plan'.
+                 CDA Order has moodCode fixed to RQO, so the correct intent is 'order' (mapped via mode="intent" when
+                 a moodCode is present, defaulting to 'order' when absent) -->
             <xsl:choose>
-                <xsl:when test="cda:id/@root">
-                    <!-- This identifier is linked back to the referral order if there is an identifier in the referral order -->
-                    <identifier>
-                        <system value="urn:ietf:rfc:3986" />
-                        <value>
-                            <xsl:attribute name="value">
-                                <xsl:value-of select="concat('urn:uuid:', cda:id/@root)" />
-                            </xsl:attribute>
-                        </value>
-                    </identifier>
-                </xsl:when>
-            </xsl:choose>
-            
-            <!--MD: handle the case @classCode is not present -->
-            <xsl:choose>
-                <xsl:when test="@classCode = 'ACT'">
-                    <status value="active" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <status value="active" />
-                </xsl:otherwise>
-            </xsl:choose>
-            
-            <!--MD: handle case no cda:order, cda:act, cda:observation, cda:procedure -->
-            <xsl:choose>
-                <xsl:when test="cda:order | cda:act | cda:observation | cda:procedure">
+                <xsl:when test="@moodCode">
                     <xsl:apply-templates select="." mode="intent" />
                 </xsl:when>
                 <xsl:otherwise>
-                    <intent value="plan" />
+                    <intent value="order" />
                 </xsl:otherwise>
             </xsl:choose>
             
@@ -255,20 +263,49 @@
             <xsl:when test="@moodCode = 'APT'">
                 <intent value="plan" />
             </xsl:when>
+            <!-- 20260729 Claude: Fix - previously an unrecognized/missing moodCode emitted no intent at all, but
+                 ServiceRequest.intent is required 1..1 -->
+            <xsl:otherwise>
+                <intent value="plan" />
+            </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <!-- 20260729 Claude: Added - maps CDA ActStatus to the FHIR ServiceRequest status value set
+         (draft | active | on-hold | revoked | completed | entered-in-error | unknown); previously the raw CDA code was
+         copied through, producing invalid statuses such as 'aborted' or 'new' -->
+    <xsl:template match="cda:statusCode" mode="map-servicerequest-status">
+        <status>
+            <xsl:attribute name="value">
+                <xsl:choose>
+                    <xsl:when test="@code = 'active'">active</xsl:when>
+                    <xsl:when test="@code = 'completed'">completed</xsl:when>
+                    <xsl:when test="@code = 'new'">draft</xsl:when>
+                    <xsl:when test="@code = 'held' or @code = 'suspended'">on-hold</xsl:when>
+                    <xsl:when test="@code = 'aborted' or @code = 'cancelled'">revoked</xsl:when>
+                    <xsl:when test="@code = 'nullified'">entered-in-error</xsl:when>
+                    <xsl:otherwise>unknown</xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+        </status>
     </xsl:template>
     
     <!-- add encounter-reference -->
+    <!-- 20260729 Claude: Fixes - (1) the target encounter was located via a fixed structural path
+         (/ClinicalDocument/component/structuredBody/component/section/entry/encounter), which misses encounters in
+         nested sections; (2) multiple matches produced a space-joined, malformed reference (XSLT 2.0 AVT); (3) no match
+         produced a dangling empty reference (urn:uuid:). Now searches any section entry, takes the first match on
+         code or translation, and emits nothing when no target is found -->
     <xsl:template match="cda:entryRelationship" mode="encounter-reference">
-        <xsl:choose>
-            <xsl:when test="cda:encounter and @typeCode != 'SUBJ'">
-                <xsl:variable name="vTest" select="cda:encounter/cda:code/cda:translation/@code" />
+        <xsl:if test="cda:encounter and @typeCode != 'SUBJ'">
+            <xsl:variable name="vCode" select="cda:encounter/cda:code/@code | cda:encounter/cda:code/cda:translation/@code" />
+            <xsl:variable name="vTarget" select="(//cda:section/cda:entry/cda:encounter[cda:code/@code = $vCode or cda:code/cda:translation/@code = $vCode])[1]" />
+            <xsl:if test="$vTarget">
                 <encounter>
-                    <reference value="urn:uuid:{/cda:ClinicalDocument/cda:component/cda:structuredBody/
-                        cda:component/cda:section/cda:entry/cda:encounter[cda:code/cda:translation/@code=$vTest]/@lcg:uuid}" />
+                    <reference value="urn:uuid:{$vTarget/@lcg:uuid}" />
                 </encounter>
-            </xsl:when>
-        </xsl:choose>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
 
     <!-- add transfer inFullfillmentOf to fhir ServiceRequest -->
@@ -293,13 +330,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="cda:order" mode="classCode">
-        <xsl:choose>
-            <xsl:when test="@classCode = 'ACT'">
-                <status value="active" />
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
+    <!-- 20260729 Claude: removed dead template match="cda:order" mode="classCode" - it was never invoked from anywhere -->
 
     <xsl:template name="add-servicerequest-meta">
         <xsl:choose>

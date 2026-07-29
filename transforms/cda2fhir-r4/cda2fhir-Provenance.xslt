@@ -304,12 +304,17 @@
               <display value="cda-to-fhir-transform" />
             </who>
           </agent>
-          <entity>
-            <role value="derivation" />
-            <what>
-              <reference value="urn:uuid:{cda:setId/@lcg:uuid}" />
-            </what>
-          </entity>
+          <!-- 20260729 Claude: Fix - when the CDA has no setId this emitted a dangling empty reference (urn:uuid:);
+               entity is optional in Provenance, so only emit it when setId exists (same setId-absent guard as the
+               DocumentReference manual-bundle-entry fix) -->
+          <xsl:if test="cda:setId">
+            <entity>
+              <role value="derivation" />
+              <what>
+                <reference value="urn:uuid:{cda:setId/@lcg:uuid}" />
+              </what>
+            </entity>
+          </xsl:if>
         </Provenance>
       </resource>
     </entry>

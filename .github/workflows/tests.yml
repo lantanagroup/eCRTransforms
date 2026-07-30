@@ -1,0 +1,90 @@
+# 20260730 Claude: CI for the cda2fhir testing suite (all four layers).
+#
+# The suite reached fully-green on 2026-07-30 (XSpec 484/484, structural 10/10,
+# conformance baselined at zero errors, snapshots 13/13 locally), so this workflow
+# gates at ZERO tolerated failures. Design notes:
+#
+#   * Every command below was dry-run from a fresh clone before this file was
+#     written; the whole suite takes ~5 minutes cold.
+#   * run-xspec.sh is invoked via `bash` because the executable bit is not set on
+#     the committed file. (Fixable with:
+#       git update-index --chmod=+x transforms/cda2fhir-r4/xspec-unit-tests/run-xspec.sh
+#     after which `./run-xspec.sh` also works - the bash form is safe either way.)
+#   * Snapshot coverage in CI is 12 of the 13 local snapshots: the corpus entry
+#     samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml is
+#     deliberately gitignored (real-world document, public repo), so CI prints
+#     "corpus pattern matched nothing" for it and compares the other 12. That
+#     snapshot remains local-only coverage - this is intentional, not a bug.
+#   * validator_cli.jar (~180 MB) and the terminology cache are GitHub-Actions
+#     cached. The download URL is the validator's "latest" release, so the cache
+#     also acts as a pin: bump the -v1 suffix in the cache key to pick up a newer
+#     validator. If a new validator changes message wording, the baseline is
+#     unaffected (issue identity uses stable message-ids), but review new issues
+#     before bumping.
+#   * Layer 3 needs network access to tx.fhir.org (terminology). The .txcache
+#     keeps repeat lookups fast. Environmental/terminology-flaky issues are
+#     already classified as non-gating by validate-fhir-outputs.py itself.
+
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install saxonche
+        run: pip install saxonche
+
+      # ---------------------------------------------------------------- layer 1
+      - name: Cache XSpec toolchain (Saxon-HE 10.9 + XSpec 4.0.3)
+        uses: actions/cache@v4
+        with:
+          path: transforms/cda2fhir-r4/xspec-unit-tests/.xspec-tools
+          key: xspec-tools-${{ hashFiles('transforms/cda2fhir-r4/xspec-unit-tests/run-xspec.sh') }}
+
+      - name: "Layer 1: XSpec unit tests"
+        working-directory: transforms/cda2fhir-r4/xspec-unit-tests
+        run: bash run-xspec.sh
+
+      # ---------------------------------------------------------------- layer 2
+      - name: "Layer 2: structural integration tests"
+        working-directory: transforms/integration-tests
+        run: python3 run-integration-tests.py --output output/
+
+      # ---------------------------------------------------------------- layer 3
+      - name: Cache FHIR validator + terminology cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            transforms/integration-tests/validator_cli.jar
+            transforms/integration-tests/.txcache
+          key: fhir-validator-v1
+
+      - name: "Layer 3: eCR IG conformance validation"
+        working-directory: transforms/integration-tests
+        run: python3 validate-fhir-outputs.py --input output/
+
+      # ---------------------------------------------------------------- layer 4
+      - name: "Layer 4: snapshot regression"
+        working-directory: transforms/integration-tests
+        run: python3 snapshot-regression.py

@@ -156,7 +156,7 @@
                   <div>
                      <br/>
                      <p>
-                        <span class="Bold">Subject:</span>
+                        <span class="Bold" style="font-weight:bold">Subject:</span>
                      </p>
                      <p>Public Health Reporting Communication: one or more conditions are reportable, or may be reportable, to public health.</p>
                      <p/>
@@ -164,7 +164,7 @@
                   <div/>
                   <div>
                      <p>
-                        <span class="Bold">Summary:</span>
+                        <span class="Bold" style="font-weight:bold">Summary:</span>
                      </p>
                      <p>Your organization electronically submitted an initial case report to determine if reporting to public health is needed for a patient</p>
                      <p>"Pertussis (disorder)" is reportable to "Utah Department of Health NEW". The initial case report was sent to "Utah Department of Health HIE". Additional information may be
@@ -174,7 +174,7 @@
                             report.<br/>
                      </p>
                      <p>
-                        <span class="Bold">"Pertussis (disorder)" for "Utah Department of Health NEW" </span>
+                        <span class="Bold" style="font-weight:bold">"Pertussis (disorder)" for "Utah Department of Health NEW" </span>
                      </p>
                      <p>Reporting is required within "3 Day(s)". Reporting to this Public Health Agency is based on "Patient home address"<br/>
                      </p>
@@ -213,7 +213,7 @@
                         </span>
                      </p>
                      <p>
-                        <span class="Bold">"Pertussis (disorder)" for "Michigan DOH" </span>
+                        <span class="Bold" style="font-weight:bold">"Pertussis (disorder)" for "Michigan DOH" </span>
                      </p>
                      <p>Reporting is required within "3 Day(s)". Reporting to this Public Health Agency is based on "Provider facility address"<br/>
                      </p>
@@ -283,7 +283,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">
                      <br/>
                      <p>
-                        <span class="Bold">Subject:</span>
+                        <span class="Bold" style="font-weight:bold">Subject:</span>
                      </p>
                      <p>Public Health Reporting Communication: one or more conditions are reportable, or may be reportable, to public health.</p>
                      <p/>
@@ -345,7 +345,7 @@
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
                      <p>
-                        <span class="Bold">Summary:</span>
+                        <span class="Bold" style="font-weight:bold">Summary:</span>
                      </p>
                      <p>Your organization electronically submitted an initial case report to determine if reporting to public health is needed for a patient</p>
                      <p>"Pertussis (disorder)" is reportable to "Utah Department of Health NEW". The initial case report was sent to "Utah Department of Health HIE". Additional information may be
@@ -355,7 +355,7 @@
                             report.<br/>
                      </p>
                      <p>
-                        <span class="Bold">"Pertussis (disorder)" for "Utah Department of Health NEW" </span>
+                        <span class="Bold" style="font-weight:bold">"Pertussis (disorder)" for "Utah Department of Health NEW" </span>
                      </p>
                      <p>Reporting is required within "3 Day(s)". Reporting to this Public Health Agency is based on "Patient home address"<br/>
                      </p>
@@ -394,7 +394,7 @@
                         </span>
                      </p>
                      <p>
-                        <span class="Bold">"Pertussis (disorder)" for "Michigan DOH" </span>
+                        <span class="Bold" style="font-weight:bold">"Pertussis (disorder)" for "Michigan DOH" </span>
                      </p>
                      <p>Reporting is required within "3 Day(s)". Reporting to this Public Health Agency is based on "Provider facility address"<br/>
                      </p>

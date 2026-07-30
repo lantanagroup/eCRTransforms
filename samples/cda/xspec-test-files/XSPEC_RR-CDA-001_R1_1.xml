@@ -640,6 +640,10 @@
                                                     <code code="RR8" displayName="Responsible Agency" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions"> </code>
                                                     <addr use="WP">
                                                         <streetAddressLine>7777 Health Authority Drive</streetAddressLine>
+                                                        <!-- 20260730 Claude: city added so the Responsible Agency address matches its two sibling
+                                                             agencies (per the comment above, the agencies carry the same contact details) and the
+                                                             Organization XSpec address scenario can assert a complete address. -->
+                                                        <city>Ann Arbor</city>
                                                         <state>MI</state>
                                                         <postalCode>48105</postalCode>
                                                         <county>26161</county>

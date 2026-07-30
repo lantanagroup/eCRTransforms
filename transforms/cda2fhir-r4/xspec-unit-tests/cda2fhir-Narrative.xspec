@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../cda2fhir-Narrative.xslt" xmlns:lcg="http://www.lantanagroup.com" xmlns="urn:hl7-org:v3" xmlns:n1="urn:hl7-org:v3"
+<!-- 20260730 Claude: stylesheet repointed from ../cda2fhir-Narrative.xslt (a module, not an entry point - it
+     references $gvCurrentIg, which is declared in c-to-fhir-utility.xslt and out of scope when the module is
+     compiled alone, so this file could never run) to ../NativeUUIDGen-cda2fhir.xslt, the same free-Saxon entry
+     point the rest of the suite uses. CDAtext and the whole include chain are in scope through it. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt" xmlns:lcg="http://www.lantanagroup.com" xmlns="urn:hl7-org:v3" xmlns:n1="urn:hl7-org:v3"
     xmlns:in="urn:lantana-com:inline-variable-data" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml" run-as="external">
 
     <x:scenario label="Scenario for testing function CDAtext">

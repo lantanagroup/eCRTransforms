@@ -1,41 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" stylesheet="../NativeUUIDGen-cda2fhir.xslt" run-as="external"> 
 
+    <!-- 20260730 Claude: both original scenarios pointed at the RR fixture, but no RR document contains a
+         cda:procedure - git history (1191cc6, 2024-07-18) shows they were born that way, and the RR fixture has
+         never held one. The expected counts instead exactly match the two Procedure Activity Procedure
+         (22.4.14, EVN) entries in the eICR fixture, so the href was a copy-paste error, not drift. The context
+         is now the eICR fixture, narrowed with @select to the template match named in the scenario label (the
+         eICR fixture also carries three other cda:procedure elements - 22.4.41/RQO and 2 x 22.4.415 - that this
+         template does not own, so a whole-document count would not isolate it).
+         One scenario per procedure rather than one two-node select: $gvCurrentIg is computed from '/', and
+         fn:transform only sets a global context item when the selection is a single node (source-node); a
+         multi-node selection runs with the global context item absent and the transform dies with XPDY0002. -->
+
     <!-- Procedure - create bundle entry-->
-    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']'and mode 'bundle-entry'">
-        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
-        <x:expect label="There should be Two Procedure resources" test="count(//fhir:entry/fhir:resource/fhir:Procedure)=2" />
+    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']'and mode 'bundle-entry' - first procedure (73761001)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" mode="bundle-entry"
+            select="(//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN'])[1]" />
+        <x:expect label="There should be one Procedure resource inside a bundle entry" test="count(//fhir:entry/fhir:resource/fhir:Procedure)=1" />
+        <x:expect label="The entry should have a fullUrl" test="count(//fhir:entry/fhir:fullUrl)=1" />
+    </x:scenario>
+
+    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']'and mode 'bundle-entry' - second procedure (233573008)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" mode="bundle-entry"
+            select="(//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN'])[2]" />
+        <x:expect label="There should be one Procedure resource inside a bundle entry" test="count(//fhir:entry/fhir:resource/fhir:Procedure)=1" />
+        <x:expect label="The entry should have a fullUrl" test="count(//fhir:entry/fhir:fullUrl)=1" />
     </x:scenario>
 
     <!-- Procedure - create resource-->
-    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']'">
-        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
-        <!--  Validate an Procedure profile exists-->
-        <!-- <x:expect label="There should be an Procedure.meta.profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" 
-     test="count(fhir:procedure/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure'])>0" />-->
+    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']' - first procedure (73761001)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml"
+            select="(//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN'])[1]" />
+        <!--  Validate the Procedure profile -->
+        <!-- 20260730 Claude: profile assertion re-enabled - the commented-out original expected us-core-procedure,
+             but for an eICR source the transform emits the eicr-procedure profile. -->
+        <x:expect label="There should be a Procedure.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure"
+            test="count(//fhir:Procedure/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure'])=1" />
 
         <!--Validate the Identifier-->
-        <x:expect label="There should be two Procedure.system" test="count(//fhir:Procedure/fhir:identifier/fhir:system)=2" />
-        <x:expect label="There should be an Procedure.value.value" test="count(//fhir:Procedure/fhir:identifier/fhir:value)=2" />
+        <x:expect label="There should be a Procedure.identifier.system" test="count(//fhir:Procedure/fhir:identifier/fhir:system)=1" />
+        <x:expect label="There should be a Procedure.identifier.value" test="count(//fhir:Procedure/fhir:identifier/fhir:value)=1" />
         <!-- Validate the Status Code -->
-        <x:expect label="There should be two Procedure.status.value=completed" test="count(//fhir:Procedure/fhir:status)=2" />
+        <x:expect label="There should be a Procedure.status.value=completed" test="count(//fhir:Procedure/fhir:status[@value='completed'])=1" />
 
         <!-- Validate the Procedure Code-->
-        <x:expect label="There should be two Procedure.code.coding.system" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:system)=2" />
-        <x:expect label="There should be an Procedure.code.coding.code" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:code)=2" />
-        <x:expect label="There should be an Procedure.code.coding.display" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:display)=2" />
-
+        <x:expect label="There should be a Procedure.code.coding.system" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:system)=1" />
+        <x:expect label="There should be a Procedure.code.coding.code=73761001" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:code[@value='73761001'])=1" />
+        <x:expect label="There should be a Procedure.code.coding.display" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:display)=1" />
 
         <!-- Validate the Patient Reference -->
-        <x:expect label="There should be an Procedure.subject.reference" test="count(//fhir:Procedure/fhir:subject/fhir:reference)=2" />
+        <x:expect label="There should be a Procedure.subject.reference" test="count(//fhir:Procedure/fhir:subject/fhir:reference)=1" />
 
         <!-- Validate the Procedure Start and End Date/Time-->
-        <x:expect label="There should be a Procedure.performedPeriod.start" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:start)=2" />
-        <x:expect label="There should be a Procedure.performedPeriod.end" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:end)=2" />
-
+        <x:expect label="There should be a Procedure.performedPeriod.start" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:start)=1" />
+        <x:expect label="There should be a Procedure.performedPeriod.end" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:end)=1" />
 
         <!-- Validate the Asserter  Reference -->
-        <x:expect label="There should be an Procedure.asserter.reference" test="count(//fhir:Procedure/fhir:asserter/fhir:reference)=2" />
+        <!-- 20260730 Claude: 2 -> 0. Neither 22.4.14 procedure in the source carries a cda:author, and
+             Procedure.asserter is 0..1 - same class of fix as the ServiceRequest requester triage of 2026-07-29:
+             the source document, not the transform, is why the element is absent. -->
+        <x:expect label="There should be no Procedure.asserter.reference (no author in source)" test="count(//fhir:Procedure/fhir:asserter/fhir:reference)=0" />
+    </x:scenario>
+
+    <x:scenario label="Scenario for testing template with match 'cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN']' - second procedure (233573008)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml"
+            select="(//cda:procedure[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.14'][@moodCode = 'EVN'])[2]" />
+        <x:expect label="There should be a Procedure.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure"
+            test="count(//fhir:Procedure/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-procedure'])=1" />
+        <x:expect label="There should be a Procedure.identifier.system" test="count(//fhir:Procedure/fhir:identifier/fhir:system)=1" />
+        <x:expect label="There should be a Procedure.identifier.value" test="count(//fhir:Procedure/fhir:identifier/fhir:value)=1" />
+        <x:expect label="There should be a Procedure.status.value=completed" test="count(//fhir:Procedure/fhir:status[@value='completed'])=1" />
+        <x:expect label="There should be a Procedure.code.coding.system" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:system)=1" />
+        <x:expect label="There should be a Procedure.code.coding.code=233573008" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:code[@value='233573008'])=1" />
+        <x:expect label="There should be a Procedure.code.coding.display" test="count(//fhir:Procedure/fhir:code/fhir:coding/fhir:display)=1" />
+        <x:expect label="There should be a Procedure.subject.reference" test="count(//fhir:Procedure/fhir:subject/fhir:reference)=1" />
+        <x:expect label="There should be a Procedure.performedPeriod.start" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:start)=1" />
+        <x:expect label="There should be a Procedure.performedPeriod.end" test="count(//fhir:Procedure/fhir:performedPeriod/fhir:end)=1" />
+        <x:expect label="There should be no Procedure.asserter.reference (no author in source)" test="count(//fhir:Procedure/fhir:asserter/fhir:reference)=0" />
     </x:scenario>
 
 

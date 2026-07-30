@@ -8,7 +8,11 @@
 
         <x:expect label="A1. There should be 9 Organization" test="count(//fhir:entry/fhir:resource/fhir:Organization)=9" />
         <!--Validate Custodian elements-->
-        <x:expect label="A2. There should be 9 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=9" />
+        <!-- 20260730 Claude: 9 -> 8. The responsibleParty representedOrganization ("2 Community Health and
+             Hospitals") has no cda:id in the source, and Organization.identifier is 0..1. Verified against the
+             2024-07-18 code (1191cc6): the count was already 8 the month this assertion was written - it was
+             never 9. Test-side miscount, not a regression. -->
+        <x:expect label="A2. There should be 8 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=8" />
         <x:expect label="A3. There should be 9 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active[@value='true'])=9" />
         <x:expect label="A4. There should be 9 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=9" />
         <!--Validate the Organization Organization Address -->
@@ -22,17 +26,35 @@
         <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
         
         <x:expect label="B1. There should be 7 entry.resource.Organization" test="count(//fhir:entry/fhir:resource/fhir:Organization)=7" />
-        <x:expect label="B2. There should be 7 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=7" />
+        <!-- 20260730 Claude: B2 7 -> 6, B5 24 -> 18, B8 1 -> 7. Verified against the 2024-07-18 code (1191cc6),
+             one month after these assertions were written (daa800f): the output was already exactly
+             7 Organizations / 6 identifiers / 18 telecoms / 7 addresses, identical to today. None of these three
+             counts was ever observed, so they are birth defects of the test, not code regressions.
+             - B2: the Encompassing Encounter Responsible Provider Facility representedOrganization has no cda:id
+               in the source; identifier is 0..1.
+             - B5: traceable telecoms are 3 (responsible provider facility, from its assignedEntity) + 1 (custodian)
+               + 1 (information recipient) + 1 (healthcare facility) + 4 x 3 (the three RR agencies) = 18.
+             - B8: every one of the 7 Organizations emits exactly one address; "1" looks copy-pasted from the
+               single-fragment scenario below (C15). -->
+        <x:expect label="B2. There should be 6 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=6" />
         <x:expect label="B3. There should be 7 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active)=7" />
         <x:expect label="B4. There should be 7 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=7" />
-        <x:expect label="B5. There should be 24 telecom" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=24" />
-        <x:expect label="B8. There should be 1 address" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address)=1" />
+        <x:expect label="B5. There should be 18 telecom" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=18" />
+        <x:expect label="B8. There should be 7 address" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:address)=7" />
     </x:scenario>
 
+    <!-- 20260730 Claude: scenarios C and D were written with fragment-shaped assertions
+         (count(//fhir:Organization) = 1 etc.) but a whole-document context, so 18 of their 20 assertions each
+         could never pass against a document that yields 7 Organizations. The context is now narrowed with @select
+         to the single participant the scenario label names, which is what the assertions were always describing.
+         The two that "passed" before (C2/D2 profile checks) only did so because each profile occurs once in the
+         whole document; they now genuinely test the fragment. Scenario E (routing entity, templateId
+         ...15.2.4.1) is added so all three agency branches of the template are covered. -->
     <x:scenario
-        label="C. Scenario for testing template with match 'cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']">
-        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
-        
+        label="C. Scenario for testing template with match 'cda:participant[@typeCode = 'LOC']' - Responsible Agency (templateId 2.16.840.1.113883.10.20.15.2.4.2)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml"
+            select="//cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2']" />
+
         <x:expect label="C1. Should produce an Organization" test="count(//fhir:Organization) = 1" />
         <!--  Validate the Responsible Agency Organization Profile  -->
         <x:expect label="C2. Should produce an Organization with meta.profile='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization'"
@@ -51,10 +73,11 @@
         <x:expect label="C10. Should produce an Organization with name" test="count(//fhir:Organization/fhir:name) = 1" />
         <!--Confirm there are 4 telecoms -->
         <x:expect label="C11. There should be 4 telecoms" test="count(//fhir:Organization/fhir:telecom)=4" />
-        <!--Validate the 1st telecom elements -->
-        <x:expect label="C12. There should be 1 telecom system value" test="count(//fhir:Organization/fhir:telecom/fhir:system)>1" />
-        <x:expect label="C13. There should be 1 telecom use value 'work'" test="count(//fhir:Organization/fhir:telecom/fhir:use)>1" />
-        <x:expect label="C14. There should be 1 telecom value value" test="count(//fhir:Organization/fhir:telecom/fhir:value)>1" />
+        <!-- 20260730 Claude: C12-C14 tightened from >1 to =4 - all four source telecoms carry use="WP" and a value,
+             so every emitted telecom must have system, use and value. -->
+        <x:expect label="C12. There should be 4 telecom system values" test="count(//fhir:Organization/fhir:telecom/fhir:system)=4" />
+        <x:expect label="C13. There should be 4 telecom use values 'work'" test="count(//fhir:Organization/fhir:telecom/fhir:use[@value='work'])=4" />
+        <x:expect label="C14. There should be 4 telecom value values" test="count(//fhir:Organization/fhir:telecom/fhir:value)=4" />
 
         <!--  Validate the Organization Address elements  -->
         <x:expect label="C15. There should be 1 address" test="count(//fhir:Organization/fhir:address)=1" />
@@ -67,9 +90,10 @@
 
     <!--  Validate the Rules Authoring Agency Organization Profile  -->
     <x:scenario
-        label="D. Scenario for testing template with match 'cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']">
-        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml" />
-        
+        label="D. Scenario for testing template with match 'cda:participant[@typeCode = 'LOC']' - Rules Authoring Agency (templateId 2.16.840.1.113883.10.20.15.2.4.3)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml"
+            select="//cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']" />
+
         <x:expect label="D1. Should produce an Organization" test="count(//fhir:Organization) = 1" />
         <x:expect label="D2. Should produce an Organization with meta.profile='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization'"
             test="count(//fhir:Organization/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization']) = 1" />
@@ -78,7 +102,9 @@
         <x:expect label="D4. There should be an organization.identifier.system" test="count(//fhir:Organization/fhir:identifier/fhir:system)=1" />
         <x:expect label="D5. There should be an organization.identifier.value" test="count(//fhir:Organization/fhir:identifier/fhir:value)=1" />
         <!--  Validate the Organization Status  -->
-        <x:expect label="D6. Should produce 4 Organization with active=true()" test="count(//fhir:Organization/fhir:active[@value=true()]) = 4" />
+        <!-- 20260730 Claude: was count(...active[@value=true()]) = 4 - a whole-document count (and an
+             untyped-vs-boolean comparison) left over from the mis-scoped context; the fragment yields one. -->
+        <x:expect label="D6. Should produce an Organization with active=true" test="count(//fhir:Organization/fhir:active[@value='true']) = 1" />
         <!--  Validate the Organization Type elements  -->
         <x:expect label="D7. Should produce an Organization with system" test="count(//fhir:Organization/fhir:type/fhir:coding/fhir:system) = 1" />
         <x:expect label="D8. Should produce an Organization with type.coding.code" test="count(//fhir:Organization/fhir:type/fhir:coding/fhir:code) = 1" />
@@ -86,11 +112,11 @@
         <!--  Validate the Organization Name  -->
         <x:expect label="D10. Should produce an Organization with a name" test="count(//fhir:Organization/fhir:name) = 1" />
         <!--Confirm there are 4 telecoms -->
-        <x:expect label="D11. There should be 4 telecoms" test="count(//fhir:Organization/fhir:telecom)>1" />
-        <!--Validate the 1st telecom elements -->
-        <x:expect label="D12. There should be 1 telecom system " test="count(//fhir:Organization/fhir:telecom/fhir:system)>1" />
-        <x:expect label="D13. There should be 1 telecom use" test="count(//fhir:Organization/fhir:telecom/fhir:use)>1" />
-        <x:expect label="D14. There should be 1 telecom value" test="count(//fhir:Organization/fhir:telecom/fhir:value)>1" />
+        <x:expect label="D11. There should be 4 telecoms" test="count(//fhir:Organization/fhir:telecom)=4" />
+        <!-- 20260730 Claude: D12-D14 tightened from >1 to =4, matching C12-C14. -->
+        <x:expect label="D12. There should be 4 telecom systems" test="count(//fhir:Organization/fhir:telecom/fhir:system)=4" />
+        <x:expect label="D13. There should be 4 telecom use values 'work'" test="count(//fhir:Organization/fhir:telecom/fhir:use[@value='work'])=4" />
+        <x:expect label="D14. There should be 4 telecom values" test="count(//fhir:Organization/fhir:telecom/fhir:value)=4" />
 
         <!--  Validate the Organization Address elements  -->
         <x:expect label="D15. There should be 1 address" test="count(//fhir:Organization/fhir:address)=1" />
@@ -99,5 +125,35 @@
         <x:expect label="D18. There should be 1 city" test="count(//fhir:Organization/fhir:address/fhir:city)=1" />
         <x:expect label="D19. There should be 1 state" test="count(//fhir:Organization/fhir:address/fhir:state)=1" />
         <x:expect label="D20. There should be 1 postal code" test="count(//fhir:Organization/fhir:address/fhir:postalCode)=1" />
+    </x:scenario>
+
+    <!-- 20260730 Claude: new scenario - the third agency branch of the participant[LOC] template
+         (Routing Entity) had no fragment-level coverage. -->
+    <x:scenario
+        label="E. Scenario for testing template with match 'cda:participant[@typeCode = 'LOC']' - Routing Entity (templateId 2.16.840.1.113883.10.20.15.2.4.1)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_RR-CDA-001_R1_1.xml"
+            select="//cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1']" />
+
+        <x:expect label="E1. Should produce an Organization" test="count(//fhir:Organization) = 1" />
+        <x:expect label="E2. Should produce an Organization with meta.profile='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization'"
+            test="count(//fhir:Organization/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization']) = 1" />
+        <x:expect label="E3. There should be an identifier" test="count(//fhir:Organization/fhir:identifier)=1" />
+        <x:expect label="E4. There should be an organization.identifier.system" test="count(//fhir:Organization/fhir:identifier/fhir:system)=1" />
+        <x:expect label="E5. There should be an organization.identifier.value" test="count(//fhir:Organization/fhir:identifier/fhir:value)=1" />
+        <x:expect label="E6. Should produce an Organization with active=true" test="count(//fhir:Organization/fhir:active[@value='true']) = 1" />
+        <x:expect label="E7. Should produce an Organization with type.coding.system" test="count(//fhir:Organization/fhir:type/fhir:coding/fhir:system) = 1" />
+        <x:expect label="E8. Should produce an Organization with type.coding.code" test="count(//fhir:Organization/fhir:type/fhir:coding/fhir:code) = 1" />
+        <x:expect label="E9. Should produce an Organization with type.coding.display" test="count(//fhir:Organization/fhir:type/fhir:coding/fhir:display) = 1" />
+        <x:expect label="E10. Should produce an Organization with a name" test="count(//fhir:Organization/fhir:name) = 1" />
+        <x:expect label="E11. There should be 4 telecoms" test="count(//fhir:Organization/fhir:telecom)=4" />
+        <x:expect label="E12. There should be 4 telecom systems" test="count(//fhir:Organization/fhir:telecom/fhir:system)=4" />
+        <x:expect label="E13. There should be 4 telecom use values 'work'" test="count(//fhir:Organization/fhir:telecom/fhir:use[@value='work'])=4" />
+        <x:expect label="E14. There should be 4 telecom values" test="count(//fhir:Organization/fhir:telecom/fhir:value)=4" />
+        <x:expect label="E15. There should be 1 address" test="count(//fhir:Organization/fhir:address)=1" />
+        <x:expect label="E16. Should produce an Organization with address.use" test="count(//fhir:Organization/fhir:address/fhir:use) = 1" />
+        <x:expect label="E17. There should be 1 line" test="count(//fhir:Organization/fhir:address/fhir:line)=1" />
+        <x:expect label="E18. There should be 1 city" test="count(//fhir:Organization/fhir:address/fhir:city)=1" />
+        <x:expect label="E19. There should be 1 state" test="count(//fhir:Organization/fhir:address/fhir:state)=1" />
+        <x:expect label="E20. There should be 1 postal code" test="count(//fhir:Organization/fhir:address/fhir:postalCode)=1" />
     </x:scenario>
 </x:description>

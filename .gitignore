@@ -109,3 +109,8 @@
 /transforms/integration-tests/.svrl/
 /transforms/integration-tests/output/
 /transforms/integration-tests/output-cda/
+
+# 20260729 Claude: XSpec runner working dirs (transforms/cda2fhir-r4/xspec-unit-tests/run-xspec.sh).
+# The Saxon and XSpec jars are re-downloaded on demand; results/compiled stylesheets are generated.
+/transforms/cda2fhir-r4/xspec-unit-tests/.xspec-tools/
+/transforms/cda2fhir-r4/xspec-unit-tests/.xspec-results/

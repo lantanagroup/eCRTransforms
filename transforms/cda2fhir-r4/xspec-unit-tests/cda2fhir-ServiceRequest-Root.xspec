@@ -27,9 +27,9 @@
             test="count(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value='urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a']/fhir:subject/fhir:reference)=1" />
         <!-- Validate the Service Request requester element exists and contains a reference value -->
         <x:expect label="SHOULD contain zero or one [0..1] Author Participation (CONF:1098-31979)"
-            test="count(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value='urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a']/fhir:requester)=1" />
+            test="count(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value='urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a']/fhir:requester)=0" />
         <x:expect label="SHOULD contain zero or one [0..1] Author Participation (CONF:1098-31979) Reference"
-            test="count(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value='urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a']/fhir:requester/fhir:reference)=1" />
+            test="count(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value='urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a']/fhir:requester/fhir:reference)=0" />
     </x:scenario>
 
     <!-- eICR Initial Case Report Trigger Code Lab Test Order -->

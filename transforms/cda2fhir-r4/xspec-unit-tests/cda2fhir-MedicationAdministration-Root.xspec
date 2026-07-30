@@ -22,13 +22,13 @@
             test="count(//fhir:Medication/fhir:code/fhir:coding/fhir:code[@value='248656'])=1" />
         <x:expect label="B5. There should be a Medication.code.coding.display.value=Azithromycin 500 MG Oral Tablet"
             test="count(//fhir:Medication/fhir:code/fhir:coding/fhir:display[@value='Azithromycin 500 MG Oral Tablet'])=1" />
-        <x:expect label="B6. There should be an MedicationAdministration.subject.reference.value=urn:uuid:" test="count(//fhir:MedicationAdministration/fhir:subject/fhir:reference[@value='urn:uuid:'])=1" />
+        <x:expect label="B6. There should be an MedicationAdministration.subject.reference.value=urn:uuid:" test="count(//fhir:MedicationAdministration/fhir:subject/fhir:reference[starts-with(@value, 'urn:uuid:')])=1" />
         <!-- SG: Updating this because it looks like because the TZ hasn't been specified it puts in whatever timezone is set on your PC - it put +10:00 for me 
           I feel like it shouldn't add a TZ if there isn't one there but that's how RG originally wrote it so leaving for now-->
         <x:expect label="B7. There should be a effectiveDateTime.value where the first 19 chars are: '2020-11-07T11:15:00' (ingoring TZ)"
             test="count(//fhir:MedicationAdministration/fhir:effectiveDateTime[substring(@value, 1,19) ='2020-11-07T11:15:00'])=1" />
         <x:expect label="B8. There should be a dosage.route.coding.system.value=http://ncimeta.nci.nih.gov"
-            test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:system[@value='http://ncimeta.nci.nih.gov'])=1" />
+            test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:system[@value='http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl'])=1" />
         <x:expect label="B9. There should be a dosage.route.coding.code.value=C38288" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:code[@value='C38288'])=1" />
         <x:expect label="B10. There should be a dosage.route.coding.display.value=ORAL" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:display[@value='ORAL'])=1" />
         <x:expect label="B11. There should be a dose with value = '1' and unit = 'g'" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:dose[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />

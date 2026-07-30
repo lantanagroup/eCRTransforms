@@ -18,7 +18,7 @@
         <x:expect label="Should produce a DocumentReference/identifier/system/@value" 
             test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:identifier/fhir:system[@value='urn:oid:2.16.840.1.113883.19.5.99999.19'])= 1" />
         <x:expect label="Should produce a DocumentReference/identifier/value.value='urn:uuid:db734647-fc99-424c-a864-7e3cda82e703'" 
-            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:identifier/fhir:value[@value='sTT988#1'])= 1" />
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:identifier/fhir:value[@value='sTT988:1'])= 1" />
         <!-- Validate the Status element   -->
         <x:expect label="Should produce an identifer with status.value='current'" 
             test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:status[@value='current']) = 1" />

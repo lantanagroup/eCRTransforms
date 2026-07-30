@@ -15,6 +15,24 @@
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
+  <!-- 20260729 Claude: Fix - the three RR agency participants (Routing Entity 15.2.4.1, Responsible Agency 15.2.4.2,
+       Rules Authoring Agency 15.2.4.3) were being DROPPED from every RR bundle. They are LOC participants that also
+       carry a participantRole, so in bundle-entry mode they matched both the template above and
+       cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole] at equal default priority
+       (Saxon reported XTDE0540 and resolved it by declaration order, which PractitionerRole won). That template
+       forwards to the participantRole bundle-entry template, which only emits a PractitionerRole when there is an
+       assignedPerson/associatedPerson - an agency has none, so nothing at all was emitted and the agencies survived
+       only as narrative text. Confirmed on samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml.
+       priority="1" mirrors the same fix already applied to Location (4.32/15.2.4.4) and Device (4.37) participants.
+       Deliberately matched to the three agency templateIds rather than added to the broad LOC match above: making
+       ALL LOC participants beat PractitionerRole would change eICR output too, and I have no regression evidence
+       for every LOC shape. See the open note in the codebase notes. -->
+  <xsl:template
+    match="cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']"
+    mode="bundle-entry" priority="1">
+    <xsl:call-template name="create-bundle-entry" />
+  </xsl:template>
+
   <!-- Participant inside an [ODH R1] Past or Present Occupation Observation  -->
   <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']/cda:participant[@typeCode = 'IND']" mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />

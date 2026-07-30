@@ -225,28 +225,40 @@
     </xsl:template>
 
     <!-- TEMPLATE: ClinicalDocument/informationRecipient/intendedRecipient -->
+    <!-- 20260729 Claude: Fix - this always referenced the intendedRecipient itself, but a resource exists at that uuid
+         only when the recipient includes a PERSON: cda2fhir-PractitionerRole.xslt calls create-bundle-entry for
+         intendedRecipient only when cda:informationRecipient (the person) is present. CDA allows an
+         organization-only recipient (intendedRecipient/informationRecipient is 0..1), and for those this emitted a
+         reference to a resource that was never created - a dangling reference on the Composition, which also
+         invalidated rr-composition's required sliceExtensionInformationRecipient. receivedOrganization does get its
+         own Organization resource, so that is the correct target when there is no person; if neither is present the
+         extension is omitted rather than emitting an empty valueReference. Found on the new RR fixture
+         (transforms/integration-tests/documents/testRR.xml). Same family as the setId/encompassingEncounter
+         dangling-reference guards added earlier this month. -->
     <xsl:template match="cda:informationRecipient/cda:intendedRecipient" mode="extension">
 
-        <xsl:choose>
-            <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
-                <xsl:comment>US Public Health Information Recipient Extension</xsl:comment>
-                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension">
-                    <valueReference>
-                        <xsl:apply-templates select="." mode="reference" />
-                        <!--        <reference value="urn:uuid:{@lcg:uuid}" />-->
-                    </valueReference>
-                </extension>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:comment>C-CDA Recipient Extension</xsl:comment>
-                <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension">
-                    <valueReference>
-                        <xsl:apply-templates select="." mode="reference" />
-                        <!--        <reference value="urn:uuid:{@lcg:uuid}" />-->
-                    </valueReference>
-                </extension>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:variable name="vRecipientTarget" as="node()?" select="(self::cda:intendedRecipient[cda:informationRecipient], cda:receivedOrganization)[1]" />
+
+        <xsl:if test="$vRecipientTarget">
+            <xsl:choose>
+                <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
+                    <xsl:comment>US Public Health Information Recipient Extension</xsl:comment>
+                    <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension">
+                        <valueReference>
+                            <xsl:apply-templates select="$vRecipientTarget" mode="reference" />
+                        </valueReference>
+                    </extension>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:comment>C-CDA Recipient Extension</xsl:comment>
+                    <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/InformationRecipientExtension">
+                        <valueReference>
+                            <xsl:apply-templates select="$vRecipientTarget" mode="reference" />
+                        </valueReference>
+                    </extension>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:if>
     </xsl:template>
 
     <!-- Stop text printing out if there is no match -->

@@ -27,5 +27,11 @@
   <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.22.4.202" />
   <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.26" />
   <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.27" />
+  <!-- 20260729 Claude: [RR R1S1] eICR Processing Status Reason Details. cda2fhir-Observation.xslt maps this to an
+       Observation.component of the parent eICR Processing Status observation, so it is never a standalone resource -
+       but it was missing from this list, so cda2fhir-Composition.xslt's section-entry hoisting emitted a reference to
+       a resource that is never created. Two dangling references in every RR document that carries a processing-status
+       reason; found on samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml. Its sibling 15.2.3.33 was already listed. -->
+  <templateToSuppress templateIdRoot="2.16.840.1.113883.10.20.15.2.3.32" />
 
 </templatesToSuppress>

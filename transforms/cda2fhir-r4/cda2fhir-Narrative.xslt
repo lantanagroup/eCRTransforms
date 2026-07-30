@@ -1079,7 +1079,15 @@
       <xsl:when test="count(/n1:ClinicalDocument/n1:component/n1:structuredBody/n1:component[n1:section]) &gt; 1">
         <xsl:if test="$title">
           <h3>
-            <a name="{generate-id($title)}" href="#toc">
+            <!-- 20260729 Claude: Fix - removed href="#toc". Inherited from CDA.xsl, where the rendered HTML page
+                 carried a table of contents with a matching <a name="toc">. CDAtext builds no such TOC, so in
+                 Composition.text.div the link pointed at nothing and the FHIR validator rejected it:
+                 Type_Specific_Checks_DT_XHTML_Resolve, "Hyperlink '#toc' at 'div/h3/a' does not resolve" - one error
+                 per titled section. Only reachable when a document has >1 section AND the sections carry titles,
+                 which is why it surfaced on an RR fixture with titles and not on samples/cda/RR-R1_1 (no titles).
+                 The @name anchor is kept as a link target; it is currently unreferenced too, so the whole <a> could
+                 be dropped in favour of a bare <h3> if you'd rather match the single-section branch below. -->
+            <a name="{generate-id($title)}">
               <xsl:value-of select="$title" />
             </a>
           </h3>

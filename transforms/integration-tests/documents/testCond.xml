@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01"/>
+  <id root="1.2.3.4" extension="doc1"/>
+  <code code="55751-2" codeSystem="2.16.840.1.113883.6.1"/>
+  <title>Test eICR</title>
+  <effectiveTime value="20260727103000+1000"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <recordTarget>
+    <patientRole>
+      <id root="2.16.840.1.113883.19.5" extension="12345"/>
+      <addr use="H"><streetAddressLine>1 Test St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+      <telecom use="HP" value="tel:+1-617-5555-1234"/>
+      <patient>
+        <name use="L"><given>Jane</given><family>Tester</family></name>
+        <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+        <birthTime value="19800101"/>
+        <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" displayName="White"/>
+        <sdtc:raceCode code="2108-9" codeSystem="2.16.840.1.113883.6.238" displayName="European"/>
+        <ethnicGroupCode nullFlavor="ASKU"/>
+        <sdtc:ethnicGroupCode nullFlavor="ASKU"/>
+        <birthplace><place><name>Auckland</name></place></birthplace>
+        <languageCommunication><languageCode code="eng"/></languageCommunication>
+      </patient>
+      <providerOrganization><id root="2.16.840.1.113883.4.6" extension="9999999999"/><name>Test Org</name><telecom value="tel:+1-617-5555-0000"/><addr><streetAddressLine>2 Org St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></providerOrganization>
+    </patientRole>
+  </recordTarget>
+  <author><time value="20260727103000+1000"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="1111111111"/><assignedPerson><name><given>Doc</given><family>Author</family></name></assignedPerson></assignedAuthor></author>
+  <custodian><assignedCustodian><representedCustodianOrganization><id root="2.16.840.1.113883.4.6" extension="222"/><name>Custodian Org</name></representedCustodianOrganization></assignedCustodian></custodian>
+  <componentOf>
+    <encompassingEncounter>
+      <id root="e9000000-0000-0000-0000-000000000004"/>
+      <code code="AMB" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode" displayName="ambulatory"/>
+      <effectiveTime><low value="20260725"/><high value="20260726"/></effectiveTime>
+      <location>
+        <healthCareFacility>
+          <id root="2.16.840.1.113883.4.6" extension="fac4"/>
+          <code code="1108-0" codeSystem="2.16.840.1.113883.6.259" codeSystemName="HSLOC" displayName="Emergency Department"/>
+          <location><name>Test Hospital ED</name><addr><streetAddressLine>5 Hospital Rd</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></location>
+          <serviceProviderOrganization><name>Facility Org</name></serviceProviderOrganization>
+        </healthCareFacility>
+      </location>
+    </encompassingEncounter>
+  </componentOf>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.15" extension="2015-08-01"/>
+          <code code="10157-6" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Family History</title>
+          <text>Mother: hypertension</text>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.45" extension="2015-08-01"/>
+              <statusCode code="completed"/>
+              <subject>
+                <relatedSubject classCode="PRS">
+                  <code code="MTH" codeSystem="2.16.840.1.113883.5.111" displayName="Mother"/>
+                  <subject>
+                    <sdtc:id root="2.16.840.1.113883.19.5" extension="M-1"/>
+                    <name><given>Mary</given><family>Tester</family></name>
+                    <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+                    <birthTime value="19550315"/>
+                  </subject>
+                </relatedSubject>
+              </subject>
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.46" extension="2015-08-01"/>
+                  <id root="a1b2c3d4-0000-0000-0000-000000000001"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime value="20100101"/>
+                  <value xsi:type="CD" code="59621000" codeSystem="2.16.840.1.113883.6.96" displayName="Essential hypertension"/>
+                </observation>
+              </component>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+    
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.5.1" extension="2015-08-01"/>
+          <code code="11450-4" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Problems</title>
+          <text>Problems</text>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="2015-08-01"/>
+              <id root="d1000000-0000-0000-0000-000000000001"/>
+              <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+              <statusCode code="active"/>
+              <effectiveTime><low value="20260101"/></effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN" negationInd="true">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.3" extension="2021-01-01"/>
+                  <id root="d1000000-0000-0000-0000-000000000002"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>Trigger code problem, negated</text>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260101"/></effectiveTime>
+                  <value xsi:type="CD" code="27836007" codeSystem="2.16.840.1.113883.6.96" displayName="Pertussis"/>
+                  <author><time value="20260101"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="4444"/><assignedPerson><name><given>A</given><family>One</family></name></assignedPerson></assignedAuthor></author>
+                  <author><time value="20260102"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="5555"/><assignedPerson><name><given>B</given><family>Two</family></name></assignedPerson></assignedAuthor></author>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

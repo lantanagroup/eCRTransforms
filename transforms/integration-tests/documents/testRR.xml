@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260729 Claude: synthetic Reportability Response (RR R1.1) regression document. The first RR fixture in this
+     suite - every other document is an eICR, so the whole RR half of the cda2fhir pipeline was untested. Structure
+     modelled on samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml, trimmed to the parts that carry regression risk.
+
+     Covers:
+       * the three RR agency LOC participants (Routing Entity 15.2.4.1, Responsible Agency 15.2.4.2, Rules Authoring
+         Agency 15.2.4.3) -> rr-*-organization resources. These were silently dropped before 2026-07-29: as LOC
+         participants carrying a participantRole they matched both Organization's and PractitionerRole's bundle-entry
+         templates at equal priority, and the PractitionerRole path emits nothing without a person.
+       * eICR Processing Status (15.2.3.29) with a Reason (15.2.3.21) and Reason Details (15.2.3.32). 15.2.3.32 maps
+         to an Observation.component, and its absence from templates-to-suppress.xml produced dangling section-entry
+         references.
+       * Received eICR Information act (15.2.3.9) + eICR External Document Reference (15.2.3.10) -> DocumentReference.
+       * Determination of reportability (15.2.3.19) with reason (.26) and rule (.27), reporting timeframe (.14),
+         and an External Resources act (15.2.3.20). -->
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01"/>
+  <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01"/>
+  <id root="2.16.840.1.113883.19.5.99" extension="rr-doc-1"/>
+  <code code="88085-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Reportability response report Document Public health"/>
+  <title>Reportability Response</title>
+  <effectiveTime value="20260728093000-0500"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <languageCode code="en-US"/>
+  <setId root="2.16.840.1.113883.19.5.99" extension="rr-set-1"/>
+  <versionNumber value="1"/>
+  <recordTarget>
+    <patientRole>
+      <id root="2.16.840.1.113883.19.5" extension="12345"/>
+      <addr use="H"><streetAddressLine>1 Test St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+      <telecom use="HP" value="tel:+1-617-555-1234"/>
+      <patient>
+        <name use="L"><given>Jane</given><family>Tester</family></name>
+        <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+        <birthTime value="19800101"/>
+        <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" displayName="White"/>
+        <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" displayName="Not Hispanic or Latino"/>
+        <languageCommunication><languageCode code="eng"/></languageCommunication>
+      </patient>
+      <providerOrganization>
+        <id root="2.16.840.1.113883.4.6" extension="9999999999"/>
+        <name>Test Org</name>
+        <telecom value="tel:+1-617-555-0000"/>
+        <addr><streetAddressLine>2 Org St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+      </providerOrganization>
+    </patientRole>
+  </recordTarget>
+  <author>
+    <time value="20260728093000-0500"/>
+    <assignedAuthor>
+      <id root="2.16.840.1.113883.19.5.99" extension="rckms-1"/>
+      <assignedAuthoringDevice>
+        <manufacturerModelName>Test Decision Support Service</manufacturerModelName>
+        <softwareName>Test RCKMS</softwareName>
+      </assignedAuthoringDevice>
+      <representedOrganization>
+        <id root="2.16.840.1.113883.4.6" extension="8888888888"/>
+        <name>Test Routing Service</name>
+        <telecom value="tel:+1-617-555-2000"/>
+        <addr><streetAddressLine>3 Service St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+      </representedOrganization>
+    </assignedAuthor>
+  </author>
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <id root="2.16.840.1.113883.4.6" extension="7777777777"/>
+        <name>Custodian Org</name>
+        <telecom value="tel:+1-617-555-3000"/>
+        <addr><streetAddressLine>4 Custodian St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <informationRecipient>
+    <intendedRecipient>
+      <id root="2.16.840.1.113883.4.6" extension="12341234"/>
+      <addr><streetAddressLine>10 Agency Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+      <telecom value="tel:+1-617-555-3555"/>
+      <receivedOrganization>
+        <name>Test Department of Health</name>
+        <telecom value="tel:+1-617-555-3555"/>
+        <addr><streetAddressLine>10 Agency Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+      </receivedOrganization>
+    </intendedRecipient>
+  </informationRecipient>
+  <componentOf>
+    <encompassingEncounter>
+      <id root="e9000000-0000-0000-0000-0000000000rr"/>
+      <code code="AMB" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode" displayName="ambulatory"/>
+      <effectiveTime><low value="20260725"/><high value="20260726"/></effectiveTime>
+      <location>
+        <healthCareFacility>
+          <id root="2.16.840.1.113883.4.6" extension="facrr"/>
+          <code code="1108-0" codeSystem="2.16.840.1.113883.6.259" codeSystemName="HSLOC" displayName="Emergency Department"/>
+          <location><name>Test Hospital ED</name><addr><streetAddressLine>5 Hospital Rd</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr></location>
+          <serviceProviderOrganization><name>Facility Org</name></serviceProviderOrganization>
+        </healthCareFacility>
+      </location>
+    </encompassingEncounter>
+  </componentOf>
+  <component>
+    <structuredBody>
+      <!-- Reportable Condition Response Information Section -->
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.15.2.2.1" extension="2017-04-01"/>
+          <code code="88084-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Reportable condition response information and summary Document"/>
+          <title>Reportable Condition Response Information</title>
+          <text>Zika virus disease is reportable to Test Department of Health.</text>
+          <entry>
+            <act classCode="ACT" moodCode="INT">
+              <!-- [C-CDA] Instruction + [RR R1S1] Reportability Response Subject. 15.2.3.7 is on
+                   templates-to-suppress.xml, so this act contributes narrative only - no resource,
+                   and correspondingly no section-entry reference. -->
+              <templateId root="2.16.840.1.113883.10.20.22.4.20" extension="2014-06-09"/>
+              <templateId root="2.16.840.1.113883.10.20.15.2.3.7" extension="2017-04-01"/>
+              <id root="c1000000-0000-0000-0000-000000000009"/>
+              <code code="131195008" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Subject of information"/>
+              <text>Zika virus disease is reportable to Test Department of Health.</text>
+              <statusCode code="completed"/>
+            </act>
+          </entry>
+        </section>
+      </component>
+      <!-- Reportability Response Coded Information Section -->
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.15.2.2.2" extension="2017-04-01"/>
+          <code code="55112-7" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Document summary"/>
+          <title>Reportability Response Coded Information</title>
+          <text>Coded reportability information.</text>
+          <entry>
+            <act classCode="ACT" moodCode="INT">
+              <!-- [C-CDA] Instruction + [RR R1S1] Reportability Response Summary -->
+              <templateId root="2.16.840.1.113883.10.20.22.4.20" extension="2014-06-09"/>
+              <templateId root="2.16.840.1.113883.10.20.15.2.3.8" extension="2017-04-01"/>
+              <id root="c1000000-0000-0000-0000-00000000000b"/>
+              <code code="304561000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Informing health care professional"/>
+              <text>One or more conditions in this eICR are reportable to Test Department of Health.</text>
+              <statusCode code="completed"/>
+            </act>
+          </entry>
+          <entry>
+            <observation classCode="OBS" moodCode="EVN">
+              <!-- [RR R1S1] Reportability Response Priority - suppressed (becomes an extension) -->
+              <templateId root="2.16.840.1.113883.10.20.15.2.3.30" extension="2017-04-01"/>
+              <id root="c1000000-0000-0000-0000-00000000000a"/>
+              <code code="RR9" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Reportability response priority"/>
+              <statusCode code="completed"/>
+              <value xsi:type="CD" code="RRVS14" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Action required"/>
+            </observation>
+          </entry>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- [RR R1S1] Relevant Reportable Condition Organizer -->
+              <templateId root="2.16.840.1.113883.10.20.15.2.3.34" extension="2017-04-01"/>
+              <id root="c1000000-0000-0000-0000-000000000001"/>
+              <code code="RR11" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Reportability Response Coded Information"/>
+              <statusCode code="completed"/>
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- [RR R1S1] Reportable Condition Observation -->
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.12" extension="2017-04-01"/>
+                  <id root="c1000000-0000-0000-0000-000000000002"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED" displayName="Condition"/>
+                  <statusCode code="completed"/>
+                  <value xsi:type="CD" code="3928002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Zika virus disease (disorder)"/>
+                  <entryRelationship typeCode="COMP">
+                    <organizer classCode="CLUSTER" moodCode="EVN">
+                      <!-- [RR R1S1] Reportability Information Organizer -->
+                      <templateId root="2.16.840.1.113883.10.20.15.2.3.13" extension="2017-04-01"/>
+                      <id root="c1000000-0000-0000-0000-000000000003"/>
+                      <code code="RRVS7" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Both patient home address and provider facility address"/>
+                      <statusCode code="completed"/>
+                      <!-- Responsible Agency -->
+                      <participant typeCode="LOC">
+                        <templateId root="2.16.840.1.113883.10.20.15.2.4.2" extension="2017-04-01"/>
+                        <participantRole>
+                          <id root="2.16.840.1.113883.4.6" extension="12341234"/>
+                          <code code="RR8" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Responsible Agency"/>
+                          <addr><streetAddressLine>10 Agency Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+                          <telecom value="tel:+1-617-555-3555"/>
+                          <telecom value="mailto:mail@testhealth.gov"/>
+                          <playingEntity>
+                            <name>Test Department of Health</name>
+                          </playingEntity>
+                        </participantRole>
+                      </participant>
+                      <!-- Unrecognised LOC participant: reachable from cda2fhir-Bundle.xslt's global LOC dispatch
+                           (participantRole carries neither SDLOC nor TERR) and matching no location templateId, so it
+                           exercises the generic LOC -> Organization fallback. Before 2026-07-29 this was silently
+                           dropped: it tied with PractitionerRole's generic participant match, which emits nothing
+                           without a person. -->
+                      <participant typeCode="LOC">
+                        <participantRole>
+                          <id root="2.16.840.1.113883.19.5" extension="locGeneric"/>
+                          <code code="1160-1" codeSystem="2.16.840.1.113883.6.259" codeSystemName="HSLOC" displayName="Urgent Care Center"/>
+                          <addr><streetAddressLine>4 Generic Rd</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+                          <telecom value="tel:+1-617-555-4444"/>
+                          <playingEntity><name>Generic LOC Participant Org</name></playingEntity>
+                        </participantRole>
+                      </participant>
+                      <!-- Rules Authoring Agency -->
+                      <participant typeCode="LOC">
+                        <templateId root="2.16.840.1.113883.10.20.15.2.4.3" extension="2017-04-01"/>
+                        <participantRole>
+                          <id root="2.16.840.1.113883.4.6" extension="12341235"/>
+                          <code code="RR12" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Rules Authoring Agency"/>
+                          <addr><streetAddressLine>11 Agency Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+                          <telecom value="tel:+1-617-555-3556"/>
+                          <playingEntity>
+                            <name>Test Department of Health: Rules Authoring Agency</name>
+                          </playingEntity>
+                        </participantRole>
+                      </participant>
+                      <!-- Routing Entity -->
+                      <participant typeCode="LOC">
+                        <templateId root="2.16.840.1.113883.10.20.15.2.4.1" extension="2017-04-01"/>
+                        <participantRole>
+                          <id root="2.16.840.1.113883.4.6" extension="43214321"/>
+                          <code code="RR7" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Routing Entity"/>
+                          <addr><streetAddressLine>12 Agency Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode><country>US</country></addr>
+                          <telecom value="tel:+1-617-555-3557"/>
+                          <playingEntity>
+                            <name>Test Routing Agency: Routing Entity</name>
+                          </playingEntity>
+                        </participantRole>
+                      </participant>
+                      <!-- Determination of reportability, with reason and rule -->
+                      <component typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.15.2.3.19" extension="2017-04-01"/>
+                          <id root="c1000000-0000-0000-0000-000000000004"/>
+                          <code code="RR1" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Determination of reportability"/>
+                          <statusCode code="completed"/>
+                          <value xsi:type="CD" code="RRVS1" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Reportable"/>
+                          <entryRelationship typeCode="RSON">
+                            <observation classCode="OBS" moodCode="EVN">
+                              <templateId root="2.16.840.1.113883.10.20.15.2.3.26" extension="2017-04-01"/>
+                              <id root="c1000000-0000-0000-0000-000000000005"/>
+                              <code code="RR2" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Determination of reportability reason"/>
+                              <statusCode code="completed"/>
+                              <value xsi:type="ST">Condition is on the reportable condition list.</value>
+                            </observation>
+                          </entryRelationship>
+                          <entryRelationship typeCode="RSON">
+                            <observation classCode="OBS" moodCode="EVN">
+                              <templateId root="2.16.840.1.113883.10.20.15.2.3.27" extension="2017-04-01"/>
+                              <id root="c1000000-0000-0000-0000-000000000006"/>
+                              <code code="RR3" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Determination of reportability rule"/>
+                              <statusCode code="completed"/>
+                              <value xsi:type="ST">All Zika virus disease results are reportable.</value>
+                            </observation>
+                          </entryRelationship>
+                        </observation>
+                      </component>
+                      <!-- Timeframe to report -->
+                      <component typeCode="COMP">
+                        <observation classCode="OBS" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.15.2.3.14" extension="2017-04-01"/>
+                          <id root="c1000000-0000-0000-0000-000000000007"/>
+                          <code code="RR4" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Timeframe to report (urgency)"/>
+                          <statusCode code="completed"/>
+                          <value xsi:type="PQ" value="24" unit="h"/>
+                        </observation>
+                      </component>
+                      <!-- External resources act -->
+                      <component typeCode="COMP">
+                        <act classCode="ACT" moodCode="EVN">
+                          <templateId root="2.16.840.1.113883.10.20.15.2.3.20" extension="2017-04-01"/>
+                          <id root="c1000000-0000-0000-0000-000000000008"/>
+                          <code code="RRVS8" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Additional reporting needs"/>
+                          <statusCode code="completed"/>
+                          <priorityCode code="RRVS17" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Immediate action required"/>
+                          <reference typeCode="REFR">
+                            <externalDocument classCode="DOC" moodCode="EVN">
+                              <templateId root="2.16.840.1.113883.10.20.15.2.3.17" extension="2017-04-01"/>
+                              <code nullFlavor="OTH">
+                                <originalText>Additional information for the required reporting of Zika must be submitted to Test Department of Health immediately.</originalText>
+                              </code>
+                              <text mediaType="text/html">
+                                <reference value="https://testhealth.gov/zika/supplemental.pdf"/>
+                              </text>
+                            </externalDocument>
+                          </reference>
+                        </act>
+                      </component>
+                    </organizer>
+                  </entryRelationship>
+                </observation>
+              </component>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+      <!-- Electronic Initial Case Report Section -->
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.15.2.2.3" extension="2017-04-01"/>
+          <code code="88082-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Initial case report processing information Document"/>
+          <title>Electronic Initial Case Report</title>
+          <text>eICR received and processed with warnings.</text>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <!-- [RR R1S1] Received eICR Information -->
+              <templateId root="2.16.840.1.113883.10.20.15.2.3.9" extension="2017-04-01"/>
+              <id root="c2000000-0000-0000-0000-000000000001"/>
+              <code code="RR5" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="Received eICR Information"/>
+              <text xsi:type="ST">test_eICR_Filename.xml</text>
+              <statusCode code="completed"/>
+              <effectiveTime value="20260728090000-0500"/>
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOCCLIN" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.115" extension="2014-06-09"/>
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01"/>
+                  <id root="2.16.840.1.113883.19.5.99" extension="eicr-set-1"/>
+                  <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Public health Case report"/>
+                  <setId root="2.16.840.1.113883.19.5.99" extension="eicr-set-1"/>
+                  <versionNumber value="1"/>
+                </externalDocument>
+              </reference>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <!-- [RR R1S1] eICR Processing Status -->
+              <templateId root="2.16.840.1.113883.10.20.15.2.3.29" extension="2017-04-01"/>
+              <id root="c2000000-0000-0000-0000-000000000002"/>
+              <code code="RRVS20" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="eICR processed with warning"/>
+              <statusCode code="completed"/>
+              <entryRelationship typeCode="RSON">
+                <observation classCode="OBS" moodCode="EVN">
+                  <!-- [RR R1S1] eICR Processing Status Reason -->
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.21" extension="2017-04-01"/>
+                  <id root="c2000000-0000-0000-0000-000000000003"/>
+                  <code code="RR6" codeSystem="2.16.840.1.114222.4.5.232" codeSystemName="PHIN Questions" displayName="eICR Processing Status Reason"/>
+                  <statusCode code="completed"/>
+                  <value xsi:type="CD" code="RRVS29" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="eICR was processed with the warning of: outdated RCTC version"/>
+                  <!-- Reason Details: 15.2.3.32 becomes an Observation.component, NOT a standalone resource -->
+                  <entryRelationship typeCode="RSON">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <templateId root="2.16.840.1.113883.10.20.15.2.3.32" extension="2017-04-01"/>
+                      <id root="c2000000-0000-0000-0000-000000000004"/>
+                      <code code="RRVS31" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Outdated RCTC Version Detail"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="ST">19/0</value>
+                    </observation>
+                  </entryRelationship>
+                  <entryRelationship typeCode="RSON">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <templateId root="2.16.840.1.113883.10.20.15.2.3.32" extension="2017-04-01"/>
+                      <id root="c2000000-0000-0000-0000-000000000005"/>
+                      <code code="RRVS33" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="Expected RCTC Version Detail"/>
+                      <statusCode code="completed"/>
+                      <value xsi:type="ST">13/1</value>
+                    </observation>
+                  </entryRelationship>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

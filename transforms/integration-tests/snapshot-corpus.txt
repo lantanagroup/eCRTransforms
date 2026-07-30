@@ -1,0 +1,22 @@
+# Corpus for snapshot-regression.py - one glob per line, relative to the repo root.
+# Lines after '#' are ignored. Snapshots live in integration-tests/snapshots/ and are
+# committed; adding a line here means running --update once and committing the result.
+#
+# 20260729 Claude: seeded with the synthetic fixtures plus the three real documents that
+# were used as evidence when closing the participant-priority defect. The real samples are
+# where this layer earns its keep - they are messier than anything we would write by hand.
+# Add more freely; the cost is one --update and the disk space of the snapshot.
+
+transforms/integration-tests/documents/*.xml
+
+samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml
+samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml
+samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml
+
+# Suggested additions - uncomment and run --update to adopt. Left off by default only
+# because they were not verified in the session that created this file.
+# samples/cda/eICR-R3_1/*.xml
+# samples/cda/eICR-R1_1/*.xml
+# samples/cda/20260424-COIVD/*.xml
+# samples/cda/20260424-Flu/*.xml
+# samples/cda/20260424-Pertussis/*.xml

@@ -1,0 +1,12 @@
+{
+  "_comment": "Accepted FHIR validation errors for eCRTransforms integration outputs. Each entry is an error that is known and consciously tolerated. Add a 'note' explaining WHY. Regenerate with --update-baseline; review the diff before committing, since regenerating silently accepts new regressions.",
+  "accepted": {},
+  "meta": {
+    "display_issues_are_warnings": false,
+    "fhir_version": "4.0.1",
+    "ig": [
+      "hl7.fhir.us.ecr#2.1.2"
+    ],
+    "input": "output"
+  }
+}

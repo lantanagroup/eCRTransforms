@@ -114,3 +114,14 @@
 # The Saxon and XSpec jars are re-downloaded on demand; results/compiled stylesheets are generated.
 /transforms/cda2fhir-r4/xspec-unit-tests/.xspec-tools/
 /transforms/cda2fhir-r4/xspec-unit-tests/.xspec-results/
+/samples/cda/20240625-Anonymization
+/samples/cda/20250330_MS_Transform_Test
+/samples/cda/20260423-Data Augmentation
+/samples/cda/20260424-COIVD
+/samples/cda/20260424-Flu
+/samples/cda/20260424-Pertussis
+/samples/cda/20260505-Refiner
+/samples/cda/20260513_Claude
+/samples/cda/20260628
+/samples/cda/eICR-R3_1_1
+/samples/cda/html/CDAR2_IG_PHCASERPT_R2_STU3.1.1_SAMPLE_AUGMENT_FIRST.html

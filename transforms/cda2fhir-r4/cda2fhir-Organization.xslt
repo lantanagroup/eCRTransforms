@@ -10,31 +10,42 @@
   </xsl:template>
 
   <xsl:template
-    match="cda:representedCustodianOrganization | cda:representedOrganization | cda:receivedOrganization | cda:providerOrganization | cda:manufacturerOrganization | cda:serviceProviderOrganization | cda:participant[@typeCode = 'LOC'][not(cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4'])]"
+    match="cda:representedCustodianOrganization | cda:representedOrganization | cda:receivedOrganization | cda:providerOrganization | cda:manufacturerOrganization | cda:serviceProviderOrganization"
     mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
-  <!-- 20260729 Claude: Fix - the three RR agency participants (Routing Entity 15.2.4.1, Responsible Agency 15.2.4.2,
-       Rules Authoring Agency 15.2.4.3) were being DROPPED from every RR bundle. They are LOC participants that also
-       carry a participantRole, so in bundle-entry mode they matched both the template above and
-       cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole] at equal default priority
-       (Saxon reported XTDE0540 and resolved it by declaration order, which PractitionerRole won). That template
-       forwards to the participantRole bundle-entry template, which only emits a PractitionerRole when there is an
-       assignedPerson/associatedPerson - an agency has none, so nothing at all was emitted and the agencies survived
-       only as narrative text. Confirmed on samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml.
-       priority="1" mirrors the same fix already applied to Location (4.32/15.2.4.4) and Device (4.37) participants.
-       Deliberately matched to the three agency templateIds rather than added to the broad LOC match above: making
-       ALL LOC participants beat PractitionerRole would change eICR output too, and I have no regression evidence
-       for every LOC shape. See the open note in the codebase notes. -->
-  <xsl:template
-    match="cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']"
-    mode="bundle-entry" priority="1">
+  <!-- 20260729 Claude: A LOC participant is a place or an organization - never a PractitionerRole - but every one of
+       them also has a participantRole, so they all matched cda2fhir-PractitionerRole.xslt's generic
+       cda:participant[cda:participantRole] at equal default priority. Saxon reported XTDE0540 and broke the tie by
+       declaration order; PractitionerRole is included last, so it won, and its path emits a resource only when there
+       is an assignedPerson/associatedPerson. A LOC participant has neither, so the participant was silently dropped.
+       That is how the three RR agencies (15.2.4.1/.2/.3) went missing from every RR bundle, and the same fate awaited
+       any other LOC participant reachable from cda2fhir-Bundle.xslt's global dispatch.
+
+       Rather than keep adding templateId-specific escapes, the precedence is now stated explicitly:
+         priority 2  cda2fhir-Location.xslt   - the specific location templates (15.2.4.4, and 4.32 on participantRole)
+         priority 1  here                     - the generic LOC -> Organization fallback
+         priority 0  cda2fhir-PractitionerRole - generic participant[participantRole], now never reached for LOC
+       15.2.4.4 no longer needs excluding by hand: Location.xslt outranks this template instead. Note that
+       cda2fhir-Bundle.xslt's dispatch already filters out participantRole/@classCode SDLOC and TERR, so Service
+       Delivery Locations reach Location.xslt through the Procedure/Encounter fan-out rather than through here.
+
+       Verified across 14 documents (10 fixtures, 3 real samples, 1 probe) with UUIDs normalised: output is unchanged
+       except that previously-dropped LOC participants now appear as Organization resources, and all four XTDE0540
+       warnings are gone. -->
+  <xsl:template match="cda:participant[@typeCode = 'LOC']" mode="bundle-entry" priority="1">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
   <!-- Participant inside an [ODH R1] Past or Present Occupation Observation  -->
-  <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']/cda:participant[@typeCode = 'IND']" mode="bundle-entry">
+  <!-- 20260729 Claude: Fix - priority="1", exactly the same defect as the LOC participants above and found by the same
+       analysis. This ODH employer participant also carries a participantRole, so it tied with
+       cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole]; Organization is included BEFORE
+       PractitionerRole, so PractitionerRole won, and its path needs a person the employer participant does not have.
+       No Organization was emitted, which left the odh-Employer-extension's reference DANGLING - verified as the only
+       dangling reference in samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml before this fix. -->
+  <xsl:template match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']/cda:participant[@typeCode = 'IND']" mode="bundle-entry" priority="1">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
@@ -56,8 +67,12 @@
   </xsl:template>
 
   <!-- Organization from participant of type LOC -->
-  <xsl:template
-    match="cda:participant[@typeCode = 'LOC'][cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.2' or cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.3']">
+  <!-- 20260729 Claude: match widened from the three RR agency templateIds to any LOC participant, and given
+       priority="1" to sit below cda2fhir-Location.xslt's priority="2" body template. This activates the
+       <xsl:otherwise> branch below, which already called add-participant-meta for the non-agency case and had been
+       unreachable since the match only admitted the three agencies. Without this the widened bundle-entry template
+       above would emit an entry with no matching body template, so built-in rules would copy text into <resource>. -->
+  <xsl:template match="cda:participant[@typeCode = 'LOC']" priority="1">
     <Organization>
       <xsl:choose>
         <xsl:when test="cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.1'">

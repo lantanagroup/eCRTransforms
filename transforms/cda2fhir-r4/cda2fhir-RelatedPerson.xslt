@@ -15,12 +15,20 @@
     </xsl:template>
     
     <!-- (eICR) Person Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.6']]" mode="bundle-entry">
+    <!-- 20260729 Claude: priority="1" makes this explicit. It already beat
+         cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole], but only because this file is
+         included after it - Saxon was reporting XTDE0540 and resolving the tie by declaration order. No behaviour
+         change; it just no longer depends on include order. -->
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.6']]" mode="bundle-entry" priority="1">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
     
     <!-- (eICR) Animal Participant to Base FHIR RelatedPerson -->
-    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.5']]" mode="bundle-entry">
+    <!-- 20260729 Claude: priority="1" makes this explicit. It already beat
+         cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole], but only because this file is
+         included after it - Saxon was reporting XTDE0540 and resolving the tie by declaration order. No behaviour
+         change; it just no longer depends on include order. -->
+    <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.5']]" mode="bundle-entry" priority="1">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
     

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260729 Claude: the three priority values here were raised 1 -> 2. cda2fhir-Organization.xslt now claims all
+     cda:participant[@typeCode='LOC'] at priority 1 as a generic LOC -> Organization fallback, so these specific
+     location templates (eICR Location Participant 15.2.4.4, and Service Delivery Location 4.32 whose templateId sits
+     on the participantRole) need to outrank it. Precedence is now: Location 2 > Organization 1 > PractitionerRole 0. -->
 <xsl:stylesheet xmlns="http://hl7.org/fhir" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com" exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
@@ -6,10 +10,10 @@
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
-  <!-- 20260729 Claude: added priority="1" to the Location participant templates (here and the body template below) so
+  <!-- 20260729 Claude: added priority="2" to the Location participant templates (here and the body template below) so
        they beat cda2fhir-PractitionerRole.xslt's generic cda:participant[cda:participantRole] match (equal default
        priority; include order previously decided the winner) -->
-  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]" mode="bundle-entry" priority="1">
+  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']]" mode="bundle-entry" priority="2">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
@@ -17,7 +21,7 @@
        is on the participantRole (the body template below already uses the participantRole axis, as does
        cda2fhir-Procedure.xslt), so this bundle-entry never fired and the Location entry referenced from
        Procedure.location was never created -->
-  <xsl:template match="cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" mode="bundle-entry" priority="1">
+  <xsl:template match="cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" mode="bundle-entry" priority="2">
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
@@ -88,7 +92,7 @@
   </xsl:template>
 
   <!-- (eICR) Location Participant to US Core Location -->
-  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" priority="1">
+  <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" priority="2">
     <Location>
       <!-- 20260729 Claude: Fix - add-meta reads cda:templateId children of the context node, but for a Service
            Delivery Location (2.16.840.1.113883.10.20.22.4.32) the templateId sits on the participantRole, so this

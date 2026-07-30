@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    stylesheet="../SaxonPE-cda2fhir.xslt" run-as="external">
+
+    <!-- 20260729 Claude: regression tests for defects fixed 2026-07 - each scenario asserts the corrected
+         behavior and fails against the pre-fix code -->
+
+    <x:scenario label="Care Team Organizer statusCode completed maps status to inactive (status is required 1..1)">
+        <x:context>
+            <organizer classCode="CLUSTER" moodCode="EVN" xmlns="urn:hl7-org:v3">
+            <templateId root="2.16.840.1.113883.10.20.22.4.500" extension="2022-06-01"/>
+            <id root="d1000000-0000-0000-0000-000000000001"/>
+            <code code="86744-0" codeSystem="2.16.840.1.113883.6.1"/><statusCode code="completed"/>
+            <component><act classCode="PCPR" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.22.4.500.1" extension="2022-06-01"/>
+            <id root="d1000000-0000-0000-0000-000000000002"/>
+            <code code="86744-0" codeSystem="2.16.840.1.113883.6.1"/><statusCode code="completed"/>
+            <performer typeCode="PPRF"><assignedEntity><id root="d1000000-0000-0000-0000-000000000003"/>
+            <code code="207Q00000X" codeSystem="2.16.840.1.113883.6.101"/>
+            <assignedPerson><name><given>Pat</given><family>Care</family></name></assignedPerson>
+            </assignedEntity></performer></act></component></organizer>
+        </x:context>
+        <x:expect label="Should produce a CareTeam"
+            test="count(fhir:CareTeam) = 1" />
+        <x:expect label="status must be present (us-core-careteam requires 1..1; was omitted for anything but 'active')"
+            test="count(fhir:CareTeam/fhir:status) = 1" />
+        <x:expect label="statusCode completed should map to 'inactive'"
+            test="count(fhir:CareTeam/fhir:status[@value = 'inactive']) = 1" />
+        <x:expect label="participant role should carry the performer typeCode as the coding code (AVT brace fix)"
+            test="count(fhir:CareTeam/fhir:participant/fhir:role/fhir:coding/fhir:code[@value = 'PPRF']) = 1" />
+        <x:expect label="participant role coding system should be the v3-ParticipationType CodeSystem, not a ValueSet URL"
+            test="count(fhir:CareTeam/fhir:participant/fhir:role/fhir:coding/fhir:system[@value = 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType']) = 1" />
+    </x:scenario>
+
+</x:description>

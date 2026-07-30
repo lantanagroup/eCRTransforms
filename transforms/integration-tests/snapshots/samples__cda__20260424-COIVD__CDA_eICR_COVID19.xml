@@ -1,0 +1,1733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 573-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="eICR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2026-04-23T20:50:15.000+00:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2:2016-12-01-->
+               <profile value="http://hl7.org/fhir/us/ecr-data-aug/StructureDefinition/eicr-data-augmentation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.3:2025-11-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> UUID002</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">April 23, 2026, 20:50:15, UTC+00:00 </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value">EpicCore Galactic - Version 45.7 SN</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>500 Republica Medical Plaza, Suite 1000<br/>Senate District, Galactic City GC-500, Coruscant<br/>Tel (Work Place):  +1-888-000-9999<br/>Fax (Work Place):  +1-888-000-1111<br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value"/>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">
+                              <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">9937015 2.16.840.1.113883.19</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">Ambulatory</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From May 13, 2020  to May 13, 2020 </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value">Outpatient Facility</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">Dr Royce Hemlock, MD of Grand Republic Medical Facility Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Home:<br/>200 Corusca Street<br/>Senate District, Galactic City GC-500, Coruscant<br/>Tel (Work Place):  +1-555-777-0123<br/>Fax (Work Place):  +1-555-777-0987<br/>Mail (Work Place):  dr.hemlock@grmfc.gc.example.com<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--participant-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">Mr Perrin Fertha<br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Home:<br/>500 Republica, Suite 400<br/>Senate District, Galactic City GC-500, Coruscant<br/>Tel (MC):  +1-555-555-9877<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">Grand Republic Medical Facility Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>500 Republica Medical Plaza, Suite 1000<br/>Senate District, Galactic City GC-500, Coruscant<br/>Tel (Work Place):  +1-888-000-9999<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="1"/>
+            </extension>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID003"/>
+               <assigner>
+                  <display value="testing"/>
+               </assigner>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID005"/>
+            </encounter>
+            <date value="2026-04-23T20:50:15.000+00:00"/>
+            <author>
+               <reference value="urn:uuid:UUID006"/>
+            </author>
+            <author>
+               <reference value="urn:uuid:UUID007"/>
+            </author>
+            <title value="Initial Public Health Case Report"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID008"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:UUID002"/>
+                  <assigner>
+                     <display value="ecr-refiner"/>
+                  </assigner>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="History of Present Illness"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10164-2"/>
+                     <display value="History of Present illness Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1">
+                        <caption style="font-weight:bold; ">Output from CDC eCR Refiner application by request of jurisdiction.</caption>
+                        <thead>
+                           <tr>
+                              <th>Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>No clinical information matches the configured code sets for this condition.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <span id="ecr-refiner-10164-2-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>10164-2</td>
+                              <td>History of Present Illness Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; no matches found</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Medications Administered"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29549-3"/>
+                     <display value="Medication administered Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1">
+                        <caption style="font-weight:bold; ">Output from CDC eCR Refiner application by request of jurisdiction.</caption>
+                        <thead>
+                           <tr>
+                              <th>Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>No clinical information matches the configured code sets for this condition.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <span id="ecr-refiner-29549-3-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>29549-3</td>
+                              <td>Medications Administered Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; no matches found</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Problem List"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11450-4"/>
+                     <display value="Problem list - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>Section narrative has been removed from this refined document as configured by jurisdiction. Clinical entries are preserved for machine processing.</p>
+                     <span id="ecr-refiner-11450-4-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>11450-4</td>
+                              <td>Problem Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; narrative removed</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="20250216"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://snomed.info/sct"/>
+                           <code value="186747009"/>
+                           <display value="Coronavirus infection"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="20250216"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://snomed.info/sct"/>
+                           <code value="840539006"/>
+                           <display value="Disease caused by SARS-CoV-2"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Reason for visit"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29299-5"/>
+                     <display value="Reason for visit"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1">
+                        <caption style="font-weight:bold; ">Output from CDC eCR Refiner application by request of jurisdiction.</caption>
+                        <thead>
+                           <tr>
+                              <th>Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>No clinical information matches the configured code sets for this condition.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <span id="ecr-refiner-29299-5-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>29299-5</td>
+                              <td>Reason for Visit Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; no matches found</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Results"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="30954-2"/>
+                     <display value="Relevant diagnostic tests/laboratory data note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1">
+                        <caption style="font-weight:bold; ">Output from CDC eCR Refiner application by request of jurisdiction.</caption>
+                        <thead>
+                           <tr>
+                              <th>Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>No clinical information matches the configured code sets for this condition.</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <span id="ecr-refiner-30954-2-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>30954-2</td>
+                              <td>Results Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; no matches found</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <entry>
+                  <reference value="urn:uuid:UUID012"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Plan of Treatment"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="18776-5"/>
+                     <display value="Plan of care note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>Section narrative has been removed from this refined document as configured by jurisdiction. Clinical entries are preserved for machine processing.</p>
+                     <span id="ecr-refiner-18776-5-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>18776-5</td>
+                              <td>Plan of Treatment Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; narrative removed</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.44-->
+               <!--2.16.840.1.113883.10.20.22.4.44:2014-06-09-->
+               <!--2.16.840.1.113883.10.20.15.2.3.4:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="20250216"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://loinc.org"/>
+                           <code value="94500-6"/>
+                           <display value="SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory system specimen by NAA with probe detection"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.16-->
+               <!--2.16.840.1.113883.10.20.22.4.16:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.19-->
+               <!--2.16.840.1.113883.10.20.22.4.19:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID015"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Social History"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29762-2"/>
+                     <display value="Social history note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>Section narrative has been removed from this refined document as configured by jurisdiction. Clinical entries are preserved for machine processing.</p>
+                     <span id="ecr-refiner-29762-2-20260423205015"/>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                     </p>
+                     <table border="1">
+                        <thead>
+                           <tr>
+                              <th>Section (LOINC)</th>
+                              <th>Section Name</th>
+                              <th>Included</th>
+                              <th>Action</th>
+                              <th>Retain Narrative</th>
+                              <th>Config Version</th>
+                              <th>Source</th>
+                              <th>Outcome</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>29762-2</td>
+                              <td>Social History Section</td>
+                              <td>Yes</td>
+                              <td>refine</td>
+                              <td>No</td>
+                              <td>v3</td>
+                              <td>Configured by jurisdiction</td>
+                              <td>Refined; narrative removed</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="CHIEF COMPLAINT"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10154-3"/>
+                     <display value="Chief complaint Narrative - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+               </text>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>Mothma, Mon</h1>
+                  <p>Telecom: tel:+1-555-555-9876</p>
+                  <p>Telecom: mailto:mon.mothma@senate.gr.example.com</p>
+                  <p>Address: 500 Republica, Suite 400<br/>Senate District<br/>Galactic City<br/>GC-500<br/>Administrative Core<br/>Coruscant</p>
+                  <p>Gender: F</p>
+                  <p>Birthdate: 1975-01-01</p>
+                  <p>Language: en</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2106-3"/>
+                     <display value="White"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="White"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
+               <valueCode value="F"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="mrn-00884455"/>
+            </identifier>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-ssn"/>
+               <value value="000-65-4321"/>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Mothma"/>
+               <given value="Mon"/>
+               <prefix value="Senator"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-555-9876"/>
+               <use value="mobile"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="mon.mothma@senate.gr.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <gender value="female"/>
+            <birthDate value="1975-01-01"/>
+            <deceasedBoolean value="false"/>
+            <address>
+               <use value="home"/>
+               <line value="500 Republica, Suite 400"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v2-0131"/>
+                     <code value="C"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <use value="usual"/>
+                  <family value="Fertha"/>
+                  <given value="Perrin"/>
+                  <prefix value="Mr"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-555-555-9877"/>
+                  <use value="mobile"/>
+               </telecom>
+               <address>
+                  <use value="home"/>
+                  <line value="500 Republica, Suite 400"/>
+                  <city value="Senate District"/>
+                  <district value="Administrative Core"/>
+                  <state value="Galactic City"/>
+                  <postalCode value="GC-500"/>
+                  <country value="Coruscant"/>
+               </address>
+            </contact>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+               <preferred value="true"/>
+            </communication>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter-->
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>Section narrative has been removed from this refined document as configured by jurisdiction. Clinical entries are preserved for machine processing.</p>
+                  <span id="ecr-refiner-46240-8-20260423205015"/>
+                  <p>
+                     <span class="Bold" style="font-weight:bold">eCR Refiner — Jurisdiction Configuration</span>
+                  </p>
+                  <table border="1">
+                     <thead>
+                        <tr>
+                           <th>Section (LOINC)</th>
+                           <th>Section Name</th>
+                           <th>Included</th>
+                           <th>Action</th>
+                           <th>Retain Narrative</th>
+                           <th>Config Version</th>
+                           <th>Source</th>
+                           <th>Outcome</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>46240-8</td>
+                           <td>Encounters Section</td>
+                           <td>Yes</td>
+                           <td>refine</td>
+                           <td>No</td>
+                           <td>v3</td>
+                           <td>Configured by jurisdiction</td>
+                           <td>Refined; narrative removed</td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>...</p>
+               </div>
+            </text>
+            <!--INFO: Id from encompassingEncounter-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19"/>
+               <value value="9937015"/>
+            </identifier>
+            <!--Id from Encounter Activity-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID016"/>
+            </identifier>
+            <!--Id from Encounter Diagnosis Act-->
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="AMB"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="AMB"/>
+                  <display value="Ambulatory"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <system value="http://www.ama-assn.org/go/cpt"/>
+                  <code value="99212"/>
+                  <display value="Established patient office or other outpatient visit, 10-19 minutes"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID017"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2020-05-13"/>
+            </period>
+            <diagnosis><!--eICR Trigger Code Flag Extension-->
+               <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                  <extension url="triggerCodeValueSet">
+                     <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                  </extension>
+                  <extension url="triggerCodeValueSetVersion">
+                     <valueString value="20250216"/>
+                  </extension>
+                  <extension url="triggerCode">
+                     <valueCoding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="840539006"/>
+                        <display value="Disease caused by SARS-CoV-2"/>
+                     </valueCoding>
+                  </extension>
+               </extension>
+               <condition><!--2.16.840.1.113883.10.20.22.4.4--><!--2.16.840.1.113883.10.20.22.4.4:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+                  <reference value="urn:uuid:UUID018"/>
+               </condition>
+            </diagnosis>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID019"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID020"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19"][@extension="9937015"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1234567890"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID021"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID022"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <name>
+               <family value="Hemlock"/>
+               <given value="Royce"/>
+               <prefix value="Dr"/>
+               <suffix value="MD"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID022"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567893"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="OF"/>
+                  <display value="Outpatient Facility"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.1.11.20275"/>
+                  <code value="1160-1"/>
+                  <display value="Grand Republic Medical Facility Clinic"/>
+               </coding>
+            </type>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-888-000-9999"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-888-000-1111"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-888-000-9999"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-888-000-1111"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:oid:2.16.840.1.113883.3.72.5.20"/>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <deviceName>
+               <name value="EpicCore Galactic - Version 45.7 MMN"/>
+               <type value="model-name"/>
+            </deviceName>
+            <version>
+               <value value="EpicCore Galactic - Version 45.7 SN"/>
+            </version>
+            <location>
+               <reference value="urn:uuid:UUID023"/>
+            </location>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID023"/>
+      <resource>
+         <Location>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-888-000-9999"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-888-000-1111"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </system>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </value>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <version>
+               <type>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.113883.10.20.15.2.7.1"/>
+                     <code value="ecr-refiner"/>
+                     <display value="eCR Refiner"/>
+                  </coding>
+               </type>
+               <value value="eCR Refiner"/>
+            </version>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID008"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567893"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-888-000-9999"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID024"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID025"/>
+               <assigner>
+                  <display value="original-document"/>
+               </assigner>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId and ClinicalDocument/versionNumber (output as setId:versionNumber)-->
+            <identifier>
+               <system value="urn:oid:1.2.840.114350.1.13.380.3.7.1.1"/>
+               <value value="UUID026:3"/>
+               <assigner>
+                  <display value="original-document"/>
+               </assigner>
+            </identifier>
+            <status value="superseded"/>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:1.2.840.114350.1.13.380.3.7.1.1:3"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID002"/>
+               <assigner>
+                  <display value="ecr-refiner"/>
+               </assigner>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID003:1"/>
+               <assigner>
+                  <display value="testing"/>
+               </assigner>
+            </identifier>
+            <status value="superseded"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:UUID003:1"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID028"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-04-23T20:50:15.000+00:00"/>
+            <agent>
+               <who>
+                  <display value="original-document"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID024"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID029"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2025-02-27T15:00:45.000-04:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID006"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID030"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-04-23T20:50:15.000+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID007"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-04-23T20:50:15.000+00:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID027"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                     <b>No test reported</b>
+                  </p>
+               </div>
+            </text>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+                  <display value="Laboratory"/>
+               </coding>
+               <text value="Laboratory"/>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <valueQuantity>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </valueQuantity>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID032"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="encounter-diagnosis"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="840539006"/>
+                  <display value="Disease caused by SARS-CoV-2"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <onsetDateTime value="2025-02-21"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID033"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="230145002"/>
+                  <display value="Difficulty Breathing (finding)"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <onsetDateTime value="2025-02-16"/>
+            <recordedDate value="2025-02-16"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID034"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="186747009"/>
+                  <display value="Coronavirus infection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <onsetDateTime value="2025-02-16"/>
+            <recordedDate value="2025-02-16"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID032"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="840539006"/>
+                  <display value="Disease caused by SARS-CoV-2"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <onsetDateTime value="2025-02-21"/>
+            <recordedDate value="2025-02-16"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <ServiceRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID035"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="order"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="94500-6"/>
+                  <display value="SARS-CoV-2 (COVID-19) RNA [Presence] in Respiratory system specimen by NAA with probe detection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <occurrenceDateTime value="2025-02-17"/>
+         </ServiceRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource>
+         <MedicationRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID036"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="plan"/>
+            <medicationReference>
+               <reference value="urn:uuid:UUID037"/>
+            </medicationReference>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <authoredOn value="2025-02-27T15:00:45.000-04:00"/>
+            <requester>
+               <reference value="urn:uuid:UUID006"/>
+            </requester>
+            <reasonReference>
+               <reference value="urn:uuid:UUID015"/>
+            </reasonReference>
+            <dosageInstruction>
+               <timing>
+                  <repeat>
+                     <boundsPeriod>
+                        <start value="2025-02-21"/>
+                        <end value="2025-02-26"/>
+                     </boundsPeriod>
+                     <period value="24"/>
+                     <periodUnit value="h"/>
+                  </repeat>
+               </timing>
+               <route>
+                  <coding>
+                     <system value="http://snomed.info/sct"/>
+                     <code value="47625008"/>
+                     <display value="Intravenous route"/>
+                  </coding>
+               </route>
+               <doseAndRate>
+                  <doseQuantity>
+                     <value value="100"/>
+                     <unit value="mg"/>
+                  </doseQuantity>
+               </doseAndRate>
+            </dosageInstruction>
+         </MedicationRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID037"/>
+      <resource>
+         <Medication>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"/>
+            </meta>
+            <code>
+               <coding>
+                  <system value="http://www.nlm.nih.gov/research/umls/rxnorm"/>
+                  <code value="2284960"/>
+                  <display value="remdesivir 100 MG Injection"/>
+               </coding>
+               <text value="Remdesivir 100mg IV daily for 5 days"/>
+            </code>
+         </Medication>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.19 2.16.840.1.113883.10.20.22.4.19:2014-06-09-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.19urn:hl7ii:2.16.840.1.113883.10.20.22.4.19:2014-06-09-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID038"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <!--INFO: Using document effective time as issued date-->
+            <issued value="2026-04-23T20:50:15.000+00:00"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="840539006"/>
+                  <display value="Disease caused by SARS-CoV-2"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+</Bundle>

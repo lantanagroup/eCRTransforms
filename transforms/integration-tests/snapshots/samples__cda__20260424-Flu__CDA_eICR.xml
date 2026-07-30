@@ -1,0 +1,1543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 534-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="eICR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2020-05-05T15:00:45.000-04:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2:2022-05-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> mtgl-204-002-002442323-8888</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">May 5, 2020, 15:00:45, UTC-04:00 </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value"/>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>
+                              <br/>
+                              <br/>Tel (Work Place):  555-777-0123<br/>Fax (Work Place):  555-777-0987<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">9937015 2.16.840.1.113883.19</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">Office outpatient visit 15 minutes</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From May 13, 2020  to May 13, 2020 </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value">Facility Name of </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">Assigned Amanda,  of Houston Urgent Care
+                                                  Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Home:<br/>1234 Facility
+                                                  Drive<br/>Provo, UT 784097, US<br/>Tel (Work Place):  555-777-0123<br/>Fax (Work Place):  555-777-0987<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--participant-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">Mr Emer Contact<br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">
+                              <br/>Tel (MC):  +1-334-304-2665<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">Houston Urgent Care Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>1234 Facility
+                                                  Drive<br/>Provo, UT 84116, US<br/>Tel (Work Place):  555-777-0123<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="1"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:1.2.840.114350.1.13.380.3.7.1.1"/>
+               <value value="mtgl-204-002"/>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID003"/>
+            </encounter>
+            <date value="2020-05-05T15:00:45.000-04:00"/>
+            <author>
+               <reference value="urn:uuid:UUID004"/>
+            </author>
+            <title value="Initial Public Health Case Report"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID005"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:mtgl-204-002-002442323-8888"/>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="History of Present Illness"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10164-2"/>
+                     <display value="History of Present illness Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No history of present illness</div>
+               </text>
+            </section>
+            <section>
+               <title value="Medications Administered"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29549-3"/>
+                     <display value="Medication administered Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No medications administered</div>
+               </text>
+            </section>
+            <section>
+               <title value="Problems"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11450-4"/>
+                     <display value="Problem list - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th>Concern</th>
+                              <th>Concern Status</th>
+                              <th>Date(s)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Problem</td>
+                              <td>active</td>
+                              <td>NOV 7, 2020</td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <ul>
+                                    <li>
+                                       <table>
+                                          <thead>
+                                             <tr>
+                                                <th>Problem Type</th>
+                                                <th>Problem</th>
+                                                <th>Date(s)</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td>Symptom</td>
+                                                <td>Flu with respiratory manifestations </td>
+                                                <td>NOV 1, 2020</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </li>
+                                 </ul>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table>
+                        <thead>
+                           <tr>
+                              <th>Concern</th>
+                              <th>Concern Status</th>
+                              <th>Date(s)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Problem</td>
+                              <td>active</td>
+                              <td>MAY 23, 2020</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID006"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID007"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Chief Complaint"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10154-3"/>
+                     <display value="Chief complaint Narrative - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>Chief Complaint (the patient's own description): Headache, cough, exhaustion, and chills</p>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Reason for visit"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29299-5"/>
+                     <display value="Reason for visit"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>No information</p>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Results"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="30954-2"/>
+                     <display value="Relevant diagnostic tests/laboratory data note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <thead>
+                           <tr>
+                              <th>Results Panel</th>
+                              <th>Date(s)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>SARS-like Coronavirus N gene [Presence] in
+                                                  Unspecified specimen by NAA with probe
+                                                  detection</td>
+                              <td/>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <ul>
+                                    <li>
+                                       <p>*** In the table below, row entries
+                                                  with values under RCTC columns triggered this
+                                                  Electronic Initial Case Report (eICR)</p>
+                                       <table>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <col width="15%"/>
+                                          <thead>
+                                             <tr>
+                                                <th>Test</th>
+                                                <th>Lab Test RCTC OID ***</th>
+                                                <th>Lab Test RCTC Version ***</th>
+                                                <th>Outcome</th>
+                                                <th>Date(s)</th>
+                                                <th>Lab Result RCTC OID ***</th>
+                                                <th>Lab Result RCTC Version ***</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td>SARS-like Coronavirus N gene [Presence] in
+                                                  Unspecified specimen by NAA with probe
+                                                  detection</td>
+                                                <td>2.16.840.1.114222.4.11.7508</td>
+                                                <td>20200429</td>
+                                                <td>Detected (qualifier value)</td>
+                                                <td>05/13/2020</td>
+                                                <td/>
+                                                <td/>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </li>
+                                 </ul>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.1-->
+               <!--2.16.840.1.113883.10.20.22.4.1:2015-08-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="2025-03-18"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://loinc.org"/>
+                           <code value="94310-0"/>
+                           <display value="SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID008"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.1-->
+               <!--2.16.840.1.113883.10.20.22.4.1:2015-08-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="2025-03-18"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://loinc.org"/>
+                           <code value="34487-9"/>
+                           <display value="Influenza virus A RNA [Presence] in Specimen by NAA with probe detection"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Social History"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29762-2"/>
+                     <display value="Social history note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <thead>
+                           <tr>
+                              <th>Birth Sex</th>
+                              <th>Value</th>
+                              <th>Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Sex Assigned At Birth</td>
+                              <td>Female</td>
+                              <td>10/02/1990</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <table>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                        <thead>
+                           <tr>
+                              <th>Social History Observation Type</th>
+                              <th>Value</th>
+                              <th>Dates(s)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Occupation / Employment details</td>
+                              <td>Postsecondary teachers</td>
+                              <td/>
+                           </tr>
+                           <tr>
+                              <td>Pregnancy Status</td>
+                              <td>No</td>
+                              <td/>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.38-->
+               <!--2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID002"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>Doe, Jane</h1>
+                  <p>Telecom: tel:555-555-2003</p>
+                  <p>Telecom: mailto:janedoe@email.com</p>
+                  <p>Address: 1234 Home Drive<br/>Provo<br/>UT<br/>84116<br/>
+                     <br/>US</p>
+                  <p>Gender: F</p>
+                  <p>Birthdate: 1990-10-02</p>
+                  <p>Language: ace</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2076-8"/>
+                     <display value="Native Hawaiian or Other Pacific Islander"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Native Hawaiian or Other Pacific Islander"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
+               <valueCode value="F"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="pt-470126"/>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Doe"/>
+               <given value="Jane"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-555-2003"/>
+               <use value="home"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="janedoe@email.com"/>
+               <use value="home"/>
+            </telecom>
+            <gender value="female"/>
+            <birthDate value="1990-10-02"/>
+            <deceasedBoolean value="false"/>
+            <address>
+               <use value="home"/>
+               <line value="1234 Home Drive"/>
+               <city value="Provo"/>
+               <state value="UT"/>
+               <postalCode value="84116"/>
+               <country value="US"/>
+            </address>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v2-0131"/>
+                     <code value="C"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <use value="usual"/>
+                  <family value="Contact"/>
+                  <given value="Emer"/>
+                  <prefix value="Mr"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-334-304-2665"/>
+                  <use value="mobile"/>
+               </telecom>
+               <address/>
+            </contact>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="ace"/>
+                  </coding>
+               </language>
+               <preferred value="true"/>
+            </communication>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID003"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2022-05-01']/componentOf/encompassingEncounter-->
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <table>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <thead>
+                        <tr>
+                           <th>Encounter</th>
+                           <th>Date(s)</th>
+                           <th>Location</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>Office outpatient visit 15 minutes</td>
+                           <td>05/13/2020</td>
+                           <td>Houston Urgent Care Clinic</td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <ul>
+                                 <li>
+                                    <table>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <col width="15%"/>
+                                       <thead>
+                                          <tr>
+                                             <th/>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                             <td/>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </li>
+                              </ul>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>*** In the table below, row entries
+                                                  with values under RCTC columns triggered this
+                                                  Electronic Initial Case Report (eICR)</p>
+                  <table>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <col width="15%"/>
+                     <thead>
+                        <tr>
+                           <th>Lab Test Order</th>
+                           <th>Code</th>
+                           <th>CodeSystem</th>
+                           <th>RCTC OID ***</th>
+                           <th>RCTC Version ***</th>
+                           <th>Ordered Date</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>SARS-like Coronavirus N gene [Presence] in
+                                                  Unspecified specimen by NAA with probe
+                                                  detection</td>
+                           <td>94310-0 </td>
+                           <td>LOINC</td>
+                           <td/>
+                           <td/>
+                           <td>05/13/2020</td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>...</p>
+               </div>
+            </text>
+            <!--INFO: Id from encompassingEncounter-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19"/>
+               <value value="9937015"/>
+            </identifier>
+            <!--Id from Encounter Activity-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID011"/>
+            </identifier>
+            <!--Id from Encounter Diagnosis Act-->
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="AMB"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://www.ama-assn.org/go/cpt"/>
+                  <code value="99213"/>
+                  <display value="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter."/>
+               </coding>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="AMB"/>
+                  <display value="Ambulatory"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <system value="http://www.ama-assn.org/go/cpt"/>
+                  <code value="99213"/>
+                  <display value="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter."/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID012"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2020-05-13"/>
+            </period>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID013"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID014"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="mtgl-204-002-002442323-8888"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19"][@extension="9937015"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="66666666666"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="66666666666"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID015"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID016"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="66666666666"/>
+            </identifier>
+            <name>
+               <family value="Amanda"/>
+               <given value="Assigned"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="1234 Facility Drive"/>
+               <city value="Provo"/>
+               <state value="UT"/>
+               <postalCode value="784097"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="tbdfacility#"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Houston Urgent Care&#xA;                                                  Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="1234 Facility Drive"/>
+               <city value="Provo"/>
+               <state value="UT"/>
+               <postalCode value="784097"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2022-05-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1915"/>
+            </identifier>
+            <name value="Facility Name"/>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="OF"/>
+                  <display value="Outpatient Facility"/>
+               </coding>
+            </type>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="1234 Facility Drive"/>
+               <city value="Provo"/>
+               <state value="UT"/>
+               <postalCode value="784097"/>
+               <country value="US"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1915"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Service Provider Organization Name&#xA;                                                  Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="1000 Hospital Lane"/>
+               <city value="Provo"/>
+               <state value="UT"/>
+               <postalCode value="84097"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:oid:2.16.840.1.113883.3.72.5.20"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:1.2.840.114350.1.13.306.3.7.2.696570"/>
+               <value value="10"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Primary Childrens"/>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </line>
+               <city>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </city>
+               <state>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </state>
+               <postalCode>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </postalCode>
+               <country>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </country>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:oid:2.16.840.1.113883.3.72.5.20"/>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <deviceName>
+               <name value="TBD Device"/>
+               <type value="model-name"/>
+            </deviceName>
+            <modelNumber value="TBD Device"/>
+            <version/>
+            <owner>
+               <reference value="urn:uuid:UUID017"/>
+            </owner>
+            <location>
+               <reference value="urn:uuid:UUID018"/>
+            </location>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource>
+         <Location>
+            <name value="Primary Childrens"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </line>
+               <city>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </city>
+               <state>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </state>
+               <postalCode>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </postalCode>
+               <country>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </country>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="tbdfacility#"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Houston Urgent Care Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="1234 Facility Drive"/>
+               <city value="Provo"/>
+               <state value="UT"/>
+               <postalCode value="84116"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:mtgl-204-002-002442323-8888"/>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId-->
+            <identifier>
+               <system value="urn:oid:1.2.840.114350.1.13.380.3.7.1.1"/>
+               <value value="mtgl-204-002:1"/>
+            </identifier>
+            <status value="superseded"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:1.2.840.114350.1.13.380.3.7.1.1:1"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2020-05-05T15:00:45.000-04:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID017"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2020-05-05T15:00:45.000-04:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID019"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID022"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://hl7.org/fhir/sid/icd-10-cm"/>
+                  <code value="J10.1"/>
+                  <display value="Influenza due to other identified influenza virus with other respiratory manifestations (period stripped)"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <onsetDateTime value="2020-05-13"/>
+            <recordedDate value="2020-05-13"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID022"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://hl7.org/fhir/sid/icd-10-cm"/>
+                  <code value="J10.1"/>
+                  <display value="Influenza due to other identified influenza virus with other respiratory manifestations (period stripped)"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <onsetDateTime value="2020-05-13"/>
+            <recordedDate value="2020-05-13"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID008"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.1:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID023"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="94310-0"/>
+                  <display value="SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <effectivePeriod>
+               <start value="2020-05-13"/>
+            </effectivePeriod>
+            <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
+               <reference value="urn:uuid:UUID024"/>
+            </hasMember>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID024"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID025"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="94310-0"/>
+                  <display value="SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <effectiveDateTime value="2020-05-13"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="260373001"/>
+                  <display value="Detected (qualifier value)"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.1:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID023"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="34487-9"/>
+                  <display value="Influenza virus A RNA [Presence] in Specimen by NAA with probe detection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <effectivePeriod>
+               <start value="2020-05-13"/>
+            </effectivePeriod>
+            <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
+               <reference value="urn:uuid:UUID026"/>
+            </hasMember>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID025"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="34487-9"/>
+                  <display value="Influenza virus A RNA [Presence] in Specimen by NAA with probe detection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <effectiveDateTime value="2020-05-13"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="260373001"/>
+                  <display value="Detected (qualifier value)"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
+         <ServiceRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-servicerequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID028"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="order"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="94310-0 "/>
+                  <display value="SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <occurrenceDateTime value="2020-05-13"/>
+         </ServiceRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.38 2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.38urn:hl7ii:2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID029"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="social-history"/>
+                  <display value="Social History"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="364703007"/>
+                  <display value="Employment detail"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="11295-3"/>
+                  <display value="Current employment - Reported"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID002"/>
+            </subject>
+            <!--WARNING: Unknown effective time format-->
+            <!--INFO: Using document effective time as issued date-->
+            <issued value="2020-05-05T15:00:45.000-04:00"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="2200"/>
+                  <display value="Postsecondary teachers"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+</Bundle>

@@ -1,0 +1,1800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 453-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="RR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2026-04-23T21:00:41.000+00:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.1.2:2017-04-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> UUID002</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">April 23, 2026, 21:00:41, UTC+00:00 </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value"/>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">7700 Wisconsin Avenue, Suite 1000<br/>Bethesda, MD 20814, US<br/>Mail (Work Place):  support@aimsplatform.com<br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value"/>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">
+                              <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">9937015 2.16.840.1.113883.19</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">Ambulatory</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From February 16, 2025  to February 16, 2025 </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value">Outpatient Facility</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">Dr Royce Hemlock, MD of Grand Republic Medical Facility Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Home:<br/>200 Corusca Street<br/>Senate District, Galactic City GC-500, Coruscant<br/>Tel (Work Place):  +1-555-777-0123<br/>Fax (Work Place):  +1-555-777-0987<br/>Mail (Work Place):  dr.hemlock@grmfc.gc.example.com<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--informationRecipient-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Information recipient:</span>
+                           </td>
+                           <td class="td_header_role_value">Dr Royce Hemlock, MD</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Home:<br/>200 Corusca Street<br/>Senate District, Galactic City GC-500, Coruscant<br/>Tel (Work Place):  +1-555-777-0123<br/>Fax (Work Place):  +1-555-777-0987<br/>Mail (Work Place):  dr.hemlock@grmfc.gc.example.com<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">APHL | Association of Public Health Laboratories.</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">7700 Wisconsin Avenue, Suite 1000<br/>Bethesda, MD 20814, US<br/>Mail (Work Place):  support@aimsplatform.com<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <h3>
+                     <a name="GENID">.</a>
+                  </h3>
+                  <div>
+                     <br/>
+                     <span class="Bold" style="font-weight:bold">Subject:</span>
+                     <p>Public Health Reporting Communication: one or more conditions are reportable,
+              or may be reportable, to public health. </p>
+                  </div>
+                  <div>
+                     <span class="Bold" style="font-weight:bold">eICR Information:</span>
+                     <p>An initial report for a possible reportable condition was received on
+              20251021215428 with the file name db734647-fc99-424c-a864-7e3cda82e89xw. The eICR was
+              processed with the warning of: outdated eRSD (RCTC) version.</p>
+                  </div>
+                  <h3>
+                     <a name="GENID">.</a>
+                  </h3>
+                  <div>
+                     <span class="Bold" style="font-weight:bold">Summary:</span>
+                     <p>Your organization electronically submitted an initial case report to
+              determine if reporting to public health is needed for a patient.</p>
+                     <p>"Zika virus disease (disorder)" is reportable to "Senate District Department
+              of Public Health". The initial case report was sent to "Senate District Department of
+              Health". Additional information may be required for this report."Pertussis (disorder)"
+              is reportable to "Senate District Department of Health". The initial case report was
+              sent to "Senate District Department of Health". Additional information may be required
+              for this report."Viral hepatitis type C (disorder)" is reportable to "Senate District
+              Department of Public Health". The initial case report was sent to "Senate District
+              Department of Public Health". Additional information may be required for this report.<br/>
+                     </p>
+                     <p>No determination of reportability could be made for any condition for "Senate
+              District Department of Health". This may be because it is not on the list of
+              reportable conditions for this Public Health Agency, or the information provided at
+              the time of this report does not meet reporting criteria, or the Public Health Agency
+              is not yet accepting electronic case reports for this condition. Previous reporting
+              processes should be continued until your Public Health Agency has specifically
+              approved you for electronic case reporting for this condition.<br/>
+                     </p>
+                     <p>The trigger code version your organization is using is out-of-date. Please
+              have your EHR administrators install the current version for complete eCR functioning.<br/>
+                     </p>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">"Zika virus disease (disorder)" for "Senate District
+                Department of Health" </span>
+                     </p>
+                     <p>Reporting to this Public Health Agency is based on "Patient home address"<br/>
+                     </p>
+                     <p>
+                        <span>&gt; ()<br/>
+                           <br/>
+                        </span>
+                     </p>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">"Pertussis (disorder)" for "Senate District Department of
+                Health" </span>
+                     </p>
+                     <p>Reporting is required within "3 Day(s)". Reporting to this Public Health
+              Agency is based on "Patient home address"<br/>
+                     </p>
+                     <p>
+                        <span>&gt; Senate District Department of Health Lab RT-PCR guidance on specimen
+                collection, storage and transport, acceptable specimen types for Bordetella
+                pertussis. (
+                )<br/>
+                           <br/>
+                        </span>
+                        <span>&gt; CDC Reference Guide for Pertussis ()<br/>
+                           <br/>
+                        </span>
+                        <span>&gt; Pertussis webpage containing background, vaccine, fact sheets, and
+                epidemiological information ()<br/>
+                           <br/>
+                        </span>
+                        <span>&gt; Guidance in obtaining a NP swab/aspirate along with optimal diagnostic
+                testing information on PCR, Culture, and Serology (
+                )<br/>
+                           <br/>
+                        </span>
+                     </p>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">"Viral hepatitis type C (disorder)" for "Senate District
+                Department
+                of Public Health" </span>
+                     </p>
+                     <p>Reporting is required within "7 Day(s)". Reporting to this Public Health
+              Agency is based on "Patient home address"<br/>
+                     </p>
+                     <p>
+                        <span>&gt; Case definition for Acute HCV including clinical criteria, laboratory
+                criteria, and case classification ()<br/>
+                           <br/>
+                        </span>
+                     </p>
+                  </div>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="1"/>
+            </extension>
+            <!--US Public Health Information Recipient Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-information-recipient-extension">
+               <valueReference>
+                  <reference value="urn:uuid:UUID003"/>
+               </valueReference>
+            </extension>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID001"/>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="88085-6"/>
+                  <display value="Reportability response report Document Public health"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID005"/>
+            </encounter>
+            <date value="2026-04-23T21:00:41.000+00:00"/>
+            <author>
+               <reference value="urn:uuid:UUID006"/>
+            </author>
+            <author>
+               <reference value="urn:uuid:UUID007"/>
+            </author>
+            <title value="Reportability Response"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID008"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:UUID002"/>
+                  <assigner>
+                     <display value="ecr-refinement"/>
+                  </assigner>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="."/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="88084-9"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <br/>
+                     <span class="Bold" style="font-weight:bold">Subject:</span>
+                     <p>Public Health Reporting Communication: one or more conditions are reportable,
+              or may be reportable, to public health. </p>
+                  </div>
+               </text>
+            </section>
+            <section><!--eICR Processing Status Extension-->
+               <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension">
+                  <extension url="eICRProcessingStatus">
+                     <valueReference>
+                        <reference value="urn:uuid:UUID009"/>
+                     </valueReference>
+                  </extension>
+                  <!--eICR Validation Output Extension-->
+                  <extension url="eICRValidationOutput"/>
+               </extension>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="88082-3"/>
+                     <display value="Initial case report processing information Document"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <span class="Bold" style="font-weight:bold">eICR Information:</span>
+                     <p>An initial report for a possible reportable condition was received on
+              20251021215428 with the file name db734647-fc99-424c-a864-7e3cda82e89xw. The eICR was
+              processed with the warning of: outdated eRSD (RCTC) version.</p>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.15.2.3.9:2017-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+                  <identifier>
+                     <system value="urn:ietf:rfc:3986"/>
+                     <value value="urn:uuid:db734647-fc99-424c-a864-7e3cda82e89xw"/>
+                  </identifier>
+                  <display value=""/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.29:2017-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.21:2017-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+            </section>
+            <section><!--RR Priority Extension-->
+               <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension">
+                  <valueCodeableConcept>
+                     <coding>
+                        <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                        <code value="RRVS15"/>
+                        <display value="Information Only"/>
+                     </coding>
+                  </valueCodeableConcept>
+               </extension>
+               <title value="."/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="55112-7"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <span class="Bold" style="font-weight:bold">Summary:</span>
+                     <p>Your organization electronically submitted an initial case report to
+              determine if reporting to public health is needed for a patient.</p>
+                     <p>"Zika virus disease (disorder)" is reportable to "Senate District Department
+              of Public Health". The initial case report was sent to "Senate District Department of
+              Health". Additional information may be required for this report."Pertussis (disorder)"
+              is reportable to "Senate District Department of Health". The initial case report was
+              sent to "Senate District Department of Health". Additional information may be required
+              for this report."Viral hepatitis type C (disorder)" is reportable to "Senate District
+              Department of Public Health". The initial case report was sent to "Senate District
+              Department of Public Health". Additional information may be required for this report.<br/>
+                     </p>
+                     <p>No determination of reportability could be made for any condition for "Senate
+              District Department of Health". This may be because it is not on the list of
+              reportable conditions for this Public Health Agency, or the information provided at
+              the time of this report does not meet reporting criteria, or the Public Health Agency
+              is not yet accepting electronic case reports for this condition. Previous reporting
+              processes should be continued until your Public Health Agency has specifically
+              approved you for electronic case reporting for this condition.<br/>
+                     </p>
+                     <p>The trigger code version your organization is using is out-of-date. Please
+              have your EHR administrators install the current version for complete eCR functioning.<br/>
+                     </p>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">"Zika virus disease (disorder)" for "Senate District
+                Department of Health" </span>
+                     </p>
+                     <p>Reporting to this Public Health Agency is based on "Patient home address"<br/>
+                     </p>
+                     <p>
+                        <span>&gt; ()<br/>
+                           <br/>
+                        </span>
+                     </p>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">"Pertussis (disorder)" for "Senate District Department of
+                Health" </span>
+                     </p>
+                     <p>Reporting is required within "3 Day(s)". Reporting to this Public Health
+              Agency is based on "Patient home address"<br/>
+                     </p>
+                     <p>
+                        <span>&gt; Senate District Department of Health Lab RT-PCR guidance on specimen
+                collection, storage and transport, acceptable specimen types for Bordetella
+                pertussis. (
+                )<br/>
+                           <br/>
+                        </span>
+                        <span>&gt; CDC Reference Guide for Pertussis ()<br/>
+                           <br/>
+                        </span>
+                        <span>&gt; Pertussis webpage containing background, vaccine, fact sheets, and
+                epidemiological information ()<br/>
+                           <br/>
+                        </span>
+                        <span>&gt; Guidance in obtaining a NP swab/aspirate along with optimal diagnostic
+                testing information on PCR, Culture, and Serology (
+                )<br/>
+                           <br/>
+                        </span>
+                     </p>
+                     <p>
+                        <span class="Bold" style="font-weight:bold">"Viral hepatitis type C (disorder)" for "Senate District
+                Department
+                of Public Health" </span>
+                     </p>
+                     <p>Reporting is required within "7 Day(s)". Reporting to this Public Health
+              Agency is based on "Patient home address"<br/>
+                     </p>
+                     <p>
+                        <span>&gt; Case definition for Acute HCV including clinical criteria, laboratory
+                criteria, and case classification ()<br/>
+                           <br/>
+                        </span>
+                     </p>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.20:2014-06-09-->
+               <!--2.16.840.1.113883.10.20.15.2.3.8:2017-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID012"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.12:2017-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.13:2017-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
+               </entry>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>Mothma, Mon</h1>
+                  <p>Telecom: tel:+1-555-555-9876</p>
+                  <p>Telecom: mailto:mon.mothma@senate.gr.example.com</p>
+                  <p>Address: 500 Republica, Suite 400<br/>Senate District<br/>Galactic City<br/>GC-500<br/>Administrative Core<br/>Coruscant</p>
+                  <p>Gender: F</p>
+                  <p>Birthdate: 1975-01-01</p>
+                  <p>Language: en</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2106-3"/>
+                     <display value="White"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="White"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="mrn-00884455"/>
+            </identifier>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-ssn"/>
+               <value value="000-65-4321"/>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Mothma"/>
+               <given value="Mon"/>
+               <prefix value="Senator"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-555-9876"/>
+               <use value="mobile"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="mon.mothma@senate.gr.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <gender value="female"/>
+            <birthDate value="1975-01-01"/>
+            <deceasedBoolean value="false"/>
+            <address>
+               <use value="home"/>
+               <line value="500 Republica, Suite 400"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+               <preferred value="true"/>
+            </communication>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+            </meta>
+            <!--INFO: Id from encompassingEncounter-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19"/>
+               <value value="9937015"/>
+            </identifier>
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="AMB"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="AMB"/>
+                  <display value="Ambulatory"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID015"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2025-02-16"/>
+            </period>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID016"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID017"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19"][@extension="9937015"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1234567890"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID018"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID019"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <name>
+               <family value="Hemlock"/>
+               <given value="Royce"/>
+               <prefix value="Dr"/>
+               <suffix value="MD"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/responsibleParty/assignedEntity/representedOrganization-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567893"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="OF"/>
+                  <display value="Outpatient Facility"/>
+               </coding>
+            </type>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-888-000-9999"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-888-000-1111"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-888-000-9999"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-888-000-1111"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:oid:2.16.840.1.114222.4.1.217446"/>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <deviceName>
+               <name value="APHL"/>
+               <type value="model-name"/>
+            </deviceName>
+            <modelNumber value="APHL"/>
+            <version>
+               <value value="AIMS"/>
+            </version>
+            <location>
+               <reference value="urn:uuid:UUID020"/>
+            </location>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource>
+         <Location>
+            <telecom>
+               <system value="email"/>
+               <value value="support@aimsplatform.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="7700 Wisconsin Avenue, Suite 1000"/>
+               <city value="Bethesda"/>
+               <state value="MD"/>
+               <postalCode value="20814"/>
+               <country value="US"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </system>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </value>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <version>
+               <value value="Data Augmentation Tool"/>
+            </version>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID008"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/custodian/assignedCustodian/representedCustodianOrganization-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:oid:2.16.840.1.114222.4.1.217446"/>
+            </identifier>
+            <active value="true"/>
+            <name value="APHL | Association of Public Health Laboratories."/>
+            <telecom>
+               <system value="email"/>
+               <value value="support@aimsplatform.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="7700 Wisconsin Avenue, Suite 1000"/>
+               <city value="Bethesda"/>
+               <state value="MD"/>
+               <postalCode value="20814"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID003"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/informationRecipient/intendedRecipient[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1234567890"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID021"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID022"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <name>
+               <family value="Hemlock"/>
+               <given value="Royce"/>
+               <prefix value="Dr"/>
+               <suffix value="MD"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID022"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/informationRecipient/intendedRecipient/receivedOrganization-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567890"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Grand Republic Medical Facility Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="dr.hemlock@grmfc.gc.example.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="500 Republica Medical Plaza, Suite 1000"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID023"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID024"/>
+               <assigner>
+                  <display value="original-document"/>
+               </assigner>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId and ClinicalDocument/versionNumber (output as setId:versionNumber)-->
+            <status value="superseded"/>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url><!--WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument--></url>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID025"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-04-23T21:00:41.000+00:00"/>
+            <agent>
+               <who>
+                  <display value="original-document"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID023"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2025-10-21T21:54:28.000+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID006"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-04-23T21:00:41.000+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID007"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID028"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-04-23T21:00:41.000+00:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID029"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID030"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                     <b>No test reported</b>
+                  </p>
+               </div>
+            </text>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+                  <display value="Laboratory"/>
+               </coding>
+               <text value="Laboratory"/>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <valueQuantity>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </valueQuantity>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource>
+         <DocumentReference>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.10:2017-04-01-->
+            </meta>
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:db734647-fc99-424c-a864-7e3cda82e89xw"/>
+            </masterIdentifier>
+            <identifier>
+               <system value="urn:oid:1.2.840.114350.1.13.380.3.7.1.1"/>
+               <value value="UUID031:1"/>
+            </identifier>
+            <status value="current"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <category>
+               <coding>
+                  <system value="http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category"/>
+                  <code value="clinical-note"/>
+                  <display value="Clinical Note"/>
+               </coding>
+               <text value="Clinical Note"/>
+            </category>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:1.2.840.114350.1.13.380.3.7.1.1:1"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource><!--Processing Status Reason-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.21:2017-04-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID032"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR6"/>
+                  <display value="eICR Processing Status Reason"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                  <code value="RRVS29"/>
+                  <display value="The eICR was processed with the warning of: outdated eRSD (RCTC) version."/>
+               </coding>
+            </valueCodeableConcept>
+            <component>
+               <code>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS31"/>
+                     <display value="Outdated eRSD (RCTC) Version Detail"/>
+                  </coding>
+               </code>
+               <valueString value="19/05/2016"/>
+            </component>
+            <component>
+               <code>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS33"/>
+                     <display value="Expected eRSD (RCTC) Version Detail"/>
+                  </coding>
+               </code>
+               <valueString value="The expected eRSD (RCTC) version should be one of the&#xA;                        following: [&#34;2025-03-18&#34;,&#34;2025-07-03&#34;,&#34;2.0.1&#34;,&#34;2.0.2&#34;,&#34;3.0.2&#34;,&#34;3.0.3&#34;] "/>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource><!--(RR) eICR Processing Status -> eICR Processing Status Observation-->
+         <Observation><!--Processing Status-->
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.29:2017-04-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID033"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                  <code value="RRVS20"/>
+                  <display value="eICR was processed - with a warning"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <hasMember>
+               <reference value="urn:uuid:UUID011"/>
+            </hasMember>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource><!--RR Summary-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-summary"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.8:2017-04-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID034"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="304561000"/>
+                  <display value="Informing health care professional (procedure)"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <valueString value="Your organization electronically submitted an initial case report to determine&#xA;                if reporting to public health is needed for a patient. The eICR was processed with&#xA;                the warning of: outdated eRSD (RCTC) version."/>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource><!--Relevant Reportable Condition Observation-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.12:2017-04-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID035"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+                  <display value="Disease (disorder)"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="27836007"/>
+                  <display value="Pertussis (disorder)"/>
+               </coding>
+            </valueCodeableConcept>
+            <hasMember><!--2.16.840.1.113883.10.20.15.2.3.13:2017-04-01-->
+               <reference value="urn:uuid:UUID014"/>
+            </hasMember>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource><!--Reportability Information Observation-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.13:2017-04-01-->
+            </meta>
+            <!--RR Determination of Reportability-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension">
+               <valueCodeableConcept>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS1"/>
+                     <display value="Reportable"/>
+                  </coding>
+               </valueCodeableConcept>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Cough (any duration)"/>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Detection of Bordetella pertussis antibody in a&#xA;                                clinical specimen by any method"/>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Identification of Bordetella pertussis in a&#xA;                                clinical specimen by culture method, including identification tests&#xA;                                performed on an isolate"/>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Lab test ordered for detection of Bordetella&#xA;                                pertussis antibody in a clinical specimen by any method"/>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Lab test ordered for identification of Bordetella&#xA;                                pertussis in a clinical specimen by organism-specific culture&#xA;                                method, including identification tests performed on an isolate"/>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Paroxysmal cough"/>
+            </extension>
+            <!--Determination of Reportability Rule Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension">
+               <valueString value="Pertussis (as a diagnosis or active problem)"/>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID036"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID037"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID038"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID039"/>
+               </valueReference>
+            </extension>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID040"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                  <code value="RRVS5"/>
+                  <display value="Patient home address"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
+            <performer>
+               <reference value="urn:uuid:UUID041"/>
+            </performer>
+            <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
+            <performer>
+               <reference value="urn:uuid:UUID042"/>
+            </performer>
+            <!--Reporting Timeframe-->
+            <component>
+               <code>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                     <code value="RR4"/>
+                     <display value="Timeframe to report (urgency)"/>
+                  </coding>
+               </code>
+               <valueQuantity>
+                  <value value="3"/>
+                  <unit value="d"/>
+               </valueQuantity>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID036"/>
+      <resource><!--RR DocumentReference-->
+         <DocumentReference>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+            </meta>
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension">
+               <valueCodeableConcept>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS15"/>
+                     <display value="Information only"/>
+                  </coding>
+               </valueCodeableConcept>
+            </extension>
+            <status value="current"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="83910-0"/>
+                  <display value="Public health Note"/>
+               </coding>
+               <text value="Public health information"/>
+            </type>
+            <category>
+               <coding>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </coding>
+            </category>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <description value="Senate District Department of Health Lab RT-PCR&#xA;                                  guidance on specimen&#xA;                                  collection, storage and transport, acceptable specimen types for&#xA;                                  Bordetella pertussis. "/>
+            <content>
+               <attachment>
+                  <contentType value="text/html"/>
+                  <url value="https://dph.senate.gr/bordetella-pertussis-b-parapertussis-and-b-holmesii"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID037"/>
+      <resource><!--RR DocumentReference-->
+         <DocumentReference>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+            </meta>
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension">
+               <valueCodeableConcept>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS15"/>
+                     <display value="Information only"/>
+                  </coding>
+               </valueCodeableConcept>
+            </extension>
+            <status value="current"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="83910-0"/>
+                  <display value="Public health Note"/>
+               </coding>
+               <text value="Public health information"/>
+            </type>
+            <category>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                  <code value="RRVS11"/>
+                  <display value="Additional Resources"/>
+               </coding>
+            </category>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <description value="CDC Reference Guide for Pertussis"/>
+            <content>
+               <attachment>
+                  <contentType value="text/html"/>
+                  <url value="http://www.cdc.gov/pertussis/"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID038"/>
+      <resource><!--RR DocumentReference-->
+         <DocumentReference>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+            </meta>
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension">
+               <valueCodeableConcept>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS15"/>
+                     <display value="Information only"/>
+                  </coding>
+               </valueCodeableConcept>
+            </extension>
+            <status value="current"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="83910-0"/>
+                  <display value="Public health Note"/>
+               </coding>
+               <text value="Public health information"/>
+            </type>
+            <category>
+               <coding>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </coding>
+            </category>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <description value="Pertussis webpage containing background, vaccine, fact&#xA;                                  sheets, and epidemiological information "/>
+            <content>
+               <attachment>
+                  <contentType value="text/html"/>
+                  <url value="https://dph.senate.gr/pertussis"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID039"/>
+      <resource><!--RR DocumentReference-->
+         <DocumentReference>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+            </meta>
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension">
+               <valueCodeableConcept>
+                  <coding>
+                     <system value="urn:oid:2.16.840.1.114222.4.5.274"/>
+                     <code value="RRVS15"/>
+                     <display value="Information only"/>
+                  </coding>
+               </valueCodeableConcept>
+            </extension>
+            <status value="current"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="83910-0"/>
+                  <display value="Public health Note"/>
+               </coding>
+               <text value="Public health information"/>
+            </type>
+            <category>
+               <coding>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </coding>
+            </category>
+            <subject>
+               <reference value="urn:uuid:UUID004"/>
+            </subject>
+            <description value="Guidance in obtaining a NP swab/aspirate along with&#xA;                                  optimal diagnostic testing information on PCR, Culture, and&#xA;                                  Serology "/>
+            <content>
+               <attachment>
+                  <contentType value="text/html"/>
+                  <url value="https://www.cdc.gov/pertussis/clinical/diagnostic-testing/specimen-collection-diagnosis.html"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID041"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR12"/>
+                  <display value="Rules Authoring Agency"/>
+               </coding>
+            </type>
+            <name value="Senate District Health Department"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID042"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR7"/>
+                  <display value="Routing Entity"/>
+               </coding>
+            </type>
+            <name value="Senate District Health Department"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+</Bundle>

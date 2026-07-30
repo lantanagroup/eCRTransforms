@@ -13,10 +13,20 @@ samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml
 samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml
 
-# Suggested additions - uncomment and run --update to adopt. Left off by default only
-# because they were not verified in the session that created this file.
-# samples/cda/eICR-R3_1/*.xml
-# samples/cda/eICR-R1_1/*.xml
-# samples/cda/20260424-COIVD/*.xml
-# samples/cda/20260424-Flu/*.xml
-# samples/cda/20260424-Pertussis/*.xml
+# 20260730 Claude: adopted after transform-vetting every document (21 docs, 0 transform
+# errors). All of these directories are gitignored, so like the RCKMS document above they
+# are LOCAL-ONLY coverage - CI prints "corpus pattern matched nothing" and skips them.
+# Vetting found pre-existing dangling/empty references in five of the messier documents
+# (see the defect-leads section of the codebase notes); the snapshots deliberately pin
+# that current behavior - when the defects are fixed, exactly those documents will flag.
+samples/cda/eICR-R3_1/*.xml
+samples/cda/20260424-COIVD/*.xml
+samples/cda/20260424-Flu/*.xml
+samples/cda/20260424-Pertussis/*.xml
+# eICR-R1_1 listed explicitly: eICRCDAR1.1.xml is a byte-identical duplicate of
+# eICR-CDA-001_R1_1.xml and is deliberately left out.
+samples/cda/eICR-R1_1/0dece6c3-b9ad-49a2-9614-cca37822a21a-Scenario 1_BocaRaton_Cerner.xml
+samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml
+samples/cda/eICR-R1_1/eICR-CDA-001_R1_1.xml
+samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml
+samples/cda/eICR-R1_1/Test eICR (1).xml

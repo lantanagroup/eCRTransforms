@@ -1,0 +1,2445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 647-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="eICR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2022-09-09T22:37:51.000+00:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2:2016-12-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> UUID002</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">September 9, 2022, 22:37:51, UTC+00:00 </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value">SAMER FAHMY</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">800 Meadows Road<br/>Boca Raton, FL 33486, US<br/>Tel (Work Place):  (561)955-2570<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">Encounter/128252182/_history/4 2219200002 2.16.840.1.113883 2.16.840.1.113883.3.5912.2000</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">observation encounter</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From July 11, 2022, 15:37:00, UTC+00:00  to ,  </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value"/>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">SAMER FAHMY of Boca Raton Regional Hospital</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">800 Meadows Road<br/>Boca Raton, FL 33486, US<br/>Tel (Work Place):  (561)955-2570<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">Boca Raton Regional Hospital</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">800 Meadows Road<br/>Boca Raton, FL 33486, US<br/>Tel (Work Place):  (561)395-7100<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="2"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="14993340|128252182"/>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID004"/>
+            </encounter>
+            <date value="2022-09-09T22:37:51.000+00:00"/>
+            <author>
+               <reference value="urn:uuid:UUID005"/>
+            </author>
+            <title value="Initial Public Health Case Report"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID006"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:UUID002"/>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="PROBLEMS - DIAGNOSES"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11450-4"/>
+                     <display value="Problem list - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>Problem or Diagnosis</th>
+                              <th>Problem Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>Coronavirus infection</span>
+                              </td>
+                              <td>
+                                 <span>Active</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID007"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="2022-07-13"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://snomed.info/sct"/>
+                           <code value="186747009"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID008"/>
+               </entry>
+            </section>
+            <section>
+               <title value="RESULTS"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="30954-2"/>
+                     <display value="Relevant diagnostic tests/laboratory data note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No Lab Results Information</div>
+               </text>
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Medications Administered"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29549-3"/>
+                     <display value="Medication administered Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No Medication Administered Information</div>
+               </text>
+            </section>
+            <section>
+               <title value="SOCIAL HISTORY"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29762-2"/>
+                     <display value="Social history note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>Social History Observation</th>
+                              <th>Social History Observation Result</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>Birth Sex</span>
+                              </td>
+                              <td>
+                                 <span>F</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>History of Candida Auris-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Healthcare Employee-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Student or Teacher-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Nausea (finding)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Cough Infectious Disease-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Previous COVID-19 Lab Test-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>New Loss of Taste or Smell-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Shortness of Breath/Difficulty Breathing-Yes (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>COVID-19 Symptoms within last 14 days-Yes (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Contact w person positive with Covid -19-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Immunocompromised-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>History of CRE-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Photophobia-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>History of MDRO-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Fever due to infection (finding)-Yes (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Chills Infectious Disease-Yes (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Detail of recent history of travel (observable entity)-None (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Diarrhea (finding)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Diarrhea (finding)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Vomiting (disorder)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Recent Exposure to Communicable Disease-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Cough (finding)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Eruption of skin (disorder)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Muscle Pain-Yes (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Headache (finding)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Headache (finding)-No (qualifier value)</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>Travel History</span>
+                              </td>
+                              <td>
+                                 <span>Detail of recent history of travel (observable entity)-None (qualifier value)</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID012"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID015"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID016"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID017"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID018"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID019"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID020"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID021"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID022"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID023"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID024"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID025"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID026"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID027"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID028"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID029"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID030"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID031"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID032"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID033"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID034"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID035"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID036"/>
+               </entry>
+            </section>
+            <section>
+               <title value="History of Present Illness"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10164-2"/>
+                     <display value="History of Present illness Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>Narrative Text</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>Unknown History of Present Illness</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Reason For Visit"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29299-5"/>
+                     <display value="Reason For Visit"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>text</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>DYSPNEA, UNSPECIFIED</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="CHIEF COMPLAINT"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10154-3"/>
+                     <display value="Chief complaint Narrative - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+               </text>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID003"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>KIDD, KARI</h1>
+                  <p>Telecom: tel:(555)555-2005</p>
+                  <p>Telecom: tel:(555)555-2005</p>
+                  <p>Telecom: mailto:kkkidd@email.com</p>
+                  <p>Address: 2222 HOME STREET<br/>SALT LAKE CITY<br/>UT<br/>84101<br/>US</p>
+                  <p>Gender: F</p>
+                  <p>Birthdate: 2002-10-27</p>
+                  <p>Language: en</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2028-9"/>
+                     <display value="Asian"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Asian"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
+               <valueCode value="F"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.3.5912.1000"/>
+               <value value="1577343"/>
+            </identifier>
+            <name>
+               <family value="KIDD"/>
+               <given value="KARI"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="(555)555-2005"/>
+               <use value="home"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="(555)555-2005"/>
+               <use value="mobile"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="kkkidd@email.com"/>
+            </telecom>
+            <gender value="female"/>
+            <birthDate value="2002-10-27"/>
+            <deceasedDateTime>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="masked"/>
+               </extension>
+            </deceasedDateTime>
+            <address>
+               <line value="2222 HOME STREET"/>
+               <city value="SALT LAKE CITY"/>
+               <state value="UT"/>
+               <postalCode value="84101"/>
+               <country value="US"/>
+            </address>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+            </communication>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter-->
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <table border="1" width="100%">
+                     <thead>
+                        <tr>
+                           <th>Encounter Reason</th>
+                           <th>Date of Encounter</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                              <span>observation encounter</span>
+                           </td>
+                           <td>
+                              <span>20220711153700+0000</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>...</p>
+               </div>
+            </text>
+            <!--INFO: Id from encompassingEncounter-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="encounter/128252182/_history/4"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.3.5912.2000"/>
+               <value value="2219200002"/>
+            </identifier>
+            <!--Id from Encounter Activity-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="encounter/128252182/_history/4"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.3.5912.2000"/>
+               <value value="2219200002"/>
+            </identifier>
+            <!--Id from Encounter Diagnosis Act-->
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="OBSENC"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="OBSENC"/>
+                  <display value="observation encounter"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="OBSENC"/>
+                  <display value="observation encounter"/>
+               </coding>
+               <text value="observation encounter"/>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID037"/>
+               </individual>
+            </participant>
+            <participant>
+               <individual>
+                  <reference value="urn:uuid:UUID038"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2022-07-11T15:37:00.000+00:00"/>
+            </period>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID039"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID040"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID037"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883"][@extension="Encounter/128252182/_history/4"]][cda:id[@root="2.16.840.1.113883.3.5912.2000"][@extension="2219200002"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1982804555"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1982804555"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID041"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID042"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)955-2570"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID041"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1982804555"/>
+            </identifier>
+            <name>
+               <family value="FAHMY"/>
+               <given value="SAMER"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)955-2570"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID042"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.4"/>
+               <value value="59-1006663"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Boca Raton Regional Hospital"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)395-7100"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID038"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883"][@extension="Encounter/128252182/_history/4"]][cda:id[@root="2.16.840.1.113883.3.5912.2000"][@extension="2219200002"]]/encounterParticipant/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1982804555"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1982804555"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID043"/>
+            </practitioner>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)955-2570"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID043"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1982804555"/>
+            </identifier>
+            <name>
+               <family value="FAHMY"/>
+               <given value="SAMER"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)955-2570"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID039"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="location/2554856903/_history/1"/>
+            </identifier>
+            <name value="Boca Raton Regional Hospital"/>
+            <type>
+               <coding>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </coding>
+            </type>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)395-7100"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID040"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="location/2554856903/_history/1"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.4"/>
+               <value value="59-1006663"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Boca Raton Regional Hospital"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)395-7100"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID044"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2022-09-09T22:37:51.000+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID038"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1982804555"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1982804555"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID045"/>
+            </practitioner>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)955-2570"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID045"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1982804555"/>
+            </identifier>
+            <name>
+               <family value="FAHMY"/>
+               <given value="SAMER"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)955-2570"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.4"/>
+               <value value="59-1006663"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Boca Raton Regional Hospital"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="(561)395-7100"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="800 Meadows Road"/>
+               <city value="Boca Raton"/>
+               <state value="FL"/>
+               <postalCode value="33486"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID046"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID002"/>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="14993340|128252182:2"/>
+            </identifier>
+            <status value="superseded"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:2.16.840.1.113883:2"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID047"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2022-07-11T15:37:00.000+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID005"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID048"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2022-09-09T22:37:51.000+00:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID046"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                     <b>No test reported</b>
+                  </p>
+               </div>
+            </text>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+                  <display value="Laboratory"/>
+               </coding>
+               <text value="Laboratory"/>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <valueQuantity>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </valueQuantity>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="https://fhir-ehr.sandboxcerner.com/r4/UUID049/condition/p96562399/_history/96562399"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="resolved"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="186747009"/>
+                  <display value="Coronavirus infection"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <recordedDate value="2022-07-12T16:00:00.000+00:00"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID008"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883"/>
+               <value value="https://fhir-ehr.sandboxcerner.com/r4/UUID049/condition/p96562399/_history/96562399"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="resolved"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="186747009"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <recordedDate value="2022-07-12T16:00:00.000+00:00"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID050"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="History of Candida Auris-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID051"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Healthcare Employee-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID052"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Student or Teacher-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID053"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Nausea (finding)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID054"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Cough Infectious Disease-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID055"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Previous COVID-19 Lab Test-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID056"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="New Loss of Taste or Smell-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID057"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Shortness of Breath/Difficulty Breathing-Yes (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID058"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="COVID-19 Symptoms within last 14 days-Yes (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID059"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Contact w person positive with Covid -19-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID060"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Immunocompromised-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID061"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="History of CRE-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID022"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID062"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Photophobia-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID023"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID063"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="History of MDRO-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID024"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID064"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Fever due to infection (finding)-Yes (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID025"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID065"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Chills Infectious Disease-Yes (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID066"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Detail of recent history of travel (observable entity)-None (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID067"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Diarrhea (finding)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID028"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID068"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Diarrhea (finding)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID029"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID069"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Vomiting (disorder)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID030"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID070"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Recent Exposure to Communicable Disease-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID071"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Cough (finding)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID032"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID072"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Eruption of skin (disorder)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID033"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID073"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Muscle Pain-Yes (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID034"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID074"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Headache (finding)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID035"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID075"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Headache (finding)-No (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID036"/>
+      <resource><!--Travel History-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.1:2016-12-01-->
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID076"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="420008001"/>
+                  <display value="Travel"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <component>
+               <code>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="LOC"/>
+                     <display value="Location"/>
+                  </coding>
+               </code>
+               <valueCodeableConcept>
+                  <text value="Detail of recent history of travel (observable entity)-None (qualifier value)"/>
+               </valueCodeableConcept>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+</Bundle>

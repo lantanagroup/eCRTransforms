@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 382-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="eICR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2016-01-05T09:44:21.000-05:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2:2016-12-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> UUID002</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">January 5, 2016, 09:44:21, EST </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value"/>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">159 North 400 West<br/>Richfield, UT 84701, US<br/>Tel (Work Place):  +1-(555)555-1212;ext=9998<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">9937012 2.16.840.1.113883.19</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">Office outpatient visit 15 minutes</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From May 1, 2016  to May 1, 2016 </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value">Outpatient facility</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">Henry Seven, M.D. of TBDFacilityName</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">1002 Healthcare Drive<br/>TBDProvCity, TBDProvState TBDProvZip, US<br/>Tel (Work Place):  +1-555-555-1002 ext 9998<br/>Fax (Work Place):  +1-555-555-1003<br/>Mail (Work Place):  TBDProv@email.com<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">TBDFacilityName</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">TBDFacilityStreetAddress<br/>TBDFacilityCity, TBDFacilityState TBDFacilityZip, US<br/>Tel (Work Place):  TBDFacilityPhone<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="1"/>
+            </extension>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID001"/>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID004"/>
+            </encounter>
+            <date value="2016-01-05T09:44:21.000-05:00"/>
+            <author>
+               <reference value="urn:uuid:UUID005"/>
+            </author>
+            <title value="Initial Public Health Case Report: eICR-CDA-002_R1_1"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID006"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:UUID002"/>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="History of Present Illness"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10164-2"/>
+                     <display value="History of Present illness Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">Since 12/31/2015 the patient has had a whooping cough and trouble sleeping at night.</div>
+               </text>
+            </section>
+            <section>
+               <title value="Medications Administered"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29549-3"/>
+                     <display value="Medication administered Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No medications administered</div>
+               </text>
+            </section>
+            <section>
+               <title value="Problems"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11450-4"/>
+                     <display value="Problem list - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table>
+                        <thead>
+                           <tr>
+                              <th>Concern</th>
+                              <th>Concern Status</th>
+                              <th>Onset date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Problem</td>
+                              <td>active</td>
+                              <td>Jan 5, 2016</td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <ul>
+                                    <li>
+                                       <table>
+                                          <thead>
+                                             <tr>
+                                                <th>Problem Type</th>
+                                                <th>Problem</th>
+                                                <th>Date(s)</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td>Symptom</td>
+                                                <td>Persistent cough (finding)</td>
+                                                <td>Dec 31, 2015</td>
+                                             </tr>
+                                             <tr>
+                                                <td>Symptom</td>
+                                                <td>Apnea (finding)</td>
+                                                <td>Dec 31, 2015</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </li>
+                                 </ul>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID007"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID008"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Reason for Visit"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29299-5"/>
+                     <display value="Reason for visit"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>Persistent cough</p>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Results"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="30954-2"/>
+                     <display value="Relevant diagnostic tests/laboratory data note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No results</div>
+               </text>
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Social History"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29762-2"/>
+                     <display value="Social history note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table>
+                        <col width="10%"/>
+                        <thead>
+                           <tr>
+                              <th>Occupation</th>
+                              <th>Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Student</td>
+                              <td>September 1, 2015</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Plan of Treatment"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="18776-5"/>
+                     <display value="Plan of care note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table>
+                        <col width="10%"/>
+                        <thead>
+                           <tr>
+                              <th>Planned Medication</th>
+                              <th>Date</th>
+                              <th>Dose</th>
+                              <th>Route</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>Azithromycin</td>
+                              <td>January 5, 2016</td>
+                              <td>5 ml</td>
+                              <td>oral suspension</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.42:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+            </section>
+            <section>
+               <title value="CHIEF COMPLAINT"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10154-3"/>
+                     <display value="Chief complaint Narrative - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
+               </text>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID003"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>Kidd, Kari</h1>
+                  <p>Telecom: tel:+1-555-555-2005</p>
+                  <p>Telecom: mailto:kkkidd@email.com</p>
+                  <p>Address: 2222 Home Street<br/>TBDPtCity<br/>TBDPtState<br/>TBDPtZip<br/>TBDPtCounty<br/>US</p>
+                  <p>Gender: F</p>
+                  <p>Birthdate: 2014-12-27</p>
+                  <p>Language: en</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2028-9"/>
+                     <display value="Asian"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Asian"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="pt-002597"/>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Kidd"/>
+               <given value="Kari"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-555-2005"/>
+               <use value="home"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="kkkidd@email.com"/>
+               <use value="home"/>
+            </telecom>
+            <gender value="female"/>
+            <birthDate value="2014-12-27"/>
+            <deceasedBoolean value="false"/>
+            <address>
+               <use value="home"/>
+               <line value="2222 Home Street"/>
+               <city value="TBDPtCity"/>
+               <district value="TBDPtCounty"/>
+               <state value="TBDPtState"/>
+               <postalCode value="TBDPtZip"/>
+               <country value="US"/>
+            </address>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                     <code value="GUARD"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <use value="usual"/>
+                  <family value="Mum"/>
+                  <given value="Martha"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-555-555-5006"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="mmmum@email.com"/>
+               </telecom>
+               <address>
+                  <use value="home"/>
+                  <line value="2222 Home Street"/>
+                  <city value="TBDPGCity"/>
+                  <district value="TBDPGCounty"/>
+                  <state value="TBDPGState"/>
+                  <postalCode value="TBDPGZip"/>
+                  <country value="US"/>
+               </address>
+            </contact>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+               <preferred value="true"/>
+            </communication>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter-->
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <table>
+                     <col width="10%"/>
+                     <col width="10%"/>
+                     <col width="10%"/>
+                     <thead>
+                        <tr>
+                           <th>Encounter</th>
+                           <th>Date(s)</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>Office outpatient visit 15 minutes</td>
+                           <td>Jan 5, 2016</td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <ul>
+                                 <li>
+                                    <table>
+                                       <col width="10%"/>
+                                       <thead>
+                                          <tr>
+                                             <th>Encounter Diagnosis Type</th>
+                                             <th>Diagnosis Date</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr>
+                                             <td>Diagnosis</td>
+                                             <td>Jan 5, 2016</td>
+                                          </tr>
+                                          <tr>
+                                             <td>
+                                                <ul>
+                                                   <li>
+                                                      <table>
+                                                         <col width="10%"/>
+                                                         <col width="10%"/>
+                                                         <col width="10%"/>
+                                                         <col width="10%"/>
+                                                         <col width="10%"/>
+                                                         <col width="10%"/>
+                                                         <col width="10%"/>
+                                                         <thead>
+                                                            <tr>
+                                                               <th>Initial Case Report Trigger Code Problem Observation </th>
+                                                               <th>Problem</th>
+                                                               <th>Trigger Code</th>
+                                                               <th>Trigger Code codeSystem</th>
+                                                               <th>RCTC OID</th>
+                                                               <th>RCTC Version</th>
+                                                               <th>Onset date</th>
+                                                            </tr>
+                                                         </thead>
+                                                         <tbody>
+                                                            <tr>
+                                                               <td>Diagnosis</td>
+                                                               <td>Pertussis (whooping cough)</td>
+                                                               <td>282291009</td>
+                                                               <td>SNOMED CT</td>
+                                                               <td>2.16.840.1.114222.4.11.7508</td>
+                                                               <td>19/05/2016</td>
+                                                               <td>Dec 31, 2015</td>
+                                                            </tr>
+                                                         </tbody>
+                                                      </table>
+                                                   </li>
+                                                </ul>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </li>
+                              </ul>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>...</p>
+               </div>
+            </text>
+            <!--INFO: Id from encompassingEncounter-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19"/>
+               <value value="9937012"/>
+            </identifier>
+            <!--Id from Encounter Activity-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID012"/>
+            </identifier>
+            <!--Id from Encounter Diagnosis Act-->
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="AMB"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://www.ama-assn.org/go/cpt"/>
+                  <code value="99213"/>
+                  <display value="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter."/>
+               </coding>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="AMB"/>
+                  <display value="Ambulatory"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <system value="http://www.ama-assn.org/go/cpt"/>
+                  <code value="99213"/>
+                  <display value="Office or other outpatient visit for the evaluation and management of an established patient, which requires a medically appropriate history and/or examination and low level of medical decision making. When using time for code selection, 20-29 minutes of total time is spent on the date of the encounter."/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID013"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2016-05-01"/>
+            </period>
+            <diagnosis><!--eICR Trigger Code Flag Extension-->
+               <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                  <extension url="triggerCodeValueSet">
+                     <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                  </extension>
+                  <extension url="triggerCodeValueSetVersion">
+                     <valueString value="19/05/2016"/>
+                  </extension>
+                  <extension url="triggerCode">
+                     <valueCoding>
+                        <system value="http://snomed.info/sct"/>
+                        <code value="27836007"/>
+                        <display value="Pertussis"/>
+                     </valueCoding>
+                  </extension>
+               </extension>
+               <condition><!--2.16.840.1.113883.10.20.22.4.4--><!--2.16.840.1.113883.10.20.22.4.4:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+                  <reference value="urn:uuid:UUID014"/>
+               </condition>
+            </diagnosis>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID015"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID016"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19"][@extension="9937012"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1234567899"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567899"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID017"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID018"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-555-1002 ext 9998"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-555-1003"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="TBDProv@email.com"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1234567899"/>
+            </identifier>
+            <name>
+               <family value="Seven"/>
+               <given value="Henry"/>
+               <suffix value="M.D."/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-555-1002 ext 9998"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-555-1003"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="TBDProv@email.com"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="1002 Healthcare Drive"/>
+               <city value="TBDProvCity"/>
+               <state value="TBDProvState"/>
+               <postalCode value="TBDProvZip"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="tbdfacility#"/>
+            </identifier>
+            <active value="true"/>
+            <name value="TBDFacilityName"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="TBDFacilityPhone"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="TBDFacilityFax"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="TBDFacilityStreetAddress"/>
+               <city value="TBDFacilityCity"/>
+               <state value="TBDFacilityState"/>
+               <postalCode value="TBDFacilityZip"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2016-12-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="tbdfacility#"/>
+            </identifier>
+            <name value="TBDFacilityName"/>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="OF"/>
+                  <display value="Outpatient facility"/>
+               </coding>
+            </type>
+            <telecom>
+               <system value="phone"/>
+               <value value="TBDFacilityPhone"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="TBDFacilityFax"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="TBDFacilityStreetAddress"/>
+               <city value="TBDFacilityCity"/>
+               <state value="TBDFacilityState"/>
+               <postalCode value="TBDFacilityZip"/>
+               <country value="US"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="tbdfacility#"/>
+            </identifier>
+            <active value="true"/>
+            <name value="TBDFacilityName"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="TBDFacilityPhone"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="TBDFacilityFax"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="TBDFacilityStreetAddress"/>
+               <city value="TBDFacilityCity"/>
+               <state value="TBDFacilityState"/>
+               <postalCode value="TBDFacilityZip"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:oid:2.16.840.1.113883.3.72.5.20"/>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <deviceName>
+               <name value="Acme"/>
+               <type value="model-name"/>
+            </deviceName>
+            <modelNumber value="Acme"/>
+            <version>
+               <value value="Acme EHR"/>
+            </version>
+            <location>
+               <reference value="urn:uuid:UUID019"/>
+            </location>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource>
+         <Location>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-(555)555-1212;ext=9998"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="159 North 400 West"/>
+               <city value="Richfield"/>
+               <state value="UT"/>
+               <postalCode value="84701"/>
+               <country value="US"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="tbdfacility#"/>
+            </identifier>
+            <active value="true"/>
+            <name value="TBDFacilityName"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="TBDFacilityPhone"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <line value="TBDFacilityStreetAddress"/>
+               <city value="TBDFacilityCity"/>
+               <state value="TBDFacilityState"/>
+               <postalCode value="TBDFacilityZip"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2016-05-01T09:44:21.000-05:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID005"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2016-01-05T09:44:21.000-05:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                     <b>No test reported</b>
+                  </p>
+               </div>
+            </text>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+                  <display value="Laboratory"/>
+               </coding>
+               <text value="Laboratory"/>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <valueQuantity>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </valueQuantity>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID022"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="encounter-diagnosis"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="27836007"/>
+                  <display value="Pertussis"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <onsetDateTime value="2015-12-31"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID023"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="284523002"/>
+                  <display value="Persistent cough (finding)"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <onsetDateTime value="2015-12-31"/>
+            <recordedDate value="2016-01-05"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID008"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID023"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="1023001"/>
+                  <display value="Apnea (finding)"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <onsetDateTime value="2015-12-31"/>
+            <recordedDate value="2016-01-05"/>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID024"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="social-history"/>
+                  <display value="Social History"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="364703007"/>
+                  <display value="Employment detail (observable entity)"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="11295-3"/>
+                  <display value="Current employment"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectivePeriod>
+               <start value="2015-09-01"/>
+            </effectivePeriod>
+            <!--INFO: Using document effective time as issued date-->
+            <issued value="2016-01-05T09:44:21.000-05:00"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="65853000"/>
+                  <display value="Student (occupation)"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource>
+         <MedicationRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID025"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="plan"/>
+            <medicationReference>
+               <reference value="urn:uuid:UUID026"/>
+            </medicationReference>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <authoredOn value="2016-05-01T09:44:21.000-05:00"/>
+            <requester>
+               <reference value="urn:uuid:UUID005"/>
+            </requester>
+            <dosageInstruction>
+               <text value="5 – day course of azithromycin, oral suspension, 5ml"/>
+               <timing>
+                  <event value="2016-01-05"/>
+               </timing>
+               <route>
+                  <coding>
+                     <system value="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl"/>
+                     <code value="C38288"/>
+                     <display value="ORAL"/>
+                  </coding>
+               </route>
+               <doseAndRate>
+                  <doseQuantity>
+                     <value value="5"/>
+                     <unit value="ml"/>
+                  </doseQuantity>
+               </doseAndRate>
+            </dosageInstruction>
+         </MedicationRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
+      <resource>
+         <Medication>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"/>
+            </meta>
+            <code>
+               <coding>
+                  <system value="http://www.nlm.nih.gov/research/umls/rxnorm"/>
+                  <code value="1298839"/>
+                  <display value="azithromycin"/>
+               </coding>
+            </code>
+         </Medication>
+      </resource>
+   </entry>
+</Bundle>

@@ -1717,7 +1717,7 @@
                            <td>
                               <ul>
                                  <li>
-                                    <span class="Italics">Urgent Care Center</span>
+                                    <span class="Italics" style="font-style:italic">Urgent Care Center</span>
                                  </li>
                               </ul>
                            </td>

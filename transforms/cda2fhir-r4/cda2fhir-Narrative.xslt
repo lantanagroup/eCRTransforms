@@ -1557,10 +1557,25 @@
   <!--    Stylecode processing
      Supports Bold, Underline and Italics display
      -->
+  <!-- 20260730 Claude: the class attribute alone did nothing - the CSS that defined .Bold/.Italics/.Underline
+       lived in the addCSS template inherited from CDA.xsl, which was never called, and never COULD be called
+       here: FHIR narrative (Composition.text.div) does not permit a <style> element, only style/class
+       attributes on the content itself. addCSS is deleted (see note at end of file); the equivalent inline
+       style attribute is emitted instead, so the three styleCodes finally render in FHIR narrative viewers.
+       The class attribute is kept for fidelity with the source styleCode. -->
   <xsl:template match="@styleCode">
     <xsl:attribute name="class">
       <xsl:value-of select="." />
     </xsl:attribute>
+    <xsl:variable name="vCss" select="
+        string-join((
+          if (contains(., 'Bold')) then 'font-weight:bold' else (),
+          if (contains(., 'Italics')) then 'font-style:italic' else (),
+          if (contains(., 'Underline')) then 'text-decoration:underline' else ()
+        ), ';')" />
+    <xsl:if test="$vCss != ''">
+      <xsl:attribute name="style" select="$vCss" />
+    </xsl:if>
   </xsl:template>
   <!--
     <xsl:template match="//n1:*[@styleCode]">
@@ -2401,10 +2416,18 @@
         <xsl:when test="$tzon = '-0800'">
           <xsl:text>, PST</xsl:text>
         </xsl:when>
-        <xsl:otherwise>
+        <!-- 20260730 Claude: non-US offsets used to print raw ("+1000"); now formatted as UTC+10:00. A stray
+             lone space was also printed when the date had no timezone at all - now nothing is printed. The four
+             US abbreviations above are left untouched (they are only correct in winter, but changing them would
+             churn every existing US-sample narrative for a cosmetic gain - a mapping decision for another day). -->
+        <xsl:when test="string-length($tzon) = 5">
+          <xsl:text>, UTC</xsl:text>
+          <xsl:value-of select="concat(substring($tzon, 1, 3), ':', substring($tzon, 4, 2))" />
+        </xsl:when>
+        <xsl:when test="$tzon != ''">
           <xsl:text> </xsl:text>
           <xsl:value-of select="$tzon" />
-        </xsl:otherwise>
+        </xsl:when>
       </xsl:choose>
     </xsl:if>
   </xsl:template>
@@ -2456,96 +2479,10 @@
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-  <xsl:template name="addCSS">
-    <style type="text/css">
-         <xsl:text>
-body {
-  color: #003366;
-  background-color: #FFFFFF;
-  font-family: Verdana, Tahoma, sans-serif;
-  font-size: 11px;
-}
-
-a {
-  color: #003366;
-  background-color: #FFFFFF;
-}
-
-h1 {
-  font-size: 12pt;
-  font-weight: bold;
-}
-
-h2 {
-  font-size: 11pt;
-  font-weight: bold;
-}
-
-h3 {
-  font-size: 10pt;
-  font-weight: bold;
-}
-
-h4 {
-  font-size: 8pt;
-  font-weight: bold;
-}
-
-
-table {
-  line-height: 10pt;
-  width: 100%;
-}
-
-th {
-  background-color: #ffd700;
-}
-
-td {
-  padding: 0.1cm 0.2cm;
-  vertical-align: top;
-  background-color: #ffffcc;
-}
-
-.h1center {
-  font-size: 12pt;
-  font-weight: bold;
-  text-align: center;
-  width: 80%;
-}
-
-.header_table{
-  border: 1pt inset #00008b;
-}
-
-.td_label{
-  font-weight: bold;
-  color: white;
-}
-
-.td_header_role_name{
-  width: 20%;
-  background-color: #3399ff;
-}
-
-.td_header_role_value{
-  width: 80%;
-  background-color: #ccccff;
-}
-
-.Bold{
-  font-weight: bold;
-}
-
-.Italics{
-  font-style: italic;
-}
-
-.Underline{
-  text-decoration:underline;
-}
-
-          </xsl:text>
-        </style>
-  </xsl:template>
+  <!-- 20260730 Claude: the addCSS template (a <style type="text/css"> block inherited from CDA.xsl,
+       where it was injected into an HTML <head>) has been DELETED. It was never called, and FHIR
+       narrative cannot legally contain a <style> element, so it was unreachable dead weight. The
+       styleCodes it styled (Bold/Italics/Underline) are now rendered via inline style attributes -
+       see the @styleCode template. If a full-page HTML rendering is ever needed, recover the CSS
+       from git history or upstream CDA.xsl. -->
 </xsl:stylesheet>

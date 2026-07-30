@@ -40,7 +40,7 @@
                                style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
                               <span class="td_label">Document Created:</span>
                            </td>
-                           <td class="td_header_role_value">July 27, 2026, 10:30:00 +1000 </td>
+                           <td class="td_header_role_value">July 27, 2026, 10:30:00, UTC+10:00 </td>
                         </tr>
                      </tbody>
                   </table>

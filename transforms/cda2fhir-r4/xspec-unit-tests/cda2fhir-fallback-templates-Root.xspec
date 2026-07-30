@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260730 Claude: created alongside two fixes in cda2fhir-fallback-templates.xslt: wrap-reference's terminal
+     branch now honors its $reference-uuid param, and the bundle-entry swallow template's third alternative reads
+     parent::cda:act (it was parent::act - a no-namespace name that can never match CDA, so unmapped children of a
+     4.132 Health Concern Act fell through to XSLT built-in rules, which copy raw text into the bundle). -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" run-as="external">
+
+    <x:scenario label="fallback reference mode with wrapping-elements builds the wrapper chain around the referenced element's uuid">
+        <x:context mode="reference">
+            <x:param name="wrapping-elements" select="'activity/reference'" />
+            <cda:observation lcg:uuid="11111111-1111-1111-1111-111111111111" classCode="OBS" moodCode="EVN">
+                <cda:templateId root="9.9.9.9.9" />
+            </cda:observation>
+        </x:context>
+        <x:expect label="wrapped reference uses the referenced element's uuid"
+            test="count(fhir:activity/fhir:reference/fhir:reference[@value = 'urn:uuid:11111111-1111-1111-1111-111111111111']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="unmapped direct child of a 4.132 Health Concern Act is swallowed in bundle-entry mode, not copied as raw text">
+        <x:context mode="bundle-entry" select="//cda:mysteryElement">
+            <cda:act classCode="ACT" moodCode="EVN">
+                <cda:templateId root="2.16.840.1.113883.10.20.22.4.132" extension="2015-08-01" />
+                <cda:mysteryElement>LEAKED-TEXT</cda:mysteryElement>
+            </cda:act>
+        </x:context>
+        <x:expect label="no raw text is copied into the bundle (the built-in-rule behavior before the cda: prefix fix)"
+            test="not(contains(string(/), 'LEAKED-TEXT'))" />
+        <x:expect label="the element is swallowed with a warning comment"
+            test="count(//comment()[contains(., 'No match for') and contains(., 'mysteryElement')]) = 1" />
+    </x:scenario>
+
+</x:description>

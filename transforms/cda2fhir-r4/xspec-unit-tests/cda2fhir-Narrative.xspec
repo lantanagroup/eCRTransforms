@@ -7,11 +7,46 @@
     xmlns:in="urn:lantana-com:inline-variable-data" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml" run-as="external">
 
     <x:scenario label="Scenario for testing function CDAtext">
-        <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml" />
+        <!-- 20260730 Claude: select added - CDAtext expects the ClinicalDocument ELEMENT as context (production
+             calls it that way); with the document node the n1:component/n1:structuredBody paths resolve to
+             nothing, so the RR section narrative was silently never rendered and this scenario only ever
+             exercised the header table. -->
+        <x:context href="../../../samples/cda/RR-R1/RR-CDA-001_R1.xml" select="/n1:ClinicalDocument" />
 
         <x:call template="CDAtext" />
-        <x:expect label="Should produce a table" test="count(xhtml:table) = 1" />
+        <!-- 20260730 Claude: 1 -> 5. With the context fixed (above), the four tables carried in this RR sample's
+             section narrative render in addition to the header table the old context-starved run produced. -->
+        <x:expect label="Should produce five tables (1 header + 4 from RR section narrative)" test="count(//xhtml:table) = 5" />
+        <!-- 20260730 Claude: styleCode used to emit only class="Bold", which nothing styled (the CSS lived in the
+             never-called addCSS template, and FHIR narrative cannot carry a <style> element). It now also emits
+             the equivalent inline style attribute. This RR sample has three styleCode="Bold" contents. -->
+        <x:expect label="styleCode Bold renders as an inline style, not just an inert class"
+            test="count(//xhtml:*[@class = 'Bold'][@style = 'font-weight:bold']) = 3" />
+        <x:expect label="no element carries a Bold class without its inline style"
+            test="count(//xhtml:*[contains(@class, 'Bold')][not(@style)]) = 0" />
+    </x:scenario>
 
+    <!-- 20260730 Claude: formatDateTime used to print non-US offsets raw ("+1000") and a stray trailing space
+         when the timestamp had no timezone at all. -->
+    <x:scenario label="formatDateTime: non-US offset is formatted as UTC+hh:mm">
+        <x:call template="formatDateTime">
+            <x:param name="date" select="'20260730093000+1000'" />
+        </x:call>
+        <x:expect label="AEST offset renders as UTC+10:00" test=". = 'July 30, 2026, 09:30:00, UTC+10:00'" />
+    </x:scenario>
+
+    <x:scenario label="formatDateTime: US offset keeps its abbreviation">
+        <x:call template="formatDateTime">
+            <x:param name="date" select="'20250115120000-0500'" />
+        </x:call>
+        <x:expect label="EST unchanged" test=". = 'January 15, 2025, 12:00:00, EST'" />
+    </x:scenario>
+
+    <x:scenario label="formatDateTime: no timezone means no trailing junk">
+        <x:call template="formatDateTime">
+            <x:param name="date" select="'20250101120000'" />
+        </x:call>
+        <x:expect label="exact output with no stray trailing space" test=". = 'January 1, 2025, 12:00:00'" />
     </x:scenario>
 
 </x:description>

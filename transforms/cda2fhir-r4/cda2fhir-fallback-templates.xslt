@@ -69,8 +69,12 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
+                <!-- 20260730 Claude: was @lcg:uuid (the context node's uuid), ignoring the $reference-uuid the
+                     caller passed down through the recursion. Currently latent - every call chain keeps the
+                     referenced element as the context node, so the two coincide - but any future caller that
+                     invokes wrap-reference from a different context would silently emit the wrong reference. -->
                 <xsl:element name="{$pElementName}">
-                    <xsl:attribute name="value">urn:uuid:<xsl:value-of select="@lcg:uuid" /></xsl:attribute>
+                    <xsl:attribute name="value">urn:uuid:<xsl:value-of select="$reference-uuid" /></xsl:attribute>
                 </xsl:element>
             </xsl:otherwise>
         </xsl:choose>
@@ -85,7 +89,10 @@
     </xsl:template>
 
     <!-- swallow unmapped entry and entryRelationship children -->
-    <xsl:template match="*[parent::cda:entry] | *[parent::cda:entryRelationship] | *[parent::act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'][@extension = '2015-08-01']]]" priority="-10"
+    <!-- 20260730 Claude: third alternative was parent::act (no cda: prefix) - a no-namespace element name that can
+         never match a CDA document, so unmapped children of a 4.132 Health Concern Act were not swallowed as
+         intended and fell through to XSLT built-in rules, which copy raw text into the bundle. -->
+    <xsl:template match="*[parent::cda:entry] | *[parent::cda:entryRelationship] | *[parent::cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.132'][@extension = '2015-08-01']]]" priority="-10"
         mode="bundle-entry">
         <xsl:choose>
 

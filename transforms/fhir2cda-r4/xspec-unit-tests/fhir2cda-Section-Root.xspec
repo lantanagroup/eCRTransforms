@@ -6,8 +6,11 @@
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_RR-FHIR-001_R2_1.xml" />
         
         <x:expect label="A1. ClinicalDocument contains 3 sections" test="count(//cda:section)=3" />
-        <x:expect label="A2. ClinicalDocument contains 1 RR Subject Section" test="count(//cda:section/cda:code/@code='88084-9')=1" />
-        <x:expect label="A3. ClinicalDocument contains 1 RR Summary Section" test="count(//cda:section/cda:code/@code='55112-7')=1" />
-        <x:expect label="A4. ClinicalDocument contains 1 RR Electronic Initial Case Report Section" test="count(//cda:section/cda:code/@code='88082-3')=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
+        <x:expect label="A2. ClinicalDocument contains 1 RR Subject Section" test="count(//cda:section/cda:code[@code = '88084-9'])=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
+        <x:expect label="A3. ClinicalDocument contains 1 RR Summary Section" test="count(//cda:section/cda:code[@code = '55112-7'])=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
+        <x:expect label="A4. ClinicalDocument contains 1 RR Electronic Initial Case Report Section" test="count(//cda:section/cda:code[@code = '88082-3'])=1" />
     </x:scenario>
 </x:description>

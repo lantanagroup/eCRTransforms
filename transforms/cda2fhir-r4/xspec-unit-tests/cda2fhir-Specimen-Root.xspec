@@ -21,10 +21,15 @@
         <x:expect label="The specimen should have bodySite = 368208006" 
             test="count(//fhir:Specimen/fhir:collection/fhir:bodySite/fhir:coding/fhir:code[@value='368208006']) = 2" />
         
-        <x:expect label="The specimen should have status='available'" 
+        <!-- 20260729 Claude: Fix - the two assertions here were identical duplicates and their labels said
+             'available' while the test checked 'unavailable' (per specimen-status-mapping.xml, aborted/obsolete map
+             to unavailable); deduplicated and label aligned with the test -->
+        <x:expect label="One specimen should have status='unavailable'"
             test="count(//fhir:Specimen/fhir:status[@value='unavailable']) = 1" />
-        <x:expect label="The specimen should have status='available'" 
-            test="count(//fhir:Specimen/fhir:status[@value='unavailable']) = 1" />
+        <!-- 20260729 Claude: regression test for the 2026-07 fix - Specimen previously emitted no subject
+             (US Core Specimen requires subject 1..1) -->
+        <x:expect label="Every Specimen should have a subject"
+            test="count(//fhir:Specimen[not(fhir:subject)]) = 0" />
     </x:scenario>
     
 </x:description>

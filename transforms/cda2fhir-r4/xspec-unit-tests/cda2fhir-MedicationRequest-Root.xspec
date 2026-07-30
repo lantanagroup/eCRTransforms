@@ -16,4 +16,26 @@
         <x:expect label="A4. There should be one and only one MedicationRequest.requester for MedicationRequests"
             test="count(//fhir:MedicationRequest[count(fhir:requester)=1])=1" />
     </x:scenario>
+
+    <!-- 20260729 Claude: regression tests for defects fixed 2026-07 - each scenario asserts the
+         corrected behavior and fails against the pre-fix code -->
+
+    <x:scenario label="A medication with only a maxDoseQuantity still gets dosageInstruction/maxDosePerPeriod">
+        <x:context>
+            <substanceAdministration classCode="SBADM" moodCode="INT" xmlns="urn:hl7-org:v3">
+            <templateId root="2.16.840.1.113883.10.20.22.4.16"/><id root="a0000000-0000-0000-0000-000000000001"/>
+            <statusCode code="active"/>
+            <maxDoseQuantity><numerator value="4" unit="g"/><denominator value="1" unit="d"/></maxDoseQuantity>
+            <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23"/>
+            <manufacturedMaterial><code code="197361" codeSystem="2.16.840.1.113883.6.88"/></manufacturedMaterial>
+            </manufacturedProduct></consumable></substanceAdministration>
+        </x:context>
+        <x:expect label="dosageInstruction should open for a med with only maxDoseQuantity (guard previously excluded it)"
+            test="count(fhir:MedicationRequest/fhir:dosageInstruction) = 1" />
+        <x:expect label="maxDosePerPeriod numerator should carry value and unit"
+            test="count(fhir:MedicationRequest/fhir:dosageInstruction/fhir:maxDosePerPeriod/fhir:numerator/fhir:value[@value = '4']) = 1" />
+        <x:expect label="no empty unit elements (value/unit are now guarded on attribute presence)"
+            test="count(fhir:MedicationRequest//fhir:unit[@value = '']) = 0" />
+    </x:scenario>
+
 </x:description>

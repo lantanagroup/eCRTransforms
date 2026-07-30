@@ -54,8 +54,9 @@
         <!--Confirm  Problem Observation (V3) contains a value, and it's required elements -->
         <x:expect label="A21. SHALL contain exactly one [1..1] value with @xsi:type=CD(CONF:1198-9058)."
             test="count(//cda:entry/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']/cda:value)=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
         <x:expect label="A22. SHALL contain exactly one [1..1] value with @xsi:type=CD(CONF:1198-9058)."
-            test="count(//cda:entry/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']/cda:value/@xsi:type='CD')=1" />
+            test="count(//cda:entry/cda:act/cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.4']/cda:value[@xsi:type = 'CD'])=1" />
         <!--Confirm there is a Travel History (V3) act -->
         <x:expect label="A23. One Travel History (V3) act" test="count(//cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.15.2.3.1']][cda:templateId[@extension='2022-05-01']])=1" />
     </x:scenario>

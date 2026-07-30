@@ -7,19 +7,24 @@
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
         
         <!--Confirm the Clinical Document contains a realmCode element -->
-        <x:expect label="A1. SHALL contain exactly one [1..1] realmCode=US (CONF:1198-16791)." test="count(/cda:ClinicalDocument/cda:realmCode/@code='US')=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
+        <x:expect label="A1. SHALL contain exactly one [1..1] realmCode=US (CONF:1198-16791)." test="count(/cda:ClinicalDocument/cda:realmCode[@code = 'US'])=1" />
         <!--Confirm the Clinical Document-> contains a typeId element -->
         <x:expect label="A2. SHALL contain exactly one [1..1] typeId (CONF:1198-5361)." test="count(/cda:ClinicalDocument/cda:typeId)=1" />
         <!--Confirm the Clinical Document->typeId contains a root element  -->
-        <x:expect label="A3. This typeId SHALL contain exactly one [1..1] @root=2.16.840.1.113883.1.3 (CONF:1198-5250)." test="count(/cda:ClinicalDocument/cda:typeId/cda/@root='2.16.840.1.113883.1.3')=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true (count() of a boolean is 1); also removed bogus 'cda' element step (root is an attribute of typeId) -->
+        <x:expect label="A3. This typeId SHALL contain exactly one [1..1] @root=2.16.840.1.113883.1.3 (CONF:1198-5250)." test="count(/cda:ClinicalDocument/cda:typeId[@root='2.16.840.1.113883.1.3'])=1" />
         <!--Confirm the Clinical Document->typeId contains an extension element  -->
-        <x:expect label="A4. This typeId SHALL contain exactly one [1..1] @extension=POCD_HD000040 (CONF:1198-5251)." test="count(/cda:ClinicalDocument/cda:typeId/cda/@extension='POCD_HD000040')=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true (count() of a boolean is 1); also removed bogus 'cda' element step (extension is an attribute of typeId) -->
+        <x:expect label="A4. This typeId SHALL contain exactly one [1..1] @extension=POCD_HD000040 (CONF:1198-5251)." test="count(/cda:ClinicalDocument/cda:typeId[@extension='POCD_HD000040'])=1" />
         <!--Confirm the Clinical Document contains a templateId element -->
         <x:expect label="A5. SHALL contain exactly one [1..1] templateId (CONF:1198-5252)" test="count(/cda:ClinicalDocument/cda:templateId)=3" />
         <!--Confirm the Clinical Document templateId contains a root element -->
-        <x:expect label="A6. SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.1.1 (CONF:1198-10036)." test="count(/cda:ClinicalDocument/cda:templateId/@root='2.16.840.1.113883.10.20.22.1.1')=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
+        <x:expect label="A6. SHALL contain exactly one [1..1] @root=2.16.840.1.113883.10.20.22.1.1 (CONF:1198-10036)." test="count(/cda:ClinicalDocument/cda:templateId[@root = '2.16.840.1.113883.10.20.22.1.1'])=1" />
         <!--Confirm the Clinical Document templateId contains an extension element -->
-        <x:expect label="A7. SHALL contain exactly one [1..1] @extension='2015-08-01' (CONF:1198-32503).)" test="count(/cda:ClinicalDocument/cda:templateId/@extension='2015-08-01')=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
+        <x:expect label="A7. SHALL contain exactly one [1..1] @extension='2015-08-01' (CONF:1198-32503).)" test="count(/cda:ClinicalDocument/cda:templateId[@extension = '2015-08-01'])=1" />
         <!--Confirm the Clinical Document contains an Id element -->
         <x:expect label="A8. SHALL contain exactly one [1..1] id (CONF:1198-5363)." test="count(/cda:ClinicalDocument/cda:id)=1" />
         <!--Confirm the Clinical Document contains a code element -->

@@ -17,8 +17,9 @@
         <x:expect label="A5. This encompassingEncounter SHALL contain exactly one [1..1] code, which SHOULD be selected from ValueSet ActEncounterCode urn:oid:2.16.840.1.113883.1.11.13955 (CONF:4482-4)"
             test="count(//cda:componentOf/cda:encompassingEncounter/cda:code)=1" />
         <!--Confirm the Encompassing Encounter code is selected from the correct Code System-->
+        <!-- 20260729 Claude: Fix - assertion was always-true (count() of a boolean is 1); also corrected codeSystem from child element to attribute of code -->
         <x:expect label="A6. This code, which SHOULD be selected from ValueSet ActEncounterCode urn:oid:2.16.840.1.113883.1.11.13955 (CONF:4482-4)"
-            test="count(//cda:componentOf/cda:encompassingEncounter/cda:code/cda:codeSystem/@value='2.16.840.1.113883.5.4')=1" />
+            test="count(//cda:componentOf/cda:encompassingEncounter/cda:code[@codeSystem='2.16.840.1.113883.5.4'])=1" />
         <!--Confirm the Encompassing Encounter contains a responsibleParty element-->
         <x:expect label="A7. This encompassingEncounter SHOULD contain zero or one [0..1] responsibleParty (CONF:4482-6)." test="count(//cda:componentOf/cda:encompassingEncounter/cda:responsibleParty)=1" />
         <!--Confirm the Encompassing Encounter responsibleParty element contains an assignedEntity element-->
@@ -59,8 +60,9 @@
             label="A20. This healthCareFacility SHALL contain exactly one [1..1] code, which SHOULD be selected from ValueSet ServiceDeliveryLocationRoleType urn:oid:2.16.840.1.113883.1.11.17660 DYNAMIC (CONF:4482-14)."
             test="count(//cda:componentOf/cda:encompassingEncounter/cda:location/cda:healthCareFacility/cda:code)=1" />
         <!--Confirm the Encompassing Encounter->location->healthCareFacility contains an code element that is from the correct codeSystem-->
+        <!-- 20260729 Claude: Fix - assertion was always-true (count() of a boolean is 1); also corrected path: codeSystem is an attribute of healthCareFacility/code -->
         <x:expect label="A21. This code, which SHOULD be selected from ValueSet ServiceDeliveryLocationRoleType urn:oid:2.16.840.1.113883.1.11.17660 DYNAMIC (CONF:4482-14)."
-            test="count(//cda:componentOf/cda:encompassingEncounter/cda:location/cda:healthCareFacility/cda:codeSystem/@value='2.16.840.1.113883.5.111')=1" />
+            test="count(//cda:componentOf/cda:encompassingEncounter/cda:location/cda:healthCareFacility/cda:code[@codeSystem='2.16.840.1.113883.5.111'])=1" />
         <!--Confirm the Encompassing Encounter->location->healthCareFacility contains a location element-->
         <x:expect label="A22. This healthCareFacility SHALL contain exactly one [1..1] location (CONF:4482-15)."
             test="count(//cda:componentOf/cda:encompassingEncounter/cda:location/cda:healthCareFacility/cda:location)=1" />

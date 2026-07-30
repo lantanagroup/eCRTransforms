@@ -6,8 +6,10 @@
         <x:context href="../../../samples/fhir/xspec-test-files/XSPEC_eICR_FHIR_3.1.1.xml" />
         
         <!-- Confirm there is one SubstanceAdministration -->
+        <!-- 20260729 Claude: Fix - assertion was always-true (count() of a boolean is 1); also corrected @coade typo to @code -->
         <x:expect label="A1. Confirm there is one SubstanceAdministration where drug is code=248656"
-            test="count(//cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code/@coade='248656')=1" />
-        <x:expect label="A2. Confirm there is one SubstanceAdministration where routeCode is 26643006" test="count(//cda:substanceAdministration/cda:routeCode/@coade='26643006')=1" />
+            test="count(//cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial/cda:code[@code='248656'])=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true (count() of a boolean is 1); also corrected @coade typo to @code -->
+        <x:expect label="A2. Confirm there is one SubstanceAdministration where routeCode is 26643006" test="count(//cda:substanceAdministration/cda:routeCode[@code='26643006'])=1" />
     </x:scenario>
 </x:description>

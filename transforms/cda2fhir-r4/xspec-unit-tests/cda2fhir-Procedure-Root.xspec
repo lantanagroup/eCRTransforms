@@ -38,4 +38,21 @@
         <x:expect label="There should be an Procedure.asserter.reference" test="count(//fhir:Procedure/fhir:asserter/fhir:reference)=2" />
     </x:scenario>
 
+
+    <!-- 20260729 Claude: regression tests for defects fixed 2026-07 - each scenario asserts the
+         corrected behavior and fails against the pre-fix code -->
+
+    <x:scenario label="Procedure statusCode with an unmapped code falls back to status completed, never an empty value">
+        <x:context>
+            <procedure classCode="PROC" moodCode="EVN" xmlns="urn:hl7-org:v3">
+            <templateId root="2.16.840.1.113883.10.20.22.4.14"/><id root="80000000-0000-0000-0000-000000000001"/>
+            <code code="80146002" codeSystem="2.16.840.1.113883.6.96"/><statusCode code="normal"/>
+            <effectiveTime value="20250101"/></procedure>
+        </x:context>
+        <x:expect label="status fallback should be the string 'completed' (select=&quot;completed&quot; was an unquoted XPath producing value=&quot;&quot;)"
+            test="count(fhir:Procedure/fhir:status[@value = 'completed']) = 1" />
+        <x:expect label="status must never be empty"
+            test="count(fhir:Procedure/fhir:status[@value = '']) = 0" />
+    </x:scenario>
+
 </x:description>

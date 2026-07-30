@@ -19,4 +19,37 @@
         <x:expect label="A7. The Encounter Location has one telecom"
             test="count(//fhir:fullUrl[following-sibling::fhir:resource/fhir:Location][@value=//fhir:Encounter/fhir:location/fhir:location/fhir:reference/@value]/following-sibling::fhir:resource/fhir:Location/fhir:telecom) = 2" />
     </x:scenario>
+
+    <!-- 20260729 Claude: regression tests for the Service Delivery Location defects the FHIR
+         validator surfaced (us-ph-location requires identifier 1..* and type 1..*, and
+         eicr-encounter constrains Encounter.location.location to us-ph-location, so a Location
+         missing either one also broke the Encounter's reference match). meta.profile is NOT
+         asserted here: it comes from get-profile-for-ig, which needs $gvCurrentIg, which needs a
+         ClinicalDocument - out of reach for a bare fragment. That path is covered end to end by
+         transforms/integration-tests (testProc). -->
+
+    <x:scenario label="Service Delivery Location (4.32) participant maps id and code">
+        <x:context>
+            <participant typeCode="LOC" xmlns="urn:hl7-org:v3">
+                <participantRole classCode="SDLOC">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.32"/>
+                    <id root="2.16.840.1.113883.19.5" extension="loc9"/>
+                    <code code="1096-7" codeSystem="2.16.840.1.113883.6.259" displayName="Operating Room/Suite"/>
+                    <addr><streetAddressLine>9 Theatre St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+                    <telecom value="tel:+1-617-555-9999"/>
+                    <playingEntity classCode="PLC"><name>Main Operating Theatre</name></playingEntity>
+                </participantRole>
+            </participant>
+        </x:context>
+
+        <x:expect label="participantRole/id becomes Location.identifier (was dropped; us-ph-location requires identifier 1..*)"
+            test="count(fhir:Location/fhir:identifier[fhir:value/@value = 'loc9']) = 1" />
+        <x:expect label="participantRole/code becomes Location.type (was dropped; us-ph-location requires type 1..*)"
+            test="count(fhir:Location/fhir:type/fhir:coding[fhir:code/@value = '1096-7']) = 1" />
+        <x:expect label="playingEntity/name is still used for Location.name"
+            test="count(fhir:Location/fhir:name[@value = 'Main Operating Theatre']) = 1" />
+        <x:expect label="addr and telecom are still carried"
+            test="count(fhir:Location/fhir:address) = 1 and count(fhir:Location/fhir:telecom) = 1" />
+    </x:scenario>
+
 </x:description>

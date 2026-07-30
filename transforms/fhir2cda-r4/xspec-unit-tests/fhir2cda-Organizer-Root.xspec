@@ -41,8 +41,9 @@
         <x:expect label="B6. This statusCode SHALL contain exactly one [1..1] @code=completed."
             test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:statusCode[@code='completed'])=1" />
         <x:expect label="B7. MAY contain zero or one [0..1] effectiveTime (CONF:1198-31865)." test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:effectiveTime)=1" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
         <x:expect label="B8. SHALL contain one component Result Observation with a code of 731-0."
-            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:component/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']/cda:code/@code='731-0')=1"
+            test="count(//cda:entry/cda:organizer[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.1']/cda:component/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.2']/cda:code[@code = '731-0'])=1"
          />
     </x:scenario>
 </x:description>

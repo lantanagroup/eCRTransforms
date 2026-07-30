@@ -24,8 +24,9 @@
             test="exists(//cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/cda:id)" />
         <x:expect label="A7. Characteristics of Home Environment Observation code @code=75274 @codeSystem=2.16.840.1.113883.6.1 CONF#1098-31352, 1098-31353, 1098-31354 "
             test="//cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/cda:code/@code='75274-1' and //cda:section/cda:entry/cda:observation/cda:code/@codeSystem='2.16.840.1.113883.6.1'" />
+        <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
         <x:expect label="A8. Characteristics of Home Environment Observation statusCode @code=completed CONF#1098-27901, 1098-27902"
-            test="count(//cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/cda:statusCode/@code='completed')=1" />
+            test="count(//cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/cda:statusCode[@code = 'completed'])=1" />
         <!-- the value is dynamic value, we just check structure here instead of value -->
         <x:expect label="A9. Characteristics of Home Environment Observation value present CONF#1098-28823"
             test="exists(//cda:section/cda:entry/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.109']/cda:value)" />

@@ -123,4 +123,23 @@
             test="count(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value='urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def204']/fhir:subject/fhir:reference)=1" />
     </x:scenario>
     
+
+    <!-- 20260729 Claude: regression tests for defects fixed 2026-07 - each scenario asserts the
+         corrected behavior and fails against the pre-fix code -->
+
+    <x:scenario label="Planned Procedure (4.41) statusCode new maps status to draft and moodCode RQO to intent order">
+        <x:context>
+            <procedure classCode="PROC" moodCode="RQO" xmlns="urn:hl7-org:v3">
+            <templateId root="2.16.840.1.113883.10.20.22.4.41"/><id root="60000000-0000-0000-0000-000000000001"/>
+            <code code="104326007" codeSystem="2.16.840.1.113883.6.96"/><statusCode code="new"/>
+            <effectiveTime value="20260301"/></procedure>
+        </x:context>
+        <x:expect label="Should produce a ServiceRequest"
+            test="count(fhir:ServiceRequest) = 1" />
+        <x:expect label="statusCode new should map to 'draft' (status was previously omitted for non-active codes)"
+            test="count(fhir:ServiceRequest/fhir:status[@value = 'draft']) = 1" />
+        <x:expect label="moodCode RQO should map to intent 'order' (intent was previously always 'plan')"
+            test="count(fhir:ServiceRequest/fhir:intent[@value = 'order']) = 1" />
+    </x:scenario>
+
 </x:description>

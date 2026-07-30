@@ -90,7 +90,36 @@
   <!-- (eICR) Location Participant to US Core Location -->
   <xsl:template match="cda:participant[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.4.4']] | cda:participant[cda:participantRole/cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.32']]" priority="1">
     <Location>
-      <xsl:call-template name="add-meta" />
+      <!-- 20260729 Claude: Fix - add-meta reads cda:templateId children of the context node, but for a Service
+           Delivery Location (2.16.840.1.113883.10.20.22.4.32) the templateId sits on the participantRole, so this
+           always fell to add-meta's otherwise branch: no meta.profile, plus a "No profiles found" comment listing
+           nothing. Without us-ph-location the Location cannot satisfy Encounter.location.location in eicr-encounter.
+           Resolved through get-profile-for-ig (the house pattern for IG-dependent profiles), falling back to
+           add-meta for the 15.2.4.4 eICR Location Participant, whose templateId IS on the participant and which
+           template-profile-mapping.xml already covers. -->
+      <xsl:choose>
+        <xsl:when test="cda:templateId">
+          <xsl:call-template name="add-meta" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="vProfileValue">
+            <xsl:call-template name="get-profile-for-ig">
+              <xsl:with-param name="pIg" select="$gvCurrentIg" />
+              <xsl:with-param name="pResource" select="'Location'" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:if test="$vProfileValue ne 'NA'">
+            <meta>
+              <profile value="{$vProfileValue}" />
+            </meta>
+          </xsl:if>
+        </xsl:otherwise>
+      </xsl:choose>
+
+      <!-- 20260729 Claude: Fix - participantRole/id was dropped; us-ph-location requires identifier 1..*, and the
+           facility id is the only stable identity a Service Delivery Location carries -->
+      <xsl:apply-templates select="cda:participantRole/cda:id" />
+
       <!-- 20260729 Claude: Fix - added participantRole/playingEntity/name (the actual location name in a Service
            Delivery Location) ahead of the preceding-sibling value fallbacks; previously procedure SDL participants
            always fell through to the hard-coded 'Unknown' -->
@@ -110,6 +139,12 @@
           </xsl:otherwise>
         </xsl:choose>
       </name>
+      <!-- 20260729 Claude: Fix - participantRole/code (the Service Delivery Location's facility type, bound to
+           HealthcareServiceLocation) was dropped entirely; us-ph-location requires type 1..*. Same pElementName
+           mechanism the encompassingEncounter Location template above uses for healthCareFacility/code. -->
+      <xsl:apply-templates select="cda:participantRole/cda:code">
+        <xsl:with-param name="pElementName" select="'type'" />
+      </xsl:apply-templates>
       <xsl:apply-templates select="cda:participantRole/cda:telecom" />
       <xsl:apply-templates select="cda:participantRole/cda:addr" />
     </Location>

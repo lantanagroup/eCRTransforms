@@ -368,7 +368,14 @@
             <coding>
               <system value="http://loinc.org" />
               <code value="30954-2" />
-              <display value="Relevant diagnostic tests/laboratory data Narrative" />
+              <!-- 20260729 Claude: LOINC renamed this term from '... Narrative' to '... note'; the old string is now
+                   a Display_Name_for__should_be_one_of__instead_of error against the eCR IG, and because the eICR
+                   Document Bundle discriminates its Composition slice by profile, that one error also produced a
+                   phantom "no matching slice" error at Bundle level. Confirmed current for LOINC 2.82 via $lookup on
+                   tx.fhir.org. Only 30954-2 and 29762-2 drifted; the other five synthesised section displays below
+                   are still correct. Hard-coding any display pins us to a LOINC version - display is optional and
+                   dropping it here would be the durable fix if this churns again. -->
+              <display value="Relevant diagnostic tests/laboratory data note" />
             </coding>
           </code>
           <text>
@@ -406,7 +413,8 @@
             <coding>
               <system value="http://loinc.org" />
               <code value="29762-2" />
-              <display value="Social history Narrative" />
+              <!-- 20260729 Claude: LOINC renamed to '... note' - see the note on 30954-2 above -->
+              <display value="Social history note" />
             </coding>
           </code>
           <text>

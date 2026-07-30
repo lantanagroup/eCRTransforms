@@ -100,3 +100,12 @@
 /samples/fhir/xspec-test-files/archive
 /samples/fhir/20241216-Sprint-5
 /samples/fhir/20241126-Ming
+
+# 20260729 Claude: conformance-validation layer (transforms/integration-tests/VALIDATION.md).
+# The validator jar is ~180 MB and re-downloadable; the caches and generated bundles are
+# reproducible from run-integration-tests.py.
+/transforms/integration-tests/validator_cli.jar
+/transforms/integration-tests/.txcache/
+/transforms/integration-tests/.svrl/
+/transforms/integration-tests/output/
+/transforms/integration-tests/output-cda/

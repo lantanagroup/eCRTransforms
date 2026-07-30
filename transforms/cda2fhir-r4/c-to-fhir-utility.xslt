@@ -1035,6 +1035,14 @@
                     <xsl:when test="$pResource = 'Encounter'">
                         <xsl:value-of select="'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter'" />
                     </xsl:when>
+                    <!-- 20260729 Claude: added Location. eicr-encounter constrains Encounter.location.location to
+                         us-ph-location, so a Service Delivery Location participant (2.16.840.1.113883.10.20.22.4.32)
+                         referenced from an Encounter has to carry that profile. It cannot come from
+                         template-profile-mapping.xml: 4.32 is a plain C-CDA template used in non-eCR documents too,
+                         where us-core-location is the right target, so the choice is IG-dependent and belongs here. -->
+                    <xsl:when test="$pResource = 'Location'">
+                        <xsl:value-of select="'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location'" />
+                    </xsl:when>
                     <xsl:when test="$pResource = 'Patient'">
                         <xsl:value-of select="'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient'" />
                     </xsl:when>
@@ -1053,6 +1061,10 @@
                 <xsl:choose>
                     <xsl:when test="$pResource = 'Encounter'">
                         <xsl:value-of select="'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter'" />
+                    </xsl:when>
+                    <!-- 20260729 Claude: added Location - see the eICR branch above -->
+                    <xsl:when test="$pResource = 'Location'">
+                        <xsl:value-of select="'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location'" />
                     </xsl:when>
                     <xsl:when test="$pResource = 'Patient'">
                         <xsl:value-of select="'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient'" />

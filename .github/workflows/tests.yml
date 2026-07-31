@@ -71,6 +71,15 @@ jobs:
         working-directory: transforms/integration-tests
         run: python3 run-integration-tests.py --output output/
 
+      # 20260730 Claude: same invariants over the snapshot corpus, gated by
+      # corpus-known-issues.txt (fails only on NEW/worsened problems). On CI the
+      # gitignored real samples are skipped with "matched nothing" notes - the
+      # committed corpus documents are still covered; the full 34-document sweep
+      # runs locally.
+      - name: "Layer 2b: structural invariants over snapshot corpus"
+        working-directory: transforms/integration-tests
+        run: python3 run-integration-tests.py --corpus
+
       # ---------------------------------------------------------------- layer 3
       - name: Cache FHIR validator + terminology cache
         uses: actions/cache@v4

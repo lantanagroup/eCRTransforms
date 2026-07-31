@@ -28,6 +28,23 @@ To add a regression document: drop a synthetic eICR .xml into documents/. Keep d
 small and targeted - one section/scenario each - and give resources fixed ids so failures
 are easy to trace. The invariants below apply automatically; add resource types to
 REQUIRED_ELEMENTS if a new resource kind appears in your document.
+
+20260730 Claude: added --corpus. Runs the same invariants over the SNAPSHOT corpus
+(snapshot-corpus.txt) - the real documents, which is where structural defects actually
+hide: the ad hoc sweep that this mode systematizes found defect items 38-41 on adoption
+day, and the first --corpus run immediately surfaced item 42 (17 documents emitting a
+Location with no <name>). Because real documents carry known-open defects, corpus mode
+gates against corpus-known-issues.txt and FAILS ONLY ON NEW OR WORSENED problems - the
+same philosophy as the conformance layer's baseline. Problem strings are normalised
+(minted uuids masked) so the baseline is stable across runs, and documents are keyed by
+repo-relative path (several corpus documents share a filename).
+
+    python run-integration-tests.py --corpus                  compare against known issues
+    python run-integration-tests.py --corpus --update-known   rewrite the known-issues file
+
+Corpus globs that match nothing (gitignored real samples on CI) are skipped with a note,
+exactly like snapshot-regression.py. An IMPROVED line means a known issue disappeared -
+re-run with --update-known and commit, so the ratchet only ever tightens.
 """
 import re
 import sys
@@ -41,6 +58,11 @@ except ImportError:
 HERE = Path(__file__).resolve().parent
 STYLESHEET = HERE.parent / "cda2fhir-r4" / "NativeUUIDGen-cda2fhir.xslt"
 DOCS = HERE / "documents"
+REPO = HERE.parent.parent
+CORPUS = HERE / "snapshot-corpus.txt"
+KNOWN_ISSUES = HERE / "corpus-known-issues.txt"
+
+UUID_RE = re.compile(r"urn:uuid:[0-9a-fA-F-]+")
 
 # Required-element presence per resource type (FHIR R4 base + US Core requirements that
 # this pipeline is expected to satisfy). Checked for every instance in every Bundle.
@@ -129,9 +151,125 @@ def check_bundle(xml: str, problems: list):
                             "verificationStatus entered-in-error")
 
 
+def load_corpus() -> list:
+    """Same loader shape as snapshot-regression.py: one glob per line, repo-relative."""
+    if not CORPUS.exists():
+        sys.exit(f"corpus file not found: {CORPUS}")
+    docs = []
+    for raw in CORPUS.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        matches = sorted(REPO.glob(line))
+        if not matches:
+            print(f"  ! corpus pattern matched nothing: {line}", file=sys.stderr)
+        docs.extend(m for m in matches if m.is_file())
+    seen, out = set(), []
+    for d in docs:
+        if d not in seen:
+            seen.add(d)
+            out.append(d)
+    return out
+
+
+def rel(doc: Path) -> str:
+    try:
+        return doc.resolve().relative_to(REPO).as_posix()
+    except ValueError:
+        return doc.name
+
+
+def normalise_problems(problems: list) -> dict:
+    """Multiset of problem strings with minted uuids masked (they change every run)."""
+    counts = {}
+    for p in problems:
+        p = UUID_RE.sub("urn:uuid:<uuid>", p)
+        counts[p] = counts.get(p, 0) + 1
+    return counts
+
+
+def load_known() -> dict:
+    """{relpath: {problem: count}} from corpus-known-issues.txt."""
+    known = {}
+    if not KNOWN_ISSUES.exists():
+        return known
+    for raw in KNOWN_ISSUES.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].rstrip()
+        if not line.strip():
+            continue
+        path, count, problem = line.split("\t", 2)
+        known.setdefault(path, {})[problem] = int(count)
+    return known
+
+
+def run_corpus(update_known: bool) -> int:
+    docs = load_corpus()
+    if not docs:
+        sys.exit("corpus matched no documents at all")
+    known = {} if update_known else load_known()
+    new_fail, improved, results = 0, 0, {}
+    with PySaxonProcessor(license=False) as proc:
+        exe = proc.new_xslt30_processor().compile_stylesheet(stylesheet_file=str(STYLESHEET))
+        for doc in docs:
+            problems = []
+            try:
+                check_bundle(exe.transform_to_string(source_file=str(doc)), problems)
+            except Exception as e:  # noqa: BLE001
+                problems.append(f"transform error: {e}")
+            counts = normalise_problems(problems)
+            results[rel(doc)] = counts
+            baseline = known.get(rel(doc), {})
+            worse = {p: c for p, c in counts.items() if c > baseline.get(p, 0)}
+            better = {p: c for p, c in baseline.items() if counts.get(p, 0) < c}
+            if update_known:
+                print(("known " if counts else "ok    ") + rel(doc))
+            elif worse:
+                new_fail += 1
+                print(f"FAIL   {rel(doc)}  (new or worsened problems)")
+                for p, c in sorted(worse.items()):
+                    print(f"      - {p}  (x{c}, known {baseline.get(p, 0)})")
+            elif better:
+                improved += 1
+                print(f"IMPROVED {rel(doc)}  - re-run with --update-known and commit")
+                for p, c in sorted(better.items()):
+                    print(f"      - {p}  (known x{c} -> now x{counts.get(p, 0)})")
+            else:
+                print(("known " if counts else "ok    ") + rel(doc))
+
+    if update_known:
+        lines = [
+            "# corpus-known-issues.txt - baseline for run-integration-tests.py --corpus.",
+            "# One line per known problem: <repo-relative path> TAB <count> TAB <problem>.",
+            "# Regenerate with --corpus --update-known AFTER REVIEWING what changed -",
+            "# this file is the list of accepted open defects, and it should only shrink.",
+            "# Current entries correspond to defect items in the codebase notes (item 41:",
+            "# the Epic document's requester/Provenance references; item 42: Location",
+            "# resources emitted without a name).",
+        ]
+        for path in sorted(results):
+            for p, c in sorted(results[path].items()):
+                lines.append(f"{path}\t{c}\t{p}")
+        KNOWN_ISSUES.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        n = sum(len(v) for v in results.values() if v)
+        print(f"\nknown-issues baseline written: {n} problem line(s) -> {KNOWN_ISSUES.name}")
+        print("REVIEW THE DIFF before committing - this accepts current defects as known.")
+        return 0
+
+    clean = sum(1 for v in results.values() if not v)
+    print(f"\n{clean}/{len(results)} documents clean; "
+          f"{sum(1 for v in results.values() if v)} with known issues; "
+          f"{new_fail} with NEW problems" + (f"; {improved} improved" if improved else ""))
+    return 1 if new_fail else 0
+
+
 def main():
     argv = sys.argv[1:]
     out_dir = None
+    corpus_mode = "--corpus" in argv
+    update_known = "--update-known" in argv
+    argv = [a for a in argv if a not in ("--corpus", "--update-known")]
+    if update_known and not corpus_mode:
+        sys.exit("--update-known only makes sense with --corpus")
     if "--output" in argv:
         i = argv.index("--output")
         try:
@@ -139,6 +277,8 @@ def main():
         except IndexError:
             sys.exit("--output needs a directory")
         del argv[i:i + 2]
+    if corpus_mode:
+        sys.exit(run_corpus(update_known))
     pattern = argv[0] if argv else ""
     docs = sorted(p for p in DOCS.glob("*.xml") if pattern in p.name)
     if not docs:

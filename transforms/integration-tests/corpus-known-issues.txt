@@ -1,0 +1,26 @@
+# corpus-known-issues.txt - baseline for run-integration-tests.py --corpus.
+# One line per known problem: <repo-relative path> TAB <count> TAB <problem>.
+# Regenerate with --corpus --update-known AFTER REVIEWING what changed -
+# this file is the list of accepted open defects, and it should only shrink.
+# Current entries correspond to defect items in the codebase notes (item 41:
+# the Epic document's requester/Provenance references; item 42: Location
+# resources emitted without a name).
+samples/cda/20260424-COIVD/CDA_RR.xml	1	Location missing required <name>
+samples/cda/20260424-COIVD/CDA_RR_COVID19.xml	1	Location missing required <name>
+samples/cda/20260424-COIVD/CDA_eICR.xml	1	Location missing required <name>
+samples/cda/20260424-COIVD/CDA_eICR_COVID19.xml	1	Location missing required <name>
+samples/cda/20260424-Flu/CDA_RR.xml	1	Location missing required <name>
+samples/cda/20260424-Flu/CDA_RR_Influenza.xml	1	Location missing required <name>
+samples/cda/20260424-Pertussis/CDA_RR.xml	1	Location missing required <name>
+samples/cda/20260424-Pertussis/CDA_RR_Pertussis.xml	1	Location missing required <name>
+samples/cda/20260424-Pertussis/CDA_eICR.xml	1	Location missing required <name>
+samples/cda/20260424-Pertussis/CDA_eICR_Pertussis.xml	1	Location missing required <name>
+samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml	1	Location missing required <name>
+samples/cda/RR-R1_1/RR-CDA-001_R1_1.xml	1	Location missing required <name>
+samples/cda/eICR-R1_1/Test eICR (1).xml	7	dangling reference urn:uuid:<uuid>
+samples/cda/eICR-R1_1/Test eICR (1).xml	31	empty reference
+samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	1	Location missing required <name>
+samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	1	Location missing required <name>
+samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_MANUAL.xml	1	Location missing required <name>
+samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	Location missing required <name>
+samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	Location missing required <name>

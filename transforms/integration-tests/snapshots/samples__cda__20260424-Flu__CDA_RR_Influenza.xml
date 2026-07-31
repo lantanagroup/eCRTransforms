@@ -692,6 +692,11 @@
       <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <Location>
+            <name>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </name>
             <telecom>
                <system value="email"/>
                <value value="support@aimsplatform.com"/>

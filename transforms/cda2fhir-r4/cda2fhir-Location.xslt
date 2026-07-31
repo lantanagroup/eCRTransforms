@@ -80,9 +80,24 @@
         <resource>
           <Location>
             <xsl:call-template name="add-participant-meta" />
-            <xsl:if test="cda:representedOrganization/cda:name/text()">
-              <name value="{cda:representedOrganization/cda:name}" />
-            </xsl:if>
+            <xsl:choose>
+              <xsl:when test="cda:representedOrganization/cda:name/text()">
+                <name value="{cda:representedOrganization/cda:name}" />
+              </xsl:when>
+              <xsl:otherwise>
+                <!-- 20260731 Claude: defect item 42 - an authoring DEVICE's assignedAuthor usually carries only
+                     an id/addr/telecom and no representedOrganization, so this Location (referenced from
+                     Device.location) was emitted with no name at all: 17 of 34 corpus documents. The source
+                     genuinely has no name, so per the pipeline's convention for required-but-absent data
+                     (US Core expects Location.name 1..1) emit the data-absent-reason extension rather than
+                     inventing a value. -->
+                <name>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                    <valueCode value="unknown" />
+                  </extension>
+                </name>
+              </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates select="cda:telecom" />
             <xsl:apply-templates select="cda:addr" />
           </Location>

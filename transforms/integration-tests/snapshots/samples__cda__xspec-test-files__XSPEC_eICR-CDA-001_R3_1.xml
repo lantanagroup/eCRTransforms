@@ -2111,6 +2111,11 @@
       <fullUrl value="urn:uuid:UUID059"/>
       <resource>
          <Location>
+            <name>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </name>
             <telecom>
                <system value="phone"/>
                <value value="+1-(555)555-1212;ext=9998"/>

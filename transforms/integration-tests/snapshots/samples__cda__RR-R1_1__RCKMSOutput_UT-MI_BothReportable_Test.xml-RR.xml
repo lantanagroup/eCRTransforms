@@ -806,6 +806,11 @@
       <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <Location>
+            <name>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </name>
             <telecom>
                <system value="phone"/>
                <value value="+1(844)836-8377"/>

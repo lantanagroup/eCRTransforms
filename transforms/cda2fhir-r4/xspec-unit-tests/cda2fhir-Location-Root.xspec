@@ -52,4 +52,48 @@
             test="count(fhir:Location/fhir:address) = 1 and count(fhir:Location/fhir:telecom) = 1" />
     </x:scenario>
 
+
+  <!-- 20260731 Claude: defect item 42 - the Location built from an authoring device's assignedAuthor
+       (referenced by Device.location) had no name when the author carries no representedOrganization,
+       which is the normal shape for device authors: 17 of 34 corpus documents. Absent names now get the
+       data-absent-reason extension; a present representedOrganization name is used as before. -->
+  <x:scenario label="Authoring-device Location without representedOrganization gets a data-absent-reason name">
+    <x:context>
+      <assignedAuthor xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" lcg:uuid="90000000-0000-0000-0000-000000000010">
+        <id root="2.16.840.1.113883.3.72.5.20" />
+        <addr>
+          <streetAddressLine>1002 Healthcare Drive</streetAddressLine>
+          <city>Ann Arbor</city>
+          <state>MI</state>
+          <postalCode>99999</postalCode>
+        </addr>
+        <telecom use="WP" value="tel:+1-555-555-1212" />
+        <assignedAuthoringDevice lcg:uuid="90000000-0000-0000-0000-000000000011">
+          <manufacturerModelName>Acme</manufacturerModelName>
+          <softwareName>AcmeEHR</softwareName>
+        </assignedAuthoringDevice>
+      </assignedAuthor>
+    </x:context>
+    <x:expect label="a Location entry is produced" test="count(fhir:entry/fhir:resource/fhir:Location) = 1" />
+    <x:expect label="name carries the data-absent-reason extension, no value"
+      test="count(fhir:entry/fhir:resource/fhir:Location/fhir:name[not(@value)]/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+    <x:expect label="address still mapped" test="count(fhir:entry/fhir:resource/fhir:Location/fhir:address/fhir:city[@value = 'Ann Arbor']) = 1" />
+  </x:scenario>
+
+  <x:scenario label="Authoring-device Location with a representedOrganization keeps the real name">
+    <x:context>
+      <assignedAuthor xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" lcg:uuid="90000000-0000-0000-0000-000000000012">
+        <id root="2.16.840.1.113883.3.72.5.20" />
+        <addr><city>Ann Arbor</city></addr>
+        <assignedAuthoringDevice lcg:uuid="90000000-0000-0000-0000-000000000013">
+          <softwareName>AcmeEHR</softwareName>
+        </assignedAuthoringDevice>
+        <representedOrganization>
+          <name>Good Health Hospital</name>
+        </representedOrganization>
+      </assignedAuthor>
+    </x:context>
+    <x:expect label="real name used, no data-absent-reason"
+      test="count(fhir:entry/fhir:resource/fhir:Location/fhir:name[@value = 'Good Health Hospital'][not(fhir:extension)]) = 1" />
+  </x:scenario>
 </x:description>

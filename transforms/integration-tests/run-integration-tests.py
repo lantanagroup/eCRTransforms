@@ -242,9 +242,8 @@ def run_corpus(update_known: bool) -> int:
             "# One line per known problem: <repo-relative path> TAB <count> TAB <problem>.",
             "# Regenerate with --corpus --update-known AFTER REVIEWING what changed -",
             "# this file is the list of accepted open defects, and it should only shrink.",
-            "# Current entries correspond to defect items in the codebase notes (item 41:",
-            "# the Epic document's requester/Provenance references; item 42: Location",
-            "# resources emitted without a name).",
+            "# Each entry should correspond to an open defect item in the project's",
+            "# codebase notes.",
         ]
         for path in sorted(results):
             for p, c in sorted(results[path].items()):

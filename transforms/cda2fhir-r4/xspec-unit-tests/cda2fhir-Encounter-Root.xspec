@@ -33,7 +33,7 @@
 
   <!-- 20260730 Claude: regression tests for the two Encounter fixes of 2026-07-30 (defect items 38/39). -->
 
-  <x:scenario label="B. eICR: reference mode for a body encounter (4.49/4.40) emits NOTHING - no resource is created for it in eICR, so a reference would dangle (was: dangling Composition.section.entry for a Planned Encounter in Plan of Treatment)">
+  <x:scenario label="B. eICR: reference mode for a 4.49 Encounter Activity emits NOTHING - no resource is created for it in eICR, so a reference would dangle (4.40 Planned Encounter is NOT suppressed - it maps to a planned Encounter, scenario D)">
     <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" mode="reference"
       select="(//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'])[1]" />
     <x:expect label="B1. No output at all" select="()" />
@@ -80,5 +80,27 @@
     </x:context>
     <x:expect label="C1. Both Problem Observations become Conditions, including the one inside the nested 4.80 (was: only the first level, leaving a dangling Encounter.diagnosis.condition)"
       test="count(//fhir:Condition) = 2" />
+  </x:scenario>
+
+  <!-- 20260730 Claude: Planned Encounter (4.40) -> Encounter status=planned (SG mapping decision; see the
+       dated comment in cda2fhir-Encounter.xslt). Inline fragment, so $gvCurrentIg is NA - the mapping is
+       IG-independent; the eICR case is covered end-to-end by the 2026-04 COVID snapshot and the conformance
+       delta run (zero new errors). -->
+  <x:scenario label="D. Planned Encounter (4.40) produces a planned Encounter resource">
+    <x:context>
+      <encounter xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" classCode="ENC" moodCode="INT" lcg:uuid="71000000-0000-0000-0000-000000000000">
+        <templateId root="2.16.840.1.113883.10.20.22.4.40" />
+        <templateId root="2.16.840.1.113883.10.20.22.4.40" extension="2014-06-09" />
+        <id root="71000000-0000-0000-0000-000000000001" />
+        <code code="270427003" codeSystem="2.16.840.1.113883.6.96" displayName="Patient-initiated encounter" />
+        <statusCode code="active" />
+        <effectiveTime value="20250224" />
+      </encounter>
+    </x:context>
+    <x:expect label="D1. status is planned, never the source statusCode" test="count(fhir:Encounter/fhir:status[@value = 'planned']) = 1" />
+    <x:expect label="D2. class falls back to the NI convention when the code is not an ActCode" test="count(fhir:Encounter/fhir:class/fhir:code[@value = 'NI']) = 1" />
+    <x:expect label="D3. the SNOMED code lands in type" test="count(fhir:Encounter/fhir:type/fhir:coding/fhir:code[@value = '270427003']) = 1" />
+    <x:expect label="D4. point effectiveTime becomes period.start" test="count(fhir:Encounter/fhir:period/fhir:start[@value = '2025-02-24']) = 1" />
+    <x:expect label="D5. identifier from id" test="count(fhir:Encounter/fhir:identifier) = 1" />
   </x:scenario>
 </x:description>

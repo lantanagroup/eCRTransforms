@@ -20,7 +20,9 @@
     <xsl:apply-templates select="cda:encounterParticipant" mode="provenance" />
   </xsl:template>
 
-  <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']" mode="bundle-entry">
+  <!-- 20260730 Claude: 4.40 removed from this match and the body match below - Planned Encounter now has
+       dedicated templates (see below, per SG's mapping decision). This shared pair keeps 4.49 semantics. -->
+  <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']" mode="bundle-entry">
     <!-- Don't want a second encounter if this is eICR -->
     <xsl:if test="$gvCurrentIg != 'eICR'">
       <xsl:call-template name="create-bundle-entry" />
@@ -39,14 +41,13 @@
   </xsl:template>
 
   <!-- 20260730 Claude: reference-mode counterpart of the eICR skip in the bundle-entry template above. For eICR
-       no resource is created for a body encounter (4.49/4.40), but Composition's section-entry hoisting still
-       emitted a reference to it wherever such an encounter appears outside the (wholly skipped) Encounters
-       section - e.g. a Planned Encounter (4.40, moodCode INT) in Plan of Treatment - leaving a dangling section
-       entry (found on the 2026-04 COVID eICR). Suppressing the reference here keeps the emit-reference /
-       create-resource pair in step at a single point. Whether an eICR Planned Encounter should instead become a
-       resource (Encounter status=planned, or the Appointment mapping the orphaned cda2fhir-Appointment.xslt once
-       attempted) is an open mapping decision - see codebase notes. -->
-  <xsl:template match="cda:encounter[cda:templateId/@root = ('2.16.840.1.113883.10.20.22.4.49', '2.16.840.1.113883.10.20.22.4.40')]" mode="reference">
+       no resource is created for a 4.49 Encounter Activity (the document's Encounter comes from
+       encompassingEncounter, and the Encounters section is skipped wholesale), but Composition's section-entry
+       hoisting would still emit a reference wherever one appears outside that section - leaving a dangling
+       entry. Suppressing the reference here keeps the emit-reference / create-resource pair in step at a single
+       point. 4.40 Planned Encounter is deliberately NOT listed: per SG's mapping decision (2026-07-30) it now
+       produces an Encounter with status=planned in every IG - see the dedicated templates below. -->
+  <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']" mode="reference">
     <xsl:param name="wrapping-elements" />
     <xsl:param name="pElementName">reference</xsl:param>
     <xsl:if test="$gvCurrentIg != 'eICR'">
@@ -57,8 +58,98 @@
     </xsl:if>
   </xsl:template>
 
+  <!-- 20260730 Claude: Planned Encounter (4.40) -> Encounter with status=planned, per SG's mapping decision.
+       Rationale (researched against FHIR R4, C-CDA, and the eCR IG):
+       - FHIR draws the boundary at booking-vs-care: Appointment models the scheduling process; "Encounter
+         instances may exist before the actual encounter takes place to convey pre-admission information" with
+         status=planned. C-CDA 4.40's moodCode value set is INT/ARQ/APT/PRMS/PRP - eCR content carries INT
+         (intent), which is planned-Encounter semantics, not a booking. APT/ARQ documents could justify an
+         Appointment mapping later; none exist in the corpus.
+       - Neither the eCR IG nor US Core profiles Appointment; fhir2cda already derives 4.40 FROM Encounter
+         resources, so this keeps the round trip symmetric.
+       - No meta.profile is claimed: eicr-encounter/us-ph-encounter describe THE eICR encounter (the
+         encompassingEncounter's), not a future planned visit. The eicr-document-bundle entry slicing is open.
+       These templates take priority over the shared 4.49|4.40 ones and produce a lean planned Encounter for
+       every IG (previously: none for eICR - the reference dangled until suppressed earlier today - and a
+       misshapen "current encounter"-style resource for other IGs).
+       NOT mapped (deliberately, to avoid re-creating the dangling-reference class): the SDLOC location
+       participant (no Location resource is created for a bare participantRole here) - candidate for a future
+       Encounter.location mapping if the Location side is wired up first. -->
+  <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']" mode="bundle-entry" priority="1">
+    <xsl:call-template name="create-bundle-entry" />
+    <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+    <!-- Planned encounters can still carry Encounter Diagnosis wrappers; unwrap recursively as for 4.49 -->
+    <xsl:apply-templates
+      select="cda:entryRelationship/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']"
+      mode="bundle-entry" />
+  </xsl:template>
+
+  <xsl:template match="cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']" priority="1">
+    <Encounter>
+      <xsl:comment>Planned Encounter</xsl:comment>
+      <xsl:apply-templates select="cda:id" />
+      <!-- moodCode INT/PRMS/PRP/ARQ/APT all describe an encounter that has not started -->
+      <status value="planned" />
+      <xsl:choose>
+        <!-- ActCode / ActEncounterCode codes are class; anything else (e.g. SNOMED) is type, class falls back -->
+        <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.5.4'] or cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+          <class>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+            <code value="{cda:code/@code}" />
+          </class>
+        </xsl:when>
+        <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4'] or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+          <class>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+            <code value="{cda:code/cda:translation[@codeSystem = ('2.16.840.1.113883.5.4', '2.16.840.1.113883.1.11.13955')][1]/@code}" />
+          </class>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- same no-information convention as the main encounter template -->
+          <class>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
+            <code value="NI" />
+            <display value="NoInformation" />
+          </class>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:for-each select="cda:code[not(@codeSystem = ('2.16.840.1.113883.5.4', '2.16.840.1.113883.1.11.13955'))]">
+        <xsl:call-template name="newCreateCodableConcept">
+          <xsl:with-param name="pElementName" select="'type'" />
+          <xsl:with-param name="pIncludeCoding" select="true()" />
+          <xsl:with-param name="includeTranslations" select="true()" />
+        </xsl:call-template>
+      </xsl:for-each>
+      <xsl:call-template name="subject-reference" />
+      <xsl:if test="cda:effectiveTime[@value | cda:low/@value]">
+        <period>
+          <xsl:choose>
+            <xsl:when test="cda:effectiveTime/@value">
+              <start value="{lcg:cdaTS2date(cda:effectiveTime/@value)}" />
+            </xsl:when>
+            <xsl:otherwise>
+              <start value="{lcg:cdaTS2date(cda:effectiveTime/cda:low/@value)}" />
+              <xsl:if test="cda:effectiveTime/cda:high/@value">
+                <end value="{lcg:cdaTS2date(cda:effectiveTime/cda:high/@value)}" />
+              </xsl:if>
+            </xsl:otherwise>
+          </xsl:choose>
+        </period>
+      </xsl:if>
+      <xsl:for-each select="cda:entryRelationship/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']">
+        <xsl:for-each select="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']">
+          <diagnosis>
+            <condition>
+              <xsl:apply-templates select="." mode="reference" />
+            </condition>
+          </diagnosis>
+        </xsl:for-each>
+      </xsl:for-each>
+    </Encounter>
+  </xsl:template>
+
   <xsl:template
-    match="cda:encompassingEncounter[not(@nullFlavor)] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.40']">
+    match="cda:encompassingEncounter[not(@nullFlavor)] | cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']">
     <Encounter>
       <xsl:choose>
         <xsl:when test="$gvCurrentIg = 'eICR'">

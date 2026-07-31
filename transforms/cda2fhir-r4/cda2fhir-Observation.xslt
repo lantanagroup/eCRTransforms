@@ -1069,7 +1069,9 @@
           <xsl:apply-templates select="cda:value" />
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:for-each select="cda:entryRelationship/cda:*">
+      <!-- 20260730 Claude: same suppression/nullFlavor guard as the generic observation's hasMember - a
+           suppressed child never becomes a resource, so referencing it dangles. -->
+      <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
         <hasMember>
           <xsl:apply-templates select="." mode="reference" />
         </hasMember>
@@ -1598,7 +1600,11 @@
       <!-- referenceRange -->
       <xsl:apply-templates select="cda:referenceRange" />
       <!-- hasMember -->
-      <xsl:for-each select="cda:entryRelationship/cda:observation">
+      <!-- 20260730 Claude: suppressed and null-flavored children excluded. A member on the suppression list never
+           becomes a standalone resource (it maps to a component/extension), so emitting hasMember for it dangles -
+           found on a template-less pregnancy-style observation whose 4.297/4.280 children are both suppressed
+           (eICR-R1_1/cda-fhir-bundle sample). Same rule Composition's section-entry hoisting already applies. -->
+      <xsl:for-each select="cda:entryRelationship/cda:observation[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
         <hasMember>
           <xsl:apply-templates select="." mode="reference" />
         </hasMember>

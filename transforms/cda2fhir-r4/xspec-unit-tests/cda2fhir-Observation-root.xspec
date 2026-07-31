@@ -211,4 +211,35 @@
             test="count(fhir:Observation/fhir:valueBoolean[@value = 'false']) = 1" />
     </x:scenario>
 
+
+    <!-- 20260730 Claude: regression test for defect item 40 - the generic (priority -1) observation emitted
+         hasMember for EVERY entryRelationship child, including templates on the suppression list, which never
+         become standalone resources; the reference dangled. -->
+    <x:scenario label="Generic observation hasMember skips suppressed members">
+        <x:context>
+            <observation xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" classCode="OBS" moodCode="EVN" lcg:uuid="80000000-0000-0000-0000-000000000000">
+                <id root="80000000-0000-0000-0000-000000000001" />
+                <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
+                <statusCode code="completed" />
+                <effectiveTime value="20250101" />
+                <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN" lcg:uuid="80000000-0000-0000-0000-000000000002">
+                        <!-- 4.297 is on templates-to-suppress.xml: maps to a component, never a resource -->
+                        <templateId root="2.16.840.1.113883.10.20.22.4.297" />
+                        <code code="11780-4" codeSystem="2.16.840.1.113883.6.1" />
+                        <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TS" value="20250801" />
+                    </observation>
+                </entryRelationship>
+                <entryRelationship typeCode="COMP">
+                    <observation classCode="OBS" moodCode="EVN" lcg:uuid="80000000-0000-0000-0000-000000000003">
+                        <templateId root="9.9.9.9.9" />
+                        <code code="8480-6" codeSystem="2.16.840.1.113883.6.1" />
+                    </observation>
+                </entryRelationship>
+            </observation>
+        </x:context>
+        <x:expect label="Only the non-suppressed member gets a hasMember" test="count(fhir:Observation/fhir:hasMember) = 1" />
+        <x:expect label="The hasMember references the non-suppressed member's uuid"
+            test="count(fhir:Observation/fhir:hasMember/fhir:reference[@value = 'urn:uuid:80000000-0000-0000-0000-000000000003']) = 1" />
+    </x:scenario>
 </x:description>

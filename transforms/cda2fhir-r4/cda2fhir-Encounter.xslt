@@ -27,9 +27,34 @@
       <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
     </xsl:if>
     <!-- Encounter Diagnosis/Problem Observation -->
+    <!-- 20260730 Claude: was a single-level path (entryRelationship/act[4.80]/entryRelationship/observation[4.4]),
+         but Encounter Diagnosis acts can NEST (act[4.80]/entryRelationship/act[4.80]/...), and the diagnosis
+         REFERENCE side walks //cda:act[4.80] document-deep - so a nested diagnosis observation was referenced but
+         its Condition never created (dangling Encounter.diagnosis.condition; found on the 2026-04 Pertussis
+         eICRs). Applying bundle-entry to the 4.80 act itself hands descent to the wrapper-unwrap template in
+         c-to-fhir-utility.xslt, which recurses through entryRelationship children and reaches every depth. -->
     <xsl:apply-templates
-      select="cda:entryRelationship/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']/cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.4']"
+      select="cda:entryRelationship/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']"
       mode="bundle-entry" />
+  </xsl:template>
+
+  <!-- 20260730 Claude: reference-mode counterpart of the eICR skip in the bundle-entry template above. For eICR
+       no resource is created for a body encounter (4.49/4.40), but Composition's section-entry hoisting still
+       emitted a reference to it wherever such an encounter appears outside the (wholly skipped) Encounters
+       section - e.g. a Planned Encounter (4.40, moodCode INT) in Plan of Treatment - leaving a dangling section
+       entry (found on the 2026-04 COVID eICR). Suppressing the reference here keeps the emit-reference /
+       create-resource pair in step at a single point. Whether an eICR Planned Encounter should instead become a
+       resource (Encounter status=planned, or the Appointment mapping the orphaned cda2fhir-Appointment.xslt once
+       attempted) is an open mapping decision - see codebase notes. -->
+  <xsl:template match="cda:encounter[cda:templateId/@root = ('2.16.840.1.113883.10.20.22.4.49', '2.16.840.1.113883.10.20.22.4.40')]" mode="reference">
+    <xsl:param name="wrapping-elements" />
+    <xsl:param name="pElementName">reference</xsl:param>
+    <xsl:if test="$gvCurrentIg != 'eICR'">
+      <xsl:next-match>
+        <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
+        <xsl:with-param name="pElementName" select="$pElementName" />
+      </xsl:next-match>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template

@@ -3135,12 +3135,6 @@
                   <display value="Ultrasonography (procedure)"/>
                </coding>
             </method>
-            <hasMember><!--2.16.840.1.113883.10.20.22.4.297:2018-04-01-->
-               <reference value="urn:uuid:UUID073"/>
-            </hasMember>
-            <hasMember><!--2.16.840.1.113883.10.20.22.4.280:2018-04-01-->
-               <reference value="urn:uuid:UUID074"/>
-            </hasMember>
          </Observation>
       </resource>
    </entry>
@@ -3154,7 +3148,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID075"/>
+               <value value="UUID073"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -3183,7 +3177,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID076"/>
+               <value value="UUID074"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -3218,7 +3212,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID077"/>
+               <value value="UUID075"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -3244,6 +3238,12 @@
             </subject>
             <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
+               <reference value="urn:uuid:UUID076"/>
+            </hasMember>
+            <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
+               <reference value="urn:uuid:UUID077"/>
+            </hasMember>
+            <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
                <reference value="urn:uuid:UUID078"/>
             </hasMember>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
@@ -3255,17 +3255,11 @@
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
                <reference value="urn:uuid:UUID081"/>
             </hasMember>
-            <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID082"/>
-            </hasMember>
-            <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID083"/>
-            </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID078"/>
+      <fullUrl value="urn:uuid:UUID076"/>
       <resource>
          <Observation>
             <meta>
@@ -3274,7 +3268,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID084"/>
+               <value value="UUID082"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -3304,7 +3298,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID079"/>
+      <fullUrl value="urn:uuid:UUID077"/>
       <resource>
          <Observation>
             <meta>
@@ -3313,7 +3307,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID085"/>
+               <value value="UUID083"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -3343,7 +3337,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID080"/>
+      <fullUrl value="urn:uuid:UUID078"/>
       <resource>
          <Observation>
             <meta>
@@ -3352,7 +3346,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID086"/>
+               <value value="UUID084"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -3382,7 +3376,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID081"/>
+      <fullUrl value="urn:uuid:UUID079"/>
       <resource>
          <Observation>
             <meta>
@@ -3391,7 +3385,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID087"/>
+               <value value="UUID085"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -3421,7 +3415,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID082"/>
+      <fullUrl value="urn:uuid:UUID080"/>
       <resource>
          <Observation>
             <meta>
@@ -3430,7 +3424,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID088"/>
+               <value value="UUID086"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -3464,7 +3458,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID083"/>
+      <fullUrl value="urn:uuid:UUID081"/>
       <resource>
          <Observation>
             <meta>
@@ -3473,7 +3467,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.9.9.9.9.9"/>
-               <value value="UUID089"/>
+               <value value="UUID087"/>
             </identifier>
             <status value="final"/>
             <category>

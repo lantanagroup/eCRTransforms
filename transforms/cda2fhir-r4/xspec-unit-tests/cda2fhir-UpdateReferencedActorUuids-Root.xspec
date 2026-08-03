@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260803 Claude (item 41): unit coverage for the update-referenced-actor-uuids phase (it lives in the
+     SaxonPE/NativeUUIDGen entry points, kept in sync by hand - these scenarios run the NativeUUIDGen copy).
+     The phase used to blank the uuid of a hollow author whose id matched nothing (downstream references
+     became the invalid "urn:uuid:") and to redirect matched hollow authors to the matched element's own
+     uuid even when no resource would ever be created there (person-less participations get no
+     PractitionerRole). Contexts are inline with hand-written lcg:uuid attributes because the phase runs
+     on the already-annotated intermediate. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" run-as="external">
+
+    <x:scenario label="hollow author matching a person-bearing participation redirects to that participation's uuid (unchanged behavior)">
+        <x:context mode="update-referenced-actor-uuids">
+            <cda:ClinicalDocument lcg:uuid="00000000-0000-0000-0000-000000000001">
+                <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000a">
+                    <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000aa">
+                        <cda:id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                        <cda:assignedPerson lcg:uuid="00000000-0000-0000-0000-0000000000ab">
+                            <cda:name><cda:family>Complete</cda:family></cda:name>
+                        </cda:assignedPerson>
+                    </cda:assignedAuthor>
+                </cda:author>
+                <cda:component>
+                    <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000b">
+                        <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000bb">
+                            <cda:id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                        </cda:assignedAuthor>
+                    </cda:author>
+                </cda:component>
+            </cda:ClinicalDocument>
+        </x:context>
+        <x:expect label="the hollow author's uuid is rewritten to the complete assignedAuthor's uuid (a PractitionerRole will exist there)"
+            test="count(//cda:component/cda:author/cda:assignedAuthor[@lcg:uuid = '00000000-0000-0000-0000-0000000000aa']) = 1" />
+        <x:expect label="the hollow author is not flagged unmatched"
+            test="count(//cda:assignedAuthor[@lcg:unmatched]) = 0" />
+    </x:scenario>
+
+    <x:scenario label="hollow author matching a person-less participation routes to that participation's organization uuid">
+        <x:context mode="update-referenced-actor-uuids">
+            <cda:ClinicalDocument lcg:uuid="00000000-0000-0000-0000-000000000001">
+                <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000a">
+                    <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000aa">
+                        <cda:id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                        <cda:telecom use="WP" value="tel:+1-555-555-1002" />
+                        <cda:representedOrganization lcg:uuid="00000000-0000-0000-0000-0000000000ac">
+                            <cda:name>Org Only</cda:name>
+                        </cda:representedOrganization>
+                    </cda:assignedAuthor>
+                </cda:author>
+                <cda:component>
+                    <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000b">
+                        <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000bb">
+                            <cda:id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                        </cda:assignedAuthor>
+                    </cda:author>
+                </cda:component>
+            </cda:ClinicalDocument>
+        </x:context>
+        <x:expect label="the hollow author's uuid is rewritten to the representedOrganization's uuid, because the pipeline creates an Organization but no PractitionerRole for a person-less participation"
+            test="count(//cda:component/cda:author/cda:assignedAuthor[@lcg:uuid = '00000000-0000-0000-0000-0000000000ac']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="hollow author matching nothing keeps its minted uuid and is flagged lcg:unmatched">
+        <x:context mode="update-referenced-actor-uuids">
+            <cda:ClinicalDocument lcg:uuid="00000000-0000-0000-0000-000000000001">
+                <cda:component>
+                    <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000b">
+                        <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000bb">
+                            <cda:id root="1.2.840.114350.1.13.212.2.7.1.1133" extension="9999999999" />
+                            <cda:id root="2.16.840.1.113883.4.6" extension="9999999999" />
+                        </cda:assignedAuthor>
+                    </cda:author>
+                </cda:component>
+            </cda:ClinicalDocument>
+        </x:context>
+        <x:expect label="the minted uuid is kept (it was blanked before, emitting invalid urn:uuid: references downstream)"
+            test="count(//cda:assignedAuthor[@lcg:uuid = '00000000-0000-0000-0000-0000000000bb']) = 1" />
+        <x:expect label="the author is flagged lcg:unmatched='true' so the global pass in cda2fhir-Bundle.xslt creates an identifier-only Practitioner at its uuid"
+            test="count(//cda:assignedAuthor[@lcg:unmatched = 'true']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="hollow author matching the patient still redirects to the recordTarget uuid">
+        <x:context mode="update-referenced-actor-uuids">
+            <cda:ClinicalDocument lcg:uuid="00000000-0000-0000-0000-000000000001">
+                <cda:recordTarget lcg:uuid="00000000-0000-0000-0000-00000000000c">
+                    <cda:patientRole lcg:uuid="00000000-0000-0000-0000-0000000000cc">
+                        <cda:id root="2.16.840.1.113883.19.5" extension="PT-1234" />
+                        <cda:patient lcg:uuid="00000000-0000-0000-0000-0000000000cd">
+                            <cda:name><cda:family>Patient</cda:family></cda:name>
+                        </cda:patient>
+                    </cda:patientRole>
+                </cda:recordTarget>
+                <cda:component>
+                    <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000b">
+                        <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000bb">
+                            <cda:id root="2.16.840.1.113883.19.5" extension="PT-1234" />
+                        </cda:assignedAuthor>
+                    </cda:author>
+                </cda:component>
+            </cda:ClinicalDocument>
+        </x:context>
+        <x:expect label="the hollow author's uuid is rewritten to the recordTarget's uuid (the Patient resource)"
+            test="count(//cda:component/cda:author/cda:assignedAuthor[@lcg:uuid = '00000000-0000-0000-0000-00000000000c']) = 1" />
+    </x:scenario>
+
+</x:description>

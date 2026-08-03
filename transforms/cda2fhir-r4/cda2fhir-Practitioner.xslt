@@ -82,5 +82,35 @@
         </qualification>
     </xsl:template>
 
-        
+    <!-- 20260803 Claude (item 41): a "hollow" author (assignedAuthor carrying only <id> elements) that
+         references no complete participation elsewhere in the document used to have its uuid blanked in
+         the update-referenced-actor-uuids phase, so requester / Provenance.agent.who references were
+         emitted as the invalid "urn:uuid:". The phase now keeps the minted uuid and flags the author
+         lcg:unmatched="true"; a global pass in cda2fhir-Bundle.xslt reaches these two templates.
+         The result is an identifier-only Practitioner: the ids a hollow author carries (typically an
+         Epic-internal id plus an NPI) are real data worth preserving, and requester and agent.who both
+         allow Reference(Practitioner). name is required by us-core-practitioner and is genuinely absent
+         in source, so per the house convention family carries the data-absent-reason extension (same
+         shape the datatypes module emits for a name element without family). -->
+    <xsl:template match="cda:assignedAuthor" mode="unmatched-participation-entry">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+
+    <xsl:template match="cda:assignedAuthor[@lcg:unmatched = 'true']" priority="2">
+        <Practitioner>
+            <meta>
+                <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
+            </meta>
+            <xsl:call-template name="breadcrumb-comment" />
+            <xsl:apply-templates select="cda:id" />
+            <name>
+                <family>
+                    <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown" />
+                    </extension>
+                </family>
+            </name>
+        </Practitioner>
+    </xsl:template>
+
 </xsl:stylesheet>

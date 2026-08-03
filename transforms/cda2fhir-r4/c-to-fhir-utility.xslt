@@ -562,7 +562,9 @@
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.80']]" mode="reference">
         <xsl:param name="wrapping-elements" />
         <!-- Remove Encounter Diagnosis wrappers, since maps to Condition.category -->
-        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+        <!-- 20260803 Claude (item 41): skip suppressed templates when unwrapping - they produce no
+             resource, so a reference to them dangles (same rule as section entries and item 40). -->
+        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
             <xsl:apply-templates select="." mode="reference">
                 <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
             </xsl:apply-templates>
@@ -580,7 +582,9 @@
   <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.36']]" mode="reference">
     <xsl:param name="wrapping-elements" />
     <!-- Remove Admission Medication wrappers, since maps to MedicationAdministration -->
-    <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+    <!-- 20260803 Claude (item 41): skip suppressed templates when unwrapping - they produce no
+         resource, so a reference to them dangles (same rule as section entries and item 40). -->
+    <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
       <xsl:apply-templates select="." mode="reference">
         <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
       </xsl:apply-templates>

@@ -27,7 +27,11 @@
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.34'] or
             cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.33']]" mode="reference">
         <xsl:param name="wrapping-elements" />
-        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)]">
+        <!-- 20260803 Claude (item 41): consult the suppression list here, same rule as section entries
+             and hasMember (item 40). A suppressed template (e.g. Comment Activity 4.64 nested in a
+             Problem Concern Act) produces no resource - the bundle-entry side already skips it via the
+             suppression no-op in c-to-fhir-utility.xslt - so unwrapping a reference to it dangles. -->
+        <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
             <xsl:apply-templates select="." mode="reference">
                 <xsl:with-param name="wrapping-elements" select="$wrapping-elements" />
             </xsl:apply-templates>

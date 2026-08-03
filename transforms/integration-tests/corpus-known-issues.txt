@@ -4,5 +4,3 @@
 # this file is the list of accepted open defects, and it should only shrink.
 # Each entry should correspond to an open defect item in the project's
 # codebase notes.
-samples/cda/eICR-R1_1/Test eICR (1).xml	7	dangling reference urn:uuid:<uuid>
-samples/cda/eICR-R1_1/Test eICR (1).xml	31	empty reference

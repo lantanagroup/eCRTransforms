@@ -62,6 +62,15 @@
       <xsl:for-each select="//cda:participant/cda:participantRole[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.37']">
         <xsl:apply-templates mode="bundle-entry" select="." />
       </xsl:for-each>
+      <!-- 20260803 Claude (item 41): identifier-only Practitioner resources for hollow authors whose id
+           matched no complete participation (flagged lcg:unmatched="true" by the
+           update-referenced-actor-uuids phase in the SaxonPE/NativeUUIDGen entry points). This is a
+           global pass like the LOC pass above because the local author fan-outs can't be relied on to
+           reach every hollow author: several Observation fan-outs filter authors on having grandchildren,
+           which an id-only author never has. Templates live in cda2fhir-Practitioner.xslt. -->
+      <xsl:for-each select="//cda:assignedAuthor[@lcg:unmatched = 'true']">
+        <xsl:apply-templates select="." mode="unmatched-participation-entry" />
+      </xsl:for-each>
     </Bundle>
   </xsl:template>
 </xsl:stylesheet>

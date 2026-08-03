@@ -43,4 +43,40 @@
             test="count(fhir:Condition/fhir:clinicalStatus) = 0" />
     </x:scenario>
 
+    <!-- 20260803 Claude (item 41): the concern-act wrapper unwrap in reference mode emitted references
+         for EVERY entryRelationship child, including suppressed templates that never produce a resource.
+         A Comment Activity (4.64) nested in a Problem Concern Act became a dangling
+         Composition.section.entry (3 of them in the Epic corpus document). Same rule as section entries
+         (item 21) and hasMember (item 40): consult templates-to-suppress.xml before emitting. -->
+    <x:scenario label="Concern act unwrap in reference mode skips suppressed children (Comment Activity 4.64)">
+        <x:context mode="reference" select="//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.3']">
+            <x:param name="wrapping-elements" select="'entry'" />
+            <cda:section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <cda:entry>
+                    <cda:act classCode="ACT" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000d1">
+                        <cda:templateId root="2.16.840.1.113883.10.20.22.4.3" />
+                        <cda:entryRelationship typeCode="SUBJ">
+                            <cda:observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000d2">
+                                <cda:templateId root="2.16.840.1.113883.10.20.22.4.4" />
+                                <cda:code code="64572001" codeSystem="2.16.840.1.113883.6.96" />
+                                <cda:value xsi:type="CD" code="840539006" codeSystem="2.16.840.1.113883.6.96" />
+                            </cda:observation>
+                        </cda:entryRelationship>
+                        <cda:entryRelationship typeCode="SUBJ" inversionInd="true">
+                            <cda:act classCode="ACT" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000d3">
+                                <cda:templateId root="2.16.840.1.113883.10.20.22.4.64" />
+                                <cda:code code="48767-8" codeSystem="2.16.840.1.113883.6.1" />
+                                <cda:text>A comment</cda:text>
+                            </cda:act>
+                        </cda:entryRelationship>
+                    </cda:act>
+                </cda:entry>
+            </cda:section>
+        </x:context>
+        <x:expect label="exactly one entry reference is emitted (the Problem Observation)"
+            test="count(fhir:entry/fhir:reference[@value = 'urn:uuid:00000000-0000-0000-0000-0000000000d2']) = 1" />
+        <x:expect label="no reference is emitted to the suppressed Comment Activity (it produces no resource, so the reference would dangle)"
+            test="count(//fhir:reference[@value = 'urn:uuid:00000000-0000-0000-0000-0000000000d3']) = 0" />
+    </x:scenario>
+
 </x:description>

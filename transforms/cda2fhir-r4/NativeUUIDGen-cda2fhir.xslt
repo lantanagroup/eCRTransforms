@@ -60,57 +60,80 @@ limitations under the License.
         </xsl:variable>
         <!-- get the first instance of that author/patient id match (because there could be multiple) and
                      grab the @lcg:uuid value-->
+        <!-- 20260803 Claude (item 41): the matched uuid is now routed by the shape of the matched
+             participation (see route-matched-participation-uuid) instead of always taking the matched
+             element's own uuid. A hollow author can legitimately redirect to a complete participation
+             that has no assignedPerson - the pipeline deliberately creates no PractitionerRole for a
+             person-less participation, so pointing a reference at its uuid dangles. Routing to its
+             representedOrganization (an Organization resource IS created there) keeps the emitted
+             reference and the created resource in step. -->
         <xsl:variable name="vLcgUuid">
             <xsl:choose>
                 <xsl:when test="string-length($vAuthorIdRoot) > 0 and string-length($vAuthorIdExtension) > 0">
                     <xsl:for-each select="//cda:*[cda:id/@root = $vAuthorIdRoot][cda:id/@extension = $vAuthorIdExtension][descendant::node()/descendant::node()]">
                         <xsl:if test="position() = 1">
-                            <!-- if this is patient need to go up one level to recordTarget -->
-                            <xsl:choose>
-                                <xsl:when test="parent::cda:recordTarget">
-                                    <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="@lcg:uuid" />
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:call-template name="route-matched-participation-uuid" />
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:when test="string-length($vAuthorIdRoot) > 0">
                     <xsl:for-each select="//cda:*[cda:id/@root = $vAuthorIdRoot][descendant::node()/descendant::node()]">
                         <xsl:if test="position() = 1">
-                            <!-- if this is patient need to go up one level to recordTarget -->
-                            <xsl:choose>
-                                <xsl:when test="parent::cda:recordTarget">
-                                    <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="@lcg:uuid" />
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:call-template name="route-matched-participation-uuid" />
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:when test="string-length($vAuthorIdExtension) > 0">
                     <xsl:for-each select="//cda:*[cda:id/@extension = $vAuthorIdExtension][descendant::node()/descendant::node()]">
                         <xsl:if test="position() = 1">
-                            <!-- if this is patient need to go up one level to recordTarget -->
-                            <xsl:choose>
-                                <xsl:when test="parent::cda:recordTarget">
-                                    <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="@lcg:uuid" />
-                                </xsl:otherwise>
-                            </xsl:choose>
+                            <xsl:call-template name="route-matched-participation-uuid" />
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
-        <xsl:attribute name="lcg:uuid">
-            <xsl:value-of select="$vLcgUuid" />
-        </xsl:attribute>
+        <!-- 20260803 Claude (item 41): previously an unmatched hollow author had its uuid rewritten to
+             the empty string, so every downstream reference to it was emitted as the invalid
+             "urn:uuid:" (31 of them in the Epic corpus document). Now the original minted uuid is kept
+             and the author is flagged lcg:unmatched="true"; a global pass in cda2fhir-Bundle.xslt
+             creates an identifier-only Practitioner at that uuid (cda2fhir-Practitioner.xslt), so the
+             ids the document DOES carry (typically an NPI) are preserved instead of thrown away. -->
+        <xsl:choose>
+            <xsl:when test="string-length($vLcgUuid) > 0">
+                <xsl:attribute name="lcg:uuid">
+                    <xsl:value-of select="$vLcgUuid" />
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy />
+                <xsl:attribute name="lcg:unmatched">true</xsl:attribute>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <!-- 20260803 Claude (item 41): route a matched complete participation to the uuid a resource will
+         actually exist at. Person-bearing participations keep today's behavior (their uuid carries a
+         PractitionerRole); patient redirects to recordTarget (Patient); an authoring device routes to
+         the Device; a person-less participation with an organization routes to that organization's
+         uuid because the pipeline only creates Organization (never PractitionerRole) for it. -->
+    <xsl:template name="route-matched-participation-uuid">
+        <xsl:choose>
+            <!-- if this is patient need to go up one level to recordTarget -->
+            <xsl:when test="parent::cda:recordTarget">
+                <xsl:value-of select="parent::cda:recordTarget/@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="cda:assignedPerson | cda:associatedPerson | cda:informationRecipient">
+                <xsl:value-of select="@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="cda:assignedAuthoringDevice">
+                <xsl:value-of select="cda:assignedAuthoringDevice/@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="cda:representedOrganization | cda:scopingOrganization">
+                <xsl:value-of select="(cda:representedOrganization | cda:scopingOrganization)[1]/@lcg:uuid" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="@lcg:uuid" />
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

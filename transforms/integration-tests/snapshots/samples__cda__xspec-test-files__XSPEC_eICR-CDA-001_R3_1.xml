@@ -5469,4 +5469,34 @@
          </Observation>
       </resource>
    </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID159"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.9.9.9.9.9"][@extension="UUID002"]]/component/structuredBody/component/section/entry/observation[cda:id[@root="UUID137"]]/author/assignedAuthor[cda:id]-->
+            <identifier>
+               <system>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </system>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </value>
+            </identifier>
+            <name>
+               <family>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </family>
+            </name>
+         </Practitioner>
+      </resource>
+   </entry>
 </Bundle>

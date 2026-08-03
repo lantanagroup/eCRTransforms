@@ -6,8 +6,12 @@
   <x:scenario
         label="Scenario for testing template with match 'cda:author'">
       <x:context href="../../../samples/cda/eICR-R3/eICR-CDA-001_R3.xml" />
-      <x:expect label="SHOULD contain zero or one [0..1] @extension (CONF:1198-32885)" 
-          test="count(//fhir:Practitioner/fhir:identifier/fhir:system) = 2" />
+      <!-- 20260803 Claude (item 41): 2 -> 3. This document contains a hollow assignedAuthor whose only
+           id is nullFlavor; its uuid used to be blanked by the update-referenced-actor-uuids phase and
+           no resource was created. Unmatched hollow authors now produce an identifier-only Practitioner
+           (identifier + name both data-absent-reason here), which adds one identifier/system. -->
+      <x:expect label="SHOULD contain zero or one [0..1] @extension (CONF:1198-32885)"
+          test="count(//fhir:Practitioner/fhir:identifier/fhir:system) = 3" />
       <x:expect label="SHALL contain exactly one [1..1] @root='2.16.840.1.113883.4.6' National Provider Identifier (CONF:1198-32884)" 
           test="count(//fhir:Practitioner/fhir:identifier[fhir:system/@value='urn:ietf:rfc:3986'][fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']) = 1" />
       
@@ -34,8 +38,34 @@
           test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name) = 1" />
       <x:expect label="The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (surname)  (CONF:1198-16789)." 
           test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name/fhir:family) = 1" />
-      <x:expect label="The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (firstname)  (CONF:1198-16789)." 
+      <x:expect label="The assignedPerson, if present, SHALL contain at least one [1..*] US Realm Person Name (firstname)  (CONF:1198-16789)."
           test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value='urn:uuid:ec399842-7c0d-4cfc-ada3-f11a799d0460']/fhir:name/fhir:given) = 1" />
   </x:scenario>
-    
+
+    <!-- 20260803 Claude (item 41): an unmatched hollow author (flagged lcg:unmatched="true" by the
+         update-referenced-actor-uuids phase) becomes an identifier-only Practitioner so the ids the
+         document carries (typically an NPI) are preserved and requester / Provenance.agent.who
+         references resolve. Before this template existed the author's uuid was blanked and downstream
+         references were emitted as the invalid "urn:uuid:". -->
+    <x:scenario label="Unmatched hollow assignedAuthor becomes an identifier-only Practitioner with a data-absent-reason family">
+        <x:context select="//cda:assignedAuthor">
+            <cda:author lcg:uuid="00000000-0000-0000-0000-00000000000a">
+                <cda:assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000aa" lcg:unmatched="true">
+                    <cda:id root="1.2.840.114350.1.13.212.2.7.1.1133" extension="9999999999" />
+                    <cda:id root="2.16.840.1.113883.4.6" extension="9999999999" />
+                </cda:assignedAuthor>
+            </cda:author>
+        </x:context>
+        <x:expect label="produces a Practitioner, not a PractitionerRole"
+            test="count(fhir:Practitioner) = 1 and count(fhir:PractitionerRole) = 0" />
+        <x:expect label="claims us-core-practitioner"
+            test="count(fhir:Practitioner/fhir:meta/fhir:profile[@value = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner']) = 1" />
+        <x:expect label="both source ids are preserved as identifiers"
+            test="count(fhir:Practitioner/fhir:identifier) = 2" />
+        <x:expect label="the NPI id is mapped to the us-npi identifier system"
+            test="count(fhir:Practitioner/fhir:identifier[fhir:system/@value = 'http://hl7.org/fhir/sid/us-npi'][fhir:value/@value = '9999999999']) = 1" />
+        <x:expect label="name is genuinely absent in source, so family carries the data-absent-reason extension (us-core requires name.family)"
+            test="count(fhir:Practitioner/fhir:name/fhir:family/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+    </x:scenario>
+
 </x:description>

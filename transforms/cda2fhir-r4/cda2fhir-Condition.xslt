@@ -99,7 +99,10 @@
                     <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
                     <code>
                         <xsl:choose>
-                            <xsl:when test="cda:effectiveTime/cda:high or cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='413322009'">
+                            <!-- 20260803 Claude (item 44/CDAFHIR-011): was cda:effectiveTime/cda:high (existence) -
+                                 a <high nullFlavor="UNK"/> means the end is UNKNOWN, not that the problem is
+                                 resolved. Now requires an actual @value. -->
+                            <xsl:when test="cda:effectiveTime/cda:high/@value or cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='413322009'">
                                 <xsl:attribute name="value">resolved</xsl:attribute>
                             </xsl:when>
                             <xsl:when test="cda:entryRelationship/cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.6']/cda:value/@code='246455001'">

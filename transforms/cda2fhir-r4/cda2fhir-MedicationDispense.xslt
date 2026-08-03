@@ -103,7 +103,9 @@
       <xsl:call-template name="subject-reference" />
 
       <!-- supportingInformation: anything in an entryRelationship that isn't already mapped -->
-      <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.118')]">
+      <!-- 20260803 Claude (item 45/CDAFHIR-021): also skip null-flavored and suppressed children -
+           the bundle-entry side drops both, so referencing them dangles (same rule as item 40/41). -->
+      <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])][not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.118')]">
         <supportingInformation>
           <reference value="urn:uuid:{@lcg:uuid}" />
         </supportingInformation>

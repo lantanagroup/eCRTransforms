@@ -839,7 +839,7 @@
                <value value="2219200002"/>
             </identifier>
             <!--Id from Encounter Diagnosis Act-->
-            <status value="finished"/>
+            <status value="in-progress"/>
             <class>
                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
                <code value="OBSENC"/>
@@ -1330,7 +1330,7 @@
             <clinicalStatus>
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
-                  <code value="resolved"/>
+                  <code value="active"/>
                </coding>
             </clinicalStatus>
             <category>
@@ -1367,7 +1367,7 @@
             <clinicalStatus>
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
-                  <code value="resolved"/>
+                  <code value="active"/>
                </coding>
             </clinicalStatus>
             <category>

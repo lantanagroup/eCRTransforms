@@ -170,19 +170,24 @@
       </xsl:apply-templates>
       <content>
         <attachment>
-          <url>
-            <xsl:choose>
-              <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+          <!-- 20260803 Claude (CDAFHIR-015): the no-setId case used to emit an empty <url/> (comment
+               only, no value, no extension) - an invalid empty primitive (ele-1). attachment.url is
+               optional, so the element is now omitted entirely; the WARNING comment survives outside it. -->
+          <xsl:choose>
+            <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+              <url>
                 <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-              </xsl:when>
-              <xsl:when test="cda:setId/@root">
+              </url>
+            </xsl:when>
+            <xsl:when test="cda:setId/@root">
+              <url>
                 <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
-              </xsl:otherwise>
-            </xsl:choose>
-          </url>
+              </url>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
+            </xsl:otherwise>
+          </xsl:choose>
         </attachment>
       </content>
     </DocumentReference>

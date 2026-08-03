@@ -1165,70 +1165,6 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID029"/>
-      <resource>
-         <Condition>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
-            </meta>
-            <category>
-               <coding>
-                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
-                  <code value="problem-list-item"/>
-               </coding>
-            </category>
-            <code>
-               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                  <valueCode value="not-applicable"/>
-               </extension>
-            </code>
-            <subject>
-               <reference value="urn:uuid:UUID004"/>
-            </subject>
-         </Condition>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID030"/>
-      <resource>
-         <Observation>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
-            </meta>
-            <text>
-               <status value="generated"/>
-               <div xmlns="http://www.w3.org/1999/xhtml">
-                  <p>
-                     <b>No test reported</b>
-                  </p>
-               </div>
-            </text>
-            <status value="final"/>
-            <category>
-               <coding>
-                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
-                  <code value="laboratory"/>
-                  <display value="Laboratory"/>
-               </coding>
-               <text value="Laboratory"/>
-            </category>
-            <code>
-               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                  <valueCode value="not-applicable"/>
-               </extension>
-            </code>
-            <subject>
-               <reference value="urn:uuid:UUID004"/>
-            </subject>
-            <valueQuantity>
-               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                  <valueCode value="not-applicable"/>
-               </extension>
-            </valueQuantity>
-         </Observation>
-      </resource>
-   </entry>
-   <entry>
       <fullUrl value="urn:uuid:UUID010"/>
       <resource>
          <DocumentReference>
@@ -1242,7 +1178,7 @@
             </masterIdentifier>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.380.3.7.1.1"/>
-               <value value="UUID031:1"/>
+               <value value="UUID029:1"/>
             </identifier>
             <status value="current"/>
             <type>
@@ -1282,7 +1218,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID032"/>
+               <value value="urn:uuid:UUID030"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1335,7 +1271,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID033"/>
+               <value value="urn:uuid:UUID031"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1364,7 +1300,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID034"/>
+               <value value="urn:uuid:UUID032"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1391,7 +1327,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID035"/>
+               <value value="urn:uuid:UUID033"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1471,6 +1407,18 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID034"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID035"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
                   <reference value="urn:uuid:UUID036"/>
                </valueReference>
             </extension>
@@ -1480,21 +1428,9 @@
                   <reference value="urn:uuid:UUID037"/>
                </valueReference>
             </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID038"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID039"/>
-               </valueReference>
-            </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID040"/>
+               <value value="urn:uuid:UUID038"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1509,11 +1445,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID041"/>
+               <reference value="urn:uuid:UUID039"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID040"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -1533,7 +1469,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID036"/>
+      <fullUrl value="urn:uuid:UUID034"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1579,7 +1515,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID037"/>
+      <fullUrl value="urn:uuid:UUID035"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1625,7 +1561,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID038"/>
+      <fullUrl value="urn:uuid:UUID036"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1671,7 +1607,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID039"/>
+      <fullUrl value="urn:uuid:UUID037"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1717,7 +1653,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID041"/>
+      <fullUrl value="urn:uuid:UUID039"/>
       <resource>
          <Organization>
             <meta>
@@ -1760,7 +1696,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID042"/>
+      <fullUrl value="urn:uuid:UUID040"/>
       <resource>
          <Organization>
             <meta>

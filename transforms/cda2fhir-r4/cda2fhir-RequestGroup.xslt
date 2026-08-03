@@ -61,13 +61,17 @@
                  ("RG: Commented out for demo"), so every RequestGroup was emitted with no actions and no reasons;
                  re-enabled. The bundle entries for the referenced clinical statements are already created by the
                  bundle-entry template above, so these references resolve -->
+            <!-- 20260803 Claude (item 45/CDAFHIR-027): both loops now skip null-flavored and suppressed
+                 children individually (the outer predicate only checked that SOME child qualified, then
+                 referenced ALL of them) - the bundle-entry side drops suppressed/null-flavored children,
+                 so referencing them dangles (same rule as item 40/41). -->
             <xsl:for-each select="cda:entryRelationship[@typeCode = 'RSON'][cda:*[not(@nullFlavor)]]">
-                <xsl:apply-templates select="cda:*" mode="reference">
+                <xsl:apply-templates select="cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]" mode="reference">
                     <xsl:with-param name="wrapping-elements">reasonReference</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:for-each>
             <xsl:for-each select="cda:entryRelationship[not(@typeCode = 'RSON')][cda:*[not(@nullFlavor)]]">
-                <xsl:for-each select="cda:*">
+                <xsl:for-each select="cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
                     <xsl:apply-templates select="." mode="reference">
                         <xsl:with-param name="wrapping-elements">action/resource</xsl:with-param>
                     </xsl:apply-templates>

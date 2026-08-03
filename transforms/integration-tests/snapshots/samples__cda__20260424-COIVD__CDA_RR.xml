@@ -979,70 +979,6 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID034"/>
-      <resource>
-         <Condition>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
-            </meta>
-            <category>
-               <coding>
-                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
-                  <code value="problem-list-item"/>
-               </coding>
-            </category>
-            <code>
-               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                  <valueCode value="not-applicable"/>
-               </extension>
-            </code>
-            <subject>
-               <reference value="urn:uuid:UUID004"/>
-            </subject>
-         </Condition>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID035"/>
-      <resource>
-         <Observation>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
-            </meta>
-            <text>
-               <status value="generated"/>
-               <div xmlns="http://www.w3.org/1999/xhtml">
-                  <p>
-                     <b>No test reported</b>
-                  </p>
-               </div>
-            </text>
-            <status value="final"/>
-            <category>
-               <coding>
-                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
-                  <code value="laboratory"/>
-                  <display value="Laboratory"/>
-               </coding>
-               <text value="Laboratory"/>
-            </category>
-            <code>
-               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                  <valueCode value="not-applicable"/>
-               </extension>
-            </code>
-            <subject>
-               <reference value="urn:uuid:UUID004"/>
-            </subject>
-            <valueQuantity>
-               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                  <valueCode value="not-applicable"/>
-               </extension>
-            </valueQuantity>
-         </Observation>
-      </resource>
-   </entry>
-   <entry>
       <fullUrl value="urn:uuid:UUID009"/>
       <resource>
          <DocumentReference>
@@ -1056,7 +992,7 @@
             </masterIdentifier>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.380.3.7.1.1"/>
-               <value value="UUID036:3"/>
+               <value value="UUID034:3"/>
             </identifier>
             <status value="current"/>
             <type>
@@ -1096,7 +1032,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID037"/>
+               <value value="urn:uuid:UUID035"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1122,7 +1058,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID038"/>
+               <value value="urn:uuid:UUID036"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1149,7 +1085,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID039"/>
+               <value value="urn:uuid:UUID037"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1213,24 +1149,24 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID038"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID039"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
                   <reference value="urn:uuid:UUID040"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID041"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID042"/>
                </valueReference>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID043"/>
+               <value value="urn:uuid:UUID041"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1245,11 +1181,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID044"/>
+               <reference value="urn:uuid:UUID042"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID045"/>
+               <reference value="urn:uuid:UUID043"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -1269,7 +1205,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID040"/>
+      <fullUrl value="urn:uuid:UUID038"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1315,7 +1251,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID041"/>
+      <fullUrl value="urn:uuid:UUID039"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1361,7 +1297,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID042"/>
+      <fullUrl value="urn:uuid:UUID040"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1416,7 +1352,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID046"/>
+               <value value="urn:uuid:UUID044"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1480,24 +1416,24 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID045"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID046"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
                   <reference value="urn:uuid:UUID047"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID048"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID049"/>
                </valueReference>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID050"/>
+               <value value="urn:uuid:UUID048"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1512,11 +1448,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID051"/>
+               <reference value="urn:uuid:UUID049"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID052"/>
+               <reference value="urn:uuid:UUID050"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -1536,7 +1472,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID047"/>
+      <fullUrl value="urn:uuid:UUID045"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1582,7 +1518,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID048"/>
+      <fullUrl value="urn:uuid:UUID046"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1628,7 +1564,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID049"/>
+      <fullUrl value="urn:uuid:UUID047"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1683,7 +1619,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID053"/>
+               <value value="urn:uuid:UUID051"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1747,18 +1683,18 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID054"/>
+                  <reference value="urn:uuid:UUID052"/>
                </valueReference>
             </extension>
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID055"/>
+                  <reference value="urn:uuid:UUID053"/>
                </valueReference>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID056"/>
+               <value value="urn:uuid:UUID054"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1773,11 +1709,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID057"/>
+               <reference value="urn:uuid:UUID055"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID058"/>
+               <reference value="urn:uuid:UUID056"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -1797,7 +1733,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID054"/>
+      <fullUrl value="urn:uuid:UUID052"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1843,7 +1779,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID055"/>
+      <fullUrl value="urn:uuid:UUID053"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -1898,7 +1834,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID059"/>
+               <value value="urn:uuid:UUID057"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1958,18 +1894,18 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID060"/>
+                  <reference value="urn:uuid:UUID058"/>
                </valueReference>
             </extension>
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID061"/>
+                  <reference value="urn:uuid:UUID059"/>
                </valueReference>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID062"/>
+               <value value="urn:uuid:UUID060"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -1984,11 +1920,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID063"/>
+               <reference value="urn:uuid:UUID061"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID064"/>
+               <reference value="urn:uuid:UUID062"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -2008,7 +1944,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID060"/>
+      <fullUrl value="urn:uuid:UUID058"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2054,7 +1990,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID061"/>
+      <fullUrl value="urn:uuid:UUID059"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2109,7 +2045,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID065"/>
+               <value value="urn:uuid:UUID063"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -2173,24 +2109,24 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID064"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID065"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
                   <reference value="urn:uuid:UUID066"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID067"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID068"/>
                </valueReference>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID069"/>
+               <value value="urn:uuid:UUID067"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -2205,11 +2141,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID070"/>
+               <reference value="urn:uuid:UUID068"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID071"/>
+               <reference value="urn:uuid:UUID069"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -2229,7 +2165,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID066"/>
+      <fullUrl value="urn:uuid:UUID064"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2275,7 +2211,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID067"/>
+      <fullUrl value="urn:uuid:UUID065"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2321,7 +2257,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID068"/>
+      <fullUrl value="urn:uuid:UUID066"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2376,7 +2312,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID072"/>
+               <value value="urn:uuid:UUID070"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -2440,24 +2376,24 @@
             <!--RR External Resource Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
                <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID071"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
+                  <reference value="urn:uuid:UUID072"/>
+               </valueReference>
+            </extension>
+            <!--RR External Resource Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
                   <reference value="urn:uuid:UUID073"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID074"/>
-               </valueReference>
-            </extension>
-            <!--RR External Resource Extension-->
-            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
-               <valueReference><!--2.16.840.1.113883.10.20.15.2.3.17:2017-04-01-->
-                  <reference value="urn:uuid:UUID075"/>
                </valueReference>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID076"/>
+               <value value="urn:uuid:UUID074"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -2472,11 +2408,11 @@
             </subject>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID077"/>
+               <reference value="urn:uuid:UUID075"/>
             </performer>
             <!--Rules Authoring Agency, Routing Entity, Responsible Agency-->
             <performer>
-               <reference value="urn:uuid:UUID078"/>
+               <reference value="urn:uuid:UUID076"/>
             </performer>
             <!--Reporting Timeframe-->
             <component>
@@ -2496,7 +2432,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID073"/>
+      <fullUrl value="urn:uuid:UUID071"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2542,7 +2478,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID074"/>
+      <fullUrl value="urn:uuid:UUID072"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2588,7 +2524,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID075"/>
+      <fullUrl value="urn:uuid:UUID073"/>
       <resource><!--RR DocumentReference-->
          <DocumentReference>
             <meta>
@@ -2634,7 +2570,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID044"/>
+      <fullUrl value="urn:uuid:UUID042"/>
       <resource>
          <Organization>
             <meta>
@@ -2667,7 +2603,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID045"/>
+      <fullUrl value="urn:uuid:UUID043"/>
       <resource>
          <Organization>
             <meta>
@@ -2700,7 +2636,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID051"/>
+      <fullUrl value="urn:uuid:UUID049"/>
       <resource>
          <Organization>
             <meta>
@@ -2733,225 +2669,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID052"/>
-      <resource>
-         <Organization>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
-            </meta>
-            <!--participant[LOC]-->
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
-            </identifier>
-            <active value="true"/>
-            <type>
-               <coding>
-                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
-                  <code value="RR7"/>
-                  <display value="Routing Entity"/>
-               </coding>
-            </type>
-            <name value="Senate District of Health"/>
-            <telecom>
-               <system value="other"/>
-               <value>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="unknown"/>
-                  </extension>
-               </value>
-            </telecom>
-            <address/>
-         </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID057"/>
-      <resource>
-         <Organization>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
-            </meta>
-            <!--participant[LOC]-->
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
-            </identifier>
-            <active value="true"/>
-            <type>
-               <coding>
-                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
-                  <code value="RR12"/>
-                  <display value="Rules Authoring Agency"/>
-               </coding>
-            </type>
-            <name value="Senate District Health Department"/>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-555-777-0123"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-555-777-0987"/>
-               <use value="work"/>
-            </telecom>
-            <address>
-               <use value="home"/>
-               <line value="200 Corusca Street"/>
-               <city value="Senate District"/>
-               <district value="Administrative Core"/>
-               <state value="Galactic City"/>
-               <postalCode value="GC-500"/>
-               <country value="Coruscant"/>
-            </address>
-         </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID058"/>
-      <resource>
-         <Organization>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
-            </meta>
-            <!--participant[LOC]-->
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
-            </identifier>
-            <active value="true"/>
-            <type>
-               <coding>
-                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
-                  <code value="RR7"/>
-                  <display value="Routing Entity"/>
-               </coding>
-            </type>
-            <name value="Senate District Health Department"/>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-555-777-0123"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-555-777-0987"/>
-               <use value="work"/>
-            </telecom>
-            <address>
-               <use value="home"/>
-               <line value="200 Corusca Street"/>
-               <city value="Senate District"/>
-               <district value="Administrative Core"/>
-               <state value="Galactic City"/>
-               <postalCode value="GC-500"/>
-               <country value="Coruscant"/>
-            </address>
-         </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID063"/>
-      <resource>
-         <Organization>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
-            </meta>
-            <!--participant[LOC]-->
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
-            </identifier>
-            <active value="true"/>
-            <type>
-               <coding>
-                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
-                  <code value="RR12"/>
-                  <display value="Rules Authoring Agency"/>
-               </coding>
-            </type>
-            <name value="Senate District Department of Health"/>
-            <telecom>
-               <system value="other"/>
-               <value>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="unknown"/>
-                  </extension>
-               </value>
-            </telecom>
-            <address/>
-         </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID064"/>
-      <resource>
-         <Organization>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
-            </meta>
-            <!--participant[LOC]-->
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
-            </identifier>
-            <active value="true"/>
-            <type>
-               <coding>
-                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
-                  <code value="RR7"/>
-                  <display value="Routing Entity"/>
-               </coding>
-            </type>
-            <name value="Senate District Department of Health"/>
-            <telecom>
-               <system value="other"/>
-               <value>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="unknown"/>
-                  </extension>
-               </value>
-            </telecom>
-            <address/>
-         </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID070"/>
-      <resource>
-         <Organization>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
-            </meta>
-            <!--participant[LOC]-->
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
-            </identifier>
-            <active value="true"/>
-            <type>
-               <coding>
-                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
-                  <code value="RR12"/>
-                  <display value="Rules Authoring Agency"/>
-               </coding>
-            </type>
-            <name value="Senate District Department of Health"/>
-            <telecom>
-               <system value="other"/>
-               <value>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="unknown"/>
-                  </extension>
-               </value>
-            </telecom>
-            <address/>
-         </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID071"/>
+      <fullUrl value="urn:uuid:UUID050"/>
       <resource>
          <Organization>
             <meta>
@@ -2984,7 +2702,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID077"/>
+      <fullUrl value="urn:uuid:UUID055"/>
       <resource>
          <Organization>
             <meta>
@@ -3027,7 +2745,225 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID078"/>
+      <fullUrl value="urn:uuid:UUID056"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR7"/>
+                  <display value="Routing Entity"/>
+               </coding>
+            </type>
+            <name value="Senate District Health Department"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID061"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut-gc-500"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR12"/>
+                  <display value="Rules Authoring Agency"/>
+               </coding>
+            </type>
+            <name value="Senate District Department of Health"/>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address/>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID062"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR7"/>
+                  <display value="Routing Entity"/>
+               </coding>
+            </type>
+            <name value="Senate District Department of Health"/>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address/>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID068"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut-gc-500"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR12"/>
+                  <display value="Rules Authoring Agency"/>
+               </coding>
+            </type>
+            <name value="Senate District Department of Health"/>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address/>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID069"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR7"/>
+                  <display value="Routing Entity"/>
+               </coding>
+            </type>
+            <name value="Senate District of Health"/>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address/>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID075"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"/>
+            </meta>
+            <!--participant[LOC]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="ut-gc-500"/>
+            </identifier>
+            <active value="true"/>
+            <type>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.114222.4.5.232"/>
+                  <code value="RR12"/>
+                  <display value="Rules Authoring Agency"/>
+               </coding>
+            </type>
+            <name value="Senate District Health Department"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-777-0123"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-555-777-0987"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="home"/>
+               <line value="200 Corusca Street"/>
+               <city value="Senate District"/>
+               <district value="Administrative Core"/>
+               <state value="Galactic City"/>
+               <postalCode value="GC-500"/>
+               <country value="Coruscant"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID076"/>
       <resource>
          <Organization>
             <meta>

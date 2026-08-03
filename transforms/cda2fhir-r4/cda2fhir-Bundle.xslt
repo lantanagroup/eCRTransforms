@@ -36,18 +36,25 @@
         </assigner>
       </identifier>
       <type value="document" />
-      <timestamp>
-        <xsl:attribute name="value">
-          <xsl:choose>
-            <xsl:when test="cda:ClinicalDocument/cda:effectiveTime/@value">
+      <!-- 20260803 Claude (item 43/CDAFHIR-006): a missing or null-flavored ClinicalDocument
+           effectiveTime used to emit timestamp value="NI", which is not a valid FHIR instant.
+           Absent-in-source now follows the house convention: data-absent-reason extension, no value. -->
+      <xsl:choose>
+        <xsl:when test="cda:ClinicalDocument/cda:effectiveTime/@value">
+          <timestamp>
+            <xsl:attribute name="value">
               <xsl:value-of select="lcg:cdaTS2date(cda:ClinicalDocument/cda:effectiveTime/@value)" />
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="'NI'" />
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
-      </timestamp>
+            </xsl:attribute>
+          </timestamp>
+        </xsl:when>
+        <xsl:otherwise>
+          <timestamp>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </timestamp>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates mode="bundle-entry" select="cda:ClinicalDocument" />
       <xsl:for-each select="//descendant::cda:entry">
         <xsl:apply-templates mode="bundle-entry" select="cda:*[not(@nullFlavor)]" />

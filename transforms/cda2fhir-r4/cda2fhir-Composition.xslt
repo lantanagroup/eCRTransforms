@@ -59,16 +59,20 @@
     <xsl:apply-templates select="cda:documentationOf/cda:serviceEvent[cda:code[@code = 'PHC1464']]/cda:performer" mode="provenance" />
     
 
-    <!-- Problem List is a required eICR section, if it's missing, we need to add a empty Condition bundle entry to 
+    <!-- Problem List is a required eICR section, if it's missing, we need to add a empty Condition bundle entry to
              satisfy IG requirements, also get the id for use referencing later -->
-    <xsl:if test="not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1') or //cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1'][not(cda:entry)]">
+    <!-- 20260803 Claude (CDAFHIR-012): these placeholders satisfy eICR-specific section requirements,
+         but they ran for EVERY document type - an RR document (which has no Problem/Results sections
+         by design) received a fabricated us-ph-condition Condition and an empty lab Observation.
+         Now gated on $gvCurrentIg = 'eICR', matching the eICR-only section synthesis they support. -->
+    <xsl:if test="$gvCurrentIg = 'eICR' and (not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1') or //cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1'][not(cda:entry)])">
       <xsl:call-template name="create-empty-condition">
         <xsl:with-param name="pUUID" select="$vNodeExtraUUIDs/cda:extraNodes/cda:nodeCondition/@lcg:uuid" />
       </xsl:call-template>
     </xsl:if>
-    <!-- Results is a required eICR section, if it's missing, we need to add a empty Lab Result Observation bundle entry to 
+    <!-- Results is a required eICR section, if it's missing, we need to add a empty Lab Result Observation bundle entry to
              satisfy IG requirements, also get the id for use referencing later -->
-    <xsl:if test="not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1') or //cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1'][not(cda:entry)]">
+    <xsl:if test="$gvCurrentIg = 'eICR' and (not(//cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1') or //cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1'][not(cda:entry)])">
       <xsl:call-template name="create-empty-result">
         <xsl:with-param name="pUUID" select="$vNodeExtraUUIDs/cda:extraNodes/cda:nodeResult/@lcg:uuid" />
       </xsl:call-template>
@@ -102,7 +106,9 @@
         <status value="generated" />
         <xsl:choose>
           <xsl:when test="cda:languageCode/@code">
-            <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+            <!-- 20260803 Claude (CDAFHIR-010): xml:lang/lang were hardcoded en-US; now taken from the
+                 document's languageCode (Composition.language just above already did this). -->
+            <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="{cda:languageCode/@code}" lang="{cda:languageCode/@code}">
               <xsl:call-template name="CDAtext" />
             </div>
           </xsl:when>
@@ -176,11 +182,26 @@
           <xsl:apply-templates select="cda:componentOf/cda:encompassingEncounter" mode="reference" />
         </encounter>
       </xsl:if>
+      <!-- 20260803 Claude (item 43/CDAFHIR-008): cdaTS2date takes exactly one xs:string, so a
+           null-flavored ClinicalDocument effectiveTime (no @value) killed the whole transform with
+           XPTY0004 (reproduced). Composition.date is required, so the absent case follows the house
+           convention: data-absent-reason extension, no value. -->
+      <xsl:choose>
+        <xsl:when test="cda:effectiveTime/@value">
       <date>
         <xsl:attribute name="value">
           <xsl:value-of select="lcg:cdaTS2date(cda:effectiveTime/@value)" />
         </xsl:attribute>
       </date>
+        </xsl:when>
+        <xsl:otherwise>
+          <date>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </date>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:for-each select="cda:author">
         <author>
           <xsl:apply-templates select="cda:assignedAuthor" mode="reference" />
@@ -517,14 +538,16 @@
             <!-- When there are no entries and this is either a Problem Section or a Results Section, 
                             add a reference to the empty Condition or Lab Result Observation -->
             <xsl:otherwise>
+              <!-- 20260803 Claude (CDAFHIR-012): gated on eICR to stay in step with the placeholder
+                   creation above, which is now eICR-only - an ungated reference here would dangle. -->
               <xsl:choose>
                 <!-- Add an empty condition here to satisfy IG constraint -->
-                <xsl:when test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.5.1']">
+                <xsl:when test="$gvCurrentIg = 'eICR' and cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.5.1']">
                   <entry>
                     <reference value="urn:uuid:{$vNodeExtraUUIDs/cda:extraNodes/cda:nodeCondition/@lcg:uuid}" />
                   </entry>
                 </xsl:when>
-                <xsl:when test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.3.1']">
+                <xsl:when test="$gvCurrentIg = 'eICR' and cda:templateId[@root = '2.16.840.1.113883.10.20.22.2.3.1']">
                   <entry>
                     <reference value="urn:uuid:{$vNodeExtraUUIDs/cda:extraNodes/cda:nodeResult/@lcg:uuid}" />
                   </entry>

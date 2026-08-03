@@ -12,8 +12,13 @@
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
+  <!-- 20260803 Claude (item 43/CDAFHIR-007): guard on @value - a null-flavored or interval
+       effectiveTime passed an empty sequence to cdaTS2date (typed xs:string) and killed the
+       transform with XPTY0004. sent is optional, so the absent case emits nothing. -->
   <xsl:template match="cda:effectiveTime" mode="communication">
+    <xsl:if test="@value">
     <sent value="{lcg:cdaTS2date(@value)}" />
+    </xsl:if>
   </xsl:template>
 
   <xsl:template
@@ -58,7 +63,8 @@
           <xsl:when test="cda:act/cda:participant[@typeCode = 'AUT']">
             <!-- MD: need to check the present of effectiveTime to prevent error -->
             <xsl:choose>
-              <xsl:when test="cda:act/cda:effectiveTime">
+              <!-- 20260803 Claude (item 43/CDAFHIR-007): test @value, not element existence - nullFlavor/interval times crashed cdaTS2date -->
+              <xsl:when test="cda:act/cda:effectiveTime/@value">
                 <sent value="{lcg:cdaTS2date(cda:act/cda:effectiveTime/@value)}" />
               </xsl:when>
             </xsl:choose>
@@ -67,7 +73,8 @@
           <xsl:when test="cda:act/cda:participant[@typeCode = 'IRCP']">
             <xsl:choose>
               <!-- MD: need to check the present of effectiveTime to prevent error -->
-              <xsl:when test="cda:act/cda:effectiveTime">
+              <!-- 20260803 Claude (item 43/CDAFHIR-007): test @value, not element existence - nullFlavor/interval times crashed cdaTS2date -->
+              <xsl:when test="cda:act/cda:effectiveTime/@value">
                 <received value="{lcg:cdaTS2date(cda:act/cda:effectiveTime/@value)}" />
               </xsl:when>
             </xsl:choose>

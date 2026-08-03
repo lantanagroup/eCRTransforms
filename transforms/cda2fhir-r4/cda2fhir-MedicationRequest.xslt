@@ -54,7 +54,11 @@
       <!-- subject -->
       <xsl:call-template name="subject-reference" />
       <!-- supportingInformation: anything in an entryRelationship that isn't already mapped -->
-      <xsl:for-each select="cda:entryRelationship/cda:*[not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.118']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17'])]">
+      <!-- 20260803 Claude (item 45/CDAFHIR-025): also skip null-flavored and suppressed children -
+           the bundle-entry side drops both (nullFlavor swallow + suppression no-op in
+           c-to-fhir-utility.xslt), so referencing them dangles. Same rule as section entries,
+           hasMember (item 40) and the wrapper unwraps (item 41). -->
+      <xsl:for-each select="cda:entryRelationship/cda:*[not(@nullFlavor)][not(cda:templateId[key('templates-to-suppress-key', @root)])][not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.19']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.118']) and not(cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17'])]">
         <supportingInformation>
           <reference value="urn:uuid:{@lcg:uuid}" />
         </supportingInformation>
@@ -64,8 +68,12 @@
         <xsl:when test="cda:author[1]/cda:time/@value">
           <authoredOn value="{lcg:cdaTS2date(cda:author[1]/cda:time/@value)}" />
         </xsl:when>
-        <xsl:when test="ancestor::cda:*/cda:author[1]/cda:time/@value">
-          <authoredOn value="{lcg:cdaTS2date(ancestor::cda:*/cda:author[1]/cda:time/@value)}" />
+        <!-- 20260803 Claude (item 43/CDAFHIR-022): was ancestor::cda:*/cda:author[1]/cda:time/@value,
+             which selects one time per ANCESTOR (e.g. section author AND document author) - two values
+             into cdaTS2date (typed xs:string) killed the transform with XPTY0004 (reproduced).
+             Now the nearest ancestor that has an authored time, matching the author fallback chain. -->
+        <xsl:when test="ancestor::cda:*[cda:author[1]/cda:time/@value]">
+          <authoredOn value="{lcg:cdaTS2date(ancestor::cda:*[cda:author[1]/cda:time/@value][1]/cda:author[1]/cda:time/@value)}" />
         </xsl:when>
       </xsl:choose>
       <!-- requester (required and max 1)-->
@@ -234,13 +242,20 @@
         cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:quantity/@value">
         <dispenseRequest>
           <!-- dispenseInterval -->
-          <xsl:if
-            test="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:high/@value and cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:low/@value">
-            <xsl:variable name="vIntervalDays">
-              <xsl:value-of
-                select="days-from-duration(xs:date(lcg:cdaTS2date(cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:high/@value)) - xs:date(lcg:cdaTS2date(cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']]/cda:effectiveTime/cda:low/@value)))"
-               />
-            </xsl:variable>
+          <!-- 20260803 Claude (item 43/CDAFHIR-023): the boundaries were cast straight to xs:date, but
+               cdaTS2date returns a full dateTime string when the CDA value carries a time - the cast
+               died with FORG0001. Now the date part is extracted first, and the whole computation is
+               guarded with castable-as so a partial date (e.g. yyyyMM) skips dispenseInterval instead
+               of crashing. -->
+          <xsl:variable name="vSupplyEffectiveTime"
+            select="cda:entryRelationship/cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][1]/cda:effectiveTime[1]" />
+          <xsl:if test="$vSupplyEffectiveTime/cda:high/@value and $vSupplyEffectiveTime/cda:low/@value">
+            <xsl:variable name="vHighDate" select="substring(lcg:cdaTS2date($vSupplyEffectiveTime/cda:high/@value), 1, 10)" />
+            <xsl:variable name="vLowDate" select="substring(lcg:cdaTS2date($vSupplyEffectiveTime/cda:low/@value), 1, 10)" />
+            <xsl:if test="$vHighDate castable as xs:date and $vLowDate castable as xs:date">
+              <xsl:variable name="vIntervalDays">
+                <xsl:value-of select="days-from-duration(xs:date($vHighDate) - xs:date($vLowDate))" />
+              </xsl:variable>
             <dispenseInterval>
               <value>
                 <xsl:attribute name="value" select="$vIntervalDays" />
@@ -249,6 +264,7 @@
               <system value="http://unitsofmeasure.org" />
               <code value="d" />
             </dispenseInterval>
+            </xsl:if>
           </xsl:if>
           <!-- repeatNumber -->
           <!-- there can be a repeat number in the main substanceAdministration and in the Supply Order, use the main one first and 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260803 Claude (items 43-45, from the external review triage): regression coverage for the
+     transform-killing crashes and their neighbors. XSPEC_CRASH_REGRESSIONS.xml is documents/testMed.xml
+     with three adversarial mutations that each used to terminate the whole transform:
+       - ClinicalDocument effectiveTime nullFlavor (no @value)      -> was XPTY0004 (CDAFHIR-008)
+       - section author + document author, med with no author time  -> was XPTY0004 (CDAFHIR-022)
+       - supply (4.17) interval boundaries carrying times           -> was FORG0001 (CDAFHIR-023)
+     The whole-document scenario passing AT ALL is the primary assertion; the expectations pin the
+     repaired behavior. Inline scenarios cover the sibling guards. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" run-as="external">
+
+    <x:scenario label="Adversarial document (nullFlavor doc time, dual ancestor authors, timed supply interval) transforms without crashing">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_CRASH_REGRESSIONS.xml" />
+        <x:expect label="a Bundle is produced (the whole transform used to die with XPTY0004)"
+            test="count(/fhir:Bundle) = 1" />
+        <x:expect label="Bundle.timestamp carries data-absent-reason instead of the invalid value 'NI' (CDAFHIR-006)"
+            test="count(/fhir:Bundle/fhir:timestamp[not(@value)]/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+        <x:expect label="Composition.date carries data-absent-reason instead of crashing (CDAFHIR-008)"
+            test="count(//fhir:Composition/fhir:date[not(@value)]/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']) = 1" />
+        <x:expect label="authoredOn falls back to the NEAREST ancestor author time - the section author, exactly one value (CDAFHIR-022)"
+            test="count(//fhir:MedicationRequest/fhir:authoredOn) = count(//fhir:MedicationRequest) and count(//fhir:MedicationRequest/fhir:authoredOn[@value = '2024-01-01']) = count(//fhir:MedicationRequest)" />
+        <x:expect label="dispenseInterval computed from the date parts of timed boundaries: 14 days (CDAFHIR-023)"
+            test="count(//fhir:MedicationRequest/fhir:dispenseRequest/fhir:dispenseInterval[fhir:value/@value = '14'][fhir:code/@value = 'd']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="Communication sent: a null-flavored effectiveTime produces no output instead of crashing (CDAFHIR-007)">
+        <x:context mode="communication">
+            <cda:effectiveTime nullFlavor="UNK" />
+        </x:context>
+        <x:expect label="nothing is emitted (sent is optional; an empty sequence used to kill cdaTS2date)" select="()" />
+    </x:scenario>
+
+    <x:scenario label="Condition with a null-flavored effectiveTime/high is NOT marked resolved (CDAFHIR-011)">
+        <x:context select="//cda:observation">
+            <cda:entry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <cda:observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000e1">
+                    <cda:templateId root="2.16.840.1.113883.10.20.22.4.4" />
+                    <cda:id root="00000000-0000-0000-0000-0000000000e2" />
+                    <cda:code code="64572001" codeSystem="2.16.840.1.113883.6.96" />
+                    <cda:statusCode code="completed" />
+                    <cda:effectiveTime>
+                        <cda:low value="20240101" />
+                        <cda:high nullFlavor="UNK" />
+                    </cda:effectiveTime>
+                    <cda:value xsi:type="CD" code="840539006" codeSystem="2.16.840.1.113883.6.96" />
+                </cda:observation>
+            </cda:entry>
+        </x:context>
+        <x:expect label="clinicalStatus is active - an UNKNOWN end date is not evidence of resolution"
+            test="count(fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:code[@value = 'active']) = 1" />
+        <x:expect label="not resolved"
+            test="count(fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:code[@value = 'resolved']) = 0" />
+    </x:scenario>
+
+    <x:scenario label="encompassingEncounter with a null-flavored effectiveTime/high is in-progress, not finished (CDAFHIR-017)">
+        <x:context select="//cda:encompassingEncounter">
+            <cda:componentOf>
+                <cda:encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000000e3">
+                    <cda:id root="00000000-0000-0000-0000-0000000000e4" />
+                    <cda:effectiveTime>
+                        <cda:low value="20240101" />
+                        <cda:high nullFlavor="UNK" />
+                    </cda:effectiveTime>
+                </cda:encompassingEncounter>
+            </cda:componentOf>
+        </x:context>
+        <x:expect label="status is in-progress - an UNKNOWN end is not a finished encounter"
+            test="count(fhir:Encounter/fhir:status[@value = 'in-progress']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="externalDocument without setId omits attachment.url instead of emitting an empty primitive (CDAFHIR-015)">
+        <x:context select="//cda:externalDocument">
+            <cda:reference typeCode="REFR">
+                <cda:externalDocument lcg:uuid="00000000-0000-0000-0000-0000000000e5">
+                    <cda:id root="00000000-0000-0000-0000-0000000000e6" />
+                    <cda:code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                </cda:externalDocument>
+            </cda:reference>
+        </x:context>
+        <x:expect label="no url element at all (an empty url violates ele-1)"
+            test="count(//fhir:attachment/fhir:url) = 0" />
+        <x:expect label="the WARNING comment survives"
+            test="count(//comment()[contains(., 'URL cannot be determined')]) = 1" />
+    </x:scenario>
+
+    <x:scenario label="MedicationRequest supportingInformation skips suppressed children (CDAFHIR-025 / item 45)">
+        <x:context select="//cda:substanceAdministration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <cda:entry>
+                <cda:substanceAdministration classCode="SBADM" moodCode="INT" lcg:uuid="00000000-0000-0000-0000-0000000000e7">
+                    <cda:templateId root="2.16.840.1.113883.10.20.22.4.16" />
+                    <cda:id root="00000000-0000-0000-0000-0000000000e8" />
+                    <cda:statusCode code="active" />
+                    <cda:consumable>
+                        <cda:manufacturedProduct lcg:uuid="00000000-0000-0000-0000-0000000000e9">
+                            <cda:manufacturedMaterial>
+                                <cda:code code="197361" codeSystem="2.16.840.1.113883.6.88" />
+                            </cda:manufacturedMaterial>
+                        </cda:manufacturedProduct>
+                    </cda:consumable>
+                    <cda:entryRelationship typeCode="SUBJ" inversionInd="true">
+                        <cda:act classCode="ACT" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000ea">
+                            <cda:templateId root="2.16.840.1.113883.10.20.22.4.64" />
+                            <cda:code code="48767-8" codeSystem="2.16.840.1.113883.6.1" />
+                            <cda:text>A comment</cda:text>
+                        </cda:act>
+                    </cda:entryRelationship>
+                    <cda:entryRelationship typeCode="REFR">
+                        <cda:observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000eb">
+                            <cda:templateId root="9.9.9.9.9" />
+                            <cda:code code="12345-6" codeSystem="2.16.840.1.113883.6.1" />
+                        </cda:observation>
+                    </cda:entryRelationship>
+                </cda:substanceAdministration>
+            </cda:entry>
+        </x:context>
+        <x:expect label="no supportingInformation reference to the suppressed Comment Activity (it gets no resource, so the reference would dangle)"
+            test="count(//fhir:supportingInformation/fhir:reference[@value = 'urn:uuid:00000000-0000-0000-0000-0000000000ea']) = 0" />
+        <x:expect label="the unsuppressed generic observation IS still referenced (it gets a resource via the fallback observation)"
+            test="count(//fhir:supportingInformation/fhir:reference[@value = 'urn:uuid:00000000-0000-0000-0000-0000000000eb']) = 1" />
+    </x:scenario>
+
+</x:description>

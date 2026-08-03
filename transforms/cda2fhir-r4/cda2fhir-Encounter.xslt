@@ -238,7 +238,10 @@
           <xsl:when test="not(cda:effectiveTime)">
             <status value="unknown" />
           </xsl:when>
-          <xsl:when test="cda:effectiveTime/cda:high">
+          <!-- 20260803 Claude (item 44/CDAFHIR-017): was cda:effectiveTime/cda:high (existence) -
+               a <high nullFlavor="UNK"/> means the end is UNKNOWN, not that the encounter finished.
+               Now requires an actual @value; the nullFlavor case falls through to in-progress. -->
+          <xsl:when test="cda:effectiveTime/cda:high/@value">
             <status value="finished" />
           </xsl:when>
           <xsl:otherwise>

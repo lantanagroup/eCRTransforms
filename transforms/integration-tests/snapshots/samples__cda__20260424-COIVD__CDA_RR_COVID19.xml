@@ -1375,7 +1375,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Public Health Agency Contact&#xA;                                  Information"/>
+            <description value="Public Health Agency Contact Information"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1595,7 +1595,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="This electronic case report serves&#xA;                                  as a TEST REPORT. Reporting for 2019 nCov is&#xA;                                  required immediately. While an electronic case&#xA;                                  report was sent on to Senate District Department of Health,&#xA;                                  because the system is not in full production at this date,&#xA;                                  this report does NOT currently satisfy your&#xA;                                  reporting requirements. Please continue to report&#xA;                                  2019 nCov using your normal methods. Click here to&#xA;                                  get information on how to report to the Senate District Department&#xA;                                  of Health!"/>
+            <description value="This electronic case report serves as a TEST REPORT. Reporting for 2019 nCov is required immediately. While an electronic case report was sent on to Senate District Department of Health, because the system is not in full production at this date, this report does NOT currently satisfy your reporting requirements. Please continue to report 2019 nCov using your normal methods. Click here to get information on how to report to the Senate District Department of Health!"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1687,7 +1687,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="For more information or if you have&#xA;                                  any questions, please contact the Senate District&#xA;                                  Department of Health at&#xA;                                  1-866-692-3641"/>
+            <description value="For more information or if you have any questions, please contact the Senate District Department of Health at 1-866-692-3641"/>
             <content>
                <attachment>
                   <contentType value="text/plain"/>
@@ -1902,7 +1902,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Senate District Health Department&#xA;                                  Epidemiology Web Page"/>
+            <description value="Senate District Health Department Epidemiology Web Page"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>

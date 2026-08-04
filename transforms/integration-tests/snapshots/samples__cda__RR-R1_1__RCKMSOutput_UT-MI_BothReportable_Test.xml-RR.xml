@@ -1289,7 +1289,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="The following outbreak recommendations and documents were developed in collaboration with representatives from the Utah Department&#xA;                                                                    of Health and Utah's Local Health Departments to provide statewide consistency in situations involving pertussis outbreaks. The purpose of&#xA;                                                                    these guidelines is to provide effective management tools for pertussis outbreak situations."/>
+            <description value="The following outbreak recommendations and documents were developed in collaboration with representatives from the Utah Department of Health and Utah's Local Health Departments to provide statewide consistency in situations involving pertussis outbreaks. The purpose of these guidelines is to provide effective management tools for pertussis outbreak situations."/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1335,7 +1335,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Additional information for the required reporting of Pertussis must be submitted to the Utah Department of Health. The additional&#xA;                                                                    information can be submitted here. "/>
+            <description value="Additional information for the required reporting of Pertussis must be submitted to the Utah Department of Health. The additional information can be submitted here."/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1519,7 +1519,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="If you have additional questions regarding Pertussis or reporting, the Utah Department of Health can be reached for 24-Hour Urgent&#xA;                                                                    Event &amp; Disease Reporting at 1-888-EPI-UTAH (374-8824)."/>
+            <description value="If you have additional questions regarding Pertussis or reporting, the Utah Department of Health can be reached for 24-Hour Urgent Event &amp; Disease Reporting at 1-888-EPI-UTAH (374-8824)."/>
             <content>
                <attachment>
                   <contentType value="text/plain"/>

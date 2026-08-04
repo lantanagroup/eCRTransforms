@@ -149,9 +149,18 @@
            an external reference is content.attachment.url, emitted below), so omission is correct. Not a
            DAR case: the OTH nullFlavor sits on the code and is already consumed to select this branch -
            it is not an assertion that the description is unknown. -->
+      <!-- 20260804 Claude: separately from the ele-1 guard above, normalise the value. These
+           originalText elements are pretty-printed in the source, so the emitted description carried
+           the source's own line breaks and indentation into a FHIR string value - e.g. a newline
+           followed by 34 spaces mid-sentence, plus a trailing space (itself a validator warning).
+           That is serialisation, not data. normalize-space() is what this pipeline already applies to
+           originalText everywhere else it is read (see newCreateCodableConcept in
+           cda-to-fhir-datatypes.xslt), so the unnormalised path here was the outlier. Deliberately a
+           separate commit from the ele-1 fix: nothing here was failing a gate, and it moves 46 snapshot
+           lines against the 3 that the actual defect moved. -->
       <xsl:for-each select="cda:code[@nullFlavor = 'OTH'][normalize-space(cda:originalText)]">
         <description>
-          <xsl:attribute name="value" select="cda:originalText" />
+          <xsl:attribute name="value" select="normalize-space(cda:originalText)" />
         </description>
       </xsl:for-each>
       <content>

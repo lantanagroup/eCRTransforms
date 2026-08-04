@@ -1283,7 +1283,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Public Health Agency Contact&#xA;                                  Information"/>
+            <description value="Public Health Agency Contact Information"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1503,7 +1503,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="This electronic case report serves&#xA;                                  as a TEST REPORT. Reporting for 2019 nCov is&#xA;                                  required immediately. While an electronic case&#xA;                                  report was sent on to Senate District Department of Health,&#xA;                                  because the system is not in full production at this date,&#xA;                                  this report does NOT currently satisfy your&#xA;                                  reporting requirements. Please continue to report&#xA;                                  2019 nCov using your normal methods. Click here to&#xA;                                  get information on how to report to the Senate District Department&#xA;                                  of Health!"/>
+            <description value="This electronic case report serves as a TEST REPORT. Reporting for 2019 nCov is required immediately. While an electronic case report was sent on to Senate District Department of Health, because the system is not in full production at this date, this report does NOT currently satisfy your reporting requirements. Please continue to report 2019 nCov using your normal methods. Click here to get information on how to report to the Senate District Department of Health!"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1595,7 +1595,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="For more information or if you have&#xA;                                  any questions, please contact the Senate District&#xA;                                  Department of Health at&#xA;                                  1-866-692-3641"/>
+            <description value="For more information or if you have any questions, please contact the Senate District Department of Health at 1-866-692-3641"/>
             <content>
                <attachment>
                   <contentType value="text/plain"/>
@@ -1810,7 +1810,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Senate District Health Department&#xA;                                  Epidemiology Web Page"/>
+            <description value="Senate District Health Department Epidemiology Web Page"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1975,7 +1975,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="H5N1 Avian Influenza is a highly pathogenic strain&#xA;                                  requiring immediate notification. Please report using established&#xA;                                  procedures for immediate reportable conditions."/>
+            <description value="H5N1 Avian Influenza is a highly pathogenic strain requiring immediate notification. Please report using established procedures for immediate reportable conditions."/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -2196,7 +2196,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="This electronic case report serves as a TEST REPORT.&#xA;                                  Reporting for H5N1 Avian Influenza is required immediately. While&#xA;                                  an electronic case report was sent on to Senate District&#xA;                                  Department of Health, because the system is not in full production&#xA;                                  at this date, this report does NOT currently satisfy your&#xA;                                  reporting requirements. Please continue to report H5N1 Avian&#xA;                                  Influenza using your normal methods. Click here to get information&#xA;                                  on how to report to the Senate District Department of Health!"/>
+            <description value="This electronic case report serves as a TEST REPORT. Reporting for H5N1 Avian Influenza is required immediately. While an electronic case report was sent on to Senate District Department of Health, because the system is not in full production at this date, this report does NOT currently satisfy your reporting requirements. Please continue to report H5N1 Avian Influenza using your normal methods. Click here to get information on how to report to the Senate District Department of Health!"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -2288,7 +2288,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="For more information or if you have any questions,&#xA;                                  please contact the Senate District Department of Health Avian&#xA;                                  Influenza Response Team at 1-866-692-3642"/>
+            <description value="For more information or if you have any questions, please contact the Senate District Department of Health Avian Influenza Response Team at 1-866-692-3642"/>
             <content>
                <attachment>
                   <contentType value="text/plain"/>
@@ -2509,7 +2509,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Senate District Health Department Avian Influenza&#xA;                                  Program"/>
+            <description value="Senate District Health Department Avian Influenza Program"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -2555,7 +2555,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="H5N1 is a highly pathogenic strain with significant&#xA;                                  mortality risk. Implement airborne and contact precautions&#xA;                                  immediately. Patient should be placed in negative pressure&#xA;                                  isolation. Healthcare workers should use N95 respirators or higher&#xA;                                  level protection, eye protection, gowns and gloves. Notify&#xA;                                  infection control immediately."/>
+            <description value="H5N1 is a highly pathogenic strain with significant mortality risk. Implement airborne and contact precautions immediately. Patient should be placed in negative pressure isolation. Healthcare workers should use N95 respirators or higher level protection, eye protection, gowns and gloves. Notify infection control immediately."/>
             <content>
                <attachment>
                   <contentType value="text/html"/>

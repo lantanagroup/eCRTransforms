@@ -1562,7 +1562,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Senate District Department of Health Lab RT-PCR&#xA;                                  guidance on specimen&#xA;                                  collection, storage and transport, acceptable specimen types for&#xA;                                  Bordetella pertussis. "/>
+            <description value="Senate District Department of Health Lab RT-PCR guidance on specimen collection, storage and transport, acceptable specimen types for Bordetella pertussis."/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1654,7 +1654,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Pertussis webpage containing background, vaccine, fact&#xA;                                  sheets, and epidemiological information "/>
+            <description value="Pertussis webpage containing background, vaccine, fact sheets, and epidemiological information"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1700,7 +1700,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Guidance in obtaining a NP swab/aspirate along with&#xA;                                  optimal diagnostic testing information on PCR, Culture, and&#xA;                                  Serology "/>
+            <description value="Guidance in obtaining a NP swab/aspirate along with optimal diagnostic testing information on PCR, Culture, and Serology"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -1855,7 +1855,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value="Case definition for Acute HCV including clinical&#xA;                                  criteria, laboratory criteria, and case classification"/>
+            <description value="Case definition for Acute HCV including clinical criteria, laboratory criteria, and case classification"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>

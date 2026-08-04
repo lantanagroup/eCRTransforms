@@ -342,8 +342,6 @@
                         <reference value="urn:uuid:UUID009"/>
                      </valueReference>
                   </extension>
-                  <!--eICR Validation Output Extension-->
-                  <extension url="eICRValidationOutput"/>
                </extension>
                <code>
                   <coding>
@@ -368,7 +366,6 @@
                      <system value="urn:ietf:rfc:3986"/>
                      <value value="urn:uuid:db734647-fc99-424c-a864-7e3cda82e89xw"/>
                   </identifier>
-                  <display value=""/>
                </entry>
                <!--2.16.840.1.113883.10.20.15.2.3.29:2017-04-01-->
                <entry>
@@ -1076,7 +1073,7 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url><!--WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument--></url>
+                  <!--WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument-->
                </attachment>
             </content>
          </DocumentReference>

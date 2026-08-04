@@ -45,9 +45,37 @@ repo-relative path (several corpus documents share a filename).
 Corpus globs that match nothing (gitignored real samples on CI) are skipped with a note,
 exactly like snapshot-regression.py. An IMPROVED line means a known issue disappeared -
 re-run with --update-known and commit, so the ratchet only ever tightens.
+
+20260804 Claude: added the element-level invariants (check_elements). Motivation: the
+2026-08-03 external review found 29 defects, and NONE of the structural ones were caught by
+the reference/required-element/value-set checks above - they were malformed VALUES and empty
+ELEMENTS, which those checks do not look at. The three invariants parked in the triage doc as
+"cheap candidates" are now implemented, generalised from the instances that motivated them to
+the defect CLASSES:
+
+  6. ele-1  - every element must carry @value or have children. Catches empty primitives
+     (value=""), bare elements (<address/>), and extensions with neither value nor
+     sub-extensions (also ext-1). CDAFHIR-015 was one instance of this class.
+  7. code/uri primitive syntax - the FHIR code regex is [^\s]+(\s[^\s]+)*, so leading or
+     trailing whitespace is invalid, and uri types admit no whitespace at all. Internal
+     whitespace in a code is reported separately: it is the signature of an XSLT value path
+     that space-joined a multi-node selection into a 1..1 element (CDAFHIR-016).
+  8. house-convention violations - a v3-NullFlavor coding where this pipeline's convention is
+     a data-absent-reason extension, and literal placeholder strings ("Unknown") in
+     ContactPoint.value (CDAFHIR-005).
+
+These run over an ElementTree parse rather than the regexes used above, because they need to
+distinguish FHIR elements from the XHTML inside Composition.text.div - narrative legitimately
+contains hundreds of empty <br/> and <td/> elements, and every one of them would be a false
+positive. The whole XHTML subtree is skipped.
+
+On the corpus they immediately found 39 live violations in 9 documents that the pre-existing
+invariants called clean, including 4 instances of CDAFHIR-015 surviving at three sites the
+2026-08-03 fix did not touch. See the codebase notes, items 046-052.
 """
 import re
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 try:
@@ -149,6 +177,118 @@ def check_bundle(xml: str, problems: list):
            re.search(r"<verificationStatus>.*?entered-in-error", c, re.S):
             problems.append("con-5 violation: Condition has clinicalStatus with "
                             "verificationStatus entered-in-error")
+
+    check_elements(xml, problems)
+
+
+# --- element-level invariants (20260804) -------------------------------------------------
+FHIR_NS = "{http://hl7.org/fhir}"
+XHTML_NS = "{http://www.w3.org/1999/xhtml}"
+DAR_URL = "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
+NULLFLAVOR_SYSTEM = "http://terminology.hl7.org/CodeSystem/v3-NullFlavor"
+
+# Elements whose FHIR type is the `code` primitive (regex [^\s]+(\s[^\s]+)*), or a Coding.code.
+# Deliberately a short, high-confidence list: a false positive here would land in the
+# known-issues baseline and erode trust in the gate.
+CODE_PRIMITIVES = {"code", "valueCode", "status", "intent", "gender", "use",
+                   "priority", "contentType", "language", "lifecycleStatus"}
+# Elements whose FHIR type is uri/url/canonical - no whitespace is legal anywhere in them.
+URI_PRIMITIVES = {"system", "url", "reference", "profile", "valueUri", "valueUrl",
+                  "valueCanonical", "fullUrl"}
+# Literal strings that mean "we had nothing" - the house convention is a data-absent-reason
+# extension, never an invented value. Checked only where a placeholder has actually been seen
+# or is plausible; ContactPoint.value is the CDAFHIR-005 case.
+SENTINEL_VALUES = {"unknown", "unk", "n/a", "na", "none", "no information",
+                   "null", "nil", "tbd", "not available", "not applicable"}
+SENTINEL_PATHS = {"telecom.value", "address.text"}
+
+
+def check_elements(xml: str, problems: list):
+    """ele-1, primitive syntax and house-convention checks over the parsed Bundle.
+
+    Everything here needs to tell a FHIR element from the XHTML inside Composition.text.div,
+    so it walks an ElementTree and skips the XHTML namespace entirely. Narrative contains
+    hundreds of legitimately empty <br/> and <td/> elements; treating those as ele-1
+    violations would bury the real findings.
+
+    Problem strings are shaped ResourceType.path so they stay stable in the known-issues
+    baseline - no values that vary run to run.
+    """
+    try:
+        root = ET.fromstring(xml)
+    except ET.ParseError as e:  # the regex checks above already ran; report and move on
+        problems.append(f"bundle is not well-formed XML: {e}")
+        return
+
+    def label(rtype: str, path: list) -> str:
+        return f"{rtype or 'Bundle'}.{'.'.join(path)}" if path else (rtype or "Bundle")
+
+    def walk(elem, rtype, path):
+        for child in elem:
+            if child.tag.startswith(XHTML_NS):
+                continue                      # narrative - not FHIR elements
+            name = child.tag.split("}")[-1]
+            # entering a resource: <entry><resource><Patient> -> rtype becomes Patient, and the
+            # path restarts so problem strings read Patient.contact.address, not
+            # Bundle.entry.resource.Patient.contact.address
+            if rtype is None and elem.tag == FHIR_NS + "resource":
+                child_rtype, child_path = name, []
+            else:
+                child_rtype, child_path = rtype, path + [name]
+            where = label(child_rtype, child_path)
+            value = child.get("value")
+            has_children = len(child) > 0
+            has_text = bool((child.text or "").strip())
+
+            # --- ele-1: every element must have @value or children ---------------------
+            if value == "":
+                problems.append(f"empty primitive value: {where} has value=\"\"")
+            elif value is None and not has_children and not has_text:
+                if name == "extension":
+                    # ext-1 as well: an extension must have value[x] or sub-extensions
+                    problems.append(
+                        f"empty extension: {where} url={child.get('url')} has no value[x] "
+                        f"and no sub-extensions")
+                elif not child.attrib:
+                    problems.append(f"empty element: {where} has no value and no children")
+
+            if value:
+                # --- code primitive syntax --------------------------------------------
+                if name in CODE_PRIMITIVES:
+                    if value != value.strip():
+                        problems.append(
+                            f"invalid code primitive: {where} value has leading/trailing "
+                            f"whitespace (FHIR code regex forbids it)")
+                    elif re.search(r"\s\s|\t|\n", value):
+                        problems.append(
+                            f"invalid code primitive: {where} value contains repeated or "
+                            f"non-space whitespace")
+                    elif " " in value:
+                        # legal per the regex, but in this pipeline it is the signature of a
+                        # value path that space-joined a multi-node selection (CDAFHIR-016)
+                        problems.append(
+                            f"suspect code primitive: {where} value contains a space - "
+                            f"possible space-joined multi-node selection")
+                # --- uri primitive syntax ---------------------------------------------
+                if name in URI_PRIMITIVES and re.search(r"\s", value):
+                    problems.append(f"invalid uri primitive: {where} value contains whitespace")
+                # --- placeholder strings where DAR is the convention ------------------
+                tail = ".".join(child_path[-2:]) if child_path else ""
+                if tail in SENTINEL_PATHS and value.strip().lower() in SENTINEL_VALUES:
+                    problems.append(
+                        f"placeholder value: {where} is the literal string '{value}' - "
+                        f"the convention for absent data is a data-absent-reason extension")
+
+            # --- v3-NullFlavor coding where DAR is the convention ---------------------
+            if name == "system" and value == NULLFLAVOR_SYSTEM:
+                parent = label(child_rtype, child_path[:-1])
+                problems.append(
+                    f"v3-NullFlavor coding: {parent} carries a NullFlavor code - the "
+                    f"convention for absent data is a data-absent-reason extension")
+
+            walk(child, child_rtype, child_path)
+
+    walk(root, None, [])
 
 
 def load_corpus() -> list:

@@ -993,7 +993,14 @@
       </xsl:if>
       <xsl:choose>
         <xsl:when test="@nullFlavor">
-          <xsl:apply-templates select="." mode="data-absent-reason-extension" />
+          <!-- 20260804 Claude (CDAFHIR-046): was select="." - the ELEMENT - but the only template in this
+               mode matches @nullFlavor, an ATTRIBUTE (c-to-fhir-utility.xslt ~840). Nothing matched, so the
+               built-in rule recursed into the children of an empty <addr nullFlavor="NI"/> and produced
+               nothing, leaving a bare <address/>: an ele-1 violation, 20 instances across 5 corpus documents
+               (RR agency Organizations and Patient.contact). Every one of the other data-absent-reason-extension
+               call sites in the codebase selects @nullFlavor - this was the only one selecting the element,
+               which is why the sibling <telecom nullFlavor="NI"/> always behaved correctly. -->
+          <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
         </xsl:when>
         <xsl:otherwise>
           <xsl:for-each select="cda:streetAddressLine[@nullFlavor]">
@@ -1330,10 +1337,19 @@
             </xsl:attribute>
           </system>
         </xsl:if>
-        <xsl:if test="$code">
+        <!-- 20260804 Claude (CDAFHIR-047): normalise the code on the way out. The FHIR code primitive regex
+             is [^\s]+(\s[^\s]+)*, so leading/trailing whitespace is invalid - and a source @code of "94310-0 "
+             (a real trailing space in 20260424-Flu/CDA_eICR.xml, which spells the same LOINC correctly twice
+             elsewhere) was passed straight through. This is the chokepoint that every cda:code,
+             cda:value[@xsi:type='CD'] and translation flows through, so normalising here covers the pipeline;
+             the hand-rolled coding sites that bypass it are listed in the codebase notes. The emptiness test
+             moves to normalize-space() at the same time: a code of " " used to be truthy and emitted a
+             primitive that was empty once normalised. Consistent with this file's existing habit of
+             normalising on output (displayName, originalText, names, addresses) rather than pre-scrubbing. -->
+        <xsl:if test="normalize-space($code) != ''">
           <xsl:element name="{$codeOrValueElementName}">
             <xsl:attribute name="value">
-              <xsl:value-of select="$code" />
+              <xsl:value-of select="normalize-space($code)" />
             </xsl:attribute>
           </xsl:element>
         </xsl:if>

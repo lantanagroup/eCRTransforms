@@ -71,9 +71,19 @@
                 <xsl:attribute name="value" select="concat('urn:uuid:', cda:reference/cda:externalDocument/cda:id/@root)" />
               </value>
             </identifier>
-            <display>
-              <xsl:attribute name="value" select="cda:text" />
-            </display>
+            <!-- 20260804 Claude (CDAFHIR-048): guarded. cda:text on the Received eICR Information act
+                 (15.2.3.9) carries the eICR filename and is recommended only for error cases, so it is
+                 legitimately absent in conformant input - but xsl:attribute materialises the attribute
+                 even when its select is an empty sequence, so absence produced <display value=""/>: an
+                 ele-1 violation in 7 of the 9 RR corpus documents. Reference.display is 0..1 and purely a
+                 human-readable label, and no nullFlavor was asserted, so the element is omitted rather
+                 than given a data-absent-reason (DAR is this codebase's convention for data the source
+                 explicitly flagged as absent, not for an optional label that simply is not there). -->
+            <xsl:if test="normalize-space(cda:text)">
+              <display>
+                <xsl:attribute name="value" select="normalize-space(cda:text)" />
+              </display>
+            </xsl:if>
           </xsl:element>
         </xsl:when>
         <xsl:otherwise>
@@ -131,7 +141,15 @@
       </subject>
       <!-- date -->
       <!-- author -->
-      <xsl:for-each select="cda:code[@nullFlavor = 'OTH']">
+      <!-- 20260804 Claude (CDAFHIR-049): predicate extended to require content in originalText. Three RR
+           corpus documents carry an RR External Reference whose <code nullFlavor="OTH"> holds an empty
+           <originalText/>; the guard tested only for the presence of the code, so xsl:attribute emitted
+           <description value=""/> - an ele-1 violation. DocumentReference.description is 0..1 and the
+           rr-documentreference profile does not raise that lower bound (the profile's required content for
+           an external reference is content.attachment.url, emitted below), so omission is correct. Not a
+           DAR case: the OTH nullFlavor sits on the code and is already consumed to select this branch -
+           it is not an assertion that the description is unknown. -->
+      <xsl:for-each select="cda:code[@nullFlavor = 'OTH'][normalize-space(cda:originalText)]">
         <description>
           <xsl:attribute name="value" select="cda:originalText" />
         </description>
@@ -231,19 +249,28 @@
         <content>
           <attachment>
             <contentType value="text/plain" />
-            <url>
-              <xsl:choose>
-                <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+            <!-- 20260804 Claude (CDAFHIR-015, SECOND SITE): the 20260803 fix for the empty <url/> was applied
+                 to the cda:externalDocument template only, because the external review cited that one location.
+                 This template has the identical shape - <url> wrapping the choose, so the no-setId branch emitted
+                 a url containing nothing but a comment - and stayed broken, live in 4 corpus documents. Same
+                 repair: attachment.url is optional, so the element is omitted entirely and the WARNING comment
+                 survives outside it. Lesson for the triage doc: when a review cites a location, fix the SHAPE
+                 across the file, not the cited line. -->
+            <xsl:choose>
+              <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+                <url>
                   <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-                </xsl:when>
-                <xsl:when test="cda:setId/@root">
+                </url>
+              </xsl:when>
+              <xsl:when test="cda:setId/@root">
+                <url>
                   <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
-                </xsl:otherwise>
-              </xsl:choose>
-            </url>
+                </url>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
+              </xsl:otherwise>
+            </xsl:choose>
           </attachment>
         </content>
       </xsl:for-each>
@@ -288,19 +315,22 @@
       <content>
         <attachment>
           <contentType value="text/plain" />
-          <url>
-            <xsl:choose>
-              <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+          <!-- 20260804 Claude (CDAFHIR-015, THIRD SITE): see the note in the relatedDocument template. -->
+          <xsl:choose>
+            <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+              <url>
                 <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-              </xsl:when>
-              <xsl:when test="cda:setId/@root">
+              </url>
+            </xsl:when>
+            <xsl:when test="cda:setId/@root">
+              <url>
                 <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
-              </xsl:otherwise>
-            </xsl:choose>
-          </url>
+              </url>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
+            </xsl:otherwise>
+          </xsl:choose>
         </attachment>
       </content>
     </DocumentReference>
@@ -336,19 +366,22 @@
       <content>
         <attachment>
           <contentType value="text/plain" />
-          <url>
-            <xsl:choose>
-              <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+          <!-- 20260804 Claude (CDAFHIR-015, FOURTH SITE): see the note in the relatedDocument template. -->
+          <xsl:choose>
+            <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+              <url>
                 <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-              </xsl:when>
-              <xsl:when test="cda:setId/@root">
+              </url>
+            </xsl:when>
+            <xsl:when test="cda:setId/@root">
+              <url>
                 <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
-              </xsl:otherwise>
-            </xsl:choose>
-          </url>
+              </url>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the cda:externalDocument</xsl:comment>
+            </xsl:otherwise>
+          </xsl:choose>
         </attachment>
       </content>
     </DocumentReference>

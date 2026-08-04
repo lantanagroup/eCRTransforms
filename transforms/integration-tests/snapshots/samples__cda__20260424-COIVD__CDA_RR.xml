@@ -265,8 +265,6 @@
                         <reference value="urn:uuid:UUID008"/>
                      </valueReference>
                   </extension>
-                  <!--eICR Validation Output Extension-->
-                  <extension url="eICRValidationOutput"/>
                </extension>
                <code>
                   <coding>
@@ -288,7 +286,6 @@
                      <system value="urn:ietf:rfc:3986"/>
                      <value value="urn:uuid:UUID010"/>
                   </identifier>
-                  <display value=""/>
                </entry>
                <!--2.16.840.1.113883.10.20.15.2.3.29:2017-04-01-->
                <entry>
@@ -1332,7 +1329,6 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <description value=""/>
             <content>
                <attachment>
                   <contentType value="text/html"/>
@@ -2598,7 +2594,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2631,7 +2631,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2664,7 +2668,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2697,7 +2705,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2816,7 +2828,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2849,7 +2865,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2882,7 +2902,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>
@@ -2915,7 +2939,11 @@
                   </extension>
                </value>
             </telecom>
-            <address/>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
          </Organization>
       </resource>
    </entry>

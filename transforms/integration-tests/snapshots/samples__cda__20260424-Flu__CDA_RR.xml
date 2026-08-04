@@ -280,7 +280,6 @@
                      <system value="urn:ietf:rfc:3986"/>
                      <value value="urn:uuid:1.2.840.114350.1.13.380.3.7.1.1"/>
                   </identifier>
-                  <display value=""/>
                </entry>
                <!--2.16.840.1.113883.10.20.15.2.3.29:2017-04-01-->
                <entry>

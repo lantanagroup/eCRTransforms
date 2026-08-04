@@ -1438,9 +1438,9 @@
             <!--Id from Encounter Diagnosis Act-->
             <status value="in-progress"/>
             <class>
-               <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor"/>
-               <code value="NI"/>
-               <display value="NoInformation"/>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
             </class>
             <type>
                <coding>

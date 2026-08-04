@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260804 Claude: regression coverage for the ele-1 defect class (CDAFHIR-046/047/050 and the
+     second/third/fourth sites of CDAFHIR-015).
+
+     Why a file of its own, like cda2fhir-CrashRegressions-Root.xspec: these defects have nothing in
+     common except their SHAPE - an element emitted unconditionally whose content is conditional, so
+     that absent source data leaves behind an empty primitive or a bare element. FHIR's ele-1 says every
+     element must carry @value or have children, so each one is a conformance error. They were invisible
+     to layer 2 until the element-level invariants were added on 2026-08-04, and invisible to layer 3
+     because only the synthetic documents are validator-gated. Grouping them keeps the shape findable.
+
+     Each scenario points x:context at a single node inside a whole inline ClinicalDocument. The document
+     wrapper is there so ancestors and document-level globals resolve; the select makes the datatype or
+     resource template under test the context node, so these are genuine unit tests. Two traps that cost
+     time before (see the testing-suite doc): the inline document must use the DEFAULT CDA namespace, not
+     cda: prefixes, and the select must resolve to exactly ONE node or fn:transform leaves the global
+     context item absent. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:cda="urn:hl7-org:v3"
+  xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com"
+  stylesheet="../NativeUUIDGen-cda2fhir.xslt" run-as="external">
+
+  <!-- CDAFHIR-046: cda:addr[@nullFlavor] applied data-absent-reason-extension to the ELEMENT, but the
+       only template in that mode matches the @nullFlavor ATTRIBUTE. Nothing matched, the built-in rule
+       recursed into an empty element and produced nothing, and the result was a bare <address/>. 20 live
+       instances across 5 corpus documents. -->
+  <x:scenario label="A. a nullFlavored addr produces an address carrying data-absent-reason, never a bare element">
+    <x:context select="(//cda:addr)[1]">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <recordTarget>
+          <patientRole lcg:uuid="00000000-0000-0000-0000-0000000000a1">
+            <addr nullFlavor="NI" />
+          </patientRole>
+        </recordTarget>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="A1. exactly one address element" test="count(fhir:address) = 1" />
+    <x:expect label="A2. it carries the data-absent-reason extension"
+      test="count(fhir:address/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+    <x:expect label="A3. ele-1: the address is not empty" test="count(fhir:address/node()) &gt; 0" />
+  </x:scenario>
+
+  <!-- CDAFHIR-047: the FHIR code primitive regex is [^\s]+(\s[^\s]+)*, so leading/trailing whitespace is
+       invalid. 20260424-Flu/CDA_eICR.xml really does carry code="94310-0 " (and spells the same LOINC
+       correctly twice elsewhere in the same document). -->
+  <x:scenario label="B. a source @code with trailing whitespace is normalised on the way out">
+    <x:context select="(//cda:code)[1]">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000b0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <code code="94310-0 " codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
+          displayName="SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection" />
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="B1. the emitted code has no trailing space"
+      test="count(//fhir:code[@value = '94310-0']) = 1" />
+    <x:expect label="B2. the unnormalised value is gone"
+      test="count(//fhir:code[@value = '94310-0 ']) = 0" />
+  </x:scenario>
+
+  <!-- CDAFHIR-050: <version> was emitted unconditionally while every child was conditional, so a
+       softwareName with no text(), no @displayName and no @code left a bare <version/>. Device.version.value
+       is 1..1 REQUIRED, so there is no valid version to emit in that case - the element must be omitted. -->
+  <x:scenario label="C. a softwareName with no value produces no Device.version at all">
+    <x:context mode="device" select="(//cda:softwareName)[1]">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000c0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <author>
+          <assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000c1">
+            <assignedAuthoringDevice>
+              <softwareName />
+            </assignedAuthoringDevice>
+          </assignedAuthor>
+        </author>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="C1. no version element is emitted (was a bare, ele-1-violating version element)" select="()" />
+  </x:scenario>
+
+  <x:scenario label="D. a softwareName WITH a value still produces version.value">
+    <x:context mode="device" select="(//cda:softwareName)[1]">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000d0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <author>
+          <assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000000d1">
+            <assignedAuthoringDevice>
+              <softwareName>Acme EHR</softwareName>
+            </assignedAuthoringDevice>
+          </assignedAuthor>
+        </author>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="D1. the negative control: a real value is still emitted"
+      test="count(fhir:version/fhir:value[@value = 'Acme EHR']) = 1" />
+  </x:scenario>
+
+  <!-- CDAFHIR-015, second/third/fourth sites: the 20260803 fix restructured the cda:externalDocument
+       template so the no-setId branch omits <url> instead of emitting one containing only a comment.
+       Three other templates in the same file had the identical shape and were left broken - live in 4
+       corpus documents. Pinning the relatedDocument one here; the corpus gate covers the other two. -->
+  <x:scenario label="E. a relatedDocument with no setId omits attachment.url instead of emitting an empty one">
+    <x:context select="(//cda:relatedDocument)[1]">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000e0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <recordTarget>
+          <patientRole lcg:uuid="00000000-0000-0000-0000-0000000000e1">
+            <id root="00000000-0000-0000-0000-0000000000e2" />
+          </patientRole>
+        </recordTarget>
+        <relatedDocument typeCode="XFRM">
+          <parentDocument lcg:uuid="00000000-0000-0000-0000-0000000000e3">
+            <id root="00000000-0000-0000-0000-0000000000e4" />
+          </parentDocument>
+        </relatedDocument>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="E1. no url element at all (was a url element wrapping only a WARNING comment)"
+      test="count(//fhir:attachment/fhir:url) = 0" />
+    <x:expect label="E2. the attachment itself is still produced"
+      test="count(//fhir:attachment) = 1" />
+  </x:scenario>
+
+</x:description>

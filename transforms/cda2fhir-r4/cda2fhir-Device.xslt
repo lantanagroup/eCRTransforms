@@ -75,29 +75,41 @@
   </xsl:template>
   <!-- 20260427 SG: update for data augmentation -->
   <xsl:template match="cda:softwareName" mode="device">
-    <version>
-      <xsl:if test="@code">
-        <xsl:apply-templates select=".">
-          <xsl:with-param name="pElementName" select="'type'" />
-        </xsl:apply-templates>
-      </xsl:if>
+    <!-- 20260804 Claude (CDAFHIR-050): <version> used to be emitted unconditionally, but every child was
+         conditional - a cda:softwareName with no text(), no @displayName and no @code produced a bare
+         <version/>, an ele-1 violation (live in 2 corpus documents). Device.version.value is 1..1 REQUIRED
+         in R4, so a version with only a type would be invalid too: the whole element now depends on there
+         being a value. The commented-out block below shows the abandoned alternative - inventing
+         value="NI" - which would be a fabricated value where DAR is this codebase's convention; leaving
+         the element out entirely is correct because Device.version itself is 0..*. -->
+    <xsl:variable name="vVersionValue">
       <xsl:choose>
-        <xsl:when test="text()">
-          <value value="{text()}" />
+        <xsl:when test="normalize-space(text())">
+          <xsl:value-of select="normalize-space(text())" />
         </xsl:when>
-        <xsl:when test="@displayName">
-          <value value="{@displayName}" />
+        <xsl:when test="normalize-space(@displayName)">
+          <xsl:value-of select="normalize-space(@displayName)" />
         </xsl:when>
       </xsl:choose>
-      <!--<xsl:choose>
-        <xsl:when test="@displayName">
-          <value value="{@displayName}" />
-        </xsl:when>
-        <xsl:otherwise>
-          <value value="NI" />
-        </xsl:otherwise>
-      </xsl:choose>-->
-    </version>
+    </xsl:variable>
+    <xsl:if test="string-length($vVersionValue) > 0">
+      <version>
+        <xsl:if test="@code">
+          <xsl:apply-templates select=".">
+            <xsl:with-param name="pElementName" select="'type'" />
+          </xsl:apply-templates>
+        </xsl:if>
+        <value value="{$vVersionValue}" />
+        <!--<xsl:choose>
+          <xsl:when test="@displayName">
+            <value value="{@displayName}" />
+          </xsl:when>
+          <xsl:otherwise>
+            <value value="NI" />
+          </xsl:otherwise>
+        </xsl:choose>-->
+      </version>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="cda:assignedAuthor[cda:assignedAuthoringDevice]" mode="reference">
     <xsl:param name="wrapping-elements" />

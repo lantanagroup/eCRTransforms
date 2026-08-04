@@ -98,7 +98,16 @@
       </encounter>
     </x:context>
     <x:expect label="D1. status is planned, never the source statusCode" test="count(fhir:Encounter/fhir:status[@value = 'planned']) = 1" />
-    <x:expect label="D2. class falls back to the NI convention when the code is not an ActCode" test="count(fhir:Encounter/fhir:class/fhir:code[@value = 'NI']) = 1" />
+    <!-- 20260804 Claude (CDAFHIR-051): expectation updated, not relaxed. The behaviour under test is
+         unchanged - a SNOMED 4.40 code is not an ActEncounterCode, so class has no source and the
+         fallback fires - but the fallback no longer invents a v3-NullFlavor NI coding. Encounter.class
+         is 1..1 with a REQUIRED binding to ActEncounterCode, so NI was outside the value set and a hard
+         conformance error; the pipeline's convention for required-but-absent data is a data-absent-reason
+         extension (same as Location.name, item 42). Asserting the DAR shape AND the absence of any code
+         so the old behaviour cannot come back unnoticed. -->
+    <x:expect label="D2. class falls back to data-absent-reason when the code is not an ActCode"
+      test="count(fhir:Encounter/fhir:class/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+    <x:expect label="D2b. the fallback class carries no invented code" test="count(fhir:Encounter/fhir:class/fhir:code) = 0" />
     <x:expect label="D3. the SNOMED code lands in type" test="count(fhir:Encounter/fhir:type/fhir:coding/fhir:code[@value = '270427003']) = 1" />
     <x:expect label="D4. point effectiveTime becomes period.start" test="count(fhir:Encounter/fhir:period/fhir:start[@value = '2025-02-24']) = 1" />
     <x:expect label="D5. identifier from id" test="count(fhir:Encounter/fhir:identifier) = 1" />
@@ -178,7 +187,12 @@
         </componentOf>
       </ClinicalDocument>
     </x:context>
-    <x:expect label="class falls back to NI - a body encounter's class is a different encounter's data outside eICR"
-      test="fhir:Encounter/fhir:class/fhir:code/@value = 'NI'" />
+    <!-- 20260804 Claude (CDAFHIR-051): same expectation update as D2 above - the point of this scenario
+         is that OUTSIDE eICR the encompassingEncounter does not borrow a body encounter's class, so the
+         fallback must fire. That is unchanged; only the fallback's representation moved from an invalid
+         v3-NullFlavor NI coding to the data-absent-reason convention. -->
+    <x:expect label="class falls back to data-absent-reason - a body encounter's class is a different encounter's data outside eICR"
+      test="count(fhir:Encounter/fhir:class/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+    <x:expect label="and no ActCode is borrowed from the body encounter" test="count(fhir:Encounter/fhir:class/fhir:code) = 0" />
   </x:scenario>
 </x:description>

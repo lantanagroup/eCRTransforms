@@ -644,7 +644,11 @@
                   <value value="+1-334-304-2665"/>
                   <use value="mobile"/>
                </telecom>
-               <address/>
+               <address>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </address>
             </contact>
             <communication>
                <language>
@@ -1074,7 +1078,6 @@
                <type value="model-name"/>
             </deviceName>
             <modelNumber value="TBD Device"/>
-            <version/>
             <owner>
                <reference value="urn:uuid:UUID017"/>
             </owner>
@@ -1484,7 +1487,7 @@
             <code>
                <coding>
                   <system value="http://loinc.org"/>
-                  <code value="94310-0 "/>
+                  <code value="94310-0"/>
                   <display value="SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection"/>
                </coding>
             </code>

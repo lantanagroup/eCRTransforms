@@ -95,7 +95,13 @@
         <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.5.4'] or cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{cda:code/@code}" />
+            <!-- 20260804 Claude (CDAFHIR-016 residual): this value path was missed by the 20260804 sweep,
+                 which only covered the encompassingEncounter choose below. It selected cda:code/@code with
+                 neither the codeSystem filter its own when-test uses nor the (...)[1] positional guard its
+                 sibling translation path already has - the exact space-joining shape 016 set out to
+                 eliminate. cda:encounter/code is 1..1 in C-CDA so no corpus document trips it today; fixed
+                 for shape, and expected to be a no-op on every snapshot. -->
+            <code value="{(cda:code[@codeSystem = ('2.16.840.1.113883.5.4', '2.16.840.1.113883.1.11.13955')])[1]/@code}" />
           </class>
         </xsl:when>
         <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4'] or cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
@@ -105,11 +111,18 @@
           </class>
         </xsl:when>
         <xsl:otherwise>
-          <!-- same no-information convention as the main encounter template -->
+          <!-- 20260804 Claude (CDAFHIR-051): was a v3-NullFlavor NI coding. Encounter.class is 1..1 with a
+               REQUIRED binding to ActEncounterCode, and a required binding admits no code outside the value
+               set - so NI was a hard conformance failure, not a null (and class is a plain Coding, so there
+               is no CodeableConcept.text escape hatch either). Live on the Planned Encounter of a COVID
+               corpus document whose 4.40 code is SNOMED 270427003: the SNOMED code is correctly routed to
+               Encounter.type just below, so class genuinely has no source. Emitting the data-absent-reason
+               extension instead, per the convention used for Location.name (item 42). DAR code "unknown"
+               matches what c-to-fhir-utility maps NI to, so the intended semantics are preserved. -->
           <class>
-            <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
-            <code value="NI" />
-            <display value="NoInformation" />
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
           </class>
         </xsl:otherwise>
       </xsl:choose>
@@ -310,11 +323,20 @@
           </class>
         </xsl:when>
         <xsl:otherwise>
+          <!-- 20260804 Claude (CDAFHIR-051): was a v3-NullFlavor NI coding (the 20260729 note below fixed
+               the display spelling but left the underlying violation). Encounter.class is 1..1 with a
+               REQUIRED binding to ActEncounterCode, so NI was a conformance failure rather than a null.
+               Live on the eICR External Encounter shape: encompassingEncounter/code PHC2237 is a PHIN VS
+               local code with no translations and no ActEncounterCode anywhere in the document - the
+               absence of a class is the entire point of an External Encounter, so every document using
+               PHC2237 lands here. Data-absent-reason instead, per the Location.name convention (item 42);
+               "unknown" is what c-to-fhir-utility already maps NI to. ("not-applicable" is arguably
+               better for PHC2237 specifically, but distinguishing it would mean special-casing that code
+               and "unknown" is defensible for both paths - noted as an open question, not a residual.) -->
           <class>
-            <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
-            <code value="NI" />
-            <!-- 20260729 Claude: Fix - display was misspelled "NoInformtion"; v3-NullFlavor NI display is "NoInformation" -->
-            <display value="NoInformation" />
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
           </class>
         </xsl:otherwise>
       </xsl:choose>

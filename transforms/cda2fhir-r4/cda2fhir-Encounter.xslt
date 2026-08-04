@@ -251,56 +251,62 @@
       </xsl:if>
 
       <!-- RG: If any code or translation is from the ActCode code system, use that to populate class, otherwise make it a nullFlavor -->
+      <!-- 20260803 Claude (CDAFHIR-016): three repairs to this choose, behavior preserved for the
+           single-encounter documents that dominate the corpus:
+           1. Encounter.class is 1..1 - every value path is now wrapped (...)[1]. The old paths selected
+              EVERY matching code and the attribute value template space-joined them into one invalid
+              code when a document carried several Encounter Activities.
+           2. The translation value paths now carry the same codeSystem filter as their tests - the old
+              paths took every translation, so a code with a second non-ActCode translation joined both.
+           3. The document-wide Encounter Activity fallbacks are now gated on eICR. In eICR the 4.49
+              activities are deduplicated INTO this encounter (the 2026-07-30 mapping decision, same
+              model as SG's 20260629 identifier merge), so borrowing their class is intentional there.
+              In any other document type the 4.49s are separate Encounter resources, and borrowing one
+              encounter's class for another was a data leak. -->
       <xsl:choose>
         <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.5.4']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{cda:code/@code}" />
+            <code value="{(cda:code[@codeSystem = '2.16.840.1.113883.5.4'])[1]/@code}" />
           </class>
         </xsl:when>
         <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{cda:code/cda:translation/@code}" />
+            <code value="{(cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4'])[1]/@code}" />
           </class>
         </xsl:when>
         <!-- also check encounter -->
-        <xsl:when test="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+        <xsl:when test="$gvCurrentIg = 'eICR' and //cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']/@code}" />
+            <code value="{(//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955'])[1]/@code}" />
           </class>
         </xsl:when>
-        <xsl:when test="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']">
+        <xsl:when test="$gvCurrentIg = 'eICR' and //cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4']/@code}" />
+            <code value="{(//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.5.4'])[1]/@code}" />
           </class>
         </xsl:when>
         <!-- MD: add for ambulatory encounter-->
         <xsl:when test="cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{cda:code/@code}" />
+            <code value="{(cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955'])[1]/@code}" />
           </class>
         </xsl:when>
         <xsl:when test="cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{cda:code/cda:translation/@code}" />
+            <code value="{(cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955'])[1]/@code}" />
           </class>
         </xsl:when>
         <!-- Also check encounter -->
-        <xsl:when test="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']">
+        <xsl:when test="$gvCurrentIg = 'eICR' and //cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
           <class>
             <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code[@codeSystem = '2.16.840.1.113883.1.11.13955']/@code}" />
-          </class>
-        </xsl:when>
-        <xsl:when test="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']">
-          <class>
-            <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
-            <code value="{//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955']/@code}" />
+            <code value="{(//cda:encounter[cda:templateId/@root='2.16.840.1.113883.10.20.22.4.49']/cda:code/cda:translation[@codeSystem = '2.16.840.1.113883.1.11.13955'])[1]/@code}" />
           </class>
         </xsl:when>
         <xsl:otherwise>
@@ -322,7 +328,11 @@
       </xsl:for-each>
 
       <!-- Also get any encounter codes -->
-      <xsl:for-each select="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:code[not(@codeSystem = '2.16.840.1.113883.1.11.13955')]">
+      <!-- 20260803 Claude (CDAFHIR-016): gated on eICR - there the 4.49 activities ARE this encounter
+           (dedup model, same as the identifier merge above), so absorbing their codes as type is
+           intentional. In other document types the 4.49s are separate resources and this leaked one
+           encounter's codes into another. Encounter.type is 0..*, so the multi-activity merge stays. -->
+      <xsl:for-each select="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'][$gvCurrentIg = 'eICR']/cda:code[not(@codeSystem = '2.16.840.1.113883.1.11.13955')]">
         <xsl:call-template name="newCreateCodableConcept">
           <xsl:with-param name="pElementName" select="'type'" />
           <xsl:with-param name="pIncludeCoding" select="true()" />
@@ -457,9 +467,12 @@
             </xsl:apply-templates>
           </hospitalization>
         </xsl:when>
-        <xsl:when test="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/sdtc:dischargeDispositionCode">
+        <!-- 20260803 Claude (CDAFHIR-016): gated on eICR (dedup model - see class above) and limited
+             to the first activity's code: dischargeDisposition is 0..1, so applying templates to every
+             activity's sdtc code emitted repeated elements on multi-activity documents. -->
+        <xsl:when test="$gvCurrentIg = 'eICR' and //cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/sdtc:dischargeDispositionCode">
           <hospitalization>
-            <xsl:apply-templates select="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/sdtc:dischargeDispositionCode">
+            <xsl:apply-templates select="(//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/sdtc:dischargeDispositionCode)[1]">
               <xsl:with-param name="pElementName" select="'dischargeDisposition'" />
               <xsl:with-param name="pIncludeCoding" select="true()" />
             </xsl:apply-templates>

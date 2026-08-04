@@ -47,12 +47,19 @@
         <xsl:with-param name="pElementName" select="'type'" />
       </xsl:apply-templates>
       <!-- If this is eICR let's see if there is another type in the Encounter Activities -->
+      <!-- 20260803 Claude (CDAFHIR-019): kept eICR-only (there the 4.49 activities are deduplicated
+           into the document encounter, so their service-delivery-location types legitimately describe
+           THIS encounter's facility), but now grouped by codeSystem+code: multiple activities usually
+           repeat the same SDLOC code, and each repeat emitted a duplicate Location.type. Also skip
+           null-flavored codes, which produced empty type elements. -->
       <xsl:if test="$gvCurrentIg = 'eICR'">
-        <xsl:for-each select="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:participant[@typeCode = 'LOC']/cda:participantRole[@classCode = 'SDLOC']/cda:code">
+        <xsl:for-each-group
+          select="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:participant[@typeCode = 'LOC']/cda:participantRole[@classCode = 'SDLOC']/cda:code[not(@nullFlavor)]"
+          group-by="concat(@codeSystem, '|', @code)">
           <xsl:apply-templates select=".">
             <xsl:with-param name="pElementName" select="'type'" />
           </xsl:apply-templates>
-        </xsl:for-each>
+        </xsl:for-each-group>
       </xsl:if>
 
       <!-- Adding telecom -->

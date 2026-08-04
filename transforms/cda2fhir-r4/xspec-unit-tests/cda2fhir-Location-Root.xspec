@@ -96,4 +96,63 @@
     <x:expect label="real name used, no data-absent-reason"
       test="count(fhir:entry/fhir:resource/fhir:Location/fhir:name[@value = 'Good Health Hospital'][not(fhir:extension)]) = 1" />
   </x:scenario>
+
+  <!-- 20260803 Claude (CDAFHIR-019): the eICR type-absorption loop emitted one Location.type per
+       Encounter Activity SDLOC code, so repeated codes across activities produced duplicate types.
+       Now grouped by codeSystem+code (and null-flavored codes skipped). Inline whole-document
+       context because $gvCurrentIg and the //-loop need a real document root. -->
+  <x:scenario label="healthCareFacility Location absorbs Encounter Activity SDLOC types deduplicated by code">
+    <x:context select="//cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000fa">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <templateId root="2.16.840.1.113883.10.20.22.2.22.1" />
+                <entry>
+                  <encounter classCode="ENC" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000fb">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.49" />
+                    <participant typeCode="LOC">
+                      <participantRole classCode="SDLOC" lcg:uuid="00000000-0000-0000-0000-0000000000fc">
+                        <code code="1160-1" codeSystem="2.16.840.1.113883.6.259" displayName="Urgent Care Center" />
+                      </participantRole>
+                    </participant>
+                  </encounter>
+                </entry>
+                <entry>
+                  <encounter classCode="ENC" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000fd">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.49" />
+                    <participant typeCode="LOC">
+                      <participantRole classCode="SDLOC" lcg:uuid="00000000-0000-0000-0000-0000000000fe">
+                        <code code="1160-1" codeSystem="2.16.840.1.113883.6.259" displayName="Urgent Care Center" />
+                      </participantRole>
+                    </participant>
+                    <participant typeCode="LOC">
+                      <participantRole classCode="SDLOC" lcg:uuid="00000000-0000-0000-0000-0000000000ff">
+                        <code code="1108-0" codeSystem="2.16.840.1.113883.6.259" displayName="Emergency Department" />
+                      </participantRole>
+                    </participant>
+                  </encounter>
+                </entry>
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-000000000100">
+            <location lcg:uuid="00000000-0000-0000-0000-000000000101">
+              <healthCareFacility lcg:uuid="00000000-0000-0000-0000-000000000102">
+                <id root="00000000-0000-0000-0000-000000000103" />
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="two distinct types, not three - the repeated 1160-1 is emitted once"
+      test="count(fhir:Location/fhir:type) = 2" />
+    <x:expect label="both distinct codes survive"
+      test="count(fhir:Location/fhir:type/fhir:coding/fhir:code[@value = '1160-1']) = 1 and count(fhir:Location/fhir:type/fhir:coding/fhir:code[@value = '1108-0']) = 1" />
+  </x:scenario>
 </x:description>

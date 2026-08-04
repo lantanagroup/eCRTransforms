@@ -103,4 +103,82 @@
     <x:expect label="D4. point effectiveTime becomes period.start" test="count(fhir:Encounter/fhir:period/fhir:start[@value = '2025-02-24']) = 1" />
     <x:expect label="D5. identifier from id" test="count(fhir:Encounter/fhir:identifier) = 1" />
   </x:scenario>
+
+  <!-- 20260803 Claude (CDAFHIR-016): the class fallback used to select EVERY Encounter Activity code
+       document-wide and space-join them into one invalid class code; it also ran for non-eICR
+       documents, where 4.49 activities are separate Encounter resources (only in eICR are they
+       deduplicated into the encompassing encounter). Inline whole-document contexts because both
+       $gvCurrentIg and the //-fallback need a real document root. -->
+  <x:scenario label="E1. eICR encompassingEncounter without a class code borrows exactly ONE class from the first Encounter Activity">
+    <x:context select="//cda:encompassingEncounter">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000f0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <templateId root="2.16.840.1.113883.10.20.22.2.22.1" />
+                <entry>
+                  <encounter classCode="ENC" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000f1">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.49" />
+                    <code code="AMB" codeSystem="2.16.840.1.113883.1.11.13955" />
+                  </encounter>
+                </entry>
+                <entry>
+                  <encounter classCode="ENC" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000f2">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.49" />
+                    <code code="IMP" codeSystem="2.16.840.1.113883.1.11.13955" />
+                  </encounter>
+                </entry>
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000000f3">
+            <id root="00000000-0000-0000-0000-0000000000f4" />
+            <effectiveTime>
+              <low value="20240101" />
+            </effectiveTime>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="exactly one class element (class is 1..1)"
+      test="count(fhir:Encounter/fhir:class) = 1" />
+    <x:expect label="the class is the FIRST activity's code, not the space-joined pair 'AMB IMP'"
+      test="fhir:Encounter/fhir:class/fhir:code/@value = 'AMB'" />
+  </x:scenario>
+
+  <x:scenario label="E2. non-eICR encompassingEncounter does NOT borrow class from body Encounter Activities">
+    <x:context select="//cda:encompassingEncounter">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000f5">
+        <templateId root="9.9.9.9.9" />
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <entry>
+                  <encounter classCode="ENC" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000f6">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.49" />
+                    <code code="AMB" codeSystem="2.16.840.1.113883.1.11.13955" />
+                  </encounter>
+                </entry>
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000000f7">
+            <id root="00000000-0000-0000-0000-0000000000f8" />
+            <effectiveTime>
+              <low value="20240101" />
+            </effectiveTime>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="class falls back to NI - a body encounter's class is a different encounter's data outside eICR"
+      test="fhir:Encounter/fhir:class/fhir:code/@value = 'NI'" />
+  </x:scenario>
 </x:description>

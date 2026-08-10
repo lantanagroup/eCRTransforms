@@ -442,7 +442,7 @@
             </extension>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.5"/>
-               <value value="mrn-00884455"/>
+               <value value="MRN-00884455"/>
             </identifier>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-ssn"/>
@@ -2575,7 +2575,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
+               <value value="UT-GC-500"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2612,7 +2612,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
+               <value value="UT"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2649,7 +2649,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
+               <value value="UT-GC-500"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2686,7 +2686,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
+               <value value="UT"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2723,7 +2723,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
+               <value value="UT-GC-500"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2766,7 +2766,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
+               <value value="UT"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2809,7 +2809,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
+               <value value="UT-GC-500"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2846,7 +2846,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
+               <value value="UT"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2883,7 +2883,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
+               <value value="UT-GC-500"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2920,7 +2920,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
+               <value value="UT"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -2957,7 +2957,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut-gc-500"/>
+               <value value="UT-GC-500"/>
             </identifier>
             <active value="true"/>
             <type>
@@ -3000,7 +3000,7 @@
             <!--participant[LOC]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ut"/>
+               <value value="UT"/>
             </identifier>
             <active value="true"/>
             <type>

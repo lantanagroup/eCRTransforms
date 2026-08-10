@@ -1527,7 +1527,7 @@
             <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.9.9.9.9.9"][@extension="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19"][@extension="9937012"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="ee/rP/assignedEntity/id"]]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ee/rp/assignedentity/id"/>
+               <value value="ee/rP/assignedEntity/id"/>
             </identifier>
             <practitioner>
                <reference value="urn:uuid:UUID037"/>
@@ -1562,7 +1562,7 @@
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="ee/rp/assignedentity/id"/>
+               <value value="ee/rP/assignedEntity/id"/>
             </identifier>
             <name>
                <family value="Seven"/>

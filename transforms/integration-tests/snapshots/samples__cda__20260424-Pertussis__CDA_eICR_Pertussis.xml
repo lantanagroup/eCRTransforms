@@ -664,7 +664,7 @@
             </extension>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.5"/>
-               <value value="mrn-00884455"/>
+               <value value="MRN-00884455"/>
             </identifier>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-ssn"/>

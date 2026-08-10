@@ -410,7 +410,7 @@
             </extension>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.5"/>
-               <value value="pt-470126"/>
+               <value value="PT-470126"/>
             </identifier>
             <name>
                <use value="usual"/>

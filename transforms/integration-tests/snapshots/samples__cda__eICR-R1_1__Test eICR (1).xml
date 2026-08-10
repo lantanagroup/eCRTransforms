@@ -2914,7 +2914,7 @@
             </extension>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.3.688884.100"/>
-               <value value="cmc6svp999999999"/>
+               <value value="CMC6SVP999999999"/>
             </identifier>
             <name>
                <use value="usual"/>
@@ -3124,7 +3124,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.3.688884.100"/>
-               <value value="cmc6svp999999999"/>
+               <value value="CMC6SVP999999999"/>
             </identifier>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.5.737384.100002"/>
@@ -3693,7 +3693,7 @@
             <!--/ClinicalDocument[cda:id[@root="1.2.840.114350.1.13.212.2.7.8"]]/author/assignedAuthor[cda:id[@root="1.2.840.114350.1.13.212.2.7.2.697780"][@extension="EDILABIH"]]-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.2.697780"/>
-               <value value="edilabih"/>
+               <value value="EDILABIH"/>
             </identifier>
             <practitioner>
                <reference value="urn:uuid:UUID113"/>
@@ -3721,7 +3721,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.2.697780"/>
-               <value value="edilabih"/>
+               <value value="EDILABIH"/>
             </identifier>
             <name>
                <family value="Edi"/>
@@ -11366,7 +11366,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.7-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.2.728286"/>
-               <value value="lukv"/>
+               <value value="LukV"/>
             </identifier>
             <status value="final"/>
             <code>
@@ -16932,7 +16932,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.1.1040.1"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17093,7 +17093,7 @@
                         urn:hl7ii:2.16.840.1.113883.10.20.22.4.38urn:hl7ii:2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.1.1040.8"/>
-               <value value="z22042"/>
+               <value value="Z22042"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17228,7 +17228,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19927"/>
-               <value value="z22"/>
+               <value value="Z22"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17262,7 +17262,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19929"/>
-               <value value="z22"/>
+               <value value="Z22"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17300,7 +17300,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19931"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17338,7 +17338,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19930"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17376,7 +17376,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19933"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17414,7 +17414,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19932"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17452,7 +17452,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19944"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17486,7 +17486,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19945"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17520,7 +17520,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19946"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>
@@ -17554,7 +17554,7 @@
                         urn:hl7ii:1.2.840.114350.1.72.5.1-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.7.698084.19947"/>
-               <value value="z220"/>
+               <value value="Z220"/>
             </identifier>
             <status value="final"/>
             <category>

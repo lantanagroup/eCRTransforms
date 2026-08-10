@@ -1055,7 +1055,7 @@
          <Organization><!--participant[LOC]-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.5"/>
-               <value value="locgeneric"/>
+               <value value="locGeneric"/>
             </identifier>
             <active value="true"/>
             <type>

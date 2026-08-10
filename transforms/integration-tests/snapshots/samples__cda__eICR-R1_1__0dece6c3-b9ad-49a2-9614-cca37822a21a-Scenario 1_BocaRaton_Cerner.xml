@@ -823,7 +823,7 @@
             <!--INFO: Id from encompassingEncounter-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="encounter/128252182/_history/4"/>
+               <value value="Encounter/128252182/_history/4"/>
             </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.3.5912.2000"/>
@@ -832,7 +832,7 @@
             <!--Id from Encounter Activity-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="encounter/128252182/_history/4"/>
+               <value value="Encounter/128252182/_history/4"/>
             </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.3.5912.2000"/>
@@ -1039,7 +1039,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="location/2554856903/_history/1"/>
+               <value value="Location/2554856903/_history/1"/>
             </identifier>
             <name value="Boca Raton Regional Hospital"/>
             <type>
@@ -1073,7 +1073,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="location/2554856903/_history/1"/>
+               <value value="Location/2554856903/_history/1"/>
             </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.4.4"/>
@@ -1325,7 +1325,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="https://fhir-ehr.sandboxcerner.com/r4/UUID049/condition/p96562399/_history/96562399"/>
+               <value value="https://fhir-ehr.sandboxcerner.com/r4/UUID049/Condition/p96562399/_history/96562399"/>
             </identifier>
             <clinicalStatus>
                <coding>
@@ -1362,7 +1362,7 @@
             </meta>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="https://fhir-ehr.sandboxcerner.com/r4/UUID049/condition/p96562399/_history/96562399"/>
+               <value value="https://fhir-ehr.sandboxcerner.com/r4/UUID049/Condition/p96562399/_history/96562399"/>
             </identifier>
             <clinicalStatus>
                <coding>

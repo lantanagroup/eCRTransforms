@@ -66,4 +66,42 @@
         <x:expect label="Should produce 1 address" test="count(fhir:address) = 1" />
 
     </x:scenario>
+
+    <!-- 20260804 Claude (CDAFHIR-002): cda:id/@extension used to be passed through lower-case() on its
+         way into Identifier.value, altering 73 of the 697 extensions in the corpus across 15 documents.
+         An identifier is what the issuing system assigned; folding its case yields a different
+         identifier, and nothing downstream can undo it. These three scenarios pin the repaired
+         behaviour AND the two lowercasings that are correct and must survive - "delete every
+         lower-case() in the template" is the obvious over-correction and the third scenario blocks it. -->
+
+    <x:scenario label="CDAFHIR-002: a mixed-case id/@extension reaches Identifier.value unaltered">
+        <x:context>
+            <cda:id root="2.16.840.1.113883.19.5" extension="MRN-00884455" />
+        </x:context>
+        <x:expect label="the identifier value keeps the case the source assigned"
+            test="count(fhir:identifier/fhir:value[@value = 'MRN-00884455']) = 1" />
+        <x:expect label="and the folded form is gone"
+            test="count(fhir:identifier/fhir:value[@value = 'mrn-00884455']) = 0" />
+    </x:scenario>
+
+    <x:scenario label="CDAFHIR-002: a resource-relative reference used as an id survives intact">
+        <!-- The Cerner corpus document carries these. FHIR resource type names are case-SENSITIVE, so
+             the old output (encounter/128252182/_history/4) was wrong, not merely reformatted. -->
+        <x:context>
+            <cda:id root="2.16.840.1.113883.19.5" extension="Encounter/128252182/_history/4" />
+        </x:context>
+        <x:expect label="the resource type keeps its capital E"
+            test="count(fhir:identifier/fhir:value[@value = 'Encounter/128252182/_history/4']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="CDAFHIR-002 negative control: a UUID root IS still lowercased">
+        <!-- RFC 4122 says UUIDs are canonically lowercase, so lower-case(@root) in the urn:uuid branch
+             is correct and deliberate. Asserted here so a future "remove the lowercasing" sweep cannot
+             quietly take this one with it. -->
+        <x:context>
+            <cda:id root="ABCDEF12-1234-1234-1234-123456789ABC" />
+        </x:context>
+        <x:expect label="the urn:uuid value is canonicalised to lowercase"
+            test="count(fhir:identifier/fhir:value[@value = 'urn:uuid:abcdef12-1234-1234-1234-123456789abc']) = 1" />
+    </x:scenario>
 </x:description>

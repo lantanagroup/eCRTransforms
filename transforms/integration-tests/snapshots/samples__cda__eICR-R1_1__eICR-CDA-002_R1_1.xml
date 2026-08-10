@@ -438,7 +438,7 @@
             </extension>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.5"/>
-               <value value="pt-002597"/>
+               <value value="PT-002597"/>
             </identifier>
             <name>
                <use value="usual"/>
@@ -771,7 +771,7 @@
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="tbdfacility#"/>
+               <value value="TBDFacility#"/>
             </identifier>
             <active value="true"/>
             <name value="TBDFacilityName"/>
@@ -805,7 +805,7 @@
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="tbdfacility#"/>
+               <value value="TBDFacility#"/>
             </identifier>
             <name value="TBDFacilityName"/>
             <type>
@@ -844,7 +844,7 @@
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="tbdfacility#"/>
+               <value value="TBDFacility#"/>
             </identifier>
             <active value="true"/>
             <name value="TBDFacilityName"/>
@@ -925,7 +925,7 @@
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="tbdfacility#"/>
+               <value value="TBDFacility#"/>
             </identifier>
             <active value="true"/>
             <name value="TBDFacilityName"/>

@@ -1052,7 +1052,29 @@
           </xsl:call-template>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="lower-case(@extension)" />
+          <!-- 20260804 Claude (CDAFHIR-002): was lower-case(@extension). Identifier.value is the
+               identifier as the issuing system assigned it, and identifiers exist to match records
+               across systems - case-folding one produces a different identifier. 73 of the 697
+               id/@extension values in the corpus were being altered, across 15 documents: MRN-00884455,
+               UT-GC-500, the ICD-10 codes Z22/Z220, and - decisively - the Cerner document's
+               resource-relative references (Encounter/128252182/_history/4, plus a full URL containing
+               .../Condition/p96562399/...), where FHIR resource type names are case-SENSITIVE, so the
+               folded output was not merely altered but wrong.
+
+               Almost certainly unintended rather than a mapping decision: it arrives in 879dd18
+               ("Sprint 4 Re-factor and clean up code"), and the two OTHER lower-case() calls in this
+               template are correct - @root in the urn:uuid branch (UUIDs are canonically lowercase per
+               RFC 4122) and $root-uri on system (URI scheme and authority are case-insensitive). Those
+               stay. This reads as that normalisation extended one field too far; note the
+               2.16.840.1.113883.4.873 branch immediately above already declines to fold, so the
+               template contained its own precedent.
+
+               Delta-validated before committing: the three most-affected corpus documents produced 77
+               validator errors before and 77 after - zero new, zero eliminated, identical issue
+               identities. Identifier.value is a plain string with no invariant, binding or regex, so
+               the eCR IG has no opinion either way. This is a data-fidelity fix, not a conformance
+               one, and was made on that basis. -->
+          <xsl:value-of select="@extension" />
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>

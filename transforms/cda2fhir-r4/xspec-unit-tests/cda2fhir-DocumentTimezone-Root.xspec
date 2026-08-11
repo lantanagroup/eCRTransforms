@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260810 Claude (CDAFHIR-001): coverage for $gvDocumentTimezone, the fallback chain
+     lcg:cdaTS2date uses when a CDA TS carries no offset of its own.
+
+       rung 1  ClinicalDocument/effectiveTime's offset
+       rung 2  the most common offset elsewhere in the document
+       rung 3  UTC
+
+     Before this, an offset-less TS was stamped with the offset of whatever MACHINE ran the
+     transform, so the same document produced '+10:00' on a developer's laptop and '+00:00' in CI.
+     47 values across 6 of the 34 corpus documents were affected.
+
+     All three scenarios use a WHOLE ClinicalDocument, deliberately: $gvDocumentTimezone reads
+     /cda:ClinicalDocument/cda:effectiveTime, so a bare-fragment context silently resolves the
+     whole chain to rung 3 and the test would prove nothing. Same trap as $gvCurrentIg. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" run-as="external">
+
+    <x:scenario label="Rung 1: offset-less timestamps take the ClinicalDocument/effectiveTime offset">
+        <!-- Real document, header 20201107094421-0500. It carries 10 offset-less dateTimes, and its
+             body also carries a lone -0700 substanceAdministration - which is exactly why
+             nearest-preceding-offset was rejected as a rule: it would have captured these values. -->
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="a Bundle is still produced" test="count(/fhir:Bundle) = 1" />
+        <x:expect label="an offset-less encounter period takes the header's -05:00, not the machine's"
+            test="count(//fhir:*[@value = '2020-11-10T18:00:00-05:00']) = 1 and count(//fhir:*[@value = '2020-11-10T21:30:00-05:00']) = 1" />
+        <x:expect label="the two offset-less pregnancy dates take the header's -05:00"
+            test="count(//fhir:*[@value = '2017-10-01T10:15:00-05:00']) = 2" />
+        <x:expect label="OLD SHAPE IS GONE: no dateTime in this document is stamped +00:00 any more"
+            test="count(//fhir:*[matches(@value, '^\d{4}-\d\d-\d\dT[\d:.]+\+00:00$')]) = 0" />
+        <x:expect label="the lone -07:00 body timestamp keeps its OWN offset - the document timezone applies only to offset-LESS values"
+            test="count(//fhir:*[matches(@value, '^\d{4}-\d\d-\d\dT[\d:.]+-07:00$')]) &gt;= 1" />
+    </x:scenario>
+
+    <x:scenario label="Rung 2: header unusable, so the document's most common offset decides">
+        <!-- Fixture: ClinicalDocument/effectiveTime nullFlavor, three authors at -0600/-0600/-0400,
+             and an encompassingEncounter period whose boundaries carry no offset. -->
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_TZ_FALLBACK_PLURALITY.xml" />
+        <x:expect label="the offset-less period start takes -06:00, the plurality"
+            test="count(//fhir:period/fhir:start[@value = '2026-07-25T08:30:00-06:00']) = 1" />
+        <x:expect label="the offset-less period end takes -06:00 too"
+            test="count(//fhir:period/fhir:end[@value = '2026-07-26T16:45:00-06:00']) = 1" />
+        <x:expect label="the MINORITY -04:00 did not win the vote"
+            test="count(//fhir:period/*[matches(@value, '-04:00$')]) = 0" />
+        <x:expect label="NEGATIVE CONTROL: a timestamp carrying its own -0400 is left alone, not rewritten to the document timezone"
+            test="count(//fhir:recorded[@value = '2026-07-27T10:50:00.000-04:00']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="Rung 3: a document with no offset anywhere falls back to UTC">
+        <!-- Fixture: the header carries a VALUE but no offset, which is the point - rung 1 requires an
+             offset, not merely a present effectiveTime. Nothing else in the document has one either. -->
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_TZ_FALLBACK_UTC.xml" />
+        <x:expect label="the offset-less period start falls back to UTC"
+            test="count(//fhir:period/fhir:start[@value = '2026-07-25T08:30:00+00:00']) = 1" />
+        <x:expect label="the offset-less period end falls back to UTC"
+            test="count(//fhir:period/fhir:end[@value = '2026-07-26T16:45:00+00:00']) = 1" />
+        <x:expect label="an offset-less header does NOT satisfy rung 1 - nothing is stamped +10:00 or any other machine offset"
+            test="count(//fhir:*[matches(@value, '^\d{4}-\d\d-\d\dT[\d:.]+\+10:00$')]) = 0" />
+    </x:scenario>
+
+</x:description>

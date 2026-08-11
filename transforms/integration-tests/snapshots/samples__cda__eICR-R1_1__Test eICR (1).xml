@@ -17622,8 +17622,8 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2022-12-24T00:00:00+00:00"/>
-               <end value="2023-01-03T15:57:00+00:00"/>
+               <start value="2022-12-24T00:00:00-08:00"/>
+               <end value="2023-01-03T15:57:00-08:00"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
             <issued value="2023-01-03T23:34:12.000-08:00"/>

@@ -3,6 +3,53 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
   xmlns:b64="https://github.com/ilyakharlamov/xslt_base64" version="2.0" exclude-result-prefixes="lcg cda fhir xs xsi sdtc xhtml b64">
   <!--***   Date and Time functions and templates  *** -->
+  <!-- FUNCTION: to return the timezone offset of a CDA TS as a FHIR offset ('-05:00'), or the
+       empty sequence when the TS carries no offset. -->
+  <xsl:function name="lcg:tzFromcdaTS" as="xs:string?">
+    <xsl:param name="cdaTS" as="xs:string?" />
+    <xsl:if test="matches($cdaTS, '[-+][0-9]{4}$')">
+      <xsl:sequence select="concat(substring($cdaTS, string-length($cdaTS) - 4, 3), ':', substring($cdaTS, string-length($cdaTS) - 1, 2))" />
+    </xsl:if>
+  </xsl:function>
+  <!-- 20260810 Claude (CDAFHIR-001): the document's timezone, used by lcg:cdaTS2date when a CDA TS
+       carries no offset of its own. Three rungs, in order:
+         1. ClinicalDocument/effectiveTime's offset - the sending system's own stamp. It is 1..1 in
+            CDA and carries an offset in all 34 corpus documents, so this is the rung that fires.
+         2. The most common offset elsewhere in the document, ties broken lexically so the result is
+            deterministic. NOTE the hazard measured on 20260810: in 'Test eICR (1).xml' the plurality
+            is '+0000' (118 of 178 values) while the real zone is '-0800' - plurality is safe here
+            ONLY because rung 1 already catches that document. If this rung ever starts firing on
+            real input, re-examine it rather than trusting it.
+         3. UTC.
+       Rejected alternatives, both measured against the 6 affected corpus documents: plurality as
+       rung 1 (wrong on Test eICR, above) and nearest-preceding-offset (wrong on all four eICR R3.1
+       samples, where one stray substanceAdministration at -0700 would capture nine values whose
+       document header says -0500).
+       KNOWN CEILING: an offset is not a timezone, so it cannot be extrapolated across a DST
+       boundary. The R3.1 samples carry a -0500 (November, EST) header and one value dated July 2000,
+       which was really -0400; that one comes out an hour off. Accepted - the alternative was a value
+       that is arbitrarily wrong AND differs between a local run and CI.
+       Depends on a whole ClinicalDocument being in context, exactly like $gvCurrentIg: an XSpec
+       scenario built from a bare fragment resolves this to rung 3, not to rung 1. -->
+  <xsl:variable name="gvDocumentTimezone" as="xs:string">
+    <xsl:variable name="vHeaderTz" as="xs:string?" select="lcg:tzFromcdaTS((/cda:ClinicalDocument/cda:effectiveTime[not(@nullFlavor)]/@value)[1])" />
+    <xsl:choose>
+      <xsl:when test="exists($vHeaderTz)">
+        <xsl:sequence select="$vHeaderTz" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable name="vAllTz" as="xs:string*" select="for $v in //@value[matches(., '^[0-9]{8,}(\.[0-9]+)?[-+][0-9]{4}$')] return lcg:tzFromcdaTS($v)" />
+        <xsl:variable name="vRankedTz" as="xs:string*">
+          <xsl:for-each-group select="$vAllTz" group-by=".">
+            <xsl:sort select="count(current-group())" order="descending" />
+            <xsl:sort select="current-grouping-key()" order="ascending" />
+            <xsl:sequence select="current-grouping-key()" />
+          </xsl:for-each-group>
+        </xsl:variable>
+        <xsl:sequence select="($vRankedTz, '+00:00')[1]" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
   <!-- FUNCTION:  to return date part of a CDA TS -->
   <xsl:function name="lcg:dateFromcdaTS" as="xs:string">
     <!-- Just get the date part, ignoring any time data -->
@@ -65,11 +112,15 @@
         <xsl:sequence select="concat($date, 'T', $time, $timezone)" />
       </xsl:when>
       <!-- check to make sure the xs:time will work, otherwise this will crash -->
+      <!-- 20260810 Claude (CDAFHIR-001): the TS carries no offset of its own, so take the document's
+           (see $gvDocumentTimezone). This used to be adjust-time-to-timezone() with no second
+           argument, which stamps the offset of whatever MACHINE ran the transform - so the same
+           document produced '+10:00' on a developer's laptop and '+00:00' in CI, and neither had
+           anything to do with the sending facility. The wall-clock digits are unchanged either way:
+           adjust-time-to-timezone ATTACHES the implicit timezone to a timezone-less xs:time rather
+           than converting it, so this rewrite moves only the suffix. -->
       <xsl:when test="string-length($cdaTS) > 8 and concat(substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00.000') castable as xs:time">
-        <xsl:variable name="time" as="xs:time">
-          <xsl:sequence select="adjust-time-to-timezone(xs:time(concat(substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00.000')))" />
-        </xsl:variable>
-        <xsl:sequence select="concat($date, 'T', format-time($time, '[H01]:[m01]:[s01][Z]'))" />
+        <xsl:sequence select="concat($date, 'T', substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00', $gvDocumentTimezone)" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="$date" />

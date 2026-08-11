@@ -2945,7 +2945,7 @@
             <!--Pregnancy Status Recorded Date-->
             <!--Date Recorded Extension-->
             <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension">
-               <valueDateTime value="2017-10-01T10:35:00+00:00"/>
+               <valueDateTime value="2017-10-01T10:35:00-05:00"/>
             </extension>
             <!--Pregnancy Status Determination Date-->
             <!--Date Determined Extension-->
@@ -2986,7 +2986,7 @@
             </method>
             <component><!----><!--Date Determined Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
-                  <valueDateTime value="2017-10-01T10:15:00+00:00"/>
+                  <valueDateTime value="2017-10-01T10:15:00-05:00"/>
                </extension>
                <code>
                   <coding>
@@ -2999,7 +2999,7 @@
             </component>
             <component><!----><!--Date Determined Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
-                  <valueDateTime value="2017-10-01T10:15:00+00:00"/>
+                  <valueDateTime value="2017-10-01T10:15:00-05:00"/>
                </extension>
                <code>
                   <coding>
@@ -3043,7 +3043,7 @@
             <focus>
                <reference value="urn:uuid:UUID027"/>
             </focus>
-            <effectiveDateTime value="2020-01-05T08:50:00+00:00"/>
+            <effectiveDateTime value="2020-01-05T08:50:00-05:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -3088,7 +3088,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2020-01-05T10:15:00+00:00"/>
+            <effectiveDateTime value="2020-01-05T10:15:00-05:00"/>
             <!--Start of last menstrual period-->
             <valueDateTime value="2017-08-01"/>
          </Observation>
@@ -3117,7 +3117,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2020-01-05T10:15:00+00:00"/>
+            <effectiveDateTime value="2020-01-05T10:15:00-05:00"/>
             <!--Postpartum status-->
             <valueCodeableConcept>
                <coding>

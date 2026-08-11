@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2022-09-09T22:37:51.000+00:00"/>
+   <timestamp value="2022-09-09T22:37:51+00:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -157,7 +157,7 @@
             <encounter>
                <reference value="urn:uuid:UUID004"/>
             </encounter>
-            <date value="2022-09-09T22:37:51.000+00:00"/>
+            <date value="2022-09-09T22:37:51+00:00"/>
             <author>
                <reference value="urn:uuid:UUID005"/>
             </author>
@@ -879,7 +879,7 @@
                </individual>
             </participant>
             <period>
-               <start value="2022-07-11T15:37:00.000+00:00"/>
+               <start value="2022-07-11T15:37:00+00:00"/>
             </period>
             <location>
                <location>
@@ -1103,7 +1103,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2022-09-09T22:37:51.000+00:00"/>
+            <recorded value="2022-09-09T22:37:51+00:00"/>
             <agent>
                <type>
                   <coding>
@@ -1239,7 +1239,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2022-07-11T15:37:00.000+00:00"/>
+            <recorded value="2022-07-11T15:37:00+00:00"/>
             <agent>
                <type>
                   <coding>
@@ -1261,7 +1261,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2022-09-09T22:37:51.000+00:00"/>
+            <recorded value="2022-09-09T22:37:51+00:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1349,7 +1349,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <recordedDate value="2022-07-12T16:00:00.000+00:00"/>
+            <recordedDate value="2022-07-12T16:00:00+00:00"/>
          </Condition>
       </resource>
    </entry>
@@ -1385,7 +1385,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <recordedDate value="2022-07-12T16:00:00.000+00:00"/>
+            <recordedDate value="2022-07-12T16:00:00+00:00"/>
          </Condition>
       </resource>
    </entry>
@@ -1412,7 +1412,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1451,7 +1451,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1490,7 +1490,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1529,7 +1529,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1568,7 +1568,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1607,7 +1607,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1646,7 +1646,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1685,7 +1685,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1724,7 +1724,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1763,7 +1763,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1802,7 +1802,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1841,7 +1841,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1880,7 +1880,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1919,7 +1919,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1958,7 +1958,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -1997,7 +1997,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2036,7 +2036,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2075,7 +2075,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2114,7 +2114,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2153,7 +2153,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2192,7 +2192,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2231,7 +2231,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2270,7 +2270,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2309,7 +2309,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2348,7 +2348,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2387,7 +2387,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>
@@ -2426,7 +2426,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2022-07-12T18:10:00.000+00:00"/>
+            <effectiveDateTime value="2022-07-12T18:10:00+00:00"/>
             <component>
                <code>
                   <coding>

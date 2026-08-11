@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2020-11-07T09:44:21.000-05:00"/>
+   <timestamp value="2020-11-07T09:44:21-05:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -178,7 +178,7 @@
             <encounter>
                <reference value="urn:uuid:UUID004"/>
             </encounter>
-            <date value="2020-11-07T09:44:21.000-05:00"/>
+            <date value="2020-11-07T09:44:21-05:00"/>
             <author>
                <reference value="urn:uuid:UUID005"/>
             </author>
@@ -1860,8 +1860,8 @@
                </individual>
             </participant>
             <period>
-               <start value="2020-11-07T08:44:21.000-05:00"/>
-               <end value="2020-11-08T11:21:03.000-05:00"/>
+               <start value="2020-11-07T08:44:21-05:00"/>
+               <end value="2020-11-08T11:21:03-05:00"/>
             </period>
             <diagnosis><!--eICR Trigger Code Flag Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
@@ -2221,7 +2221,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2020-11-07T09:44:21.000-05:00"/>
+            <recorded value="2020-11-07T09:44:21-05:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -2498,7 +2498,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2020-11-07T11:15:00.000-07:00"/>
+            <effectiveDateTime value="2020-11-07T11:15:00-07:00"/>
             <dosage>
                <route>
                   <coding>
@@ -2566,7 +2566,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <onsetDateTime value="2020-11-01"/>
-            <recordedDate value="2020-11-07T12:35:00.000-08:00"/>
+            <recordedDate value="2020-11-07T12:35:00-08:00"/>
             <recorder>
                <reference value="urn:uuid:UUID074"/>
             </recorder>
@@ -2829,7 +2829,7 @@
             <target>
                <reference value="urn:uuid:UUID013"/>
             </target>
-            <recorded value="2020-11-07T12:35:00.000-08:00"/>
+            <recorded value="2020-11-07T12:35:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -2851,7 +2851,7 @@
             <target>
                <reference value="urn:uuid:UUID013"/>
             </target>
-            <recorded value="2020-11-07T12:35:00.000-08:00"/>
+            <recorded value="2020-11-07T12:35:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -3670,7 +3670,7 @@
             </subject>
             <effectiveDateTime value="2020-11-07"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2020-11-07T09:44:21.000-05:00"/>
+            <issued value="2020-11-07T09:44:21-05:00"/>
             <performer>
                <reference value="urn:uuid:UUID110"/>
             </performer>
@@ -3856,7 +3856,7 @@
             <target>
                <reference value="urn:uuid:UUID027"/>
             </target>
-            <recorded value="2020-11-07T12:35:00.000-08:00"/>
+            <recorded value="2020-11-07T12:35:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -4503,7 +4503,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2020-11-07T09:44:21.000-05:00"/>
+            <issued value="2020-11-07T09:44:21-05:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:iso:std:iso:3166"/>
@@ -4545,7 +4545,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2020-11-07T09:44:21.000-05:00"/>
+            <issued value="2020-11-07T09:44:21-05:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:iso:std:iso:3166"/>
@@ -4588,7 +4588,7 @@
             </subject>
             <effectiveDateTime value="2020-11-09"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2020-11-07T09:44:21.000-05:00"/>
+            <issued value="2020-11-07T09:44:21-05:00"/>
             <valueBoolean value="true"/>
          </Observation>
       </resource>
@@ -4796,7 +4796,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2017-01-16T15:47:00-05:00"/>
+               <start value="2017-01-16T15:47:14-05:00"/>
             </effectivePeriod>
             <valueCodeableConcept>
                <coding>
@@ -5037,7 +5037,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
                <reference value="urn:uuid:UUID142"/>
             </hasMember>
@@ -5094,7 +5094,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <note>
                <text value="120"/>
             </note>
@@ -5160,7 +5160,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="80"/>
                <unit value="/min"/>
@@ -5202,7 +5202,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="99.0"/>
                <unit value="[degF]"/>
@@ -5244,7 +5244,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="18"/>
                <unit value="/min"/>
@@ -5286,7 +5286,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="67"/>
                <unit value="[in_i]"/>
@@ -5332,7 +5332,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="239.9"/>
                <unit value="[lb_av]"/>
@@ -5374,7 +5374,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="37.58"/>
                <unit value="kg/m2"/>
@@ -5420,7 +5420,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="98"/>
                <unit value="%"/>
@@ -5461,7 +5461,7 @@
                <start value="2020-11-01"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2020-11-07T09:44:21.000-05:00"/>
+            <issued value="2020-11-07T09:44:21-05:00"/>
             <valueQuantity>
                <value value="2"/>
                <unit value="m"/>

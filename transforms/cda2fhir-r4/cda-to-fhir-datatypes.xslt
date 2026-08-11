@@ -69,6 +69,38 @@
     </xsl:variable>
     <xsl:value-of select="$date" />
   </xsl:function>
+  <!-- 20260811 Claude (CDAFHIR-003): a CDA TS rendered as a comparable xs:dateTime, or the empty
+       sequence when it cannot be rendered as one. Date-only values are anchored at midnight in the
+       document's timezone rather than the machine's, so the result never depends on where it runs. -->
+  <xsl:function name="lcg:cdaTScomparable" as="xs:dateTime?">
+    <xsl:param name="cdaTS" as="xs:string?" />
+    <xsl:variable name="vFhir" as="xs:string?" select="if (normalize-space($cdaTS)) then lcg:cdaTS2date($cdaTS) else ()" />
+    <xsl:choose>
+      <xsl:when test="empty($vFhir)" />
+      <xsl:when test="$vFhir castable as xs:dateTime">
+        <xsl:sequence select="xs:dateTime($vFhir)" />
+      </xsl:when>
+      <xsl:when test="concat($vFhir, 'T00:00:00', $gvDocumentTimezone) castable as xs:dateTime">
+        <xsl:sequence select="xs:dateTime(concat($vFhir, 'T00:00:00', $gvDocumentTimezone))" />
+      </xsl:when>
+    </xsl:choose>
+  </xsl:function>
+  <!-- 20260811 Claude (CDAFHIR-003): does a period's high genuinely fall after its low? Six sites used
+       to ask this as `cda:high/@value > cda:low/@value`. Both operands are untypedAtomic, so XPath 2.0
+       casts them to xs:string and compares LEXICOGRAPHICALLY - which is right only by accident of CDA's
+       zero-padded fixed-width format, and wrong as soon as the two ends carry different offsets or
+       different precision ('20201110130000+0900' sorts after '20201110120000-0500' but is four hours
+       EARLIER). No corpus document trips it: all 136 low/high pairs share an offset and a precision.
+       Fixed for shape, and because the next document need not be so tidy.
+       An absent low means "no lower bound", so the high is emitted - preserving the old
+       `or not(cda:low/@value)` limb. An unusable high is not emitted. -->
+  <xsl:function name="lcg:highIsAfterLow" as="xs:boolean">
+    <xsl:param name="high" as="xs:string?" />
+    <xsl:param name="low" as="xs:string?" />
+    <xsl:variable name="vHigh" as="xs:dateTime?" select="lcg:cdaTScomparable($high)" />
+    <xsl:variable name="vLow" as="xs:dateTime?" select="lcg:cdaTScomparable($low)" />
+    <xsl:sequence select="if (empty($vLow)) then true() else if (empty($vHigh)) then false() else ($vHigh gt $vLow)" />
+  </xsl:function>
   <!-- FUNCTION:  to convert CDA TS to FHIR date -->
   <xsl:function name="lcg:cdaTS2date" as="xs:string">
     <!-- the FHIR specification allows ignoring seconds, but the FHIR XSD does not -->
@@ -87,11 +119,17 @@
         <xsl:when test="substring($cdaTS, 13, 4) and matches(substring($cdaTS, 13, 4), '\.')">
           <xsl:sequence select="concat(':', substring($cdaTS, 13, 4), '00')" />
         </xsl:when>
+        <!-- 20260811 Claude (CDAFHIR-001, seconds): these two branches used to append '.000'. A CDA TS
+             that states whole seconds does not state milliseconds, and one that states neither states
+             neither - emitting '.000' asserted a precision the source never gave. The ':00' below is
+             still a fabrication, but an unavoidable one: the FHIR XSD requires a seconds field once a
+             time is present at all. A source that really does carry a fraction keeps it, via the three
+             branches above. -->
         <xsl:when test="substring($cdaTS, 13, 2) and not(matches(substring($cdaTS, 13, 2), '[-+]'))">
-          <xsl:sequence select="concat(':', substring($cdaTS, 13, 2), '.000')" />
+          <xsl:sequence select="concat(':', substring($cdaTS, 13, 2))" />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:sequence select="':00.000'" />
+          <xsl:sequence select="':00'" />
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -119,8 +157,15 @@
            anything to do with the sending facility. The wall-clock digits are unchanged either way:
            adjust-time-to-timezone ATTACHES the implicit timezone to a timezone-less xs:time rather
            than converting it, so this rewrite moves only the suffix. -->
-      <xsl:when test="string-length($cdaTS) > 8 and concat(substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00.000') castable as xs:time">
-        <xsl:sequence select="concat($date, 'T', substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), ':00', $gvDocumentTimezone)" />
+      <!-- 20260811 Claude (CDAFHIR-001, seconds): use $vSeconds, exactly as the offset-bearing branch
+           above does. This branch used to hard-code ':00', so a source stating whole seconds lost
+           them - 20170116154714 became 15:47:00. The two branches now produce the same shape for the
+           same input, which is what stops this diverging again. Note both fabricate '.000' when the
+           source states no fractional part; that padding is unavoidable for the HHMM-only sources
+           (the FHIR XSD requires a seconds field) and is kept identical across the two branches
+           rather than being made honest in one and not the other. -->
+      <xsl:when test="string-length($cdaTS) > 8 and concat(substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), $vSeconds) castable as xs:time">
+        <xsl:sequence select="concat($date, 'T', substring($cdaTS, 9, 2), ':', substring($cdaTS, 11, 2), $vSeconds, $gvDocumentTimezone)" />
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="$date" />
@@ -266,7 +311,7 @@
           <xsl:if test="cda:low/@value">
             <start value="{lcg:cdaTS2date(cda:low/@value)}" />
           </xsl:if>
-          <xsl:if test="cda:high/@value and ((cda:high/@value > cda:low/@value) or not(cda:low/@value))">
+          <xsl:if test="cda:high/@value and lcg:highIsAfterLow(cda:high/@value, cda:low/@value)">
             <end value="{lcg:cdaTS2date(cda:high/@value)}" />
           </xsl:if>
         </period>
@@ -290,7 +335,7 @@
           <xsl:if test="cda:low/@value">
             <start value="{lcg:cdaTS2date(cda:low/@value)}" />
           </xsl:if>
-          <xsl:if test="cda:high/@value and ((cda:high/@value > cda:low/@value) or not(cda:low/@value))">
+          <xsl:if test="cda:high/@value and lcg:highIsAfterLow(cda:high/@value, cda:low/@value)">
             <end value="{lcg:cdaTS2date(cda:high/@value)}" />
           </xsl:if>
         </period>
@@ -452,7 +497,7 @@
     <xsl:if test="cda:low[@value]">
       <start value="{lcg:cdaTS2date(cda:low/@value)}" />
     </xsl:if>
-    <xsl:if test="cda:high[@value] and ((cda:high/@value > cda:low/@value) or not(cda:low/@value))">
+    <xsl:if test="cda:high[@value] and lcg:highIsAfterLow(cda:high/@value, cda:low/@value)">
       <end value="{lcg:cdaTS2date(cda:high/@value)}" />
     </xsl:if>
     <xsl:if test="@value and not(cda:low/@value)">
@@ -488,7 +533,7 @@
             </xsl:attribute>
           </start>
         </xsl:if>
-        <xsl:if test="cda:high and ((cda:high/@value > cda:low/@value) or not(cda:low/@value))">
+        <xsl:if test="cda:high/@value and lcg:highIsAfterLow(cda:high/@value, cda:low/@value)">
           <end>
             <xsl:attribute name="value">
               <xsl:value-of select="lcg:cdaTS2date(cda:high/@value)" />
@@ -523,7 +568,7 @@
               </xsl:attribute>
             </start>
           </xsl:if>
-          <xsl:if test="cda:high and ((cda:high/@value > cda:low/@value) or not(cda:low/@value))">
+          <xsl:if test="cda:high/@value and lcg:highIsAfterLow(cda:high/@value, cda:low/@value)">
             <end>
               <xsl:attribute name="value">
                 <xsl:value-of select="lcg:cdaTS2date(cda:high/@value)" />
@@ -552,7 +597,7 @@
               </xsl:attribute>
             </start>
           </xsl:if>
-          <xsl:if test="cda:high and ((cda:high/@value > cda:low/@value) or not(cda:low/@value))">
+          <xsl:if test="cda:high/@value and lcg:highIsAfterLow(cda:high/@value, cda:low/@value)">
             <end>
               <xsl:attribute name="value">
                 <xsl:value-of select="lcg:cdaTS2date(cda:high/@value)" />

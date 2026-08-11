@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2025-10-21T09:44:21.000-05:00"/>
+   <timestamp value="2025-10-21T09:44:21-05:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -178,7 +178,7 @@
             <encounter>
                <reference value="urn:uuid:UUID004"/>
             </encounter>
-            <date value="2025-10-21T09:44:21.000-05:00"/>
+            <date value="2025-10-21T09:44:21-05:00"/>
             <author>
                <reference value="urn:uuid:UUID005"/>
             </author>
@@ -1604,7 +1604,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-10-21T15:00:45.000-04:00"/>
+            <recorded value="2025-10-21T15:00:45-04:00"/>
             <agent>
                <type>
                   <coding>
@@ -1626,7 +1626,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-10-21T09:44:21.000-05:00"/>
+            <recorded value="2025-10-21T09:44:21-05:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1870,7 +1870,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-21T11:00:00.000-07:00"/>
+            <effectiveDateTime value="2025-10-21T11:00:00-07:00"/>
             <dosage>
                <route>
                   <coding>
@@ -2091,7 +2091,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <specimen>
                <reference value="urn:uuid:UUID048"/>
@@ -2159,9 +2159,9 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <receivedTime value="2025-10-22T15:20:00.000+00:00"/>
+            <receivedTime value="2025-10-22T15:20:00+00:00"/>
             <collection>
-               <collectedDateTime value="2025-10-22T15:20:00.000+00:00"/>
+               <collectedDateTime value="2025-10-22T15:20:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -2206,7 +2206,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="88"/>
                <unit value="mg/dL"/>
@@ -2253,7 +2253,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="12"/>
                <unit value="mg/dL"/>
@@ -2300,7 +2300,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="0.27"/>
                <unit value="mg/dL"/>
@@ -2347,7 +2347,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="142"/>
                <unit value="meq/L"/>
@@ -2394,7 +2394,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="4.8"/>
                <unit value="meq/L"/>
@@ -2441,7 +2441,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="107"/>
                <unit value="meq/L"/>
@@ -2488,7 +2488,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="26"/>
                <unit value="meq/L"/>
@@ -2535,7 +2535,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="14"/>
                <unit value="meq/L"/>
@@ -2582,7 +2582,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="10.0"/>
                <unit value="mg/dL"/>
@@ -2629,7 +2629,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="6.4"/>
                <unit value="mg/dL"/>
@@ -2676,7 +2676,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="4.4"/>
                <unit value="g/dL"/>
@@ -2723,7 +2723,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="0"/>
             </valueQuantity>
@@ -2750,7 +2750,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-10-21T09:44:21.000-05:00"/>
+            <issued value="2025-10-21T09:44:21-05:00"/>
             <valueString value="&#xA;                        Years"/>
             <specimen>
                <reference value="urn:uuid:UUID048"/>
@@ -2778,9 +2778,9 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-10-21T09:44:21.000-05:00"/>
+            <issued value="2025-10-21T09:44:21-05:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -2834,7 +2834,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
                <reference value="urn:uuid:UUID063"/>
@@ -2870,7 +2870,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueString value="&lt;15&#xA;                    NOT DETECTED"/>
          </Observation>
       </resource>
@@ -2939,7 +2939,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="1730000"/>
                <unit value="[IU]/mL"/>
@@ -2980,7 +2980,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
                <reference value="urn:uuid:UUID068"/>
@@ -3020,7 +3020,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="35.3"/>
                <unit value="%"/>
@@ -3075,7 +3075,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="5.2"/>
                <unit value="10*3/uL"/>
@@ -3130,7 +3130,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
                <reference value="urn:uuid:UUID072"/>
@@ -3167,7 +3167,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="100"/>
                <unit value="[iU]/mL"/>
@@ -3218,7 +3218,7 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
                <reference value="urn:uuid:UUID075"/>
@@ -3255,7 +3255,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -3309,7 +3309,7 @@
                <start value="1993-01-01"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-10-21T09:44:21.000-05:00"/>
+            <issued value="2025-10-21T09:44:21-05:00"/>
             <valueString value="Centers for Disease Control 1, Peachtree St South Atlanta, GA,&#xA;                404-564-7865"/>
          </Observation>
       </resource>

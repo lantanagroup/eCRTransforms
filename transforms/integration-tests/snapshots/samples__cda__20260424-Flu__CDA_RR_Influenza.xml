@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2026-04-23T21:10:29.000+00:00"/>
+   <timestamp value="2026-04-23T21:10:29+00:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -235,7 +235,7 @@
             <encounter>
                <reference value="urn:uuid:UUID005"/>
             </encounter>
-            <date value="2026-04-23T21:10:29.000+00:00"/>
+            <date value="2026-04-23T21:10:29+00:00"/>
             <author>
                <reference value="urn:uuid:UUID006"/>
             </author>
@@ -896,7 +896,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2026-04-23T21:10:29.000+00:00"/>
+            <recorded value="2026-04-23T21:10:29+00:00"/>
             <agent>
                <who>
                   <display value="original-document"/>
@@ -918,7 +918,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2020-05-15T12:00:00.000-06:00"/>
+            <recorded value="2020-05-15T12:00:00-06:00"/>
             <agent>
                <type>
                   <coding>
@@ -940,7 +940,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2026-04-23T21:10:29.000+00:00"/>
+            <recorded value="2026-04-23T21:10:29+00:00"/>
             <agent>
                <type>
                   <coding>
@@ -962,7 +962,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2026-04-23T21:10:29.000+00:00"/>
+            <recorded value="2026-04-23T21:10:29+00:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>

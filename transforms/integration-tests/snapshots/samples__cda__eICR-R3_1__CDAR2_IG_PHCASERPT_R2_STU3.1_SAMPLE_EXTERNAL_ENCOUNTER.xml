@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2020-11-07T09:44:21.000-05:00"/>
+   <timestamp value="2020-11-07T09:44:21-05:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -135,7 +135,7 @@
             <encounter>
                <reference value="urn:uuid:UUID004"/>
             </encounter>
-            <date value="2020-11-07T09:44:21.000-05:00"/>
+            <date value="2020-11-07T09:44:21-05:00"/>
             <author>
                <reference value="urn:uuid:UUID005"/>
             </author>
@@ -1677,7 +1677,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2016-11-07T09:44:21.000-05:00"/>
+            <recorded value="2016-11-07T09:44:21-05:00"/>
             <agent>
                <type>
                   <coding>
@@ -1699,7 +1699,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2020-11-07T09:44:21.000-05:00"/>
+            <recorded value="2020-11-07T09:44:21-05:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1844,7 +1844,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2020-11-07T11:60:00.000-07:00"/>
+            <effectiveDateTime value="2020-11-07T11:60:00-07:00"/>
             <dosage>
                <route>
                   <coding>
@@ -3163,7 +3163,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27--><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
                <reference value="urn:uuid:UUID075"/>
             </hasMember>
@@ -3220,7 +3220,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <note>
                <text value="120"/>
             </note>
@@ -3286,7 +3286,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="80"/>
                <unit value="/min"/>
@@ -3328,7 +3328,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="99.0"/>
                <unit value="[degF]"/>
@@ -3370,7 +3370,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="18"/>
                <unit value="/min"/>
@@ -3412,7 +3412,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="67"/>
                <unit value="[in_i]"/>
@@ -3458,7 +3458,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="239.9"/>
                <unit value="[lb_av]"/>
@@ -3500,7 +3500,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="37.58"/>
                <unit value="kg/m2"/>
@@ -3546,7 +3546,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <effectiveDateTime value="2014-05-20T19:36:05.000-05:00"/>
+            <effectiveDateTime value="2014-05-20T19:36:05-05:00"/>
             <valueQuantity>
                <value value="98"/>
                <unit value="%"/>

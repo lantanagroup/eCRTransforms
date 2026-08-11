@@ -23,7 +23,11 @@
         <!-- Validate the Composition Language-->
         <x:expect label="A7. There should be a Composition.language value=en-US" test="count(//fhir:Composition/fhir:language[@value='en-US'])=1" />
         <!-- Validate the Composition Date-->
-        <x:expect label="A8. There should be a Composition.date value=2020-11-07T09:44:21.000-05:00" test="count(//fhir:Composition/fhir:date[@value='2020-11-07T09:44:21.000-05:00'])=1" />
+        <!-- 20260811 Claude (CDAFHIR-001 seconds): was '...21.000-05:00'. The source states whole seconds
+             (20201107094421-0500) and no fraction, so the '.000' was fabricated. The new value is the one
+             the source actually asserts; the companion below pins that the invented form is gone. -->
+        <x:expect label="A8. There should be a Composition.date value=2020-11-07T09:44:21-05:00" test="count(//fhir:Composition/fhir:date[@value='2020-11-07T09:44:21-05:00'])=1" />
+        <x:expect label="A8b. OLD SHAPE IS GONE: no Composition.date with an invented millisecond part" test="count(//fhir:Composition/fhir:date[@value='2020-11-07T09:44:21.000-05:00'])=0" />
         <!-- Validate the Composition Confidentiality-->
         <x:expect label="A9. There should be a Composition.confidentiality value=N" test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1" />
         <!-- Validate the Composition Title-->
@@ -96,7 +100,8 @@
         <!-- Validate the Composition Language-->
         <x:expect label="C7. There should be a Composition.language value=en-US" test="count(//fhir:Composition/fhir:language[@value='en-US'])=1" />
         <!-- Validate the Composition Date-->
-        <x:expect label="C8. There should be a Composition.date value=2017-11-14T12:15:00.000-07:00" test="count(//fhir:Composition/fhir:date[@value='2017-11-14T12:15:00.000-07:00'])=1" />
+        <!-- 20260811 Claude (CDAFHIR-001 seconds): was '...00.000-07:00'; the RR header states no fraction. -->
+        <x:expect label="C8. There should be a Composition.date value=2017-11-14T12:15:00-07:00" test="count(//fhir:Composition/fhir:date[@value='2017-11-14T12:15:00-07:00'])=1" />
         <!-- Validate the Composition Confidentiality-->
         <x:expect label="C9. There should be a Composition.confidentiality value=N" test="count(//fhir:Composition/fhir:confidentiality[@value='N'])=1" />
         <!-- Validate the Composition Title-->

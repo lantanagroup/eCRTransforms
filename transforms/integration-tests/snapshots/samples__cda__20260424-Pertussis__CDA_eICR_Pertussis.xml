@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2026-04-23T21:00:41.000+00:00"/>
+   <timestamp value="2026-04-23T21:00:41+00:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -197,7 +197,7 @@
             <encounter>
                <reference value="urn:uuid:UUID005"/>
             </encounter>
-            <date value="2026-04-23T21:00:41.000+00:00"/>
+            <date value="2026-04-23T21:00:41+00:00"/>
             <author>
                <reference value="urn:uuid:UUID006"/>
             </author>
@@ -1298,7 +1298,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2026-04-23T21:00:41.000+00:00"/>
+            <recorded value="2026-04-23T21:00:41+00:00"/>
             <agent>
                <who>
                   <display value="original-document"/>
@@ -1320,7 +1320,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-10-21T15:00:45.000-04:00"/>
+            <recorded value="2025-10-21T15:00:45-04:00"/>
             <agent>
                <type>
                   <coding>
@@ -1342,7 +1342,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2026-04-23T21:00:41.000+00:00"/>
+            <recorded value="2026-04-23T21:00:41+00:00"/>
             <agent>
                <type>
                   <coding>
@@ -1364,7 +1364,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2026-04-23T21:00:41.000+00:00"/>
+            <recorded value="2026-04-23T21:00:41+00:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1472,7 +1472,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <effectiveDateTime value="2025-10-21T11:00:00.000-07:00"/>
+            <effectiveDateTime value="2025-10-21T11:00:00-07:00"/>
             <dosage>
                <route>
                   <coding>
@@ -1612,7 +1612,7 @@
                <reference value="urn:uuid:UUID004"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
                <reference value="urn:uuid:UUID036"/>
@@ -1649,7 +1649,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueQuantity>
                <value value="100"/>
                <unit value="[iU]/mL"/>
@@ -1700,7 +1700,7 @@
                <reference value="urn:uuid:UUID004"/>
             </subject>
             <effectivePeriod>
-               <start value="2025-10-22T15:20:00.000+00:00"/>
+               <start value="2025-10-22T15:20:00+00:00"/>
             </effectivePeriod>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
                <reference value="urn:uuid:UUID039"/>
@@ -1737,7 +1737,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <effectiveDateTime value="2025-10-22T15:20:00.000+00:00"/>
+            <effectiveDateTime value="2025-10-22T15:20:00+00:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>

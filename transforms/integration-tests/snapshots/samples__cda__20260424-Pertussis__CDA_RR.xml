@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2025-10-21T21:54:28.000+00:00"/>
+   <timestamp value="2025-10-21T21:54:28+00:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -278,7 +278,7 @@
             <encounter>
                <reference value="urn:uuid:UUID005"/>
             </encounter>
-            <date value="2025-10-21T21:54:28.000+00:00"/>
+            <date value="2025-10-21T21:54:28+00:00"/>
             <author>
                <reference value="urn:uuid:UUID006"/>
             </author>
@@ -1030,7 +1030,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-10-21T21:54:28.000+00:00"/>
+            <recorded value="2025-10-21T21:54:28+00:00"/>
             <agent>
                <type>
                   <coding>
@@ -1052,7 +1052,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-10-21T21:54:28.000+00:00"/>
+            <recorded value="2025-10-21T21:54:28+00:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>

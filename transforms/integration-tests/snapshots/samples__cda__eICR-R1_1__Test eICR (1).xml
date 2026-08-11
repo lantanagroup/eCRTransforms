@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2023-01-03T23:34:12.000-08:00"/>
+   <timestamp value="2023-01-03T23:34:12-08:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -242,7 +242,7 @@
             <encounter>
                <reference value="urn:uuid:UUID003"/>
             </encounter>
-            <date value="2023-01-03T23:34:12.000-08:00"/>
+            <date value="2023-01-03T23:34:12-08:00"/>
             <author>
                <reference value="urn:uuid:UUID004"/>
             </author>
@@ -3278,7 +3278,7 @@
                </individual>
             </participant>
             <period>
-               <start value="2023-01-03T15:26:00.000-08:00"/>
+               <start value="2023-01-03T15:26:00-08:00"/>
             </period>
             <location>
                <location>
@@ -3646,7 +3646,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2023-01-03T15:26:00.000-08:00"/>
+            <recorded value="2023-01-03T15:26:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -3668,7 +3668,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2023-01-03T15:26:00.000-08:00"/>
+            <recorded value="2023-01-03T15:26:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -3959,7 +3959,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -3981,7 +3981,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -4003,7 +4003,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -4228,7 +4228,7 @@
             <target>
                <reference value="urn:uuid:UUID007"/>
             </target>
-            <recorded value="2017-11-20T17:25:45.000-08:00"/>
+            <recorded value="2017-11-20T17:25:45-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -4287,7 +4287,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID035"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:26:33.000-08:00"/>
+            <authoredOn value="2023-01-03T23:26:33-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID128"/>
             </requester>
@@ -4299,7 +4299,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:26:06.000+00:00"/>
+                        <start value="2023-01-04T07:26:06+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -4521,7 +4521,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -4554,7 +4554,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID036"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:26:33.000-08:00"/>
+            <authoredOn value="2023-01-03T23:26:33-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID133"/>
             </requester>
@@ -4566,7 +4566,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:45:00.000+00:00"/>
+                        <start value="2023-01-04T07:45:00+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -4743,7 +4743,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -4776,7 +4776,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID037"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:28:25.000-08:00"/>
+            <authoredOn value="2023-01-03T23:28:25-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID137"/>
             </requester>
@@ -4788,7 +4788,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:26:06.000+00:00"/>
+                        <start value="2023-01-04T07:26:06+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -4964,7 +4964,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -4997,7 +4997,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID038"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:28:23.000-08:00"/>
+            <authoredOn value="2023-01-03T23:28:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID141"/>
             </requester>
@@ -5009,7 +5009,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:45:00.000+00:00"/>
+                        <start value="2023-01-04T07:45:00+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -5179,7 +5179,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -5212,7 +5212,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID039"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:27:33.000-08:00"/>
+            <authoredOn value="2023-01-03T23:27:33-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID145"/>
             </requester>
@@ -5224,7 +5224,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:25:48.000+00:00"/>
+                        <start value="2023-01-04T07:25:48+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -5400,7 +5400,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -5433,7 +5433,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID040"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:27:30.000-08:00"/>
+            <authoredOn value="2023-01-03T23:27:30-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID149"/>
             </requester>
@@ -5445,7 +5445,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:45:00.000+00:00"/>
+                        <start value="2023-01-04T07:45:00+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -5615,7 +5615,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -5648,7 +5648,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID041"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:27:26.000-08:00"/>
+            <authoredOn value="2023-01-03T23:27:26-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID153"/>
             </requester>
@@ -5660,7 +5660,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:25:44.000+00:00"/>
+                        <start value="2023-01-04T07:25:44+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -5836,7 +5836,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -5869,7 +5869,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID042"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:27:24.000-08:00"/>
+            <authoredOn value="2023-01-03T23:27:24-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID157"/>
             </requester>
@@ -5881,7 +5881,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:45:00.000+00:00"/>
+                        <start value="2023-01-04T07:45:00+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -6058,7 +6058,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -6091,7 +6091,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID043"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:27:22.000-08:00"/>
+            <authoredOn value="2023-01-03T23:27:22-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID161"/>
             </requester>
@@ -6103,7 +6103,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:25:16.000+00:00"/>
+                        <start value="2023-01-04T07:25:16+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -6278,7 +6278,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -6311,7 +6311,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID044"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:13:23.000-08:00"/>
+            <authoredOn value="2023-01-03T23:13:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID165"/>
             </requester>
@@ -6323,7 +6323,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:10:43.000+00:00"/>
+                        <start value="2023-01-04T07:10:43+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -6544,7 +6544,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -6577,7 +6577,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID045"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:13:21.000-08:00"/>
+            <authoredOn value="2023-01-03T23:13:21-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID169"/>
             </requester>
@@ -6589,7 +6589,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:30:00.000+00:00"/>
+                        <start value="2023-01-04T07:30:00+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -6760,7 +6760,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -6793,7 +6793,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID046"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:13:18.000-08:00"/>
+            <authoredOn value="2023-01-03T23:13:18-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID173"/>
             </requester>
@@ -6805,7 +6805,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:10:16.000+00:00"/>
+                        <start value="2023-01-04T07:10:16+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -6981,7 +6981,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -7014,7 +7014,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID047"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:13:16.000-08:00"/>
+            <authoredOn value="2023-01-03T23:13:16-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID123"/>
             </requester>
@@ -7026,7 +7026,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:10:16.000+00:00"/>
+                        <start value="2023-01-04T07:10:16+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -7202,7 +7202,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -7235,7 +7235,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID048"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:13:15.000-08:00"/>
+            <authoredOn value="2023-01-03T23:13:15-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID180"/>
             </requester>
@@ -7247,7 +7247,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:10:16.000+00:00"/>
+                        <start value="2023-01-04T07:10:16+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -7423,7 +7423,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -7456,7 +7456,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID049"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T23:13:13.000-08:00"/>
+            <authoredOn value="2023-01-03T23:13:13-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID184"/>
             </requester>
@@ -7468,7 +7468,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T07:10:16.000+00:00"/>
+                        <start value="2023-01-04T07:10:16+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -7644,7 +7644,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -7681,7 +7681,7 @@
                <reference value="urn:uuid:UUID051"/>
             </supportingInformation>
             <effectivePeriod>
-               <start value="2023-01-04T06:00:00.000+00:00"/>
+               <start value="2023-01-04T06:00:00+00:00"/>
             </effectivePeriod>
             <performer>
                <actor>
@@ -7824,7 +7824,7 @@
             <target>
                <reference value="urn:uuid:UUID023"/>
             </target>
-            <recorded value="2023-01-03T21:51:09.000-08:00"/>
+            <recorded value="2023-01-03T21:51:09-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -7928,7 +7928,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -7965,8 +7965,8 @@
                <reference value="urn:uuid:UUID054"/>
             </supportingInformation>
             <effectivePeriod>
-               <start value="2023-01-04T06:30:00.000+00:00"/>
-               <end value="2023-01-08T06:29:00.000+00:00"/>
+               <start value="2023-01-04T06:30:00+00:00"/>
+               <end value="2023-01-08T06:29:00+00:00"/>
             </effectivePeriod>
             <performer>
                <actor>
@@ -8157,7 +8157,7 @@
             <target>
                <reference value="urn:uuid:UUID024"/>
             </target>
-            <recorded value="2023-01-03T22:39:08.000-08:00"/>
+            <recorded value="2023-01-03T22:39:08-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -8216,7 +8216,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.13.212.2.7.2.776777"/>
@@ -8288,7 +8288,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -8321,7 +8321,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID055"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T18:51:23.000-08:00"/>
+            <authoredOn value="2023-01-03T18:51:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID199"/>
             </requester>
@@ -8333,7 +8333,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T02:03:06.000+00:00"/>
+                        <start value="2023-01-04T02:03:06+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -8554,7 +8554,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -8591,8 +8591,8 @@
                <reference value="urn:uuid:UUID057"/>
             </supportingInformation>
             <effectivePeriod>
-               <start value="2023-01-04T02:30:00.000+00:00"/>
-               <end value="2023-01-06T02:29:00.000+00:00"/>
+               <start value="2023-01-04T02:30:00+00:00"/>
+               <end value="2023-01-06T02:29:00+00:00"/>
             </effectivePeriod>
             <performer>
                <actor>
@@ -8735,7 +8735,7 @@
             <target>
                <reference value="urn:uuid:UUID026"/>
             </target>
-            <recorded value="2023-01-03T19:13:49.000-08:00"/>
+            <recorded value="2023-01-03T19:13:49-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -8863,7 +8863,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -8896,7 +8896,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID058"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T18:51:23.000-08:00"/>
+            <authoredOn value="2023-01-03T18:51:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID209"/>
             </requester>
@@ -8908,7 +8908,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T02:02:17.000+00:00"/>
+                        <start value="2023-01-04T02:02:17+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -9084,7 +9084,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -9117,7 +9117,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID059"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T18:51:23.000-08:00"/>
+            <authoredOn value="2023-01-03T18:51:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID213"/>
             </requester>
@@ -9129,7 +9129,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T02:02:17.000+00:00"/>
+                        <start value="2023-01-04T02:02:17+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -9305,7 +9305,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -9338,7 +9338,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID060"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T18:51:23.000-08:00"/>
+            <authoredOn value="2023-01-03T18:51:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID217"/>
             </requester>
@@ -9350,7 +9350,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T02:02:17.000+00:00"/>
+                        <start value="2023-01-04T02:02:17+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -9526,7 +9526,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -9559,7 +9559,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID061"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T18:51:23.000-08:00"/>
+            <authoredOn value="2023-01-03T18:51:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID221"/>
             </requester>
@@ -9571,7 +9571,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T02:02:17.000+00:00"/>
+                        <start value="2023-01-04T02:02:17+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -9747,7 +9747,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -9780,7 +9780,7 @@
             <supportingInformation>
                <reference value="urn:uuid:UUID062"/>
             </supportingInformation>
-            <authoredOn value="2023-01-03T18:51:23.000-08:00"/>
+            <authoredOn value="2023-01-03T18:51:23-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID225"/>
             </requester>
@@ -9792,7 +9792,7 @@
                <timing>
                   <repeat>
                      <boundsPeriod>
-                        <start value="2023-01-04T02:02:17.000+00:00"/>
+                        <start value="2023-01-04T02:02:17+00:00"/>
                      </boundsPeriod>
                   </repeat>
                </timing>
@@ -9968,7 +9968,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -10005,7 +10005,7 @@
                <reference value="urn:uuid:UUID064"/>
             </supportingInformation>
             <effectivePeriod>
-               <start value="2023-01-04T02:30:00.000+00:00"/>
+               <start value="2023-01-04T02:30:00+00:00"/>
             </effectivePeriod>
             <performer>
                <actor>
@@ -10148,7 +10148,7 @@
             <target>
                <reference value="urn:uuid:UUID032"/>
             </target>
-            <recorded value="2023-01-03T21:51:11.000-08:00"/>
+            <recorded value="2023-01-03T21:51:11-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -10249,7 +10249,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -10286,7 +10286,7 @@
                <reference value="urn:uuid:UUID066"/>
             </supportingInformation>
             <effectivePeriod>
-               <start value="2023-01-04T02:30:00.000+00:00"/>
+               <start value="2023-01-04T02:30:00+00:00"/>
             </effectivePeriod>
             <performer>
                <actor>
@@ -10429,7 +10429,7 @@
             <target>
                <reference value="urn:uuid:UUID033"/>
             </target>
-            <recorded value="2023-01-03T21:51:11.000-08:00"/>
+            <recorded value="2023-01-03T21:51:11-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -10530,7 +10530,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -10567,7 +10567,7 @@
                <reference value="urn:uuid:UUID068"/>
             </supportingInformation>
             <effectivePeriod>
-               <start value="2023-01-04T02:30:00.000+00:00"/>
+               <start value="2023-01-04T02:30:00+00:00"/>
             </effectivePeriod>
             <performer>
                <actor>
@@ -10710,7 +10710,7 @@
             <target>
                <reference value="urn:uuid:UUID034"/>
             </target>
-            <recorded value="2023-01-03T21:51:11.000-08:00"/>
+            <recorded value="2023-01-03T21:51:11-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -10821,7 +10821,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -10856,7 +10856,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T18:03:16.000-08:00"/>
+            <authoredOn value="2023-01-03T18:03:16-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID246"/>
             </requester>
@@ -10887,7 +10887,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T18:03:16.000-08:00"/>
+            <authoredOn value="2023-01-03T18:03:16-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID247"/>
             </requester>
@@ -10918,7 +10918,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T18:03:16.000-08:00"/>
+            <authoredOn value="2023-01-03T18:03:16-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID248"/>
             </requester>
@@ -10949,7 +10949,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T18:16:19.000-08:00"/>
+            <authoredOn value="2023-01-03T18:16:19-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID249"/>
             </requester>
@@ -10980,7 +10980,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T23:26:30.000-08:00"/>
+            <authoredOn value="2023-01-03T23:26:30-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID250"/>
             </requester>
@@ -11011,7 +11011,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T23:26:30.000-08:00"/>
+            <authoredOn value="2023-01-03T23:26:30-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID251"/>
             </requester>
@@ -11042,7 +11042,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T23:26:30.000-08:00"/>
+            <authoredOn value="2023-01-03T23:26:30-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID252"/>
             </requester>
@@ -11073,7 +11073,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <authoredOn value="2023-01-03T18:16:22.000-08:00"/>
+            <authoredOn value="2023-01-03T18:16:22-08:00"/>
             <requester>
                <reference value="urn:uuid:UUID253"/>
             </requester>
@@ -11129,7 +11129,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <onsetDateTime value="2022-09-23"/>
-            <recordedDate value="2022-09-23T13:06:31.000-07:00"/>
+            <recordedDate value="2022-09-23T13:06:31-07:00"/>
             <note>
                <text value="21 weeks gestation of pregnancy"/>
             </note>
@@ -11188,7 +11188,7 @@
             <target>
                <reference value="urn:uuid:UUID077"/>
             </target>
-            <recorded value="2022-09-23T13:06:31.000-07:00"/>
+            <recorded value="2022-09-23T13:06:31-07:00"/>
             <agent>
                <type>
                   <coding>
@@ -11252,7 +11252,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <onsetDateTime value="2022-09-23"/>
-            <recordedDate value="2022-09-23T13:06:01.000-07:00"/>
+            <recordedDate value="2022-09-23T13:06:01-07:00"/>
             <note>
                <text value="Blunt abdominal trauma"/>
             </note>
@@ -11266,7 +11266,7 @@
             <target>
                <reference value="urn:uuid:UUID078"/>
             </target>
-            <recorded value="2022-09-23T13:06:01.000-07:00"/>
+            <recorded value="2022-09-23T13:06:01-07:00"/>
             <agent>
                <type>
                   <coding>
@@ -11330,7 +11330,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <onsetDateTime value="2022-09-23"/>
-            <recordedDate value="2022-09-23T13:06:04.000-07:00"/>
+            <recordedDate value="2022-09-23T13:06:04-07:00"/>
             <note>
                <text value="At risk for domestic violence"/>
             </note>
@@ -11344,7 +11344,7 @@
             <target>
                <reference value="urn:uuid:UUID079"/>
             </target>
-            <recorded value="2022-09-23T13:06:04.000-07:00"/>
+            <recorded value="2022-09-23T13:06:04-07:00"/>
             <agent>
                <type>
                   <coding>
@@ -11380,7 +11380,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -11432,9 +11432,9 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2023-01-04T01:36:00.000+00:00"/>
+               <start value="2023-01-04T01:36:00+00:00"/>
             </effectivePeriod>
-            <issued value="2023-01-03T17:54:00.000-08:00"/>
+            <issued value="2023-01-03T17:54:00-08:00"/>
             <performer>
                <reference value="urn:uuid:UUID259"/>
             </performer>
@@ -11553,7 +11553,7 @@
             <target>
                <reference value="urn:uuid:UUID081"/>
             </target>
-            <recorded value="2023-01-03T17:54:00.000-08:00"/>
+            <recorded value="2023-01-03T17:54:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -11575,7 +11575,7 @@
             <target>
                <reference value="urn:uuid:UUID081"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -11614,9 +11614,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <receivedTime value="2023-01-04T01:41:00.000+00:00"/>
+            <receivedTime value="2023-01-04T01:41:00+00:00"/>
             <collection>
-               <collectedDateTime value="2023-01-04T01:36:00.000+00:00"/>
+               <collectedDateTime value="2023-01-04T01:36:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -11662,7 +11662,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T01:54:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T01:54:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID266"/>
             </performer>
@@ -11728,7 +11728,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:2.16.840.1.113883.6.8"/>
@@ -11761,9 +11761,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T01:54:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T01:54:00+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -11811,9 +11811,9 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2023-01-04T01:36:00.000+00:00"/>
+               <start value="2023-01-04T01:36:00+00:00"/>
             </effectivePeriod>
-            <issued value="2023-01-03T21:06:30.000-08:00"/>
+            <issued value="2023-01-03T21:06:30-08:00"/>
             <performer>
                <reference value="urn:uuid:UUID269"/>
             </performer>
@@ -11932,7 +11932,7 @@
             <target>
                <reference value="urn:uuid:UUID082"/>
             </target>
-            <recorded value="2023-01-03T21:06:30.000-08:00"/>
+            <recorded value="2023-01-03T21:06:30-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -11954,7 +11954,7 @@
             <target>
                <reference value="urn:uuid:UUID082"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -11993,9 +11993,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <receivedTime value="2023-01-04T03:03:00.000+00:00"/>
+            <receivedTime value="2023-01-04T03:03:00+00:00"/>
             <collection>
-               <collectedDateTime value="2023-01-04T01:36:00.000+00:00"/>
+               <collectedDateTime value="2023-01-04T01:36:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -12041,7 +12041,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T05:06:30.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T05:06:30+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID276"/>
             </performer>
@@ -12110,9 +12110,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T05:06:30.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T05:06:30+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -12160,9 +12160,9 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2023-01-04T03:05:00.000+00:00"/>
+               <start value="2023-01-04T03:05:00+00:00"/>
             </effectivePeriod>
-            <issued value="2023-01-03T21:09:49.000-08:00"/>
+            <issued value="2023-01-03T21:09:49-08:00"/>
             <performer>
                <reference value="urn:uuid:UUID278"/>
             </performer>
@@ -12284,7 +12284,7 @@
             <target>
                <reference value="urn:uuid:UUID083"/>
             </target>
-            <recorded value="2023-01-03T21:09:49.000-08:00"/>
+            <recorded value="2023-01-03T21:09:49-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -12306,7 +12306,7 @@
             <target>
                <reference value="urn:uuid:UUID083"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -12345,9 +12345,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <receivedTime value="2023-01-04T03:17:00.000+00:00"/>
+            <receivedTime value="2023-01-04T03:17:00+00:00"/>
             <collection>
-               <collectedDateTime value="2023-01-04T03:05:00.000+00:00"/>
+               <collectedDateTime value="2023-01-04T03:05:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -12393,7 +12393,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T05:09:49.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T05:09:49+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID286"/>
             </performer>
@@ -12478,7 +12478,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T05:09:49.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T05:09:49+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID287"/>
             </performer>
@@ -12543,9 +12543,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T05:09:49.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T05:09:49+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -12593,9 +12593,9 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2023-01-04T03:05:00.000+00:00"/>
+               <start value="2023-01-04T03:05:00+00:00"/>
             </effectivePeriod>
-            <issued value="2023-01-03T20:13:31.000-08:00"/>
+            <issued value="2023-01-03T20:13:31-08:00"/>
             <performer>
                <reference value="urn:uuid:UUID289"/>
             </performer>
@@ -12723,7 +12723,7 @@
             <target>
                <reference value="urn:uuid:UUID084"/>
             </target>
-            <recorded value="2023-01-03T20:13:31.000-08:00"/>
+            <recorded value="2023-01-03T20:13:31-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -12745,7 +12745,7 @@
             <target>
                <reference value="urn:uuid:UUID084"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -12784,9 +12784,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <receivedTime value="2023-01-04T03:16:00.000+00:00"/>
+            <receivedTime value="2023-01-04T03:16:00+00:00"/>
             <collection>
-               <collectedDateTime value="2023-01-04T03:05:00.000+00:00"/>
+               <collectedDateTime value="2023-01-04T03:05:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -12832,7 +12832,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T04:13:31.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T04:13:31+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID299"/>
             </performer>
@@ -12907,7 +12907,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T04:13:31.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T04:13:31+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID300"/>
             </performer>
@@ -12982,7 +12982,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T04:13:31.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T04:13:31+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID301"/>
             </performer>
@@ -13061,7 +13061,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T04:13:31.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T04:13:31+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID302"/>
             </performer>
@@ -13126,9 +13126,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T04:13:31.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T04:13:31+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -13176,9 +13176,9 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2023-01-04T03:10:00.000+00:00"/>
+               <start value="2023-01-04T03:10:00+00:00"/>
             </effectivePeriod>
-            <issued value="2023-01-03T23:34:00.000-08:00"/>
+            <issued value="2023-01-03T23:34:00-08:00"/>
             <performer>
                <reference value="urn:uuid:UUID304"/>
             </performer>
@@ -13339,7 +13339,7 @@
             <target>
                <reference value="urn:uuid:UUID085"/>
             </target>
-            <recorded value="2023-01-03T23:34:00.000-08:00"/>
+            <recorded value="2023-01-03T23:34:00-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -13361,7 +13361,7 @@
             <target>
                <reference value="urn:uuid:UUID085"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -13400,9 +13400,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <receivedTime value="2023-01-04T04:26:00.000+00:00"/>
+            <receivedTime value="2023-01-04T04:26:00+00:00"/>
             <collection>
-               <collectedDateTime value="2023-01-04T03:10:00.000+00:00"/>
+               <collectedDateTime value="2023-01-04T03:10:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -13448,7 +13448,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID325"/>
             </performer>
@@ -13542,7 +13542,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID326"/>
             </performer>
@@ -13626,7 +13626,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID327"/>
             </performer>
@@ -13707,7 +13707,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID328"/>
             </performer>
@@ -13788,7 +13788,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID329"/>
             </performer>
@@ -13869,7 +13869,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID330"/>
             </performer>
@@ -13950,7 +13950,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID331"/>
             </performer>
@@ -14031,7 +14031,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID332"/>
             </performer>
@@ -14112,7 +14112,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID333"/>
             </performer>
@@ -14193,7 +14193,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID334"/>
             </performer>
@@ -14274,7 +14274,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID335"/>
             </performer>
@@ -14355,7 +14355,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID336"/>
             </performer>
@@ -14436,7 +14436,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID337"/>
             </performer>
@@ -14515,7 +14515,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID338"/>
             </performer>
@@ -14589,7 +14589,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <valueString value="Abnormal"/>
          </Observation>
       </resource>
@@ -14614,9 +14614,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:34:00.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:34:00+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -14664,9 +14664,9 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectivePeriod>
-               <start value="2023-01-04T06:51:00.000+00:00"/>
+               <start value="2023-01-04T06:51:00+00:00"/>
             </effectivePeriod>
-            <issued value="2023-01-03T23:21:45.000-08:00"/>
+            <issued value="2023-01-03T23:21:45-08:00"/>
             <performer>
                <reference value="urn:uuid:UUID340"/>
             </performer>
@@ -14851,7 +14851,7 @@
             <target>
                <reference value="urn:uuid:UUID086"/>
             </target>
-            <recorded value="2023-01-03T23:21:45.000-08:00"/>
+            <recorded value="2023-01-03T23:21:45-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -14873,7 +14873,7 @@
             <target>
                <reference value="urn:uuid:UUID086"/>
             </target>
-            <recorded value="2023-01-03T23:34:12.000-08:00"/>
+            <recorded value="2023-01-03T23:34:12-08:00"/>
             <agent>
                <type>
                   <coding>
@@ -14912,9 +14912,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <receivedTime value="2023-01-04T07:19:00.000+00:00"/>
+            <receivedTime value="2023-01-04T07:19:00+00:00"/>
             <collection>
-               <collectedDateTime value="2023-01-04T06:51:00.000+00:00"/>
+               <collectedDateTime value="2023-01-04T06:51:00+00:00"/>
                <bodySite>
                   <coding>
                      <system value="http://snomed.info/sct"/>
@@ -14960,7 +14960,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID369"/>
             </performer>
@@ -15049,7 +15049,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID370"/>
             </performer>
@@ -15138,7 +15138,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID371"/>
             </performer>
@@ -15227,7 +15227,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID372"/>
             </performer>
@@ -15323,7 +15323,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID373"/>
             </performer>
@@ -15412,7 +15412,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID374"/>
             </performer>
@@ -15501,7 +15501,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID375"/>
             </performer>
@@ -15590,7 +15590,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID376"/>
             </performer>
@@ -15679,7 +15679,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID377"/>
             </performer>
@@ -15768,7 +15768,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID378"/>
             </performer>
@@ -15836,7 +15836,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="/100(WBCs)"/>
             <specimen>
                <reference value="urn:uuid:UUID341"/>
@@ -15873,7 +15873,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID380"/>
             </performer>
@@ -15951,7 +15951,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID381"/>
             </performer>
@@ -16029,7 +16029,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID382"/>
             </performer>
@@ -16107,7 +16107,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID383"/>
             </performer>
@@ -16185,7 +16185,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID384"/>
             </performer>
@@ -16263,7 +16263,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID385"/>
             </performer>
@@ -16341,7 +16341,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID386"/>
             </performer>
@@ -16437,7 +16437,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID387"/>
             </performer>
@@ -16526,7 +16526,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID388"/>
             </performer>
@@ -16615,7 +16615,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID389"/>
             </performer>
@@ -16704,7 +16704,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID390"/>
             </performer>
@@ -16793,7 +16793,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <performer>
                <reference value="urn:uuid:UUID391"/>
             </performer>
@@ -16882,7 +16882,7 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <valueString value="Abnormal"/>
          </Observation>
       </resource>
@@ -16907,9 +16907,9 @@
             <subject>
                <reference value="urn:uuid:UUID002"/>
             </subject>
-            <effectiveDateTime value="2023-01-04T07:21:45.000+00:00"/>
+            <effectiveDateTime value="2023-01-04T07:21:45+00:00"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:1.2.840.114350.1.72.1.5007"/>
@@ -17120,7 +17120,7 @@
             </subject>
             <effectiveDateTime value="2017-10-06"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -17209,7 +17209,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -17250,7 +17250,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="1"/>
          </Observation>
       </resource>
@@ -17288,7 +17288,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="5"/>
          </Observation>
       </resource>
@@ -17326,7 +17326,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="2"/>
          </Observation>
       </resource>
@@ -17364,7 +17364,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="2"/>
          </Observation>
       </resource>
@@ -17402,7 +17402,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="2"/>
          </Observation>
       </resource>
@@ -17440,7 +17440,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="2"/>
          </Observation>
       </resource>
@@ -17474,7 +17474,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="1"/>
          </Observation>
       </resource>
@@ -17508,7 +17508,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="1"/>
          </Observation>
       </resource>
@@ -17542,7 +17542,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="2"/>
          </Observation>
       </resource>
@@ -17576,7 +17576,7 @@
             </subject>
             <effectiveDateTime value="2023-01-03"/>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueString value="2"/>
          </Observation>
       </resource>
@@ -17626,7 +17626,7 @@
                <end value="2023-01-03T15:57:00-08:00"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2023-01-03T23:34:12.000-08:00"/>
+            <issued value="2023-01-03T23:34:12-08:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://loinc.org"/>
@@ -17685,7 +17685,7 @@
             <target>
                <reference value="urn:uuid:UUID100"/>
             </target>
-            <recorded value="2023-01-03T15:57:00.000-08:00"/>
+            <recorded value="2023-01-03T15:57:00-08:00"/>
             <agent>
                <type>
                   <coding>

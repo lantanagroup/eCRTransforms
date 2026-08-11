@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2025-02-22T15:00:45.000-04:00"/>
+   <timestamp value="2025-02-22T15:00:45-04:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -178,7 +178,7 @@
             <encounter>
                <reference value="urn:uuid:UUID005"/>
             </encounter>
-            <date value="2025-02-22T15:00:45.000-04:00"/>
+            <date value="2025-02-22T15:00:45-04:00"/>
             <author>
                <reference value="urn:uuid:UUID006"/>
             </author>
@@ -1469,7 +1469,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-02-27T15:00:45.000-04:00"/>
+            <recorded value="2025-02-27T15:00:45-04:00"/>
             <agent>
                <type>
                   <coding>
@@ -1491,7 +1491,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2025-02-22T15:00:45.000-04:00"/>
+            <recorded value="2025-02-22T15:00:45-04:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1961,7 +1961,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <authoredOn value="2025-02-27T15:00:45.000-04:00"/>
+            <authoredOn value="2025-02-27T15:00:45-04:00"/>
             <requester>
                <reference value="urn:uuid:UUID006"/>
             </requester>
@@ -2035,7 +2035,7 @@
                <reference value="urn:uuid:UUID004"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-02-22T15:00:45.000-04:00"/>
+            <issued value="2025-02-22T15:00:45-04:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -2065,7 +2065,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
-            <authoredOn value="2025-02-27T15:00:45.000-04:00"/>
+            <authoredOn value="2025-02-27T15:00:45-04:00"/>
             <requester>
                <reference value="urn:uuid:UUID006"/>
             </requester>
@@ -2139,7 +2139,7 @@
                <reference value="urn:uuid:UUID004"/>
             </subject>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-02-22T15:00:45.000-04:00"/>
+            <issued value="2025-02-22T15:00:45-04:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -2211,7 +2211,7 @@
                <start value="2025-02-16"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-02-22T15:00:45.000-04:00"/>
+            <issued value="2025-02-22T15:00:45-04:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="urn:oid:2.16.840.1.113883.6.243"/>
@@ -2253,7 +2253,7 @@
                <start value="2025-02-16"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2025-02-22T15:00:45.000-04:00"/>
+            <issued value="2025-02-22T15:00:45-04:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>

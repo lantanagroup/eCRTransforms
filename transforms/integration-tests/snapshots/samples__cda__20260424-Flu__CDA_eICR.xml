@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2020-05-05T15:00:45.000-04:00"/>
+   <timestamp value="2020-05-05T15:00:45-04:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -184,7 +184,7 @@
             <encounter>
                <reference value="urn:uuid:UUID003"/>
             </encounter>
-            <date value="2020-05-05T15:00:45.000-04:00"/>
+            <date value="2020-05-05T15:00:45-04:00"/>
             <author>
                <reference value="urn:uuid:UUID004"/>
             </author>
@@ -1202,7 +1202,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2020-05-05T15:00:45.000-04:00"/>
+            <recorded value="2020-05-05T15:00:45-04:00"/>
             <agent>
                <type>
                   <coding>
@@ -1224,7 +1224,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2020-05-05T15:00:45.000-04:00"/>
+            <recorded value="2020-05-05T15:00:45-04:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1532,7 +1532,7 @@
             </subject>
             <!--WARNING: Unknown effective time format-->
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2020-05-05T15:00:45.000-04:00"/>
+            <issued value="2020-05-05T15:00:45-04:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>

@@ -43,7 +43,7 @@
         <x:expect label="the MINORITY -04:00 did not win the vote"
             test="count(//fhir:period/*[matches(@value, '-04:00$')]) = 0" />
         <x:expect label="NEGATIVE CONTROL: a timestamp carrying its own -0400 is left alone, not rewritten to the document timezone"
-            test="count(//fhir:recorded[@value = '2026-07-27T10:50:00.000-04:00']) = 1" />
+            test="count(//fhir:recorded[@value = '2026-07-27T10:50:00-04:00']) = 1" />
     </x:scenario>
 
     <x:scenario label="Rung 3: a document with no offset anywhere falls back to UTC">

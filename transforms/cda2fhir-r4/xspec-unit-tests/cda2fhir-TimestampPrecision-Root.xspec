@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260811 Claude (CDAFHIR-001 seconds + CDAFHIR-003): coverage for what lcg:cdaTS2date does with
+     the SECONDS field, and for the period-ordering test that decides whether a high is emitted.
+
+     Two changes are pinned here.
+
+     1. SECONDS (the other half of CDAFHIR-001). The offset-less branch used to hard-code ':00', so a
+        source stating whole seconds lost them: 20170116154714 came out as 15:47:00. It now uses the
+        same $vSeconds the offset-bearing branch has always used. Separately, $vSeconds no longer
+        appends '.000' - a source that states whole seconds does not state milliseconds, and fabricating
+        them asserted precision the source never gave. ':00' for an HHMM-only source stays, because the
+        FHIR XSD requires a seconds field once a time is present at all.
+
+     2. PERIOD ORDERING (CDAFHIR-003). Six sites asked `cda:high/@value > cda:low/@value`. Both operands
+        are untypedAtomic, so XPath 2.0 casts them to xs:string and compares LEXICOGRAPHICALLY. That is
+        right only by accident of CDA's zero-padded fixed-width format. The fixture below carries a high
+        that sorts after its low but falls four hours EARLIER in real time, which the old comparison
+        could not see. No corpus document trips this - all 136 low/high pairs share an offset and a
+        precision - so a committed fixture is the only way to test it. Same reasoning as
+        XSPEC_CRASH_REGRESSIONS.xml. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir" xmlns:lcg="http://www.lantanagroup.com" run-as="external">
+
+    <x:scenario label="Seconds are preserved, milliseconds are never invented, and a backwards period drops its end">
+        <!-- Fixture: header states .500; one author time states whole seconds and no fraction; the
+             encompassing encounter's period runs 12:00-0500 (17:00Z) to 13:00+0900 (04:00Z). -->
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_TS_PRECISION.xml" />
+        <x:expect label="a Bundle is still produced" test="count(/fhir:Bundle) = 1" />
+        <x:expect label="a fractional second stated by the source is carried through unchanged"
+            test="count(//fhir:Composition/fhir:date[@value = '2026-07-27T10:30:00.500+10:00']) = 1" />
+        <x:expect label="whole seconds stated by the source are emitted with NO invented millisecond part"
+            test="count(//fhir:recorded[@value = '2026-07-27T10:42:17+10:00']) = 1" />
+        <x:expect label="OLD SHAPE IS GONE: nothing anywhere in the Bundle carries a fabricated .000"
+            test="count(//fhir:*[matches(@value, 'T\d\d:\d\d:\d\d\.000')]) = 0" />
+        <x:expect label="CDAFHIR-003: the period start is emitted"
+            test="count(//fhir:Encounter/fhir:period/fhir:start[@value = '2026-07-25T12:00:00-05:00']) = 1" />
+        <x:expect label="CDAFHIR-003: no end is emitted, because the high is EARLIER than the low once the offsets are honoured - the old lexicographic test emitted one here"
+            test="count(//fhir:Encounter/fhir:period/fhir:end) = 0" />
+    </x:scenario>
+
+    <x:scenario label="Seconds are recovered on a real document that was losing them">
+        <!-- 20170116154714 is a Problem Observation onset in the eICR R3.1 sample family. It reached
+             the offset-less branch, so the ':14' was discarded and the value came out as 15:47:00. -->
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="the source's seconds survive the conversion"
+            test="count(//fhir:*[@value = '2017-01-16T15:47:14-05:00']) = 1" />
+        <x:expect label="OLD SHAPE IS GONE: the truncated 15:47:00 value is no longer emitted"
+            test="count(//fhir:*[@value = '2017-01-16T15:47:00-05:00']) = 0" />
+        <x:expect label="and no value in this document carries an invented millisecond part either"
+            test="count(//fhir:*[matches(@value, 'T\d\d:\d\d:\d\d\.000')]) = 0" />
+        <x:expect label="an HHMM-only source still gets the ':00' the FHIR XSD requires, and nothing more"
+            test="count(//fhir:*[@value = '2020-11-10T18:00:00-05:00']) = 1" />
+    </x:scenario>
+
+</x:description>

@@ -13,7 +13,7 @@
       </assigner>
    </identifier>
    <type value="document"/>
-   <timestamp value="2016-01-05T09:44:21.000-05:00"/>
+   <timestamp value="2016-01-05T09:44:21-05:00"/>
    <entry>
       <fullUrl value="urn:uuid:UUID001"/>
       <resource>
@@ -157,7 +157,7 @@
             <encounter>
                <reference value="urn:uuid:UUID004"/>
             </encounter>
-            <date value="2016-01-05T09:44:21.000-05:00"/>
+            <date value="2016-01-05T09:44:21-05:00"/>
             <author>
                <reference value="urn:uuid:UUID005"/>
             </author>
@@ -951,7 +951,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2016-05-01T09:44:21.000-05:00"/>
+            <recorded value="2016-05-01T09:44:21-05:00"/>
             <agent>
                <type>
                   <coding>
@@ -973,7 +973,7 @@
             <target>
                <reference value="urn:uuid:UUID001"/>
             </target>
-            <recorded value="2016-01-05T09:44:21.000-05:00"/>
+            <recorded value="2016-01-05T09:44:21-05:00"/>
             <agent>
                <who>
                   <display value="cda-to-fhir-transform"/>
@@ -1171,7 +1171,7 @@
                <start value="2015-09-01"/>
             </effectivePeriod>
             <!--INFO: Using document effective time as issued date-->
-            <issued value="2016-01-05T09:44:21.000-05:00"/>
+            <issued value="2016-01-05T09:44:21-05:00"/>
             <valueCodeableConcept>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1201,7 +1201,7 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <authoredOn value="2016-05-01T09:44:21.000-05:00"/>
+            <authoredOn value="2016-05-01T09:44:21-05:00"/>
             <requester>
                <reference value="urn:uuid:UUID005"/>
             </requester>

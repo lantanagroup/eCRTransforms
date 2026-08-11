@@ -6,7 +6,6 @@
     <xsl:include href="cda-to-fhir-datatypes.xslt" />
     <xsl:include href="cda2fhir-AllergyIntolerance.xslt" />
     <xsl:include href="cda2fhir-Bundle.xslt" />
-    <xsl:include href="cda2fhir-CarePlan.xslt" />
     <xsl:include href="cda2fhir-CareTeam.xslt" />
     <xsl:include href="cda2fhir-Communication.xslt" />
     <xsl:include href="cda2fhir-Composition.xslt" />
@@ -32,7 +31,6 @@
     <xsl:include href="cda2fhir-Observation.xslt" />
     <xsl:include href="cda2fhir-Organization.xslt" />
     <xsl:include href="cda2fhir-Patient.xslt" />
-    <xsl:include href="cda2fhir-PlanDefinition.xslt" />
     <xsl:include href="cda2fhir-Practitioner.xslt" />
     <xsl:include href="cda2fhir-PractitionerRole.xslt" />
     <xsl:include href="cda2fhir-Procedure.xslt" />

@@ -1390,7 +1390,73 @@
       </xsl:choose>
     </xsl:for-each>
   </xsl:template>
-  <xsl:template match="n1:table | n1:thead | n1:tfoot | n1:tbody | n1:colgroup | n1:col | n1:tr | n1:th | n1:td">
+  <!-- 20260821 Claude (item 053): production narratives (seen only in production data - refiner/vendor
+       output) can carry inline elements such as <footnote> or <content>, or bare text, directly inside
+       table-structural elements. The old copy-through turned those into <span> (or text) children of
+       <table>/<tbody>/<tr>, which the FHIR validator rejects: xhtml only allows
+       table > caption|col|colgroup|thead|tfoot|tbody|tr, thead/tfoot/tbody > tr, tr > td|th.
+       The templates below keep legal children (and the whitespace between them, so well-formed tables
+       are byte-identical to before) in place, and re-home everything else where xhtml permits it:
+       an illegal child of <table> is rendered immediately AFTER the table (where a footnote naturally
+       reads anyway); an illegal child of <thead>/<tfoot>/<tbody> is wrapped in <tr><td>; an illegal
+       child of <tr> is wrapped in <td>. Nothing visible is dropped. -->
+  <xsl:template match="n1:table">
+    <!-- children that are legal inside xhtml <table>, plus the whitespace text between them -->
+    <xsl:variable name="vLegal" select="node()[self::n1:caption or self::n1:col or self::n1:colgroup or self::n1:thead or self::n1:tfoot or self::n1:tbody or self::n1:tr or (self::text() and not(normalize-space(.)))]" />
+    <table>
+      <xsl:call-template name="output-attrs" />
+      <xsl:apply-templates select="$vLegal" />
+    </table>
+    <!-- anything else (refiner footnote, stray content, bare text) renders right after the table -->
+    <xsl:apply-templates select="node() except $vLegal" />
+  </xsl:template>
+  <xsl:template match="n1:thead | n1:tfoot | n1:tbody">
+    <xsl:element name="{local-name()}">
+      <xsl:call-template name="output-attrs" />
+      <xsl:for-each select="node()">
+        <xsl:choose>
+          <xsl:when test="self::n1:tr or (self::text() and not(normalize-space(.)))">
+            <xsl:apply-templates select="." />
+          </xsl:when>
+          <xsl:when test="self::* or self::text()">
+            <!-- illegal here; xhtml only allows <tr> - wrap so the content survives in place -->
+            <tr>
+              <td>
+                <xsl:apply-templates select="." />
+              </td>
+            </tr>
+          </xsl:when>
+          <!-- comments and processing instructions: dropped, as before -->
+        </xsl:choose>
+      </xsl:for-each>
+    </xsl:element>
+  </xsl:template>
+  <xsl:template match="n1:tr">
+    <tr>
+      <xsl:call-template name="output-attrs" />
+      <xsl:for-each select="node()">
+        <xsl:choose>
+          <xsl:when test="self::n1:td or self::n1:th or (self::text() and not(normalize-space(.)))">
+            <xsl:apply-templates select="." />
+          </xsl:when>
+          <xsl:when test="self::* or self::text()">
+            <!-- illegal here; xhtml only allows <td>/<th> - wrap so the content survives in place -->
+            <td>
+              <xsl:apply-templates select="." />
+            </td>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:for-each>
+    </tr>
+  </xsl:template>
+  <xsl:template match="n1:colgroup">
+    <colgroup>
+      <xsl:call-template name="output-attrs" />
+      <!-- xhtml only allows <col> here, and there is nowhere valid to re-home anything else -->
+      <xsl:apply-templates select="node()[self::n1:col or (self::text() and not(normalize-space(.)))]" />
+    </colgroup>
+  </xsl:template>
+  <xsl:template match="n1:col | n1:th | n1:td">
     <xsl:element name="{local-name()}">
       <xsl:call-template name="output-attrs" />
       <xsl:apply-templates />

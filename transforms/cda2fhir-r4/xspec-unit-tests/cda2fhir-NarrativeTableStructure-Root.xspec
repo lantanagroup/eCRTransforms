@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260821 Claude (item 053): narrative table structure. Production narratives (first seen in a
+     production validator report: "Elements of type table at div/table cannot have the following
+     children: span") can carry inline elements - refiner footnotes, stray content - or bare text
+     directly inside table-structural elements. xhtml only allows
+     table > caption|col|colgroup|thead|tfoot|tbody|tr, thead/tfoot/tbody > tr, tr > td|th.
+     The narrative templates re-home such content: an illegal child of <table> renders immediately
+     after the table; an illegal child of <thead>/<tfoot>/<tbody> is wrapped in <tr><td>; an illegal
+     child of <tr> is wrapped in <td>. Nothing visible may be dropped, and a well-formed table must
+     pass through byte-identically (the corpus snapshot gate holds that at 34/34 unchanged).
+     None of the 34 corpus documents carries these shapes, so inline contexts are the only coverage.
+     Negative control 2026-08-21: with the pre-fix stylesheet, 11 of 17 assertions fail. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml" run-as="external">
+
+    <x:scenario label="footnote directly inside table renders after the table, not as a span child">
+        <x:context select="//cda:table">
+            <cda:text>
+                <cda:table>
+                    <cda:tbody>
+                        <cda:tr>
+                            <cda:td>row</cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                    <cda:footnote ID="FN1">Data removed per policy</cda:footnote>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="the table has no span child" test="count(//xhtml:table/xhtml:span) = 0" />
+        <x:expect label="the footnote text survives as a span AFTER the table, id intact"
+            test="count(//xhtml:span[@id = 'FN1'][. = 'Data removed per policy'][preceding-sibling::xhtml:table]) = 1" />
+    </x:scenario>
+
+    <x:scenario label="content directly inside table renders after the table">
+        <x:context select="//cda:table">
+            <cda:text>
+                <cda:table>
+                    <cda:content styleCode="Bold">stray content</cda:content>
+                    <cda:tbody>
+                        <cda:tr>
+                            <cda:td>row</cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="the table has no span child" test="count(//xhtml:table/xhtml:span) = 0" />
+        <x:expect label="the content survives, styling intact, after the table"
+            test="count(//xhtml:span[. = 'stray content'][contains(@style, 'bold')][preceding-sibling::xhtml:table]) = 1" />
+    </x:scenario>
+
+    <x:scenario label="footnote directly inside tbody is wrapped in tr/td">
+        <x:context select="//cda:table">
+            <cda:text>
+                <cda:table>
+                    <cda:tbody>
+                        <cda:footnote ID="FN2">removed row note</cda:footnote>
+                        <cda:tr>
+                            <cda:td>row</cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="tbody has only tr children" test="count(//xhtml:tbody/*[not(self::xhtml:tr)]) = 0" />
+        <x:expect label="the footnote survives inside its own tr/td, in place (first row)"
+            test="count(//xhtml:tbody/xhtml:tr[1]/xhtml:td/xhtml:span[@id = 'FN2'][. = 'removed row note']) = 1" />
+        <x:expect label="the real row is still there" test="count(//xhtml:tbody/xhtml:tr) = 2" />
+    </x:scenario>
+
+    <x:scenario label="footnote directly inside tr is wrapped in td">
+        <x:context select="//cda:table">
+            <cda:text>
+                <cda:table>
+                    <cda:tbody>
+                        <cda:tr>
+                            <cda:footnote ID="FN3">cell note</cda:footnote>
+                            <cda:td>row</cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="tr has only td/th children"
+            test="count(//xhtml:tr/*[not(self::xhtml:td or self::xhtml:th)]) = 0" />
+        <x:expect label="the footnote survives inside its own td"
+            test="count(//xhtml:tr/xhtml:td/xhtml:span[@id = 'FN3']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="refiner footnote containing a table, itself directly inside a table">
+        <x:context select="(//cda:table)[1]">
+            <cda:text>
+                <cda:table>
+                    <cda:footnote ID="FN4">
+                        <cda:paragraph>note text</cda:paragraph>
+                        <cda:table>
+                            <cda:tbody>
+                                <cda:tr>
+                                    <cda:td>inner row</cda:td>
+                                </cda:tr>
+                            </cda:tbody>
+                        </cda:table>
+                    </cda:footnote>
+                    <cda:tbody>
+                        <cda:tr>
+                            <cda:td>outer row</cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="no table is nested directly inside another" test="count(//xhtml:table[xhtml:table]) = 0" />
+        <x:expect label="both tables render" test="count(//xhtml:table) = 2" />
+        <x:expect label="the inner row's text survives" test="count(//xhtml:td[. = 'inner row']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="bare text directly inside table moves after the table">
+        <x:context select="//cda:table">
+            <cda:text>
+                <cda:table>orphan text<cda:tbody>
+                        <cda:tr>
+                            <cda:td>row</cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="no non-whitespace text is a direct child of the table"
+            test="count(//xhtml:table/text()[normalize-space(.)]) = 0" />
+        <x:expect label="the text still renders" test="contains(., 'orphan text')" />
+    </x:scenario>
+
+    <x:scenario label="PIN: a well-formed table passes through with structure and cell content untouched">
+        <x:context select="//cda:table">
+            <cda:text>
+                <cda:table>
+                    <cda:caption>Cap</cda:caption>
+                    <cda:colgroup>
+                        <cda:col />
+                    </cda:colgroup>
+                    <cda:thead>
+                        <cda:tr>
+                            <cda:th>H</cda:th>
+                        </cda:tr>
+                    </cda:thead>
+                    <cda:tbody>
+                        <cda:tr>
+                            <cda:td>
+                                <cda:content styleCode="Bold">cell content</cda:content>
+                            </cda:td>
+                        </cda:tr>
+                    </cda:tbody>
+                </cda:table>
+            </cda:text>
+        </x:context>
+        <x:expect label="children in order: caption, colgroup, thead, tbody"
+            test="//xhtml:table/*[1]/self::xhtml:caption and //xhtml:table/*[2]/self::xhtml:colgroup
+                and //xhtml:table/*[3]/self::xhtml:thead and //xhtml:table/*[4]/self::xhtml:tbody" />
+        <x:expect label="content INSIDE a cell still becomes a span INSIDE that cell - not re-homed"
+            test="count(//xhtml:td/xhtml:span[. = 'cell content']) = 1" />
+        <x:expect label="nothing is emitted after the table"
+            test="count(//xhtml:table/following-sibling::node()[self::* or normalize-space(.)]) = 0" />
+    </x:scenario>
+
+</x:description>

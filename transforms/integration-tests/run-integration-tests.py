@@ -202,6 +202,43 @@ SENTINEL_VALUES = {"unknown", "unk", "n/a", "na", "none", "no information",
                    "null", "nil", "tbd", "not available", "not applicable"}
 SENTINEL_PATHS = {"telecom.value", "address.text"}
 
+# xhtml content models the FHIR validator enforces inside narrative (item 053): these
+# elements accept ONLY the listed children, and no bare text. Production CDA narratives
+# (refiner footnotes, vendor quirks) can carry inline elements in these positions; the
+# transform must re-home them, so any hit here is a transform defect, not input noise.
+NARRATIVE_TABLE_CHILDREN = {
+    "table": {"caption", "col", "colgroup", "thead", "tfoot", "tbody", "tr"},
+    "thead": {"tr"}, "tfoot": {"tr"}, "tbody": {"tr"},
+    "colgroup": {"col"}, "tr": {"td", "th"},
+}
+
+
+def check_narrative(div, where, problems):
+    """Table-structure legality inside one narrative div (item 053).
+
+    check_elements deliberately skips the XHTML subtree for its ele-1 checks - narrative
+    is full of legitimately empty elements - but table STRUCTURE is still ours to get
+    right: "Elements of type table at div/table cannot have the following children: span"
+    is exactly what the production validator raised. Problem strings carry element names
+    only, so they stay stable in the known-issues baseline.
+    """
+    for el in div.iter():
+        if not el.tag.startswith(XHTML_NS):
+            continue
+        name = el.tag.split("}")[-1]
+        allowed = NARRATIVE_TABLE_CHILDREN.get(name)
+        if allowed is None:
+            continue
+        seen = set()
+        for child in el:
+            cname = child.tag.split("}")[-1]
+            if (not child.tag.startswith(XHTML_NS) or cname not in allowed) and cname not in seen:
+                seen.add(cname)
+                problems.append(
+                    f"invalid narrative xhtml: {where} has <{cname}> as a child of <{name}>")
+        if any(t and t.strip() for t in [el.text] + [c.tail for c in el]):
+            problems.append(f"invalid narrative xhtml: {where} has bare text inside <{name}>")
+
 
 def check_elements(xml: str, problems: list):
     """ele-1, primitive syntax and house-convention checks over the parsed Bundle.
@@ -226,7 +263,11 @@ def check_elements(xml: str, problems: list):
     def walk(elem, rtype, path):
         for child in elem:
             if child.tag.startswith(XHTML_NS):
-                continue                      # narrative - not FHIR elements
+                # narrative - not FHIR elements, so the ele-1 checks skip the subtree,
+                # but its table structure is still checked (item 053)
+                check_narrative(child, label(rtype, path + [child.tag.split("}")[-1]]),
+                                problems)
+                continue
             name = child.tag.split("}")[-1]
             # entering a resource: <entry><resource><Patient> -> rtype becomes Patient, and the
             # path restarts so problem strings read Patient.contact.address, not

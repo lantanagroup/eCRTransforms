@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260821 Claude (item 054): Patient.communication.language. Production validation failed with
+     "value cannot be empty" / ele-1 / "Coding has no code for system urn:ietf:bcp:47" at
+     Patient.communication[0].language - the coding was emitted unconditionally, so a
+     languageCommunication whose languageCode is missing, empty or null-flavored produced
+     <code value=""/>. language is 1..1 on communication, and us-ph-patient FIXES the
+     dataAbsentReason code here to 'masked' (a first DAR-everywhere fix failed layer 3 with
+     _DT_Fixed_Wrong: 'unknown'/'asked-unknown' are non-conformant at this element and un-match
+     the whole Patient profile, cascading into Reference_REF_CantMatchChoice on every subject
+     reference). So: a real code is emitted normalize-space'd (the item-047 shape); MSK becomes
+     DAR masked (exact for explicitly-masked data, and the one DAR the profile permits); every
+     other no-usable-code shape is skipped. preferred is only emitted when preferenceInd carries
+     an actual value. Fixture: ../../integration-tests/documents/testLang.xml, which layers 2-4
+     also run. None of the corpus documents carries the empty-code shapes (production-only, like
+     item 053), but communication is 1..* in us-ph-patient, so a patient left with NO usable
+     languageCommunication (or none at all - two real RR corpus documents) must still get one
+     communication; the fallback defaults to English, 'en' (SG decision 2026-08-21: DAR 'masked'
+     misdescribes merely-absent data). Negative controls 2026-08-21: pre-fix stylesheet 8 of 12
+     assertions fail; the intermediate drop-only fix fails the 2 fallback assertions; the
+     intermediate DAR-masked fallback fails 1 (the fallback-shape assertion). -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3"
+    xmlns:fhir="http://hl7.org/fhir" run-as="external">
+
+    <x:scenario label="languageCommunication battery: real codes survive, MSK becomes DAR masked, the rest are omitted">
+        <x:context href="../../integration-tests/documents/testLang.xml" select="//cda:recordTarget" />
+
+        <x:expect label="six languageCommunications produce exactly three communications (control, masked, es)"
+            test="count(fhir:Patient/fhir:communication) = 3" />
+        <x:expect label="no empty code value anywhere in communication"
+            test="count(fhir:Patient/fhir:communication//fhir:code[@value = '']) = 0" />
+        <x:expect label="every language has a coding or a data-absent-reason - ele-1 holds"
+            test="count(fhir:Patient/fhir:communication/fhir:language[not(fhir:coding) and not(fhir:extension)]) = 0" />
+        <x:expect label="control: eng still maps to en with its preference kept"
+            test="count(fhir:Patient/fhir:communication[fhir:language/fhir:coding/fhir:code[@value = 'en']][fhir:preferred/@value = 'true']) = 1" />
+        <x:expect label="MSK maps to DAR masked - the one code us-ph-patient permits here"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'masked']) = 1" />
+        <x:expect label="no other DAR code is ever emitted here (profile fixes the value)"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:extension/fhir:valueCode[not(@value = 'masked')]) = 0" />
+        <x:expect label="a code with stray whitespace is normalized (item-047 shape)"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code[@value = 'es']) = 1" />
+        <x:expect label="a null-flavored preferenceInd emits no preferred at all"
+            test="count(fhir:Patient/fhir:communication/fhir:preferred[@value = '']) = 0" />
+        <x:expect label="exactly one preferred is emitted (the control's)"
+            test="count(fhir:Patient/fhir:communication/fhir:preferred) = 1" />
+    </x:scenario>
+
+    <!-- 20260821 Claude (item 054, second pass - SG's catch): communication is 1..* in us-ph-patient,
+         so dropping every unusable languageCommunication (or a CDA with none at all - testRR.xml and
+         two real RR corpus documents) must still leave one communication. Third pass, SG's decision:
+         the fallback defaults to English ('en') rather than DAR masked, which misdescribes
+         merely-absent data. -->
+    <x:scenario label="a patient whose only languageCommunication is unusable still gets one communication (1..*)">
+        <x:context select="//cda:recordTarget" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <recordTarget>
+                    <patientRole>
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                        <patient>
+                            <name use="L"><given>Only</given><family>Unusable</family></name>
+                            <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                            <birthTime value="19800101" />
+                            <languageCommunication>
+                                <languageCode nullFlavor="UNK" />
+                            </languageCommunication>
+                        </patient>
+                    </patientRole>
+                </recordTarget>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="exactly one communication survives" test="count(fhir:Patient/fhir:communication) = 1" />
+        <x:expect label="its language defaults to en, with no DAR extension"
+            test="count(fhir:Patient/fhir:communication/fhir:language[not(fhir:extension)]/fhir:coding[fhir:system/@value = 'urn:ietf:bcp:47'][fhir:code/@value = 'en']) = 1" />
+        <x:expect label="no empty code value anywhere"
+            test="count(fhir:Patient//fhir:code[@value = '']) = 0" />
+    </x:scenario>
+
+</x:description>

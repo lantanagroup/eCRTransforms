@@ -38,7 +38,9 @@
         <birthTime value="19800101"/>
         <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" displayName="White"/>
         <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" displayName="Not Hispanic or Latino"/>
-        <languageCommunication><languageCode code="eng"/></languageCommunication>
+        <!-- item 054: deliberately NO languageCommunication - the two real RR corpus documents lack it
+             too, and us-ph-patient requires communication 1..*, so this fixture gates the fallback
+             (one communication defaulting to language en - SG decision 2026-08-21) through the conformance layer. -->
       </patient>
       <providerOrganization>
         <id root="2.16.840.1.113883.4.6" extension="9999999999"/>

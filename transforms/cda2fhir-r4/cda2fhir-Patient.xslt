@@ -138,30 +138,69 @@
             </xsl:for-each>
 
             <!-- Communication:  TODO - add extension patient-proficiency modeCode -> proficieny.type, proficiency.level -->
-            <xsl:for-each select="cda:patientRole/cda:patient/cda:languageCommunication">
+            <!-- 20260821 Claude (item 054): the coding was emitted unconditionally, so a languageCommunication
+                 with a missing, empty or null-flavored languageCode (seen in production data) produced
+                 <code value=""/> - three validator errors per instance (empty code, ele-1, codeless Coding).
+                 us-ph-patient constrains this element hard (measured against 2.1.2): communication is 1..*,
+                 language is 1..1, and the dataAbsentReason slice on language FIXES its code to 'masked' -
+                 any other DAR code fails _DT_Fixed_Wrong and un-matches the whole Patient profile. So:
+                 a real code is emitted normalize-space'd (the item-047 shape); a languageCommunication
+                 with no usable code is skipped; a languageCode explicitly marked MSK becomes DAR 'masked'
+                 (the one DAR value the profile permits, and exact for masked data); and when NOTHING
+                 remains - every languageCommunication unusable, or the CDA carries none at all (the
+                 profile-required-element case SG raised) - one communication with language 'en' is
+                 emitted so communication 1..* always holds. Defaulting to English rather than a DAR was
+                 SG's decision 2026-08-21: 'masked' misdescribes data that is merely absent.
+                 preferred is only emitted when preferenceInd carries an actual value - it used to emit
+                 <preferred value=""/> (an invalid boolean) for a null-flavored preferenceInd. -->
+            <xsl:variable name="vUsableLanguageComms" select="cda:patientRole/cda:patient/cda:languageCommunication[normalize-space(cda:languageCode/@code) or cda:languageCode/@nullFlavor = 'MSK']" />
+            <xsl:for-each select="$vUsableLanguageComms">
                 <communication>
                     <language>
-                        <coding>
-                            <!-- Hard coding system because it's not in CDA -->
-                            <system value="urn:ietf:bcp:47" />
-                            <!-- eng is not allowed in FHIR - map to en -->
-                            <xsl:choose>
-                                <xsl:when test="cda:languageCode/@code = 'eng'">
-                                    <code value="en" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <code value="{cda:languageCode/@code}" />
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </coding>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(cda:languageCode/@code)">
+                                <coding>
+                                    <!-- Hard coding system because it's not in CDA -->
+                                    <system value="urn:ietf:bcp:47" />
+                                    <!-- eng is not allowed in FHIR - map to en -->
+                                    <xsl:choose>
+                                        <xsl:when test="normalize-space(cda:languageCode/@code) = 'eng'">
+                                            <code value="en" />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <code value="{normalize-space(cda:languageCode/@code)}" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </coding>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <!-- MSK - the one DAR code the profile permits here, and the honest one -->
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="masked" />
+                                </extension>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </language>
-                    <xsl:if test="cda:preferenceInd">
+                    <xsl:if test="cda:preferenceInd/@value">
                         <preferred>
                             <xsl:attribute name="value" select="cda:preferenceInd/@value" />
                         </preferred>
                     </xsl:if>
                 </communication>
             </xsl:for-each>
+            <xsl:if test="not($vUsableLanguageComms)">
+                <!-- communication is 1..* in us-ph-patient, so absence must still produce one entry;
+                     default to English (SG decision 2026-08-21 - a DAR 'masked' would misdescribe
+                     merely-absent data, and 'masked' is the only DAR code the profile would accept) -->
+                <communication>
+                    <language>
+                        <coding>
+                            <system value="urn:ietf:bcp:47" />
+                            <code value="en" />
+                        </coding>
+                    </language>
+                </communication>
+            </xsl:if>
 
             <!-- managingOrganization -->
             <xsl:if test="cda:patientRole/cda:providerOrganization">

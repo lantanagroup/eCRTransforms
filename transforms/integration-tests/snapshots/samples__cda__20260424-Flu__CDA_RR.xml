@@ -415,6 +415,14 @@
                <postalCode value="84116"/>
                <country value="US"/>
             </address>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+            </communication>
          </Patient>
       </resource>
    </entry>

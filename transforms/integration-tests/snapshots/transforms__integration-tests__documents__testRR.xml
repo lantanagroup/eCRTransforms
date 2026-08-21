@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 315-->
+<!--Element count: 313-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="RR-bundle-GENID"/>
    <meta>
@@ -295,7 +295,6 @@
                   <p>Address: 1 Test St<br/>Boston<br/>MA<br/>02101<br/>US</p>
                   <p>Gender: F</p>
                   <p>Birthdate: 1980-01-01</p>
-                  <p>Language: eng</p>
                </div>
             </text>
             <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">

@@ -94,10 +94,13 @@
 
       <xsl:call-template name="add-meta" />
 
-      <xsl:if test="cda:languageCode/@code">
+      <!-- 20260821 Claude (item 054): guards tightened from @code (an existence test that an EMPTY
+           code="" attribute passes) to normalize-space(@code), and the emitted value normalized -
+           the same defect shape as the Patient.communication fix, closed across the file. -->
+      <xsl:if test="normalize-space(cda:languageCode/@code)">
         <language>
           <xsl:attribute name="value">
-            <xsl:value-of select="cda:languageCode/@code" />
+            <xsl:value-of select="normalize-space(cda:languageCode/@code)" />
           </xsl:attribute>
         </language>
       </xsl:if>
@@ -105,10 +108,10 @@
       <text>
         <status value="generated" />
         <xsl:choose>
-          <xsl:when test="cda:languageCode/@code">
+          <xsl:when test="normalize-space(cda:languageCode/@code)">
             <!-- 20260803 Claude (CDAFHIR-010): xml:lang/lang were hardcoded en-US; now taken from the
                  document's languageCode (Composition.language just above already did this). -->
-            <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="{cda:languageCode/@code}" lang="{cda:languageCode/@code}">
+            <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="{normalize-space(cda:languageCode/@code)}" lang="{normalize-space(cda:languageCode/@code)}">
               <xsl:call-template name="CDAtext" />
             </div>
           </xsl:when>

@@ -158,11 +158,23 @@
            cda-to-fhir-datatypes.xslt), so the unnormalised path here was the outlier. Deliberately a
            separate commit from the ele-1 fix: nothing here was failing a gate, and it moves 46 snapshot
            lines against the 3 that the actual defect moved. -->
-      <xsl:for-each select="cda:code[@nullFlavor = 'OTH'][normalize-space(cda:originalText)]">
-        <description>
-          <xsl:attribute name="value" select="normalize-space(cda:originalText)" />
-        </description>
-      </xsl:for-each>
+      <!-- 20260821 Claude (item 056): the 20260804 comment above was wrong about the profile -
+           rr-documentreference 2.1.2 makes description 1..1 REQUIRED, and three RR corpus documents
+           (whose external-reference code is not OTH, or has empty originalText) were failing
+           Validation_VAL_Profile_Minimum in production-shaped validation. Per SG's decision
+           (2026-08-21): description falls back through the source displayNames, then a constant.
+           Order: originalText (the richest, kept from the 049 fix) -> the externalDocument's own
+           code/@displayName -> the parent External Resources act's code/@displayName (e.g.
+           "Additional Resources", "PHA Contact Information") -> "Public health information" (the
+           same wording this template already emits as type.text). -->
+      <xsl:variable name="vDescription" select="normalize-space((
+          cda:code[@nullFlavor = 'OTH']/cda:originalText[normalize-space(.)],
+          cda:code/@displayName[normalize-space(.)],
+          ../../cda:code/@displayName[normalize-space(.)],
+          'Public health information')[1])" />
+      <description>
+        <xsl:attribute name="value" select="$vDescription" />
+      </description>
       <content>
         <attachment>
           <xsl:choose>

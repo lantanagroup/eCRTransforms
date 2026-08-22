@@ -3379,7 +3379,10 @@
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
-            <!--WARNING: Unknown effective time format-->
+            <effectivePeriod>
+               <end value="2025-10-21"/>
+            </effectivePeriod>
+            <!--INFO: PIVL_TS repetition (every 3wk) is not representable in effective[x]-->
             <component>
                <code>
                   <coding>

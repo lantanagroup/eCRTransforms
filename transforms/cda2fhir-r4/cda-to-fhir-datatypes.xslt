@@ -391,7 +391,9 @@
       <xsl:otherwise />
     </xsl:choose>
   </xsl:template>
-  <xsl:template match="cda:effectiveTime[@value or cda:low or cda:high] | cda:time[@value or cda:low or cda:high]" mode="period">
+  <!-- 20260821 Claude (item 058): cda:phase added - a PIVL_TS effectiveTime's phase carries the
+       low/high boundary and reuses this template via the dispatcher's new PIVL branch -->
+  <xsl:template match="cda:effectiveTime[@value or cda:low or cda:high] | cda:time[@value or cda:low or cda:high] | cda:phase[@value or cda:low or cda:high]" mode="period">
     <xsl:param name="pElementName">period</xsl:param>
     <xsl:element name="{$pElementName}">
       <xsl:call-template name="effectiveTimeInner" />
@@ -546,6 +548,20 @@
         <xsl:apply-templates select="." mode="instant">
           <xsl:with-param name="pElementName" select="concat($pStartElementName, 'DateTime')" />
         </xsl:apply-templates>
+      </xsl:when>
+      <!-- 20260821 Claude (item 058): PIVL_TS (periodic interval) previously matched NOTHING here and
+           emitted only a warning comment - a travel-history act with "period 3 wk / phase ending
+           20251021" produced no effective[x] at all, violating us-ph-travel-history's 1..1 (live in
+           the Pertussis corpus eICR). The phase boundary is the only part a dateTime/Period can carry,
+           so the phase's low/high map to a Period; the repetition frequency has no representation in
+           effective[x] and is noted in a comment rather than silently dropped. -->
+      <xsl:when test="@xsi:type = 'PIVL_TS' and cda:phase[cda:low/@value or cda:high/@value]">
+        <xsl:apply-templates select="cda:phase" mode="period">
+          <xsl:with-param name="pElementName" select="concat($pStartElementName, 'Period')" />
+        </xsl:apply-templates>
+        <xsl:if test="cda:period/@value">
+          <xsl:comment>INFO: PIVL_TS repetition (every <xsl:value-of select="cda:period/@value" /> <xsl:value-of select="cda:period/@unit" />) is not representable in effective[x]</xsl:comment>
+        </xsl:if>
       </xsl:when>
       <xsl:when test="@nullFlavor">
         <xsl:comment>INFO: CDA effectiveTime/time was null</xsl:comment>

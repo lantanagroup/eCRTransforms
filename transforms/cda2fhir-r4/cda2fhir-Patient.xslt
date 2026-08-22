@@ -116,9 +116,23 @@
                             <code value="GUARD" />
                         </coding>
                     </relationship>
+                    <!-- 20260821 Claude (item 055, live part; policy refined by SG same day): a null-flavored
+                         contact addr used to flow through the generic nullFlavor mapping into
+                         <address> with DAR 'unknown', which us-ph-patient rejects (its contact DAR
+                         slices are fixed to 'masked') - live in the two Flu refiner corpus documents.
+                         SG's POLICY: a DAR 'masked' may only ever be a faithful translation of an
+                         explicit MSK in the source CDA - the transform must never ADD one for data
+                         that is merely absent. So addr nullFlavor='MSK' passes through the generic
+                         mapping (MSK -> masked, which also matches the profile's fixed slice), and
+                         every OTHER nullFlavor (NI etc.) is OMITTED. contact.address is 1..1 in the
+                         profile, so the omission makes the validator flag the document -
+                         DELIBERATELY: that error is the signal to take to the implementer whose
+                         data is missing, not something to paper over.
+                         Telecom and name are untouched: their existing filling puts the DAR on the
+                         VALUE primitive inside them, where no fixed slice applies, and that passes. -->
                     <xsl:apply-templates select="cda:guardianPerson/cda:name" />
                     <xsl:apply-templates select="cda:telecom" />
-                    <xsl:apply-templates select="cda:addr" />
+                    <xsl:apply-templates select="cda:addr[not(@nullFlavor) or @nullFlavor = 'MSK']" />
                 </contact>
             </xsl:for-each>
 
@@ -131,9 +145,11 @@
                             <code value="C" />
                         </coding>
                     </relationship>
+                    <!-- 20260821 Claude (item 055): same rule as the guardian contact above -
+                         MSK passes through (faithful masked), any other nullFlavor is omitted -->
                     <xsl:apply-templates select="cda:associatedPerson/cda:name" />
                     <xsl:apply-templates select="cda:telecom" />
-                    <xsl:apply-templates select="cda:addr" />
+                    <xsl:apply-templates select="cda:addr[not(@nullFlavor) or @nullFlavor = 'MSK']" />
                 </contact>
             </xsl:for-each>
 
@@ -146,11 +162,13 @@
                  any other DAR code fails _DT_Fixed_Wrong and un-matches the whole Patient profile. So:
                  a real code is emitted normalize-space'd (the item-047 shape); a languageCommunication
                  with no usable code is skipped; a languageCode explicitly marked MSK becomes DAR 'masked'
-                 (the one DAR value the profile permits, and exact for masked data); and when NOTHING
-                 remains - every languageCommunication unusable, or the CDA carries none at all (the
-                 profile-required-element case SG raised) - one communication with language 'en' is
-                 emitted so communication 1..* always holds. Defaulting to English rather than a DAR was
-                 SG's decision 2026-08-21: 'masked' misdescribes data that is merely absent.
+                 (the one DAR value the profile permits, and a FAITHFUL TRANSLATION of the source's own MSK -
+                 kept on SG's refinement 2026-08-21: masked may carry through from the CDA, it may just
+                 never be ADDED where the source had no MSK); and when NOTHING remains - every
+                 languageCommunication unusable, or the CDA carries none at all (the profile-required-element
+                 case SG raised) - one communication with language 'en' is emitted so communication 1..*
+                 always holds. Defaulting to English rather than a DAR was SG's decision 2026-08-21:
+                 'masked' misdescribes data that is merely absent.
                  preferred is only emitted when preferenceInd carries an actual value - it used to emit
                  <preferred value=""/> (an invalid boolean) for a null-flavored preferenceInd. -->
             <xsl:variable name="vUsableLanguageComms" select="cda:patientRole/cda:patient/cda:languageCommunication[normalize-space(cda:languageCode/@code) or cda:languageCode/@nullFlavor = 'MSK']" />

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20260821 Claude (items 055/056/058 - the live findings of the profile-constraint audit):
+     three defects found by validating the full corpus plus a minimal-document probe against the
+     eCR IG profiles' raised minimums and fixed values.
+       055: us-ph-patient makes contact.name/telecom/address REQUIRED within a contact (1..1/1..*)
+            and fixes their DAR code to 'masked', so the generic nullFlavor mapping (NI -> unknown)
+            failed _DT_Fixed_Wrong on contact.address - live in the two Flu refiner documents.
+            SG's POLICY (2026-08-21, refined same day): a DAR 'masked' may only ever be a FAITHFUL
+            TRANSLATION of an explicit MSK in the source CDA - the transform must never ADD one for
+            merely-absent data. So an MSK contact addr passes through the generic mapping (masked,
+            which also matches the fixed slice); every OTHER nullFlavor (NI etc.) is OMITTED, and
+            the resulting Profile_Minimum error on those documents is deliberate: it is the signal
+            to take to the implementer whose source data is missing. Telecom and name keep their
+            existing value-primitive DAR filling, which no fixed slice constrains.
+       056: rr-documentreference requires description 1..1; three RR corpus documents' external
+            references had none. Per SG: fall back originalText -> externalDocument displayName ->
+            parent act displayName -> "Public health information".
+       058: a PIVL_TS effectiveTime matched no dispatcher branch and produced NO effective[x],
+            violating us-ph-travel-history's 1..1 - live in the Pertussis eICR ("3 wk ending
+            20251021"). The phase boundary now maps to a Period.
+     Negative control 2026-08-21 (rerun after the refinement): with the pre-fix stylesheets
+     (DAR-unknown contact addr, no description fallback, no PIVL branch), 3 fail in this file's
+     055 scenario and 7 overall; the discarded mask-everything 055 draft (every nullFlavor ->
+     masked) fails 3 (NI-omission, single-address, masked-only-where-MSK); the discarded
+     omit-everything draft (MSK omitted too) fails the MSK-carry-through assertion. -->
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
+    xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3"
+    xmlns:fhir="http://hl7.org/fhir" run-as="external">
+
+    <x:scenario label="055: an NI contact address is omitted; a source MSK carries through as masked (SG policy)">
+        <x:context select="//cda:recordTarget" xmlns="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <recordTarget>
+                    <patientRole>
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                        <patient>
+                            <name use="L"><given>Has</given><family>Guardian</family></name>
+                            <guardian>
+                                <addr nullFlavor="NI" />
+                                <telecom nullFlavor="NI" />
+                                <guardianPerson>
+                                    <name><given>Gwen</given><family>Guardian</family></name>
+                                </guardianPerson>
+                            </guardian>
+                            <guardian>
+                                <addr nullFlavor="MSK" />
+                                <guardianPerson>
+                                    <name><given>Mary</given><family>Masked</family></name>
+                                </guardianPerson>
+                            </guardian>
+                            <languageCommunication><languageCode code="en" /></languageCommunication>
+                        </patient>
+                    </patientRole>
+                </recordTarget>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="the NI contact address is omitted - not DAR'd (Gwen's contact has no address)"
+            test="count(fhir:Patient/fhir:contact[fhir:name/fhir:family/@value = 'Guardian']/fhir:address) = 0" />
+        <x:expect label="no contact address ever carries DAR 'unknown' (the _DT_Fixed_Wrong shape)"
+            test="count(fhir:Patient/fhir:contact/fhir:address/fhir:extension/fhir:valueCode[@value = 'unknown']) = 0" />
+        <x:expect label="the source's own MSK carries through: exactly one contact address, DAR 'masked', on Mary's contact"
+            test="count(fhir:Patient/fhir:contact[fhir:name/fhir:family/@value = 'Masked']/fhir:address[fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'masked']) = 1
+                  and count(fhir:Patient/fhir:contact/fhir:address) = 1" />
+        <x:expect label="SG policy: masked appears ONLY where the source said MSK - never invented for NI"
+            test="every $m in fhir:Patient//fhir:valueCode[@value = 'masked']
+                  satisfies $m/ancestor::fhir:contact/fhir:name/fhir:family/@value = 'Masked'" />
+        <x:expect label="PIN: the null-flavored telecom keeps its existing conformant shape (DAR on the value primitive, not on telecom)"
+            test="count(fhir:Patient/fhir:contact[fhir:name/fhir:family/@value = 'Guardian']/fhir:telecom[not(fhir:extension)]) = 1" />
+        <x:expect label="PIN: the contact names themselves are untouched"
+            test="count(fhir:Patient/fhir:contact/fhir:name) = 2" />
+    </x:scenario>
+
+    <x:scenario label="056: an external reference without originalText gets a displayName-derived description">
+        <x:context select="//cda:externalDocument" xmlns="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com">
+                <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
+                <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000000c1">
+                    <patientRole lcg:uuid="00000000-0000-0000-0000-0000000000c2">
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                    </patientRole>
+                </recordTarget>
+                <component><structuredBody><component><section><entry>
+                    <act classCode="ACT" moodCode="EVN">
+                        <templateId root="2.16.840.1.113883.10.20.15.2.3.20" extension="2017-04-01" />
+                        <code code="RRVS11" codeSystem="2.16.840.1.114222.4.5.274" displayName="Additional Resources" />
+                        <reference typeCode="REFR">
+                            <externalDocument lcg:uuid="00000000-0000-0000-0000-0000000000c3">
+                                <templateId root="2.16.840.1.113883.10.20.15.2.3.17" extension="2017-04-01" />
+                                <code nullFlavor="OTH"><originalText /></code>
+                                <text mediaType="text/html"><reference value="https://example.health.test/guidance" /></text>
+                            </externalDocument>
+                        </reference>
+                    </act>
+                </entry></section></component></structuredBody></component>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="description is present (rr-documentreference makes it 1..1)"
+            test="count(fhir:DocumentReference/fhir:description) = 1" />
+        <x:expect label="it carries the parent act's displayName, per SG's fallback order"
+            test="fhir:DocumentReference/fhir:description/@value = 'Additional Resources'" />
+        <x:expect label="PIN: no empty description is ever emitted (the 049 guard survives)"
+            test="count(fhir:DocumentReference/fhir:description[@value = '']) = 0" />
+    </x:scenario>
+
+    <x:scenario label="058: a PIVL_TS effectiveTime maps its phase boundary to effectivePeriod">
+        <x:context select="//cda:act" xmlns="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:lcg="http://www.lantanagroup.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <effectiveTime value="20251101120000+0000" />
+                <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000000d1">
+                    <patientRole lcg:uuid="00000000-0000-0000-0000-0000000000d2">
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                    </patientRole>
+                </recordTarget>
+                <component><structuredBody><component><section><entry>
+                    <act classCode="ACT" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000d3">
+                        <templateId root="2.16.840.1.113883.10.20.15.2.3.1" extension="2016-12-01" />
+                        <id root="00000000-0000-0000-0000-0000000000d4" />
+                        <code code="420008001" codeSystem="2.16.840.1.113883.6.96" displayName="Travel" />
+                        <statusCode code="completed" />
+                        <effectiveTime xsi:type="PIVL_TS">
+                            <period value="3" unit="wk" />
+                            <phase>
+                                <high value="20251021" />
+                            </phase>
+                        </effectiveTime>
+                    </act>
+                </entry></section></component></structuredBody></component>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="an effective[x] is emitted (us-ph-travel-history makes it 1..1)"
+            test="count(fhir:Observation/fhir:effectivePeriod) = 1" />
+        <x:expect label="the phase's high becomes the period end"
+            test="fhir:Observation/fhir:effectivePeriod/fhir:end/@value = '2025-10-21'" />
+        <x:expect label="no start is invented from the repetition frequency"
+            test="count(fhir:Observation/fhir:effectivePeriod/fhir:start) = 0" />
+    </x:scenario>
+
+</x:description>

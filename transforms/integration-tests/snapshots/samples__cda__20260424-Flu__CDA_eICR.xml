@@ -644,11 +644,6 @@
                   <value value="+1-334-304-2665"/>
                   <use value="mobile"/>
                </telecom>
-               <address>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="unknown"/>
-                  </extension>
-               </address>
             </contact>
             <communication>
                <language>

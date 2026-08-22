@@ -1366,6 +1366,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
+            <description value="PHA Contact Information"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>

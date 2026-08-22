@@ -1329,6 +1329,7 @@
             <subject>
                <reference value="urn:uuid:UUID004"/>
             </subject>
+            <description value="Additional Resources"/>
             <content>
                <attachment>
                   <contentType value="text/html"/>

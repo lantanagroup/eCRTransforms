@@ -441,8 +441,11 @@
             <communication>
                <language>
                   <coding>
-                     <system value="urn:ietf:bcp:47"/>
-                     <code value="en"/>
+                     <code>
+                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                           <valueCode value="unknown"/>
+                        </extension>
+                     </code>
                   </coding>
                </language>
             </communication>

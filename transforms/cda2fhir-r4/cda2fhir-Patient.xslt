@@ -166,9 +166,16 @@
                  kept on SG's refinement 2026-08-21: masked may carry through from the CDA, it may just
                  never be ADDED where the source had no MSK); and when NOTHING remains - every
                  languageCommunication unusable, or the CDA carries none at all (the profile-required-element
-                 case SG raised) - one communication with language 'en' is emitted so communication 1..*
-                 always holds. Defaulting to English rather than a DAR was SG's decision 2026-08-21:
-                 'masked' misdescribes data that is merely absent.
+                 case SG raised) - one communication is emitted so communication 1..* always holds,
+                 carrying a coding whose CODE primitive holds a data-absent-reason extension (SG's
+                 decision 2026-08-24, replacing the earlier 'en' default - seen live in a TN eICR whose
+                 languageCode is nullFlavor UNK). The nullFlavor, when present, is translated by the
+                 generic data-absent-reason-extension mapping (UNK -> unknown, ASKU -> asked-unknown, ...);
+                 no languageCommunication at all -> 'unknown'. The DAR sits on coding.code - NOT on
+                 language itself, where the profile's fixed slice would force 'masked' - so the only
+                 validator consequence is a warning that no code was provided for the extensible binding.
+                 (MSK never reaches this fallback: an MSK entry is 'usable' above and keeps its
+                 language-level DAR 'masked', the shape the profile's own slice describes.)
                  preferred is only emitted when preferenceInd carries an actual value - it used to emit
                  <preferred value=""/> (an invalid boolean) for a null-flavored preferenceInd. -->
             <xsl:variable name="vUsableLanguageComms" select="cda:patientRole/cda:patient/cda:languageCommunication[normalize-space(cda:languageCode/@code) or cda:languageCode/@nullFlavor = 'MSK']" />
@@ -207,14 +214,26 @@
                 </communication>
             </xsl:for-each>
             <xsl:if test="not($vUsableLanguageComms)">
-                <!-- communication is 1..* in us-ph-patient, so absence must still produce one entry;
-                     default to English (SG decision 2026-08-21 - a DAR 'masked' would misdescribe
-                     merely-absent data, and 'masked' is the only DAR code the profile would accept) -->
+                <!-- communication is 1..* in us-ph-patient, so absence must still produce one entry.
+                     SG decision 2026-08-24: a DAR on the coding's CODE primitive (not on language,
+                     whose fixed slice only permits 'masked'), translating the source nullFlavor when
+                     one is present and defaulting to 'unknown' when the CDA has no
+                     languageCommunication at all. Replaces the earlier 'en' default. -->
                 <communication>
                     <language>
                         <coding>
-                            <system value="urn:ietf:bcp:47" />
-                            <code value="en" />
+                            <code>
+                                <xsl:choose>
+                                    <xsl:when test="cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode/@nullFlavor">
+                                        <xsl:apply-templates select="(cda:patientRole/cda:patient/cda:languageCommunication/cda:languageCode/@nullFlavor)[1]" mode="data-absent-reason-extension" />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                            <valueCode value="unknown" />
+                                        </extension>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </code>
                         </coding>
                     </language>
                 </communication>

@@ -24,8 +24,10 @@
         <birthplace><place><name>Auckland</name></place></birthplace>
         <!-- item 054: production shapes - languageCommunication whose languageCode is missing,
              empty, null-flavored, or unnormalised. language is 1..1 and us-ph-patient fixes the DAR
-             code here to 'masked', so: real code -> coding; MSK -> DAR masked; anything else ->
-             the communication is omitted. First entry is the well-formed control. -->
+             code here (on language itself) to 'masked', so: real code -> coding; MSK -> DAR masked;
+             anything else -> the communication is omitted while usable entries exist. A patient left
+             with NOTHING gets one communication whose coding.code carries a translated DAR (SG
+             2026-08-24 - see testRR.xml and the TN eICR sample). First entry is the control. -->
         <languageCommunication><languageCode code="eng"/><preferenceInd value="true"/></languageCommunication>
         <languageCommunication><languageCode nullFlavor="MSK"/><preferenceInd nullFlavor="NI"/></languageCommunication>
         <languageCommunication><languageCode nullFlavor="ASKU"/></languageCommunication>

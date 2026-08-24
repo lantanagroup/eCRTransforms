@@ -13,11 +13,16 @@
      an actual value. Fixture: ../../integration-tests/documents/testLang.xml, which layers 2-4
      also run. None of the corpus documents carries the empty-code shapes (production-only, like
      item 053), but communication is 1..* in us-ph-patient, so a patient left with NO usable
-     languageCommunication (or none at all - two real RR corpus documents) must still get one
-     communication; the fallback defaults to English, 'en' (SG decision 2026-08-21: DAR 'masked'
-     misdescribes merely-absent data). Negative controls 2026-08-21: pre-fix stylesheet 8 of 12
-     assertions fail; the intermediate drop-only fix fails the 2 fallback assertions; the
-     intermediate DAR-masked fallback fails 1 (the fallback-shape assertion). -->
+     languageCommunication (or none at all - two real RR corpus documents, and the TN eICR whose
+     languageCode is nullFlavor UNK) must still get one communication. Fallback (SG decision
+     2026-08-24, replacing the earlier 'en' default): a coding whose CODE primitive carries a
+     data-absent-reason extension - the source nullFlavor translated by the generic mapping
+     (UNK -> unknown, ASKU -> asked-unknown, ...), 'unknown' when no languageCommunication exists
+     at all. The DAR sits on coding.code, NOT on language, whose fixed slice only permits 'masked'
+     (the first 054 draft's _DT_Fixed_Wrong lesson); probe-validated 2026-08-24: zero new errors,
+     one warning (extensible binding, no code provided). Negative controls 2026-08-24: pre-054
+     stylesheet fails 10 of 17; the drop-only draft fails 5; the DAR-masked-fallback draft fails 4;
+     the retired 'en'-default form (committed 306e971) fails 5. -->
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" stylesheet="../NativeUUIDGen-cda2fhir.xslt"
     xmlns:lcg="http://www.lantanagroup.com" xmlns:cda="urn:hl7-org:v3"
     xmlns:fhir="http://hl7.org/fhir" run-as="external">
@@ -47,10 +52,10 @@
 
     <!-- 20260821 Claude (item 054, second pass - SG's catch): communication is 1..* in us-ph-patient,
          so dropping every unusable languageCommunication (or a CDA with none at all - testRR.xml and
-         two real RR corpus documents) must still leave one communication. Third pass, SG's decision:
-         the fallback defaults to English ('en') rather than DAR masked, which misdescribes
-         merely-absent data. -->
-    <x:scenario label="a patient whose only languageCommunication is unusable still gets one communication (1..*)">
+         two real RR corpus documents) must still leave one communication. 20260824, SG's decision
+         (seen live in the TN eICR): the fallback carries a DAR on coding.code translated from the
+         source nullFlavor - it no longer asserts English. -->
+    <x:scenario label="a patient whose only languageCommunication is UNK gets one communication with DAR unknown on coding.code">
         <x:context select="//cda:recordTarget" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3">
             <ClinicalDocument xmlns="urn:hl7-org:v3">
                 <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
@@ -70,10 +75,54 @@
             </ClinicalDocument>
         </x:context>
         <x:expect label="exactly one communication survives" test="count(fhir:Patient/fhir:communication) = 1" />
-        <x:expect label="its language defaults to en, with no DAR extension"
-            test="count(fhir:Patient/fhir:communication/fhir:language[not(fhir:extension)]/fhir:coding[fhir:system/@value = 'urn:ietf:bcp:47'][fhir:code/@value = 'en']) = 1" />
-        <x:expect label="no empty code value anywhere"
-            test="count(fhir:Patient//fhir:code[@value = '']) = 0" />
+        <x:expect label="UNK translates to DAR unknown on the coding's code primitive (SG's shape)"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code[not(@value)]/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
+        <x:expect label="the DAR is NOT on language itself, where the profile's fixed slice only permits 'masked'"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:extension) = 0" />
+        <x:expect label="no code value is asserted - English is no longer invented"
+            test="count(fhir:Patient/fhir:communication//fhir:code[@value]) = 0" />
+    </x:scenario>
+
+    <x:scenario label="a different nullFlavor translates through the generic mapping (ASKU -> asked-unknown)">
+        <x:context select="//cda:recordTarget" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <recordTarget>
+                    <patientRole>
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                        <patient>
+                            <name use="L"><given>Asked</given><family>Unknown</family></name>
+                            <languageCommunication>
+                                <languageCode nullFlavor="ASKU" />
+                            </languageCommunication>
+                        </patient>
+                    </patientRole>
+                </recordTarget>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="ASKU becomes DAR asked-unknown on coding.code"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code/fhir:extension/fhir:valueCode[@value = 'asked-unknown']) = 1" />
+        <x:expect label="still exactly one communication" test="count(fhir:Patient/fhir:communication) = 1" />
+    </x:scenario>
+
+    <x:scenario label="a patient with NO languageCommunication at all still gets one communication with DAR unknown">
+        <x:context select="//cda:recordTarget" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <recordTarget>
+                    <patientRole>
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                        <patient>
+                            <name use="L"><given>Nothing</given><family>Stated</family></name>
+                        </patient>
+                    </patientRole>
+                </recordTarget>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="one communication with DAR unknown on coding.code (communication is 1..*)"
+            test="count(fhir:Patient/fhir:communication/fhir:language/fhir:coding/fhir:code/fhir:extension/fhir:valueCode[@value = 'unknown']) = 1" />
+        <x:expect label="no en (or any) code value is invented"
+            test="count(fhir:Patient/fhir:communication//fhir:code[@value]) = 0" />
     </x:scenario>
 
 </x:description>

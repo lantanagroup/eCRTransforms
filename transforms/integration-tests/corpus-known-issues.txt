@@ -4,3 +4,4 @@
 # this file is the list of accepted open defects, and it should only shrink.
 # Each entry should correspond to an open defect item in the project's
 # codebase notes.
+samples/cda/eICR-R3_1/eICRscrubbedTN1_CDA.xml	1	v3-NullFlavor coding: Patient.extension.extension.valueCoding carries a NullFlavor code - the convention for absent data is a data-absent-reason extension

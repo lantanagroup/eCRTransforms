@@ -60,7 +60,7 @@
                                style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
                               <span class="td_label">Contact info</span>
                            </td>
-                           <td class="td_header_role_value"> Work Place:<br/>4790 Verdant Rd<br/>4465 Beacon Dr Ashgrove 23<br/>Hartfield, MI 48076, US<br/>Tel (Work Place):  +1-517-555-0145<br/>Fax:  +1-313-555-0176<br/>
+                           <td class="td_header_role_value"> Work Place:<br/>4790 Verdant Rd<br/>4465 Beacon Dr Ste 23<br/>Hartfield, MI 48076, US<br/>Tel (Work Place):  +1-517-555-0145<br/>Fax:  +1-313-555-0176<br/>
                            </td>
                         </tr>
                         <tr>
@@ -126,7 +126,7 @@
                                style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
                               <span class="td_label">Contact info</span>
                            </td>
-                           <td class="td_header_role_value"> Work Place:<br/>4790 Verdant Rd<br/>4465 Beacon Dr Ashgrove 23<br/>Hartfield, MI 48076, US<br/>Tel (Work Place):  +1-517-555-0145<br/>Fax:  +1-313-555-0176<br/>
+                           <td class="td_header_role_value"> Work Place:<br/>4790 Verdant Rd<br/>4465 Beacon Dr Ste 23<br/>Hartfield, MI 48076, US<br/>Tel (Work Place):  +1-517-555-0145<br/>Fax:  +1-313-555-0176<br/>
                            </td>
                         </tr>
                      </tbody>
@@ -222,9 +222,9 @@
                <text>
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
-                     <span>Not on file</span>
-                     <span class="xSectionSubTitle" id="subTitle1">documented in this
-                            encounter</span>
+                     <span>[Narrative removed during de-identification]</span>
+                     <span class="xSectionSubTitle" id="subTitle1">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
             </section>
@@ -240,9 +240,9 @@
                <text>
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
-                     <span>Not on file</span>
-                     <span class="xSectionSubTitle" id="subTitle4">documented in this
-                            encounter</span>
+                     <span>[Narrative removed during de-identification]</span>
+                     <span class="xSectionSubTitle" id="subTitle4">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
             </section>
@@ -259,7 +259,7 @@
                   <status value="additional"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
                      <table>
-                        <caption style="font-weight:bold; ">Pending Results</caption>
+                        <caption style="font-weight:bold; ">[Narrative removed during de-identification]</caption>
                         <colgroup>
                            <col width="25%"/>
                            <col width="15%"/>
@@ -268,27 +268,28 @@
                         </colgroup>
                         <thead>
                            <tr>
-                              <th>Name</th>
-                              <th>Type</th>
-                              <th>Priority</th>
-                              <th>Associated Diagnoses</th>
-                              <th>Date/Time</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
                               <td>
-                                 <span>Type and screen</span>
+                                 <span>[Narrative removed during
+                                            de-identification]</span>
                               </td>
-                              <td>Lab</td>
-                              <td>Routine</td>
-                              <td/>
-                              <td>08/29/2023 8:14 AM CDT</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                         </tbody>
                      </table>
                      <table>
-                        <caption style="font-weight:bold; ">Scheduled Orders</caption>
+                        <caption style="font-weight:bold; ">[Narrative removed during de-identification]</caption>
                         <colgroup>
                            <col width="25%"/>
                            <col width="15%"/>
@@ -297,28 +298,29 @@
                         </colgroup>
                         <thead>
                            <tr>
-                              <th>Name</th>
-                              <th>Type</th>
-                              <th>Priority</th>
-                              <th>Associated Diagnoses</th>
-                              <th>Order Schedule</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
                               <td>
-                                 <span>Type and screen</span>
+                                 <span>[Narrative removed during
+                                            de-identification]</span>
                               </td>
-                              <td>Lab</td>
-                              <td>Routine</td>
-                              <td/>
-                              <td>Once for 1 Occurrences starting
-                                        08/29/2023 until 08/29/2023</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during
+                                        de-identification]</td>
                            </tr>
                         </tbody>
                      </table>
-                     <span class="xSectionSubTitle" id="subTitle6">documented as of this
-                            encounter</span>
+                     <span class="xSectionSubTitle" id="subTitle6">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
                <!--2.16.840.1.113883.10.20.22.4.41-->
@@ -346,9 +348,10 @@
                <text>
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
-                     <p>Not on file</p>
-                     <span class="xSectionSubTitle" id="subTitle10">documented as of this
-                            encounter (statuses as of 08/22/2024)</span>
+                     <p>[Narrative removed during
+                            de-identification]</p>
+                     <span class="xSectionSubTitle" id="subTitle10">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
                <entry>
@@ -366,7 +369,7 @@
                </code>
                <text>
                   <status value="generated"/>
-                  <div xmlns="http://www.w3.org/1999/xhtml">Not on file.</div>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
                </text>
             </section>
             <section>
@@ -382,9 +385,8 @@
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
                      <ul>
-                        <li>(ABNORMAL) Candida auris qualitative
-                                    molecular study, axilla, groin, nares (06/19/2024 8:59 AM
-                                    CDT): <table>
+                        <li>[Narrative removed during
+                                    de-identification]: <table>
                               <colgroup>
                                  <col width="20%"/>
                                  <col width="12%"/>
@@ -395,36 +397,40 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Component</th>
-                                    <th>Value</th>
-                                    <th>Ref Range</th>
-                                    <th>Test Method</th>
-                                    <th>Analysis Time</th>
-                                    <th>Performed At</th>
-                                    <th>Pathologist Signature</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Candida auris</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                     <td>
-                                       <span class="xflagData">DETECTED</span>
-                                       <span class="xflagData"> (A)</span>
+                                       <span class="xflagData">[Narrative removed
+                                                  during de-identification]</span>
+                                       <span class="xflagData">[Narrative removed
+                                                  during de-identification]</span>
                                     </td>
-                                    <td>Not Detected</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                     <td>
-                                       <p>LAB MOLECULAR DIAGNOSTICS METHOD</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
-                                    <td>06/19/2024 9:00 AM CDT</td>
-                                    <td>Dunmore Hospital</td>
-                                    <td/>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                                  <tr class="xRowNormal xmergeUp">
                                     <td>
                                        <span class="xallIndent">
-                                          <span class="xcellHeader">Comment: </span>
-                                          <span>Patient requires contact plus
-                                                  isolation.</span>
+                                          <span class="xcellHeader">[Narrative
+                                                  removed during de-identification]</span>
+                                          <span>[Narrative removed during
+                                                  de-identification]</span>
                                        </span>
                                     </td>
                                  </tr>
@@ -436,33 +442,34 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Specimen (Source)</th>
-                                    <th>Anatomical Location / Laterality</th>
-                                    <th>Collection Method / Volume</th>
-                                    <th>Collection Time</th>
-                                    <th>Received Time</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Swab (Bilateral Axilla/Groin)</td>
-                                    <td/>
-                                    <td>Non-blood Collection / Unknown</td>
-                                    <td>06/19/2024 8:59 AM CDT</td>
-                                    <td>06/19/2024 8:59 AM CDT</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
                            <table>
                               <thead>
                                  <tr>
-                                    <th>Narrative</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td class="xpre">
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
@@ -474,16 +481,16 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Authorizing Provider</th>
-                                    <th>Result Type</th>
-                                    <th>Result Status</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
-                                    <td>Kira Hollowell MD</td>
-                                    <td>LAB MICROBIOLOGY - GENERAL ORDERABLES</td>
-                                    <td>Final Result</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -494,31 +501,35 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Performing Organization</th>
-                                    <th>Address</th>
-                                    <th>City/State/ZIP Code</th>
-                                    <th>Phone Number</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td>
-                                       <p>Dunmore Hospital</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>3698 Junction St</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>Greycastle, IL 61707, US</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>912-555-0119</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
                            </table>
                         </li>
-                        <li>Direct antiglobulin test (10/13/2023 7:55 AM CDT): <table>
+                        <li>[Narrative removed during de-identification]: <table>
                               <colgroup>
                                  <col width="20%"/>
                                  <col width="12%"/>
@@ -529,24 +540,24 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Component</th>
-                                    <th>Value</th>
-                                    <th>Ref Range</th>
-                                    <th>Test Method</th>
-                                    <th>Analysis Time</th>
-                                    <th>Performed At</th>
-                                    <th>Pathologist Signature</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>DAT Polyspecific</td>
-                                    <td>Negative</td>
-                                    <td/>
-                                    <td/>
-                                    <td>10/13/2023 9:31 AM CDT</td>
-                                    <td>Dunmore Hospital</td>
-                                    <td/>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -556,33 +567,34 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Specimen (Source)</th>
-                                    <th>Anatomical Location / Laterality</th>
-                                    <th>Collection Method / Volume</th>
-                                    <th>Collection Time</th>
-                                    <th>Received Time</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Blood</td>
-                                    <td>Venous blood specimen / Unknown</td>
-                                    <td>Venipuncture / Unknown</td>
-                                    <td>10/13/2023 7:55 AM CDT</td>
-                                    <td>10/13/2023 7:55 AM CDT</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
                            <table>
                               <thead>
                                  <tr>
-                                    <th>Narrative</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td class="xpre">
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
@@ -594,16 +606,16 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Authorizing Provider</th>
-                                    <th>Result Type</th>
-                                    <th>Result Status</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
-                                    <td>Kira Hollowell MD</td>
-                                    <td>LAB BLOOD BANK TEST ORDERABLES</td>
-                                    <td>Final Result</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -614,31 +626,35 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Performing Organization</th>
-                                    <th>Address</th>
-                                    <th>City/State/ZIP Code</th>
-                                    <th>Phone Number</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td>
-                                       <p>Dunmore Hospital</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>3698 Junction St</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>Greycastle, IL 61707, US</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
                            </table>
                         </li>
-                        <li>Anti-B Titer (07/25/2023 12:51 PM CDT): <table>
+                        <li>[Narrative removed during de-identification]: <table>
                               <colgroup>
                                  <col width="20%"/>
                                  <col width="12%"/>
@@ -649,33 +665,33 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Component</th>
-                                    <th>Value</th>
-                                    <th>Ref Range</th>
-                                    <th>Test Method</th>
-                                    <th>Analysis Time</th>
-                                    <th>Performed At</th>
-                                    <th>Pathologist Signature</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Anti-B Titer IgG</td>
-                                    <td>Current Titer &gt;1024</td>
-                                    <td/>
-                                    <td/>
-                                    <td>07/25/2023 12:55 PM CDT</td>
-                                    <td>Dunmore Hospital</td>
-                                    <td/>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                                  <tr class="xRowAlt">
-                                    <td>Anti-B Titer IgG</td>
-                                    <td>Previous Titer 1024</td>
-                                    <td/>
-                                    <td/>
-                                    <td>07/25/2023 12:55 PM CDT</td>
-                                    <td>Dunmore Hospital</td>
-                                    <td/>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -685,33 +701,34 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Specimen (Source)</th>
-                                    <th>Anatomical Location / Laterality</th>
-                                    <th>Collection Method / Volume</th>
-                                    <th>Collection Time</th>
-                                    <th>Received Time</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Blood</td>
-                                    <td>Venous blood specimen / Unknown</td>
-                                    <td>Venipuncture / Unknown</td>
-                                    <td>07/25/2023 12:51 PM CDT</td>
-                                    <td>07/25/2023 12:52 PM CDT</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
                            <table>
                               <thead>
                                  <tr>
-                                    <th>Narrative</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td class="xpre">
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
@@ -723,16 +740,16 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Authorizing Provider</th>
-                                    <th>Result Type</th>
-                                    <th>Result Status</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
-                                    <td>Kira Hollowell MD</td>
-                                    <td>LAB BLOOD BANK TEST ORDERABLES</td>
-                                    <td>Final Result</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -743,31 +760,35 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Performing Organization</th>
-                                    <th>Address</th>
-                                    <th>City/State/ZIP Code</th>
-                                    <th>Phone Number</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td>
-                                       <p>Dunmore Hospital</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>3698 Junction St</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>Greycastle, IL 61707, US</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
                            </table>
                         </li>
-                        <li>Antibody titer (07/25/2023 12:51 PM CDT): <table>
+                        <li>[Narrative removed during de-identification]: <table>
                               <colgroup>
                                  <col width="20%"/>
                                  <col width="12%"/>
@@ -778,24 +799,24 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Component</th>
-                                    <th>Value</th>
-                                    <th>Ref Range</th>
-                                    <th>Test Method</th>
-                                    <th>Analysis Time</th>
-                                    <th>Performed At</th>
-                                    <th>Pathologist Signature</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Antibody Titer</td>
-                                    <td>See specific Titer order</td>
-                                    <td/>
-                                    <td/>
-                                    <td>07/25/2023 12:54 PM CDT</td>
-                                    <td>Dunmore Hospital</td>
-                                    <td/>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -805,33 +826,34 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Specimen (Source)</th>
-                                    <th>Anatomical Location / Laterality</th>
-                                    <th>Collection Method / Volume</th>
-                                    <th>Collection Time</th>
-                                    <th>Received Time</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr class="xRowNormal">
-                                    <td>Blood</td>
-                                    <td>Venous blood specimen / Unknown</td>
-                                    <td>Venipuncture / Unknown</td>
-                                    <td>07/25/2023 12:51 PM CDT</td>
-                                    <td>07/25/2023 12:52 PM CDT</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
                            <table>
                               <thead>
                                  <tr>
-                                    <th>Narrative</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td class="xpre">
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
@@ -843,16 +865,16 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Authorizing Provider</th>
-                                    <th>Result Type</th>
-                                    <th>Result Status</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
-                                    <td>Kira Hollowell MD</td>
-                                    <td>LAB BLOOD BANK TEST ORDERABLES</td>
-                                    <td>Final Result</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
+                                    <td>[Narrative removed during de-identification]</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -863,33 +885,37 @@
                               </colgroup>
                               <thead>
                                  <tr>
-                                    <th>Performing Organization</th>
-                                    <th>Address</th>
-                                    <th>City/State/ZIP Code</th>
-                                    <th>Phone Number</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
+                                    <th>[Narrative removed during de-identification]</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <tr>
                                     <td>
-                                       <p>Dunmore Hospital</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>3698 Junction St</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p>Greycastle, IL 61707, US</p>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                     <td>
-                                       <p/>
+                                       <p>[Narrative removed during
+                                                  de-identification]</p>
                                     </td>
                                  </tr>
                               </tbody>
                            </table>
                         </li>
                      </ul>
-                     <span class="xSectionSubTitle" id="subTitle12">documented in this
-                            encounter</span>
+                     <span class="xSectionSubTitle" id="subTitle12">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
                <!--2.16.840.1.113883.10.20.22.4.1-->
@@ -968,20 +994,21 @@
                         </colgroup>
                         <thead>
                            <tr>
-                              <th>Tobacco Use</th>
-                              <th>Types</th>
-                              <th>Packs/Day</th>
-                              <th>Years Used</th>
-                              <th>Date</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
-                              <td>Smoking Tobacco: Never Assessed</td>
-                              <td/>
-                              <td/>
-                              <td/>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                         </tbody>
                      </table>
@@ -992,36 +1019,40 @@
                         </colgroup>
                         <thead>
                            <tr>
-                              <th>Sex and Gender Information</th>
-                              <th>Value</th>
-                              <th>Date Recorded</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr>
-                              <td>Sex Assigned at Birth</td>
-                              <td>Not on file</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr>
-                              <td>Legal Sex</td>
-                              <td>Male</td>
-                              <td>12/27/2017 1:28 PM EST</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr>
-                              <td>Gender Identity</td>
-                              <td>Not on file</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr>
-                              <td>Sexual Orientation</td>
-                              <td>Not on file</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                         </tbody>
                      </table>
-                     <span class="xSectionSubTitle" id="subTitle13">documented as of this
-                            encounter</span>
+                     <span class="xSectionSubTitle" id="subTitle13">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
                <!--2.16.840.1.113883.10.20.22.4.78-->
@@ -1061,71 +1092,80 @@
                         </colgroup>
                         <thead>
                            <tr>
-                              <th>Vital Sign</th>
-                              <th>Reading</th>
-                              <th>Time Taken</th>
-                              <th>Comments</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr class="xRowNormal">
-                              <td class="xcellHeader">Blood Pressure</td>
-                              <td>-</td>
-                              <td>-</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowAlt">
-                              <td class="xcellHeader">Pulse</td>
-                              <td>-</td>
-                              <td>-</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowNormal">
-                              <td class="xcellHeader">Temperature</td>
-                              <td>-</td>
-                              <td>-</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowAlt">
-                              <td class="xcellHeader">Respiratory Rate</td>
-                              <td>-</td>
-                              <td>-</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowNormal">
-                              <td class="xcellHeader">Oxygen Saturation</td>
-                              <td>-</td>
-                              <td>-</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowAlt">
-                              <td class="xcellHeader">Inhaled Oxygen Concentration</td>
-                              <td>-</td>
-                              <td>-</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowNormal">
-                              <td class="xcellHeader">Weight</td>
-                              <td>72.6 kg (160 lb)</td>
-                              <td>08/28/2023 11:00 AM CDT</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowAlt">
-                              <td class="xcellHeader">Height</td>
-                              <td>172.7 cm (5' 8")</td>
-                              <td>08/28/2023 11:00 AM CDT</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                            <tr class="xRowNormal">
-                              <td class="xcellHeader">Body Mass Index</td>
-                              <td>24.33</td>
-                              <td>08/28/2023 11:00 AM CDT</td>
-                              <td/>
+                              <td class="xcellHeader">[Narrative removed during
+                                        de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                            </tr>
                         </tbody>
                      </table>
-                     <span class="xSectionSubTitle" id="subTitle19">documented in this
-                            encounter</span>
+                     <span class="xSectionSubTitle" id="subTitle19">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
                <!--2.16.840.1.113883.10.20.22.4.26-->
@@ -1148,9 +1188,8 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">
                      <ul>
                         <li>
-                           <span class="xAlert">The patient is currently admitted. The
-                                    information in this section might not be complete until the
-                                    patient is discharged.</span>
+                           <span class="xAlert">[Narrative removed during
+                                    de-identification]</span>
                         </li>
                      </ul>
                      <br/>
@@ -1163,68 +1202,78 @@
                         </colgroup>
                         <thead>
                            <tr>
-                              <th>Procedure Name</th>
-                              <th>Priority</th>
-                              <th>Date/Time</th>
-                              <th>Associated Diagnosis</th>
-                              <th>Comments</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
                            </tr>
                         </thead>
                         <tbody>
                            <tr class="xRowNormal">
                               <td>
-                                 <span>CANDIDA AURIS QUALITATIVE
-                                            MOLECULAR STUDY, AXILLA, GROIN, NARES</span>
+                                 <span>[Narrative removed during
+                                            de-identification]</span>
                               </td>
-                              <td>Routine</td>
-                              <td>06/19/2024 8:59 AM CDT</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                               <td>
-                                 <p>Results for this procedure are
-                                            in the <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457">results section</span>.</p>
+                                 <p>
+                                    <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457">[Narrative removed during
+                                                de-identification]</span>
+                                 </p>
                               </td>
                            </tr>
                            <tr class="xRowAlt">
                               <td>
-                                 <span>DIRECT ANTIGLOBULIN
-                                            TEST</span>
+                                 <span>[Narrative removed during
+                                            de-identification]</span>
                               </td>
-                              <td>Routine</td>
-                              <td>10/13/2023 7:55 AM CDT</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                               <td>
-                                 <p>Results for this procedure are
-                                            in the <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902">results section</span>.</p>
+                                 <p>
+                                    <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902">[Narrative removed during
+                                                de-identification]</span>
+                                 </p>
                               </td>
                            </tr>
                            <tr class="xRowNormal">
                               <td>
-                                 <span>..ANTI-B TITER IGG</span>
+                                 <span>[Narrative removed during
+                                            de-identification]</span>
                               </td>
-                              <td>Routine</td>
-                              <td>07/25/2023 12:51 PM CDT</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                               <td>
-                                 <p>Results for this procedure are
-                                            in the <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281">results section</span>.</p>
+                                 <p>
+                                    <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281">[Narrative removed during
+                                                de-identification]</span>
+                                 </p>
                               </td>
                            </tr>
                            <tr class="xRowAlt">
                               <td>
-                                 <span>ANTIBODY TITER</span>
+                                 <span>[Narrative removed during
+                                            de-identification]</span>
                               </td>
-                              <td>Routine</td>
-                              <td>07/25/2023 12:51 PM CDT</td>
-                              <td/>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
+                              <td>[Narrative removed during de-identification]</td>
                               <td>
-                                 <p>Results for this procedure are
-                                            in the <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279">results section</span>.</p>
+                                 <p>
+                                    <span class="xLink2-Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279">[Narrative removed during
+                                                de-identification]</span>
+                                 </p>
                               </td>
                            </tr>
                         </tbody>
                      </table>
-                     <span class="xSectionSubTitle" id="subTitle21">documented in this
-                            encounter</span>
+                     <span class="xSectionSubTitle" id="subTitle21">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
                <!--2.16.840.1.113883.10.20.22.4.14-->
@@ -1260,7 +1309,7 @@
                <text>
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
-                     <span>Not on file</span>
+                     <span>[Narrative removed during de-identification]</span>
                   </div>
                </text>
             </section>
@@ -1276,9 +1325,9 @@
                <text>
                   <status value="generated"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
-                     <span>Not on file</span>
-                     <span class="xSectionSubTitle" id="subTitle30">documented as of this
-                            encounter (statuses as of 08/22/2024)</span>
+                     <span>[Narrative removed during de-identification]</span>
+                     <span class="xSectionSubTitle" id="subTitle30">[Narrative removed
+                            during de-identification]</span>
                   </div>
                </text>
             </section>
@@ -1336,7 +1385,7 @@
                            <valueCode value="unknown"/>
                         </extension>
                      </coding>
-                     <text value="Not on file"/>
+                     <text value="[Narrative removed during de-identification]"/>
                   </valueCodeableConcept>
                </extension>
                <extension url="period">
@@ -1472,32 +1521,43 @@
                      </colgroup>
                      <thead>
                         <tr>
-                           <th>Date</th>
-                           <th>Type</th>
-                           <th>Department</th>
-                           <th>Care Team (Latest Contact Info)</th>
-                           <th>Description</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
                         </tr>
                      </thead>
                      <tbody>
                         <tr class="xRowNormal">
-                           <td>12/27/2017 12:32 PM CST - Present</td>
-                           <td>Hospital Encounter</td>
+                           <td>[Narrative removed during de-identification]</td>
+                           <td>[Narrative removed during
+                                        de-identification]</td>
                            <td>
-                              <p>Stonebridge Medical Center</p>
-                              <p>5815 Trellis Blvd</p>
-                              <p>Greycastle, IL 62112-5449</p>
-                              <p>478-555-0134</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
                            </td>
                            <td>
-                              <p>Hollowell, Kira, MD</p>
-                              <p>4790 Verdant Rd</p>
-                              <p>4465 Beacon Dr Ashgrove 23</p>
-                              <p>Hartfield, MI 48076</p>
-                              <p>478-555-0184 (Work)</p>
-                              <p>404-555-0131 (Fax)</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
+                              <p>[Narrative removed during
+                                            de-identification]</p>
                            </td>
-                           <td/>
+                           <td>[Narrative removed during de-identification]</td>
                         </tr>
                      </tbody>
                   </table>
@@ -1546,7 +1606,7 @@
                   <system value="urn:oid:1.2.840.114350.1.72.1.30.1"/>
                   <code value="1"/>
                </coding>
-               <text value="Hospital Encounter"/>
+               <text value="[Narrative removed during de-identification]"/>
             </type>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -1651,7 +1711,7 @@
             <address>
                <use value="work"/>
                <line value="4790 Verdant Rd"/>
-               <line value="4465 Beacon Dr Ashgrove 23"/>
+               <line value="4465 Beacon Dr Ste 23"/>
                <city value="Hartfield"/>
                <state value="MI"/>
                <postalCode value="48076"/>
@@ -1772,7 +1832,7 @@
             <address>
                <use value="work"/>
                <line value="4790 Verdant Rd"/>
-               <line value="4465 Beacon Dr Ashgrove 23"/>
+               <line value="4465 Beacon Dr Ste 23"/>
                <city value="Hartfield"/>
                <state value="MI"/>
                <postalCode value="48076"/>
@@ -1863,7 +1923,7 @@
             <address>
                <use value="work"/>
                <line value="4790 Verdant Rd"/>
-               <line value="4465 Beacon Dr Ashgrove 23"/>
+               <line value="4465 Beacon Dr Ste 23"/>
                <city value="Hartfield"/>
                <state value="MI"/>
                <postalCode value="48076"/>
@@ -2068,7 +2128,7 @@
             <address>
                <use value="work"/>
                <line value="4790 Verdant Rd"/>
-               <line value="4465 Beacon Dr Ashgrove 23"/>
+               <line value="4465 Beacon Dr Ste 23"/>
                <city value="Hartfield"/>
                <state value="MI"/>
                <postalCode value="48076"/>
@@ -2384,7 +2444,7 @@
                   <code value="34532-2"/>
                   <display value="Type and screen"/>
                </coding>
-               <text value="Type and screen"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -2462,7 +2522,7 @@
                   <code value="34532-2"/>
                   <display value="Type and screen"/>
                </coding>
-               <text value="Type and screen"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -2729,7 +2789,7 @@
                   <system value="http://loinc.org"/>
                   <code value="15343-7"/>
                </coding>
-               <text value="Antibody Titer"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -2740,7 +2800,7 @@
             </performer>
             <valueString value="See specific Titer order"/>
             <note>
-               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279.Comp1Name&#34;&gt;Antibody Titer&lt;/td&gt;&lt;td&gt;See specific Titer order&lt;/td&gt;&lt;td /&gt;&lt;td /&gt;&lt;td&gt;07/25/2023 12:54 PM CDT&lt;/td&gt;&lt;td&gt;Dunmore Hospital&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279.Comp1Signature&#34; /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279.Comp1Name&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832279.Comp1Signature&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -3072,7 +3132,7 @@
                   <code value="12311000012"/>
                   <display value="Anti-B Titer IgG"/>
                </coding>
-               <text value="Anti-B Titer IgG"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -3083,7 +3143,7 @@
             </performer>
             <valueString value="Current Titer &gt;1024"/>
             <note>
-               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp1Name&#34;&gt;Anti-B Titer IgG&lt;/td&gt;&lt;td&gt;Current Titer &gt;1024&lt;/td&gt;&lt;td /&gt;&lt;td /&gt;&lt;td&gt;07/25/2023 12:55 PM CDT&lt;/td&gt;&lt;td&gt;Dunmore Hospital&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp1Signature&#34; /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp1Name&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp1Signature&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -3145,7 +3205,7 @@
                   <code value="12311000013"/>
                   <display value="Anti-B Titer IgG"/>
                </coding>
-               <text value="Anti-B Titer IgG"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -3156,7 +3216,7 @@
             </performer>
             <valueString value="Previous Titer 1024"/>
             <note>
-               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp2&#34; styleCode=&#34;xRowAlt&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp2Name&#34;&gt;Anti-B Titer IgG&lt;/td&gt;&lt;td&gt;Previous Titer 1024&lt;/td&gt;&lt;td /&gt;&lt;td /&gt;&lt;td&gt;07/25/2023 12:55 PM CDT&lt;/td&gt;&lt;td&gt;Dunmore Hospital&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp2Signature&#34; /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp2&#34; styleCode=&#34;xRowAlt&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp2Name&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4832281.Comp2Signature&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -3479,7 +3539,7 @@
                   <system value="http://loinc.org"/>
                   <code value="1007-4"/>
                </coding>
-               <text value="DAT Polyspecific"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -3490,7 +3550,7 @@
             </performer>
             <valueString value="Negative"/>
             <note>
-               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902.Comp1Name&#34;&gt;DAT Polyspecific&lt;/td&gt;&lt;td&gt;Negative&lt;/td&gt;&lt;td /&gt;&lt;td /&gt;&lt;td&gt;10/13/2023 9:31 AM CDT&lt;/td&gt;&lt;td&gt;Dunmore Hospital&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902.Comp1Signature&#34; /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902.Comp1Name&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.4944902.Comp1Signature&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -3870,7 +3930,7 @@
                   <system value="http://loinc.org"/>
                   <code value="97936-9"/>
                </coding>
-               <text value="Candida auris"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -3894,10 +3954,10 @@
                <text value="Abnormal"/>
             </interpretation>
             <note>
-               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1Name&#34;&gt;Candida auris&lt;/td&gt;&lt;td&gt;&lt;content styleCode=&#34;xflagData&#34;&gt;DETECTED&lt;/content&gt;&lt;content styleCode=&#34;xflagData&#34;&gt; (A)&lt;/content&gt;&lt;/td&gt;&lt;td&gt;Not Detected&lt;/td&gt;&lt;td&gt;&lt;paragraph ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1TestMethodName1&#34;&gt;LAB MOLECULAR DIAGNOSTICS METHOD&lt;/paragraph&gt;&lt;/td&gt;&lt;td&gt;06/19/2024 9:00 AM CDT&lt;/td&gt;&lt;td&gt;Dunmore Hospital&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1Signature&#34; /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1Name&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;&lt;content styleCode=&#34;xflagData&#34;&gt;[Narrative removed&#xA;                                                  during de-identification]&lt;/content&gt;&lt;content styleCode=&#34;xflagData&#34;&gt;[Narrative removed&#xA;                                                  during de-identification]&lt;/content&gt;&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;&lt;paragraph ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1TestMethodName1&#34;&gt;[Narrative removed during&#xA;                                                  de-identification]&lt;/paragraph&gt;&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.502.3.7.2.798268.5352457.Comp1Signature&#34;&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
             <note>
-               <text value="Patient requires contact plus&#xA;                                                  isolation."/>
+               <text value="[Narrative removed during&#xA;                                                  de-identification]"/>
             </note>
             <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
                <text value="Not Detected"/>
@@ -4081,7 +4141,7 @@
                   <code value="248153007"/>
                   <display value="Male (finding)"/>
                </coding>
-               <text value="Male"/>
+               <text value="[Narrative removed during de-identification]"/>
             </valueCodeableConcept>
          </Observation>
       </resource>
@@ -4196,7 +4256,7 @@
                      <valueCode value="unknown"/>
                   </extension>
                </coding>
-               <text value="Not on file"/>
+               <text value="[Narrative removed during de-identification]"/>
             </valueCodeableConcept>
          </Observation>
       </resource>
@@ -4285,7 +4345,7 @@
                <code value="cm"/>
             </valueQuantity>
             <note>
-               <text value="&lt;tr ID=&#34;height_5826441600&#34; styleCode=&#34;xRowAlt&#34;&gt;&lt;td styleCode=&#34;xcellHeader&#34;&gt;Height&lt;/td&gt;&lt;td&gt;172.7 cm (5' 8&#34;)&lt;/td&gt;&lt;td&gt;08/28/2023 11:00 AM CDT&lt;/td&gt;&lt;td /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;height_5826441600&#34; styleCode=&#34;xRowAlt&#34;&gt;&lt;td styleCode=&#34;xcellHeader&#34;&gt;[Narrative removed during&#xA;                                        de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -4387,7 +4447,7 @@
                <code value="kg"/>
             </valueQuantity>
             <note>
-               <text value="&lt;tr ID=&#34;weight_5826441600&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td styleCode=&#34;xcellHeader&#34;&gt;Weight&lt;/td&gt;&lt;td&gt;72.6 kg (160 lb)&lt;/td&gt;&lt;td&gt;08/28/2023 11:00 AM CDT&lt;/td&gt;&lt;td /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;weight_5826441600&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td styleCode=&#34;xcellHeader&#34;&gt;[Narrative removed during&#xA;                                        de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -4489,7 +4549,7 @@
                <code value="kg/m2"/>
             </valueQuantity>
             <note>
-               <text value="&lt;tr ID=&#34;bmi_5826441600&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td styleCode=&#34;xcellHeader&#34;&gt;Body Mass Index&lt;/td&gt;&lt;td&gt;24.33&lt;/td&gt;&lt;td&gt;08/28/2023 11:00 AM CDT&lt;/td&gt;&lt;td /&gt;&lt;/tr&gt;"/>
+               <text value="&lt;tr ID=&#34;bmi_5826441600&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td styleCode=&#34;xcellHeader&#34;&gt;[Narrative removed during&#xA;                                        de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;td&gt;[Narrative removed during de-identification]&lt;/td&gt;&lt;/tr&gt;"/>
             </note>
          </Observation>
       </resource>
@@ -4576,7 +4636,7 @@
                   <code value="1006-6"/>
                   <display value="DIRECT ANTIGLOBULIN TEST"/>
                </coding>
-               <text value="DIRECT ANTIGLOBULIN TEST"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -4732,7 +4792,7 @@
                   <code value="50970-3"/>
                   <display value="ANTIBODY TITER"/>
                </coding>
-               <text value="ANTIBODY TITER"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -4889,7 +4949,7 @@
                   <code value="97936-9"/>
                   <display value="CANDIDA AURIS QUALITATIVE MOLECULAR STUDY, AXILLA, GROIN, NARES"/>
                </coding>
-               <text value="CANDIDA AURIS QUALITATIVE MOLECULAR STUDY, AXILLA, GROIN, NARES"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>
@@ -5038,7 +5098,7 @@
                   <code value="890-4"/>
                   <display value="..ANTI-B TITER"/>
                </coding>
-               <text value="..ANTI-B TITER IGG"/>
+               <text value="[Narrative removed during de-identification]"/>
             </code>
             <subject>
                <reference value="urn:uuid:UUID002"/>

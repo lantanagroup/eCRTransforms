@@ -21,6 +21,56 @@
                 cda:participantRole" mode="bundle-entry" />
     </xsl:template>
 
+    <!-- TEMPLATE: companion org-only PractitionerRole for person-only reference targets.
+         20260824 Claude (per SG): Procedure.recorder / Condition.asserter may only reference the
+         Practitioner family + Patient/RelatedPerson. When such a site's participation is (or
+         resolves to) an ORGANIZATION, the authorship is preserved by wrapping it: a PractitionerRole
+         carrying only the participation's identifiers and an organization reference - base-valid
+         (practitioner and organization are both 0..1 in R4) and deliberately WITHOUT meta.profile
+         (us-core-practitionerrole 3.1.1 requires practitioner 1..1; the eicr targetProfiles are the
+         base resource types and the eicr-document-bundle entry slicing is open - the 4.40 planned
+         Encounter precedent). Apply this mode from the OWNING resource's bundle-entry template for
+         exactly the participations its convert template passes to rename-reference-participant with
+         pPersonOnlyTargets - the shared lcg:participation-target-kind function keeps the two sides
+         in step. uuid choice mirrors the reference side: org-direct -> the role element's own uuid;
+         org-routed -> the role's first cda:id uuid (the role uuid was rewritten onto the
+         organization, and the parent participation's uuid may carry a Provenance). Devices are not
+         wrapped (PractitionerRole.practitioner cannot reference Device) - the reference side omits
+         them. -->
+    <xsl:template match="cda:author | cda:performer" mode="org-practitionerrole-entry">
+        <xsl:variable name="vKind" select="lcg:participation-target-kind(.)" />
+        <xsl:variable name="vRole" select="(cda:assignedAuthor | cda:assignedEntity)[1]" />
+        <xsl:choose>
+            <xsl:when test="$vKind = 'org-direct'">
+                <entry>
+                    <fullUrl value="urn:uuid:{$vRole/@lcg:uuid}" />
+                    <resource>
+                        <PractitionerRole>
+                            <xsl:apply-templates select="$vRole/cda:id[not(@nullFlavor)]" />
+                            <organization>
+                                <reference value="urn:uuid:{$vRole/cda:representedOrganization/@lcg:uuid}" />
+                            </organization>
+                        </PractitionerRole>
+                    </resource>
+                </entry>
+            </xsl:when>
+            <xsl:when test="$vKind = 'org-routed'">
+                <entry>
+                    <fullUrl value="urn:uuid:{$vRole/cda:id[1]/@lcg:uuid}" />
+                    <resource>
+                        <PractitionerRole>
+                            <xsl:apply-templates select="$vRole/cda:id[not(@nullFlavor)]" />
+                            <organization>
+                                <!-- the role's uuid was rewritten onto the matched organization -->
+                                <reference value="urn:uuid:{$vRole/@lcg:uuid}" />
+                            </organization>
+                        </PractitionerRole>
+                    </resource>
+                </entry>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
     <!-- Note: the informationRecipient structure is informationRecipient/intendedRecipient/informationRecipient -->
     <xsl:template match="
             cda:intendedRecipient |

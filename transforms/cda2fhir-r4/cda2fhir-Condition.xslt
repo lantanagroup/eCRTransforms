@@ -10,6 +10,9 @@
         <xsl:apply-templates select="cda:author" mode="bundle-entry" />
         <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
         <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+        <!-- 20260824 Claude (per SG): companion org-only PractitionerRole for the asserter when
+             performer[1] is, or resolves to, an Organization (see cda2fhir-PractitionerRole.xslt) -->
+        <xsl:apply-templates select="cda:performer[1]" mode="org-practitionerrole-entry" />
 
         <xsl:for-each select="cda:author | cda:informant | cda:performer[position() > 1]">
             <xsl:apply-templates select="." mode="provenance" />
@@ -195,9 +198,13 @@
                 <xsl:with-param name="pElementName">recorder</xsl:with-param>
             </xsl:apply-templates>
 
-            <!-- asserter (max 1)-->
+            <!-- asserter (max 1) - same target restriction as recorder: Practitioner|PractitionerRole|
+                 Patient|RelatedPerson. 20260824 Claude (per SG, with the Procedure.recorder fix): a
+                 person-less org performer becomes a reference to a companion org-only PractitionerRole
+                 (created in the bundle-entry template above); a device performer is omitted (0..1). -->
             <xsl:apply-templates select="cda:performer[1]" mode="rename-reference-participant">
                 <xsl:with-param name="pElementName">asserter</xsl:with-param>
+                <xsl:with-param name="pPersonOnlyTargets" select="true()" />
             </xsl:apply-templates>
 
             <xsl:for-each select="cda:entryRelationship[@typeCode = 'REFR']/cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.122']">

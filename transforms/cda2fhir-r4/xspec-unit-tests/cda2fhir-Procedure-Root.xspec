@@ -96,4 +96,143 @@
             test="count(fhir:Procedure/fhir:status[@value = '']) = 0" />
     </x:scenario>
 
+  <!-- 20260824 Claude (per SG): Procedure.recorder allows only Practitioner|PractitionerRole|Patient|
+       RelatedPerson. The TN eICR carried four procedures whose author is HOLLOW (ids only, no person) and
+       whose ids resolve, via the update-referenced-actor-uuids phase, to a person-less org author - so
+       recorder referenced an Organization and the validator failed with "Invalid Resource target type.
+       Found Organization". Per SG's decision (2026-08-24, replacing an interim omission design): the
+       organization authorship is PRESERVED - the recorder references a companion ORG-ONLY
+       PractitionerRole (identifiers + organization, no practitioner, no meta.profile: base-valid, and
+       us-core-practitionerrole 3.1.1 would require practitioner 1..1). A DEVICE author cannot be wrapped
+       (PractitionerRole.practitioner cannot reference Device) and recorder (0..1) is omitted. Person-
+       bearing and UNMATCHED hollow authors emit as before (PractitionerRole / identifier-only
+       Practitioner). Same treatment on Condition.asserter (identical target list).
+       Note: the scenario uses a WHOLE-document context - the uuid-routing phase only runs from the
+       document root, so a fragment context cannot exercise this behavior.
+       Negative control 2026-08-24: the pre-fix stylesheets fail G2/G3/G6/G7/G9 (five recorders, two
+       pointing at Organizations, one at a Device, no companion PractitionerRoles); the interim
+       omission design fails G2/G6/G7 (only two recorders, no companions). -->
+  <x:scenario label="G. recorder guard: omitted for org-resolving and direct-org authors, kept for persons and unmatched (whole document)">
+    <x:context select="/" xmlns="urn:hl7-org:v3">
+      <ClinicalDocument xmlns="urn:hl7-org:v3">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+        <recordTarget>
+          <patientRole>
+            <id root="2.16.840.1.113883.19.5" extension="12345" />
+            <patient><name use="L"><given>Ref</given><family>Case</family></name></patient>
+          </patientRole>
+        </recordTarget>
+        <author>
+          <time value="20230829081427-0500" />
+          <assignedAuthor>
+            <id root="2.16.840.1.113883.19.5555.1" extension="ORG-AUTH-1" />
+            <representedOrganization>
+              <name>Person-less Org</name>
+            </representedOrganization>
+          </assignedAuthor>
+        </author>
+        <component><structuredBody><component><section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.7.1" />
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000a1" />
+              <code code="86880" codeSystem="2.16.840.1.113883.6.12" displayName="COOMBS DIRECT" />
+              <statusCode code="completed" />
+              <effectiveTime value="20231013" />
+              <author>
+                <time value="20231013075452-0500" />
+                <assignedAuthor>
+                  <id root="2.16.840.1.113883.19.5555.1" extension="ORG-AUTH-1" />
+                </assignedAuthor>
+              </author>
+            </procedure>
+          </entry>
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000a2" />
+              <code code="86886" codeSystem="2.16.840.1.113883.6.12" displayName="COOMBS INDIRECT" />
+              <statusCode code="completed" />
+              <effectiveTime value="20230725" />
+              <author>
+                <time value="20230725125148-0500" />
+                <assignedAuthor>
+                  <id root="2.16.840.1.113883.19.5555.2" extension="DR-1" />
+                  <assignedPerson><name><given>Paula</given><family>Person</family></name></assignedPerson>
+                </assignedAuthor>
+              </author>
+            </procedure>
+          </entry>
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000a3" />
+              <code code="87481" codeSystem="2.16.840.1.113883.6.12" displayName="CANDIDA PCR" />
+              <statusCode code="completed" />
+              <effectiveTime value="20231021" />
+              <author>
+                <time value="20231021" />
+                <assignedAuthor>
+                  <id root="2.16.840.1.113883.19.5555.3" extension="ORG-2" />
+                  <representedOrganization><name>Direct Org</name></representedOrganization>
+                </assignedAuthor>
+              </author>
+            </procedure>
+          </entry>
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000a4" />
+              <code code="86900" codeSystem="2.16.840.1.113883.6.12" displayName="ABO TYPE" />
+              <statusCode code="completed" />
+              <effectiveTime value="20231022" />
+              <author>
+                <time value="20231022" />
+                <assignedAuthor>
+                  <id root="2.16.840.1.113883.4.6" extension="9999999999" />
+                </assignedAuthor>
+              </author>
+            </procedure>
+          </entry>
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000a5" />
+              <code code="86901" codeSystem="2.16.840.1.113883.6.12" displayName="RH TYPE" />
+              <statusCode code="completed" />
+              <effectiveTime value="20231023" />
+              <author>
+                <time value="20231023" />
+                <assignedAuthor>
+                  <id root="2.16.840.1.113883.19.5555.4" extension="DEV-1" />
+                  <assignedAuthoringDevice>
+                    <manufacturerModelName>AutoLab</manufacturerModelName>
+                    <softwareName>LabBot</softwareName>
+                  </assignedAuthoringDevice>
+                </assignedAuthor>
+              </author>
+            </procedure>
+          </entry>
+        </section></component></structuredBody></component>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="G2. four recorders across the five procedures - only the DEVICE author's is omitted"
+      test="count(//fhir:Procedure/fhir:recorder) = 4" />
+    <x:expect label="G3. no recorder points at any Organization entry"
+      test="count(//fhir:Procedure/fhir:recorder/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Organization]/fhir:fullUrl/@value]) = 0" />
+    <x:expect label="G4. the person-bearing author's recorder points at a PractitionerRole entry"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86886']/fhir:recorder/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="G5. the unmatched hollow author's recorder points at the identifier-only Practitioner (item-41 shape preserved)"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86900']/fhir:recorder/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Practitioner[fhir:identifier/fhir:value/@value = '9999999999']]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="G6. the ORG-ROUTED hollow author's recorder points at a companion PractitionerRole that has an organization, carries the author's identifier, and has NO practitioner"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86880']/fhir:recorder/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[not(fhir:practitioner)][fhir:organization][fhir:identifier/fhir:value/@value = 'ORG-AUTH-1']]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="G7. the DIRECT person-less-org author's recorder points at a companion PractitionerRole whose organization resolves to an Organization entry"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '87481']/fhir:recorder/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[not(fhir:practitioner)][fhir:organization/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Organization]/fhir:fullUrl/@value]]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="G8. every companion PractitionerRole is referenced by a recorder - no orphans"
+      test="count(//fhir:entry[fhir:resource/fhir:PractitionerRole[not(fhir:practitioner)]][not(fhir:fullUrl/@value = //fhir:Procedure/fhir:recorder/fhir:reference/@value)]) = 0" />
+    <x:expect label="G9. the DEVICE author's procedure has no recorder at all"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86901']/fhir:recorder) = 0" />
+  </x:scenario>
+
 </x:description>

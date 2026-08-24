@@ -4586,30 +4586,30 @@
                <end value="2023-10-13T12:55:00+00:00"/>
             </performedPeriod>
             <recorder>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID096"/>
             </recorder>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID096"/>
+                  <reference value="urn:uuid:UUID097"/>
                </actor>
             </performer>
          </Procedure>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID096"/>
+      <fullUrl value="urn:uuid:UUID097"/>
       <resource>
          <PractitionerRole>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
             </meta>
-            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID097"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="1781280^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="341144"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
+            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID098"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="1781280^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="341144"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
                <value value="341144"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID098"/>
+               <reference value="urn:uuid:UUID099"/>
             </practitioner>
             <code>
                <coding>
@@ -4648,7 +4648,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID098"/>
+      <fullUrl value="urn:uuid:UUID099"/>
       <resource>
          <Practitioner>
             <meta>
@@ -4693,6 +4693,24 @@
       </resource>
    </entry>
    <entry>
+      <fullUrl value="urn:uuid:UUID096"/>
+      <resource>
+         <PractitionerRole>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6166.61"/>
+               <value value="926559302"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
+               <value value="0838"/>
+            </identifier>
+            <organization>
+               <reference value="urn:uuid:UUID042"/>
+            </organization>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
       <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <Procedure>
@@ -4724,30 +4742,30 @@
                <end value="2023-07-25T17:51:00+00:00"/>
             </performedPeriod>
             <recorder>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID100"/>
             </recorder>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID099"/>
+                  <reference value="urn:uuid:UUID101"/>
                </actor>
             </performer>
          </Procedure>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID099"/>
+      <fullUrl value="urn:uuid:UUID101"/>
       <resource>
          <PractitionerRole>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
             </meta>
-            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID097"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="0085140^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="0801"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
+            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID098"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="0085140^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="0801"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
                <value value="0801"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID100"/>
+               <reference value="urn:uuid:UUID102"/>
             </practitioner>
             <code>
                <coding>
@@ -4786,7 +4804,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID100"/>
+      <fullUrl value="urn:uuid:UUID102"/>
       <resource>
          <Practitioner>
             <meta>
@@ -4832,6 +4850,24 @@
       </resource>
    </entry>
    <entry>
+      <fullUrl value="urn:uuid:UUID100"/>
+      <resource>
+         <PractitionerRole>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6166.61"/>
+               <value value="926559302"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
+               <value value="0838"/>
+            </identifier>
+            <organization>
+               <reference value="urn:uuid:UUID042"/>
+            </organization>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
       <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Procedure>
@@ -4863,30 +4899,30 @@
                <end value="2024-06-19T13:59:00+00:00"/>
             </performedPeriod>
             <recorder>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID103"/>
             </recorder>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID101"/>
+                  <reference value="urn:uuid:UUID104"/>
                </actor>
             </performer>
          </Procedure>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID101"/>
+      <fullUrl value="urn:uuid:UUID104"/>
       <resource>
          <PractitionerRole>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
             </meta>
-            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID097"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="5835859^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="X9657"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
+            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID098"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="5835859^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="X9657"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
                <value value="X9657"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID102"/>
+               <reference value="urn:uuid:UUID105"/>
             </practitioner>
             <code>
                <coding>
@@ -4921,7 +4957,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID102"/>
+      <fullUrl value="urn:uuid:UUID105"/>
       <resource>
          <Practitioner>
             <meta>
@@ -4963,6 +4999,24 @@
       </resource>
    </entry>
    <entry>
+      <fullUrl value="urn:uuid:UUID103"/>
+      <resource>
+         <PractitionerRole>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6166.61"/>
+               <value value="926559302"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
+               <value value="0838"/>
+            </identifier>
+            <organization>
+               <reference value="urn:uuid:UUID042"/>
+            </organization>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
       <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <Procedure>
@@ -4994,30 +5048,30 @@
                <end value="2023-07-25T17:51:00+00:00"/>
             </performedPeriod>
             <recorder>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID106"/>
             </recorder>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID103"/>
+                  <reference value="urn:uuid:UUID107"/>
                </actor>
             </performer>
          </Procedure>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID103"/>
+      <fullUrl value="urn:uuid:UUID107"/>
       <resource>
          <PractitionerRole>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
             </meta>
-            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID097"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="3440456^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="0801"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
+            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/component/structuredBody/component/section[cda:id[@root="UUID098"]]/entry/procedure[cda:id[@root="2.16.840.1.113883.19.6450.57"][@extension="3440456^"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="0801"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
                <value value="0801"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID104"/>
+               <reference value="urn:uuid:UUID108"/>
             </practitioner>
             <code>
                <coding>
@@ -5056,7 +5110,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID104"/>
+      <fullUrl value="urn:uuid:UUID108"/>
       <resource>
          <Practitioner>
             <meta>
@@ -5099,6 +5153,24 @@
                <country value="US"/>
             </address>
          </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID106"/>
+      <resource>
+         <PractitionerRole>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6166.61"/>
+               <value value="926559302"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
+               <value value="0838"/>
+            </identifier>
+            <organization>
+               <reference value="urn:uuid:UUID042"/>
+            </organization>
+         </PractitionerRole>
       </resource>
    </entry>
 </Bundle>

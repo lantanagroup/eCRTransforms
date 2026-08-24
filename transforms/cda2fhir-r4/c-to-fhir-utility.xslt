@@ -883,11 +883,70 @@
         </dataAbsentReason>
     </xsl:template>
 
-    <!-- TEMPLATE: Returns a referenced participant 
-         Need to figure out what is contained the participant so the reference can be returned at the correct level -->
+    <!-- FUNCTION: classify what KIND of resource a participation's reference will land on.
+         20260824 Claude (per SG). Returns one of:
+           'person'     - carries an assignedPerson (a PractitionerRole exists at the role element's uuid)
+           'device'     - carries an assignedAuthoringDevice, or is hollow and routed to one
+           'org-direct' - person-less with a representedOrganization directly on the role element
+           'org-routed' - HOLLOW (ids only) and update-referenced-actor-uuids rewrote its uuid onto an
+                          organization element elsewhere in the document (*Organization* by local-name)
+           'other'      - everything else, including an unmatched hollow participation (lcg:unmatched,
+                          item 41 - its target is the identifier-only Practitioner)
+         Used by the rename-reference-participant template below and by the companion
+         org-practitionerrole-entry template in cda2fhir-PractitionerRole.xslt, so the reference side
+         and the creation side can never disagree about a participation's kind. -->
+    <xsl:function name="lcg:participation-target-kind" as="xs:string">
+        <xsl:param name="pParticipation" as="element()" />
+        <xsl:choose>
+            <xsl:when test="$pParticipation/cda:*/cda:assignedPerson">person</xsl:when>
+            <xsl:when test="$pParticipation/cda:*/cda:assignedAuthoringDevice">device</xsl:when>
+            <xsl:when test="$pParticipation/cda:*/cda:representedOrganization">org-direct</xsl:when>
+            <xsl:when test="$pParticipation/cda:assignedAuthor or $pParticipation/cda:assignedEntity">
+                <xsl:variable name="vTargetUuid" select="($pParticipation/cda:assignedAuthor | $pParticipation/cda:assignedEntity)[1]/@lcg:uuid" />
+                <xsl:variable name="vTargets" select="root($pParticipation)//cda:*[@lcg:uuid = $vTargetUuid]" />
+                <xsl:choose>
+                    <xsl:when test="$vTargets[contains(local-name(), 'Organization')]">org-routed</xsl:when>
+                    <xsl:when test="$vTargets[self::cda:assignedAuthoringDevice]">device</xsl:when>
+                    <xsl:otherwise>other</xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>other</xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <!-- TEMPLATE: Returns a referenced participant
+         Need to figure out what is contained the participant so the reference can be returned at the correct level
+         20260824 Claude (per SG): pPersonOnlyTargets - pass true() from call sites whose FHIR element
+         restricts reference targets to Practitioner|PractitionerRole|Patient|RelatedPerson
+         (e.g. Procedure.recorder, Condition.asserter). A person-less participation - one carrying a
+         representedOrganization directly, or a HOLLOW one (ids only) whose uuid the
+         update-referenced-actor-uuids phase routed to an organization - would otherwise emit a
+         reference to an Organization, which the validator rejects ("Invalid Resource target type.
+         Found Organization..."; live in the TN eICR: four procedures authored by ids that resolve
+         to a person-less org author). Per SG's decision (2026-08-24, replacing an interim omission
+         design): the organization authorship is PRESERVED by referencing a companion org-only
+         PractitionerRole instead - base-valid (practitioner and organization are both 0..1 in R4).
+         It claims no meta.profile, because us-core-practitionerrole 3.1.1 requires practitioner
+         1..1; the eicr profiles' recorder/asserter targetProfiles are the BASE resource types, and
+         the eicr-document-bundle entry slicing is open - same precedent as the 4.40 planned
+         Encounter. Probe-validated 2026-08-24 on the TN eICR: 4 target-type errors GONE, zero new
+         issues at any severity. The companion resource is created by the org-practitionerrole-entry
+         mode (cda2fhir-PractitionerRole.xslt), applied by the SAME resource's bundle-entry template
+         so emit-reference/create-resource stay in step. Its uuid:
+           org-direct -> the role element's own uuid (free: for person-less participations the
+                         participant-priority creates only the Organization there)
+           org-routed -> the role element's uuid IS the organization's after rewriting, and the
+                         parent participation's uuid may carry a Provenance - so the companion lives
+                         at the uuid of the role's FIRST cda:id (every element is stamped in phase 1,
+                         and a routed participation always has ids - that is what it was matched by)
+         A DEVICE (direct or routed) cannot be wrapped this way (PractitionerRole.practitioner
+         cannot reference Device) and is OMITTED - these elements are 0..1. 'person' and 'other'
+         (incl. unmatched, item 41) emit exactly as before. -->
     <xsl:template match="cda:author | cda:performer" mode="rename-reference-participant">
         <xsl:param name="pElementName" />
         <xsl:param name="pParticipantType" />
+        <xsl:param name="pPersonOnlyTargets" select="false()" />
+        <xsl:variable name="vKind" select="if ($pPersonOnlyTargets) then lcg:participation-target-kind(.) else ''" />
         <xsl:choose>
             <!-- Returns the uuid for just the Organization because some references require Organization -->
             <xsl:when test="$pParticipantType = 'organization'">
@@ -901,6 +960,23 @@
                     </xsl:when>
                 </xsl:choose>
             </xsl:when>
+            <!-- person-only call sites: an Organization target becomes a reference to the companion
+                 org-only PractitionerRole; a Device target is omitted -->
+            <xsl:when test="$vKind = 'org-direct'">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:*[cda:representedOrganization]/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="$vKind = 'org-routed'">
+                <xsl:element name="{$pElementName}">
+                    <xsl:element name="reference">
+                        <xsl:attribute name="value">urn:uuid:<xsl:value-of select="(cda:assignedAuthor | cda:assignedEntity)[1]/cda:id[1]/@lcg:uuid" /></xsl:attribute>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:when>
+            <xsl:when test="$vKind = 'device'" />
             <!-- Returns the uuid at ParticipantRole level -->
             <xsl:when test="cda:*/cda:assignedPerson">
                 <xsl:element name="{$pElementName}">

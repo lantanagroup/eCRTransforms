@@ -1417,7 +1417,7 @@
                   <p>...</p>
                </div>
             </text>
-            <!--INFO: Id from encompassingEncounter-->
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
             <identifier>
                <system>
                   <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
@@ -1430,12 +1430,10 @@
                   </extension>
                </value>
             </identifier>
-            <!--Id from Encounter Activity-->
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
                <value value="urn:uuid:UUID032"/>
             </identifier>
-            <!--Id from Encounter Diagnosis Act-->
             <status value="in-progress"/>
             <class>
                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">

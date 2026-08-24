@@ -199,4 +199,65 @@
       test="count(fhir:Encounter/fhir:class/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
     <x:expect label="and no ActCode is borrowed from the body encounter" test="count(fhir:Encounter/fhir:class/fhir:code) = 0" />
   </x:scenario>
+
+  <!-- 20260824 Claude (per SG - Encounter.identifier dedupe): the encompassingEncounter and the body
+       Encounter Activity (4.49) / Encounter Diagnosis act (4.80) routinely carry the SAME id, which
+       emitted duplicate identifiers (live in the TN eICR: bare on encompassingEncounter, with
+       assigningAuthorityName EPIC on the activity). Rule: duplicates = same mapped (system, value),
+       i.e. same @root + same @extension (extension case-SENSITIVE, item 002); one identifier per
+       unique pair; the first assigner in document order survives the merge; truly distinct ids all
+       still emit (the current profile's max-1 error on those is tolerated until the balloting IG,
+       which allows multiples, lands). Negative control 2026-08-24: the pre-fix stylesheet fails
+       F1/F2/F6 (4 identifiers, ENC-1 twice, OTHER emitted). -->
+  <x:scenario label="F. eICR: duplicate encounter ids collapse to one identifier, first assigner wins, distinct ids survive">
+    <x:context select="//cda:encompassingEncounter">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000000f5">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000000f6">
+            <id root="2.16.840.1.113883.19.55" extension="ENC-1" />
+            <effectiveTime>
+              <low value="20240101" />
+            </effectiveTime>
+          </encompassingEncounter>
+        </componentOf>
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <templateId root="2.16.840.1.113883.10.20.22.2.22.1" />
+                <entry>
+                  <encounter classCode="ENC" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000f7">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.49" />
+                    <id root="2.16.840.1.113883.19.55" extension="ENC-1" assigningAuthorityName="EPIC" />
+                    <id root="2.16.840.1.113883.19.55" extension="enc-1" />
+                    <code code="AMB" codeSystem="2.16.840.1.113883.1.11.13955" />
+                  </encounter>
+                </entry>
+                <entry>
+                  <act classCode="ACT" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000000f8">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.80" />
+                    <id root="2.16.840.1.113883.19.55" extension="ENC-1" assigningAuthorityName="OTHER" />
+                    <id root="2.16.840.1.113883.19.66" extension="D-9" />
+                  </act>
+                </entry>
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="F1. three identifiers: merged ENC-1, case-variant enc-1, distinct D-9"
+      test="count(fhir:Encounter/fhir:identifier) = 3" />
+    <x:expect label="F2. the duplicated (system, value) pair emits exactly ONCE"
+      test="count(fhir:Encounter/fhir:identifier[fhir:system/@value = 'urn:oid:2.16.840.1.113883.19.55'][fhir:value/@value = 'ENC-1']) = 1" />
+    <x:expect label="F3. the merged identifier keeps the FIRST assigner in document order (EPIC, from the 4.49)"
+      test="fhir:Encounter/fhir:identifier[fhir:value/@value = 'ENC-1']/fhir:assigner/fhir:display/@value = 'EPIC'" />
+    <x:expect label="F4. an extension differing only in case is a DIFFERENT identifier (item 002) and survives"
+      test="count(fhir:Encounter/fhir:identifier[fhir:value/@value = 'enc-1']) = 1" />
+    <x:expect label="F5. a truly distinct id still emits"
+      test="count(fhir:Encounter/fhir:identifier[fhir:system/@value = 'urn:oid:2.16.840.1.113883.19.66'][fhir:value/@value = 'D-9']) = 1" />
+    <x:expect label="F6. the losing assigner (OTHER) appears nowhere"
+      test="count(fhir:Encounter/fhir:identifier/fhir:assigner/fhir:display[@value = 'OTHER']) = 0" />
+  </x:scenario>
 </x:description>

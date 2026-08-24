@@ -820,7 +820,7 @@
                   <p>...</p>
                </div>
             </text>
-            <!--INFO: Id from encompassingEncounter-->
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883"/>
                <value value="Encounter/128252182/_history/4"/>
@@ -829,16 +829,6 @@
                <system value="urn:oid:2.16.840.1.113883.3.5912.2000"/>
                <value value="2219200002"/>
             </identifier>
-            <!--Id from Encounter Activity-->
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="Encounter/128252182/_history/4"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.3.5912.2000"/>
-               <value value="2219200002"/>
-            </identifier>
-            <!--Id from Encounter Diagnosis Act-->
             <status value="in-progress"/>
             <class>
                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>

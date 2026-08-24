@@ -825,17 +825,15 @@
                   <p>...</p>
                </div>
             </text>
-            <!--INFO: Id from encompassingEncounter-->
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19"/>
                <value value="9937015"/>
             </identifier>
-            <!--Id from Encounter Activity-->
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
                <value value="urn:uuid:UUID014"/>
             </identifier>
-            <!--Id from Encounter Diagnosis Act-->
             <status value="finished"/>
             <class>
                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>

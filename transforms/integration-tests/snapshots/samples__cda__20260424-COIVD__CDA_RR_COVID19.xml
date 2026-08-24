@@ -494,7 +494,7 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
             </meta>
-            <!--INFO: Id from encompassingEncounter-->
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19"/>
                <value value="9937015"/>

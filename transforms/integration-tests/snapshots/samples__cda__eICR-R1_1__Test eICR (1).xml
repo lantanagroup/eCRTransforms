@@ -3203,12 +3203,11 @@
                   <p>...</p>
                </div>
             </text>
-            <!--INFO: Id from encompassingEncounter-->
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.3.698084.8"/>
                <value value="543219876"/>
             </identifier>
-            <!--Id from Encounter Activity-->
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.3.698084.8"/>
                <value value="31777"/>
@@ -3216,7 +3215,6 @@
                   <display value="EPIC"/>
                </assigner>
             </identifier>
-            <!--Id from Encounter Diagnosis Act-->
             <status value="in-progress"/>
             <class>
                <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>

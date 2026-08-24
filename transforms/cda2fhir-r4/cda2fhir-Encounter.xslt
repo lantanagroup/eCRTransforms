@@ -214,21 +214,30 @@
         </xsl:otherwise>
       </xsl:choose>
 
-      <xsl:comment select="'INFO: Id from encompassingEncounter'" />
       <!-- SG 20260629: Removing code that limits this to one encounter id
            2026 version of eICR Encounter has been updated to allow multiple identifiers
            eICR Validation will fail if using an earlier version -->
-      <xsl:apply-templates select="cda:id" />
-      <!-- SG 20260629: This was commented out because the Encounter in eCR only allows one identifier.
-           Now including code - 2026 version of eICR Encounter has been updated to allow multiple identifiers -->
-      <!-- Note, there are also ids on the other Encounters. 
+      <!-- Note, there are also ids on the other Encounters.
         If this is eCR get the id from other encounters in the CDA-->
-      <xsl:if test="$gvCurrentIg = 'eICR'">
-        <xsl:comment select="'Id from Encounter Activity'" />
-        <xsl:apply-templates select="//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:id" />
-        <xsl:comment select="'Id from Encounter Diagnosis Act'" />
-        <xsl:apply-templates select="//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80']/cda:id" />
-      </xsl:if>
+      <!-- 20260824 Claude (per SG): the encompassingEncounter and the Encounter Activity (4.49) /
+           Encounter Diagnosis act (4.80) routinely carry the SAME id (seen live in the TN eICR:
+           root 2.16.840.1.113883.19.1614.88 / extension 9044494381677, once bare and once with
+           assigningAuthorityName EPIC), which emitted two DUPLICATE identifiers. Identifiers are
+           duplicates when their mapped (system, value) match - i.e. same @root (case-blind; uuid
+           roots are lowercased by the id template) and same @extension (case-SENSITIVE, item 002).
+           One identifier is emitted per unique pair. The assigner does not distinguish duplicates,
+           but survives the merge: within a group, the first id that carries an
+           assigningAuthorityName is the one transformed (so its assigner is kept; when several
+           disagree, the first wins - SG's rule); with no assigner anywhere, the first id wins.
+           TRULY distinct identifiers still all emit: the profile's max-1 error on those is
+           tolerated until the balloting IG version (which allows multiples) lands. -->
+      <xsl:comment select="'INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)'" />
+      <xsl:variable name="vBodyEncounterIds"
+        select="(//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49'] | //cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.80'])/cda:id" />
+      <xsl:variable name="vEncounterIds" select="cda:id | $vBodyEncounterIds[$gvCurrentIg = 'eICR']" />
+      <xsl:for-each-group select="$vEncounterIds" group-by="concat(lower-case(@root), '||', @extension)">
+        <xsl:apply-templates select="(current-group()[@assigningAuthorityName][1], .)[1]" />
+      </xsl:for-each-group>
 
       <xsl:if test="local-name(.) eq 'encounter'">
         <xsl:choose>

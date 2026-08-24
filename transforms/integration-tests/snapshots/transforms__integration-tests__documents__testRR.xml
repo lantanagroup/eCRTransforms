@@ -402,7 +402,7 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
             </meta>
-            <!--INFO: Id from encompassingEncounter-->
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
                <value value="urn:uuid:e9000000-0000-0000-0000-0000000000rr"/>

@@ -33,6 +33,39 @@ Design notes
   "Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is
   required, but not found" at Bundle level. Those secondary errors are annotated
   as probable cascades so nobody goes hunting for a missing Composition.
+
+Corpus mode (layer 3b) - 20260824 Claude
+----------------------------------------
+--corpus turns this script on the SNAPSHOT corpus (snapshot-corpus.txt) instead
+of the fixture bundles: every corpus document is transformed with saxonche
+through NativeUUIDGen-cda2fhir.xslt into --corpus-output (default
+./output-corpus, gitignore it like ./output), ALL outputs are validated in one
+validator invocation, and the raw validator JSON is saved to
+<corpus-output>/validator-output.json so gating can be re-run without paying
+for validation again.
+
+    python validate-fhir-outputs.py --corpus                   gate against known issues
+    python validate-fhir-outputs.py --corpus --update-known    rewrite the known-issues file
+    python validate-fhir-outputs.py --corpus --gate-only       re-gate from the saved JSON
+    python validate-fhir-outputs.py --corpus --corpus-filter testRR   subset by filename
+
+Because the real documents carry known-open conformance defects, corpus mode
+gates against conformance-known-issues.txt (same TAB format and philosophy as
+corpus-known-issues.txt) and FAILS ONLY ON NEW OR WORSENED problems; IMPROVED
+lines mean the baseline should be regenerated so the ratchet tightens.
+
+Issue identity in corpus mode is deliberately COARSER than fixture mode:
+severity + normalised issue.details.text, with urn:uuid values masked to
+<uuid> and [n] indexes stripped from any embedded expressions. Location is NOT
+part of the identity - the pipeline mints fresh UUIDs every run and the corpus
+documents are messy enough that expression paths jitter; message text keyed per
+document is the stable unit. Only error/fatal severities gate; environmental
+issues (see above) are excluded from both the gate and the baseline.
+
+Known flakiness: the validator occasionally emits (or omits) a LONE
+Reference_REF_CantMatchChoice error on an otherwise stable document. If a run
+differs from the baseline by exactly one such line, re-run before concluding
+anything - and re-run before baselining one.
 """
 
 from __future__ import annotations
@@ -79,7 +112,11 @@ ENVIRONMENTAL_MSGIDS = {
 }
 ENVIRONMENTAL_TEXT_RE = re.compile(
     r"timed out|timeout|OutOfMemory|Connection reset|connection refused|"
-    r"Read timed out|Unable to connect|SocketException|Error from server:",
+    # 20260824 Claude: newer validator builds phrase terminology-server failures
+    # "Error from https://tx.fhir.org/r4: ..." rather than "Error from server:" -
+    # both are environmental, not content defects, and must not enter the
+    # conformance baseline (they vanish/mutate on a cold cache).
+    r"Read timed out|Unable to connect|SocketException|Error from server:|Error from http",
     re.IGNORECASE,
 )
 
@@ -280,6 +317,241 @@ def write_baseline(path: Path, records: list[dict], meta: dict) -> None:
 
 
 # --------------------------------------------------------------------------
+# corpus mode (layer 3b) - see the module docstring
+# --------------------------------------------------------------------------
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parent.parent                      # transforms/integration-tests -> transforms -> repo
+STYLESHEET = HERE.parent / "cda2fhir-r4" / "NativeUUIDGen-cda2fhir.xslt"
+CORPUS = HERE / "snapshot-corpus.txt"
+CORPUS_RAW_JSON = "validator-output.json"      # deterministic, inside --corpus-output
+CORPUS_MANIFEST = "corpus-manifest.json"       # output filename -> repo-relative source doc
+
+INDEX_RE = re.compile(r"\[\d+\]")
+
+
+def load_corpus() -> list[Path]:
+    """Same loader shape as snapshot-regression.py: one glob per line, repo-relative."""
+    if not CORPUS.exists():
+        raise SystemExit(f"corpus file not found: {CORPUS}")
+    docs: list[Path] = []
+    for raw in CORPUS.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        matches = sorted(REPO.glob(line))
+        if not matches:
+            print(f"  ! corpus pattern matched nothing: {line}", file=sys.stderr)
+        docs.extend(m for m in matches if m.is_file())
+    seen, out = set(), []
+    for d in docs:
+        if d not in seen:
+            seen.add(d)
+            out.append(d)
+    return out
+
+
+def corpus_rel(doc: Path) -> str:
+    try:
+        return doc.resolve().relative_to(REPO).as_posix()
+    except ValueError:
+        return doc.name
+
+
+def flatten_name(relpath: str) -> str:
+    """Flatten the repo-relative path so outputs from different directories cannot
+    collide (several corpus documents share a filename) - same convention as
+    snapshot-regression.py's snapshot names."""
+    return relpath.replace("/", "__").replace("\\", "__")
+
+
+def transform_corpus(docs: list[Path], out_dir: Path) -> dict:
+    """Transform every corpus doc into out_dir; return the manifest dict
+    {"outputs": {output filename: repo-relative source}, "transform_errors": {...}}."""
+    try:
+        from saxonche import PySaxonProcessor
+    except ImportError:
+        raise SystemExit("saxonche is required for --corpus:  pip install saxonche")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    manifest = {"outputs": {}, "transform_errors": {}}
+    with PySaxonProcessor(license=False) as proc:
+        exe = proc.new_xslt30_processor().compile_stylesheet(stylesheet_file=str(STYLESHEET))
+        for doc in docs:
+            relpath = corpus_rel(doc)
+            try:
+                out = exe.transform_to_string(source_file=str(doc))
+            except Exception as e:  # noqa: BLE001 - a transform error must gate, not crash
+                print(f"transform ERROR  {relpath}: {e}", file=sys.stderr)
+                manifest["transform_errors"][relpath] = normalise_text(str(e))
+                continue
+            name = flatten_name(relpath)
+            (out_dir / name).write_text(out, encoding="utf-8")
+            manifest["outputs"][name] = relpath
+            print(f"transformed      {relpath}")
+    (out_dir / CORPUS_MANIFEST).write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return manifest
+
+
+def corpus_identity(rec: dict) -> str:
+    """severity + normalised message text; see the module docstring for why
+    location is deliberately not part of the identity in corpus mode."""
+    text = INDEX_RE.sub("", rec["text"])       # rec["text"] already has uuids masked
+    text = text.replace("\t", " ").replace("\n", " ").strip()
+    return f"{rec['severity']}: {text}"
+
+
+def corpus_counts(records: list[dict], manifest: dict) -> dict:
+    """{repo-relative doc: {identity: count}} over gating severities only.
+
+    Every transformed document gets an entry (possibly empty) so that improved /
+    fixed baseline lines are detected; transform errors gate as a fatal identity."""
+    counts: dict[str, dict] = {relpath: {} for relpath in manifest["outputs"].values()}
+    for rec in records:
+        relpath = manifest["outputs"].get(rec["file"])
+        if relpath is None:                    # not a corpus output (shouldn't happen)
+            relpath = rec["file"]
+            counts.setdefault(relpath, {})
+        if rec["severity"] not in FAIL_SEVERITIES or rec.get("environmental"):
+            continue
+        ident = corpus_identity(rec)
+        counts[relpath][ident] = counts[relpath].get(ident, 0) + 1
+    for relpath, msg in manifest.get("transform_errors", {}).items():
+        ident = f"fatal: transform error: {INDEX_RE.sub('', msg)}"
+        counts.setdefault(relpath, {})[ident] = counts[relpath].get(ident, 0) + 1
+    return counts
+
+
+def load_known_issues(path: Path) -> dict:
+    """{relpath: {identity: count}} from conformance-known-issues.txt.
+
+    Unlike corpus-known-issues.txt, only FULL-LINE comments are recognised -
+    validator message text can legitimately contain '#' (IG ids like
+    hl7.fhir.us.ecr#2.1.2), so inline comment stripping would corrupt entries."""
+    known: dict[str, dict] = {}
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        relpath, count, ident = raw.rstrip("\n").split("\t", 2)
+        known.setdefault(relpath, {})[ident] = int(count)
+    return known
+
+
+def write_known_issues(path: Path, counts: dict) -> int:
+    lines = [
+        "# conformance-known-issues.txt - baseline for validate-fhir-outputs.py --corpus.",
+        "# One line per known problem: <repo-relative path> TAB <count> TAB <identity>,",
+        "# where <identity> is severity + normalised issue.details.text (uuids masked to",
+        "# <uuid>, [n] indexes stripped). Only error/fatal severities are recorded.",
+        "# Only full-line comments ('#' first) are recognised - message text may contain '#'.",
+        "# Regenerate with --corpus --update-known AFTER REVIEWING what changed -",
+        "# this file is the list of accepted open conformance defects, and it should",
+        "# only shrink.",
+        "#",
+        "# FLAKINESS: the validator occasionally emits (or omits) a LONE",
+        "# Reference_REF_CantMatchChoice error on an otherwise stable document. If a run",
+        "# differs from this baseline by exactly one such line, re-run before trusting",
+        "# it - and never baseline a lone one without a confirming re-run.",
+    ]
+    n = 0
+    for relpath in sorted(counts):
+        for ident, c in sorted(counts[relpath].items()):
+            lines.append(f"{relpath}\t{c}\t{ident}")
+            n += 1
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return n
+
+
+def gate_corpus(counts: dict, known: dict, baseline_missing: bool) -> int:
+    new_fail, improved, with_known = 0, 0, 0
+    for relpath in sorted(counts):
+        current = counts[relpath]
+        baseline = known.get(relpath, {})
+        worse = {p: c for p, c in current.items() if c > baseline.get(p, 0)}
+        better = {p: c for p, c in baseline.items() if current.get(p, 0) < c}
+        if worse:
+            new_fail += 1
+            print(f"FAIL   {relpath}  (new or worsened problems)")
+            for p, c in sorted(worse.items()):
+                print(f"      - NEW {p}  (x{c}, known {baseline.get(p, 0)})")
+        elif better:
+            improved += 1
+            print(f"IMPROVED {relpath}  - re-run with --update-known and commit")
+            for p, c in sorted(better.items()):
+                print(f"      - {p}  (known x{c} -> now x{current.get(p, 0)})")
+        else:
+            print(("known  " if current else "ok     ") + relpath)
+        if current and not worse:
+            with_known += 1
+
+    clean = sum(1 for v in counts.values() if not v)
+    print(f"\n{clean}/{len(counts)} documents conformance-clean; "
+          f"{with_known} with known issues; {new_fail} with NEW/worsened problems"
+          + (f"; {improved} improved" if improved else ""))
+    if baseline_missing and new_fail:
+        print("\nNo baseline file exists yet, so EVERY error above is reported as NEW.")
+        print("Review the list, then run  --corpus --update-known  to record it as the baseline.")
+    elif new_fail:
+        print("\nIf a document differs by exactly one lone Reference_REF_CantMatchChoice,")
+        print("re-run before concluding anything - that error is known to be flaky.")
+    return 1 if new_fail else 0
+
+
+def run_corpus_mode(args) -> int:
+    out_dir = args.corpus_output
+    raw_json = out_dir / CORPUS_RAW_JSON
+    manifest_path = out_dir / CORPUS_MANIFEST
+    filters = args.corpus_filter or []
+
+    def wanted(name: str) -> bool:
+        return not filters or any(f in name for f in filters)
+
+    if args.gate_only:
+        if not raw_json.exists() or not manifest_path.exists():
+            print(f"--gate-only needs a previous --corpus run: missing {raw_json} "
+                  f"or {manifest_path}", file=sys.stderr)
+            return 2
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    else:
+        docs = [d for d in load_corpus() if wanted(corpus_rel(d))]
+        if not docs:
+            raise SystemExit(f"no corpus documents matching {filters}")
+        print(f"transforming {len(docs)} corpus document(s) -> {out_dir}")
+        manifest = transform_corpus(docs, out_dir)
+        outputs = sorted(out_dir / name for name in manifest["outputs"])
+        if not outputs:
+            raise SystemExit("no corpus document transformed successfully - nothing to validate")
+        print(f"\nvalidating {len(outputs)} output(s) against {', '.join(args.ig)} "
+              f"(one invocation; expect ~1 min/doc)")
+        ensure_jar(args.jar)
+        if args.tx_cache:
+            args.tx_cache.mkdir(parents=True, exist_ok=True)
+        run_validator(args, outputs, raw_json)
+        print(f"raw validator output saved: {raw_json}  (re-gate any time with --gate-only)")
+
+    records = parse_output(raw_json, out_dir)
+    if args.json:
+        args.json.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
+    counts = corpus_counts(records, manifest)
+    if filters:
+        counts = {p: v for p, v in counts.items() if wanted(p)}
+
+    if args.update_known:
+        n = write_known_issues(args.known_issues, {p: v for p, v in counts.items() if v})
+        print(f"\nknown-issues baseline written: {n} problem line(s) -> {args.known_issues.name}")
+        print("REVIEW THE DIFF before committing - this accepts current defects as known.")
+        return 0
+
+    baseline_missing = not args.known_issues.exists()
+    if baseline_missing:
+        print(f"! baseline file not found: {args.known_issues} - every error will be NEW",
+              file=sys.stderr)
+    known = {} if baseline_missing else load_known_issues(args.known_issues)
+    print()
+    return gate_corpus(counts, known, baseline_missing)
+
+
+# --------------------------------------------------------------------------
 # reporting
 # --------------------------------------------------------------------------
 
@@ -379,6 +651,24 @@ def main() -> int:
     p.add_argument("--display-issues-are-warnings", action="store_true",
                    help="downgrade 'wrong display name' errors to warnings (see VALIDATION.md)")
     p.add_argument("--best-practice", default=None, choices=["ignore", "hint", "warning", "error"])
+    p.add_argument("--corpus", action="store_true",
+                   help="layer 3b: transform+validate the snapshot corpus and gate against "
+                        "conformance-known-issues.txt (see the module docstring)")
+    p.add_argument("--update-known", action="store_true",
+                   help="with --corpus: rewrite conformance-known-issues.txt from this run")
+    p.add_argument("--gate-only", action="store_true",
+                   help="with --corpus: skip transform+validation, re-gate from the saved "
+                        "validator JSON in --corpus-output")
+    p.add_argument("--corpus-filter", action="append", default=None,
+                   help="with --corpus: only process corpus documents whose repo-relative "
+                        "path contains this substring (like snapshot-regression.py "
+                        "--filter, but matching the path so directories work too; "
+                        "repeatable - a document matching ANY given substring is kept)")
+    p.add_argument("--corpus-output", type=Path, default=here / "output-corpus",
+                   help="with --corpus: dir for transformed bundles + saved validator JSON "
+                        "(default: ./output-corpus; gitignore it)")
+    p.add_argument("--known-issues", type=Path, default=here / "conformance-known-issues.txt",
+                   help="with --corpus: the known-issues baseline file")
     p.add_argument("--baseline", type=Path, default=here / "fhir-validation-baseline.json")
     p.add_argument("--update-baseline", action="store_true",
                    help="rewrite the baseline from this run instead of diffing against it")
@@ -396,6 +686,13 @@ def main() -> int:
 
     args.ig = args.ig or [DEFAULT_IG]
     args.pattern = args.pattern or ["*.json", "*.xml"]
+
+    if (args.update_known or args.gate_only or args.corpus_filter) and not args.corpus:
+        print("--update-known/--gate-only/--corpus-filter only make sense with --corpus",
+              file=sys.stderr)
+        return 2
+    if args.corpus:
+        return run_corpus_mode(args)
 
     if not args.input.is_dir():
         print(f"input directory not found: {args.input}", file=sys.stderr)

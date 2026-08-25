@@ -108,6 +108,7 @@
 /transforms/integration-tests/.txcache/
 /transforms/integration-tests/.svrl/
 /transforms/integration-tests/output/
+/transforms/integration-tests/output-corpus/
 /transforms/integration-tests/output-cda/
 
 # 20260729 Claude: XSpec runner working dirs (transforms/cda2fhir-r4/xspec-unit-tests/run-xspec.sh).

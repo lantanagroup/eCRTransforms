@@ -72,6 +72,29 @@ positive. The whole XHTML subtree is skipped.
 On the corpus they immediately found 39 live violations in 9 documents that the pre-existing
 invariants called clean, including 4 instances of CDAFHIR-015 surviving at three sites the
 2026-08-03 fix did not touch. See the codebase notes, items 046-052.
+
+20260825 Claude: added three more element-level invariants (B2/B3 from the external-review
+triage), measured against the corpus before implementation:
+
+  9. string-whitespace - any @value with leading or trailing whitespace on element types not
+     already covered by the code/uri primitive checks (B2). FHIR string values SHOULD NOT
+     carry edge whitespace; in this pipeline it is always untrimmed source text (xsi:type ST
+     text nodes, name parts, referenceRange text). The corpus survey found 15 instances in
+     8 documents (valueString x12, name.suffix x2, referenceRange.text x1) - those are
+     baselined; anything new fails.
+  10. reference-display-duplication - a Reference-typed element (one with a <reference>
+     child) carrying MORE THAN ONE <display> child is schema-invalid (display is 0..1).
+     The corpus survey found ZERO instances of this, and zero of the softer "display text
+     redundantly duplicates the target resource's name" variant, so this is a PURE
+     REGRESSION GUARD for the B3 defect class, not a live-defect detector.
+  11. duplicate-identifier - two direct Resource.identifier children of one resource sharing
+     the same (system/@value, value/@value) pair (B3's sibling defect). The corpus survey
+     found zero pairs across 1765 resources (121 with >1 identifier), confirming the
+     c00f618 Encounter dedupe holds corpus-wide - also a pure regression guard.
+
+Problem strings for all three carry element paths only, never values: flagged values can
+contain newlines and tabs, which would corrupt the tab-separated known-issues format, and
+values would make the baseline unstable anyway.
 """
 import re
 import sys
@@ -274,6 +297,23 @@ def check_elements(xml: str, problems: list):
             # Bundle.entry.resource.Patient.contact.address
             if rtype is None and elem.tag == FHIR_NS + "resource":
                 child_rtype, child_path = name, []
+                # child is a resource root - duplicate-identifier (B3 sibling, 20260825):
+                # two direct Resource.identifier children sharing (system, value) mean an
+                # upstream dedupe regressed (cf. the c00f618 Encounter identifier dedupe).
+                # One problem line per duplicate beyond the first, path/type only - no values.
+                seen_ident = set()
+                for ident in child:
+                    if ident.tag != FHIR_NS + "identifier":
+                        continue
+                    key = tuple(
+                        part_el.get("value") if (part_el := ident.find(FHIR_NS + part))
+                        is not None else None
+                        for part in ("system", "value"))
+                    if key in seen_ident:
+                        problems.append(
+                            f"duplicate-identifier: {name} has two identifiers sharing "
+                            f"the same (system, value) pair")
+                    seen_ident.add(key)
             else:
                 child_rtype, child_path = rtype, path + [name]
             where = label(child_rtype, child_path)
@@ -313,6 +353,16 @@ def check_elements(xml: str, problems: list):
                 # --- uri primitive syntax ---------------------------------------------
                 if name in URI_PRIMITIVES and re.search(r"\s", value):
                     problems.append(f"invalid uri primitive: {where} value contains whitespace")
+                # --- string-whitespace (B2, 20260825): edge whitespace on every other
+                # @value (string/display/text and all remaining primitives). code and uri
+                # primitives are excluded - their own checks above already report these.
+                if (name not in CODE_PRIMITIVES and name not in URI_PRIMITIVES
+                        and value != value.strip()):
+                    kind = ("leading and trailing"
+                            if value != value.lstrip() and value != value.rstrip()
+                            else "leading" if value != value.lstrip() else "trailing")
+                    problems.append(
+                        f"string-whitespace: {where} value has {kind} whitespace")
                 # --- placeholder strings where DAR is the convention ------------------
                 tail = ".".join(child_path[-2:]) if child_path else ""
                 if tail in SENTINEL_PATHS and value.strip().lower() in SENTINEL_VALUES:
@@ -326,6 +376,17 @@ def check_elements(xml: str, problems: list):
                 problems.append(
                     f"v3-NullFlavor coding: {parent} carries a NullFlavor code - the "
                     f"convention for absent data is a data-absent-reason extension")
+
+            # --- reference-display-duplication (B3 definition (a), 20260825) ----------
+            # Reference.display is 0..1: an element with a <reference> child and more than
+            # one <display> child is schema-invalid. Zero corpus instances at adoption -
+            # this is a pure regression guard for the B3 defect class.
+            if has_children:
+                cnames = [c.tag.split("}")[-1] for c in child]
+                if "reference" in cnames and cnames.count("display") > 1:
+                    problems.append(
+                        f"reference-display-duplication: {where} has more than one "
+                        f"display child")
 
             walk(child, child_rtype, child_path)
 

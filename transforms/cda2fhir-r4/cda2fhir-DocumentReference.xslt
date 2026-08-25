@@ -179,20 +179,27 @@
         <attachment>
           <xsl:choose>
             <xsl:when test="cda:text/cda:reference">
-              <contentType>
-                <xsl:attribute name="value" select="cda:text/@mediaType" />
-              </contentType>
+              <!-- 20260824 Claude (B1): guard value-bearing elements at the ELEMENT level so an
+                   absent source attribute can never emit value="" (mediaType here, originalText
+                   in the data branch below). -->
+              <xsl:if test="cda:text/@mediaType">
+                <contentType>
+                  <xsl:attribute name="value" select="cda:text/@mediaType" />
+                </contentType>
+              </xsl:if>
               <url>
                 <xsl:attribute name="value" select="cda:text/cda:reference/@value" />
               </url>
             </xsl:when>
             <xsl:otherwise>
               <contentType value="text/plain" />
-              <data>
-                <xsl:attribute name="value">
-                  <xsl:apply-templates select="cda:code/cda:originalText" mode="base64" />
-                </xsl:attribute>
-              </data>
+              <xsl:if test="cda:code/cda:originalText[normalize-space()]">
+                <data>
+                  <xsl:attribute name="value">
+                    <xsl:apply-templates select="cda:code/cda:originalText" mode="base64" />
+                  </xsl:attribute>
+                </data>
+              </xsl:if>
             </xsl:otherwise>
           </xsl:choose>
         </attachment>

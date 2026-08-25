@@ -347,7 +347,11 @@
   </xsl:template>
   <xsl:template match="cda:birthTime | sdtc:birthTime">
     <xsl:param name="pElementName">birthDate</xsl:param>
-    <xsl:if test="not(@nullFlavor)">
+    <!-- 20260824 Claude (B1): guard value-bearing elements so an absent/empty source attribute
+         can never emit value="" (or, for typed functions like lcg:dateFromcdaTS, a runtime type
+         error). Guards sit at the ELEMENT level so no bare element is left behind (ele-1).
+         Same pattern applied at the other B1 sites in this file. -->
+    <xsl:if test="not(@nullFlavor) and @value">
       <xsl:element name="{$pElementName}">
         <xsl:attribute name="value" select="lcg:dateFromcdaTS(@value)" />
       </xsl:element>
@@ -1440,11 +1444,13 @@
   <xsl:template match="cda:value[@xsi:type = 'INT']" mode="scale">
     <xsl:param name="pElementName" select="'valueQuantity'" />
     <xsl:element name="{$pElementName}">
-      <value>
-        <xsl:attribute name="value">
-          <xsl:value-of select="@value" />
-        </xsl:attribute>
-      </value>
+      <xsl:if test="@value">
+        <value>
+          <xsl:attribute name="value">
+            <xsl:value-of select="@value" />
+          </xsl:attribute>
+        </value>
+      </xsl:if>
       <system value="http://unitsofmeasure.org" />
       <code>
         <xsl:attribute name="value">{score}</xsl:attribute>
@@ -1453,19 +1459,23 @@
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'TS']">
     <xsl:param name="pElementName" select="'valueDateTime'" />
-    <xsl:element name="{$pElementName}">
-      <xsl:attribute name="value">
-        <xsl:value-of select="lcg:cdaTS2date(@value)" />
-      </xsl:attribute>
-    </xsl:element>
+    <xsl:if test="@value">
+      <xsl:element name="{$pElementName}">
+        <xsl:attribute name="value">
+          <xsl:value-of select="lcg:cdaTS2date(@value)" />
+        </xsl:attribute>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'BL']">
     <xsl:param name="pElementName" select="'valueBoolean'" />
-    <xsl:element name="{$pElementName}">
-      <xsl:attribute name="value">
-        <xsl:value-of select="@value" />
-      </xsl:attribute>
-    </xsl:element>
+    <xsl:if test="@value">
+      <xsl:element name="{$pElementName}">
+        <xsl:attribute name="value">
+          <xsl:value-of select="@value" />
+        </xsl:attribute>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'ST' or @xsi:type = 'ED']">
     <xsl:param name="pElementName" select="'valueString'" />
@@ -1484,19 +1494,23 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:element name="{$pElementName}">
-      <xsl:attribute name="value">
-        <xsl:value-of select="$content" />
-      </xsl:attribute>
-    </xsl:element>
+    <xsl:if test="normalize-space($content)">
+      <xsl:element name="{$pElementName}">
+        <xsl:attribute name="value">
+          <xsl:value-of select="$content" />
+        </xsl:attribute>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'INT'] | cda:sequenceNumber">
     <xsl:param name="pElementName" select="'valueInteger'" />
-    <xsl:element name="{$pElementName}">
-      <xsl:attribute name="value">
-        <xsl:value-of select="@value" />
-      </xsl:attribute>
-    </xsl:element>
+    <xsl:if test="@value">
+      <xsl:element name="{$pElementName}">
+        <xsl:attribute name="value">
+          <xsl:value-of select="@value" />
+        </xsl:attribute>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'PQ'][not(@nullFlavor)]">
     <xsl:param name="pElementName" select="'valueQuantity'" />
@@ -1556,6 +1570,7 @@
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'REAL'][not(@nullFlavor)]">
     <xsl:param name="pElementName" select="'valueQuantity'" />
+    <xsl:if test="@value">
     <xsl:element name="{$pElementName}">
       <value>
         <xsl:attribute name="value">
@@ -1581,6 +1596,7 @@
                 </xsl:when>
             </xsl:choose>-->
     </xsl:element>
+    </xsl:if>
   </xsl:template>
   <xsl:template match="cda:value[@xsi:type = 'CD' or @xsi:type = 'CE']">
     <xsl:param name="pElementName" select="'valueCodeableConcept'" />

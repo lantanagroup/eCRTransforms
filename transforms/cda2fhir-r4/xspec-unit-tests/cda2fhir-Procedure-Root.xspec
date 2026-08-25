@@ -235,4 +235,110 @@
       test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86901']/fhir:recorder) = 0" />
   </x:scenario>
 
+  <!-- 20260825 Claude (B15a): Procedure.asserter comes from informant[1], but the
+       rename-reference-participant template matched only author|performer - an informant fell to
+       XSLT built-in rules, which copied the informant's TEXT (person/org names) into the Procedure
+       and never produced an asserter. Target list (eicr-procedure 2.1.2 = us-core-procedure 3.1.1 =
+       R4 base): Patient|RelatedPerson|Practitioner|PractitionerRole. Now an informant behaves like a
+       performer at a person-only site: person - PractitionerRole reference; person-less org -
+       companion org-only PractitionerRole (paired creation in the bundle-entry template); device
+       would be omitted (asserter 0..1). Whole-document context: bundle pairing is asserted. -->
+  <x:scenario label="H. asserter from informant: person references PractitionerRole, org references companion org-only PractitionerRole, no text leaks">
+    <x:context select="/" xmlns="urn:hl7-org:v3">
+      <ClinicalDocument xmlns="urn:hl7-org:v3">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+        <recordTarget>
+          <patientRole>
+            <id root="2.16.840.1.113883.19.5" extension="12345" />
+            <patient><name use="L"><given>Ref</given><family>Case</family></name></patient>
+          </patientRole>
+        </recordTarget>
+        <component><structuredBody><component><section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.7.1" />
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000b1" />
+              <code code="86880" codeSystem="2.16.840.1.113883.6.12" displayName="COOMBS DIRECT" />
+              <statusCode code="completed" />
+              <effectiveTime value="20231013" />
+              <informant>
+                <assignedEntity>
+                  <id root="2.16.840.1.113883.19.5555.7" extension="INF-DR-1" />
+                  <assignedPerson><name><given>Ingrid</given><family>Informer</family></name></assignedPerson>
+                </assignedEntity>
+              </informant>
+            </procedure>
+          </entry>
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000b2" />
+              <code code="86886" codeSystem="2.16.840.1.113883.6.12" displayName="COOMBS INDIRECT" />
+              <statusCode code="completed" />
+              <effectiveTime value="20230725" />
+              <informant>
+                <assignedEntity>
+                  <id root="2.16.840.1.113883.19.5555.8" extension="INF-ORG-1" />
+                  <representedOrganization><name>Informant Org Only</name></representedOrganization>
+                </assignedEntity>
+              </informant>
+            </procedure>
+          </entry>
+        </section></component></structuredBody></component>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="H1. both procedures now carry exactly one asserter, each holding a reference element"
+      test="count(//fhir:Procedure/fhir:asserter[fhir:reference/@value]) = 2" />
+    <x:expect label="H2. the PERSON informant's asserter points at a person-bearing PractitionerRole entry"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86880']/fhir:asserter/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[fhir:practitioner]]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="H3. the ORG informant's asserter points at a companion PractitionerRole with organization, the informant's identifier, and NO practitioner"
+      test="count(//fhir:Procedure[fhir:code/fhir:coding/fhir:code/@value = '86886']/fhir:asserter/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[not(fhir:practitioner)][fhir:organization][fhir:identifier/fhir:value/@value = 'INF-ORG-1']]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="H4. no asserter points at any Organization entry"
+      test="count(//fhir:Procedure/fhir:asserter/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Organization]/fhir:fullUrl/@value]) = 0" />
+    <x:expect label="H5. no informant text leaks into any Procedure (the pre-fix built-in-rule fallthrough copied names as raw text)"
+      test="count(//fhir:Procedure[contains(string(.), 'Ingrid') or contains(string(.), 'Informant Org Only')]) = 0" />
+  </x:scenario>
+
+  <!-- 20260825 Claude (B15): PIN - the new 'patient' kind in lcg:participation-target-kind exists so
+       Encounter.participant can suppress patient-routed participations; person-only sites like
+       Procedure.recorder must be UNTOUCHED by it, because Patient is a legal recorder/asserter
+       target. A hollow author whose ids resolve to the recordTarget must still emit a recorder
+       referencing the Patient. Whole-document context - only the document root runs uuid routing. -->
+  <x:scenario label="I. recorder from a hollow author routed to the recordTarget still emits a Patient reference (patient is a legal person-only target)">
+    <x:context select="/" xmlns="urn:hl7-org:v3">
+      <ClinicalDocument xmlns="urn:hl7-org:v3">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+        <recordTarget>
+          <patientRole>
+            <id root="2.16.840.1.113883.19.5" extension="PAT-1" />
+            <patient><name use="L"><given>Pat</given><family>Recorder</family></name></patient>
+          </patientRole>
+        </recordTarget>
+        <component><structuredBody><component><section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.7.1" />
+          <entry>
+            <procedure classCode="PROC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.14" />
+              <id root="00000000-0000-0000-0000-0000000000c1" />
+              <code code="86900" codeSystem="2.16.840.1.113883.6.12" displayName="ABO TYPE" />
+              <statusCode code="completed" />
+              <effectiveTime value="20231022" />
+              <author>
+                <time value="20231022" />
+                <assignedAuthor>
+                  <id root="2.16.840.1.113883.19.5" extension="PAT-1" />
+                </assignedAuthor>
+              </author>
+            </procedure>
+          </entry>
+        </section></component></structuredBody></component>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="I1. the recorder is still emitted"
+      test="count(//fhir:Procedure/fhir:recorder) = 1" />
+    <x:expect label="I2. and it references the Patient entry"
+      test="count(//fhir:Procedure/fhir:recorder/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Patient]/fhir:fullUrl/@value]) = 1" />
+  </x:scenario>
+
 </x:description>

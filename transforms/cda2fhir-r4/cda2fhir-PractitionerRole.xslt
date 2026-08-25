@@ -36,8 +36,13 @@
          org-routed -> the role's first cda:id uuid (the role uuid was rewritten onto the
          organization, and the parent participation's uuid may carry a Provenance). Devices are not
          wrapped (PractitionerRole.practitioner cannot reference Device) - the reference side omits
-         them. -->
-    <xsl:template match="cda:author | cda:performer" mode="org-practitionerrole-entry">
+         them.
+         20260825 Claude (B15): match extended with cda:informant (Procedure.asserter now classifies
+         informant[1] with pPersonOnlyTargets) and cda:responsibleParty | cda:encounterParticipant
+         (Encounter.participant.individual only allows Practitioner|PractitionerRole|RelatedPerson in
+         eicr-encounter/us-ph-encounter 2.1.2, so org participations are wrapped the same way) -
+         keeping this match in step with rename-reference-participant's. -->
+    <xsl:template match="cda:author | cda:performer | cda:informant | cda:responsibleParty | cda:encounterParticipant" mode="org-practitionerrole-entry">
         <xsl:variable name="vKind" select="lcg:participation-target-kind(.)" />
         <xsl:variable name="vRole" select="(cda:assignedAuthor | cda:assignedEntity)[1]" />
         <xsl:choose>

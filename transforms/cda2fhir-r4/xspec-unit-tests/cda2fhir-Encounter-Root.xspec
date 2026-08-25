@@ -260,4 +260,88 @@
     <x:expect label="F6. the losing assigner (OTHER) appears nowhere"
       test="count(fhir:Encounter/fhir:identifier/fhir:assigner/fhir:display[@value = 'OTHER']) = 0" />
   </x:scenario>
+
+  <!-- 20260825 Claude (B15b): Encounter.participant.individual only allows
+       Practitioner|PractitionerRole|RelatedPerson (eicr-encounter 2.1.2 = us-ph-encounter 2.1.2;
+       us-core-encounter 3.1.1 allows us-core-practitioner only) - never Patient, Organization, or
+       Device. Every participation the Encounter body emits a participant for is now classified with
+       lcg:participation-target-kind: person/other unchanged; org-direct/org-routed reference a
+       companion org-only PractitionerRole (paired creation in the bundle-entry template, mode
+       org-practitionerrole-entry); device or patient-routed suppress the WHOLE participant (an empty
+       participant violates ele-1). The hollow author's ids here resolve to the patientRole, so the
+       uuid-routing phase lands it on the recordTarget - the new 'patient' kind; whole-document
+       context because only the document root runs routing. -->
+  <x:scenario label="G. participant classification: person kept, org wrapped as companion PractitionerRole, device and patient-routed participations fully suppressed">
+    <x:context select="/" xmlns="urn:hl7-org:v3">
+      <ClinicalDocument xmlns="urn:hl7-org:v3">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <recordTarget>
+          <patientRole>
+            <id root="2.16.840.1.113883.19.5" extension="PAT-7" />
+            <patient><name use="L"><given>Pat</given><family>Routed</family></name></patient>
+          </patientRole>
+        </recordTarget>
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <templateId root="2.16.840.1.113883.10.20.22.2.22.1" />
+                <title>Encounters</title>
+                <text />
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+        <componentOf>
+          <encompassingEncounter>
+            <id root="00000000-0000-0000-0000-00000000e0e0" />
+            <effectiveTime>
+              <low value="20240101" />
+            </effectiveTime>
+            <responsibleParty>
+              <assignedEntity>
+                <id root="2.16.840.1.113883.19.5555.10" extension="EP-DR-1" />
+                <assignedPerson><name><given>Rita</given><family>Responsible</family></name></assignedPerson>
+              </assignedEntity>
+            </responsibleParty>
+            <encounterParticipant typeCode="ATND">
+              <assignedEntity>
+                <id root="2.16.840.1.113883.19.5555.11" extension="EP-ORG-1" />
+                <representedOrganization><name>Participant Org Only</name></representedOrganization>
+              </assignedEntity>
+            </encounterParticipant>
+            <encounterParticipant typeCode="CON">
+              <assignedEntity>
+                <id root="2.16.840.1.113883.19.5555.12" extension="EP-DEV-1" />
+                <assignedAuthoringDevice>
+                  <manufacturerModelName>EncBot</manufacturerModelName>
+                  <softwareName>EncSoft</softwareName>
+                </assignedAuthoringDevice>
+              </assignedEntity>
+            </encounterParticipant>
+            <author>
+              <time value="20240101" />
+              <assignedAuthor>
+                <id root="2.16.840.1.113883.19.5" extension="PAT-7" />
+              </assignedAuthor>
+            </author>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+    </x:context>
+    <x:expect label="G1. exactly two participants survive: the person responsibleParty and the wrapped org encounterParticipant (device and patient-routed are suppressed whole)"
+      test="count(//fhir:Encounter/fhir:participant) = 2" />
+    <x:expect label="G2. the person participant individual points at a person-bearing PractitionerRole entry"
+      test="count(//fhir:Encounter/fhir:participant/fhir:individual/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[fhir:practitioner]]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="G3. the org participant individual points at a companion PractitionerRole with organization, the participation identifier, and NO practitioner"
+      test="count(//fhir:Encounter/fhir:participant/fhir:individual/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[not(fhir:practitioner)][fhir:organization][fhir:identifier/fhir:value/@value = 'EP-ORG-1']]/fhir:fullUrl/@value]) = 1" />
+    <x:expect label="G4. no participant individual points at any Organization entry"
+      test="count(//fhir:Encounter/fhir:participant/fhir:individual/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Organization]/fhir:fullUrl/@value]) = 0" />
+    <x:expect label="G5. no participant individual points at the Patient entry"
+      test="count(//fhir:Encounter/fhir:participant/fhir:individual/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Patient]/fhir:fullUrl/@value]) = 0" />
+    <x:expect label="G6. no participant individual points at any Device entry"
+      test="count(//fhir:Encounter/fhir:participant/fhir:individual/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Device]/fhir:fullUrl/@value]) = 0" />
+    <x:expect label="G7. ele-1 guard: every emitted participant carries an individual"
+      test="count(//fhir:Encounter/fhir:participant[not(fhir:individual)]) = 0" />
+  </x:scenario>
 </x:description>

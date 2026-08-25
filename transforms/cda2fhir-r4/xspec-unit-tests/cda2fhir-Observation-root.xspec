@@ -242,4 +242,99 @@
         <x:expect label="The hasMember references the non-suppressed member's uuid"
             test="count(fhir:Observation/fhir:hasMember/fhir:reference[@value = 'urn:uuid:80000000-0000-0000-0000-000000000003']) = 1" />
     </x:scenario>
+
+    <!-- 20260825 Claude (B15c): Observation.performer allows
+         Practitioner|PractitionerRole|Organization|CareTeam|Patient|RelatedPerson - NOT Device -
+         identically in R4 base, us-core-observation-lab 3.1.1, and the us-ph observation profiles
+         2.1.2. The performer call sites now pass pOmitDeviceTargets, which suppresses ONLY a
+         device-target performer (direct assignedAuthoringDevice, or a hollow participation routed to
+         a device) - the performer element is omitted whole, no empty wrapper (ele-1). Person and
+         person-less org performers emit exactly as before. Whole-document context so the bundle
+         pairing (entries) can be asserted. NOTE: MedicationRequest.performer and
+         ServiceRequest.performer keep device emission - their target lists include Device. -->
+    <x:scenario label="K. device performer omitted, org and person performers unchanged (pOmitDeviceTargets)">
+        <x:context select="/" xmlns="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <recordTarget>
+                    <patientRole>
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                        <patient><name use="L"><given>Ref</given><family>Case</family></name></patient>
+                    </patientRole>
+                </recordTarget>
+                <component><structuredBody><component><section>
+                    <templateId root="2.16.840.1.113883.10.20.22.2.3.1" />
+                    <entry>
+                        <organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" />
+                            <id root="00000000-0000-0000-0000-0000000000d0" />
+                            <code code="57021-8" codeSystem="2.16.840.1.113883.6.1" displayName="CBC panel" />
+                            <statusCode code="completed" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" />
+                                    <id root="00000000-0000-0000-0000-0000000000d1" />
+                                    <code code="718-7" codeSystem="2.16.840.1.113883.6.1" displayName="Hemoglobin" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20240101" />
+                                    <value xsi:type="PQ" value="13.2" unit="g/dL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+                                    <performer>
+                                        <assignedEntity>
+                                            <id root="2.16.840.1.113883.19.5555.20" extension="OBS-DEV-1" />
+                                            <assignedAuthoringDevice>
+                                                <manufacturerModelName>AutoAnalyzer</manufacturerModelName>
+                                                <softwareName>LabWare</softwareName>
+                                            </assignedAuthoringDevice>
+                                        </assignedEntity>
+                                    </performer>
+                                </observation>
+                            </component>
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" />
+                                    <id root="00000000-0000-0000-0000-0000000000d2" />
+                                    <code code="787-2" codeSystem="2.16.840.1.113883.6.1" displayName="MCV" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20240101" />
+                                    <value xsi:type="PQ" value="90" unit="fL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+                                    <performer>
+                                        <assignedEntity>
+                                            <id root="2.16.840.1.113883.19.5555.21" extension="OBS-ORG-1" />
+                                            <representedOrganization><name>Performing Lab Org</name></representedOrganization>
+                                        </assignedEntity>
+                                    </performer>
+                                </observation>
+                            </component>
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" />
+                                    <id root="00000000-0000-0000-0000-0000000000d3" />
+                                    <code code="785-6" codeSystem="2.16.840.1.113883.6.1" displayName="MCH" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20240101" />
+                                    <value xsi:type="PQ" value="30" unit="pg" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+                                    <performer>
+                                        <assignedEntity>
+                                            <id root="2.16.840.1.113883.19.5555.22" extension="OBS-DR-1" />
+                                            <assignedPerson><name><given>Perry</given><family>Performer</family></name></assignedPerson>
+                                        </assignedEntity>
+                                    </performer>
+                                </observation>
+                            </component>
+                        </organizer>
+                    </entry>
+                </section></component></structuredBody></component>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="K1. the DEVICE performer's observation has no performer element at all (omitted whole, not left empty)"
+            test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '718-7']/fhir:performer) = 0" />
+        <x:expect label="K2. a Device entry exists in the bundle (the omission is not vacuous) but no Observation performer points at it"
+            test="count(//fhir:entry[fhir:resource/fhir:Device]) ge 1 and count(//fhir:Observation/fhir:performer/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Device]/fhir:fullUrl/@value]) = 0" />
+        <x:expect label="K3. the person-less ORG performer still references its Organization entry (unchanged - Organization is a legal target)"
+            test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '787-2']/fhir:performer/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Organization[fhir:name/@value = 'Performing Lab Org']]/fhir:fullUrl/@value]) = 1" />
+        <x:expect label="K4. the PERSON performer still references its person-bearing PractitionerRole entry (unchanged)"
+            test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '785-6']/fhir:performer/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:PractitionerRole[fhir:practitioner]]/fhir:fullUrl/@value]) = 1" />
+        <x:expect label="K5. no performer anywhere is left without a reference (ele-1 guard)"
+            test="count(//fhir:Observation/fhir:performer[not(fhir:reference)]) = 0" />
+    </x:scenario>
 </x:description>

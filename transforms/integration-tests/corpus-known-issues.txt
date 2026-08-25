@@ -4,4 +4,14 @@
 # this file is the list of accepted open defects, and it should only shrink.
 # Each entry should correspond to an open defect item in the project's
 # codebase notes.
+samples/cda/20260424-COIVD/CDA_RR.xml	3	string-whitespace: Observation.extension.valueString value has trailing whitespace
+samples/cda/20260424-COIVD/CDA_RR.xml	1	string-whitespace: Observation.valueString value has trailing whitespace
+samples/cda/20260424-COIVD/CDA_RR_COVID19.xml	3	string-whitespace: Observation.extension.valueString value has trailing whitespace
+samples/cda/20260424-COIVD/CDA_RR_COVID19.xml	1	string-whitespace: Observation.valueString value has trailing whitespace
+samples/cda/20260424-Pertussis/CDA_RR.xml	1	string-whitespace: Observation.component.valueString value has trailing whitespace
+samples/cda/20260424-Pertussis/CDA_RR_Pertussis.xml	1	string-whitespace: Observation.component.valueString value has trailing whitespace
+samples/cda/20260424-Pertussis/CDA_eICR.xml	1	string-whitespace: Observation.valueString value has leading whitespace
+samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml	1	string-whitespace: Observation.valueString value has trailing whitespace
+samples/cda/eICR-R1_1/Test eICR (1).xml	2	string-whitespace: Practitioner.name.suffix value has leading whitespace
+samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	1	string-whitespace: Observation.referenceRange.text value has trailing whitespace
 samples/cda/eICR-R3_1/eICRscrubbedTN1_CDA.xml	1	v3-NullFlavor coding: Patient.extension.extension.valueCoding carries a NullFlavor code - the convention for absent data is a data-absent-reason extension

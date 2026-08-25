@@ -128,7 +128,10 @@
             </xsl:for-each>
 
             <!-- protocolApplied/doseNumberPositiveInt -->
-            <xsl:for-each select="cda:repeatNumber">
+            <!-- 20260824 Claude (B1): restrict to repeatNumber[@value] - the IVL_INT low/high form
+                 has no @value and would emit doseNumberPositiveInt value="" inside an otherwise
+                 empty protocolApplied (ele-1). -->
+            <xsl:for-each select="cda:repeatNumber[@value]">
                 <protocolApplied>
                     <doseNumberPositiveInt>
                         <xsl:attribute name="value" select="@value" />

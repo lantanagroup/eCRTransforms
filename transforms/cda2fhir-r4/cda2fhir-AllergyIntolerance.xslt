@@ -154,13 +154,18 @@
             <code>
                 <xsl:for-each select="cda:participantRole/cda:playingEntity/cda:code[not(@nullFlavor)]">
                     <coding>
-                        <system>
-                            <xsl:attribute name="value">
-                                <xsl:call-template name="convertOID">
-                                    <xsl:with-param name="oid" select="@codeSystem" />
-                                </xsl:call-template>
-                            </xsl:attribute>
-                        </system>
+                        <!-- 20260824 Claude (B1): only emit <system> when @codeSystem is present -
+                             convertOID('') returns '' and a bare <system value=""/> is invalid.
+                             A Coding without system is legal. -->
+                        <xsl:if test="@codeSystem">
+                            <system>
+                                <xsl:attribute name="value">
+                                    <xsl:call-template name="convertOID">
+                                        <xsl:with-param name="oid" select="@codeSystem" />
+                                    </xsl:call-template>
+                                </xsl:attribute>
+                            </system>
+                        </xsl:if>
                         <code value="{@code}" />
                         <xsl:if test="@displayName">
                             <display value="{@displayName}" />

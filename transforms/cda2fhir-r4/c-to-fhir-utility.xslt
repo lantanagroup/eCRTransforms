@@ -890,8 +890,19 @@
            'org-direct' - person-less with a representedOrganization directly on the role element
            'org-routed' - HOLLOW (ids only) and update-referenced-actor-uuids rewrote its uuid onto an
                           organization element elsewhere in the document (*Organization* by local-name)
+           'patient'    - HOLLOW and routed onto the recordTarget (route-matched-participation-uuid
+                          redirects a patientRole match to its recordTarget parent, where the Patient
+                          resource lives) - 20260825 Claude (B15): needed by Encounter.participant,
+                          whose individual cannot reference Patient; person-only sites
+                          (Procedure.recorder, Condition/Procedure.asserter) still EMIT for this kind,
+                          because Patient is a legal target there (the rename template below has no
+                          'patient' branch, so it falls through to the plain role-uuid reference)
            'other'      - everything else, including an unmatched hollow participation (lcg:unmatched,
                           item 41 - its target is the identifier-only Practitioner)
+         Accepts any participation wrapping an assignedAuthor or assignedEntity: author, performer,
+         informant (20260825, B15a - Procedure.asserter), responsibleParty, encounterParticipant
+         (20260825, B15b - Encounter.participant; note only hollow assignedAuthor is ever REWRITTEN by
+         update-referenced-actor-uuids, so routed kinds can only arise on author participations).
          Used by the rename-reference-participant template below and by the companion
          org-practitionerrole-entry template in cda2fhir-PractitionerRole.xslt, so the reference side
          and the creation side can never disagree about a participation's kind. -->
@@ -907,6 +918,8 @@
                 <xsl:choose>
                     <xsl:when test="$vTargets[contains(local-name(), 'Organization')]">org-routed</xsl:when>
                     <xsl:when test="$vTargets[self::cda:assignedAuthoringDevice]">device</xsl:when>
+                    <!-- 20260825 Claude (B15): routed onto the recordTarget - the Patient resource -->
+                    <xsl:when test="$vTargets[self::cda:recordTarget]">patient</xsl:when>
                     <xsl:otherwise>other</xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -941,12 +954,31 @@
                          and a routed participation always has ids - that is what it was matched by)
          A DEVICE (direct or routed) cannot be wrapped this way (PractitionerRole.practitioner
          cannot reference Device) and is OMITTED - these elements are 0..1. 'person' and 'other'
-         (incl. unmatched, item 41) emit exactly as before. -->
-    <xsl:template match="cda:author | cda:performer" mode="rename-reference-participant">
+         (incl. unmatched, item 41) emit exactly as before.
+         20260825 Claude (B15):
+         - match extended with cda:informant (Procedure.asserter applies informant[1] here; it used
+           to fall through to XSLT built-in rules, which copied the informant's TEXT into the
+           Procedure), and with cda:responsibleParty | cda:encounterParticipant so the
+           Encounter.participant loop can classify/wrap through this same template.
+         - pOmitDeviceTargets: opt-in for call sites whose FHIR element allows Organization but NOT
+           Device (Observation.performer: Practitioner|PractitionerRole|Organization|CareTeam|
+           Patient|RelatedPerson in R4 base, us-core-observation-lab 3.1.1 and the us-ph observation
+           profiles 2.1.2 alike). It suppresses ONLY the device-target emission - the direct
+           assignedAuthoringDevice branch and a hollow participation routed to a device - leaving
+           person/org/patient/other behavior exactly as before (the org-wrap branches below stay
+           gated on pPersonOnlyTargets). Do NOT pass it for MedicationRequest.performer or
+           ServiceRequest.performer - their R4/us-core target lists include Device.
+         - 'patient' kind (hollow author routed to the recordTarget) deliberately has NO branch
+           here: it falls through to the plain role-uuid reference, so person-only sites
+           (Procedure.recorder / asserter, Condition.asserter) still emit a Patient reference -
+           Patient is in their target lists. Sites that cannot take Patient (Encounter.participant)
+           suppress the whole wrapper at the call site before applying this template. -->
+    <xsl:template match="cda:author | cda:performer | cda:informant | cda:responsibleParty | cda:encounterParticipant" mode="rename-reference-participant">
         <xsl:param name="pElementName" />
         <xsl:param name="pParticipantType" />
         <xsl:param name="pPersonOnlyTargets" select="false()" />
-        <xsl:variable name="vKind" select="if ($pPersonOnlyTargets) then lcg:participation-target-kind(.) else ''" />
+        <xsl:param name="pOmitDeviceTargets" select="false()" />
+        <xsl:variable name="vKind" select="if ($pPersonOnlyTargets or $pOmitDeviceTargets) then lcg:participation-target-kind(.) else ''" />
         <xsl:choose>
             <!-- Returns the uuid for just the Organization because some references require Organization -->
             <xsl:when test="$pParticipantType = 'organization'">
@@ -962,14 +994,14 @@
             </xsl:when>
             <!-- person-only call sites: an Organization target becomes a reference to the companion
                  org-only PractitionerRole; a Device target is omitted -->
-            <xsl:when test="$vKind = 'org-direct'">
+            <xsl:when test="$pPersonOnlyTargets and $vKind = 'org-direct'">
                 <xsl:element name="{$pElementName}">
                     <xsl:element name="reference">
                         <xsl:attribute name="value">urn:uuid:<xsl:value-of select="cda:*[cda:representedOrganization]/@lcg:uuid" /></xsl:attribute>
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
-            <xsl:when test="$vKind = 'org-routed'">
+            <xsl:when test="$pPersonOnlyTargets and $vKind = 'org-routed'">
                 <xsl:element name="{$pElementName}">
                     <xsl:element name="reference">
                         <xsl:attribute name="value">urn:uuid:<xsl:value-of select="(cda:assignedAuthor | cda:assignedEntity)[1]/cda:id[1]/@lcg:uuid" /></xsl:attribute>

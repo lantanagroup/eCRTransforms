@@ -71,9 +71,15 @@
                                 <system>
                                     <xsl:attribute name="value" select="concat('urn:oid:', @root)" />
                                 </system>
-                                <value>
-                                    <xsl:attribute name="value" select="@extension" />
-                                </value>
+                                <!-- 20260824 Claude (B1): only emit <value> when @extension is
+                                     present - an id with @root only would emit value="".
+                                     Identifier with system only is valid. Same pattern in the
+                                     RelatedPerson block below. -->
+                                <xsl:if test="@extension">
+                                    <value>
+                                        <xsl:attribute name="value" select="@extension" />
+                                    </value>
+                                </xsl:if>
                             </identifier>
                         </xsl:for-each>
                         <xsl:apply-templates select="cda:subject/cda:name" />
@@ -97,9 +103,11 @@
                                 <system>
                                     <xsl:attribute name="value" select="concat('urn:oid:', @root)" />
                                 </system>
-                                <value>
-                                    <xsl:attribute name="value" select="@extension" />
-                                </value>
+                                <xsl:if test="@extension">
+                                    <value>
+                                        <xsl:attribute name="value" select="@extension" />
+                                    </value>
+                                </xsl:if>
                             </identifier>
                         </xsl:for-each>
                         <patient>

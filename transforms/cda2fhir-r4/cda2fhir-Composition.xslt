@@ -210,11 +210,24 @@
           <xsl:apply-templates select="cda:assignedAuthor" mode="reference" />
         </author>
       </xsl:for-each>
+      <!-- 20260902 Claude (register B1-complex, SG decision 2026-09-02): Composition.title is 1..1
+           in both eicr-composition and rr-composition, so the omit-when-absent convention is
+           unavailable and the unguarded value-of emitted value="" when ClinicalDocument/title was
+           absent, empty, or null-flavored without text (latent - zero corpus reachability). SG's
+           fallback: always "Initial Public Health Case Report". A real title passes through
+           byte-for-byte, exactly as before. -->
+      <xsl:choose>
+        <xsl:when test="normalize-space(cda:title)">
       <title>
         <xsl:attribute name="value">
           <xsl:value-of select="cda:title" />
         </xsl:attribute>
       </title>
+        </xsl:when>
+        <xsl:otherwise>
+          <title value="Initial Public Health Case Report" />
+        </xsl:otherwise>
+      </xsl:choose>
       <!-- Composition.confidentiality is deprecated IN R5. 
                 eCR is R4.
                 For R5 Use Composition.meta.security instead with a code from http://terminology.hl7.org/ValueSet/v3-ConfidentialityClassification -->

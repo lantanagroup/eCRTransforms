@@ -137,4 +137,85 @@
             test="count(fhir:Observation/fhir:effectivePeriod/fhir:start) = 0" />
     </x:scenario>
 
+    <!-- 20260902 Claude (SG decision 2026-09-02, seen live in eICRTN2Scrubbed): an emergency-contact
+         (ECON) participant with NO telecom/addr is NOT wrong in the CDA - unlike the guardian, where
+         those elements are stipulated and absence is the implementer's problem (055 stands there).
+         us-ph-patient still demands contact.telecom 1..* and contact.address 1..1, so the truly-absent
+         ECON case gets DARs on the LOWER-LEVEL primitives (the contact-level DAR slices are fixed to
+         'masked', reserved for explicit MSK). Probed on TN2: address string parts validate clean;
+         every 'use' is dropped (required binding rejects a bare DAR); telecom.system DEFAULTS to
+         'phone' (SG's same-day revision of a first-draft system DAR that cost one binding error
+         per contact) with the DAR on telecom.value. AND (SG, same day): byte-identical ECON
+         participants collapse to ONE contact, first in document order - TN2 carries FIVE identical
+         ones; the grouping key is everything the mapping emits, so contacts differing in any mapped
+         datum all survive. Negative control 2026-09-02: the pre-fix (520395a) stylesheet fails
+         E1/E2 (the fallbacks) and E8 (the dedupe); E3-E5 are shape pins and E6/E7 guardian pins
+         that hold in both states - they guard against the WRONG fix, not its absence (a top-level
+         masked DAR trips E4; a 'use' in the fallback trips E3; a bare empty primitive trips E5;
+         the retired system-DAR draft trips E1). -->
+    <x:scenario label="ECON contact: truly-absent telecom/addr get lower-level DARs, identical ECONs collapse; the guardian gets neither">
+        <x:context select="//cda:recordTarget" xmlns="urn:hl7-org:v3">
+            <ClinicalDocument xmlns="urn:hl7-org:v3">
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <recordTarget>
+                    <patientRole>
+                        <id root="2.16.840.1.113883.19.5" extension="12345" />
+                        <patient>
+                            <name use="L"><given>Econ</given><family>Fallback</family></name>
+                            <guardian>
+                                <guardianPerson>
+                                    <name><given>Bare</given><family>Guardian</family></name>
+                                </guardianPerson>
+                            </guardian>
+                        </patient>
+                    </patientRole>
+                </recordTarget>
+                <participant typeCode="IND">
+                    <associatedEntity classCode="ECON">
+                        <id root="2.16.840.1.113883.19.2454.32" extension="5783986" />
+                        <associatedPerson>
+                            <name><given nullFlavor="NI" /><family nullFlavor="NI" /></name>
+                        </associatedPerson>
+                    </associatedEntity>
+                </participant>
+                <participant typeCode="IND">
+                    <associatedEntity classCode="ECON">
+                        <id root="2.16.840.1.113883.19.2454.32" extension="5783986" />
+                        <associatedPerson>
+                            <name><given nullFlavor="NI" /><family nullFlavor="NI" /></name>
+                        </associatedPerson>
+                    </associatedEntity>
+                </participant>
+                <participant typeCode="IND">
+                    <associatedEntity classCode="ECON">
+                        <id root="2.16.840.1.113883.19.2454.32" extension="999" />
+                        <addr><streetAddressLine>1 Main St</streetAddressLine><city>Nashville</city><state>TN</state><postalCode>37201</postalCode></addr>
+                        <telecom value="tel:+1-555-867-5309" />
+                        <associatedPerson>
+                            <name><given>Distinct</given><family>Contact</family></name>
+                        </associatedPerson>
+                    </associatedEntity>
+                </participant>
+            </ClinicalDocument>
+        </x:context>
+        <x:expect label="E1. the ECON contact gets one fallback telecom: system defaults to 'phone', value carries DAR unknown"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'C']/fhir:telecom[fhir:system/@value = 'phone'][fhir:value/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown']) = 1" />
+        <x:expect label="E2. the ECON contact gets one fallback address with DARs on all five string parts"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'C']/fhir:address[fhir:line/fhir:extension/fhir:valueCode/@value = 'unknown'][fhir:city/fhir:extension/fhir:valueCode/@value = 'unknown'][fhir:state/fhir:extension/fhir:valueCode/@value = 'unknown'][fhir:postalCode/fhir:extension/fhir:valueCode/@value = 'unknown'][fhir:country/fhir:extension/fhir:valueCode/@value = 'unknown']) = 1" />
+        <x:expect label="E3. no 'use' is emitted anywhere in the fallback (required bindings cannot carry a bare DAR)"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'C']//fhir:use) = 0" />
+        <x:expect label="E4. no contact-level DAR is invented - 'masked' stays reserved for explicit MSK"
+            test="count(fhir:Patient/fhir:contact/fhir:telecom/fhir:extension) + count(fhir:Patient/fhir:contact/fhir:address/fhir:extension) = 0" />
+        <x:expect label="E5. no bare empty primitives - every valueless address part carries its DAR"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'C']/fhir:address/*[not(fhir:extension) and not(@value)]) = 0" />
+        <x:expect label="E6. the guardian contact gets NO fallback telecom (its absence is the implementer signal)"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'GUARD']/fhir:telecom) = 0" />
+        <x:expect label="E7. the guardian contact gets NO fallback address either"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'GUARD']/fhir:address) = 0" />
+        <x:expect label="E8. three ECON participants (two byte-identical) produce exactly TWO contacts - identical ones collapse, first survives"
+            test="count(fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code/@value = 'C']) = 2" />
+        <x:expect label="E9. the distinct ECON keeps its real data untouched - no fallback leaks into it"
+            test="count(fhir:Patient/fhir:contact[fhir:name/fhir:family/@value = 'Contact'][fhir:telecom/fhir:value/@value = '+1-555-867-5309'][fhir:address/fhir:city/@value = 'Nashville'][not(.//fhir:extension)]) = 1" />
+    </x:scenario>
+
 </x:description>

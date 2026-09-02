@@ -137,7 +137,15 @@
             </xsl:for-each>
 
             <!-- SG 20240321: Add emergency contact -->
-            <xsl:for-each select="/cda:ClinicalDocument/cda:participant[@typeCode = 'IND']/cda:associatedEntity[@classCode = 'ECON']">
+            <!-- 20260902 Claude (SG decision 2026-09-02, seen live in eICRTN2Scrubbed, which carries
+                 FIVE byte-identical ECON participants): identical emergency contacts collapse to ONE,
+                 the first in document order surviving - the contact analogue of the identifier
+                 dedupe policy. Identity = everything the mapping emits (ids, person-name text,
+                 telecom value/use, addr text/use), so two ECONs that would produce the same contact
+                 collapse and any that differ in any mapped datum all survive. -->
+            <xsl:for-each-group
+                select="/cda:ClinicalDocument/cda:participant[@typeCode = 'IND']/cda:associatedEntity[@classCode = 'ECON']"
+                group-by="string-join((for $vNode in (cda:id/@root, cda:id/@extension, cda:associatedPerson/cda:name//text()[normalize-space()], cda:telecom/@value, cda:telecom/@use, cda:addr//text()[normalize-space()], cda:addr/@use) return normalize-space($vNode)), '|')">
                 <contact>
                     <relationship>
                         <coding>
@@ -149,9 +157,64 @@
                          MSK passes through (faithful masked), any other nullFlavor is omitted -->
                     <xsl:apply-templates select="cda:associatedPerson/cda:name" />
                     <xsl:apply-templates select="cda:telecom" />
+                    <!-- 20260902 Claude (SG decision 2026-09-02, seen live in eICRTN2Scrubbed): an
+                         emergency-contact participant with NO telecom/addr in the CDA is NOT wrong -
+                         the CDA does not require them on an ECON participant (unlike the guardian,
+                         where absence IS an implementer signal and no fallback is added). But
+                         us-ph-patient makes contact.telecom 1..* and contact.address 1..1, so a
+                         truly-absent one gets DARs on the LOWER-LEVEL primitives - the contact-level
+                         DAR slices are fixed to 'masked', which the policy reserves for explicit MSK.
+                         Probed on TN2 2026-09-02: the string parts (address line/city/state/
+                         postalCode/country, telecom value) validate clean; the code parts with
+                         REQUIRED bindings (telecom.system/use, address.use) cannot carry a bare DAR
+                         without a "code is required from the value set" error, so per SG: 'use' is
+                         dropped entirely, and telecom.system DEFAULTS to 'phone' (SG's revision,
+                         same day, replacing a first-draft DAR that cost one binding error per
+                         contact; a value-only telecom fails cpt-2 instead). The one asserted code
+                         is SG's mapping decision, like the Composition.title constant.
+                         A PRESENT-but-null-flavored telecom/addr keeps its item-055 handling. -->
+                    <xsl:if test="not(cda:telecom)">
+                        <telecom>
+                            <system value="phone" />
+                            <value>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </value>
+                        </telecom>
+                    </xsl:if>
                     <xsl:apply-templates select="cda:addr[not(@nullFlavor) or @nullFlavor = 'MSK']" />
+                    <xsl:if test="not(cda:addr)">
+                        <address>
+                            <line>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </line>
+                            <city>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </city>
+                            <state>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </state>
+                            <postalCode>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </postalCode>
+                            <country>
+                                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                                    <valueCode value="unknown" />
+                                </extension>
+                            </country>
+                        </address>
+                    </xsl:if>
                 </contact>
-            </xsl:for-each>
+            </xsl:for-each-group>
 
             <!-- Communication:  TODO - add extension patient-proficiency modeCode -> proficieny.type, proficiency.level -->
             <!-- 20260821 Claude (item 054): the coding was emitted unconditionally, so a languageCommunication

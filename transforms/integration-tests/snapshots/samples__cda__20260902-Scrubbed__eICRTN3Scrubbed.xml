@@ -1,0 +1,3610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 1592-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="eICR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2024-08-22T11:56:05+00:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2:2022-05-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> UUID002</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">August 22, 2024, 11:56:05, UTC+00:00 </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value">Sterling Ellsworth</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>5187 Trellis St<br/>Underhill, TN 37265, US<br/>Mail:  nolan.oakhurst@example.com<br/>Tel (Work Place):  +1-865-555-0194<br/>Fax (Work Place):  +1-423-555-0131<br/>Tel (Work Place):  +1-865-555-0194<br/>Tel (Work Place):  +1-865-555-0194<br/>Fax (Work Place):  +1-423-555-0131<br/>Tel (Work Place):  +1-865-555-0194<br/>Fax (Work Place):  +1-423-555-0131<br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value">Westbrook EHR</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">
+                              <br/>
+                              <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">151737099 9516020713 2.16.840.1.113883.4.873 2.16.840.1.113883.4.6.57</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">ambulatory</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From April 17, 2024, 18:15:00, UTC+00:00  to April 18, 2024, 04:20:00, UTC+00:00 </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value">Ivorly Health Partners of </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">Sterling Ellsworth of Ivorly Health Partners</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>5187 Trellis St<br/>Underhill, TN 37265, US<br/>Mail:  nolan.oakhurst@example.com<br/>Tel (Work Place):  +1-865-555-0194<br/>Fax (Work Place):  +1-423-555-0131<br/>Tel (Work Place):  +1-865-555-0194<br/>Tel (Work Place):  +1-865-555-0194<br/>Fax (Work Place):  +1-423-555-0131<br/>Tel (Work Place):  +1-865-555-0194<br/>Fax (Work Place):  +1-423-555-0131<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--participant-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">  , <br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">Ivorly Health Partners</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>5236 Alder Ln<br/>4516 Kestrel Way Bldg 13<br/>Bellhaven, TN 38433-7301, USA<br/>Fax (Work Place):  +1-423-555-0131<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="1"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6921.97"/>
+               <value value="92865182|091887159"/>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID004"/>
+            </encounter>
+            <date value="2024-08-22T11:56:05+00:00"/>
+            <author>
+               <reference value="urn:uuid:UUID005"/>
+            </author>
+            <author>
+               <reference value="urn:uuid:UUID006"/>
+            </author>
+            <title value="Initial Public Health Case Report"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID007"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:UUID008"/>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="PROBLEMS"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11450-4"/>
+                     <display value="Problem list - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="3.1.2"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://snomed.info/sct"/>
+                           <code value="40468003"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID012"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID015"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID016"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID017"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID018"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID019"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID020"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID021"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID022"/>
+               </entry>
+            </section>
+            <section>
+               <title value="MEDICATIONS ADMINISTERED"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29549-3"/>
+                     <display value="Medication administered Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+            </section>
+            <section>
+               <title value="Admission Medications"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="42346-7"/>
+                     <display value="Medications on Admission"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+            </section>
+            <section>
+               <title value="IMMUNIZATIONS"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11369-6"/>
+                     <display value="History of Immunization note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID023"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID024"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID025"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID026"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID027"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID028"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID029"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID030"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID031"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID032"/>
+               </entry>
+            </section>
+            <section>
+               <title value="RESULTS"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="30954-2"/>
+                     <display value="Relevant diagnostic tests/laboratory data note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+               <entry>
+                  <reference value="urn:uuid:UUID033"/>
+               </entry>
+            </section>
+            <section>
+               <title value="CHIEF COMPLAINT"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10154-3"/>
+                     <display value="Chief complaint Narrative - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>[Narrative removed during de-identification]</p>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="SOCIAL HISTORY"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29762-2"/>
+                     <display value="Social history note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.212-->
+               <!--2.16.840.1.113883.10.20.22.4.212:2017-11-30-->
+               <entry>
+                  <reference value="urn:uuid:UUID034"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Pregnancy Section"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="90767-5"/>
+                     <display value="Pregnancy summary Document"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+               <!--2.16.840.1.113883.10.20.15.3.8-->
+               <!--2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID035"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Vital Signs"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="8716-3"/>
+                     <display value="Vital signs note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+            </section>
+            <section>
+               <title value="PAST MEDICAL HISTORY"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11348-0"/>
+                     <display value="Past Medical History"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="95%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID036"/>
+               </entry>
+            </section>
+            <section>
+               <title value="History of Present Illness"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10164-2"/>
+                     <display value="History of Present illness Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Reason For Visit"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29299-5"/>
+                     <display value="Reason For Visit"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID003"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>Northcote, Elena W</h1>
+                  <p>Telecom: tel:+1-615-555-0111</p>
+                  <p>Telecom: tel:+1-423-555-0145</p>
+                  <p>Telecom: tel:+1-615-555-0119</p>
+                  <p>Telecom: tel:+1-901-555-0147</p>
+                  <p>Telecom: mailto:felix.oakhurst@example.com</p>
+                  <p>Telecom: mailto:giselle.oakhurst@example.com</p>
+                  <p>Address: 1376 Pinehurst Rd<br/>Bellhaven<br/>Sedgewick<br/>TN<br/>37992<br/>US</p>
+                  <p>Address: <br/>
+                     <br/>
+                     <br/>
+                     <br/>
+                     <br/>US</p>
+                  <p>Gender: F</p>
+                  <p>Birthdate: 1968-03-10</p>
+                  <p>Language: en</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2106-3"/>
+                     <display value="White"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="White"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
+               <valueCode value="F"/>
+            </extension>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="08245370"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.1881.53"/>
+               <value value="37355715"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2540.20"/>
+               <value value="7133489"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.8808.82"/>
+               <value value="20097"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.7119.50"/>
+               <value value="8964392"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6164.69"/>
+               <value value="497735"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.6.47"/>
+               <value value="006469443"/>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Northcote"/>
+               <given value="Elena"/>
+               <given value="W"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0111"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0145"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0119"/>
+               <use value="home"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-901-555-0147"/>
+               <use value="mobile"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="felix.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="giselle.oakhurst@example.com"/>
+            </telecom>
+            <gender value="female"/>
+            <birthDate value="1968-03-10"/>
+            <deceasedBoolean value="false"/>
+            <address>
+               <use value="home"/>
+               <line value="1376 Pinehurst Rd"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="37992"/>
+               <country value="US"/>
+            </address>
+            <address>
+               <line>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </line>
+               <city>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </city>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </state>
+               <postalCode>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </postalCode>
+               <country value="US"/>
+            </address>
+            <maritalStatus>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.1.11.12212"/>
+                  <code value="M"/>
+                  <display value="Married"/>
+               </coding>
+            </maritalStatus>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                     <code value="GUARD"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <family value="Vauxhall"/>
+                  <given value="Silas"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-423-555-0138"/>
+                  <use value="work"/>
+               </telecom>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-423-555-0138"/>
+                  <use value="home"/>
+               </telecom>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-423-555-0103"/>
+                  <use value="mobile"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <telecom>
+                  <system value="email"/>
+                  <value value="lowell.yarborough@example.com"/>
+               </telecom>
+               <address>
+                  <use value="work"/>
+                  <line value="8410 Umber Rd"/>
+                  <city value="Oakhurst"/>
+                  <district value="Tarleton"/>
+                  <state value="TN"/>
+                  <postalCode value="37086"/>
+                  <country value="US"/>
+               </address>
+            </contact>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v2-0131"/>
+                     <code value="C"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <family>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </family>
+                  <given>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </given>
+                  <prefix>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </prefix>
+                  <suffix>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </suffix>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </value>
+               </telecom>
+               <address>
+                  <line>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </line>
+                  <city>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </city>
+                  <state>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </state>
+                  <postalCode>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </postalCode>
+                  <country>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </country>
+               </address>
+            </contact>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+               <preferred value="true"/>
+            </communication>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID037"/>
+            </managingOrganization>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID037"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="08245370"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.1881.53"/>
+               <value value="37355715"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2540.20"/>
+               <value value="7133489"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.8808.82"/>
+               <value value="20097"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.7119.50"/>
+               <value value="8964392"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6164.69"/>
+               <value value="497735"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.6.47"/>
+               <value value="006469443"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="cku:xpd:4.40.767.0.475891.4.909.921.536.5508"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Ivorly Health Partners"/>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5236 Alder Ln"/>
+               <line value="4516 Kestrel Way Bldg 13"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="38433-7301"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2022-05-01']/componentOf/encompassingEncounter-->
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <table border="1" width="100%">
+                     <thead>
+                        <tr>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>...</p>
+               </div>
+            </text>
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="151737099"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.6.57"/>
+               <value value="9516020713"/>
+            </identifier>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="9516020713"/>
+               <assigner>
+                  <display value="AN"/>
+               </assigner>
+            </identifier>
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="AMB"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="AMB"/>
+                  <display value="ambulatory"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID038"/>
+               </individual>
+            </participant>
+            <participant>
+               <individual>
+                  <reference value="urn:uuid:UUID039"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2024-04-17T18:15:00+00:00"/>
+               <end value="2024-04-18T04:20:00+00:00"/>
+            </period>
+            <hospitalization>
+               <dischargeDisposition>
+                  <coding>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </coding>
+               </dischargeDisposition>
+            </hospitalization>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID040"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID041"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID038"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.4.873"][@extension="151737099"]][cda:id[@root="2.16.840.1.113883.4.6.57"][@extension="9516020713"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1359053864"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1359053864"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID042"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID043"/>
+            </organization>
+            <telecom>
+               <system value="email"/>
+               <value value="nolan.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID042"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1359053864"/>
+            </identifier>
+            <name>
+               <family value="Ellsworth"/>
+               <given value="Sterling"/>
+            </name>
+            <telecom>
+               <system value="email"/>
+               <value value="nolan.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5187 Trellis St"/>
+               <city value="Underhill"/>
+               <district value="Glasspool"/>
+               <state value="TN"/>
+               <postalCode value="37265"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID043"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="cku:xpd:4.40.767.0.475891.4.909.921.536.5508"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Ivorly Health Partners"/>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5236 Alder Ln"/>
+               <line value="4516 Kestrel Way Bldg 13"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="38433-7301"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID039"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.4.873"][@extension="151737099"]][cda:id[@root="2.16.840.1.113883.4.6.57"][@extension="9516020713"]]/encounterParticipant/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1359053864"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1359053864"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID044"/>
+            </practitioner>
+            <telecom>
+               <system value="email"/>
+               <value value="nolan.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID044"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1359053864"/>
+            </identifier>
+            <name>
+               <family value="Ellsworth"/>
+               <given value="Sterling"/>
+            </name>
+            <telecom>
+               <system value="email"/>
+               <value value="nolan.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5187 Trellis St"/>
+               <city value="Underhill"/>
+               <district value="Glasspool"/>
+               <state value="TN"/>
+               <postalCode value="37265"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID040"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2022-05-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="Vfwzabvxriaa/9004580/_zsqudtt/1"/>
+            </identifier>
+            <name value="Ivorly Health Partners"/>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="OF"/>
+                  <display value="Outpatient Facility"/>
+               </coding>
+            </type>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5236 Alder Ln"/>
+               <line value="4516 Kestrel Way Bldg 13"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="38433-7301"/>
+               <country value="USA"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID041"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="Vfwzabvxriaa/9004580/_zsqudtt/1"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="cku:xpd:4.40.767.0.475891.4.909.921.536.5508"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Ivorly Health Partners"/>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5236 Alder Ln"/>
+               <line value="4516 Kestrel Way Bldg 13"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="38433-7301"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID045"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-08-22T11:56:05+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID039"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1359053864"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1359053864"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID046"/>
+            </practitioner>
+            <telecom>
+               <system value="email"/>
+               <value value="nolan.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID046"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1359053864"/>
+            </identifier>
+            <name>
+               <family value="Ellsworth"/>
+               <given value="Sterling"/>
+            </name>
+            <telecom>
+               <system value="email"/>
+               <value value="nolan.oakhurst@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-865-555-0194"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5187 Trellis St"/>
+               <city value="Underhill"/>
+               <district value="Glasspool"/>
+               <state value="TN"/>
+               <postalCode value="37265"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID047"/>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <deviceName>
+               <name value="Fairholm EHR"/>
+               <type value="model-name"/>
+            </deviceName>
+            <version>
+               <value value="Westbrook EHR"/>
+            </version>
+            <location>
+               <reference value="urn:uuid:UUID048"/>
+            </location>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID048"/>
+      <resource>
+         <Location>
+            <name>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </name>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address>
+               <line>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </line>
+               <city>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </city>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </state>
+               <postalCode>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </postalCode>
+               <country>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </country>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="cku:xpd:4.40.767.0.475891.4.909.921.536.5508"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Ivorly Health Partners"/>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-423-555-0131"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5236 Alder Ln"/>
+               <line value="4516 Kestrel Way Bldg 13"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="38433-7301"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID049"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID008"/>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6921.97"/>
+               <value value="92865182|091887159:1"/>
+            </identifier>
+            <status value="superseded"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:2.16.840.1.113883.19.6921.97:1"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID050"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-04-17T18:15:00+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID005"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID051"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-08-22T11:56:05+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID006"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID052"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-08-22T11:56:05+00:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID049"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID033"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                     <b>No test reported</b>
+                  </p>
+               </div>
+            </text>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+                  <display value="Laboratory"/>
+               </coding>
+               <text value="Laboratory"/>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <valueQuantity>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </valueQuantity>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="ovvrb://dkha-ezx.kljcfbawfsjwv.idj/u5/hx876f71-2l30-281m-jf07-r2ssz8641434/trazeamsa/k250768744/_wtxsnit"/>
+               <value value="695186295"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="40468003"/>
+                  <display value="Viral hepatitis, type A (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="ovvrb://dkha-ezx.kljcfbawfsjwv.idj/u5/hx876f71-2l30-281m-jf07-r2ssz8641434/Trazeamsa/k250768744/_wtxsnit/695186295"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="40468003"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="ykakj://gaua-kyi.yglmyxkqtechu.flb/x9/qr975c16-9e75-102k-yb99-w4rhb8024553/fmjcgxurd/l601771865/_ifxbpyp"/>
+               <value value="891923549"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="38341003"/>
+                  <display value="Hypertensive disorder, systemic arterial (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="ptapo://uiye-csn.lufqknxynzker.sua/s1/cj472i12-9i89-406j-dc37-f1xwl0598067/auecafbdy/v435470405/_trsfhlb"/>
+               <value value="401433529"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="444316004"/>
+                  <display value="Seasonal allergy (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="qlxna://tykw-fmb.wkycsbucajqaj.ncu/c6/vw818j00-0h13-959q-px01-t6bmz5448194/daigmbwhk/y387152056/_dhaymws"/>
+               <value value="382354602"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="193031009"/>
+                  <display value="Cluster headache syndrome (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="ojrvo://gqko-kyu.qhpaxrkudvdzp.oxk/p0/ib864v01-3j41-951b-ml09-c9vye8517662/szvvsnhmh/a917852182/_cbnmmbe"/>
+               <value value="475178439"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="3424008"/>
+                  <display value="Tachycardia (finding)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="fctat://daaf-lga.gvqwnpxxarerk.jem/r4/jp107p20-6v65-639v-xv06-x8cwe0023470/tqfhtebqn/c385668520/_zmiiapi"/>
+               <value value="053024974"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="34713006"/>
+                  <display value="Vitamin D deficiency (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="vxxoj://tcev-veq.qdyohtilrgrzo.yvm/d8/tv110y87-8f40-509b-ec89-c3kwt9838697/vdjolvgpt/g510785287/_wtbjpyn"/>
+               <value value="525364998"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="72863001"/>
+                  <display value="Snoring (finding)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="ecfew://ktfi-aai.newucubfercue.ytf/t7/at598b20-3s26-767a-zr45-k5oag2341639/yfotltbrf/w403086238/_droiqwx"/>
+               <value value="787920818"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="111287006"/>
+                  <display value="Tricuspid valve regurgitation (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="shbif://icam-byy.znivzhzkyezqz.qcl/q1/ri448j08-9b64-008d-nv62-a2yjf4432602/kiuaegxpu/c109419175/_nxsbwgw"/>
+               <value value="312816030"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="161891005"/>
+                  <display value="Backache (finding)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="uafoc://tecx-xrn.cgutysyyokqgw.hxk/a0/va083u67-5u63-679b-hu40-h2vcl9697084/lvxqllnyz/l355416425/_fjubmjz"/>
+               <value value="606361257"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="235595009"/>
+                  <display value="Gastroesophageal reflux disease (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="jvmpe://fqom-feb.ddkaeossslxfd.acc/x6/vy035b91-9h46-495n-lc31-l6rjd1328477/wlkuitmlo/g911672076/_ufgvxys"/>
+               <value value="608453900"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="48694002"/>
+                  <display value="Anxiety (finding)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="dckgs://nsuc-kkl.xnfwzucoxcnfe.mbk/l1/jb779b66-0r91-752l-dq31-e4lax8071714/xkdcpgwvt/d359589963/_rjbmgqn"/>
+               <value value="185666373"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="80313002"/>
+                  <display value="Palpitations (finding)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID022"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="yvrvz://abzk-vlv.tcpqecxuiysis.ize/i2/gd609r52-1t73-846o-sl06-p4rka0380244/rnbukphyo/k594426672/_zluoxkh"/>
+               <value value="120113098"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="414916001"/>
+                  <display value="Obesity (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID023"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="getaf://xvnr-zsn.zngxnlwqdfyxy.eyc/n5/gs204d24-1z63-957u-aj25-t1eii0907962/nkxebjtosrmr/i2528619057/_okjmdgz"/>
+               <value value="6"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="217"/>
+                  <display value="SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose, tris-sucrose formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2020-02-04"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.3"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID053"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID024"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="dhasm://ivrr-snb.iugfafhwqsvsg.rfb/h4/hf143t27-2v68-410h-nq86-r6tfm7684954/ieamrwtwvxyv/w5362145217/_jfcielp"/>
+               <value value="8"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="207"/>
+                  <display value="SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 100 mcg/0.5mL dose or 50 mcg/0.25mL dose"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2019-05-17"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.5"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID054"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID025"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="yifyx://uvvi-xlw.rojqelhvtmadh.yfc/r2/wp908s28-3d52-937k-ev78-q9nsl9200003/iqxmaccrsend/s8382841832/_rlqmnhx"/>
+               <value value="5"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="207"/>
+                  <display value="SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 100 mcg/0.5mL dose or 50 mcg/0.25mL dose"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2019-04-19"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.5"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID055"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="kazax://pjvl-zef.qplbgkkpadbva.aia/w8/bs921j24-6q76-264s-gm63-e4gpy7381721/yrauyowqtlpj/s5749956428/_fzrgnmh"/>
+               <value value="4"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="88"/>
+                  <display value="influenza virus vaccine, unspecified formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2018-11-15"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.5"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID056"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="kqkib://gfqz-cre.cnfyldryhwdlb.mki/s1/sx889l89-0n89-387h-dq33-w0bmy6410320/jdtkswywkvqb/a1503046736/_nmsldmn"/>
+               <value value="9"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="88"/>
+                  <display value="influenza virus vaccine, unspecified formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2017-10-09"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.5"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID057"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID028"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="phthd://hfgm-nqv.mwallzrhfhsck.mcu/p4/bb060o80-5y23-119p-sp93-g8jjv7708836/igpmtedeouxj/n7987077298/_ygrndxp"/>
+               <value value="9"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="88"/>
+                  <display value="influenza virus vaccine, unspecified formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2017-01-19"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.5"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID058"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID029"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="qsqqk://akzo-dbt.djdwdsdgorgae.jte/s9/kv687w20-9l14-740o-ty46-o1ijs5455395/emimzwwcljhl/s2605125103/_ucpueww"/>
+               <value value="8"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="88"/>
+                  <display value="influenza virus vaccine, unspecified formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2013-11-05"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.5"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID059"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID030"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="vxutt://vbrp-jvm.knilqvsbmxahy.pbu/h2/gj146d71-8g47-590g-wh04-l8ewv0599103/afmylummzfxv/z7187772779/_vpljsry"/>
+               <value value="7"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="115"/>
+                  <display value="tetanus toxoid, reduced diphtheria toxoid, and acellular pertussis vaccine, adsorbed"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2011-03-31"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.0"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID060"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="zxrot://ekfi-vrh.qvwlgtvkkztzr.rak/i5/cr979m98-2z51-443c-sq20-r8ems5762952/ftxmizrapioz/c9099455053/_mahtnjc"/>
+               <value value="3"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="88"/>
+                  <display value="influenza virus vaccine, unspecified formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="2011-03-31"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.0"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID061"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID032"/>
+      <resource>
+         <Immunization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+            </meta>
+            <identifier>
+               <system value="qtkay://buqe-lyq.obuspfzkohzku.ifb/f7/is688j19-9x58-488m-oa75-v1hky2115777/uhzqkgnmdddf/y7444195311/_cvxzwyb"/>
+               <value value="1"/>
+            </identifier>
+            <status value="completed"/>
+            <vaccineCode>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.12.292"/>
+                  <code value="139"/>
+                  <display value="Td(adult) unspecified formulation"/>
+               </coding>
+            </vaccineCode>
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <occurrenceDateTime value="1978-08-28"/>
+            <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+            <primarySource>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </primarySource>
+            <doseQuantity>
+               <value value="0.0"/>
+               <unit value="Unknown"/>
+            </doseQuantity>
+            <performer>
+               <actor>
+                  <reference value="urn:uuid:UUID062"/>
+               </actor>
+            </performer>
+         </Immunization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID034"/>
+      <resource><!--ODH History of Employment Status-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.212:2017-11-30-->
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="BQ-549195685-o9556968"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="social-history"/>
+                  <display value="Social History"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="74165-2"/>
+                  <display value="History of employment status NIOSH"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectivePeriod>
+               <start value="2019-03-05T16:18:23+00:00"/>
+            </effectivePeriod>
+            <dataAbsentReason>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/data-absent-reason"/>
+                  <code value="unknown"/>
+               </coding>
+            </dataAbsentReason>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID035"/>
+      <resource><!--Pregnancy Status Observation-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.3.8-->
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
+            </meta>
+            <!--Pregnancy Status Recorded Date-->
+            <!--Pregnancy Status Determination Date-->
+            <identifier>
+               <system>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </system>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="82810-3"/>
+                  <display value="Pregnancy Status"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <!--INFO: CDA effectiveTime/time was null-->
+            <dataAbsentReason>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/data-absent-reason"/>
+                  <code value="unknown"/>
+               </coding>
+            </dataAbsentReason>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID036"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="msvti://qtti-eys.rtlqgkritzwzc.uar/y4/mr376j67-4x15-032q-zb53-h5bsw8186646/bgkvsbcai/u344663680/_qtrfgrh"/>
+               <value value="933361252"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="resolved"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="29857009"/>
+                  <display value="Chest pain (finding)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+</Bundle>

@@ -11,6 +11,7 @@ samples/cda/20260424-COIVD/CDA_RR_COVID19.xml	1	string-whitespace: Observation.v
 samples/cda/20260424-Pertussis/CDA_RR.xml	1	string-whitespace: Observation.component.valueString value has trailing whitespace
 samples/cda/20260424-Pertussis/CDA_RR_Pertussis.xml	1	string-whitespace: Observation.component.valueString value has trailing whitespace
 samples/cda/20260424-Pertussis/CDA_eICR.xml	1	string-whitespace: Observation.valueString value has leading whitespace
+samples/cda/20260902-Scrubbed/eICRTN3Scrubbed.xml	10	dangling reference urn:uuid:<uuid>
 samples/cda/RR-R1_1/RCKMSOutput_UT-MI_BothReportable_Test.xml-RR.xml	1	string-whitespace: Observation.valueString value has trailing whitespace
 samples/cda/eICR-R1_1/Test eICR (1).xml	2	string-whitespace: Practitioner.name.suffix value has leading whitespace
 samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	1	string-whitespace: Observation.referenceRange.text value has trailing whitespace

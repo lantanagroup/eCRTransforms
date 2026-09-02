@@ -104,4 +104,30 @@
         <x:expect label="the urn:uuid value is canonicalised to lowercase"
             test="count(fhir:identifier/fhir:value[@value = 'urn:uuid:abcdef12-1234-1234-1234-123456789abc']) = 1" />
     </x:scenario>
+
+    <!-- 20260902 Claude (register B18a, live x2 in eICRTN2Scrubbed): the Observation.dataAbsentReason
+         coding carried the VALUE SET url as its system - the validator rejects that shape outright
+         ("The Coding references a value set, not a code system"). The system is now the
+         terminology.hl7.org CodeSystem the required binding actually draws from. Negative control
+         2026-09-02: the pre-fix (cee7790) stylesheet fails 3 of these 4 assertions - every one that
+         names the system; only the bare UNK->unknown translation pin passes both states. -->
+    <x:scenario label="B18a: Observation.dataAbsentReason coding uses the CodeSystem url, never the ValueSet url">
+        <x:context mode="data-absent-reason" select="cda:observation/cda:value/@nullFlavor">
+            <cda:observation><cda:value nullFlavor="UNK" /></cda:observation>
+        </x:context>
+        <x:expect label="the coding system is the terminology.hl7.org CodeSystem"
+            test="count(fhir:dataAbsentReason/fhir:coding/fhir:system[@value = 'http://terminology.hl7.org/CodeSystem/data-absent-reason']) = 1" />
+        <x:expect label="the ValueSet url never appears as a system"
+            test="count(//fhir:system[@value = 'http://hl7.org/fhir/ValueSet/data-absent-reason']) = 0" />
+        <x:expect label="UNK still translates to unknown"
+            test="count(fhir:dataAbsentReason/fhir:coding/fhir:code[@value = 'unknown']) = 1" />
+    </x:scenario>
+
+    <x:scenario label="B18a companion: the nullFlavor translation ladder is untouched (MSK -> masked)">
+        <x:context mode="data-absent-reason" select="cda:observation/cda:value/@nullFlavor">
+            <cda:observation><cda:value nullFlavor="MSK" /></cda:observation>
+        </x:context>
+        <x:expect label="MSK still translates to masked, under the corrected system"
+            test="count(fhir:dataAbsentReason/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/data-absent-reason'][fhir:code/@value = 'masked']) = 1" />
+    </x:scenario>
 </x:description>

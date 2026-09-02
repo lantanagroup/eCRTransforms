@@ -859,10 +859,17 @@
     </xsl:template>
 
     <!-- This is for Observation.dataAbsentReason only  -->
+    <!-- 20260902 Claude (register B18a, seen live x2 in eICRTN2Scrubbed - employment + pregnancy
+         status): the coding's system was the VALUE SET url (http://hl7.org/fhir/ValueSet/...),
+         which the validator rejects with "The Coding references a value set, not a code system".
+         The codes themselves (unknown, masked, ...) live in the terminology.hl7.org CodeSystem,
+         which is what Observation.dataAbsentReason's required binding expects. Single shared site;
+         all seven callers are Observation.xslt value/@nullFlavor branches. Zero reachability in the
+         pre-TN2 corpus (grepped every layer-2/3b output). -->
     <xsl:template match="@nullFlavor" mode="data-absent-reason">
         <dataAbsentReason>
             <coding>
-                <system value="http://hl7.org/fhir/ValueSet/data-absent-reason" />
+                <system value="http://terminology.hl7.org/CodeSystem/data-absent-reason" />
                 <xsl:element name="code">
                     <xsl:attribute name="value">
                         <xsl:choose>

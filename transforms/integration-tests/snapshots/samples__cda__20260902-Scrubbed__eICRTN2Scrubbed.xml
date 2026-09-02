@@ -1,0 +1,2297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Element count: 799-->
+<Bundle xmlns="http://hl7.org/fhir">
+   <id value="eICR-bundle-GENID"/>
+   <meta>
+      <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"/>
+   </meta>
+   <identifier>
+      <system value="urn:ietf:rfc:3986"/>
+      <value value="urn:uuid:UUID000"/>
+      <assigner>
+         <display value="ecr-cda-fhir-transform"/>
+      </assigner>
+   </identifier>
+   <type value="document"/>
+   <timestamp value="2024-08-22T11:55:38+00:00"/>
+   <entry>
+      <fullUrl value="urn:uuid:UUID001"/>
+      <resource>
+         <Composition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.2:2022-05-01-->
+            </meta>
+            <language value="en-US"/>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Id</span>
+                           </td>
+                           <td class="td_header_role_value"> UUID002</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document Created:</span>
+                           </td>
+                           <td class="td_header_role_value">August 22, 2024, 11:55:38, UTC+00:00 </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--Author-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value">Norrin Nolan Dunmore</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>5187 Trellis St<br/>Underhill, TN 37265, US<br/>Tel (Work Place):  +1-615-555-0139<br/>Tel (Work Place):  +1-423-555-0125<br/>Fax (Work Place):  +1-901-555-0156<br/>Tel (Work Place):  +1-615-555-0186<br/>Fax (Work Place):  +1-615-555-0148<br/>Fax (Work Place):  +1-901-555-0156<br/>Tel (Work Place):  +1-615-555-0139<br/>Mail:  odessa.underhill@example.com<br/>Fax (Work Place):  +1-865-555-0109<br/>Tel (Work Place):  +1-423-555-0125<br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Author</span>
+                           </td>
+                           <td class="td_header_role_value">Westbrook EHR</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value">
+                              <br/>
+                              <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--encompassingEncounter-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Id</span>
+                           </td>
+                           <td class="td_header_role_value">208426760 1327365757 2.16.840.1.113883.4.873 2.16.840.1.113883.4.6.57</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Type</span>
+                           </td>
+                           <td class="td_header_role_value">ambulatory</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Date</span>
+                           </td>
+                           <td class="td_header_role_value"> From April 17, 2024, 18:00:00, UTC+00:00  to April 18, 2024, 04:58:00, UTC+00:00 </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Encounter Location</span>
+                           </td>
+                           <td class="td_header_role_value">Cedar Point Clinic of </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Responsible party</span>
+                           </td>
+                           <td class="td_header_role_value">Norrin Nolan Dunmore of Cedar Point Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>5187 Trellis St<br/>Underhill, TN 37265, US<br/>Tel (Work Place):  +1-615-555-0139<br/>Tel (Work Place):  +1-423-555-0125<br/>Fax (Work Place):  +1-901-555-0156<br/>Tel (Work Place):  +1-615-555-0186<br/>Fax (Work Place):  +1-615-555-0148<br/>Fax (Work Place):  +1-901-555-0156<br/>Tel (Work Place):  +1-615-555-0139<br/>Mail:  odessa.underhill@example.com<br/>Fax (Work Place):  +1-865-555-0109<br/>Tel (Work Place):  +1-423-555-0125<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody><!--participant-->
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">  , <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">  , <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">  , <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">  , <br/>
+                              <br/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Emergency contact</span>
+                           </td>
+                           <td class="td_header_role_value">  , <br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <table class="header_table"
+                         style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;">
+                     <tbody>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Document maintained by</span>
+                           </td>
+                           <td class="td_header_role_value">Cedar Point Clinic</td>
+                        </tr>
+                        <tr>
+                           <td class="td_header_role_name"
+                               style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;">
+                              <span class="td_label">Contact info</span>
+                           </td>
+                           <td class="td_header_role_value"> Work Place:<br/>5054 Northfield Ter<br/>Bellhaven, TN 37418, USA<br/>Tel (Work Place):  +1-615-555-0139<br/>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </text>
+            <!--Version Number-->
+            <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+               <valueString value="1"/>
+            </extension>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6921.97"/>
+               <value value="36597313|718458120"/>
+            </identifier>
+            <status value="final"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <encounter>
+               <reference value="urn:uuid:UUID004"/>
+            </encounter>
+            <date value="2024-08-22T11:55:38+00:00"/>
+            <author>
+               <reference value="urn:uuid:UUID005"/>
+            </author>
+            <author>
+               <reference value="urn:uuid:UUID006"/>
+            </author>
+            <title value="Initial Public Health Case Report"/>
+            <confidentiality value="N"/>
+            <custodian>
+               <reference value="urn:uuid:UUID007"/>
+            </custodian>
+            <relatesTo>
+               <code value="transforms"/>
+               <targetIdentifier>
+                  <system value="urn:ietf:rfc:3986"/>
+                  <value value="urn:uuid:UUID008"/>
+               </targetIdentifier>
+            </relatesTo>
+            <section>
+               <title value="PROBLEMS"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11450-4"/>
+                     <display value="Problem list - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4-->
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
+                  <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+                     <extension url="triggerCodeValueSet">
+                        <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
+                     </extension>
+                     <extension url="triggerCodeValueSetVersion">
+                        <valueString value="3.1.2"/>
+                     </extension>
+                     <extension url="triggerCode">
+                        <valueCoding>
+                           <system value="http://snomed.info/sct"/>
+                           <code value="86406008"/>
+                        </valueCoding>
+                     </extension>
+                  </extension>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID012"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
+               </entry>
+            </section>
+            <section>
+               <title value="MEDICATIONS ADMINISTERED"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29549-3"/>
+                     <display value="Medication administered Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+            </section>
+            <section>
+               <title value="Admission Medications"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="42346-7"/>
+                     <display value="Medications on Admission"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+            </section>
+            <section>
+               <title value="RESULTS"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="30954-2"/>
+                     <display value="Relevant diagnostic tests/laboratory data note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+               <entry>
+                  <reference value="urn:uuid:UUID015"/>
+               </entry>
+            </section>
+            <section>
+               <title value="CHIEF COMPLAINT"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10154-3"/>
+                     <display value="Chief complaint Narrative - Reported"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <p>[Narrative removed during de-identification]</p>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="SOCIAL HISTORY"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29762-2"/>
+                     <display value="Social history note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.212-->
+               <!--2.16.840.1.113883.10.20.22.4.212:2017-11-30-->
+               <entry>
+                  <reference value="urn:uuid:UUID016"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Pregnancy Section"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="90767-5"/>
+                     <display value="Pregnancy summary Document"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+               <!--2.16.840.1.113883.10.20.15.3.8-->
+               <!--2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID017"/>
+               </entry>
+            </section>
+            <section>
+               <title value="Vital Signs"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="8716-3"/>
+                     <display value="Vital signs note"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">[Narrative removed during de-identification]</div>
+               </text>
+            </section>
+            <section>
+               <title value="History of Present Illness"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="10164-2"/>
+                     <display value="History of Present illness Narrative"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+            <section>
+               <title value="Reason For Visit"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="29299-5"/>
+                     <display value="Reason For Visit"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="generated"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                     <table border="1" width="100%">
+                        <thead>
+                           <tr>
+                              <th>[Narrative removed during de-identification]</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <span>[Narrative removed during de-identification]</span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </text>
+            </section>
+         </Composition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID003"/>
+      <resource>
+         <Patient>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <h1>Northcote, Zephyr I</h1>
+                  <p>Telecom: tel:+1-615-555-0111</p>
+                  <p>Telecom: tel:+1-423-555-0145</p>
+                  <p>Telecom: tel:+1-615-555-0119</p>
+                  <p>Telecom: tel:+1-901-555-0147</p>
+                  <p>Telecom: mailto:felix.oakhurst@example.com</p>
+                  <p>Address: 1376 Pinehurst Rd<br/>Bellhaven<br/>Sedgewick<br/>TN<br/>37992<br/>US</p>
+                  <p>Address: <br/>
+                     <br/>
+                     <br/>
+                     <br/>
+                     <br/>US</p>
+                  <p>Gender: M</p>
+                  <p>Birthdate: 1990-07-11</p>
+                  <p>Language: en</p>
+               </div>
+            </text>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2106-3"/>
+                     <display value="White"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="White"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+               <extension url="ombCategory">
+                  <valueCoding>
+                     <system value="urn:oid:2.16.840.1.113883.6.238"/>
+                     <code value="2186-5"/>
+                     <display value="Not Hispanic or Latino"/>
+                  </valueCoding>
+               </extension>
+               <extension url="text">
+                  <valueString value="Not Hispanic or Latino"/>
+               </extension>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
+               <valueCode value="M"/>
+            </extension>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="67340713"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.1881.53"/>
+               <value value="34357547"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.1464.68"/>
+               <value value="6240060"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6164.69"/>
+               <value value="866150"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.7119.50"/>
+               <value value="1244705"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5825.13"/>
+               <value value="170829"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.6.47"/>
+               <value value="297392635"/>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Northcote"/>
+               <given value="Zephyr"/>
+               <given value="I"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0111"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0145"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0119"/>
+               <use value="home"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-901-555-0147"/>
+               <use value="mobile"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="felix.oakhurst@example.com"/>
+            </telecom>
+            <gender value="male"/>
+            <birthDate value="1990-07-11"/>
+            <deceasedBoolean value="false"/>
+            <address>
+               <use value="home"/>
+               <line value="1376 Pinehurst Rd"/>
+               <city value="Bellhaven"/>
+               <district value="Sedgewick"/>
+               <state value="TN"/>
+               <postalCode value="37992"/>
+               <country value="US"/>
+            </address>
+            <address>
+               <line>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </line>
+               <city>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </city>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </state>
+               <postalCode>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </postalCode>
+               <country value="US"/>
+            </address>
+            <maritalStatus>
+               <coding>
+                  <system value="urn:oid:2.16.840.1.113883.1.11.12212"/>
+                  <code value="S"/>
+                  <display value="Never Married"/>
+               </coding>
+            </maritalStatus>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                     <code value="GUARD"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <family value="Thornbury"/>
+                  <given value="Silas"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-404-555-0131"/>
+                  <use value="home"/>
+               </telecom>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-404-555-0131"/>
+                  <use value="mobile"/>
+               </telecom>
+               <address>
+                  <use value="home"/>
+                  <line>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </line>
+                  <city>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </city>
+                  <district>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </district>
+                  <state>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </state>
+                  <postalCode>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </postalCode>
+                  <country value="US"/>
+               </address>
+            </contact>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                     <code value="GUARD"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <family value="Hollowell"/>
+                  <given value="Silas"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-404-555-0131"/>
+                  <use value="home"/>
+               </telecom>
+               <address>
+                  <use value="home"/>
+                  <line>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </line>
+                  <city>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </city>
+                  <district>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </district>
+                  <state>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </state>
+                  <postalCode>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </postalCode>
+                  <country value="US"/>
+               </address>
+            </contact>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v2-0131"/>
+                     <code value="C"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <family>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </family>
+                  <given>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </given>
+                  <prefix>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </prefix>
+                  <suffix>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </suffix>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </value>
+               </telecom>
+               <address>
+                  <line>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </line>
+                  <city>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </city>
+                  <state>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </state>
+                  <postalCode>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </postalCode>
+                  <country>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </country>
+               </address>
+            </contact>
+            <communication>
+               <language>
+                  <coding>
+                     <system value="urn:ietf:bcp:47"/>
+                     <code value="en"/>
+                  </coding>
+               </language>
+               <preferred value="true"/>
+            </communication>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID018"/>
+            </managingOrganization>
+         </Patient>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID018"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="67340713"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.1881.53"/>
+               <value value="34357547"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.1464.68"/>
+               <value value="6240060"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6164.69"/>
+               <value value="866150"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.7119.50"/>
+               <value value="1244705"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5825.13"/>
+               <value value="170829"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.6.47"/>
+               <value value="297392635"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="crg:cxd:0.62.137.9.382554.4.378.988.448.0015"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Cedar Point Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5054 Northfield Ter"/>
+               <city value="Bellhaven"/>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state value="TN"/>
+               <postalCode value="37418"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID004"/>
+      <resource>
+         <Encounter>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2022-05-01']/componentOf/encompassingEncounter-->
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <table border="1" width="100%">
+                     <thead>
+                        <tr>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                           <th>[Narrative removed during de-identification]</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                           <td>
+                              <span>[Narrative removed during de-identification]</span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <p>...</p>
+               </div>
+            </text>
+            <!--INFO: Ids from encompassingEncounter + Encounter Activity / Encounter Diagnosis acts, deduplicated by (system, value)-->
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="208426760"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.6.57"/>
+               <value value="1327365757"/>
+            </identifier>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="1327365757"/>
+               <assigner>
+                  <display value="AN"/>
+               </assigner>
+            </identifier>
+            <status value="finished"/>
+            <class>
+               <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+               <code value="AMB"/>
+            </class>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="AMB"/>
+                  <display value="ambulatory"/>
+               </coding>
+            </type>
+            <type>
+               <coding>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <participant>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <individual>
+                  <reference value="urn:uuid:UUID019"/>
+               </individual>
+            </participant>
+            <participant>
+               <individual>
+                  <reference value="urn:uuid:UUID020"/>
+               </individual>
+            </participant>
+            <period>
+               <start value="2024-04-17T18:00:00+00:00"/>
+               <end value="2024-04-18T04:58:00+00:00"/>
+            </period>
+            <hospitalization>
+               <dischargeDisposition>
+                  <coding>
+                     <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                        <valueCode value="unknown"/>
+                     </extension>
+                  </coding>
+               </dischargeDisposition>
+            </hospitalization>
+            <location>
+               <location>
+                  <reference value="urn:uuid:UUID021"/>
+               </location>
+            </location>
+            <serviceProvider>
+               <reference value="urn:uuid:UUID022"/>
+            </serviceProvider>
+         </Encounter>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID019"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.4.873"][@extension="208426760"]][cda:id[@root="2.16.840.1.113883.4.6.57"][@extension="1327365757"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1124619976"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1124619976"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID023"/>
+            </practitioner>
+            <organization>
+               <reference value="urn:uuid:UUID024"/>
+            </organization>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0186"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-615-555-0148"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="odessa.underhill@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-865-555-0109"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID023"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1124619976"/>
+            </identifier>
+            <name>
+               <family value="Dunmore"/>
+               <given value="Norrin"/>
+               <given value="Nolan"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0186"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-615-555-0148"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="odessa.underhill@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-865-555-0109"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5187 Trellis St"/>
+               <city value="Underhill"/>
+               <district value="Glasspool"/>
+               <state value="TN"/>
+               <postalCode value="37265"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID024"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="crg:cxd:0.62.137.9.382554.4.378.988.448.0015"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Cedar Point Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5054 Northfield Ter"/>
+               <city value="Bellhaven"/>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state value="TN"/>
+               <postalCode value="37418"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID020"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.4.873"][@extension="208426760"]][cda:id[@root="2.16.840.1.113883.4.6.57"][@extension="1327365757"]]/encounterParticipant/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1124619976"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1124619976"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID025"/>
+            </practitioner>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0186"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-615-555-0148"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="odessa.underhill@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-865-555-0109"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID025"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1124619976"/>
+            </identifier>
+            <name>
+               <family value="Dunmore"/>
+               <given value="Norrin"/>
+               <given value="Nolan"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0186"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-615-555-0148"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="odessa.underhill@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-865-555-0109"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5187 Trellis St"/>
+               <city value="Underhill"/>
+               <district value="Glasspool"/>
+               <state value="TN"/>
+               <postalCode value="37265"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID021"/>
+      <resource>
+         <Location>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
+               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2'][templateId/@extension='2022-05-01']/componentOf/encompassingEncounter/location-->
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="Npsedhlqecvc/5726528/_wbratkw/9"/>
+            </identifier>
+            <name value="Cedar Point Clinic"/>
+            <type>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="OF"/>
+                  <display value="Outpatient Facility"/>
+               </coding>
+            </type>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5054 Northfield Ter"/>
+               <city value="Bellhaven"/>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state value="TN"/>
+               <postalCode value="37418"/>
+               <country value="USA"/>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID022"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="Npsedhlqecvc/5726528/_wbratkw/9"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="crg:cxd:0.62.137.9.382554.4.378.988.448.0015"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Cedar Point Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5054 Northfield Ter"/>
+               <city value="Bellhaven"/>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state value="TN"/>
+               <postalCode value="37418"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-08-22T11:55:38+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType"/>
+                     <code value="ATND"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID020"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID005"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1124619976"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1124619976"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID027"/>
+            </practitioner>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0186"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-615-555-0148"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="odessa.underhill@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-865-555-0109"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="1124619976"/>
+            </identifier>
+            <name>
+               <family value="Dunmore"/>
+               <given value="Norrin"/>
+               <given value="Nolan"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0186"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-615-555-0148"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-901-555-0156"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="email"/>
+               <value value="odessa.underhill@example.com"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-865-555-0109"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-423-555-0125"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5187 Trellis St"/>
+               <city value="Underhill"/>
+               <district value="Glasspool"/>
+               <state value="TN"/>
+               <postalCode value="37265"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <!--INFO: cda:assignedAuthoringDevice-->
+   <entry>
+      <fullUrl value="urn:uuid:UUID006"/>
+      <resource>
+         <Device>
+            <identifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID028"/>
+            </identifier>
+            <!--INFO: cda:assignedAuthoringDevice-->
+            <deviceName>
+               <name value="Fairholm EHR"/>
+               <type value="model-name"/>
+            </deviceName>
+            <version>
+               <value value="Westbrook EHR"/>
+            </version>
+            <location>
+               <reference value="urn:uuid:UUID029"/>
+            </location>
+         </Device>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID029"/>
+      <resource>
+         <Location>
+            <name>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </name>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+            <address>
+               <line>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </line>
+               <city>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </city>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </state>
+               <postalCode>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </postalCode>
+               <country>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </country>
+            </address>
+         </Location>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="crg:cxd:0.62.137.9.382554.4.378.988.448.0015"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Cedar Point Clinic"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-615-555-0139"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5054 Northfield Ter"/>
+               <city value="Bellhaven"/>
+               <district>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </district>
+               <state value="TN"/>
+               <postalCode value="37418"/>
+               <country value="USA"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID030"/>
+      <resource>
+         <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
+            <masterIdentifier>
+               <system value="urn:ietf:rfc:3986"/>
+               <value value="urn:uuid:UUID008"/>
+            </masterIdentifier>
+            <!--DocumentReference.identifier = ClinicalDocument/setId-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6921.97"/>
+               <value value="36597313|718458120:1"/>
+            </identifier>
+            <status value="superseded"/>
+            <type>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="55751-2"/>
+                  <display value="Public health Case report"/>
+               </coding>
+            </type>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <content>
+               <attachment>
+                  <contentType value="text/plain"/>
+                  <url value="urn:hl7ii:2.16.840.1.113883.19.6921.97:1"/>
+               </attachment>
+            </content>
+         </DocumentReference>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-04-17T18:00:00+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID005"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID032"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-08-22T11:55:38+00:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID006"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID033"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2024-08-22T11:55:38+00:00"/>
+            <agent>
+               <who>
+                  <display value="cda-to-fhir-transform"/>
+               </who>
+            </agent>
+            <entity>
+               <role value="derivation"/>
+               <what>
+                  <reference value="urn:uuid:UUID030"/>
+               </what>
+            </entity>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
+      <resource>
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab"/>
+            </meta>
+            <text>
+               <status value="generated"/>
+               <div xmlns="http://www.w3.org/1999/xhtml">
+                  <p>
+                     <b>No test reported</b>
+                  </p>
+               </div>
+            </text>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="laboratory"/>
+                  <display value="Laboratory"/>
+               </coding>
+               <text value="Laboratory"/>
+            </category>
+            <code>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <valueQuantity>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="not-applicable"/>
+               </extension>
+            </valueQuantity>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="xotjb://xrgj-dbq.lkbocbtrizacd.noa/b6/rt837r31-4h76-266u-mw34-r1xld1089344/udeyupmny/v353061007/_kklwpss"/>
+               <value value="562064794"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="370143000"/>
+                  <display value="Major depressive disorder (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="vngua://caus-cxn.rhlsvsncfrngq.qni/a5/dx988h12-8d79-559k-qj54-f2hoa7079684/qziprluml/p638994595/_rxgfcte"/>
+               <value value="408739407"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="86406008"/>
+                  <display value="Human immunodeficiency virus infection (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="vngua://caus-cxn.rhlsvsncfrngq.qni/a5/dx988h12-8d79-559k-qj54-f2hoa7079684/Qziprluml/p638994595/_rxgfcte/408739407"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="86406008"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="snjaz://onhq-nyf.wgoqdmsdappmf.kim/v4/gs185h01-7i29-882m-ib52-x7vti5895362/fnkzmjwfd/z338976790/_udpnaml"/>
+               <value value="613394736"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="47505003"/>
+                  <display value="Posttraumatic stress disorder (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="baxbj://ekfr-uoc.wgcechqpxjozh.xza/r7/tg802z97-5j79-266m-pg32-g0enn4264991/oruowtsip/w087668158/_aonuqyq"/>
+               <value value="790495615"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="267064002"/>
+                  <display value="Retention of urine (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="tiqhd://ztqo-ngl.fxayopnoblici.kgf/y2/gw997l88-6h05-446a-tb70-b7skb0899805/ovpecnbtp/a140252096/_nrbnmrh"/>
+               <value value="732381778"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="371596008"/>
+                  <display value="Bipolar I disorder (disorder)"/>
+               </coding>
+               <text value="[Narrative removed during de-identification]"/>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <note>
+               <text value="[Narrative removed during de-identification]"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource><!--ODH History of Employment Status-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.212:2017-11-30-->
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
+               <value value="KH-831585395-h5610060"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="social-history"/>
+                  <display value="Social History"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="74165-2"/>
+                  <display value="History of employment status NIOSH"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectivePeriod>
+               <start value="2017-05-11T17:46:34+00:00"/>
+            </effectivePeriod>
+            <dataAbsentReason>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/data-absent-reason"/>
+                  <code value="unknown"/>
+               </coding>
+            </dataAbsentReason>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource><!--Pregnancy Status Observation-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.3.8-->
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
+            </meta>
+            <!--Pregnancy Status Recorded Date-->
+            <!--Pregnancy Status Determination Date-->
+            <identifier>
+               <system>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </system>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="82810-3"/>
+                  <display value="Pregnancy Status"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <!--INFO: CDA effectiveTime/time was null-->
+            <dataAbsentReason>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/data-absent-reason"/>
+                  <code value="unknown"/>
+               </coding>
+            </dataAbsentReason>
+         </Observation>
+      </resource>
+   </entry>
+</Bundle>

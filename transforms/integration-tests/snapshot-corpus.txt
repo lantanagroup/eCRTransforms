@@ -30,3 +30,8 @@ samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml
 samples/cda/eICR-R1_1/eICR-CDA-001_R1_1.xml
 samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml
 samples/cda/eICR-R1_1/Test eICR (1).xml
+
+# 20260902 Claude (per SG): the September scrubbed TN documents. Local-only like the rest -
+# the directory is gitignored; snapshots + baseline lines are committed. TN2 is the document
+# that drove the ECON-contact fallback/dedupe batch and the B18a DAR-system fix.
+samples/cda/20260902-Scrubbed/*.xml

@@ -337,4 +337,123 @@
         <x:expect label="K5. no performer anywhere is left without a reference (ele-1 guard)"
             test="count(//fhir:Observation/fhir:performer[not(fhir:reference)]) = 0" />
     </x:scenario>
+
+    <!-- 20261015 Claude (B18b, SG decision 2026-10-15): ODH History of Employment Status (4.212) with a
+         null-flavored value. The generic nullFlavor -> dataAbsentReason translation is kept, but
+         odh-EmploymentStatus (hl7.fhir.us.odh 1.1.0) sets dataAbsentReason to max 0, so the meta.profile
+         claim is DROPPED for that case and an INFO comment is emitted inside the Observation instead. A
+         real value keeps meta.profile exactly as before (L3 is the shape pin / negative control).
+         Whole-document context because add-meta -> template2profile reads $gvCurrentIg. -->
+    <x:scenario label="L. B18b: ODH Employment Status with null-flavored value">
+        <x:scenario label="L1. nullFlavor=UNK: no meta, INFO comment, dataAbsentReason=unknown, no value">
+            <x:context select="/" xmlns="urn:hl7-org:v3">
+                <ClinicalDocument xmlns="urn:hl7-org:v3">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <recordTarget>
+                        <patientRole>
+                            <id root="2.16.840.1.113883.19.5" extension="12345" />
+                            <patient><name use="L"><given>Ref</given><family>Case</family></name></patient>
+                        </patientRole>
+                    </recordTarget>
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+                        <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" displayName="Social history note" />
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <templateId root="2.16.840.1.113883.10.20.22.4.212" extension="2017-11-30" />
+                                <id root="00000000-0000-0000-0000-0000000000e1" />
+                                <code code="74165-2" codeSystem="2.16.840.1.113883.6.1" displayName="History of employment status NIOSH" />
+                                <statusCode code="completed" />
+                                <effectiveTime><low value="20240101" /></effectiveTime>
+                                <value xsi:type="CD" nullFlavor="UNK" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+                            </observation>
+                        </entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="L1a. exactly one Employment Status Observation (code 74165-2) is emitted"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']) = 1" />
+            <x:expect label="L1b. it has NO meta element at all (no odh-EmploymentStatus profile claim)"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:meta) = 0" />
+            <x:expect label="L1c. it carries an INFO comment naming the omitted profile and the nullFlavor UNK"
+                test="exists(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/comment()[contains(., 'meta.profile (odh-EmploymentStatus) omitted')][contains(., 'nullFlavor=&quot;UNK&quot;')])" />
+            <x:expect label="L1d. dataAbsentReason.coding.code = unknown (the faithful nullFlavor translation is kept)"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:dataAbsentReason/fhir:coding/fhir:code[@value = 'unknown']) = 1" />
+            <x:expect label="L1e. no valueCodeableConcept"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:valueCodeableConcept) = 0" />
+        </x:scenario>
+
+        <x:scenario label="L2. nullFlavor=ASKU: no meta, INFO comment names ASKU, dataAbsentReason=asked-unknown">
+            <x:context select="/" xmlns="urn:hl7-org:v3">
+                <ClinicalDocument xmlns="urn:hl7-org:v3">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <recordTarget>
+                        <patientRole>
+                            <id root="2.16.840.1.113883.19.5" extension="12345" />
+                            <patient><name use="L"><given>Ref</given><family>Case</family></name></patient>
+                        </patientRole>
+                    </recordTarget>
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+                        <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" displayName="Social history note" />
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <templateId root="2.16.840.1.113883.10.20.22.4.212" extension="2017-11-30" />
+                                <id root="00000000-0000-0000-0000-0000000000e2" />
+                                <code code="74165-2" codeSystem="2.16.840.1.113883.6.1" displayName="History of employment status NIOSH" />
+                                <statusCode code="completed" />
+                                <effectiveTime><low value="20240101" /></effectiveTime>
+                                <value xsi:type="CD" nullFlavor="ASKU" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+                            </observation>
+                        </entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="L2a. it has NO meta element at all"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:meta) = 0" />
+            <x:expect label="L2b. the INFO comment names the omitted profile and the nullFlavor ASKU"
+                test="exists(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/comment()[contains(., 'meta.profile (odh-EmploymentStatus) omitted')][contains(., 'nullFlavor=&quot;ASKU&quot;')])" />
+            <x:expect label="L2c. dataAbsentReason.coding.code = asked-unknown"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:dataAbsentReason/fhir:coding/fhir:code[@value = 'asked-unknown']) = 1" />
+            <x:expect label="L2d. no valueCodeableConcept"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:valueCodeableConcept) = 0" />
+        </x:scenario>
+
+        <!-- shape pin: passes before AND after the B18b change - a real value must keep the profile claim -->
+        <x:scenario label="L3. real value (Employed): meta.profile odh-EmploymentStatus kept, no INFO comment, valueCodeableConcept, no dataAbsentReason">
+            <x:context select="/" xmlns="urn:hl7-org:v3">
+                <ClinicalDocument xmlns="urn:hl7-org:v3">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <recordTarget>
+                        <patientRole>
+                            <id root="2.16.840.1.113883.19.5" extension="12345" />
+                            <patient><name use="L"><given>Ref</given><family>Case</family></name></patient>
+                        </patientRole>
+                    </recordTarget>
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+                        <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" displayName="Social history note" />
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN">
+                                <templateId root="2.16.840.1.113883.10.20.22.4.212" extension="2017-11-30" />
+                                <id root="00000000-0000-0000-0000-0000000000e3" />
+                                <code code="74165-2" codeSystem="2.16.840.1.113883.6.1" displayName="History of employment status NIOSH" />
+                                <statusCode code="completed" />
+                                <effectiveTime><low value="20240101" /></effectiveTime>
+                                <value xsi:type="CD" code="Employed" codeSystem="2.16.840.1.113883.5.1063" codeSystemName="HL7ObservationValue" displayName="Employed" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+                            </observation>
+                        </entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="L3a. meta.profile = http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:meta/fhir:profile[@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus']) = 1" />
+            <x:expect label="L3b. no 'meta.profile omitted' INFO comment"
+                test="not(exists(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/comment()[contains(., 'meta.profile (odh-EmploymentStatus) omitted')]))" />
+            <x:expect label="L3c. valueCodeableConcept.coding.code = Employed"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:valueCodeableConcept/fhir:coding/fhir:code[@value = 'Employed']) = 1" />
+            <x:expect label="L3d. no dataAbsentReason"
+                test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:dataAbsentReason) = 0" />
+        </x:scenario>
+    </x:scenario>
 </x:description>

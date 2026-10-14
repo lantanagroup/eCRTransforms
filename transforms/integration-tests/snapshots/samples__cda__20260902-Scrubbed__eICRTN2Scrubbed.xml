@@ -2210,11 +2210,7 @@
    <entry>
       <fullUrl value="urn:uuid:UUID016"/>
       <resource><!--ODH History of Employment Status-->
-         <Observation>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus"/>
-               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.212:2017-11-30-->
-            </meta>
+         <Observation><!--INFO: meta.profile (odh-EmploymentStatus) omitted - the CDA value is nullFlavor="NI", translated to dataAbsentReason, which that profile forbids (max 0)-->
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
                <value value="KH-831585395-h5610060"/>

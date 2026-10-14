@@ -1,0 +1,3459 @@
+
+<!--Element count: 1592-->
+
+<Bundle xmlns="http://hl7.org/fhir">
+  <id value="eICR-bundle-d45e7" />
+  <meta>
+    <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle" />
+  </meta>
+  <identifier>
+    <system value="urn:ietf:rfc:3986" />
+    <value value="urn:uuid:bbada88f-8ac8-4cef-af2a-f09bbc4506e9" />
+  </identifier>
+  <type value="document" />
+  <timestamp value="2026-08-13T11:56:05.000+00:00" />
+  <entry>
+    <fullUrl value="urn:uuid:1822d13a-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Composition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
+        </meta>
+        <language value="en-US" />
+        <text>
+          <status value="generated" />
+          <div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+            <table style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;" class="header_table">
+              <tbody>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Document Id</span>
+                  </td>
+                  <td class="td_header_role_value"> bbada88f-8ac8-4cef-af2a-f09bbc4506e9</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Document Created:</span>
+                  </td>
+                  <td class="td_header_role_value">August 13, 2026, 11:56:05 +0000 </td>
+                </tr>
+              </tbody>
+            </table>
+            <table style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;" class="header_table">
+              <tbody>
+                <!-- Author -->
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Author</span>
+                  </td>
+                  <td class="td_header_role_value">JUAN BENITEZ</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Contact info</span>
+                  </td>
+                  <td class="td_header_role_value"> Work Place:
+                                       <br />550 Ft Loudoun Medical Center Dr
+                                       <br />Lenoir City, TN 37772, US
+                                       <br />Mail:  benitez.juan@covenanthealth.cernerdirect.com
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Author</span>
+                  </td>
+                  <td class="td_header_role_value">Version 4.0.0</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Contact info</span>
+                  </td>
+                  <td class="td_header_role_value">
+                    <br />
+                    <br />
+                    <br />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;" class="header_table">
+              <tbody>
+                <!-- encompassingEncounter -->
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Encounter Id</span>
+                  </td>
+                  <td class="td_header_role_value">153837857 2308292048 2.16.840.1.113883.4.873 2.16.840.1.113883.4.6.57</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Encounter Type</span>
+                  </td>
+                  <td class="td_header_role_value">ambulatory</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Encounter Date</span>
+                  </td>
+                  <td class="td_header_role_value"> From April 8, 2026, 18:15:00 +0000  to April 9, 2026, 04:20:00 +0000 </td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Encounter Location</span>
+                  </td>
+                  <td class="td_header_role_value">Westside Gastrointestinal Specialists of </td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Responsible party</span>
+                  </td>
+                  <td class="td_header_role_value">JUAN BENITEZ of Westside Gastrointestinal Specialists</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Contact info</span>
+                  </td>
+                  <td class="td_header_role_value"> Work Place:
+                                       <br />550 Ft Loudoun Medical Center Dr
+                                       <br />Lenoir City, TN 37772, US
+                                       <br />Mail:  benitez.juan@covenanthealth.cernerdirect.com
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />Tel (Work Place):  (865)539-5372
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;" class="header_table">
+              <tbody>
+                <!-- participant -->
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Emergency contact</span>
+                  </td>
+                  <td class="td_header_role_value"> , 
+                                       <br />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table style="border: 1pt inset #00008b; line-height: 10pt; width: 100%;" class="header_table">
+              <tbody>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Document maintained by</span>
+                  </td>
+                  <td class="td_header_role_value">Westside Gastrointestinal Specialists</td>
+                </tr>
+                <tr>
+                  <td style="width: 20%; background-color: #3399ff; padding: 0.1cm 0.2cm; vertical-align: top; background-color: #ffffcc;" class="td_header_role_name">
+                    <span class="td_label">Contact info</span>
+                  </td>
+                  <td class="td_header_role_value"> Work Place:
+                                       <br />9330 Park West Boulevard
+                                       <br />Suite 506
+                                       <br />Knoxville, TN 37923-4313, USA
+                                       <br />Fax (Work Place):  (865)374-1075
+                                       <br />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </text>
+        <!--Version Number-->
+        <extension url="http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber">
+          <valueString value="1" />
+        </extension>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189" />
+          <value value="14556852|153837857" />
+        </identifier>
+        <status value="final" />
+        <type>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="55751-2" />
+            <display value="Public health Case report" />
+          </coding>
+        </type>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <encounter>
+          <reference value="urn:uuid:18237842-970e-11f1-d43e-09173f13e4c5" />
+        </encounter>
+        <date value="2026-08-13T11:56:05.000+00:00" />
+        <author>
+          <reference value="urn:uuid:18237806-970e-11f1-d43e-09173f13e4c5" />
+        </author>
+        <author>
+          <reference value="urn:uuid:18237827-970e-11f1-d43e-09173f13e4c5" />
+        </author>
+        <title value="Initial Public Health Case Report" />
+        <confidentiality value="N" />
+        <custodian>
+          <reference value="urn:uuid:1823782c-970e-11f1-d43e-09173f13e4c5" />
+        </custodian>
+        <relatesTo>
+          <code value="transforms" />
+          <targetIdentifier>
+            <system value="urn:ietf:rfc:3986" />
+            <value value="urn:uuid:bbada88f-8ac8-4cef-af2a-f09bbc4506e9" />
+          </targetIdentifier>
+        </relatesTo>
+        <section>
+          <title value="PROBLEMS" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="11450-4" />
+              <display value="Problem list - Reported" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table border="1" width="100%">
+                <thead>
+                  <tr>
+                    <th>Condition</th>
+                    <th>Condition Type</th>
+                    <th>Effective Dates</th>
+                    <th>Verification Status</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>Hepatitis A</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Hypertension</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Seasonal allergies</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Headaches, cluster</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Tachycardia, unspecified</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Vitamin D deficiency</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Snoring</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Tricuspid regurgitation</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Back pain</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>GERD (gastroesophageal reflux disease)</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Anxiety</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Palpitations</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Obesity</span>
+                    </td>
+                    <td>
+                      <span>Problem</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Confirmed</span>
+                    </td>
+                    <td>
+                      <span>Active</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </text>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1823798c-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4-->
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <!--2.16.840.1.113883.10.20.15.2.3.3:2016-12-01-->
+          <entry>
+            <!--eICR Trigger Code Flag Extension-->
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
+              <extension url="triggerCodeValueSet">
+                <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508" />
+              </extension>
+              <extension url="triggerCodeValueSetVersion">
+                <valueString value="3.1.2" />
+              </extension>
+              <extension url="triggerCode">
+                <valueCoding>
+                  <system value="http://snomed.info/sct" />
+                  <code value="40468003" />
+                </valueCoding>
+              </extension>
+            </extension>
+            <reference value="urn:uuid:182379a8-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:182379c0-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:182379e7-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237a0e-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237a35-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237a5c-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237a83-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237aab-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237ad2-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237af9-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237b20-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18237b47-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:18296326-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+        </section>
+        <section>
+          <title value="MEDICATIONS ADMINISTERED" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="29549-3" />
+              <display value="Medication administered Narrative" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">No Medications Administered Information</div>
+          </text>
+        </section>
+        <section>
+          <title value="Admission Medications" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="42346-7" />
+              <display value="Medications on Admission" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">No Admission Medication Information</div>
+          </text>
+        </section>
+        <section>
+          <title value="IMMUNIZATIONS" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="11369-6" />
+              <display value="History of Immunization Narrative" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table border="1" width="100%">
+                <thead>
+                  <tr>
+                    <th>Immunization</th>
+                    <th>Series</th>
+                    <th>Date Given</th>
+                    <th>Site</th>
+                    <th>Lot Number</th>
+                    <th>CVX Code</th>
+                    <th>Drug Manufacturer</th>
+                    <th>Status</th>
+                    <th>Comments</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>SARS-CoV-2 mRNA (tozinameran-tris-sucr)</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20220125</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>FJ5682</span>
+                    </td>
+                    <td>
+                      <span>4081447697</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>SARS-CoV-2 (COVID-19) mRNA-1273 vaccine</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20210507</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>002C21A</span>
+                    </td>
+                    <td>
+                      <span>3655405385</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>SARS-CoV-2 (COVID-19) mRNA-1273 vaccine</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20210409</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>020B21A</span>
+                    </td>
+                    <td>
+                      <span>3655405385</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>influenza virus vaccine, inactivated</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20201105</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>K25LJ</span>
+                    </td>
+                    <td>
+                      <span>2820755</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>influenza virus vaccine, inactivated</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20190930</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>3BS44</span>
+                    </td>
+                    <td>
+                      <span>2820755</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>influenza virus vaccine, inactivated</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20190110</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>252226</span>
+                    </td>
+                    <td>
+                      <span>2820755</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>influenza virus vaccine, inactivated</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20151027</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>UI441AE</span>
+                    </td>
+                    <td>
+                      <span>2820755</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>tetanus/diphth/pertuss (Tdap) adult/adol</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20130321</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>C4332BA</span>
+                    </td>
+                    <td>
+                      <span>4145940</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>influenza virus vaccine, inactivated</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>20130321</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>UH721AC</span>
+                    </td>
+                    <td>
+                      <span>2820755</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>tetanus-diphth toxoids (Td) adult/adol</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>19800818</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>3366140</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>completed</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </text>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:182964db-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:182964eb-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:182964fb-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829650b-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829651b-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829652b-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829653b-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829654c-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829655c-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+          <!--2.16.840.1.113883.10.20.22.4.52:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:1829656c-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+        </section>
+        <section>
+          <title value="RESULTS" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="30954-2" />
+              <display value="Relevant diagnostic tests/laboratory data Narrative" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">No Lab Results Information</div>
+          </text>
+          <entry>
+            <reference value="urn:uuid:1822d2fe-970e-11f1-d88e-09173f13e4c5" />
+          </entry>
+        </section>
+        <section>
+          <title value="CHIEF COMPLAINT" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="10154-3" />
+              <display value="Chief complaint Narrative - Reported" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <p>No Chief Complaint Information</p>
+            </div>
+          </text>
+        </section>
+        <section>
+          <title value="SOCIAL HISTORY" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="29762-2" />
+              <display value="Social history Narrative" />
+            </coding>
+          </code>
+          <text>
+            <status value="additional" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table border="1" width="100%">
+                <thead>
+                  <tr>
+                    <th>Social History Observation</th>
+                    <th>Social History Observation Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>Birth Sex</span>
+                    </td>
+                    <td>
+                      <span>F</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span>Employment Status</span>
+                    </td>
+                    <td>
+                      <span>Unemployed Z56.0</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </text>
+          <!--2.16.840.1.113883.10.20.22.4.212-->
+          <!--2.16.840.1.113883.10.20.22.4.212:2017-11-30-->
+          <entry>
+            <reference value="urn:uuid:182965b2-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+        </section>
+        <section>
+          <title value="Pregnancy Section" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="90767-5" />
+              <display value="Pregnancy summary Document" />
+            </coding>
+          </code>
+          <text>
+            <status value="additional" />
+            <div xmlns="http://www.w3.org/1999/xhtml">No Pregnancy Information</div>
+          </text>
+          <!--2.16.840.1.113883.10.20.15.3.8-->
+          <!--2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
+          <entry>
+            <reference value="urn:uuid:182965c3-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+        </section>
+        <section>
+          <title value="Vital Signs" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="8716-3" />
+              <display value="Vital Signs" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">No Vitals Information</div>
+          </text>
+        </section>
+        <section>
+          <title value="PAST MEDICAL HISTORY" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="11348-0" />
+              <display value="Past Medical History" />
+            </coding>
+          </code>
+          <text>
+            <status value="additional" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table border="1" width="95%">
+                <thead>
+                  <tr>
+                    <th>Condition</th>
+                    <th>Condition Type</th>
+                    <th>Effective Dates</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>Chest pain, unspecified</span>
+                    </td>
+                    <td>
+                      <span>Past Medical History</span>
+                    </td>
+                    <td>
+                      <span>Unknown</span>
+                    </td>
+                    <td>
+                      <span>Resolved</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </text>
+          <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+          <entry>
+            <reference value="urn:uuid:182965f9-970e-11f1-d43e-09173f13e4c5" />
+          </entry>
+        </section>
+        <section>
+          <title value="History of Present Illness" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="10164-2" />
+              <display value="History of Present illness Narrative" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table border="1" width="100%">
+                <thead>
+                  <tr>
+                    <th>Narrative Text</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>Unknown History of Present Illness</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </text>
+        </section>
+        <section>
+          <title value="Reason For Visit" />
+          <code>
+            <coding>
+              <system value="http://loinc.org" />
+              <code value="29299-5" />
+              <display value="Reason For Visit" />
+            </coding>
+          </code>
+          <text>
+            <status value="generated" />
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <table border="1" width="100%">
+                <thead>
+                  <tr>
+                    <th>text</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <span>Unknown Reason For Visit</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </text>
+        </section>
+      </Composition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Patient xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient" />
+        </meta>
+        <text>
+          <status value="generated" />
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <h1>ZZZMOCK, MARIA D</h1>
+            <p>Telecom: tel:(423)374-4900</p>
+            <p>Telecom: tel:(865)374-4901</p>
+            <p>Telecom: tel:(865)374-4900</p>
+            <p>Telecom: tel:(555)555-5555</p>
+            <p>Telecom: mailto:mock_email@covhlth.net</p>
+            <p>Telecom: mailto:ASK@COVHLTH.COM</p>
+            <p>Address: 1410 CENTERPOINT BLVD
+                              <br />KNOXVILLE
+                              <br />Knox
+                              <br />TN
+                              <br />37932
+                              <br />US
+                           </p>
+            <p>Address: 
+                              <br />
+              <br />
+              <br />
+              <br />
+              <br />US
+                           </p>
+            <p>Gender: F</p>
+            <p>Birthdate: 1970-03-01</p>
+            <p>Language: en</p>
+          </div>
+        </text>
+        <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-race">
+          <extension url="ombCategory">
+            <valueCoding>
+              <system value="urn:oid:2.16.840.1.113883.6.238" />
+              <code value="2106-3" />
+              <display value="White" />
+            </valueCoding>
+          </extension>
+          <extension url="text">
+            <valueString value="White" />
+          </extension>
+        </extension>
+        <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity">
+          <extension url="ombCategory">
+            <valueCoding>
+              <system value="urn:oid:2.16.840.1.113883.6.238" />
+              <code value="2186-5" />
+              <display value="Not Hispanic or Latino" />
+            </valueCoding>
+          </extension>
+          <extension url="text">
+            <valueString value="Not Hispanic or Latino" />
+          </extension>
+        </extension>
+        <extension url="http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex">
+          <valueCode value="F" />
+        </extension>
+        <identifier>
+          <value value="14556852" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.48" />
+          <value value="20265598" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.104.47" />
+          <value value="2002885" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.113.47" />
+          <value value="14327" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.101.47" />
+          <value value="1588953" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.103.47" />
+          <value value="775664" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.4.6.47" />
+          <value value="500171641" />
+        </identifier>
+        <name>
+          <use value="usual" />
+          <family value="ZZZMOCK" />
+          <given value="MARIA" />
+          <given value="D" />
+        </name>
+        <telecom>
+          <system value="phone" />
+          <value value="(423)374-4900" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)374-4901" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)374-4900" />
+          <use value="home" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(555)555-5555" />
+          <use value="mobile" />
+        </telecom>
+        <telecom>
+          <system value="email" />
+          <value value="mock_email@covhlth.net" />
+        </telecom>
+        <telecom>
+          <system value="email" />
+          <value value="ASK@COVHLTH.COM" />
+        </telecom>
+        <gender value="female" />
+        <birthDate value="1970-03-01" />
+        <deceasedBoolean value="false" />
+        <address>
+          <use value="home" />
+          <line value="1410 CENTERPOINT BLVD" />
+          <city value="KNOXVILLE" />
+          <district value="Knox" />
+          <state value="TN" />
+          <postalCode value="37932" />
+          <country value="US" />
+        </address>
+        <address>
+          <line>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </line>
+          <city>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </city>
+          <district>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </district>
+          <state>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </state>
+          <postalCode>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </postalCode>
+        </address>
+        <maritalStatus>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.1.11.12212" />
+            <code value="M" />
+            <display value="Married" />
+          </coding>
+        </maritalStatus>
+        <contact>
+          <relationship>
+            <coding>
+              <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass" />
+              <code value="GUARD" />
+            </coding>
+          </relationship>
+          <name>
+            <family value="POWERS" />
+            <given value="GERALD" />
+          </name>
+          <telecom>
+            <system value="phone" />
+            <value value="(865)712-1193" />
+            <use value="work" />
+          </telecom>
+          <telecom>
+            <system value="phone" />
+            <value value="(865)712-1193" />
+            <use value="home" />
+          </telecom>
+          <telecom>
+            <system value="phone" />
+            <value value="(000)000-0000" />
+            <use value="mobile" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <telecom>
+            <system value="email" />
+            <value value="declined@covhlth.com" />
+          </telecom>
+          <address>
+            <use value="work" />
+            <line value="PO BOX 2008" />
+            <city value="OAK RIDGE" />
+            <district value="Anderson" />
+            <state value="TN" />
+            <postalCode value="37830" />
+            <country value="US" />
+          </address>
+        </contact>
+        <contact>
+          <relationship>
+            <coding>
+              <system value="http://terminology.hl7.org/CodeSystem/v2-0131" />
+              <code value="C" />
+            </coding>
+          </relationship>
+          <name>
+            <family>
+              <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                <valueCode value="unknown" />
+              </extension>
+            </family>
+            <given>
+              <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                <valueCode value="unknown" />
+              </extension>
+            </given>
+            <prefix>
+              <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                <valueCode value="unknown" />
+              </extension>
+            </prefix>
+            <suffix>
+              <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                <valueCode value="unknown" />
+              </extension>
+            </suffix>
+          </name>
+        </contact>
+        <communication>
+          <language>
+            <coding>
+              <system value="urn:ietf:bcp:47" />
+              <code value="en" />
+            </coding>
+          </language>
+          <preferred value="true" />
+        </communication>
+        <managingOrganization>
+          <reference value="urn:uuid:182377f7-970e-11f1-d43e-09173f13e4c5" />
+        </managingOrganization>
+      </Patient>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182377f7-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Organization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+        </meta>
+        <identifier>
+          <value value="14556852" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.48" />
+          <value value="20265598" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.104.47" />
+          <value value="2002885" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.113.47" />
+          <value value="14327" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.101.47" />
+          <value value="1588953" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.9.189.103.47" />
+          <value value="775664" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883.4.6.47" />
+          <value value="500171641" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="urn:oid:2.16.840.1.113883.9.189.120.105.1120" />
+        </identifier>
+        <active value="true" />
+        <name value="Westside Gastrointestinal Specialists" />
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="9330 Park West Boulevard" />
+          <line value="Suite 506" />
+          <city value="Knoxville" />
+          <district value="Knox" />
+          <state value="TN" />
+          <postalCode value="37923-4313" />
+          <country value="USA" />
+        </address>
+      </Organization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237842-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Encounter xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
+        </meta>
+        <text>
+          <status value="generated" />
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Location Details</th>
+                  <th>Encounter Type</th>
+                  <th>Encounter Number</th>
+                  <th>Participants</th>
+                  <th>ADM Date</th>
+                  <th>DC Date</th>
+                  <th>Status</th>
+                  <th>Disposition</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span>Westside Gastrointestinal Specialists</span>
+                  </td>
+                  <td>
+                    <span>[9330 Park West Boulevard, Suite 506], Knoxville, TN, 37923-4313, USA, </span>
+                  </td>
+                  <td>
+                    <span>Clinic</span>
+                  </td>
+                  <td>
+                    <span>2308292048</span>
+                  </td>
+                  <td>
+                    <span>Attending Physician :BENITEZ, JUAN MD | </span>
+                  </td>
+                  <td>
+                    <span>20260408181500+0000</span>
+                  </td>
+                  <td>
+                    <span>20260409042000+0000</span>
+                  </td>
+                  <td>
+                    <span>FINISHED</span>
+                  </td>
+                  <td>
+                    <span>**Home or Self Care 01</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>...</p>
+          </div>
+        </text>
+        <!--INFO: Id from encompassingEncounter-->
+        <identifier>
+          <value value="153837857" />
+        </identifier>
+        <status value="finished" />
+        <class>
+          <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+          <code value="AMB" />
+        </class>
+        <type>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode" />
+            <code value="AMB" />
+            <display value="ambulatory" />
+          </coding>
+        </type>
+        <type>
+          <coding>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </coding>
+          <text value="Clinic" />
+        </type>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <participant>
+          <type>
+            <coding>
+              <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+              <code value="ATND" />
+            </coding>
+          </type>
+          <individual>
+            <reference value="urn:uuid:1823784a-970e-11f1-d43e-09173f13e4c5" />
+          </individual>
+        </participant>
+        <participant>
+          <individual>
+            <reference value="urn:uuid:1823786e-970e-11f1-d43e-09173f13e4c5" />
+          </individual>
+        </participant>
+        <period>
+          <start value="2026-04-08T18:15:00.000+00:00" />
+          <end value="2026-04-09T04:20:00.000+00:00" />
+        </period>
+        <hospitalization>
+          <dischargeDisposition>
+            <coding>
+              <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                <valueCode value="unknown" />
+              </extension>
+            </coding>
+          </dischargeDisposition>
+        </hospitalization>
+        <location>
+          <location>
+            <reference value="urn:uuid:18237883-970e-11f1-d43e-09173f13e4c5" />
+          </location>
+        </location>
+        <serviceProvider>
+          <reference value="urn:uuid:18237891-970e-11f1-d43e-09173f13e4c5" />
+        </serviceProvider>
+      </Encounter>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823784a-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <PractitionerRole xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole" />
+        </meta>
+        <!--/ClinicalDocument[cda:id[@root="bbada88f-8ac8-4cef-af2a-f09bbc4506e9"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.4.873"][@extension="153837857"]][cda:id[@root="2.16.840.1.113883.4.6.57"][@extension="2308292048"]]/responsibleParty/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1699752105"]]-->
+        <identifier>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="1699752105" />
+        </identifier>
+        <practitioner>
+          <reference value="urn:uuid:1823785b-970e-11f1-d43e-09173f13e4c5" />
+        </practitioner>
+        <organization>
+          <reference value="urn:uuid:18237860-970e-11f1-d43e-09173f13e4c5" />
+        </organization>
+        <telecom>
+          <system value="email" />
+          <value value="benitez.juan@covenanthealth.cernerdirect.com" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+      </PractitionerRole>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823785b-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Practitioner xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
+        </meta>
+        <identifier>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="1699752105" />
+        </identifier>
+        <name>
+          <family value="BENITEZ" />
+          <given value="JUAN" />
+        </name>
+        <telecom>
+          <system value="email" />
+          <value value="benitez.juan@covenanthealth.cernerdirect.com" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="550 Ft Loudoun Medical Center Dr" />
+          <city value="Lenoir City" />
+          <district value="Loudon" />
+          <state value="TN" />
+          <postalCode value="37772" />
+          <country value="US" />
+        </address>
+      </Practitioner>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237860-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Organization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+        </meta>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="urn:oid:2.16.840.1.113883.9.189.120.105.1120" />
+        </identifier>
+        <active value="true" />
+        <name value="Westside Gastrointestinal Specialists" />
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="9330 Park West Boulevard" />
+          <line value="Suite 506" />
+          <city value="Knoxville" />
+          <district value="Knox" />
+          <state value="TN" />
+          <postalCode value="37923-4313" />
+          <country value="USA" />
+        </address>
+      </Organization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823786e-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <PractitionerRole xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole" />
+        </meta>
+        <!--/ClinicalDocument[cda:id[@root="bbada88f-8ac8-4cef-af2a-f09bbc4506e9"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.4.873"][@extension="153837857"]][cda:id[@root="2.16.840.1.113883.4.6.57"][@extension="2308292048"]]/encounterParticipant/assignedEntity[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1699752105"]]-->
+        <identifier>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="1699752105" />
+        </identifier>
+        <practitioner>
+          <reference value="urn:uuid:1823787f-970e-11f1-d43e-09173f13e4c5" />
+        </practitioner>
+        <telecom>
+          <system value="email" />
+          <value value="benitez.juan@covenanthealth.cernerdirect.com" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+      </PractitionerRole>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823787f-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Practitioner xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
+        </meta>
+        <identifier>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="1699752105" />
+        </identifier>
+        <name>
+          <family value="BENITEZ" />
+          <given value="JUAN" />
+        </name>
+        <telecom>
+          <system value="email" />
+          <value value="benitez.juan@covenanthealth.cernerdirect.com" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="550 Ft Loudoun Medical Center Dr" />
+          <city value="Lenoir City" />
+          <district value="Loudon" />
+          <state value="TN" />
+          <postalCode value="37772" />
+          <country value="US" />
+        </address>
+      </Practitioner>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237883-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Location xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location" />
+        </meta>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="organization/3569873/_history/5" />
+        </identifier>
+        <name value="Westside Gastrointestinal Specialists" />
+        <type>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode" />
+            <code value="OF" />
+            <display value="Outpatient Facility" />
+          </coding>
+        </type>
+        <type>
+          <coding>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </coding>
+        </type>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="9330 Park West Boulevard" />
+          <line value="Suite 506" />
+          <city value="Knoxville" />
+          <district value="Knox" />
+          <state value="TN" />
+          <postalCode value="37923-4313" />
+          <country value="USA" />
+        </address>
+      </Location>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237891-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Organization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+        </meta>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="organization/3569873/_history/5" />
+        </identifier>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="urn:oid:2.16.840.1.113883.9.189.120.105.1120" />
+        </identifier>
+        <active value="true" />
+        <name value="Westside Gastrointestinal Specialists" />
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="9330 Park West Boulevard" />
+          <line value="Suite 506" />
+          <city value="Knoxville" />
+          <district value="Knox" />
+          <state value="TN" />
+          <postalCode value="37923-4313" />
+          <country value="USA" />
+        </address>
+      </Organization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823786d-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Provenance xmlns="http://hl7.org/fhir">
+        <target>
+          <reference value="urn:uuid:1822d13a-970e-11f1-d43e-09173f13e4c5" />
+        </target>
+        <recorded value="2026-08-13T11:56:05.000+00:00" />
+        <agent>
+          <type>
+            <coding>
+              <system value="http://terminology.hl7.org/CodeSystem/v3-ParticipationType" />
+              <code value="ATND" />
+            </coding>
+          </type>
+          <who>
+            <reference value="urn:uuid:1823786e-970e-11f1-d43e-09173f13e4c5" />
+          </who>
+        </agent>
+      </Provenance>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237806-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <PractitionerRole xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole" />
+        </meta>
+        <!--/ClinicalDocument[cda:id[@root="bbada88f-8ac8-4cef-af2a-f09bbc4506e9"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="1699752105"]]-->
+        <identifier>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="1699752105" />
+        </identifier>
+        <practitioner>
+          <reference value="urn:uuid:18237817-970e-11f1-d43e-09173f13e4c5" />
+        </practitioner>
+        <telecom>
+          <system value="email" />
+          <value value="benitez.juan@covenanthealth.cernerdirect.com" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+      </PractitionerRole>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237817-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Practitioner xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />
+        </meta>
+        <identifier>
+          <system value="http://hl7.org/fhir/sid/us-npi" />
+          <value value="1699752105" />
+        </identifier>
+        <name>
+          <family value="BENITEZ" />
+          <given value="JUAN" />
+        </name>
+        <telecom>
+          <system value="email" />
+          <value value="benitez.juan@covenanthealth.cernerdirect.com" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="phone" />
+          <value value="(865)539-5372" />
+          <use value="work" />
+        </telecom>
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="550 Ft Loudoun Medical Center Dr" />
+          <city value="Lenoir City" />
+          <district value="Loudon" />
+          <state value="TN" />
+          <postalCode value="37772" />
+          <country value="US" />
+        </address>
+      </Practitioner>
+    </resource>
+  </entry>
+  <!--INFO: cda:assignedAuthoringDevice-->
+  <entry>
+    <fullUrl value="urn:uuid:18237827-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Device xmlns="http://hl7.org/fhir">
+        <identifier>
+          <system value="urn:ietf:rfc:3986" />
+          <value value="urn:uuid:4670dd8b-bc50-4dcf-a480-9c5d895a9f81" />
+        </identifier>
+        <!--INFO: cda:assignedAuthoringDevice-->
+        <version>
+          <value value="NI" />
+        </version>
+        <location>
+          <reference value="urn:uuid:1823781d-970e-11f1-d43e-09173f13e4c5" />
+        </location>
+      </Device>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823781d-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Location xmlns="http://hl7.org/fhir">
+        <telecom>
+          <system value="other" />
+          <value>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </value>
+        </telecom>
+        <address>
+          <line>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </line>
+          <city>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </city>
+          <district>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </district>
+          <state>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </state>
+          <postalCode>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </postalCode>
+          <country>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </country>
+        </address>
+      </Location>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823782c-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Organization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization" />
+        </meta>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="urn:oid:2.16.840.1.113883.9.189.120.105.1120" />
+        </identifier>
+        <active value="true" />
+        <name value="Westside Gastrointestinal Specialists" />
+        <telecom>
+          <system value="fax" />
+          <value value="(865)374-1075" />
+          <use value="work" />
+        </telecom>
+        <address>
+          <use value="work" />
+          <line value="9330 Park West Boulevard" />
+          <line value="Suite 506" />
+          <city value="Knoxville" />
+          <district value="Knox" />
+          <state value="TN" />
+          <postalCode value="37923-4313" />
+          <country value="USA" />
+        </address>
+      </Organization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1822d2fe-970e-11f1-d88e-09173f13e4c5" />
+    <resource>
+      <Observation xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab" />
+        </meta>
+        <text>
+          <status value="generated" />
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <p>
+              <b>No test reported</b>
+            </p>
+          </div>
+        </text>
+        <status value="final" />
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+            <code value="laboratory" />
+            <display value="Laboratory" />
+          </coding>
+          <text value="Laboratory" />
+        </category>
+        <code>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="not-applicable" />
+          </extension>
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <valueQuantity>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="not-applicable" />
+          </extension>
+        </valueQuantity>
+      </Observation>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1823798c-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170153/_history" />
+          <value value="233170153" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="40468003" />
+            <display value="Viral hepatitis, type A (disorder)" />
+          </coding>
+          <text value="Hepatitis A" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Hepatitis A" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182379a8-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170153/_history/233170153" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="40468003" />
+          </coding>
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182379c0-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170095/_history" />
+          <value value="233170095" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="38341003" />
+            <display value="Hypertensive disorder, systemic arterial (disorder)" />
+          </coding>
+          <text value="Hypertension" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Hypertension" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182379e7-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170009/_history" />
+          <value value="233170009" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="444316004" />
+            <display value="Seasonal allergy (disorder)" />
+          </coding>
+          <text value="Seasonal allergies" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Seasonal allergies" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237a0e-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170403/_history" />
+          <value value="233170403" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="193031009" />
+            <display value="Cluster headache syndrome (disorder)" />
+          </coding>
+          <text value="Headaches, cluster" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Headaches, cluster" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237a35-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p124828349/_history" />
+          <value value="124828349" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="3424008" />
+            <display value="Tachycardia (finding)" />
+          </coding>
+          <text value="Tachycardia, unspecified" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Tachycardia, unspecified" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237a5c-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170347/_history" />
+          <value value="233170347" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="34713006" />
+            <display value="Vitamin D deficiency (disorder)" />
+          </coding>
+          <text value="Vitamin D deficiency" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Vitamin D deficiency" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237a83-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170105/_history" />
+          <value value="233170105" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="72863001" />
+            <display value="Snoring (finding)" />
+          </coding>
+          <text value="Snoring" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Snoring" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237aab-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233169949/_history" />
+          <value value="233169949" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="111287006" />
+            <display value="Tricuspid valve regurgitation (disorder)" />
+          </coding>
+          <text value="Tricuspid regurgitation" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Tricuspid regurgitation" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237ad2-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170441/_history" />
+          <value value="233170441" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="161891005" />
+            <display value="Backache (finding)" />
+          </coding>
+          <text value="Back pain" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Back pain" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237af9-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170307/_history" />
+          <value value="233170307" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="235595009" />
+            <display value="Gastroesophageal reflux disease (disorder)" />
+          </coding>
+          <text value="GERD (gastroesophageal reflux disease)" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="GERD (gastroesophageal reflux disease)" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237b20-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170047/_history" />
+          <value value="233170047" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="48694002" />
+            <display value="Anxiety (finding)" />
+          </coding>
+          <text value="Anxiety" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Anxiety" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18237b47-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233169941/_history" />
+          <value value="233169941" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="80313002" />
+            <display value="Palpitations (finding)" />
+          </coding>
+          <text value="Palpitations" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Palpitations" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:18296326-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p233170113/_history" />
+          <value value="233170113" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="414916001" />
+            <display value="Obesity (disorder)" />
+          </coding>
+          <text value="Obesity" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Obesity" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182964db-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m5369793735/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="217" />
+            <display value="SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 30 mcg/0.3mL dose, tris-sucrose formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2022-01-25" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.3" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:182964e8-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182964eb-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m5369793731/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="207" />
+            <display value="SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 100 mcg/0.5mL dose or 50 mcg/0.25mL dose" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2021-05-07" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.5" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:182964f8-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182964fb-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554559/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="207" />
+            <display value="SARS-COV-2 (COVID-19) vaccine, mRNA, spike protein, LNP, preservative free, 100 mcg/0.5mL dose or 50 mcg/0.25mL dose" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2021-04-09" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.5" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296508-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829650b-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554601/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="88" />
+            <display value="influenza virus vaccine, unspecified formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2020-11-05" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.5" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296518-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829651b-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554597/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="88" />
+            <display value="influenza virus vaccine, unspecified formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2019-09-30" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.5" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296528-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829652b-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554586/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="88" />
+            <display value="influenza virus vaccine, unspecified formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2019-01-10" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.5" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296538-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829653b-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554571/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="88" />
+            <display value="influenza virus vaccine, unspecified formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2015-10-27" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.5" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296548-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829654c-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554613/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="115" />
+            <display value="tetanus toxoid, reduced diphtheria toxoid, and acellular pertussis vaccine, adsorbed" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2013-03-21" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.0" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296559-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829655c-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554567/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="88" />
+            <display value="influenza virus vaccine, unspecified formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="2013-03-21" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.0" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296569-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:1829656c-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Immunization xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/immunization/m3367554609/_history" />
+          <value value="1" />
+        </identifier>
+        <status value="completed" />
+        <vaccineCode>
+          <coding>
+            <system value="urn:oid:2.16.840.1.113883.12.292" />
+            <code value="139" />
+            <display value="Td(adult) unspecified formulation" />
+          </coding>
+        </vaccineCode>
+        <patient>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </patient>
+        <occurrenceDateTime value="1980-08-18" />
+        <!--INFO: Defaulting primarySource to data-absent-reason='unknown' since this required data element is not in the C-CDA Immunization Activity template-->
+        <primarySource>
+          <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+            <valueCode value="unknown" />
+          </extension>
+        </primarySource>
+        <doseQuantity>
+          <value value="0.0" />
+          <unit value="Unknown" />
+        </doseQuantity>
+        <performer>
+          <actor>
+            <reference value="urn:uuid:18296579-970e-11f1-d43e-09173f13e4c5" />
+          </actor>
+        </performer>
+      </Immunization>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182965b2-970e-11f1-d43e-09173f13e4c5" />
+    <!--ODH History of Employment Status-->
+    <resource>
+      <Observation xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus" />
+        </meta>
+        <identifier>
+          <system value="urn:oid:2.16.840.1.113883" />
+          <value value="sh-224556895-q4625873" />
+        </identifier>
+        <status value="final" />
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/observation-category" />
+            <code value="social-history" />
+            <display value="Social History" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="74165-2" />
+            <display value="History of employment status NIOSH" />
+          </coding>
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <effectivePeriod>
+          <start value="2021-02-23T16:18:23.000+00:00" />
+        </effectivePeriod>
+        <dataAbsentReason>
+          <coding>
+            <system value="http://hl7.org/fhir/ValueSet/data-absent-reason" />
+            <code value="unknown" />
+          </coding>
+        </dataAbsentReason>
+      </Observation>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182965c3-970e-11f1-d43e-09173f13e4c5" />
+    <!--Pregnancy Status Observation-->
+    <resource>
+      <Observation xmlns="http://hl7.org/fhir">
+        <!--Pregnancy Status Recorded Date-->
+        <!--Pregnancy Status Determination Date-->
+        <identifier>
+          <system>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </system>
+          <value>
+            <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+              <valueCode value="unknown" />
+            </extension>
+          </value>
+        </identifier>
+        <status value="final" />
+        <code>
+          <coding>
+            <system value="http://loinc.org" />
+            <code value="82810-3" />
+            <display value="Pregnancy Status" />
+          </coding>
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <!--INFO: CDA effectiveTime/time was null-->
+        <dataAbsentReason>
+          <coding>
+            <system value="http://hl7.org/fhir/ValueSet/data-absent-reason" />
+            <code value="unknown" />
+          </coding>
+        </dataAbsentReason>
+      </Observation>
+    </resource>
+  </entry>
+  <entry>
+    <fullUrl value="urn:uuid:182965f9-970e-11f1-d43e-09173f13e4c5" />
+    <resource>
+      <Condition xmlns="http://hl7.org/fhir">
+        <meta>
+          <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition" />
+        </meta>
+        <identifier>
+          <system value="https://fhir-ecr.sandboxcerner.com/r4/fc274a77-1c62-456a-be37-e5ffc7432923/condition/p124828315/_history" />
+          <value value="233169869" />
+        </identifier>
+        <clinicalStatus>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-clinical" />
+            <code value="resolved" />
+          </coding>
+        </clinicalStatus>
+        <category>
+          <coding>
+            <system value="http://terminology.hl7.org/CodeSystem/condition-category" />
+            <code value="problem-list-item" />
+          </coding>
+        </category>
+        <code>
+          <coding>
+            <system value="http://snomed.info/sct" />
+            <code value="29857009" />
+            <display value="Chest pain (finding)" />
+          </coding>
+          <text value="Chest pain, unspecified" />
+        </code>
+        <subject>
+          <reference value="urn:uuid:1822e067-970e-11f1-d43e-09173f13e4c5" />
+        </subject>
+        <note>
+          <text value="Chest pain, unspecified" />
+        </note>
+      </Condition>
+    </resource>
+  </entry>
+</Bundle>

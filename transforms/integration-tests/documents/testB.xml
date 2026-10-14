@@ -89,7 +89,27 @@
           <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01"/>
           <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Social history note"/>
           <title>Social History</title>
-          <text>Occupation: Nurse</text>
+          <text>Occupation: Nurse. Employment status: unknown (as of 2024-01-01).</text>
+          <!-- 20261015 Claude (B18b): an [ODH R1D1] History of Employment Status Observation (4.212) with a
+               null-flavored value, as seen live in the TN2/TN3 and Drajer production documents. The pipeline
+               translates it to dataAbsentReason and must DROP the odh-EmploymentStatus meta.profile (that profile
+               sets dataAbsentReason max 0), leaving an INFO comment, so the validator sees a base Observation and
+               reports no error. A REAL-valued 4.212 is deliberately NOT in this fixture: hl7.fhir.us.odh#1.1.0 ships
+               ValueSet v3-employmentStatusODH with no compose, so the validator rejects EVERY real value
+               ("None of the codings provided are in the value set 'EmploymentStatusODH' ... |1.1.0") - an IG
+               package defect already baselined for the three real R3.1 samples in conformance-known-issues.txt,
+               and this fixture gate is kept at zero. The real-value shape is pinned by XSpec
+               cda2fhir-Observation-root.xspec scenario L3 and by those samples' snapshots. -->
+          <entry>
+            <observation classCode="OBS" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.212" extension="2017-11-30"/>
+              <id root="0d000000-0000-0000-0000-000000000003"/>
+              <code code="74165-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of employment status NIOSH"/>
+              <statusCode code="completed"/>
+              <effectiveTime><low value="20240101"/></effectiveTime>
+              <value xsi:type="CD" nullFlavor="UNK"/>
+            </observation>
+          </entry>
           <entry>
             <observation classCode="OBS" moodCode="EVN">
               <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01"/>

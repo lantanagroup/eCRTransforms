@@ -537,7 +537,18 @@ def run_corpus_mode(args) -> int:
         counts = {p: v for p, v in counts.items() if wanted(p)}
 
     if args.update_known:
-        n = write_known_issues(args.known_issues, {p: v for p, v in counts.items() if v})
+        merged = {p: v for p, v in counts.items() if v}
+        if filters and args.known_issues.exists():
+            # 20261015 Claude: with --corpus-filter the run covers only a subset of the corpus,
+            # so a straight rewrite silently DROPPED every unfiltered document's baseline lines
+            # (seen 2026-10-15 while refreshing just the TN2/TN3 documents). Merge instead:
+            # keep the existing lines for documents this run did not process, and replace
+            # only the lines for the documents it did (an empty result removes them).
+            kept = {p: v for p, v in load_known_issues(args.known_issues).items() if not wanted(p)}
+            merged = {**kept, **merged}
+            print(f"\n--corpus-filter in effect: baseline lines for {len(kept)} unfiltered "
+                  f"document(s) kept as they were")
+        n = write_known_issues(args.known_issues, merged)
         print(f"\nknown-issues baseline written: {n} problem line(s) -> {args.known_issues.name}")
         print("REVIEW THE DIFF before committing - this accepts current defects as known.")
         return 0
@@ -655,7 +666,9 @@ def main() -> int:
                    help="layer 3b: transform+validate the snapshot corpus and gate against "
                         "conformance-known-issues.txt (see the module docstring)")
     p.add_argument("--update-known", action="store_true",
-                   help="with --corpus: rewrite conformance-known-issues.txt from this run")
+                   help="with --corpus: rewrite conformance-known-issues.txt from this run "
+                        "(with --corpus-filter, only the filtered documents' lines are "
+                        "replaced; every other document's lines are kept)")
     p.add_argument("--gate-only", action="store_true",
                    help="with --corpus: skip transform+validation, re-gate from the saved "
                         "validator JSON in --corpus-output")

@@ -1434,7 +1434,7 @@
                <system value="urn:ietf:rfc:3986"/>
                <value value="urn:uuid:UUID032"/>
             </identifier>
-            <status value="in-progress"/>
+            <status value="unknown"/>
             <class>
                <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
                   <valueCode value="unknown"/>

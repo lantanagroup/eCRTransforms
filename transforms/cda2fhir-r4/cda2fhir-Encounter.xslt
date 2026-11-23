@@ -272,6 +272,17 @@
           <xsl:when test="not(cda:effectiveTime)">
             <status value="unknown" />
           </xsl:when>
+          <!-- 20261124 Claude (SG decision 2026-11-24): the external encounter case. eICR Volume 2:
+               where a trigger occurs outside of an encounter the document carries
+               encompassingEncounter/code PHC2237 (External Encounter) with id and
+               effectiveTime/low null-flavored NA, and the provider and facility are carried by
+               ClinicalDocument/author. effectiveTime is still present (it is 1..1), so this used
+               to fall through to "in-progress" - asserting an encounter under way when the source
+               says there is none. Status is "unknown" for PHC2237 whatever the times say; tested
+               before the high/@value rule so that holds. Matched on @code alone, like PHC1464. -->
+          <xsl:when test="cda:code/@code = 'PHC2237'">
+            <status value="unknown" />
+          </xsl:when>
           <!-- 20260803 Claude (item 44/CDAFHIR-017): was cda:effectiveTime/cda:high (existence) -
                a <high nullFlavor="UNK"/> means the end is UNKNOWN, not that the encounter finished.
                Now requires an actual @value; the nullFlavor case falls through to in-progress. -->

@@ -344,4 +344,85 @@
     <x:expect label="G7. ele-1 guard: every emitted participant carries an individual"
       test="count(//fhir:Encounter/fhir:participant[not(fhir:individual)]) = 0" />
   </x:scenario>
+
+  <!-- 20261124 Claude (SG decision 2026-11-24): Encounter.status for the external encounter case.
+       eICR Volume 2: where a trigger occurs outside of an encounter the document carries
+       encompassingEncounter/code PHC2237 (External Encounter) with id and effectiveTime/low
+       null-flavored NA. The status rule only looked at effectiveTime, so an external encounter
+       (effectiveTime present, no high value) came out as "in-progress" - an encounter under way,
+       when the source says there is none. SG: status is "unknown" for PHC2237. H2-H4 pin the
+       three pre-existing outcomes, which must not move. -->
+  <x:scenario label="H. Encounter.status for the external encounter case (PHC2237)">
+    <x:scenario label="H1. external encounter (PHC2237, low nullFlavor NA, no high) is unknown">
+      <x:context select="//cda:encompassingEncounter">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000001a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <componentOf>
+            <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000001a1">
+              <id nullFlavor="NA" />
+              <code code="PHC2237" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="External Encounter" />
+              <effectiveTime>
+                <low nullFlavor="NA" />
+              </effectiveTime>
+            </encompassingEncounter>
+          </componentOf>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="H1a. exactly one status" test="count(fhir:Encounter/fhir:status) = 1" />
+      <x:expect label="H1b. status is unknown, not in-progress" test="fhir:Encounter/fhir:status/@value = 'unknown'" />
+    </x:scenario>
+    <x:scenario label="H2. external encounter stays unknown even when a high value is supplied">
+      <x:context select="//cda:encompassingEncounter">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000001b0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <componentOf>
+            <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000001b1">
+              <id nullFlavor="NA" />
+              <code code="PHC2237" codeSystem="2.16.840.1.114222.4.5.274" codeSystemName="PHIN VS (CDC Local Coding System)" displayName="External Encounter" />
+              <effectiveTime>
+                <low nullFlavor="NA" />
+                <high value="20240102" />
+              </effectiveTime>
+            </encompassingEncounter>
+          </componentOf>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="H2a. status is unknown" test="fhir:Encounter/fhir:status/@value = 'unknown'" />
+    </x:scenario>
+    <x:scenario label="H3. control: an ordinary encounter with no high value is still in-progress">
+      <x:context select="//cda:encompassingEncounter">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000001c0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <componentOf>
+            <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000001c1">
+              <id root="00000000-0000-0000-0000-0000000001c2" />
+              <code code="AMB" codeSystem="2.16.840.1.113883.5.4" />
+              <effectiveTime>
+                <low value="20240101" />
+              </effectiveTime>
+            </encompassingEncounter>
+          </componentOf>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="H3a. status is in-progress" test="fhir:Encounter/fhir:status/@value = 'in-progress'" />
+    </x:scenario>
+    <x:scenario label="H4. control: an ordinary encounter with a high value is still finished">
+      <x:context select="//cda:encompassingEncounter">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000001d0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <componentOf>
+            <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000001d1">
+              <id root="00000000-0000-0000-0000-0000000001d2" />
+              <code code="AMB" codeSystem="2.16.840.1.113883.5.4" />
+              <effectiveTime>
+                <low value="20240101" />
+                <high value="20240102" />
+              </effectiveTime>
+            </encompassingEncounter>
+          </componentOf>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="H4a. status is finished" test="fhir:Encounter/fhir:status/@value = 'finished'" />
+    </x:scenario>
+  </x:scenario>
 </x:description>

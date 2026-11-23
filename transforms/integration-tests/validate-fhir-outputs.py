@@ -56,7 +56,10 @@ lines mean the baseline should be regenerated so the ratchet tightens.
 
 Issue identity in corpus mode is deliberately COARSER than fixture mode:
 severity + normalised issue.details.text, with urn:uuid values masked to
-<uuid> and [n] indexes stripped from any embedded expressions. Location is NOT
+<uuid>, [n] indexes stripped from any embedded expressions, and the
+terminology-release-dependent tail of a message replaced by a placeholder (the
+code system version, and the list of valid displays in a display error; see
+TERMINOLOGY_NOISE_RES). Location is NOT
 part of the identity - the pipeline mints fresh UUIDs every run and the corpus
 documents are messy enough that expression paths jitter; message text keyed per
 document is the stable unit. Only error/fatal severities gate; environmental
@@ -329,6 +332,33 @@ CORPUS_MANIFEST = "corpus-manifest.json"       # output filename -> repo-relativ
 
 INDEX_RE = re.compile(r"\[\d+\]")
 
+# Terminology-release noise. The validator's messages embed whatever release its
+# terminology server currently has (LOINC '2.82' -> '2.83', the SNOMED edition URL,
+# the NDC date) and, for display errors, the server's current list of valid
+# displays. Neither says anything about the transform, and both change whenever
+# the server moves to a new release, which made every such baselined error gate
+# as NEW on unchanged code. The identity therefore keeps WHICH code / display is
+# wrong and drops the release-dependent tail. Applied to the baseline on load as
+# well, so lines written before this rule still match.
+TERMINOLOGY_NOISE_RES = [
+    # ... in the CodeSystem 'http://loinc.org' version '2.83'
+    #     in the CodeSystem 'http://snomed.info/sct' version 'http://...' (International Edition)
+    (re.compile(r"(in the CodeSystem '[^']*') version '[^']*'(?: \([^()]* Edition\))?"),
+     r"\1 version '<version>'"),
+    # Wrong Display Name 'X' for <system>#<code>. Valid display is ...
+    (re.compile(r"(Wrong Display Name '.*' for \S+?)\. Valid display is .*$"),
+     r"\1. Valid display is <valid displays>"),
+    # 'X' is no longer considered a correct display for code 'C' (status = inactive). The correct display is one of ...
+    (re.compile(r"(is no longer considered a correct display for code '[^']*' \([^()]*\))\. The correct display is .*$"),
+     r"\1. The correct display is <valid displays>"),
+]
+
+
+def normalise_identity(ident: str) -> str:
+    for rx, repl in TERMINOLOGY_NOISE_RES:
+        ident = rx.sub(repl, ident)
+    return ident
+
 
 def load_corpus() -> list[Path]:
     """Same loader shape as snapshot-regression.py: one glob per line, repo-relative."""
@@ -398,7 +428,7 @@ def corpus_identity(rec: dict) -> str:
     location is deliberately not part of the identity in corpus mode."""
     text = INDEX_RE.sub("", rec["text"])       # rec["text"] already has uuids masked
     text = text.replace("\t", " ").replace("\n", " ").strip()
-    return f"{rec['severity']}: {text}"
+    return normalise_identity(f"{rec['severity']}: {text}")
 
 
 def corpus_counts(records: list[dict], manifest: dict) -> dict:
@@ -433,7 +463,9 @@ def load_known_issues(path: Path) -> dict:
         if not raw.strip() or raw.lstrip().startswith("#"):
             continue
         relpath, count, ident = raw.rstrip("\n").split("\t", 2)
-        known.setdefault(relpath, {})[ident] = int(count)
+        ident = normalise_identity(ident)      # older lines carry the raw text; counts merge
+        doc = known.setdefault(relpath, {})
+        doc[ident] = doc.get(ident, 0) + int(count)
     return known
 
 

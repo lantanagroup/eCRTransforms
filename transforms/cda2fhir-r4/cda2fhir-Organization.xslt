@@ -180,6 +180,12 @@
         </xsl:otherwise>
       </xsl:choose>
 
+      <xsl:variable name="vInheritRoleIds" as="xs:boolean"
+        select="not(preceding-sibling::cda:assignedPerson) and not(self::cda:providerOrganization) and not(self::cda:receivedOrganization and preceding-sibling::cda:informationRecipient)" />
+      <!-- 20261124 Claude (RT-A8): a providerOrganization with no telecom/addr of its own must not
+           borrow the patientRole's - that is the patient's phone and home address. It goes straight
+           to the data-absent-reason fallback instead. -->
+      <xsl:variable name="vInheritRoleContact" as="xs:boolean" select="not(self::cda:providerOrganization)" />
       <xsl:choose>
         <!-- If this is an Organization without a person preceding-sibling 
                      grab any ids that are preceding siblings because otherwise they will get
@@ -190,12 +196,22 @@
 
         <!-- 20260729 Claude: Refactor - the NPI/CLIA/other identifier selection logic was duplicated verbatim in all
              three branches; now factored into the named template output-org-identifiers below. Behavior unchanged -->
-        <xsl:when test="not(preceding-sibling::cda:assignedPerson) and cda:id">
+        <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A8): the preceding-sibling ids
+             belong to whoever holds the enclosing role, which is not always this organization's own
+             role holder. Two cases are now excluded:
+             - providerOrganization: its preceding siblings are patientRole/id, i.e. the PATIENT's
+               identifiers, which were being emitted as identifiers of the provider organization
+               (live in 16 corpus documents);
+             - receivedOrganization when the intendedRecipient has a person: that person element is
+               named informationRecipient, not assignedPerson, so the test above never saw it and the
+               recipient's ids were copied onto the organization as well as the PractitionerRole.
+             Everything else inherits exactly as before. -->
+        <xsl:when test="$vInheritRoleIds and cda:id">
           <xsl:call-template name="output-org-identifiers">
             <xsl:with-param name="pIds" select="cda:id | preceding-sibling::cda:id" />
           </xsl:call-template>
         </xsl:when>
-        <xsl:when test="not(preceding-sibling::cda:assignedPerson)">
+        <xsl:when test="$vInheritRoleIds">
           <xsl:call-template name="output-org-identifiers">
             <xsl:with-param name="pIds" select="preceding-sibling::cda:id" />
           </xsl:call-template>
@@ -247,14 +263,14 @@
           <xsl:apply-templates select="cda:telecom" />
         </xsl:when>
         <!-- If the parent role has a telcom, use that -->
-        <xsl:when test="parent::*/cda:telecom">
+        <xsl:when test="$vInheritRoleContact and parent::*/cda:telecom">
           <xsl:apply-templates select="parent::*/cda:telecom" />
         </xsl:when>
         <!-- else if a sibling has a telecom, use that -->
-        <xsl:when test="preceding-sibling::*/cda:telecom">
+        <xsl:when test="$vInheritRoleContact and preceding-sibling::*/cda:telecom">
           <xsl:apply-templates select="preceding-sibling::*/cda:telecom" />
         </xsl:when>
-        <xsl:when test="following-sibling::*/cda:telecom">
+        <xsl:when test="$vInheritRoleContact and following-sibling::*/cda:telecom">
           <xsl:apply-templates select="following-sibling::*/cda:telecom" />
         </xsl:when>
         <xsl:otherwise>
@@ -276,14 +292,14 @@
           <xsl:apply-templates select="cda:addr" />
         </xsl:when>
         <!-- else if the parent role has an address, use that -->
-        <xsl:when test="parent::*/cda:addr">
+        <xsl:when test="$vInheritRoleContact and parent::*/cda:addr">
           <xsl:apply-templates select="parent::*/cda:addr" />
         </xsl:when>
         <!-- else if a sibling has an address, use that -->
-        <xsl:when test="preceding-sibling::*/cda:addr">
+        <xsl:when test="$vInheritRoleContact and preceding-sibling::*/cda:addr">
           <xsl:apply-templates select="preceding-sibling::*/cda:addr" />
         </xsl:when>
-        <xsl:when test="following-sibling::*/cda:addr">
+        <xsl:when test="$vInheritRoleContact and following-sibling::*/cda:addr">
           <xsl:apply-templates select="following-sibling::*/cda:addr" />
         </xsl:when>
         <xsl:otherwise>

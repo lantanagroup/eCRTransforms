@@ -1469,17 +1469,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
             <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.8226.32"/>
-               <value value="UG0H0GP85ZS1P26"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.8226.32"/>
-               <value value="065292841"/>
-               <assigner>
-                  <display value="EPI"/>
-               </assigner>
-            </identifier>
-            <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.6489.74"/>
                <value value="731"/>
             </identifier>

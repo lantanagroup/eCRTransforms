@@ -923,10 +923,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/informationRecipient/intendedRecipient/receivedOrganization-->
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="6666666666666"/>
-            </identifier>
             <active value="true"/>
             <name value="Level Seven Healthcare, Inc.: Information Recipient Provider Facility/Office"/>
             <telecom>

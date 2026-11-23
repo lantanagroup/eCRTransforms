@@ -404,10 +404,6 @@
                <system value="http://hl7.org/fhir/sid/us-npi"/>
                <value value="9999999999"/>
             </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.5"/>
-               <value value="12345"/>
-            </identifier>
             <active value="true"/>
             <name value="Test Org"/>
             <telecom>

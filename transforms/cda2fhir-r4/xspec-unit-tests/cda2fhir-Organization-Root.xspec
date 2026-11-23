@@ -36,7 +36,9 @@
                + 1 (information recipient) + 1 (healthcare facility) + 4 x 3 (the three RR agencies) = 18.
              - B8: every one of the 7 Organizations emits exactly one address; "1" looks copy-pasted from the
                single-fragment scenario below (C15). -->
-        <x:expect label="B2. There should be 6 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=6" />
+        <!-- 20261124 Claude (RT-A8): was 6. The sixth was the information recipient's own NPI copied onto the
+             receivedOrganization although the recipient has a person; it is no longer inherited. -->
+        <x:expect label="B2. There should be 5 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=5" />
         <x:expect label="B3. There should be 7 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active)=7" />
         <x:expect label="B4. There should be 7 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=7" />
         <x:expect label="B5. There should be 18 telecom" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=18" />
@@ -156,4 +158,118 @@
         <x:expect label="E19. There should be 1 state" test="count(//fhir:Organization/fhir:address/fhir:state)=1" />
         <x:expect label="E20. There should be 1 postal code" test="count(//fhir:Organization/fhir:address/fhir:postalCode)=1" />
     </x:scenario>
+
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A8): create-organization copies the
+       ids that precede an organization under the same role onto the Organization (and falls back to
+       the role's telecom/addr) so that a person-less role's identifiers are not lost. Under
+       recordTarget/patientRole the preceding ids are the PATIENT's, so the provider organization was
+       emitted carrying the patient's identifiers (live in 16 corpus documents; 7 of 8 identifiers in
+       the TN documents). Under intendedRecipient the person element is named informationRecipient,
+       not assignedPerson, so the recipient's ids were copied onto the receivedOrganization even with
+       a person present. N4/N5 pin the inheritance that is intended and must not move. -->
+  <x:scenario label="N. Organization does not inherit another party's identifiers or contact details (RT-A8)">
+    <x:scenario label="N1. providerOrganization keeps only its own identifier, not the patient's">
+      <x:context select="//cda:providerOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000002a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000002a1">
+          <patientRole>
+            <id root="2.16.840.1.113883.19.5" extension="PATIENT-MRN-1" />
+            <addr><streetAddressLine>1 Patient St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+            <telecom value="tel:+1-617-555-0001" />
+            <patient><name><given>Pat</given><family>Ient</family></name></patient>
+            <providerOrganization lcg:uuid="00000000-0000-0000-0000-0000000002a2">
+              <id root="2.16.840.1.113883.4.6" extension="9999999999" />
+              <name>Provider Org</name>
+              <telecom value="tel:+1-617-555-0002" />
+              <addr><streetAddressLine>2 Org St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+            </providerOrganization>
+          </patientRole>
+        </recordTarget>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="N1a. exactly one identifier" test="count(fhir:Organization/fhir:identifier) = 1" />
+      <x:expect label="N1b. it is the organization's own" test="fhir:Organization/fhir:identifier/fhir:value/@value = '9999999999'" />
+      <x:expect label="N1c. the patient's identifier is not on the Organization" test="not(fhir:Organization/fhir:identifier/fhir:value/@value = 'PATIENT-MRN-1')" />
+    </x:scenario>
+    <x:scenario label="N2. providerOrganization with no id, telecom or addr takes nothing from the patient">
+      <x:context select="//cda:providerOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000002a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000002a1">
+          <patientRole>
+            <id root="2.16.840.1.113883.19.5" extension="PATIENT-MRN-1" />
+            <addr><streetAddressLine>1 Patient St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+            <telecom value="tel:+1-617-555-0001" />
+            <patient><name><given>Pat</given><family>Ient</family></name></patient>
+            <providerOrganization lcg:uuid="00000000-0000-0000-0000-0000000002a2">
+              <name>Provider Org</name>
+            </providerOrganization>
+          </patientRole>
+        </recordTarget>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="N2a. no identifier at all" test="count(fhir:Organization/fhir:identifier) = 0" />
+      <x:expect label="N2b. telecom is a data-absent-reason, not the patient's phone" test="count(fhir:Organization/fhir:telecom) = 1 and fhir:Organization/fhir:telecom/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown' and not(fhir:Organization/fhir:telecom/fhir:value)" />
+      <x:expect label="N2c. address is a data-absent-reason, not the patient's address" test="count(fhir:Organization/fhir:address) = 1 and fhir:Organization/fhir:address/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown' and not(fhir:Organization/fhir:address/fhir:line)" />
+    </x:scenario>
+    <x:scenario label="N3. receivedOrganization with a recipient person does not take the recipient's id">
+      <x:context select="//cda:receivedOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000002a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <informationRecipient>
+          <intendedRecipient lcg:uuid="00000000-0000-0000-0000-0000000002b1">
+            <id root="2.16.840.1.113883.19.7" extension="RECIPIENT-ID-1" />
+            <informationRecipient lcg:uuid="00000000-0000-0000-0000-0000000002b2"><name><given>Rec</given><family>Ipient</family></name></informationRecipient>
+            <receivedOrganization lcg:uuid="00000000-0000-0000-0000-0000000002b3">
+              <id root="2.16.840.1.113883.4.6" extension="5555555555" />
+              <name>Received Org</name>
+            </receivedOrganization>
+          </intendedRecipient>
+        </informationRecipient>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="N3a. only the organization's own identifier" test="count(fhir:Organization/fhir:identifier) = 1 and fhir:Organization/fhir:identifier/fhir:value/@value = '5555555555'" />
+    </x:scenario>
+    <x:scenario label="N4. control: receivedOrganization with NO recipient person still takes the role's id">
+      <x:context select="//cda:receivedOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000002a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <informationRecipient>
+          <intendedRecipient lcg:uuid="00000000-0000-0000-0000-0000000002b1">
+            <id root="2.16.840.1.113883.19.7" extension="RECIPIENT-ID-1" />
+
+            <receivedOrganization lcg:uuid="00000000-0000-0000-0000-0000000002b3">
+              <id root="2.16.840.1.113883.4.6" extension="5555555555" />
+              <name>Received Org</name>
+            </receivedOrganization>
+          </intendedRecipient>
+        </informationRecipient>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="N4a. the role id is kept on the Organization" test="fhir:Organization/fhir:identifier/fhir:value/@value = 'RECIPIENT-ID-1'" />
+      <x:expect label="N4b. alongside the organization's own" test="fhir:Organization/fhir:identifier/fhir:value/@value = '5555555555'" />
+    </x:scenario>
+    <x:scenario label="N5. control: a person-less author's representedOrganization still takes the role's id, telecom and addr">
+      <x:context select="//cda:representedOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000002a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <author>
+          <time value="20240101" />
+          <assignedAuthor lcg:uuid="00000000-0000-0000-0000-0000000002c1">
+            <id root="2.16.840.1.113883.19.8" extension="ROLE-ID-1" />
+            <addr><streetAddressLine>3 Role St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+            <telecom value="tel:+1-617-555-0003" />
+            <representedOrganization lcg:uuid="00000000-0000-0000-0000-0000000002c2">
+              <name>Author Org</name>
+            </representedOrganization>
+          </assignedAuthor>
+        </author>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="N5a. role id inherited" test="fhir:Organization/fhir:identifier/fhir:value/@value = 'ROLE-ID-1'" />
+      <x:expect label="N5b. role telecom inherited" test="fhir:Organization/fhir:telecom/fhir:value/@value = '+1-617-555-0003'" />
+      <x:expect label="N5c. role address inherited" test="fhir:Organization/fhir:address/fhir:line/@value = '3 Role St'" />
+    </x:scenario>
+  </x:scenario>
 </x:description>

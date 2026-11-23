@@ -3123,10 +3123,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
             <identifier>
-               <system value="urn:oid:1.2.840.114350.1.13.212.2.7.3.688884.100"/>
-               <value value="CMC6SVP999999999"/>
-            </identifier>
-            <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.5.737384.100002"/>
                <value value="123456789"/>
             </identifier>

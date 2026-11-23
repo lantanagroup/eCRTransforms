@@ -941,34 +941,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
             <identifier>
-               <system value="urn:ietf:rfc:3986"/>
-               <value value="67340713"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.1881.53"/>
-               <value value="34357547"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.1464.68"/>
-               <value value="6240060"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.6164.69"/>
-               <value value="866150"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.7119.50"/>
-               <value value="1244705"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.5825.13"/>
-               <value value="170829"/>
-            </identifier>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.4.6.47"/>
-               <value value="297392635"/>
-            </identifier>
-            <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
                <value value="crg:cxd:0.62.137.9.382554.4.378.988.448.0015"/>
             </identifier>

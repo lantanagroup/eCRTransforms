@@ -600,4 +600,19 @@
         <x:expect label="2. no two entries share a fullUrl"
             test="count(//fhir:entry/fhir:fullUrl/@value) = count(distinct-values(//fhir:entry/fhir:fullUrl/@value))" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A13): header next-of-kin participants.
+         Whole-pipeline test on integration-tests/documents/testNok.xml. -->
+    <x:scenario label="header next of kin: Encounter participant resolves to the RelatedPerson (RT-A13)">
+        <x:context href="../../integration-tests/documents/testNok.xml" />
+        <x:expect label="1. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+        <x:expect label="2. the Encounter has one participant per next of kin, each resolving to its RelatedPerson"
+            test="count(//fhir:Encounter/fhir:participant[fhir:individual/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:RelatedPerson]/fhir:fullUrl/@value]) = 2 and //fhir:Encounter/fhir:participant/fhir:individual/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:RelatedPerson/fhir:identifier/fhir:value/@value = 'NOK-2']/fhir:fullUrl/@value" />
+        <x:expect label="3. RelatedPerson elements are in FHIR order: identifier, patient, relationship, name, telecom, address"
+            test="string-join(//fhir:RelatedPerson[fhir:identifier/fhir:value/@value = 'NOK-1']/fhir:*/local-name(), ' ') = 'identifier patient relationship relationship name telecom address'" />
+        <x:expect label="4. control: the content is unchanged (next-of-kin and mother relationships, name)"
+            test="//fhir:RelatedPerson[fhir:identifier/fhir:value/@value = 'NOK-1']/fhir:relationship/fhir:coding/fhir:code/@value = 'N' and //fhir:RelatedPerson[fhir:identifier/fhir:value/@value = 'NOK-1']/fhir:relationship/fhir:coding/fhir:code/@value = 'MTH' and //fhir:RelatedPerson[fhir:identifier/fhir:value/@value = 'NOK-1']/fhir:name/fhir:family/@value = 'Kin'" />
+        <x:expect label="5. one RelatedPerson per next of kin, no PractitionerRole for them"
+            test="count(//fhir:RelatedPerson[fhir:identifier/fhir:value/@value = ('NOK-1', 'NOK-2')]) = 2 and empty(//fhir:Practitioner[fhir:name/fhir:family/@value = 'Kin'])" />
+    </x:scenario>
 </x:description>

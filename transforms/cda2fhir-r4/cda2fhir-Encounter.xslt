@@ -494,7 +494,10 @@
       </xsl:for-each>
       <!--</xsl:when>
             </xsl:choose>-->
-      <xsl:for-each select="/cda:ClinicalDocument/cda:participant/cda:associatedEntity[@classCode = 'NOK']">
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A13): reference the participant,
+           not its associatedEntity. The RelatedPerson entry is created at the participant's uuid
+           (cda2fhir-RelatedPerson.xslt), so the associatedEntity uuid resolved to nothing. -->
+      <xsl:for-each select="/cda:ClinicalDocument/cda:participant[cda:associatedEntity[@classCode = 'NOK']]">
         <participant>
           <individual>
             <xsl:apply-templates select="." mode="reference" />

@@ -44,7 +44,10 @@
         </RelatedPerson>
     </xsl:template>
     
-    <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]" mode="bundle-entry">
+    <!-- 20261124 Claude (re-trace finding RT-A13): priority="1". This match tied with the generic
+         cda:participant[cda:associatedEntity] in cda2fhir-PractitionerRole.xslt (XTDE0540 ambiguous rule
+         match); it won only because of include order. -->
+    <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]" mode="bundle-entry" priority="1">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 
@@ -189,6 +192,9 @@
     <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]">
         <RelatedPerson>
             <xsl:comment>cda:participant (NOK)</xsl:comment>
+            <!-- 20261124 Claude (RT-A13): identifier moved up. FHIR XML fixes the element order
+                 (identifier, patient, relationship, name, telecom, address); it came after relationship. -->
+            <xsl:apply-templates select="cda:associatedEntity/cda:id" />
             <xsl:call-template name="subject-reference">
                 <xsl:with-param name="pElementName">patient</xsl:with-param>
             </xsl:call-template>
@@ -202,7 +208,6 @@
             <xsl:apply-templates select="cda:associatedEntity/cda:code">
                 <xsl:with-param name="pElementName">relationship</xsl:with-param>
             </xsl:apply-templates>
-            <xsl:apply-templates select="cda:associatedEntity/cda:id" />
 
             <xsl:apply-templates select="cda:associatedEntity/cda:associatedPerson/cda:name" />
             <xsl:apply-templates select="cda:associatedEntity/cda:telecom" />

@@ -69,7 +69,17 @@
             <!-- 20260727 Claude: Fixes - (1) sdtc:deceasedInd with a nullFlavor (no @value) previously matched no branch and
                  emitted nothing; (2) sdtc:deceasedTime with neither @value nor nullFlavor previously passed an empty sequence
                  to lcg:cdaTS2date (runtime type error); restructured so every input shape produces a deceased[x] -->
+            <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A18): eICR Vol 2 CONF:4527-403 allows
+                 deceasedInd=false together with a null-flavored deceasedTime ("If sdtc:deceasedInd is false then
+                 sdtc:deceasedTime SHALL NOT be present or sdtc:deceasedTime SHALL be @nullFlavor"). Because
+                 deceasedTime was tested first, that shape gave deceasedDateTime with only a data-absent-reason,
+                 which in FHIR says the patient HAS died (time unknown), and the explicit false was lost. The
+                 new first branch gives deceasedBoolean false. All other shapes are unchanged, including
+                 deceasedInd=true with a null-flavored time (deceasedDateTime carrying the reason). -->
             <xsl:choose>
+                <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedInd/@value = 'false' and not(cda:patientRole/cda:patient/sdtc:deceasedTime[@value])">
+                    <deceasedBoolean value="false" />
+                </xsl:when>
                 <xsl:when test="cda:patientRole/cda:patient/sdtc:deceasedTime[@nullFlavor]">
                     <deceasedDateTime>
                         <xsl:apply-templates select="cda:patientRole/cda:patient/sdtc:deceasedTime/@nullFlavor" mode="data-absent-reason-extension" />

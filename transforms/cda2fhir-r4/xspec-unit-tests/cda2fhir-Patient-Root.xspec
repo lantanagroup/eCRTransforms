@@ -57,4 +57,133 @@
         <x:expect label="There should be 1 emergency contact telecom" test="count(//fhir:Patient/fhir:contact[fhir:relationship/fhir:coding/fhir:code[@value='C']]/fhir:telecom)=1" />
 
     </x:scenario>
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A18): eICR Vol 2 CONF:4527-403 allows
+       deceasedInd=false together with a null-flavored deceasedTime. deceasedTime was tested first, so
+       that shape produced deceasedDateTime (carrying only a data-absent-reason), which in FHIR says the
+       patient HAS died, and the explicit false was lost. It now gives deceasedBoolean false. Every
+       other shape is unchanged, including deceasedInd=true with a null-flavored time (kept as
+       deceasedDateTime with the reason, e.g. masked for MSK). -->
+  <x:scenario label="P. deceasedInd and deceasedTime (RT-A18)">
+    <x:scenario label="P1. deceasedInd false with deceasedTime nullFlavor NA">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004a1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+                <sdtc:deceasedInd value="false" />
+                <sdtc:deceasedTime nullFlavor="NA" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="P1a. deceasedBoolean false" test="fhir:Patient/fhir:deceasedBoolean/@value = 'false'" />
+      <x:expect label="P1b. no deceasedDateTime" test="count(fhir:Patient/fhir:deceasedDateTime) = 0" />
+      <x:expect label="P1c. exactly one deceased[x]" test="count(fhir:Patient/*[starts-with(local-name(), 'deceased')]) = 1" />
+    </x:scenario>
+    <x:scenario label="P2. deceasedInd false with deceasedTime nullFlavor UNK">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004a1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+                <sdtc:deceasedInd value="false" />
+                <sdtc:deceasedTime nullFlavor="UNK" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="P2a. deceasedBoolean false, no deceasedDateTime" test="fhir:Patient/fhir:deceasedBoolean/@value = 'false' and count(fhir:Patient/fhir:deceasedDateTime) = 0" />
+    </x:scenario>
+    <x:scenario label="P3. control: deceasedInd true with deceasedTime nullFlavor MSK keeps deceasedDateTime with the reason">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004a1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+                <sdtc:deceasedInd value="true" />
+                <sdtc:deceasedTime nullFlavor="MSK" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="P3a. deceasedDateTime with data-absent-reason masked" test="fhir:Patient/fhir:deceasedDateTime/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'masked'" />
+      <x:expect label="P3b. no deceasedBoolean" test="count(fhir:Patient/fhir:deceasedBoolean) = 0" />
+    </x:scenario>
+    <x:scenario label="P4. control: deceasedInd true with a valued deceasedTime">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004a1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+                <sdtc:deceasedInd value="true" />
+                <sdtc:deceasedTime value="20260726" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="P4a. deceasedDateTime carries the date" test="fhir:Patient/fhir:deceasedDateTime/@value = '2026-07-26' and count(fhir:Patient/fhir:deceasedBoolean) = 0" />
+    </x:scenario>
+    <x:scenario label="P5. control: deceasedInd false alone">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004a1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+                <sdtc:deceasedInd value="false" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="P5a. deceasedBoolean false" test="fhir:Patient/fhir:deceasedBoolean/@value = 'false' and count(fhir:Patient/fhir:deceasedDateTime) = 0" />
+    </x:scenario>
+    <x:scenario label="P6. control: null-flavored deceasedTime with no deceasedInd keeps deceasedDateTime with the reason">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004a1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+                <sdtc:deceasedTime nullFlavor="UNK" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="P6a. deceasedDateTime with data-absent-reason unknown" test="fhir:Patient/fhir:deceasedDateTime/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown' and count(fhir:Patient/fhir:deceasedBoolean) = 0" />
+    </x:scenario>
+  </x:scenario>
 </x:description>

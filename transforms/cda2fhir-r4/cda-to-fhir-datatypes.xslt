@@ -469,11 +469,21 @@
       </xsl:choose>
     </repeat>
   </xsl:template>
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A2): Observation.issued is an instant
+       and optional. When the document time has no time of day it is not emitted (it used to come out as
+       a bare date, which is not a valid instant); no time of day is invented for it. -->
   <xsl:template match="cda:ClinicalDocument/cda:effectiveTime" mode="observation">
-    <xsl:comment>INFO: Using document effective time as issued date</xsl:comment>
-    <xsl:apply-templates select="." mode="instant">
-      <xsl:with-param name="pElementName">issued</xsl:with-param>
-    </xsl:apply-templates>
+    <xsl:choose>
+      <xsl:when test="@value and not(contains(lcg:cdaTS2date(@value), 'T'))">
+        <xsl:comment>INFO: document effective time has no time of day, so it is not used as issued (an instant)</xsl:comment>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:comment>INFO: Using document effective time as issued date</xsl:comment>
+        <xsl:apply-templates select="." mode="instant">
+          <xsl:with-param name="pElementName">issued</xsl:with-param>
+        </xsl:apply-templates>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   <xsl:template name="effectiveTimeInner">
     <xsl:if test="cda:width/@value and cda:width/@unit = 'weeks' and cda:high">

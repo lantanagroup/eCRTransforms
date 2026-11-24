@@ -27,4 +27,21 @@
         <x:expect label="B4. There should be a type='document'" test="count(fhir:Bundle/fhir:type[@value ='document'])=1" />
 
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A2): a CDA time given to the day only fed
+         FHIR instant elements as a bare date. Bundle.timestamp (required) is padded to midnight UTC;
+         Observation.issued (optional) is left out. Whole-pipeline test on integration-tests/documents/testDate.xml. -->
+    <x:scenario label="date-only CDA times and FHIR instants (RT-A2)">
+        <x:context href="../../integration-tests/documents/testDate.xml" />
+        <x:expect label="1. Bundle.timestamp is padded to midnight UTC" test="/fhir:Bundle/fhir:timestamp/@value = '2026-07-27T00:00:00Z'" />
+        <x:expect label="2. no issued from a date-only document time" test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-GENERIC']) and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-GENERIC']/fhir:issued)" />
+        <x:expect label="3. no issued from a date-only author time" test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-PANEL-DATE']) and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-PANEL-DATE']/fhir:issued)" />
+        <x:expect label="4. control: an author time with a time of day still gives issued"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-PANEL-TIME']/fhir:issued/@value = '2026-07-26T14:15:00+10:00'" />
+        <x:expect label="5. every instant in the bundle is a full instant"
+            test="every $v in (//fhir:timestamp | //fhir:issued | //fhir:recorded | //fhir:when)/@value satisfies matches($v, '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$')" />
+    </x:scenario>
+    <x:scenario label="control: a document time with a time of day is unchanged (RT-A2)">
+        <x:context href="../../integration-tests/documents/test-cda.xml" />
+        <x:expect label="1. Bundle.timestamp keeps the document's time and offset" test="/fhir:Bundle/fhir:timestamp/@value = '2026-07-27T10:30:00+10:00'" />
+    </x:scenario>
 </x:description>

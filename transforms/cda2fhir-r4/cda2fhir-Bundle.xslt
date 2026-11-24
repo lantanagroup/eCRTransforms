@@ -70,9 +70,14 @@
            Absent-in-source now follows the house convention: data-absent-reason extension, no value. -->
       <xsl:choose>
         <xsl:when test="cda:ClinicalDocument/cda:effectiveTime/@value">
+          <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A2): Bundle.timestamp is an
+               instant, so a document time given to the day only (valid: CONF:81-10127/10128) is
+               padded to midnight UTC, exactly as Provenance.recorded already is (mode instant with
+               pDataType instant in cda-to-fhir-datatypes.xslt). It used to come out as a bare date. -->
+          <xsl:variable name="vTimestamp" select="lcg:cdaTS2date(cda:ClinicalDocument/cda:effectiveTime/@value)" />
           <timestamp>
             <xsl:attribute name="value">
-              <xsl:value-of select="lcg:cdaTS2date(cda:ClinicalDocument/cda:effectiveTime/@value)" />
+              <xsl:value-of select="if (string-length($vTimestamp) = 10) then concat($vTimestamp, 'T00:00:00Z') else $vTimestamp" />
             </xsl:attribute>
           </timestamp>
         </xsl:when>

@@ -315,7 +315,9 @@
       </xsl:apply-templates>
 
       <!-- issued: author -->
-      <xsl:if test="cda:author[1]/cda:time/@value">
+      <!-- 20261124 Claude (RT-A2): only when the author time has a time of day; issued is an instant
+           and a date alone is not a valid one. The author time is still on the author's Provenance. -->
+      <xsl:if test="cda:author[1]/cda:time/@value and contains(lcg:cdaTS2date(cda:author[1]/cda:time/@value), 'T')">
         <issued value="{lcg:cdaTS2date(cda:author[1]/cda:time/@value)}" />
       </xsl:if>
 

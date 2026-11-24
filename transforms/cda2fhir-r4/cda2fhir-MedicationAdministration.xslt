@@ -67,14 +67,23 @@
       <!-- Doesn't make sense to have a repeat instruction inside a MedicationAdministration 
            If there is an effectiveTime with operator='A', treat as either period or an instant
            Also there can only be one effective[x] in a MedicationAdministration so just take the first one-->
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C6): the administration time is
+           now chosen by shape, not position. C-CDA does not fix the order of the administration
+           effectiveTime (CONF:1098-7508) and the frequency one (operator="A", CONF:1098-7513), and
+           with the frequency first the dates in the second element were never read. Take the first
+           effectiveTime that is not a frequency and has a value, low or high; when there is none,
+           effectiveTime[1] as before (so a frequency that carries a @value still gives a dateTime).
+           The frequency itself is still not carried (SG: keep dropping it). -->
+      <xsl:variable name="vAdministrationTime"
+        select="(cda:effectiveTime[not(@operator = 'A')][@value or cda:low or cda:high], cda:effectiveTime[1])[1]" />
       <xsl:choose>
-        <xsl:when test="cda:effectiveTime[1]/cda:low or cda:effectiveTime[1]/cda:high">
-          <xsl:apply-templates select="cda:effectiveTime[1]" mode="period">
+        <xsl:when test="$vAdministrationTime/cda:low or $vAdministrationTime/cda:high">
+          <xsl:apply-templates select="$vAdministrationTime" mode="period">
             <xsl:with-param name="pElementName">effectivePeriod</xsl:with-param>
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="cda:effectiveTime[1]" mode="instant">
+          <xsl:apply-templates select="$vAdministrationTime" mode="instant">
             <xsl:with-param name="pElementName">effectiveDateTime</xsl:with-param>
           </xsl:apply-templates>
         </xsl:otherwise>
@@ -161,14 +170,23 @@
       <!-- Doesn't make sense to have a repeat instruction inside a MedicationAdministration 
                  If there is an effectiveTime with operator='A', treat as either period or an instant
                  Also there can only be one effective[x] in a MedicationAdministration so just take the first one-->
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C6): the administration time is
+           now chosen by shape, not position. C-CDA does not fix the order of the administration
+           effectiveTime (CONF:1098-7508) and the frequency one (operator="A", CONF:1098-7513), and
+           with the frequency first the dates in the second element were never read. Take the first
+           effectiveTime that is not a frequency and has a value, low or high; when there is none,
+           effectiveTime[1] as before (so a frequency that carries a @value still gives a dateTime).
+           The frequency itself is still not carried (SG: keep dropping it). -->
+      <xsl:variable name="vAdministrationTime"
+        select="(cda:effectiveTime[not(@operator = 'A')][@value or cda:low or cda:high], cda:effectiveTime[1])[1]" />
       <xsl:choose>
-        <xsl:when test="cda:effectiveTime[1]/cda:low or cda:effectiveTime[1]/cda:high">
-          <xsl:apply-templates select="cda:effectiveTime[1]" mode="period">
+        <xsl:when test="$vAdministrationTime/cda:low or $vAdministrationTime/cda:high">
+          <xsl:apply-templates select="$vAdministrationTime" mode="period">
             <xsl:with-param name="pElementName">effectivePeriod</xsl:with-param>
           </xsl:apply-templates>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="cda:effectiveTime[1]" mode="instant">
+          <xsl:apply-templates select="$vAdministrationTime" mode="instant">
             <xsl:with-param name="pElementName">effectiveDateTime</xsl:with-param>
           </xsl:apply-templates>
         </xsl:otherwise>

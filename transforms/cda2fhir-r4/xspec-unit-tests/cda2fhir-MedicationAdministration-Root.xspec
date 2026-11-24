@@ -33,4 +33,21 @@
         <x:expect label="B10. There should be a dosage.route.coding.display.value=ORAL" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:route/fhir:coding/fhir:display[@value='ORAL'])=1" />
         <x:expect label="B11. There should be a dose with value = '1' and unit = 'g'" test="count(//fhir:MedicationAdministration/fhir:dosage/fhir:dose[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C6): the administration time is chosen by
+         shape, not by position. Whole-pipeline test on integration-tests/documents/testMedTime.xml. -->
+    <x:scenario label="T. administration time is found whichever effectiveTime comes first (RT-C6)">
+        <x:context href="../../integration-tests/documents/testMedTime.xml" />
+        <x:expect label="T1. frequency first, interval second: effectivePeriod from the interval"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-FIRST']/fhir:effectivePeriod/fhir:start/@value = '2026-07-20' and //fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-FIRST']/fhir:effectivePeriod/fhir:end/@value = '2026-07-25'" />
+        <x:expect label="T2. event-based frequency first, point in time second: effectiveDateTime"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-EVENT-FIRST']/fhir:effectiveDateTime/@value = '2026-07-21'" />
+        <x:expect label="T3. same in the Admission Medications section template"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-ADM-FREQ-FIRST']/fhir:effectivePeriod/fhir:start/@value = '2026-07-20'" />
+        <x:expect label="T4. control: interval first, frequency second is unchanged"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-LAST']/fhir:effectivePeriod/fhir:end/@value = '2026-07-25'" />
+        <x:expect label="T5. control: a frequency that carries a value and stands alone still gives effectiveDateTime"
+            test="starts-with(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-VALUE-ONLY']/fhir:effectiveDateTime/@value, '2026-07-22T11:59')" />
+        <x:expect label="T6. never more than one effective[x]"
+            test="every $m in //fhir:MedicationAdministration satisfies count($m/fhir:*[starts-with(local-name(), 'effective')]) le 1" />
+    </x:scenario>
 </x:description>

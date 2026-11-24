@@ -3266,6 +3266,14 @@
                <start value="2020-11-10T18:00:00-05:00"/>
                <end value="2020-11-10T21:30:00-05:00"/>
             </effectivePeriod>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="264379009"/>
+                  <display value="Sports stadium (environment)"/>
+               </coding>
+               <text value="City Football Stadium"/>
+            </valueCodeableConcept>
          </Observation>
       </resource>
    </entry>

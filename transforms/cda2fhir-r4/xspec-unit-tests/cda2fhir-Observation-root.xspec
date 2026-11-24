@@ -989,4 +989,30 @@
             <x:expect label="O15a. valueCodeableConcept with the code" test="fhir:Observation/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '260373001'" />
         </x:scenario>
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B13): the value of an Exposure/Contact
+         Information Observation (15.2.3.52), the specific exposure or contact, was never mapped. Now the first
+         usable value becomes value[x] (CodeableConcept or string, the two types us-ph-exposure-contact-information
+         allows); further values are flagged with a comment. Whole-pipeline tests. -->
+    <x:scenario label="P. exposure/contact value is carried (RT-B13)">
+        <x:context href="../../integration-tests/documents/testExpo.xml" />
+        <x:expect label="P1. a coded value becomes valueCodeableConcept, with its originalText"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-CODED']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '264379009' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-CODED']/fhir:valueCodeableConcept/fhir:text/@value = 'City Football Stadium'" />
+        <x:expect label="P2. a text value becomes valueString"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TEXT']/fhir:valueString/@value = 'Regional agricultural show'" />
+        <x:expect label="P3. two values: only the first is carried"
+            test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TWO']/fhir:*[starts-with(local-name(), 'value')]) = 1 and //fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TWO']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '264379009'" />
+        <x:expect label="P4. two values: the one left out is flagged with a comment"
+            test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TWO']/comment()[contains(., 'WARNING') and contains(., 'value')])" />
+        <x:expect label="P5. a null-flavored value is skipped and the next usable one is carried"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-NULL-THEN-CODED']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '257656006'" />
+        <x:expect label="P6. control: only a null-flavored value, or none, gives no value[x]"
+            test="empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-NULL']/fhir:*[starts-with(local-name(), 'value')]) and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-NONE']/fhir:*[starts-with(local-name(), 'value')])" />
+        <x:expect label="P7. control: the exposure type stays in Observation.code"
+            test="every $o in //fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information'] satisfies $o/fhir:code/fhir:coding/fhir:code/@value = 'C3841750'" />
+    </x:scenario>
+    <x:scenario label="Q. exposure/contact value in the IG sample (RT-B13)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="Q1. the sports stadium reaches the exposure Observation"
+            test="//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '264379009'" />
+    </x:scenario>
 </x:description>

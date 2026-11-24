@@ -1623,6 +1623,20 @@
                 <xsl:call-template name="performer-or-author" />
             </xsl:for-each>-->
 
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B13): the specific exposure or
+           contact (CDA value, CONF:4482-999) was never mapped. us-ph-exposure-contact-information
+           has value[x] 0..1, must-support, CodeableConcept or string, while the CDA allows 0..*:
+           the first usable value is carried (coded -> valueCodeableConcept, text -> valueString)
+           and any further one is flagged with a comment, as SG chose. A value that is only a
+           nullFlavor is not usable (the element is optional, so nothing is emitted for it). -->
+      <xsl:variable name="vExposureValues"
+        select="cda:value[@xsi:type = ('CD', 'CE', 'CO', 'CV', 'ST', 'ED')][not(@nullFlavor) or cda:originalText or cda:translation]" />
+      <xsl:apply-templates select="$vExposureValues[1]" />
+      <xsl:for-each select="$vExposureValues[position() gt 1]">
+        <xsl:comment>WARNING: Observation.value[x] holds one value; additional CDA value not carried: <xsl:value-of
+            select="normalize-space(string-join((@code, @displayName, cda:originalText, text()), ' '))" /></xsl:comment>
+      </xsl:for-each>
+
       <xsl:for-each select="cda:participant[@typeCode = 'CSM']">
         <component>
           <code>

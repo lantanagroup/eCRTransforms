@@ -32,12 +32,6 @@
       <xsl:call-template name="create-bundle-entry" />
     </xsl:for-each>
   </xsl:template>
-  <!-- 20260424 SG: create bundle-entry for CDA Document as DocumentReference -->
-  <xsl:template match="cda:ClinicalDocument/cda:setId" mode="bundle-entry">
-    <xsl:for-each select=".">
-      <xsl:call-template name="create-bundle-entry" />
-    </xsl:for-each>
-  </xsl:template>
   <!-- SG: Not sure if this is the correct place for this - leaving it here for now -->
   <xsl:template match="cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.9']" mode="reference">
     <xsl:param name="wrapping-elements" />

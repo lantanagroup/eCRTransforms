@@ -1026,11 +1026,24 @@
         <xsl:with-param name="pElementName">code</xsl:with-param>
       </xsl:apply-templates>
       <xsl:call-template name="subject-reference" />
-      <xsl:comment>Reference to related Pregnancy Observation</xsl:comment>
-      <xsl:call-template name="resource-reference">
-        <xsl:with-param name="pElementName">focus</xsl:with-param>
-        <xsl:with-param name="pTemplateId" select="parent::*/parent::*/cda:templateId" />
-      </xsl:call-template>
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B4): focus references the
+           pregnancy observation this outcome sits under. It used to go through resource-reference,
+           which collected every element in the document sharing a templateId root with the parent, so
+           with two pregnancy observations the reference held both uuids. When the parent is not a
+           pregnancy observation (not a conformant shape) no focus is written. -->
+      <xsl:variable name="vPregnancyObservation"
+        select="parent::cda:entryRelationship/parent::cda:observation[cda:templateId/@root = ('2.16.840.1.113883.10.20.15.3.8', '2.16.840.1.113883.10.20.22.4.293')]" />
+      <xsl:choose>
+        <xsl:when test="$vPregnancyObservation">
+          <xsl:comment>Reference to related Pregnancy Observation</xsl:comment>
+          <focus>
+            <reference value="urn:uuid:{$vPregnancyObservation/@lcg:uuid}" />
+          </focus>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:comment>WARNING: Pregnancy Outcome is not inside a Pregnancy Observation, so Observation.focus is not emitted</xsl:comment>
+        </xsl:otherwise>
+      </xsl:choose>
 
       <xsl:apply-templates select="cda:effectiveTime">
         <xsl:with-param name="pStartElementName">effective</xsl:with-param>

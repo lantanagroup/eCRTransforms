@@ -411,14 +411,10 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template name="resource-reference">
-        <xsl:param name="pTemplateId" />
-        <xsl:param name="pElementName">focus</xsl:param>
-
-        <xsl:element name="{$pElementName}">
-            <reference value="urn:uuid:{//cda:*[cda:templateId/@root=$pTemplateId/@root]/@lcg:uuid}" />
-        </xsl:element>
-    </xsl:template>
+    <!-- 20261124 Claude (re-trace finding RT-B4): removed the named template resource-reference. Its only
+         caller was the Pregnancy Outcome template, which now references its parent observation directly;
+         the template searched the whole document by templateId root and joined every match into one
+         reference value. -->
 
     <!-- MD: Add encompassingEncounter reference -->
     <xsl:template name="encompassingEncounter-reference">

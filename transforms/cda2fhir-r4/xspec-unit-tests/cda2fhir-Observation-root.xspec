@@ -1052,4 +1052,22 @@
         <x:expect label="S5. control: valued performer time and component times still give date-determined"
             test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension']/fhir:valueDateTime/@value = '2026-07-19' and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:component/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension'][fhir:valueDateTime/@value = '2026-07-18']) = 2" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B4): Observation.focus of a Pregnancy Outcome
+         held the ids of every pregnancy observation in the document, space-joined. It now references the
+         outcome's own parent. Whole-pipeline test on testPreg.xml (two pregnancies, each with an outcome). -->
+    <x:scenario label="T. a pregnancy outcome points at its own pregnancy (RT-B4)">
+        <x:context href="../../integration-tests/documents/testPreg.xml" />
+        <x:expect label="T1. no reference value contains a space" test="empty(//fhir:reference/@value[contains(., ' ')])" />
+        <x:expect label="T2. each outcome has exactly one focus"
+            test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'OUT-OF-NULL-TIMES']/fhir:focus) = 1 and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'OUT-OF-VALUED-TIMES']/fhir:focus) = 1" />
+        <x:expect label="T3. the first outcome's focus is the first pregnancy observation"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'OUT-OF-NULL-TIMES']/fhir:focus/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'PREG-NULL-TIMES']/fhir:fullUrl/@value" />
+        <x:expect label="T4. the second outcome's focus is the second pregnancy observation"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'OUT-OF-VALUED-TIMES']/fhir:focus/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:fullUrl/@value" />
+    </x:scenario>
+    <x:scenario label="U. control: one pregnancy with an outcome in the IG sample (RT-B4)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="U1. the outcome's focus resolves to the pregnancy status observation"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation'" />
+    </x:scenario>
 </x:description>

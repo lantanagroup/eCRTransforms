@@ -1090,4 +1090,25 @@
         <x:expect label="V9. control: ST unchanged" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-ST']/fhir:referenceRange/fhir:text/@value = '3.5 to 5.0'" />
         <x:expect label="V10. control: nothing usable keeps the placeholder text" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-NOTHING']/fhir:referenceRange/fhir:text/@value = 'No reference range supplied'" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B14): a Travel History Observation now lists
+         the Transportation Details and Exposure/Contact Information Observations nested in its act as hasMember
+         (must-support in us-ph-travel-history). They stay listed as section entries as before. -->
+    <x:scenario label="W. travel history hasMember: nested exposure (RT-B14)">
+        <x:context href="../../integration-tests/documents/testExpo.xml" />
+        <x:expect label="W1. each trip lists exactly its own exposure"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'TRIP-1']/fhir:hasMember/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'EX-ON-TRIP-1']/fhir:fullUrl/@value and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'TRIP-1']/fhir:hasMember) = 1 and //fhir:Observation[fhir:identifier/fhir:value/@value = 'TRIP-2']/fhir:hasMember/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'EX-ON-TRIP-2']/fhir:fullUrl/@value and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'TRIP-2']/fhir:hasMember) = 1" />
+        <x:expect label="W2. hasMember comes before component (FHIR element order)"
+            test="every $o in //fhir:Observation[fhir:hasMember][fhir:component] satisfies empty($o/fhir:component[1]/following-sibling::fhir:hasMember)" />
+        <x:expect label="W3. control: the nested exposures are still section entries"
+            test="//fhir:Composition//fhir:section/fhir:entry/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'EX-ON-TRIP-1']/fhir:fullUrl/@value" />
+        <x:expect label="W4. control: an exposure that is a direct section entry belongs to no trip"
+            test="not(//fhir:Observation/fhir:hasMember/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'EX-CODED']/fhir:fullUrl/@value)" />
+    </x:scenario>
+    <x:scenario label="X. travel history hasMember: nested transportation details in the IG sample (RT-B14)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="X1. exactly one travel history Observation lists the transportation details Observation"
+            test="count(//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history'][fhir:hasMember/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-transportation-details']/fhir:fullUrl/@value]) = 1" />
+        <x:expect label="X2. control: trips with nothing nested have no hasMember"
+            test="count(//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history'][not(fhir:hasMember)]) = count(//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']) - 1" />
+    </x:scenario>
 </x:description>

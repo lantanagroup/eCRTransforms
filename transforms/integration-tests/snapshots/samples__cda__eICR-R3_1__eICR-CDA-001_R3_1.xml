@@ -3678,6 +3678,9 @@
                <start value="2020-04-25"/>
                <end value="2020-04-30"/>
             </effectivePeriod>
+            <hasMember>
+               <reference value="urn:uuid:UUID043"/>
+            </hasMember>
             <component><!--Travel History Address Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension">
                   <valueAddress>

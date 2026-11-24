@@ -726,6 +726,18 @@
       <!-- <xsl:for-each select="cda:component/cda:observation[cda:performer/cda:assignedEntity]">
                 <xsl:call-template name="performer-or-author" />
             </xsl:for-each>-->
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B14): hasMember for the
+           Transportation Details Organizer (15.2.3.50) and Exposure/Contact Information Observation
+           (15.2.3.52) nested in this act. us-ph-travel-history has hasMember as must-support with
+           exactly these two targets; without it nothing said which trip they belong to. Same selection
+           as this act's bundle-entry template, which creates their resources, so every reference
+           resolves. hasMember comes before component in FHIR element order. -->
+      <xsl:for-each
+        select="cda:entryRelationship/cda:organizer[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.50']] | cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.52']]">
+        <hasMember>
+          <reference value="urn:uuid:{@lcg:uuid}" />
+        </hasMember>
+      </xsl:for-each>
       <!-- component:travelLocation -->
       <component>
         <xsl:for-each select="cda:participant/cda:participantRole/cda:addr">

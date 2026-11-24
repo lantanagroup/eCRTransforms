@@ -44,4 +44,16 @@
         <x:context href="../../integration-tests/documents/test-cda.xml" />
         <x:expect label="1. Bundle.timestamp keeps the document's time and offset" test="/fhir:Bundle/fhir:timestamp/@value = '2026-07-27T10:30:00+10:00'" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, finding RT-D1): a participant time that is present but has no
+         value (nullFlavor) left Provenance.recorded and signature.when out, because the fall-back to the document
+         effectiveTime was taken only when the time element was absent. Whole-pipeline test on testPreg.xml. -->
+    <x:scenario label="Provenance times when the participant time is null-flavored (RT-D1)">
+        <x:context href="../../integration-tests/documents/testPreg.xml" />
+        <x:expect label="1. every Provenance has recorded" test="exists(//fhir:Provenance) and (every $p in //fhir:Provenance satisfies exists($p/fhir:recorded/@value))" />
+        <x:expect label="2. every signature has when" test="exists(//fhir:Provenance/fhir:signature) and (every $s in //fhir:Provenance/fhir:signature satisfies exists($s/fhir:when/@value))" />
+        <x:expect label="3. the fall-back is the document time"
+            test="//fhir:Provenance[fhir:signature]/fhir:recorded/@value = '2026-07-27T10:30:00+10:00' and //fhir:Provenance/fhir:signature/fhir:when/@value = '2026-07-27T10:30:00+10:00'" />
+        <x:expect label="4. control: a valued author time is still used as recorded"
+            test="//fhir:Provenance/fhir:recorded/@value = '2026-07-20T00:00:00Z'" />
+    </x:scenario>
 </x:description>

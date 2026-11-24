@@ -18,14 +18,19 @@
             <reference value="urn:uuid:{/cda:ClinicalDocument/@lcg:uuid}" />
           </target>
           <!-- recorded -->
+          <!-- 20261124 Claude (SG decision 2026-11-24, finding RT-D1): the tests below (here and in the
+               two other Provenance templates in this file) now ask for a time that mode="instant" can
+               render (@value, low or center), not just a time element. A time that is present but
+               null-flavored used to be chosen and then render nothing, leaving Provenance.recorded
+               (1..1) out; it now falls through to ClinicalDocument/effectiveTime like a missing time. -->
           <xsl:choose>
-            <xsl:when test="cda:time">
+            <xsl:when test="cda:time[@value or cda:low/@value or cda:center/@value]">
               <xsl:apply-templates select="cda:time" mode="instant">
                 <xsl:with-param name="pElementName">recorded</xsl:with-param>
                 <xsl:with-param name="pDataType">instant</xsl:with-param>
               </xsl:apply-templates>
             </xsl:when>
-            <xsl:when test="cda:relatedEntity/cda:time">
+            <xsl:when test="cda:relatedEntity/cda:time[@value or cda:low/@value or cda:center/@value]">
               <xsl:apply-templates select="cda:relatedEntity/cda:time" mode="instant">
                 <xsl:with-param name="pElementName">recorded</xsl:with-param>
                 <xsl:with-param name="pDataType">instant</xsl:with-param>
@@ -110,7 +115,8 @@
                 <code value="1.2.840.10065.1.12.1.5" />
                 <display value="Verification Signature" />
               </type>
-              <xsl:apply-templates select="preceding-sibling::cda:time" mode="instant">
+              <!-- 20261124 Claude (RT-D1): Signature.when is 1..1; same fall-back as recorded -->
+              <xsl:apply-templates select="(preceding-sibling::cda:time[@value or cda:low/@value or cda:center/@value], /cda:ClinicalDocument/cda:effectiveTime)[1]" mode="instant">
                 <xsl:with-param name="pElementName">when</xsl:with-param>
                 <xsl:with-param name="pDataType">instant</xsl:with-param>
               </xsl:apply-templates>
@@ -163,7 +169,7 @@
             </xsl:otherwise>
           </xsl:choose>
           <xsl:choose>
-            <xsl:when test="cda:time">
+            <xsl:when test="cda:time[@value or cda:low/@value or cda:center/@value]">
               <xsl:apply-templates select="cda:time" mode="instant">
                 <xsl:with-param name="pElementName">recorded</xsl:with-param>
                 <xsl:with-param name="pDataType">instant</xsl:with-param>
@@ -243,13 +249,13 @@
           </target>
           <!-- recorded -->
           <xsl:choose>
-            <xsl:when test="cda:time">
+            <xsl:when test="cda:time[@value or cda:low/@value or cda:center/@value]">
               <xsl:apply-templates select="cda:time" mode="instant">
                 <xsl:with-param name="pElementName">recorded</xsl:with-param>
                 <xsl:with-param name="pDataType">instant</xsl:with-param>
               </xsl:apply-templates>
             </xsl:when>
-            <xsl:when test="cda:relatedEntity/cda:time">
+            <xsl:when test="cda:relatedEntity/cda:time[@value or cda:low/@value or cda:center/@value]">
               <xsl:apply-templates select="cda:relatedEntity/cda:time" mode="instant">
                 <xsl:with-param name="pElementName">recorded</xsl:with-param>
                 <xsl:with-param name="pDataType">instant</xsl:with-param>

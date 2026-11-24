@@ -25,6 +25,59 @@
     <xsl:call-template name="create-bundle-entry" />
   </xsl:template>
 
+  <!-- 20261124 Claude (re-trace findings RT-A14/RT-A15, SG decision 2026-11-24): an eICR document
+       can list additional facilities visited during the encounter as header participants
+       (typeCode LOC, associatedEntity classCode SDLOC, Vol 2 CONF:4527-1040 to 1053). Each becomes a
+       Location, built the same way as the first location (cda:location below) and added to
+       Encounter.location in cda2fhir-Encounter.xslt. Priority 3 so it outranks the generic
+       LOC -> Organization fallback (1), which only reads participantRole and so produced an empty
+       Organization here. The entry for the umbrella organization (scopingOrganization) is created
+       here as well, because nothing else reaches it. -->
+  <xsl:template match="cda:ClinicalDocument/cda:participant[@typeCode = 'LOC'][cda:associatedEntity[@classCode = 'SDLOC']]" mode="bundle-entry" priority="3">
+    <xsl:call-template name="create-bundle-entry" />
+    <xsl:for-each select="cda:associatedEntity/cda:scopingOrganization[not(@nullFlavor)]">
+      <xsl:call-template name="create-bundle-entry" />
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="cda:ClinicalDocument/cda:participant[@typeCode = 'LOC'][cda:associatedEntity[@classCode = 'SDLOC']]" priority="3">
+    <xsl:variable name="vRole" select="cda:associatedEntity" />
+    <Location>
+      <!-- Same profile, under the same document-version rule, as the first location: look up the
+           first location's key in participant-profile-mapping.xml for each document templateId. -->
+      <xsl:variable name="vApos" as="xs:string">'</xsl:variable>
+      <xsl:variable name="vProfiles" as="xs:string*">
+        <xsl:for-each select="/cda:ClinicalDocument/cda:templateId">
+          <xsl:variable name="vKey"
+            select="concat('ClinicalDocument[templateId/@root=', $vApos, @root, $vApos, ']', if (@extension) then concat('[templateId/@extension=', $vApos, @extension, $vApos, ']') else '', '/componentOf/encompassingEncounter/location')" />
+          <xsl:sequence select="$participant-profile-mapping/map[@participantXPath = $vKey]/@profileURI/string()" />
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:if test="exists($vProfiles)">
+        <meta>
+          <xsl:for-each select="distinct-values($vProfiles)">
+            <profile value="{.}" />
+          </xsl:for-each>
+        </meta>
+      </xsl:if>
+      <xsl:apply-templates select="$vRole/cda:id" />
+      <!-- This structure has no facility name; Location.name is 1..1 in us-ph-location, so the
+           umbrella organization's name is used (the same fallback the first location uses). -->
+      <xsl:if test="$vRole/cda:scopingOrganization/cda:name/text()">
+        <name value="{$vRole/cda:scopingOrganization/cda:name}" />
+      </xsl:if>
+      <xsl:apply-templates select="$vRole/cda:code[not(@nullFlavor)]">
+        <xsl:with-param name="pElementName" select="'type'" />
+      </xsl:apply-templates>
+      <!-- The facility's own address only. The organization's address stays on the Organization. -->
+      <xsl:apply-templates select="$vRole/cda:addr" />
+      <xsl:if test="$vRole/cda:scopingOrganization[not(@nullFlavor)]">
+        <managingOrganization>
+          <reference value="urn:uuid:{$vRole/cda:scopingOrganization/@lcg:uuid}" />
+        </managingOrganization>
+      </xsl:if>
+    </Location>
+  </xsl:template>
 
   <xsl:template match="cda:location">
 

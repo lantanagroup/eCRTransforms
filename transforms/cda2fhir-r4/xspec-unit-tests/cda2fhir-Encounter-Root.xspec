@@ -568,4 +568,36 @@
       <x:expect label="I3b. Location does not claim us-ph-location" test="count(fhir:Location/fhir:meta/fhir:profile) = 0" />
     </x:scenario>
   </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace findings RT-A14/RT-A15): additional encounter
+         facilities, sent as header participants (typeCode LOC, associatedEntity classCode SDLOC, eICR Vol 2
+         CONF:4527-1040 to 1053). Before the fix each one came out as two entries with the same fullUrl, both an
+         empty Organization, and the facility id, type, address and umbrella organization were only in the
+         narrative. Whole-pipeline test on integration-tests/documents/testLoc.xml. -->
+    <x:scenario label="additional encounter facilities become Locations on the Encounter (RT-A14/RT-A15)">
+        <x:context href="../../integration-tests/documents/testLoc.xml" />
+        <x:expect label="1. no two entries share a fullUrl"
+            test="count(//fhir:entry/fhir:fullUrl/@value) = count(distinct-values(//fhir:entry/fhir:fullUrl/@value))" />
+        <x:expect label="2. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+        <x:expect label="3. the Encounter has three locations, the first location first, each resolving to a Location"
+            test="count(//fhir:Encounter/fhir:location) = 3 and //fhir:entry[fhir:fullUrl/@value = //fhir:Encounter/fhir:location[1]/fhir:location/fhir:reference/@value]/fhir:resource/fhir:Location/fhir:name/@value = 'Test Hospital ED' and (every $r in //fhir:Encounter/fhir:location/fhir:location/fhir:reference/@value satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r]/fhir:resource/fhir:Location))" />
+        <x:expect label="4. an additional facility carries its own identifier, type and address"
+            test="exists(//fhir:Location[fhir:identifier/fhir:value/@value = 'FACNPI-2'][fhir:type/fhir:coding/fhir:code/@value = '1160-1'][fhir:address/fhir:line/@value = '2 Additional Facility Rd'])" />
+        <x:expect label="5. it has the same profile as the first location"
+            test="every $l in //fhir:Location satisfies $l/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location'" />
+        <x:expect label="6. Location.name is the umbrella organization name"
+            test="//fhir:Location[fhir:identifier/fhir:value/@value = 'FACNPI-3']/fhir:name/@value = 'Umbrella Org 3'" />
+        <x:expect label="7. managingOrganization resolves to the umbrella Organization with its own telecom and address"
+            test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:Location[fhir:identifier/fhir:value/@value = 'FACNPI-2']/fhir:managingOrganization/fhir:reference/@value]/fhir:resource/fhir:Organization[fhir:name/@value = 'Umbrella Org 2'][fhir:telecom/fhir:value/@value = '+1-617-555-0302'][fhir:address/fhir:line/@value = '2 Umbrella St'])" />
+        <x:expect label="8. the umbrella organization keeps its own id and never takes the facility id"
+            test="//fhir:Organization[fhir:name/@value = 'Umbrella Org 2']/fhir:identifier/fhir:value/@value = 'UMBNPI-2' and empty(//fhir:Organization[fhir:name/@value = 'Umbrella Org 3']/fhir:identifier) and empty(//fhir:Organization/fhir:identifier/fhir:value[starts-with(@value, 'FACNPI')])" />
+        <x:expect label="9. no Organization is an empty shell"
+            test="every $o in //fhir:Organization satisfies exists($o/fhir:name)" />
+    </x:scenario>
+    <x:scenario label="control: an eICR with no additional facility has one Encounter location (RT-A14/RT-A15)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="1. one location on the document Encounter" test="count((//fhir:Encounter)[1]/fhir:location) = 1" />
+        <x:expect label="2. no two entries share a fullUrl"
+            test="count(//fhir:entry/fhir:fullUrl/@value) = count(distinct-values(//fhir:entry/fhir:fullUrl/@value))" />
+    </x:scenario>
 </x:description>

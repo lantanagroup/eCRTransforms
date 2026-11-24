@@ -12,6 +12,8 @@ that must hold for ANY input:
   4. Required elements are present per resource type (status, intent, subject, ...).
   5. FHIR invariant con-5: no Condition carries clinicalStatus together with
      verificationStatus entered-in-error.
+  9. FHIR invariant bdl-7: no two bundle entries share a fullUrl (20261124; numbered after
+     the element-level invariants 6-8 described further down).
 
 Requirements:  pip install saxonche
 Usage:         python run-integration-tests.py                    (run all documents)
@@ -162,7 +164,14 @@ def check_bundle(xml: str, problems: list):
         problems.append("no bundle entries produced")
         return
 
-    full_urls = set(re.findall(r'<fullUrl value="(urn:uuid:[^"]+)"', xml))
+    # 20261124 Claude (re-trace finding RT-A14): invariant 9, FHIR bdl-7 - a fullUrl must be unique in
+    # a Bundle. A header LOC participant was dispatched from two places and came out as two entries
+    # with one fullUrl; none of the invariants above noticed, because the set() below hid it.
+    all_full_urls = re.findall(r'<fullUrl value="(urn:uuid:[^"]+)"', xml)
+    for u in sorted({u for u in all_full_urls if all_full_urls.count(u) > 1}):
+        problems.append(f"duplicate fullUrl {u}")
+
+    full_urls = set(all_full_urls)
     refs = re.findall(r'<reference value="([^"]*)"', xml)
     for r in refs:
         if r in ("", "urn:uuid:"):

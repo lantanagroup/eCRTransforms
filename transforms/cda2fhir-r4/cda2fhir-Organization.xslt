@@ -181,7 +181,10 @@
       </xsl:choose>
 
       <xsl:variable name="vInheritRoleIds" as="xs:boolean"
-        select="not(preceding-sibling::cda:assignedPerson) and not(self::cda:providerOrganization) and not(self::cda:serviceProviderOrganization) and not(self::cda:receivedOrganization and preceding-sibling::cda:informationRecipient)" />
+        select="not(preceding-sibling::cda:assignedPerson) and not(self::cda:providerOrganization) and not(self::cda:serviceProviderOrganization) and not(self::cda:receivedOrganization and preceding-sibling::cda:informationRecipient) and not(self::cda:scopingOrganization[parent::cda:associatedEntity/@classCode = 'SDLOC'])" />
+      <!-- 20261124 Claude (RT-A14): the last test above. The scopingOrganization of an additional
+           facility (header LOC participant) is the umbrella organization, so the facility's ids on
+           the associatedEntity are not its ids (the RT-C11 rule for serviceProviderOrganization). -->
       <!-- 20261124 Claude (RT-A8): a providerOrganization with no telecom/addr of its own must not
            borrow the patientRole's - that is the patient's phone and home address. It goes straight
            to the data-absent-reason fallback instead. -->

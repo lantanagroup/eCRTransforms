@@ -90,7 +90,12 @@
       </xsl:for-each>
       <!-- Organization resources from participants of type LOC -->
       <xsl:for-each
-        select="//descendant::cda:participant[@typeCode = 'LOC'][not(cda:participantRole/@classCode = 'TERR') and not(cda:participantRole/@classCode = 'SDLOC')][not(@nullFlavor)][not(parent::cda:substanceAdministration)]">
+        select="//descendant::cda:participant[@typeCode = 'LOC'][not(cda:participantRole/@classCode = 'TERR') and not(cda:participantRole/@classCode = 'SDLOC')][not(@nullFlavor)][not(parent::cda:substanceAdministration)][not(parent::cda:ClinicalDocument)][not(cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.4.4')]">
+        <!-- 20261124 Claude (RT-A14): the last two tests. Header participants are already dispatched
+             from cda2fhir-Composition.xslt, and an eICR Location Participant (15.2.4.4) from the
+             entry that owns it (that is the only route for the usual SDLOC/TERR class codes, which
+             the tests above already skip). Including them here emitted the same entry twice under
+             one fullUrl. -->
         <xsl:apply-templates mode="bundle-entry" select="." />
       </xsl:for-each>
       <!-- SG 202402: Added -->

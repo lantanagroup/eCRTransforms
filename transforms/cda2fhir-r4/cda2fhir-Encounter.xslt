@@ -590,6 +590,15 @@
           </location>
         </location>
       </xsl:if>
+      <!-- 20261124 Claude (RT-A14/RT-A15): the additional facilities visited during the encounter
+           (header LOC participants, see cda2fhir-Location.xslt), after the first location. -->
+      <xsl:for-each select="/cda:ClinicalDocument/cda:participant[@typeCode = 'LOC'][not(@nullFlavor)][cda:associatedEntity[@classCode = 'SDLOC']]">
+        <location>
+          <location>
+            <reference value="urn:uuid:{@lcg:uuid}" />
+          </location>
+        </location>
+      </xsl:for-each>
       <xsl:if test="cda:location/cda:healthCareFacility/cda:serviceProviderOrganization[not(@nullFlavor)]">
         <serviceProvider>
           <reference value="urn:uuid:{cda:location/cda:healthCareFacility/cda:serviceProviderOrganization/@lcg:uuid}" />

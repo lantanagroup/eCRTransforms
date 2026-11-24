@@ -183,6 +183,7 @@ samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Slice 'Bundle.
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Wrong Display Name 'Intramuscular injection' for http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C28161. Valid display is <valid displays>
+transforms/integration-tests/documents/testPreg.xml	1	error: Provenance.recorded: minimum required = 1, but only found 0 (from http://hl7.org/fhir/StructureDefinition/Provenance|4.0.1)
 transforms/integration-tests/documents/testSR.xml	1	error: Constraint failed: us-core-17: 'NPI check digit must be valid (Luhn algorithm check)'
 transforms/integration-tests/documents/testSR.xml	1	error: No definition could be found for URL value 'http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension'
 transforms/integration-tests/documents/testSR.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice

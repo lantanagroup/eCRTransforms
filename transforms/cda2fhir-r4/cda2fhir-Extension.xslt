@@ -86,22 +86,48 @@
     <!-- TEMPLATE: Date determined extension (Pregnancy Status, Estimated Date of Delivery, Estimated Gestational Age of Pregnancy) -->
     <xsl:template match="cda:effectiveTime[parent::*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280']]] | cda:time[parent::cda:performer]"
         mode="extension">
-        <xsl:comment>Date Determined Extension</xsl:comment>
-        <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
+        <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B12): the extension is emitted only
+             when the time gives a value. A null-flavored time used to leave an extension holding nothing
+             but a comment (ext-1; value[x] is 1..1 in the profile). The extension is optional. -->
+        <xsl:variable name="vValue">
             <xsl:apply-templates select=".">
                 <xsl:with-param name="pStartElementName">value</xsl:with-param>
             </xsl:apply-templates>
-        </extension>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$vValue/*">
+                <xsl:comment>Date Determined Extension</xsl:comment>
+                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
+                    <xsl:copy-of select="$vValue/node()" />
+                </extension>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>INFO: Date Determined Extension not emitted, the CDA time has no value</xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- TEMPLATE: Date recorded extension (Pregnancy Status) -->
     <xsl:template match="cda:time[parent::cda:author]" mode="extension">
-        <xsl:comment>Date Recorded Extension</xsl:comment>
-        <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension">
+        <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B12): the extension is emitted only
+             when the time gives a value. A null-flavored time used to leave an extension holding nothing
+             but a comment (ext-1; value[x] is 1..1 in the profile). The extension is optional. -->
+        <xsl:variable name="vValue">
             <xsl:apply-templates select=".">
                 <xsl:with-param name="pStartElementName">value</xsl:with-param>
             </xsl:apply-templates>
-        </extension>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$vValue/*">
+                <xsl:comment>Date Recorded Extension</xsl:comment>
+                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension">
+                    <xsl:copy-of select="$vValue/node()" />
+                </extension>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>INFO: Date Recorded Extension not emitted, the CDA time has no value</xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- TEMPLATE: determination of reportability (RR Composition)-->

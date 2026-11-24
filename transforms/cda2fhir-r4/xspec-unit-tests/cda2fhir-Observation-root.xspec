@@ -1036,4 +1036,20 @@
         <x:expect label="R9. every urn:uuid reference in the bundle resolves to an entry"
             test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B12): a null-flavored author time, performer
+         time or component effectiveTime gave a date-recorded / date-determined extension with no value. The
+         extension is now left out when the time has no value. Whole-pipeline test on testPreg.xml. -->
+    <x:scenario label="S. no empty date extensions on pregnancy observations (RT-B12)">
+        <x:context href="../../integration-tests/documents/testPreg.xml" />
+        <x:expect label="S1. no extension anywhere is without a value or child extension"
+            test="empty(//fhir:extension[not(fhir:*)])" />
+        <x:expect label="S2. null-flavored times: no date-recorded or date-determined extension, on the observation or its components"
+            test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-NULL-TIMES']) and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-NULL-TIMES']//fhir:extension[@url = ('http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension', 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension')])" />
+        <x:expect label="S3. the components themselves are still there"
+            test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-NULL-TIMES']/fhir:component) = 2" />
+        <x:expect label="S4. control: a valued author time still gives date-recorded"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension']/fhir:valueDateTime/@value = '2026-07-20'" />
+        <x:expect label="S5. control: valued performer time and component times still give date-determined"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension']/fhir:valueDateTime/@value = '2026-07-19' and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:component/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension'][fhir:valueDateTime/@value = '2026-07-18']) = 2" />
+    </x:scenario>
 </x:description>

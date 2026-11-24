@@ -681,8 +681,22 @@
              period sub-extension is only emitted when the effectiveTime has content (previously an empty extension);
              (4) the eCR us-ph extension URL is only used for eICR/RR - other documents get the standard
              patient-genderIdentity extension (plain valueCodeableConcept), mirroring the fhir2cda direction -->
+        <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A17): the template requires the value to be
+             xsi:type CD (CONF:4515-1223). A value of any other type is a source defect, and it is not this
+             transform's job to repair it, but the output must still be valid FHIR. A string value used to give
+             valueCodeableConcept with a value attribute, and a value with no xsi:type an empty value sub-extension.
+             The extension is now written only when the value is coded: CD, and also CE, CV or CO, which the coded
+             value mapping already turns into a valid CodeableConcept. For anything else the whole extension is left
+             out (its value part is 1..1) and a WARNING comment says why. -->
         <xsl:for-each select="/cda:ClinicalDocument/descendant::cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.34.3.45'][not(ancestor::*[cda:subject/cda:relatedSubject])][cda:value]">
             <xsl:choose>
+                <xsl:when test="not(cda:value[1]/@xsi:type = ('CD', 'CE', 'CV', 'CO'))">
+                    <xsl:comment>
+                        <xsl:text>WARNING: gender identity extension not written: the Gender Identity Observation value is </xsl:text>
+                        <xsl:value-of select="if (cda:value[1]/@xsi:type) then concat('xsi:type=&quot;', cda:value[1]/@xsi:type, '&quot;') else 'without xsi:type'" />
+                        <xsl:text>, and the template requires xsi:type="CD"</xsl:text>
+                    </xsl:comment>
+                </xsl:when>
                 <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
                     <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension">
                         <extension url="value">

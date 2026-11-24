@@ -292,4 +292,171 @@
       <x:expect label="Q4b. original text is kept after the codings" test="fhir:Patient/fhir:contact/fhir:relationship/fhir:text/@value = 'Mum' and empty(fhir:Patient/fhir:contact/fhir:relationship/fhir:text/following-sibling::*)" />
     </x:scenario>
   </x:scenario>
+  <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A17): the Gender Identity Observation value SHALL be
+       xsi:type CD (CONF:4515-1223). A value of another type is a source defect and not the transform's to repair, but
+       the output must still be valid FHIR: a string value gave valueCodeableConcept with a value attribute, and a value
+       with no xsi:type gave an empty value sub-extension. The extension is now written only for a coded value (CD, and
+       CE, CV or CO, which already produced valid output); otherwise it is left out with a WARNING comment. -->
+  <x:scenario label="R. gender identity extension only for a coded value (RT-A17)">
+    <x:scenario label="R1. control: CD value">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004d0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004d1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000004d2">
+                <templateId root="2.16.840.1.113883.10.20.34.3.45" extension="2022-06-01" />
+                <code code="76691-5" codeSystem="2.16.840.1.113883.6.1" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20200101" /></effectiveTime>
+                <value xsi:type="CD" code="446151000124109" codeSystem="2.16.840.1.113883.6.96" displayName="Identifies as male gender" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="R1a. extension with the coding and the period" test="fhir:Patient/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']/fhir:extension[@url = 'value']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '446151000124109' and fhir:Patient/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']/fhir:extension[@url = 'period']/fhir:valuePeriod/fhir:start/@value = '2020-01-01'" />
+      <x:expect label="R1b. no warning" test="not(exists(fhir:Patient/comment()[starts-with(normalize-space(.), 'WARNING: gender identity extension not written')]))" />
+    </x:scenario>
+    <x:scenario label="R2. control: CD value with nullFlavor OTH and original text">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004d0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004d1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000004d2">
+                <templateId root="2.16.840.1.113883.10.20.34.3.45" extension="2022-06-01" />
+                <code code="76691-5" codeSystem="2.16.840.1.113883.6.1" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20200101" /></effectiveTime>
+                <value xsi:type="CD" nullFlavor="OTH"><originalText>Non-binary</originalText></value>
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="R2a. extension with the text" test="fhir:Patient/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']/fhir:extension[@url = 'value']/fhir:valueCodeableConcept/fhir:text/@value = 'Non-binary'" />
+    </x:scenario>
+    <x:scenario label="R3. control: CV value is still carried">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004d0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004d1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000004d2">
+                <templateId root="2.16.840.1.113883.10.20.34.3.45" extension="2022-06-01" />
+                <code code="76691-5" codeSystem="2.16.840.1.113883.6.1" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20200101" /></effectiveTime>
+                <value xsi:type="CV" code="446151000124109" codeSystem="2.16.840.1.113883.6.96" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="R3a. extension with the coding" test="fhir:Patient/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']/fhir:extension[@url = 'value']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '446151000124109'" />
+    </x:scenario>
+    <x:scenario label="R4. string value">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004d0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004d1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000004d2">
+                <templateId root="2.16.840.1.113883.10.20.34.3.45" extension="2022-06-01" />
+                <code code="76691-5" codeSystem="2.16.840.1.113883.6.1" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20200101" /></effectiveTime>
+                <value xsi:type="ST">nonbinary</value>
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="R4a. no gender identity extension" test="count(fhir:Patient/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']) = 0" />
+      <x:expect label="R4b. a warning comment says why" test="exists(fhir:Patient/comment()[starts-with(normalize-space(.), 'WARNING: gender identity extension not written')])" />
+      <x:expect label="R4c. nothing in the Patient is a CodeableConcept with a value attribute" test="empty(fhir:Patient//fhir:valueCodeableConcept[@value])" />
+    </x:scenario>
+    <x:scenario label="R5. value with no xsi:type">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004d0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004d1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="19800101" />
+              </patient>
+            </patientRole>
+          </recordTarget>
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000004d2">
+                <templateId root="2.16.840.1.113883.10.20.34.3.45" extension="2022-06-01" />
+                <code code="76691-5" codeSystem="2.16.840.1.113883.6.1" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20200101" /></effectiveTime>
+                <value code="446151000124109" codeSystem="2.16.840.1.113883.6.96" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="R5a. no gender identity extension" test="count(fhir:Patient/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension']) = 0" />
+      <x:expect label="R5b. a warning comment says why" test="exists(fhir:Patient/comment()[starts-with(normalize-space(.), 'WARNING: gender identity extension not written')])" />
+      <x:expect label="R5c. no extension in the Patient is empty" test="empty(fhir:Patient//fhir:extension[not(fhir:*)])" />
+    </x:scenario>
+  </x:scenario>
 </x:description>

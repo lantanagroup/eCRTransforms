@@ -1955,6 +1955,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1993,6 +2005,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
                </coding>
             </category>
             <code>
@@ -2035,6 +2059,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -2068,6 +2104,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
                </coding>
             </category>
             <code>
@@ -2110,6 +2158,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -2148,6 +2208,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
                </coding>
             </category>
             <code>

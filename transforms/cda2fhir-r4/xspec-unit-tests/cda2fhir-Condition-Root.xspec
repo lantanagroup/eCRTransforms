@@ -15,7 +15,8 @@
         <x:expect label="B1. There should be six Condition.meta.profile=http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"
             test="count(//fhir:Condition/fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition'])=6" />
         <x:expect label="B2. There should be six Condition.onsetDateTime" test="count(//fhir:Condition/fhir:onsetDateTime)=6" />
-        <x:expect label="B3. There should be at six Condition.category" test="count(//fhir:Condition/fhir:category)=6" />
+        <!-- 20261124 Claude (RT-C7): was 6. Each of the six Conditions now has the context category and the problem type. -->
+        <x:expect label="B3. There should be twelve Condition.category (context category and problem type on each of six)" test="count(//fhir:Condition/fhir:category)=12" />
         <x:expect label="B4. There should be six Condition.code" test="count(//fhir:Condition/fhir:code)=6" />
         <x:expect label="B5. There should be six Condition.clinicalStatus.coding.system.value=http://terminology.hl7.org/CodeSystem/condition-clinical"
             test="count(//fhir:Condition/fhir:clinicalStatus/fhir:coding/fhir:system[@value='http://terminology.hl7.org/CodeSystem/condition-clinical'])=6" />
@@ -79,4 +80,18 @@
             test="count(//fhir:reference[@value = 'urn:uuid:00000000-0000-0000-0000-0000000000d3']) = 0" />
     </x:scenario>
 
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C7): the Problem Observation's problem type
+         (observation/code: symptom, complaint, diagnosis ...) was never read. It is now a second
+         Condition.category, after the context category (problem-list-item / encounter-diagnosis), which is
+         unchanged. Whole-pipeline test on the IG sample. -->
+    <x:scenario label="problem type is carried as a second Condition.category (RT-C7)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="1. a symptom problem carries the LOINC problem type and its SNOMED translation"
+            test="exists(//fhir:Condition/fhir:category[fhir:coding[fhir:system/@value = 'http://loinc.org'][fhir:code/@value = '75325-1']][fhir:coding[fhir:system/@value = 'http://snomed.info/sct'][fhir:code/@value = '418799008']])" />
+        <x:expect label="2. a complaint problem carries its problem type" test="exists(//fhir:Condition/fhir:category/fhir:coding[fhir:code/@value = '75322-8'])" />
+        <x:expect label="3. control: the context category is still there and still first"
+            test="every $c in //fhir:Condition[fhir:category/fhir:coding/fhir:code/@value = ('75325-1', '75322-8')] satisfies $c/fhir:category[1]/fhir:coding/fhir:code/@value = ('problem-list-item', 'encounter-diagnosis')" />
+        <x:expect label="4. control: every Condition still has exactly one context category"
+            test="every $c in //fhir:Condition satisfies count($c/fhir:category[fhir:coding/fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/condition-category']) = 1" />
+    </x:scenario>
 </x:description>

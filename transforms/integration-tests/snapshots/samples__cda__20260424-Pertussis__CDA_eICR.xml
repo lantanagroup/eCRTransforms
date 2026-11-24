@@ -1682,6 +1682,17 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1732,6 +1743,17 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
                </coding>
             </category>
             <code>
@@ -1786,6 +1808,18 @@
                   <code value="encounter-diagnosis"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1821,6 +1855,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="encounter-diagnosis"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="29308-4"/>
+                  <display value="Diagnosis"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
                </coding>
             </category>
             <code>
@@ -1913,6 +1959,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75325-1"/>
+                  <display value="Symptom"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="418799008"/>
+                  <display value="Symptom"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1949,6 +2007,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75322-8"/>
+                  <display value="Complaint"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="409586006"/>
+                  <display value="Complaint"/>
                </coding>
             </category>
             <code>
@@ -1989,6 +2059,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75325-1"/>
+                  <display value="Symptom"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="418799008"/>
+                  <display value="Symptom"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -2025,6 +2107,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75322-8"/>
+                  <display value="Complaint"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="409586006"/>
+                  <display value="Complaint"/>
                </coding>
             </category>
             <code>

@@ -817,6 +817,12 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>

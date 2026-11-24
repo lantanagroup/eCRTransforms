@@ -11097,6 +11097,17 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -11220,6 +11231,17 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -11296,6 +11318,17 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
                </coding>
             </category>
             <code>

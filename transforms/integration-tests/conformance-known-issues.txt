@@ -29,9 +29,11 @@ samples/cda/20260424-COIVD/CDA_eICR.xml	2	error: Wrong Display Name 'Influenza v
 samples/cda/20260424-COIVD/CDA_eICR.xml	1	error: Wrong Display Name 'Occupation' for http://loinc.org#11295-3. Valid display is <valid displays>
 samples/cda/20260424-COIVD/CDA_eICR.xml	1	error: Wrong Display Name 'Oseltamivir 75 MG Oral Capsule' for http://www.nlm.nih.gov/research/umls/rxnorm#261315. Valid display is <valid displays>
 samples/cda/20260424-COIVD/CDA_eICR.xml	3	error: Wrong Display Name 'SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection' for http://loinc.org#94310-0. Valid display is <valid displays>
+samples/cda/20260424-COIVD/CDA_eICR.xml	2	error: Wrong Display Name 'SYMPTOM' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/20260424-COIVD/CDA_eICR_COVID19.xml	1	error: Encounter.identifier: max allowed = 1, but found 2 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
 samples/cda/20260424-COIVD/CDA_eICR_COVID19.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/20260424-COIVD/CDA_eICR_COVID19.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
+samples/cda/20260424-COIVD/CDA_eICR_COVID19.xml	2	error: Wrong Display Name 'SYMPTOM' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/20260424-Flu/CDA_RR.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/rr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/20260424-Flu/CDA_RR.xml	1	error: Slice 'Composition.section:sliceRRSummarySection.entry:sliceRRCondition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/20260424-Flu/CDA_RR.xml	1	error: Unknown code '541131000124102' in the CodeSystem 'http://snomed.info/sct' version '<version>'
@@ -47,6 +49,7 @@ samples/cda/20260424-Flu/CDA_eICR.xml	4	error: Unable to find a profile match fo
 samples/cda/20260424-Flu/CDA_eICR.xml	1	error: Unknown code '2200' in the CodeSystem 'http://snomed.info/sct' version '<version>'
 samples/cda/20260424-Flu/CDA_eICR.xml	2	error: Wrong Display Name 'Influenza due to other identified influenza virus with other respiratory manifestations (period stripped)' for http://hl7.org/fhir/sid/icd-10-cm#J10.1. Valid display is <valid displays>
 samples/cda/20260424-Flu/CDA_eICR.xml	4	error: Wrong Display Name 'SARS-like Coronavirus N gene [Presence] in Unspecified specimen by NAA with probe detection' for http://loinc.org#94310-0. Valid display is <valid displays>
+samples/cda/20260424-Flu/CDA_eICR.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/20260424-Flu/CDA_eICR_Influenza.xml	1	error: Patient.contact.address: minimum required = 1, but only found 0 (from http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient|2.1.2)
 samples/cda/20260424-Flu/CDA_eICR_Influenza.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/20260424-Flu/CDA_eICR_Influenza.xml	2	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient
@@ -71,6 +74,7 @@ samples/cda/20260424-Pertussis/CDA_eICR.xml	3	error: Wrong Display Name 'HCV RNA
 samples/cda/20260424-Pertussis/CDA_eICR.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
 samples/cda/20260424-Pertussis/CDA_eICR.xml	1	error: Wrong Display Name 'Human immunodeficiency virus (HIV) disease' for http://hl7.org/fhir/sid/icd-10-cm#B20. Valid display is <valid displays>
 samples/cda/20260424-Pertussis/CDA_eICR.xml	1	error: Wrong Display Name 'Opioid abuse' for http://hl7.org/fhir/sid/icd-10-cm#F11.10. Valid display is <valid displays>
+samples/cda/20260424-Pertussis/CDA_eICR.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/20260424-Pertussis/CDA_eICR_Pertussis.xml	1	error: Encounter.identifier: max allowed = 1, but found 2 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
 samples/cda/20260424-Pertussis/CDA_eICR_Pertussis.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/20260424-Pertussis/CDA_eICR_Pertussis.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
@@ -127,6 +131,7 @@ samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	1	error: Unable to find
 samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	2	error: Unknown code 'observation_translation_code_trigger' in the CodeSystem 'http://loinc.org' version '<version>'
 samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	2	error: Unknown code 'observation_value_trigger' in the CodeSystem 'http://snomed.info/sct' version '<version>'
 samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	1	error: Unknown code 'organizer_code_not_trigger' in the CodeSystem 'http://loinc.org' version '<version>'
+samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	3	error: Wrong Display Name 'Condition family member HL7.CCDAR2' for http://loinc.org#75315-2. Valid display is <valid displays>
 samples/cda/eICR-R1_1/cda-fhir-bundle-eICRCDAR1.13.1.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
 samples/cda/eICR-R1_1/eICR-CDA-001_R1_1.xml	1	error: Encounter.identifier: max allowed = 1, but found 2 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
 samples/cda/eICR-R1_1/eICR-CDA-001_R1_1.xml	1	error: Entry 'urn:uuid:<uuid>' isn't reachable by traversing links (forward or backward) from the Composition
@@ -141,12 +146,14 @@ samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	1	error: Slice 'Bundle.entry:slicePu
 samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication
 samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
 samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	1	error: Wrong Display Name 'Current employment' for http://loinc.org#11295-3. Valid display is <valid displays>
+samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/eICR-R1_1/eICR-CDA-002_R1_1.xml	1	error: Wrong Display Name 'azithromycin' for http://www.nlm.nih.gov/research/umls/rxnorm#1298839. Valid display is <valid displays>
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	1	error: Entry 'urn:uuid:<uuid>' isn't reachable by traversing links (forward or backward) from the Composition
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	1	error: None of the codings provided are in the value set 'EmploymentStatusODH' (http://terminology.hl7.org/ValueSet/v3-employmentStatusODH|1.1.0), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/v3-ObservationValue#Employed)
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	1	error: None of the codings provided are in the value set 'Yes No Unknown (YNU)' (http://phinvads.cdc.gov/fhir/ValueSet/2.16.840.1.114222.4.11.888|1), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/v2-0532#Y)
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
+samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	1	error: Constraint failed: mad-1: 'SHALL have at least one of dosage.dose or dosage.rate[x]' (defined in http://hl7.org/fhir/StructureDefinition/MedicationAdministration)
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	1	error: Encounter.identifier: max allowed = 1, but found 2 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	1	error: Encounter.location: minimum required = 1, but only found 0 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
@@ -155,10 +162,12 @@ samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
+samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_EXTERNAL_ENCOUNTER.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_MANUAL.xml	1	error: Encounter.identifier: max allowed = 1, but found 2 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_MANUAL.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_MANUAL.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
 samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_MANUAL.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
+samples/cda/eICR-R3_1/CDAR2_IG_PHCASERPT_R2_STU3.1_SAMPLE_MANUAL.xml	1	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: Encounter.identifier: max allowed = 1, but found 2 (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter|2.1.2)
 samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: Entry 'urn:uuid:<uuid>' isn't reachable by traversing links (forward or backward) from the Composition
 samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: None of the codings provided are in the value set 'EmploymentStatusODH' (http://terminology.hl7.org/ValueSet/v3-employmentStatusODH|1.1.0), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/v3-ObservationValue#Employed)
@@ -168,6 +177,7 @@ samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: Slice 'Bundle.entry:slicePu
 samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
 samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: Unknown code '21812002' in the CodeSystem 'http://loinc.org' version '<version>'
 samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
+samples/cda/eICR-R3_1/eICR-CDA-001_R3_1.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 samples/cda/eICR-R3_1/eICRscrubbedTN1_CDA.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/eICR-R3_1/eICRscrubbedTN1_CDA.xml	1	error: Slice 'Composition.section:sliceProceduresSection.entry:sliceEICRProcedure': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition|2.1.2). Note that other slices are allowed in addition to this required slice
 samples/cda/eICR-R3_1/eICRscrubbedTN1_CDA.xml	1	error: Wrong Display Name '..ANTI-B TITER' for http://loinc.org#890-4. Valid display is <valid displays>
@@ -183,6 +193,7 @@ samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Slice 'Bundle.
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Unable to find a profile match for urn:uuid:<uuid> among choices: http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Wrong Display Name 'Hematocrit [Volume Fraction] of Blood' for http://loinc.org#20570-8. Valid display is <valid displays>
 samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	1	error: Wrong Display Name 'Intramuscular injection' for http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C28161. Valid display is <valid displays>
+samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml	2	error: Wrong Display Name 'Symptom' for http://snomed.info/sct#418799008. Valid display is <valid displays>
 transforms/integration-tests/documents/testSR.xml	1	error: Constraint failed: us-core-17: 'NPI check digit must be valid (Luhn algorithm check)'
 transforms/integration-tests/documents/testSR.xml	1	error: No definition could be found for URL value 'http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension'
 transforms/integration-tests/documents/testSR.xml	1	error: Slice 'Bundle.entry:slicePublicHealthComposition': a matching slice is required, but not found (from http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle|2.1.2). Note that other slices are allowed in addition to this required slice

@@ -1515,6 +1515,18 @@
                   <code value="encounter-diagnosis"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1552,6 +1564,18 @@
                   <code value="encounter-diagnosis"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="282291009"/>
+                  <display value="Diagnosis interpretation"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1587,6 +1611,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75325-1"/>
+                  <display value="SYMPTOM"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="418799008"/>
+                  <display value="SYMPTOM"/>
                </coding>
             </category>
             <code>
@@ -1627,6 +1663,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75325-1"/>
+                  <display value="SYMPTOM"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="418799008"/>
+                  <display value="SYMPTOM"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1665,6 +1713,18 @@
                   <code value="problem-list-item"/>
                </coding>
             </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+                  <display value="Disease (disorder)"/>
+               </coding>
+            </category>
             <code>
                <coding>
                   <system value="http://snomed.info/sct"/>
@@ -1701,6 +1761,18 @@
                <coding>
                   <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
                   <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="75323-6"/>
+                  <display value="Condition"/>
+               </coding>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+                  <display value="Disease (disorder)"/>
                </coding>
             </category>
             <code>

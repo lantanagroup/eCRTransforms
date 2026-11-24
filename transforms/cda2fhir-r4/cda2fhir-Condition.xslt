@@ -170,6 +170,14 @@
                 </xsl:otherwise>
 
             </xsl:choose>
+            <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C7): the problem type
+                 (observation/code: symptom, complaint, diagnosis, finding ...) as a second category,
+                 with its translation as a further coding. The context category above is unchanged.
+                 The us-core / us-ph Condition.category binding is extensible, so the extra code is
+                 allowed. A null-flavored code gives nothing. -->
+            <xsl:apply-templates select="cda:code[not(@nullFlavor)]">
+                <xsl:with-param name="pElementName">category</xsl:with-param>
+            </xsl:apply-templates>
 
             <xsl:apply-templates select="cda:value" mode="condition" />
 

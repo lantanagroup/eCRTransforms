@@ -3,6 +3,34 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:lcg="http://www.lantanagroup.com"
   exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
+  <!-- 20261124 Claude (SG decisions 2026-11-24, re-trace finding RT-C10): the performers of the body
+       Encounter Activities (22.4.49) that the eICR document Encounter lists as participants.
+       In real eICRs the activity performer is usually the attending already named in the header, and
+       the same performer is repeated on every activity, so they are de-duplicated: a performer is left
+       out when the header responsibleParty or an encounterParticipant, or an earlier activity
+       performer, has the same first id (the same id is the same person or organization), or with no id at all the
+       same person name, or with no person the same organization name (lcg:performer-key).
+       Used by the activity's bundle-entry template (which creates the resources) and by the participant
+       loop in the Encounter body (which references them), so the two always agree. -->
+  <xsl:function name="lcg:performer-key" as="xs:string">
+    <xsl:param name="pAssignedEntity" as="element()?" />
+    <xsl:variable name="vId" select="($pAssignedEntity/cda:id[not(@nullFlavor)])[1]" />
+    <xsl:sequence
+      select="if ($vId) then concat('id|', $vId/@root, '|', $vId/@extension)
+              else if ($pAssignedEntity/cda:assignedPerson) then concat('person|', normalize-space(string-join($pAssignedEntity/cda:assignedPerson/cda:name//text(), ' ')))
+              else concat('org|', normalize-space($pAssignedEntity/cda:representedOrganization/cda:name[1]))" />
+  </xsl:function>
+  <xsl:function name="lcg:eicr-activity-performers" as="element()*">
+    <xsl:param name="pDocument" as="document-node()" />
+    <xsl:variable name="vEncounter" select="$pDocument/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter[not(@nullFlavor)]" />
+    <xsl:variable name="vHeaderKeys"
+      select="for $e in ($vEncounter/cda:responsibleParty[not(@nullFlavor)]/cda:assignedEntity, $vEncounter/cda:encounterParticipant[not(@nullFlavor)]/cda:assignedEntity) return lcg:performer-key($e)" />
+    <xsl:variable name="vAll"
+      select="if ($vEncounter) then $pDocument//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]] else ()" />
+    <xsl:sequence
+      select="$vAll[not(lcg:performer-key(cda:assignedEntity) = $vHeaderKeys)][not(lcg:performer-key(cda:assignedEntity) = (for $p in preceding::cda:performer[parent::cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']] return lcg:performer-key($p/cda:assignedEntity)))]" />
+  </xsl:function>
+
   <xsl:template match="cda:encompassingEncounter" mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />
 
@@ -39,6 +67,24 @@
            author's participant reference dangled outside eICR). -->
       <xsl:apply-templates select="cda:author" mode="bundle-entry" />
       <xsl:apply-templates select="cda:performer[not(@nullFlavor)] | cda:author" mode="org-practitionerrole-entry" />
+    </xsl:if>
+    <!-- 20261124 Claude (SG decisions 2026-11-24, re-trace finding RT-C10): in an eICR the activity is
+         folded into the one Encounter built from encompassingEncounter, and its performers and
+         authors used to be dropped. Now:
+         - each performer gets its resources here and is listed as an Encounter.participant (the
+           performer loop in the Encounter body below);
+         - each author gets its resources and a Provenance whose target is that Encounter.
+         Nothing is done when the document has no usable encompassingEncounter (no Encounter exists). -->
+    <xsl:variable name="vDocumentEncounter" select="/cda:ClinicalDocument/cda:componentOf/cda:encompassingEncounter[not(@nullFlavor)]" />
+    <xsl:if test="$gvCurrentIg = 'eICR' and $vDocumentEncounter">
+      <xsl:apply-templates select="cda:performer intersect lcg:eicr-activity-performers(/)" mode="bundle-entry" />
+      <xsl:apply-templates select="cda:performer intersect lcg:eicr-activity-performers(/)" mode="org-practitionerrole-entry" />
+      <xsl:for-each select="cda:author[cda:*[cda:*[not(@nullFlavor)]]]">
+        <xsl:apply-templates select="." mode="bundle-entry" />
+        <xsl:apply-templates select="." mode="provenance">
+          <xsl:with-param name="pTargetUUID" select="$vDocumentEncounter[1]/@lcg:uuid" />
+        </xsl:apply-templates>
+      </xsl:for-each>
     </xsl:if>
     <!-- Encounter Diagnosis/Problem Observation -->
     <!-- 20260730 Claude: was a single-level path (entryRelationship/act[4.80]/entryRelationship/observation[4.4]),
@@ -435,7 +481,11 @@
           </participant>
         </xsl:if>
       </xsl:for-each>
-      <xsl:for-each select="cda:encounterParticipant[not(@nullFlavor)] | cda:performer[not(@nullFlavor)]">
+      <!-- 20261124 Claude (RT-C10): for the eICR document Encounter, also the performers of the body
+           Encounter Activities (22.4.49), whose resources are created by the activity's bundle-entry
+           template above. -->
+      <xsl:for-each
+        select="cda:encounterParticipant[not(@nullFlavor)] | cda:performer[not(@nullFlavor)] | (if (self::cda:encompassingEncounter and $gvCurrentIg = 'eICR') then lcg:eicr-activity-performers(/) else ())">
         <xsl:variable name="vKind" select="lcg:participation-target-kind(.)" />
         <xsl:if test="not($vKind = ('device', 'patient'))">
           <participant>

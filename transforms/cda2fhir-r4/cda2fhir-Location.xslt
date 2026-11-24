@@ -84,10 +84,28 @@
     <Location>
       <xsl:call-template name="add-participant-meta" />
 
-      <xsl:apply-templates select="cda:healthCareFacility/cda:id" />
+      <!-- 20261124 Claude (SG decisions 2026-11-24, re-trace finding RT-C10): in an eICR the service
+           delivery location of a body Encounter Activity (22.4.49) describes this same facility (its
+           code is already added to Location.type below). Its id, name and address are now used to
+           fill gaps, and only gaps: the id when healthCareFacility has none, the name before falling
+           back to the organization name, the address before falling back to the organization address.
+           With several activities the first one that has the item is used. -->
+      <xsl:variable name="vActivityLocations"
+        select="if ($gvCurrentIg = 'eICR') then //cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.49']/cda:participant[@typeCode = 'LOC']/cda:participantRole[@classCode = 'SDLOC'] else ()" />
+      <xsl:choose>
+        <xsl:when test="cda:healthCareFacility/cda:id">
+          <xsl:apply-templates select="cda:healthCareFacility/cda:id" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="($vActivityLocations[cda:id[not(@nullFlavor)]])[1]/cda:id" />
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:choose>
         <xsl:when test="cda:healthCareFacility/cda:location/cda:name/text()">
           <name value="{cda:healthCareFacility/cda:location/cda:name}" />
+        </xsl:when>
+        <xsl:when test="$vActivityLocations/cda:playingEntity/cda:name/text()">
+          <name value="{($vActivityLocations/cda:playingEntity/cda:name[text()])[1]}" />
         </xsl:when>
         <xsl:when test="cda:healthCareFacility/cda:serviceProviderOrganization/cda:name/text()">
           <name value="{cda:healthCareFacility/cda:serviceProviderOrganization/cda:name}" />
@@ -129,6 +147,10 @@
       <xsl:choose>
         <xsl:when test="$vLocationAddr/cda:postalCode[not(@nullFlavor)] or $vLocationAddr/cda:streetAddressLine[not(@nullFlavor)]">
           <xsl:apply-templates select="cda:healthCareFacility/cda:location/cda:addr" />
+        </xsl:when>
+        <!-- RT-C10: the activity's service delivery location address, before the organization's -->
+        <xsl:when test="$vActivityLocations/cda:addr[cda:postalCode[not(@nullFlavor)] or cda:streetAddressLine[not(@nullFlavor)]]">
+          <xsl:apply-templates select="($vActivityLocations/cda:addr[cda:postalCode[not(@nullFlavor)] or cda:streetAddressLine[not(@nullFlavor)]])[1]" />
         </xsl:when>
         <xsl:when test="cda:healthCareFacility/cda:serviceProviderOrganization/cda:addr">
           <xsl:apply-templates select="cda:healthCareFacility/cda:serviceProviderOrganization/cda:addr" />

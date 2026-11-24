@@ -5215,4 +5215,64 @@
          </PractitionerRole>
       </resource>
    </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID109"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.6489.74"/>
+               <value value="731"/>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.4.2"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </identifier>
+            <active value="true"/>
+            <name value="Stonebridge Medical Center"/>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-312-555-0102"/>
+               <use value="work"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="5815 Trellis Blvd"/>
+               <city value="Greycastle"/>
+               <district value="Tarleton"/>
+               <state value="IL"/>
+               <postalCode value="62112-5449"/>
+               <country value="US"/>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID110"/>
+      <resource>
+         <Provenance>
+            <target>
+               <reference value="urn:uuid:UUID003"/>
+            </target>
+            <recorded value="2017-12-27T13:28:49-05:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID109"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
 </Bundle>

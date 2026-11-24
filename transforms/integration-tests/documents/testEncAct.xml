@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 20261124 Claude (SG decisions 2026-11-24, re-trace finding RT-C10): a body Encounter Activity that says more
+     than the header. In an eICR it is folded into the one Encounter built from encompassingEncounter. Its
+     performer becomes an Encounter.participant, its author gets a Provenance targeting the Encounter, and its
+     service delivery location fills the gaps in the header location (here: no facility id, name or address).
+     Its dates (2026-01-01 to 02) are deliberately NOT used; Encounter.period is the header's. -->
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01"/>
+  <id root="1.2.3.4" extension="doc1"/>
+  <code code="55751-2" codeSystem="2.16.840.1.113883.6.1"/>
+  <title>Test eICR</title>
+  <effectiveTime value="20260727103000+1000"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <recordTarget>
+    <patientRole>
+      <id root="2.16.840.1.113883.19.5" extension="12345"/>
+      <addr use="H"><streetAddressLine>1 Test St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+      <telecom use="HP" value="tel:+1-617-5555-1234"/>
+      <patient>
+        <name use="L"><given>Jane</given><family>Tester</family></name>
+        <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+        <birthTime value="19800101"/>
+        <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" displayName="White"/>
+        <sdtc:raceCode code="2108-9" codeSystem="2.16.840.1.113883.6.238" displayName="European"/>
+        <ethnicGroupCode nullFlavor="ASKU"/>
+        <sdtc:ethnicGroupCode nullFlavor="ASKU"/>
+        <birthplace><place><name>Auckland</name></place></birthplace>
+        <languageCommunication><languageCode code="eng"/></languageCommunication>
+      </patient>
+      <providerOrganization><id root="2.16.840.1.113883.4.6" extension="9999999999"/><name>Test Org</name><telecom value="tel:+1-617-5555-0000"/><addr><streetAddressLine>2 Org St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></providerOrganization>
+    </patientRole>
+  </recordTarget>
+  <author><time value="20260727103000+1000"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="1111111111"/><assignedPerson><name><given>Doc</given><family>Author</family></name></assignedPerson></assignedAuthor></author>
+  <custodian><assignedCustodian><representedCustodianOrganization><id root="2.16.840.1.113883.4.6" extension="222"/><name>Custodian Org</name></representedCustodianOrganization></assignedCustodian></custodian>
+  <componentOf>
+    <encompassingEncounter>
+      <id root="e9000000-0000-0000-0000-000000000001"/>
+      <code code="AMB" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode" displayName="ambulatory"/>
+      <effectiveTime><low value="20260725"/><high value="20260726"/></effectiveTime>
+      <location>
+        <healthCareFacility>
+          <code code="1108-0" codeSystem="2.16.840.1.113883.6.259" codeSystemName="HSLOC" displayName="Emergency Department"/>
+          <serviceProviderOrganization><name>Facility Org</name><addr><streetAddressLine>1 Org Head Office</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></serviceProviderOrganization>
+        </healthCareFacility>
+      </location>
+    </encompassingEncounter>
+  </componentOf>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.15" extension="2015-08-01"/>
+          <code code="10157-6" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Family History</title>
+          <text>Mother: hypertension</text>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.45" extension="2015-08-01"/>
+              <statusCode code="completed"/>
+              <subject>
+                <relatedSubject classCode="PRS">
+                  <code code="MTH" codeSystem="2.16.840.1.113883.5.111" displayName="Mother"/>
+                  <subject>
+                    <sdtc:id root="2.16.840.1.113883.19.5" extension="M-1"/>
+                    <name><given>Mary</given><family>Tester</family></name>
+                    <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+                    <birthTime value="19550315"/>
+                  </subject>
+                </relatedSubject>
+              </subject>
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.46" extension="2015-08-01"/>
+                  <id root="a1b2c3d4-0000-0000-0000-000000000001"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime value="20100101"/>
+                  <value xsi:type="CD" code="59621000" codeSystem="2.16.840.1.113883.6.96" displayName="Essential hypertension"/>
+                </observation>
+              </component>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.22.1" extension="2015-08-01"/>
+          <code code="46240-8" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Encounters</title>
+          <text>Office visit</text>
+          <entry>
+            <encounter classCode="ENC" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/>
+              <id root="e9000000-0000-0000-0000-000000000001"/>
+              <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="ambulatory"/>
+              <effectiveTime><low value="20260101"/><high value="20260102"/></effectiveTime>
+              <performer><assignedEntity><id root="2.16.840.1.113883.4.6" extension="ACT-PERF"/><assignedPerson><name><given>Enc</given><family>Performer</family></name></assignedPerson></assignedEntity></performer>
+              <author><time value="202607261415+1000"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="ACT-AUTH"/><assignedPerson><name><given>Enc</given><family>Recorder</family></name></assignedPerson></assignedAuthor></author>
+              <participant typeCode="LOC">
+                <participantRole classCode="SDLOC">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.32"/>
+                  <id root="2.16.840.1.113883.4.6" extension="ACT-LOC-ID"/>
+                  <code code="1160-1" codeSystem="2.16.840.1.113883.6.259" displayName="Urgent Care Center"/>
+                  <addr><streetAddressLine>9 Activity Street</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+                  <playingEntity classCode="PLC"><name>Activity Clinic</name></playingEntity>
+                </participantRole>
+              </participant>
+            </encounter>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

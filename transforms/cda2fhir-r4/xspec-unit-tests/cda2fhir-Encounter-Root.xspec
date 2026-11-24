@@ -615,4 +615,27 @@
         <x:expect label="5. one RelatedPerson per next of kin, no PractitionerRole for them"
             test="count(//fhir:RelatedPerson[fhir:identifier/fhir:value/@value = ('NOK-1', 'NOK-2')]) = 2 and empty(//fhir:Practitioner[fhir:name/fhir:family/@value = 'Kin'])" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decisions 2026-11-24, re-trace finding RT-C10): what the eICR Encounter takes from a
+         body Encounter Activity (22.4.49). Whole-pipeline test on integration-tests/documents/testEncAct.xml. -->
+    <x:scenario label="body Encounter Activity: performer, author and location detail (RT-C10)">
+        <x:context href="../../integration-tests/documents/testEncAct.xml" />
+        <x:expect label="1. still one Encounter" test="count(//fhir:Encounter) = 1" />
+        <x:expect label="2. the activity performer is an Encounter participant (through its PractitionerRole)"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Encounter/fhir:participant/fhir:individual/fhir:reference/@value]/fhir:resource/fhir:PractitionerRole/fhir:practitioner/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Practitioner/fhir:identifier/fhir:value/@value = 'ACT-PERF']/fhir:fullUrl/@value" />
+        <x:expect label="3. the activity author has a Provenance whose target is the Encounter"
+            test="//fhir:Provenance[fhir:target/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Encounter]/fhir:fullUrl/@value]/fhir:recorded/@value = '2026-07-26T14:15:00+10:00'" />
+        <x:expect label="4. that Provenance's agent resolves to the author"
+            test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:Provenance[fhir:target/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Encounter]/fhir:fullUrl/@value]/fhir:agent/fhir:who/fhir:reference/@value]) and exists(//fhir:Practitioner[fhir:identifier/fhir:value/@value = 'ACT-AUTH'])" />
+        <x:expect label="5. the header location takes the activity location's id, name and address where it has none"
+            test="//fhir:Location/fhir:identifier/fhir:value/@value = 'ACT-LOC-ID' and //fhir:Location/fhir:name/@value = 'Activity Clinic' and //fhir:Location/fhir:address/fhir:line/@value = '9 Activity Street'" />
+        <x:expect label="6. still one Location on the Encounter" test="count(//fhir:Location) = 1 and count(//fhir:Encounter/fhir:location) = 1" />
+        <x:expect label="7. the activity dates are not used: period is the header's"
+            test="//fhir:Encounter/fhir:period/fhir:start/@value = '2026-07-25' and empty(//fhir:*[@value = ('2026-01-01', '2026-01-02')])" />
+        <x:expect label="8. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+    </x:scenario>
+    <x:scenario label="control: a header location with its own id, name and address keeps them (RT-C10)">
+        <x:context href="../../integration-tests/documents/testLoc.xml" />
+        <x:expect label="1. first location unchanged" test="exists(//fhir:Location[fhir:identifier/fhir:value/@value = 'fac1'][fhir:name/@value = 'Test Hospital ED'][fhir:address/fhir:line/@value = '5 Hospital Rd'])" />
+    </x:scenario>
 </x:description>

@@ -16,12 +16,17 @@
     <xsl:template match="cda:organizer/cda:component/cda:procedure[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.415']] | cda:organizer/cda:component/cda:procedure[cda:code[@code = '17636008']]">
         <Specimen xmlns="http://hl7.org/fhir" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <xsl:call-template name="add-meta" />
+            <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C17): identifier and type are read from
+                 the participant with typeCode PRD only. That is the specimen (Specimen Participant, 22.4.410);
+                 they used to be read from every participant, so another participant on the procedure (a
+                 location, say) added a second identifier and a second Specimen.type, which is 0..1. The
+                 filter is on typeCode, not the templateId, because real documents omit the templateId. -->
             <!-- id -->
-            <xsl:apply-templates select="cda:participant/cda:participantRole/cda:id" />
+            <xsl:apply-templates select="cda:participant[@typeCode = 'PRD']/cda:participantRole/cda:id" />
             <!-- status -->
             <xsl:apply-templates select="cda:statusCode" mode="map-specimen-status" />
             <!-- type -->
-            <xsl:apply-templates select="cda:participant/cda:participantRole/cda:playingEntity/cda:code">
+            <xsl:apply-templates select="cda:participant[@typeCode = 'PRD']/cda:participantRole/cda:playingEntity/cda:code">
                 <xsl:with-param name="pElementName">type</xsl:with-param>
             </xsl:apply-templates>
             <!-- subject -->

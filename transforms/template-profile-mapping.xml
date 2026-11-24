@@ -97,7 +97,9 @@
        37.3.11:2017-08-01 PhCP-MedicationDispense, 22.4.140 PhCP-ServiceRequest). PhCP is not a dependency of the
        eCR IG and these stamped PhCP profiles on resources in eICR bundles. The resources are still created,
        without meta.profile. -->
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.40:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter" />
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C16): removed the 22.4.40:2014-06-09 (Planned
+       Encounter) -> us-core-encounter key. It was never consulted: the Planned Encounter template deliberately
+       claims no profile (a future visit is not the eICR encounter) and does not call the lookup. -->
   <!-- MD: add mapping for eicr-encounter -->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22:2015-08-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />

@@ -351,6 +351,20 @@
           <xsl:apply-templates select="." mode="reference" />
         </hasMember>
       </xsl:for-each>
+      <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-B10): the members of a C-CDA Functional
+           Status Organizer (22.4.66). Its component observations (Functional Status Observation 22.4.67 and
+           any other observation that is not a Result or Vital Sign Observation, which the two loops above
+           already list) each get a bundle entry from the organizer's bundle-entry template, but the panel
+           did not reference them and neither did the section, so they were left unreferenced. Components
+           whose template is in templates-to-suppress.xml produce no resource and are skipped. -->
+      <xsl:if test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.66']">
+        <xsl:for-each
+          select="cda:component/cda:observation[not(cda:templateId[@root = ('2.16.840.1.113883.10.20.22.4.2', '2.16.840.1.113883.10.20.22.4.27')])][not(cda:templateId[key('templates-to-suppress-key', @root)])]">
+          <hasMember>
+            <xsl:apply-templates select="." mode="reference" />
+          </hasMember>
+        </xsl:for-each>
+      </xsl:if>
     </Observation>
   </xsl:template>
 

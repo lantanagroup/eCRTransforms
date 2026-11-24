@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 244-->
+<!--Element count: 272-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="eICR-bundle-GENID"/>
    <meta>
@@ -191,6 +191,23 @@
                </entry>
             </section>
             <section>
+               <title value="Functional Status"/>
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="47420-5"/>
+                  </coding>
+               </code>
+               <text>
+                  <status value="additional"/>
+                  <div xmlns="http://www.w3.org/1999/xhtml">Functional status</div>
+               </text>
+               <!--2.16.840.1.113883.10.20.22.4.66:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+            </section>
+            <section>
                <title value="REASON FOR VISIT"/>
                <code>
                   <coding>
@@ -246,7 +263,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID013"/>
+                  <reference value="urn:uuid:UUID014"/>
                </entry>
             </section>
             <section>
@@ -263,7 +280,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID014"/>
+                  <reference value="urn:uuid:UUID015"/>
                </entry>
             </section>
             <section>
@@ -388,13 +405,13 @@
                </language>
             </communication>
             <managingOrganization>
-               <reference value="urn:uuid:UUID015"/>
+               <reference value="urn:uuid:UUID016"/>
             </managingOrganization>
          </Patient>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID015"/>
+      <fullUrl value="urn:uuid:UUID016"/>
       <resource>
          <Organization>
             <meta>
@@ -420,7 +437,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID016"/>
+      <fullUrl value="urn:uuid:UUID017"/>
       <resource>
          <Patient>
             <text>
@@ -443,7 +460,7 @@
             <birthDate value="1955-03-15"/>
             <link>
                <other>
-                  <reference value="urn:uuid:UUID017"/>
+                  <reference value="urn:uuid:UUID018"/>
                </other>
                <type value="seealso"/>
             </link>
@@ -451,7 +468,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID017"/>
+      <fullUrl value="urn:uuid:UUID018"/>
       <resource>
          <RelatedPerson>
             <identifier>
@@ -517,17 +534,17 @@
             </period>
             <location>
                <location>
-                  <reference value="urn:uuid:UUID018"/>
+                  <reference value="urn:uuid:UUID019"/>
                </location>
             </location>
             <serviceProvider>
-               <reference value="urn:uuid:UUID019"/>
+               <reference value="urn:uuid:UUID020"/>
             </serviceProvider>
          </Encounter>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID018"/>
+      <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <Location>
             <meta>
@@ -553,13 +570,13 @@
                <postalCode value="02101"/>
             </address>
             <managingOrganization>
-               <reference value="urn:uuid:UUID019"/>
+               <reference value="urn:uuid:UUID020"/>
             </managingOrganization>
          </Location>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID019"/>
+      <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Organization>
             <meta>
@@ -594,7 +611,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID020"/>
+               <reference value="urn:uuid:UUID021"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -608,7 +625,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID020"/>
+      <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <Practitioner>
             <meta>
@@ -652,7 +669,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID021"/>
+      <fullUrl value="urn:uuid:UUID022"/>
       <resource>
          <Provenance>
             <target>
@@ -674,7 +691,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID022"/>
+      <fullUrl value="urn:uuid:UUID023"/>
       <resource>
          <Provenance>
             <target>
@@ -690,7 +707,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID013"/>
+      <fullUrl value="urn:uuid:UUID014"/>
       <resource>
          <Condition>
             <meta>
@@ -714,7 +731,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID014"/>
+      <fullUrl value="urn:uuid:UUID015"/>
       <resource>
          <Observation>
             <meta>
@@ -824,13 +841,13 @@
             </subject>
             <effectiveDateTime value="2026-07-26"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID023"/>
+               <reference value="urn:uuid:UUID024"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID023"/>
+      <fullUrl value="urn:uuid:UUID024"/>
       <resource>
          <Observation>
             <meta>
@@ -925,13 +942,13 @@
             </subject>
             <effectiveDateTime value="2026-07-26"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID024"/>
+               <reference value="urn:uuid:UUID025"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID024"/>
+      <fullUrl value="urn:uuid:UUID025"/>
       <resource>
          <Observation>
             <meta>
@@ -1026,16 +1043,16 @@
             </subject>
             <effectiveDateTime value="2026-07-26"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID025"/>
+               <reference value="urn:uuid:UUID026"/>
             </hasMember>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID026"/>
+               <reference value="urn:uuid:UUID027"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID025"/>
+      <fullUrl value="urn:uuid:UUID026"/>
       <resource>
          <Observation>
             <meta>
@@ -1096,7 +1113,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID026"/>
+      <fullUrl value="urn:uuid:UUID027"/>
       <resource>
          <Observation>
             <meta>
@@ -1168,13 +1185,13 @@
             </subject>
             <effectiveDateTime value="2026-07-26"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID027"/>
+               <reference value="urn:uuid:UUID028"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID027"/>
+      <fullUrl value="urn:uuid:UUID028"/>
       <resource>
          <Observation>
             <meta>
@@ -1246,16 +1263,16 @@
             </subject>
             <effectiveDateTime value="2026-07-26"/>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID028"/>
+               <reference value="urn:uuid:UUID029"/>
             </hasMember>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.27:2014-06-09-->
-               <reference value="urn:uuid:UUID029"/>
+               <reference value="urn:uuid:UUID030"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID028"/>
+      <fullUrl value="urn:uuid:UUID029"/>
       <resource>
          <Observation>
             <meta>
@@ -1316,7 +1333,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID029"/>
+      <fullUrl value="urn:uuid:UUID030"/>
       <resource>
          <Observation>
             <meta>
@@ -1373,6 +1390,97 @@
                   <code value="mm[Hg]"/>
                </valueQuantity>
             </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.66:2014-06-09-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="FS-PANEL"/>
+            </identifier>
+            <status value="final"/>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/observation-category"/>
+                  <code value="activity"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="54522-8"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <hasMember><!--2.16.840.1.113883.10.20.22.4.67:2014-06-09-->
+               <reference value="urn:uuid:UUID031"/>
+            </hasMember>
+            <hasMember><!--2.16.840.1.113883.10.20.22.4.67:2014-06-09-->
+               <reference value="urn:uuid:UUID032"/>
+            </hasMember>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.67:2014-06-09-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.67:2014-06-09-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="FS-MEMBER-1"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="54522-8"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2026-07-26"/>
+            <!--INFO: Using document effective time as issued date-->
+            <issued value="2026-07-27T10:30:00+10:00"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="371153006"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID032"/>
+      <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.67:2014-06-09-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.67:2014-06-09-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="FS-MEMBER-2"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="54522-8"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectiveDateTime value="2026-07-27"/>
+            <!--INFO: Using document effective time as issued date-->
+            <issued value="2026-07-27T10:30:00+10:00"/>
+            <valueString value="Walks unaided"/>
          </Observation>
       </resource>
    </entry>

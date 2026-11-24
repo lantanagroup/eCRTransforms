@@ -258,6 +258,44 @@
           </entry>
         </section>
       </component>
+      <!-- 20261125 Claude (RT-B10): a C-CDA Functional Status Organizer (22.4.66) with two Functional Status
+           Observations (22.4.67). The panel Observation must list both in hasMember. -->
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.14" extension="2014-06-09"/>
+          <code code="47420-5" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Functional Status</title>
+          <text>Functional status</text>
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.66" extension="2014-06-09"/>
+              <id root="2.16.840.1.113883.19.5" extension="FS-PANEL"/>
+              <code code="54522-8" codeSystem="2.16.840.1.113883.6.1"/>
+              <statusCode code="completed"/>
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.67" extension="2014-06-09"/>
+                  <id root="2.16.840.1.113883.19.5" extension="FS-MEMBER-1"/>
+                  <code code="54522-8" codeSystem="2.16.840.1.113883.6.1"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime value="20260726"/>
+                  <value xsi:type="CD" code="371153006" codeSystem="2.16.840.1.113883.6.96"/>
+                </observation>
+              </component>
+              <component>
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.67" extension="2014-06-09"/>
+                  <id root="2.16.840.1.113883.19.5" extension="FS-MEMBER-2"/>
+                  <code code="54522-8" codeSystem="2.16.840.1.113883.6.1"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime value="20260727"/>
+                  <value xsi:type="ST">Walks unaided</value>
+                </observation>
+              </component>
+            </organizer>
+          </entry>
+        </section>
+      </component>
     </structuredBody>
   </component>
 </ClinicalDocument>

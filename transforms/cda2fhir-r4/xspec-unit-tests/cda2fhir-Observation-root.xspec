@@ -1265,4 +1265,15 @@
         <x:expect label="AB8. a bare caregiver has patient and the CAREGIVER relationship only" test="string-join(//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:*/local-name(), ' ') = 'patient relationship' and //fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:relationship/fhir:coding/fhir:code/@value = 'CAREGIVER'" />
         <x:expect label="AB9. no PractitionerRole or Practitioner is built for a caregiver" test="empty(//fhir:entry[fhir:fullUrl/@value = (//fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL'] | //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE'])/fhir:focus/fhir:reference/@value]/fhir:resource/(fhir:PractitionerRole | fhir:Practitioner))" />
     </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-B10): the shared organizer template wrote
+         hasMember only for Result Observation (22.4.2) and Vital Sign Observation (22.4.27) components, so the
+         Functional Status Observations (22.4.67) of a Functional Status Organizer (22.4.66) became Observations
+         that nothing referenced. Whole-pipeline test on testBP.xml. -->
+    <x:scenario label="AC. Functional Status Organizer lists its members (RT-B10)">
+        <x:context href="../../integration-tests/documents/testBP.xml" />
+        <x:expect label="AC1. the panel has two hasMember, in document order" test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'FS-PANEL']/fhir:hasMember) = 2 and //fhir:Observation[fhir:identifier/fhir:value/@value = 'FS-PANEL']/fhir:hasMember[1]/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'FS-MEMBER-1']/fhir:fullUrl/@value and //fhir:Observation[fhir:identifier/fhir:value/@value = 'FS-PANEL']/fhir:hasMember[2]/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'FS-MEMBER-2']/fhir:fullUrl/@value" />
+        <x:expect label="AC2. no Observation in the bundle is unreferenced" test="every $e in //fhir:entry[fhir:resource/fhir:Observation] satisfies $e/fhir:fullUrl/@value = //fhir:reference/@value" />
+        <x:expect label="AC3. every reference in the bundle resolves" test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r])" />
+        <x:expect label="AC4. control: no hasMember is listed twice on any panel" test="every $o in //fhir:Observation satisfies count($o/fhir:hasMember/fhir:reference/@value) = count(distinct-values($o/fhir:hasMember/fhir:reference/@value))" />
+    </x:scenario>
 </x:description>

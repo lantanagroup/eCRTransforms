@@ -1705,6 +1705,15 @@
       </xsl:choose>
     </xsl:element>
   </xsl:template>
+  <!-- 20261124 Claude (SG decisions 2026-11-24, re-trace finding RT-B18):
+       - IVL_REAL and IVL_INT ranges give low/high like IVL_PQ (plain numbers, no unit); they used to give
+         an empty referenceRange (obs-3 / ele-1).
+       - a CD/CE/CO/CV range (for example "Negative") and a PQ, REAL or INT range go to referenceRange.text
+         instead of being replaced by "No reference range supplied".
+       - that placeholder is now written whenever neither a bound nor a text was produced.
+       - the "Unsupported ... type" comment is kept only for types that really are not carried (it was also
+         written for ST, whose text is carried).
+       observationRange/interpretationCode is still not mapped (SG: leave). -->
   <xsl:template match="cda:observation/cda:referenceRange">
     <!-- Rule: must have at least a low or a high or a text -->
     <referenceRange>
@@ -1714,7 +1723,7 @@
             <xsl:when test="@nullFlavor">
               <xsl:apply-templates select="@nullFlavor" mode="data-absent-reason-extension" />
             </xsl:when>
-            <xsl:when test="@xsi:type = 'IVL_PQ'">
+            <xsl:when test="@xsi:type = ('IVL_PQ', 'IVL_REAL', 'IVL_INT')">
               <xsl:choose>
                 <xsl:when test="cda:low/@nullFlavor and (cda:high/@value or cda:high/cda:translation/@value)" />
                 <xsl:otherwise>
@@ -1729,6 +1738,8 @@
               </xsl:choose>
               <!--<xsl:apply-templates select="." />-->
             </xsl:when>
+            <!-- carried as text below -->
+            <xsl:when test="@xsi:type = ('ST', 'CD', 'CE', 'CO', 'CV', 'PQ', 'REAL', 'INT')" />
             <xsl:otherwise>
               <xsl:comment>WARNING: Unsupported observation reference range type: <xsl:value-of select="@xsi:type" />
                             </xsl:comment>
@@ -1745,6 +1756,17 @@
             <xsl:when test="cda:value/@xsi:type = 'ST'">
               <xsl:value-of select="cda:value[@xsi:type = 'ST']" />
             </xsl:when>
+            <!-- RT-B18: a coded or single-number range, as text -->
+            <xsl:when test="cda:value[not(@nullFlavor)]/@xsi:type = ('CD', 'CE', 'CO', 'CV')">
+              <xsl:for-each select="cda:value[not(@nullFlavor)][@xsi:type = ('CD', 'CE', 'CO', 'CV')][1]">
+                <xsl:value-of select="(normalize-space(cda:originalText)[.], @displayName, @code)[1]" />
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="cda:value[not(@nullFlavor)][@value]/@xsi:type = ('PQ', 'REAL', 'INT')">
+              <xsl:for-each select="cda:value[not(@nullFlavor)][@value][@xsi:type = ('PQ', 'REAL', 'INT')][1]">
+                <xsl:value-of select="normalize-space(concat(@value, ' ', @unit))" />
+              </xsl:for-each>
+            </xsl:when>
             <xsl:otherwise />
           </xsl:choose>
         </xsl:variable>
@@ -1752,7 +1774,7 @@
                      If there is no value in either, there is no text. 
                      If they are different concatenate, if they are the same just use text -->
         <xsl:choose>
-          <xsl:when test="not(cda:value/@xsi:type = 'IVL_PQ') and not(cda:value/cda:low) and not(cda:value/cda:high) and not($vText/string()) and not($vValueST/string())">
+          <xsl:when test="not(cda:value[@xsi:type = ('IVL_PQ', 'IVL_REAL', 'IVL_INT')][cda:low or cda:high]) and not($vText/string()) and not($vValueST/string())">
             <text>
               <xsl:attribute name="value">
                 <xsl:value-of select="'No reference range supplied'" />

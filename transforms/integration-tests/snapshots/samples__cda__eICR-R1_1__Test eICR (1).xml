@@ -11654,7 +11654,7 @@
             <note>
                <text value="&lt;tr ID=&#34;Result.1.2.840.114350.1.13.212.2.7.2.798268.358001261.Comp1&#34; styleCode=&#34;xRowNormal&#34;&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.212.2.7.2.798268.358001261.Comp1Name&#34;&gt;Protein&lt;/td&gt;&lt;td&gt;Negative&lt;/td&gt;&lt;td&gt;Negative mg/dL&lt;/td&gt;&lt;td /&gt;&lt;td /&gt;&lt;td&gt;COMMUNITY REGIONAL MEDICAL CENTER LAB&lt;/td&gt;&lt;td ID=&#34;Result.1.2.840.114350.1.13.212.2.7.2.798268.358001261.Comp1Signature&#34; /&gt;&lt;/tr&gt;"/>
             </note>
-            <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
+            <referenceRange>
                <text value="Negative mg/dL"/>
             </referenceRange>
          </Observation>
@@ -12388,7 +12388,7 @@
             <note>
                <text value="No syphilis diagnosis. Â Testing complete. Â Incubating or veryearly primary infection cannot be ruled out."/>
             </note>
-            <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
+            <referenceRange>
                <text value="Non-reactive"/>
             </referenceRange>
          </Observation>
@@ -13450,7 +13450,7 @@
             <note>
                <text value="Reported to Public Health"/>
             </note>
-            <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
+            <referenceRange>
                <text value="Not Detected"/>
             </referenceRange>
          </Observation>

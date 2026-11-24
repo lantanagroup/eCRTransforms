@@ -2713,7 +2713,7 @@
             <valueQuantity>
                <value value="0"/>
             </valueQuantity>
-            <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
+            <referenceRange>
                <text value="Years; &#xA;                        Years"/>
             </referenceRange>
          </Observation>
@@ -2930,7 +2930,7 @@
                <value value="1730000"/>
                <unit value="[IU]/mL"/>
             </valueQuantity>
-            <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
+            <referenceRange>
                <text value="()"/>
             </referenceRange>
          </Observation>

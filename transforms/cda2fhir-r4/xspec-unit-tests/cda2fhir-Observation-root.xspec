@@ -1070,4 +1070,24 @@
         <x:expect label="U1. the outcome's focus resolves to the pregnancy status observation"
             test="//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation'" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B18): reference ranges that are not IVL_PQ.
+         IVL_REAL / IVL_INT now give low and high (no unit); a CD or PQ range goes to referenceRange.text.
+         interpretationCode on the range stays unmapped (SG). Whole-pipeline test on testRange.xml. -->
+    <x:scenario label="V. reference range types (RT-B18)">
+        <x:context href="../../integration-tests/documents/testRange.xml" />
+        <x:expect label="V1. no reference range is without low, high or text (obs-3)"
+            test="exists(//fhir:referenceRange) and (every $r in //fhir:referenceRange satisfies exists($r/(fhir:low | fhir:high | fhir:text)))" />
+        <x:expect label="V2. IVL_REAL: low and high as numbers, no unit"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-REAL']/fhir:referenceRange/fhir:low/fhir:value/@value = '3.5' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-REAL']/fhir:referenceRange/fhir:high/fhir:value/@value = '5.0' and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-REAL']/fhir:referenceRange//fhir:unit)" />
+        <x:expect label="V3. IVL_INT: low and high" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-INT']/fhir:referenceRange/fhir:low/fhir:value/@value = '1' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-INT']/fhir:referenceRange/fhir:high/fhir:value/@value = '5'" />
+        <x:expect label="V4. IVL_REAL with a low only: low and no high, no placeholder text"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-REAL-LOW-ONLY']/fhir:referenceRange/fhir:low/fhir:value/@value = '3.5' and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-REAL-LOW-ONLY']/fhir:referenceRange/fhir:high) and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-REAL-LOW-ONLY']/fhir:referenceRange/fhir:text)" />
+        <x:expect label="V5. CD: the display goes to text" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-CD']/fhir:referenceRange/fhir:text/@value = 'Negative'" />
+        <x:expect label="V6. CD with range text: both, joined" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-CD-WITH-TEXT']/fhir:referenceRange/fhir:text/@value = 'expected result; Negative'" />
+        <x:expect label="V7. PQ: value and unit go to text" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-PQ']/fhir:referenceRange/fhir:text/@value = '5.0 mmol/L'" />
+        <x:expect label="V8. control: IVL_PQ with text unchanged"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-PQ']/fhir:referenceRange/fhir:low/fhir:unit/@value = 'mmol/L' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-IVL-PQ']/fhir:referenceRange/fhir:text/@value = 'normal adult'" />
+        <x:expect label="V9. control: ST unchanged" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-ST']/fhir:referenceRange/fhir:text/@value = '3.5 to 5.0'" />
+        <x:expect label="V10. control: nothing usable keeps the placeholder text" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'RR-NOTHING']/fhir:referenceRange/fhir:text/@value = 'No reference range supplied'" />
+    </x:scenario>
 </x:description>

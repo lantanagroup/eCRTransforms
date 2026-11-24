@@ -3941,7 +3941,7 @@
             <note>
                <text value="[Narrative removed during&#xA;                                                  de-identification]"/>
             </note>
-            <referenceRange><!--WARNING: Unsupported observation reference range type: ST-->
+            <referenceRange>
                <text value="Not Detected"/>
             </referenceRange>
          </Observation>

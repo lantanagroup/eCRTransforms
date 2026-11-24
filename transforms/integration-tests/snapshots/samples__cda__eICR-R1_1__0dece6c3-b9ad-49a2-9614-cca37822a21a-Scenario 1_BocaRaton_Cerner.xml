@@ -1039,11 +1039,6 @@
                   </extension>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="(561)395-7100"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <line value="800 Meadows Road"/>
                <city value="Boca Raton"/>
@@ -1051,6 +1046,9 @@
                <postalCode value="33486"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID040"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -1061,10 +1059,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883"/>
-               <value value="Location/2554856903/_history/1"/>
-            </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.4.4"/>
                <value value="59-1006663"/>

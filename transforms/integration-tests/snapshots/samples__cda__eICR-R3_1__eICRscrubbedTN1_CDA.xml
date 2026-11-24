@@ -1950,11 +1950,6 @@
                </coding>
                <text value="Med Surg"/>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-312-555-0102"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="5815 Trellis Blvd"/>
@@ -1964,6 +1959,9 @@
                <postalCode value="62112-5449"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID027"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -1974,10 +1972,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.8470.31"/>
-               <value value="0698768406"/>
-            </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.6489.74"/>
                <value value="4095815"/>

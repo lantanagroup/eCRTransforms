@@ -2024,16 +2024,6 @@
                   <display value="Outpatient Facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-423-555-0131"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-865-555-0194"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="5236 Alder Ln"/>
@@ -2044,6 +2034,9 @@
                <postalCode value="38433-7301"/>
                <country value="USA"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID041"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -2054,10 +2047,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
-               <value value="Vfwzabvxriaa/9004580/_zsqudtt/1"/>
-            </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
                <value value="cku:xpd:4.40.767.0.475891.4.909.921.536.5508"/>

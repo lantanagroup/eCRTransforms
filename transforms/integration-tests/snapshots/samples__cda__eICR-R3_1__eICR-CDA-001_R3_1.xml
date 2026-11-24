@@ -2003,16 +2003,6 @@
                   <display value="Outpatient facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="1+(555)-555-1212"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="1+(555)-555-3333"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <line value="1000 Hospital Lane"/>
                <city value="Ann Arbor"/>
@@ -2020,6 +2010,9 @@
                <postalCode value="99999"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID057"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -2030,10 +2023,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="77777777777"/>
-            </identifier>
             <active value="true"/>
             <name value="Good Health Hospital"/>
             <telecom>

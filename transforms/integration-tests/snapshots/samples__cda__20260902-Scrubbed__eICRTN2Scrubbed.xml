@@ -1461,16 +1461,6 @@
                   <display value="Outpatient Facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-615-555-0139"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-901-555-0156"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="5054 Northfield Ter"/>
@@ -1484,6 +1474,9 @@
                <postalCode value="37418"/>
                <country value="USA"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID022"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -1494,10 +1487,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
-               <value value="Npsedhlqecvc/5726528/_wbratkw/9"/>
-            </identifier>
             <identifier>
                <system value="urn:oid:2.16.840.1.113883.19.2454.32"/>
                <value value="crg:cxd:0.62.137.9.382554.4.378.988.448.0015"/>

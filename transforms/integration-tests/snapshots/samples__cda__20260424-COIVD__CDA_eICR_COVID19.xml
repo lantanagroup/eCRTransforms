@@ -1080,16 +1080,6 @@
                   <display value="Grand Republic Medical Facility Clinic"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-888-000-9999"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-888-000-1111"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="500 Republica Medical Plaza, Suite 1000"/>
@@ -1099,6 +1089,9 @@
                <postalCode value="GC-500"/>
                <country value="Coruscant"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID020"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -1109,10 +1102,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="1234567890"/>
-            </identifier>
             <active value="true"/>
             <name value="Grand Republic Medical Facility Clinic"/>
             <telecom>

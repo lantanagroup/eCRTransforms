@@ -460,6 +460,9 @@
                <postalCode value="02101"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID015"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -471,10 +474,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization-->
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="facrr"/>
-            </identifier>
             <active value="true"/>
             <name value="Facility Org"/>
             <telecom>

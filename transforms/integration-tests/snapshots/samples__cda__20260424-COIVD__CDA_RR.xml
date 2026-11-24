@@ -681,16 +681,6 @@
                   <display value="Outpatient Facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-888-000-9999"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-888-000-1111"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="500 Republica Medical Plaza, Suite 1000"/>
@@ -700,6 +690,9 @@
                <postalCode value="GC-500"/>
                <country value="Coruscant"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID026"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -711,10 +704,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization-->
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="1234567890"/>
-            </identifier>
             <active value="true"/>
             <name value="Grand Republic Medical Facility Clinic"/>
             <telecom>

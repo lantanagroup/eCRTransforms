@@ -597,16 +597,6 @@
                   <display value="Outpatient Facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="555-777-0123"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="555-777-0987"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <line value="1234 Facility Drive"/>
                <city value="Provo"/>
@@ -614,6 +604,9 @@
                <postalCode value="84116"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID015"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -625,10 +618,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization-->
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="1915"/>
-            </identifier>
             <active value="true"/>
             <name value="Houston Urgent Care Clinic"/>
             <telecom>

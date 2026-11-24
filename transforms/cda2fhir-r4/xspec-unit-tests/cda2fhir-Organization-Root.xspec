@@ -12,7 +12,9 @@
              Hospitals") has no cda:id in the source, and Organization.identifier is 0..1. Verified against the
              2024-07-18 code (1191cc6): the count was already 8 the month this assertion was written - it was
              never 9. Test-side miscount, not a regression. -->
-        <x:expect label="A2. There should be 8 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=8" />
+        <!-- 20261124 Claude (RT-C11): was 8. The eighth was the healthCareFacility NPI copied onto the
+             serviceProviderOrganization (which has no id of its own here); it stays on the Location only. -->
+        <x:expect label="A2. There should be 7 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=7" />
         <x:expect label="A3. There should be 9 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active[@value='true'])=9" />
         <x:expect label="A4. There should be 9 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=9" />
         <!--Validate the Organization Organization Address -->
@@ -38,7 +40,9 @@
                single-fragment scenario below (C15). -->
         <!-- 20261124 Claude (RT-A8): was 6. The sixth was the information recipient's own NPI copied onto the
              receivedOrganization although the recipient has a person; it is no longer inherited. -->
-        <x:expect label="B2. There should be 5 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=5" />
+        <!-- 20261124 Claude (RT-C11): was 5. The fifth was the healthCareFacility id copied onto the
+             serviceProviderOrganization (which has no id of its own here); it stays on the Location only. -->
+        <x:expect label="B2. There should be 4 Organization identifier" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier)=4" />
         <x:expect label="B3. There should be 7 Organization active=true" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:active)=7" />
         <x:expect label="B4. There should be 7 Organization name" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:name)=7" />
         <x:expect label="B5. There should be 18 telecom" test="count(//fhir:entry/fhir:resource/fhir:Organization/fhir:telecom)=18" />
@@ -270,6 +274,136 @@
       <x:expect label="N5a. role id inherited" test="fhir:Organization/fhir:identifier/fhir:value/@value = 'ROLE-ID-1'" />
       <x:expect label="N5b. role telecom inherited" test="fhir:Organization/fhir:telecom/fhir:value/@value = '+1-617-555-0003'" />
       <x:expect label="N5c. role address inherited" test="fhir:Organization/fhir:address/fhir:line/@value = '3 Role St'" />
+    </x:scenario>
+  </x:scenario>
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C11): the ids on
+       healthCareFacility identify the FACILITY (they go to the Location); the
+       serviceProviderOrganization is the umbrella organization and must carry only its own ids.
+       Before the fix the facility id was copied onto the Organization and, when both were NPIs,
+       the organization's own NPI was dropped (only one NPI is kept and the facility's came first). -->
+  <x:scenario label="O. serviceProviderOrganization does not take the facility's identifier (RT-C11)">
+    <x:scenario label="O1. facility NPI and organization NPI: the Organization keeps its own">
+      <x:context select="//cda:serviceProviderOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <name>Facility Name</name>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="O1a. exactly one identifier" test="count(fhir:Organization/fhir:identifier) = 1" />
+      <x:expect label="O1b. it is the organization's own NPI" test="fhir:Organization/fhir:identifier/fhir:value/@value = '2222222222'" />
+      <x:expect label="O1c. the facility NPI is not on the Organization" test="not(fhir:Organization/fhir:identifier/fhir:value/@value = '1111111111')" />
+    </x:scenario>
+    <x:scenario label="O2. organization with no id of its own gets no identifier">
+      <x:context select="//cda:serviceProviderOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <name>Facility Name</name>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="O2a. no identifier" test="count(fhir:Organization/fhir:identifier) = 0" />
+      <x:expect label="O2b. control: its own name, telecom and address are unaffected" test="fhir:Organization/fhir:name/@value = 'Umbrella Health System' and fhir:Organization/fhir:telecom/fhir:value/@value = '+1-555-777-0123' and fhir:Organization/fhir:address/fhir:line/@value = '9 System Ave'" />
+    </x:scenario>
+  </x:scenario>
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C11): the ids on
+       healthCareFacility identify the FACILITY (they go to the Location); the
+       serviceProviderOrganization is the umbrella organization and must carry only its own ids.
+       Before the fix the facility id was copied onto the Organization and, when both were NPIs,
+       the organization's own NPI was dropped (only one NPI is kept and the facility's came first). -->
+  <x:scenario label="O. serviceProviderOrganization does not take the facility's identifier (RT-C11)">
+    <x:scenario label="O1. facility NPI and organization NPI: the Organization keeps its own">
+      <x:context select="//cda:serviceProviderOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <name>Facility Name</name>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="O1a. exactly one identifier" test="count(fhir:Organization/fhir:identifier) = 1" />
+      <x:expect label="O1b. it is the organization's own NPI" test="fhir:Organization/fhir:identifier/fhir:value/@value = '2222222222'" />
+      <x:expect label="O1c. the facility NPI is not on the Organization" test="not(fhir:Organization/fhir:identifier/fhir:value/@value = '1111111111')" />
+    </x:scenario>
+    <x:scenario label="O2. organization with no id of its own gets no identifier">
+      <x:context select="//cda:serviceProviderOrganization">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <name>Facility Name</name>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="O2a. no identifier" test="count(fhir:Organization/fhir:identifier) = 0" />
+      <x:expect label="O2b. control: its own name, telecom and address are unaffected" test="fhir:Organization/fhir:name/@value = 'Umbrella Health System' and fhir:Organization/fhir:telecom/fhir:value/@value = '+1-555-777-0123' and fhir:Organization/fhir:address/fhir:line/@value = '9 System Ave'" />
     </x:scenario>
   </x:scenario>
 </x:description>

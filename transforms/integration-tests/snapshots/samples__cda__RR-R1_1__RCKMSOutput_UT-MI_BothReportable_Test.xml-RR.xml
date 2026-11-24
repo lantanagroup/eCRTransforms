@@ -723,16 +723,6 @@
                   <display value="Outpatient Facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="TBDFacilityPhone"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="TBDFacilityFax"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="120 W Saginaw St"/>
@@ -740,6 +730,9 @@
                <state value="MI"/>
                <postalCode value="48823"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID018"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -751,10 +744,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization-->
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="8299"/>
-            </identifier>
             <active value="true"/>
             <name value="TBD"/>
             <telecom>

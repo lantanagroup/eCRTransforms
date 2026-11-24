@@ -813,16 +813,6 @@
                   <display value="Outpatient facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="TBDFacilityPhone"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="TBDFacilityFax"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <line value="TBDFacilityStreetAddress"/>
                <city value="TBDFacilityCity"/>
@@ -830,6 +820,9 @@
                <postalCode value="TBDFacilityZip"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID016"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -840,10 +833,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="TBDFacility#"/>
-            </identifier>
             <active value="true"/>
             <name value="TBDFacilityName"/>
             <telecom>

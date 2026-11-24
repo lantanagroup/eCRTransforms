@@ -1021,16 +1021,6 @@
                   <display value="Outpatient Facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="555-777-0123"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="555-777-0987"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="1234 Facility Drive"/>
@@ -1039,6 +1029,9 @@
                <postalCode value="784097"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID013"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -1051,7 +1044,7 @@
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="1915"/>
+               <value value="8909"/>
             </identifier>
             <active value="true"/>
             <name value="Service Provider Organization Name&#xA;                                                  Clinic"/>

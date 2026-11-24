@@ -62,8 +62,13 @@
         </xsl:for-each-group>
       </xsl:if>
 
-      <!-- Adding telecom -->
-      <xsl:apply-templates select="cda:healthCareFacility/cda:serviceProviderOrganization/cda:telecom" />
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C11): the telecom of
+           serviceProviderOrganization is no longer copied here. That element is the umbrella
+           organization the facility operates under (Vol 2 CONF:4527-16/34), not the facility; CDA has
+           no telecom on healthCareFacility and Location.telecom is optional in us-ph-location. The
+           organization (with its telecom) is reachable through managingOrganization below. The NAME
+           fallback above is kept on purpose: Location.name is 1..1 and the facility name is optional
+           in the CDA (CONF:4527-1149). -->
 
       <xsl:variable name="vLocationAddr" select="cda:healthCareFacility/cda:location/cda:addr" />
 
@@ -76,6 +81,15 @@
           <xsl:apply-templates select="cda:healthCareFacility/cda:serviceProviderOrganization/cda:addr" />
         </xsl:when>
       </xsl:choose>
+
+      <!-- 20261124 Claude (RT-C11): link the facility to its umbrella organization. Same condition
+           and target as Encounter.serviceProvider (cda2fhir-Encounter.xslt), which is what creates
+           the Organization entry, so the reference always resolves. -->
+      <xsl:if test="cda:healthCareFacility/cda:serviceProviderOrganization[not(@nullFlavor)]">
+        <managingOrganization>
+          <reference value="urn:uuid:{cda:healthCareFacility/cda:serviceProviderOrganization/@lcg:uuid}" />
+        </managingOrganization>
+      </xsl:if>
     </Location>
   </xsl:template>
 

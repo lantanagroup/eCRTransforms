@@ -181,7 +181,7 @@
       </xsl:choose>
 
       <xsl:variable name="vInheritRoleIds" as="xs:boolean"
-        select="not(preceding-sibling::cda:assignedPerson) and not(self::cda:providerOrganization) and not(self::cda:receivedOrganization and preceding-sibling::cda:informationRecipient)" />
+        select="not(preceding-sibling::cda:assignedPerson) and not(self::cda:providerOrganization) and not(self::cda:serviceProviderOrganization) and not(self::cda:receivedOrganization and preceding-sibling::cda:informationRecipient)" />
       <!-- 20261124 Claude (RT-A8): a providerOrganization with no telecom/addr of its own must not
            borrow the patientRole's - that is the patient's phone and home address. It goes straight
            to the data-absent-reason fallback instead. -->
@@ -205,6 +205,12 @@
              - receivedOrganization when the intendedRecipient has a person: that person element is
                named informationRecipient, not assignedPerson, so the test above never saw it and the
                recipient's ids were copied onto the organization as well as the PractitionerRole.
+             - 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C11) serviceProviderOrganization:
+               its preceding siblings are healthCareFacility/id, i.e. the FACILITY's identifiers, which
+               already go to the Location. Vol 2 (CONF:4527-12/13 vs 4527-16/1147) defines the facility
+               and the "umbrella organization under which the facility operates" as different entities.
+               Copying the facility id here also DROPPED the organization's own NPI/CLIA when both had
+               one (only one of each is kept and the facility's came first).
              Everything else inherits exactly as before. -->
         <xsl:when test="$vInheritRoleIds and cda:id">
           <xsl:call-template name="output-org-identifiers">

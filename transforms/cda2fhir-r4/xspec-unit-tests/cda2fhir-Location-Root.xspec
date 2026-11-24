@@ -16,8 +16,12 @@
             test="count(//fhir:fullUrl[following-sibling::fhir:resource/fhir:Location][@value=//fhir:Encounter/fhir:location/fhir:location/fhir:reference/@value]/following-sibling::fhir:resource/fhir:Location/fhir:type) = 1" />
         <x:expect label="A6. The Encounter Location has one address"
             test="count(//fhir:fullUrl[following-sibling::fhir:resource/fhir:Location][@value=//fhir:Encounter/fhir:location/fhir:location/fhir:reference/@value]/following-sibling::fhir:resource/fhir:Location/fhir:address) = 1" />
-        <x:expect label="A7. The Encounter Location has one telecom"
-            test="count(//fhir:fullUrl[following-sibling::fhir:resource/fhir:Location][@value=//fhir:Encounter/fhir:location/fhir:location/fhir:reference/@value]/following-sibling::fhir:resource/fhir:Location/fhir:telecom) = 2" />
+        <!-- 20261124 Claude (RT-C11): was "= 2" (the two serviceProviderOrganization telecoms). They are
+             the umbrella organization's and are no longer copied; A8 checks the link to it instead. -->
+        <x:expect label="A7. The Encounter Location has no telecom"
+            test="count(//fhir:fullUrl[following-sibling::fhir:resource/fhir:Location][@value=//fhir:Encounter/fhir:location/fhir:location/fhir:reference/@value]/following-sibling::fhir:resource/fhir:Location/fhir:telecom) = 0" />
+        <x:expect label="A8. The Encounter Location managingOrganization is the Encounter serviceProvider"
+            test="//fhir:Location/fhir:managingOrganization/fhir:reference/@value = //fhir:Encounter/fhir:serviceProvider/fhir:reference/@value" />
     </x:scenario>
 
     <!-- 20260729 Claude: regression tests for the Service Delivery Location defects the FHIR
@@ -154,5 +158,100 @@
       test="count(fhir:Location/fhir:type) = 2" />
     <x:expect label="both distinct codes survive"
       test="count(fhir:Location/fhir:type/fhir:coding/fhir:code[@value = '1160-1']) = 1 and count(fhir:Location/fhir:type/fhir:coding/fhir:code[@value = '1108-0']) = 1" />
+  </x:scenario>
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C11): healthCareFacility is
+       the facility, serviceProviderOrganization the umbrella organization it operates under.
+       The Location no longer copies the organization's telecom (CDA has no facility telecom and
+       Location.telecom is optional); it points at the organization with managingOrganization
+       instead. The name fallback is kept deliberately: Location.name is 1..1 and the facility
+       name is optional in the CDA. -->
+  <x:scenario label="Encounter Location and its umbrella organization (RT-C11)">
+    <x:scenario label="facility with its own name">
+      <x:context select="//cda:encompassingEncounter/cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <name>Facility Name</name>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="no telecom copied from the organization" test="count(fhir:Location/fhir:telecom) = 0" />
+      <x:expect label="managingOrganization references the serviceProviderOrganization" test="fhir:Location/fhir:managingOrganization/fhir:reference/@value = 'urn:uuid:00000000-0000-0000-0000-0000000003a3'" />
+      <x:expect label="managingOrganization is the last element (after address)" test="fhir:Location/*[last()]/self::fhir:managingOrganization and fhir:Location/fhir:managingOrganization/preceding-sibling::*[1]/self::fhir:address" />
+      <x:expect label="control: the facility's own name, id and address" test="fhir:Location/fhir:name/@value = 'Facility Name' and fhir:Location/fhir:identifier/fhir:value/@value = '1111111111' and fhir:Location/fhir:address/fhir:line/@value = '1 Facility Rd'" />
+    </x:scenario>
+    <x:scenario label="facility with no name keeps the organization-name fallback">
+      <x:context select="//cda:encompassingEncounter/cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="name falls back to the organization name" test="fhir:Location/fhir:name/@value = 'Umbrella Health System'" />
+      <x:expect label="still no telecom" test="count(fhir:Location/fhir:telecom) = 0" />
+    </x:scenario>
+    <x:scenario label="null-flavored serviceProviderOrganization gives no managingOrganization">
+      <x:context select="//cda:encompassingEncounter/cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000003a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000003a1">
+            <location lcg:uuid="00000000-0000-0000-0000-0000000003a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location>
+                  <name>Facility Name</name>
+                  <addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </location>
+                <serviceProviderOrganization nullFlavor="UNK" lcg:uuid="00000000-0000-0000-0000-0000000003a3">
+                  <id root="2.16.840.1.113883.4.6" extension="2222222222" />
+                  <name>Umbrella Health System</name>
+                  <telecom use="WP" value="tel:+1-555-777-0123" />
+                  <addr><streetAddressLine>9 System Ave</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr>
+                </serviceProviderOrganization>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="no managingOrganization (no Organization entry is created for it)" test="count(fhir:Location/fhir:managingOrganization) = 0" />
+    </x:scenario>
   </x:scenario>
 </x:description>

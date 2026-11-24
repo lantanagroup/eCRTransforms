@@ -712,11 +712,6 @@
                   <display value="Outpatient facility"/>
                </coding>
             </type>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1(555)555-3001: Encompassing Encounter Location Healthcare Facility Phone"/>
-               <use value="work"/>
-            </telecom>
             <address>
                <line value="Clinic Bldg A, 4444 Healthcare Drive: Encompassing Encounter Location Healthcare Facility"/>
                <city value="Ann Arbor"/>
@@ -725,6 +720,9 @@
                <postalCode value="48105"/>
                <country value="US"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID017"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -736,10 +734,6 @@
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/componentOf/encompassingEncounter/location/healthCareFacility/serviceProviderOrganization-->
             </meta>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value value="77777777777"/>
-            </identifier>
             <active value="true"/>
             <name value="Level Seven Healthcare, Inc.: Encompassing Encounter Location Healthcare Facility Name"/>
             <telecom>

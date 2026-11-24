@@ -30,7 +30,9 @@
     <!-- 20260729 Claude: Fix - assertion was always-true: count() of a comparison counts a boolean (=1 regardless); comparison moved into a predicate -->
     <x:expect label="A11. The Location resource with identifier 77777777777 should have name = 3 Good Health Hospital Third"
       test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:name[@value = '3 Good Health Hospital Third'])=1" />
-    <x:expect label="A12. The Location resource with identifier 77777777777 should have 2 telecoms" test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:telecom)=2" />
+    <!-- 20261124 Claude (RT-C11): was 2. They were the serviceProviderOrganization (umbrella
+         organization) telecoms, no longer copied onto the facility Location. -->
+    <x:expect label="A12. The Location resource with identifier 77777777777 should have no telecom" test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:telecom)=0" />
     <x:expect label="A13. The Location resource with identifier 77777777777 should have 1 address with 1000 Hospital Lane"
       test="count(//fhir:Location[fhir:identifier/fhir:value/@value='77777777777']/fhir:address/fhir:line[@value='1000 Hospital Lane'])=1" />
   </x:scenario>

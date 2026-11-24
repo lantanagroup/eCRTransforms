@@ -3578,14 +3578,6 @@
                </coding>
                <text value="Obstetrics &amp; Gynecology"/>
             </type>
-            <telecom>
-               <system value="other"/>
-               <value>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="unknown"/>
-                  </extension>
-               </value>
-            </telecom>
             <address>
                <use value="work"/>
                <line value="1000 Provider Road"/>
@@ -3594,6 +3586,9 @@
                <state value="CA"/>
                <country value="USA"/>
             </address>
+            <managingOrganization>
+               <reference value="urn:uuid:UUID106"/>
+            </managingOrganization>
          </Location>
       </resource>
    </entry>
@@ -3604,10 +3599,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
             </meta>
-            <identifier>
-               <system value="urn:oid:1.2.840.114350.1.13.212.2.7.2.686980"/>
-               <value value="8888888888"/>
-            </identifier>
             <identifier>
                <system value="urn:oid:1.2.840.114350.1.13.212.2.7.2.696570"/>
                <value value="33333"/>

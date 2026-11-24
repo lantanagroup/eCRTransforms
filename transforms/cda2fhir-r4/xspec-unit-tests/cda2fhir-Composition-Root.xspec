@@ -343,4 +343,16 @@
         <x:expect label="L1. every Composition.author resolves to a PractitionerRole or a Device"
             test="every $r in //fhir:Composition/fhir:author/fhir:reference/@value satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r]/fhir:resource/(fhir:PractitionerRole | fhir:Device))" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24): ClinicalDocument/inFulfillmentOf is no longer mapped. It used to
+         give a ServiceRequest and a C-CDA on FHIR OrderExtension on the Composition, which the eCR IG does not
+         define (validator error, and five knock-on errors); SG: an eICR has no orders to fulfil. Whole-pipeline
+         test on integration-tests/documents/testSR.xml, which still has an inFulfillmentOf in its header. -->
+    <x:scenario label="M. inFulfillmentOf is not carried">
+        <x:context href="../../integration-tests/documents/testSR.xml" />
+        <x:expect label="M1. no C-CDA on FHIR OrderExtension anywhere" test="empty(//fhir:extension[contains(@url, 'OrderExtension')])" />
+        <x:expect label="M2. no ServiceRequest for the header order" test="empty(//fhir:ServiceRequest[fhir:identifier/fhir:value/@value = 'ord-1'])" />
+        <x:expect label="M3. control: the planned observation in the body is still a ServiceRequest" test="count(//fhir:ServiceRequest) ge 1" />
+        <x:expect label="M4. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+    </x:scenario>
 </x:description>

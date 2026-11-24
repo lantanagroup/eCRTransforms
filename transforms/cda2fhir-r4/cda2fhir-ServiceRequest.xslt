@@ -183,57 +183,9 @@
         </ServiceRequest>
     </xsl:template>
     
-    <xsl:template match="cda:inFulfillmentOf/cda:order">
-        <ServiceRequest>
-            <!-- set meta profile based on Ig -->
-            <xsl:call-template name="add-servicerequest-meta" />
-            
-            <!-- This identifier is linked back to the referral order if there is an identifier in the referral order -->
-            <!-- 20260729 Claude: Fix - identifier was hand-built as concat('urn:uuid:', cda:id/@root), which (a) ignored
-                 cda:id/@extension and (b) mislabelled OID roots as urn:uuid. Now uses the standard cda:id template, which
-                 handles OID vs UUID roots, extensions, and the oid-uri mapping -->
-            <xsl:apply-templates select="cda:id" />
-
-            <!-- status -->
-            <!-- 20260729 Claude: Fix - the previous @classCode choose emitted 'active' in both branches (no-op); CDA
-                 Order has classCode fixed to ACT, and an order carried in inFulfillmentOf is a placed, in-force request,
-                 so status is simply 'active' -->
-            <status value="active" />
-
-            <!-- intent -->
-            <!-- 20260729 Claude: Fix - the previous choose tested for CHILD order/act/observation/procedure elements,
-                 which an order never has, so the moodCode-based branch was unreachable and intent was always 'plan'.
-                 CDA Order has moodCode fixed to RQO, so the correct intent is 'order' (mapped via mode="intent" when
-                 a moodCode is present, defaulting to 'order' when absent) -->
-            <xsl:choose>
-                <xsl:when test="@moodCode">
-                    <xsl:apply-templates select="." mode="intent" />
-                </xsl:when>
-                <xsl:otherwise>
-                    <intent value="order" />
-                </xsl:otherwise>
-            </xsl:choose>
-            
-            <xsl:apply-templates select="cda:priorityCode" mode="priorityCode" />
-            <xsl:apply-templates select="cda:code" mode="procedure-request" />
-            <xsl:call-template name="subject-reference" />
-            
-            <!-- requester (max 1)-->
-            <xsl:for-each select="cda:author[1]">
-                <xsl:apply-templates select="." mode="rename-reference-participant">
-                    <xsl:with-param name="pElementName">requester</xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:for-each>
-            
-            <!-- performers (multiple) -->
-            <xsl:for-each select="cda:performer">
-                <xsl:apply-templates select="." mode="rename-reference-participant">
-                    <xsl:with-param name="pElementName">performer</xsl:with-param>
-                </xsl:apply-templates>
-            </xsl:for-each>
-            
-        </ServiceRequest>
-    </xsl:template>
+    <!-- 20261124 Claude (SG decision 2026-11-24): removed the cda:inFulfillmentOf/cda:order templates (the
+         ServiceRequest body here and its bundle-entry template below). inFulfillmentOf is no longer mapped;
+         see cda2fhir-Composition.xslt. -->
 
     <!-- code -->
     <xsl:template match="cda:code" mode="procedure-request">
@@ -243,7 +195,7 @@
     </xsl:template>
     
     <!-- intent -->
-    <xsl:template match="cda:order | cda:act | cda:observation | cda:procedure" mode="intent">
+    <xsl:template match="cda:act | cda:observation | cda:procedure" mode="intent">
         <xsl:choose>
             <xsl:when test="@moodCode = 'INT'">
                 <intent value="plan" />
@@ -306,11 +258,6 @@
                 </encounter>
             </xsl:if>
         </xsl:if>
-    </xsl:template>
-
-    <!-- add transfer inFullfillmentOf to fhir ServiceRequest -->
-    <xsl:template match="cda:inFulfillmentOf/cda:order" mode="bundle-entry">
-        <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 
     <xsl:template match="cda:priorityCode" mode="priorityCode">

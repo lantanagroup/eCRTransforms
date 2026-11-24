@@ -16,7 +16,11 @@
   <xsl:template match="cda:ClinicalDocument" mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />
 
-    <xsl:apply-templates select="cda:inFulfillmentOf" mode="bundle-entry" />
+    <!-- 20261124 Claude (SG decision 2026-11-24): cda:inFulfillmentOf is no longer mapped. It gave a
+         ServiceRequest for the order and, on the Composition, the C-CDA on FHIR extension
+         http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension. The eCR IG does not define that
+         extension (eicr-composition has no place for a fulfilled order), so it was a validator error,
+         and an eICR has no orders to fulfil. The order still shows in the Composition narrative. -->
 
     <xsl:apply-templates select="cda:recordTarget" mode="bundle-entry" />
     <xsl:apply-templates select="cda:componentOf/cda:encompassingEncounter" mode="bundle-entry" />
@@ -151,17 +155,6 @@
         <xsl:apply-templates select="." mode="extension" />
       </xsl:for-each>
 
-      <!-- MD: add transform  
-            <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
-            there can be multiple OrderExtensions, each OrderExtension reference one ServiceRequest
-            -->
-      <xsl:for-each select="cda:inFulfillmentOf">
-        <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
-          <valueReference>
-            <reference value="urn:uuid:{cda:order/@lcg:uuid}" />
-          </valueReference>
-        </extension>
-      </xsl:for-each>
       <xsl:choose>
         <xsl:when test="cda:setId">
           <xsl:apply-templates select="cda:setId" />

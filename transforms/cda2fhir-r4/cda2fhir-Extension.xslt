@@ -54,14 +54,8 @@
         </extension>
     </xsl:template>
 
-    <!-- MD: address OrderExtension -->
-    <xsl:template match="cda:inFulfillmentOf" mode="extension">
-        <extension url="http://hl7.org/fhir/us/ccda/StructureDefinition/OrderExtension">
-            <xsl:apply-templates select=".">
-                <xsl:with-param name="pElementName">ServiceRequest</xsl:with-param>
-            </xsl:apply-templates>
-        </extension>
-    </xsl:template>
+    <!-- 20261124 Claude (SG decision 2026-11-24): removed the cda:inFulfillmentOf mode="extension" template
+         (C-CDA on FHIR OrderExtension). inFulfillmentOf is no longer mapped; see cda2fhir-Composition.xslt. -->
 
     <!-- TEMPLATE: Therapeutic Response to Medication Extension -->
     <xsl:template match="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.37']" mode="extension">

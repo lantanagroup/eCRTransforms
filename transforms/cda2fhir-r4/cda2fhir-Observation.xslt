@@ -43,7 +43,8 @@
       <xsl:apply-templates select="." mode="provenance" />
     </xsl:for-each>
     <!-- Don't process diastolic as it needs to be processed together with systolic -->
-    <xsl:apply-templates select="cda:component/cda:*[not(cda:code[@code = '8462-4'])]" mode="bundle-entry" />
+    <!-- 20261124 Claude (RT-B19): except a diastolic that has no systolic in this organizer -->
+    <xsl:apply-templates select="cda:component/cda:*[not(cda:code[@code = '8462-4']) or lcg:bp-diastolic-is-unpaired(.)]" mode="bundle-entry" />
 
   </xsl:template>
 
@@ -344,7 +345,8 @@
         </hasMember>
       </xsl:for-each>
       <!-- OIDs below are for C-CDA Vital Sign Observation (everything other than diastolic)-->
-      <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']][not(cda:code[@code = '8462-4'])]">
+      <!-- 20261124 Claude (RT-B19): a diastolic with no systolic is a member in its own right -->
+      <xsl:for-each select="cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']][not(cda:code[@code = '8462-4']) or lcg:bp-diastolic-is-unpaired(.)]">
         <hasMember>
           <xsl:apply-templates select="." mode="reference" />
         </hasMember>
@@ -353,7 +355,8 @@
   </xsl:template>
 
   <!-- C-CDA Result Observation, C-CDA Vital Sign Observation -->
-  <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2' or @root = '2.16.840.1.113883.10.20.22.4.27']][not(cda:code[@code = '8480-6' or @code = '8462-4'])]">
+  <!-- 20261124 Claude (RT-B19): also takes a diastolic Vital Sign Observation that has no systolic to pair with -->
+  <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2' or @root = '2.16.840.1.113883.10.20.22.4.27']][not(cda:code[@code = '8480-6' or @code = '8462-4']) or lcg:bp-diastolic-is-unpaired(.)]">
     <xsl:variable name="category1">
       <xsl:choose>
         <xsl:when test="cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.2']">laboratory</xsl:when>
@@ -616,7 +619,9 @@
       <!-- referenceRange -->
       <xsl:apply-templates select="cda:referenceRange" />
 
-      <xsl:for-each select="cda:code[@code = '8480-6'] | parent::cda:component/following-sibling::cda:*[1]/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']]/cda:code[@code = '8462-4']">
+      <!-- 20261124 Claude (SG decision 2026-11-24, RT-B19): the diastolic is the one paired by order
+           within the organizer (lcg:bp-paired-diastolic), not only the component directly after. -->
+      <xsl:for-each select="cda:code[@code = '8480-6'], lcg:bp-paired-diastolic(.)/cda:code[@code = '8462-4']">
         <component>
           <xsl:apply-templates select=".">
             <xsl:with-param name="pElementName">code</xsl:with-param>

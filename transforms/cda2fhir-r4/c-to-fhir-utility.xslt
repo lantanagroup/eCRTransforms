@@ -65,7 +65,8 @@
         <!-- MD: do not create entry for Diastolic Blood Pressure, since it has been created
         with systolic blood pressure -->
         <xsl:choose>
-            <xsl:when test="not(local-name(.) = 'observation' and ./cda:code/@code = '8462-4' and ./cda:code/@codeSystem = '2.16.840.1.113883.6.1')">
+            <!-- 20261124 Claude (RT-B19): ... unless it has no systolic to be created with -->
+            <xsl:when test="not(local-name(.) = 'observation' and ./cda:code/@code = '8462-4' and ./cda:code/@codeSystem = '2.16.840.1.113883.6.1') or lcg:bp-diastolic-is-unpaired(.)">
                 <entry>
                     <fullUrl value="urn:uuid:{@lcg:uuid}" />
                     <resource>
@@ -923,6 +924,34 @@
          Used by the rename-reference-participant template below and by the companion
          org-practitionerrole-entry template in cda2fhir-PractitionerRole.xslt, so the reference side
          and the creation side can never disagree about a participation's kind. -->
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B19): blood pressure pairing.
+         A us-core-blood-pressure Observation is built from the systolic Vital Sign Observation (8480-6)
+         and needs its diastolic (8462-4). C-CDA sets no order for organizer components, so they are
+         paired by order within the organizer: first systolic with first diastolic, second with second.
+         (The diastolic used to be taken only from the component directly after the systolic, and one
+         anywhere else was dropped.) Both functions look only at Vital Sign Observations (22.4.27) that
+         are components of the same organizer. -->
+    <xsl:function name="lcg:bp-components" as="element()*">
+        <xsl:param name="pObservation" as="element()" />
+        <xsl:param name="pCode" as="xs:string" />
+        <xsl:sequence
+            select="$pObservation/parent::cda:component/parent::cda:organizer/cda:component/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']][cda:code[@code = $pCode]]" />
+    </xsl:function>
+    <!-- the diastolic observation that belongs to this systolic one, if any -->
+    <xsl:function name="lcg:bp-paired-diastolic" as="element()?">
+        <xsl:param name="pSystolic" as="element()" />
+        <xsl:variable name="vPosition" select="count(lcg:bp-components($pSystolic, '8480-6')[. &lt;&lt; $pSystolic]) + 1" />
+        <xsl:sequence select="lcg:bp-components($pSystolic, '8462-4')[$vPosition]" />
+    </xsl:function>
+    <!-- true for a diastolic organizer component that has no systolic to go with: it is then emitted as
+         a vital-sign Observation of its own instead of being folded into a blood pressure Observation -->
+    <xsl:function name="lcg:bp-diastolic-is-unpaired" as="xs:boolean">
+        <xsl:param name="pObservation" as="element()" />
+        <xsl:sequence
+            select="exists($pObservation[self::cda:observation][cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.27']][cda:code[@code = '8462-4']][parent::cda:component/parent::cda:organizer])
+                    and count(lcg:bp-components($pObservation, '8462-4')[. &lt;&lt; $pObservation]) ge count(lcg:bp-components($pObservation, '8480-6'))" />
+    </xsl:function>
+
     <xsl:function name="lcg:participation-target-kind" as="xs:string">
         <xsl:param name="pParticipation" as="element()" />
         <xsl:choose>

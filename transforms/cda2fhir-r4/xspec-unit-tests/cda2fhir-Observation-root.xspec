@@ -1015,4 +1015,25 @@
         <x:expect label="Q1. the sports stadium reaches the exposure Observation"
             test="//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '264379009'" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B19): the diastolic was read only from the
+         component directly after the systolic. Now paired by order within the organizer; a diastolic with no
+         systolic becomes a vital-sign Observation of its own. Whole-pipeline test on testBP.xml. -->
+    <x:scenario label="R. blood pressure components in any order (RT-B19)">
+        <x:context href="../../integration-tests/documents/testBP.xml" />
+        <x:expect label="R1. control: systolic then diastolic" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-NORMAL-8480-6-121']/fhir:component[fhir:code/fhir:coding/fhir:code/@value = '8462-4']/fhir:valueQuantity/fhir:value/@value = '81'" />
+        <x:expect label="R2. diastolic before systolic" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-DIA-FIRST-8480-6-122']/fhir:component[fhir:code/fhir:coding/fhir:code/@value = '8462-4']/fhir:valueQuantity/fhir:value/@value = '82'" />
+        <x:expect label="R3. another vital sign between them" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-SEPARATED-8480-6-123']/fhir:component[fhir:code/fhir:coding/fhir:code/@value = '8462-4']/fhir:valueQuantity/fhir:value/@value = '83'" />
+        <x:expect label="R4. two pairs: first with first, second with second"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-TWO-PAIRS-8480-6-125']/fhir:component[fhir:code/fhir:coding/fhir:code/@value = '8462-4']/fhir:valueQuantity/fhir:value/@value = '85' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-TWO-PAIRS-8480-6-126']/fhir:component[fhir:code/fhir:coding/fhir:code/@value = '8462-4']/fhir:valueQuantity/fhir:value/@value = '86'" />
+        <x:expect label="R5. a diastolic with no systolic is its own Observation with its value"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-DIA-ONLY-8462-4-84']/fhir:code/fhir:coding/fhir:code/@value = '8462-4' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-DIA-ONLY-8462-4-84']/fhir:valueQuantity/fhir:value/@value = '84'" />
+        <x:expect label="R6. and is a member of its panel"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'BP-DIA-ONLY']/fhir:hasMember/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'BP-DIA-ONLY-8462-4-84']/fhir:fullUrl/@value" />
+        <x:expect label="R7. a paired diastolic is never also a resource of its own"
+            test="empty(//fhir:Observation[fhir:identifier/fhir:value/@value = ('BP-NORMAL-8462-4-81', 'BP-DIA-FIRST-8462-4-82', 'BP-SEPARATED-8462-4-83', 'BP-TWO-PAIRS-8462-4-85', 'BP-TWO-PAIRS-8462-4-86')])" />
+        <x:expect label="R8. every blood pressure Observation has exactly one systolic and one diastolic component"
+            test="every $o in //fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure'] satisfies count($o/fhir:component) = 2" />
+        <x:expect label="R9. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+    </x:scenario>
 </x:description>

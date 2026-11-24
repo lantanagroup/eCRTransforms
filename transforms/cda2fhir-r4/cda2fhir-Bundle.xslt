@@ -105,7 +105,9 @@
            reach every hollow author: several Observation fan-outs filter authors on having grandchildren,
            which an id-only author never has. Templates live in cda2fhir-Practitioner.xslt. -->
       <!-- 20261124 Claude (RT-C1): hollow performers (assignedEntity) are flagged the same way and need the same pass -->
-      <xsl:for-each select="//cda:assignedAuthor[@lcg:unmatched = 'true'] | //cda:performer/cda:assignedEntity[@lcg:unmatched = 'true']">
+      <!-- 20261124 Claude (RT-A10): and hollow document-level legalAuthenticator / authenticator / dataEnterer /
+           informant. Only the update-referenced-actor-uuids phase sets the flag, so any flagged assignedEntity is one. -->
+      <xsl:for-each select="//cda:assignedAuthor[@lcg:unmatched = 'true'] | //cda:assignedEntity[@lcg:unmatched = 'true']">
         <xsl:apply-templates select="." mode="unmatched-participation-entry" />
       </xsl:for-each>
     </Bundle>

@@ -205,9 +205,35 @@
           </date>
         </xsl:otherwise>
       </xsl:choose>
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A10): was a reference to the assignedAuthor's
+           uuid whatever the author contained. A PractitionerRole exists there only when the author has an
+           assignedPerson, so an author with an organization and no person (valid: assignedPerson is SHOULD,
+           CONF:4527-1130) left Composition.author dangling although the Organization was in the bundle and
+           eicr-composition allows it as a target. Now: person -> PractitionerRole; device -> Device (also when the
+           device author has an organization, as before); organization only -> Organization; ids only -> the
+           assignedAuthor (matched by id, or the identifier-only Practitioner). Not get-author-uuid: that helper
+           prefers the organization over the device, which would change the target for device authors. -->
       <xsl:for-each select="cda:author">
         <author>
-          <xsl:apply-templates select="cda:assignedAuthor" mode="reference" />
+          <reference>
+            <xsl:attribute name="value">
+              <xsl:text>urn:uuid:</xsl:text>
+              <xsl:choose>
+                <xsl:when test="cda:assignedAuthor/cda:assignedPerson">
+                  <xsl:value-of select="cda:assignedAuthor/@lcg:uuid" />
+                </xsl:when>
+                <xsl:when test="cda:assignedAuthor/cda:assignedAuthoringDevice">
+                  <xsl:value-of select="cda:assignedAuthor/cda:assignedAuthoringDevice/@lcg:uuid" />
+                </xsl:when>
+                <xsl:when test="cda:assignedAuthor/cda:representedOrganization">
+                  <xsl:value-of select="cda:assignedAuthor/cda:representedOrganization/@lcg:uuid" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="cda:assignedAuthor/@lcg:uuid" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+          </reference>
         </author>
       </xsl:for-each>
       <!-- 20260902 Claude (register B1-complex, SG decision 2026-09-02): Composition.title is 1..1
@@ -253,8 +279,15 @@
           <xsl:if test="cda:time/@value">
             <time value="{lcg:cdaTS2date(cda:time/@value)}" />
           </xsl:if>
+          <!-- 20261124 Claude (RT-A10): was the assignedEntity's uuid as is; see get-participation-uuid in
+               c-to-fhir-utility.xslt. attester.party allows Organization. -->
+          <xsl:variable name="vPartyUUID">
+            <xsl:call-template name="get-participation-uuid">
+              <xsl:with-param name="pParticipation" select="." />
+            </xsl:call-template>
+          </xsl:variable>
           <party>
-            <xsl:apply-templates select="cda:assignedEntity" mode="reference" />
+            <reference value="urn:uuid:{$vPartyUUID}" />
           </party>
         </attester>
       </xsl:for-each>

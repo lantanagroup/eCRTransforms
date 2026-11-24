@@ -57,8 +57,12 @@ limitations under the License.
          addition for performers: several unmatched hollow performers with the SAME id share the first one's
          uuid, so one Practitioner is created for them, not one each. A performer whose ids are ALL
          null-flavored is left alone: it identifies nobody, the performer sites do not reference it, and a
-         Practitioner made of data-absent-reasons would be an empty shell. -->
-    <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid | cda:performer/cda:assignedEntity[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids">
+         Practitioner made of data-absent-reasons would be an empty shell.
+         20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A10): the same now applies to a hollow
+         assignedEntity of a document-level legalAuthenticator, authenticator, dataEnterer or informant, whose
+         references (Composition.attester.party, document Provenance agent.who and signature.who) dangled.
+         They share the performers' rule that participants with the same id get one Practitioner. -->
+    <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid | cda:performer/cda:assignedEntity[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())]/@lcg:uuid | /cda:ClinicalDocument/cda:*[self::cda:legalAuthenticator or self::cda:authenticator or self::cda:dataEnterer or self::cda:informant]/cda:assignedEntity[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids">
         <!-- get author id we need to match -->
         <xsl:variable name="vAuthorIdRoot">
             <!-- can only match one -->
@@ -120,7 +124,7 @@ limitations under the License.
                 <xsl:variable name="vSelf" select="parent::*" />
                 <xsl:variable name="vFirstSameId" select="
                         if ($vSelf/self::cda:assignedEntity) then
-                            (//cda:performer/cda:assignedEntity[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())][string(cda:id[1]/@root) = string($vAuthorIdRoot)][string(cda:id[1]/@extension) = string($vAuthorIdExtension)])[1]
+                            ((//cda:performer/cda:assignedEntity | /cda:ClinicalDocument/cda:*[self::cda:legalAuthenticator or self::cda:authenticator or self::cda:dataEnterer or self::cda:informant]/cda:assignedEntity)[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())][string(cda:id[1]/@root) = string($vAuthorIdRoot)][string(cda:id[1]/@extension) = string($vAuthorIdExtension)])[1]
                         else
                             $vSelf" />
                 <xsl:choose>

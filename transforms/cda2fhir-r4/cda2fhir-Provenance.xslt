@@ -89,7 +89,14 @@
                   <reference value="urn:uuid:{$vAuthorUUID}" />
                 </xsl:when>
                 <xsl:otherwise>
-                  <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid | cda:relatedEntity/@lcg:uuid}" />
+                  <!-- 20261124 Claude (RT-A10): was the assignedEntity / relatedEntity uuid as is; see
+                       get-participation-uuid in c-to-fhir-utility.xslt -->
+                  <xsl:variable name="vParticipationUUID">
+                    <xsl:call-template name="get-participation-uuid">
+                      <xsl:with-param name="pParticipation" select="." />
+                    </xsl:call-template>
+                  </xsl:variable>
+                  <reference value="urn:uuid:{$vParticipationUUID}" />
                 </xsl:otherwise>
 
               </xsl:choose>
@@ -108,7 +115,13 @@
                 <xsl:with-param name="pDataType">instant</xsl:with-param>
               </xsl:apply-templates>
               <who>
-                <reference value="urn:uuid:{following-sibling::cda:assignedEntity/@lcg:uuid}" />
+                <!-- 20261124 Claude (RT-A10): same routing as agent.who above -->
+                <xsl:variable name="vSignerUUID">
+                  <xsl:call-template name="get-participation-uuid">
+                    <xsl:with-param name="pParticipation" select="parent::*" />
+                  </xsl:call-template>
+                </xsl:variable>
+                <reference value="urn:uuid:{$vSignerUUID}" />
               </who>
               <targetFormat value="application/cda+xml" />
               <sigFormat value="{@mediaType}" />

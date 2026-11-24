@@ -315,4 +315,32 @@
         <x:expect label="J5. each omitted entry leaves a WARNING comment" test="count(//fhir:Composition/fhir:section/comment()[contains(., 'Composition.section.entry omitted')]) = 3" />
         <x:expect label="J6. control: the ordinary entries still produce their resources" test="count(//fhir:entry/fhir:resource/fhir:Immunization) = 1 and count(//fhir:entry/fhir:resource/fhir:MedicationRequest) = 1 and exists(//fhir:entry/fhir:resource/fhir:Observation[fhir:hasMember])" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A10): document-level participants that carry
+         no person. Composition.author, Composition.attester.party and the document Provenance agent.who /
+         signature.who referenced the role's uuid, where a PractitionerRole exists only when there is a person.
+         Now: organization only -> the Organization; ids only -> the participation matched by id, or an
+         identifier-only Practitioner shared by participants with the same id. Whole-pipeline test on
+         integration-tests/documents/testHdr.xml, which had seven dangling references before the fix. -->
+    <x:scenario label="K. person-less document-level participants resolve (RT-A10)">
+        <x:context href="../../integration-tests/documents/testHdr.xml" />
+        <x:expect label="K1. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+        <x:expect label="K2. Composition.author for an organization-only author is the Organization"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Composition/fhir:author/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Authoring Clinic'" />
+        <x:expect label="K3. attester.party for an organization-only legalAuthenticator is the Organization"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Composition/fhir:attester[fhir:mode/@value = 'legal']/fhir:party/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Legal Authenticating Org'" />
+        <x:expect label="K4. attester.party for an ids-only authenticator is the identifier-only Practitioner"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Composition/fhir:attester[fhir:mode/@value = 'professional']/fhir:party/fhir:reference/@value]/fhir:resource/fhir:Practitioner/fhir:identifier/fhir:value/@value = 'HDR-IDONLY'" />
+        <x:expect label="K5. the ids-only dataEnterer and authenticator share ONE Practitioner"
+            test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value = 'HDR-IDONLY']) = 1 and //fhir:Provenance[fhir:agent/fhir:type/fhir:coding/fhir:code/@value = 'enterer']/fhir:agent/fhir:who/fhir:reference/@value = //fhir:Composition/fhir:attester[fhir:mode/@value = 'professional']/fhir:party/fhir:reference/@value" />
+        <x:expect label="K6. Provenance agent.who for an organization-only informant is the Organization"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Provenance[fhir:agent/fhir:type/fhir:coding/fhir:code/@value = 'informant']/fhir:agent/fhir:who/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Informing Clinic'" />
+        <x:expect label="K7. Provenance signature.who resolves to the same Practitioner as its agent"
+            test="//fhir:Provenance[fhir:agent/fhir:type/fhir:coding/fhir:code/@value = 'attester']/fhir:signature/fhir:who/fhir:reference/@value = //fhir:Provenance[fhir:agent/fhir:type/fhir:coding/fhir:code/@value = 'attester']/fhir:agent/fhir:who/fhir:reference/@value" />
+    </x:scenario>
+    <x:scenario label="L. control: author references in an ordinary eICR are unchanged (RT-A10)">
+        <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+        <x:expect label="L1. every Composition.author resolves to a PractitionerRole or a Device"
+            test="every $r in //fhir:Composition/fhir:author/fhir:reference/@value satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r]/fhir:resource/(fhir:PractitionerRole | fhir:Device))" />
+    </x:scenario>
 </x:description>

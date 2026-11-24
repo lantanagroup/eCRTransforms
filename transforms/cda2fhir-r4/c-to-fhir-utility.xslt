@@ -1107,6 +1107,36 @@
         </xsl:choose>
     </xsl:template>
 
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A10): the uuid at which a resource actually
+         exists for a participation that wraps an assignedEntity or a relatedEntity (legalAuthenticator,
+         authenticator, dataEnterer, informant). The document-level reference sites used the assignedEntity's
+         uuid whatever it contained, but a PractitionerRole is created there only when there is an
+         assignedPerson, so an organization-only participant left a dangling reference although its Organization
+         was in the bundle.
+           person               -> the assignedEntity (PractitionerRole)
+           organization only    -> the representedOrganization (Organization)
+           relatedEntity        -> the relatedEntity, as before
+           ids only (hollow)    -> the assignedEntity: the update-referenced-actor-uuids phase has already pointed
+                                   it at the participation matched by id, or flagged it so an identifier-only
+                                   Practitioner is created there -->
+    <xsl:template name="get-participation-uuid">
+        <xsl:param name="pParticipation" />
+        <xsl:choose>
+            <xsl:when test="$pParticipation/cda:assignedEntity/cda:assignedPerson">
+                <xsl:value-of select="$pParticipation/cda:assignedEntity/@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="$pParticipation/cda:assignedEntity/cda:representedOrganization">
+                <xsl:value-of select="$pParticipation/cda:assignedEntity/cda:representedOrganization/@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="$pParticipation/cda:assignedEntity">
+                <xsl:value-of select="$pParticipation/cda:assignedEntity/@lcg:uuid" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$pParticipation/cda:relatedEntity/@lcg:uuid" />
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template name="get-informant-uuid">
         <xsl:param name="pInformant" />
         <xsl:choose>

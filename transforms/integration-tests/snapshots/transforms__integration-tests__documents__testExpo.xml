@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 219-->
+<!--Element count: 246-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="eICR-bundle-GENID"/>
    <meta>
@@ -201,13 +201,21 @@
                <entry>
                   <reference value="urn:uuid:UUID015"/>
                </entry>
-               <!--2.16.840.1.113883.10.20.15.2.3.52:2021-01-01-->
+               <!--2.16.840.1.113883.10.20.22.4.72-->
                <entry>
                   <reference value="urn:uuid:UUID016"/>
                </entry>
-               <!--2.16.840.1.113883.10.20.15.2.3.52:2021-01-01-->
+               <!--2.16.840.1.113883.10.20.22.4.72-->
                <entry>
                   <reference value="urn:uuid:UUID017"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.52:2021-01-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID018"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.2.3.52:2021-01-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID019"/>
                </entry>
             </section>
             <section>
@@ -266,7 +274,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID018"/>
+                  <reference value="urn:uuid:UUID020"/>
                </entry>
             </section>
             <section>
@@ -283,7 +291,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID019"/>
+                  <reference value="urn:uuid:UUID021"/>
                </entry>
             </section>
             <section>
@@ -394,13 +402,13 @@
                </language>
             </communication>
             <managingOrganization>
-               <reference value="urn:uuid:UUID020"/>
+               <reference value="urn:uuid:UUID022"/>
             </managingOrganization>
          </Patient>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID020"/>
+      <fullUrl value="urn:uuid:UUID022"/>
       <resource>
          <Organization>
             <meta>
@@ -426,7 +434,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID021"/>
+      <fullUrl value="urn:uuid:UUID023"/>
       <resource>
          <Patient>
             <text>
@@ -449,7 +457,7 @@
             <birthDate value="1955-03-15"/>
             <link>
                <other>
-                  <reference value="urn:uuid:UUID022"/>
+                  <reference value="urn:uuid:UUID024"/>
                </other>
                <type value="seealso"/>
             </link>
@@ -457,7 +465,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID022"/>
+      <fullUrl value="urn:uuid:UUID024"/>
       <resource>
          <RelatedPerson>
             <identifier>
@@ -523,17 +531,17 @@
             </period>
             <location>
                <location>
-                  <reference value="urn:uuid:UUID023"/>
+                  <reference value="urn:uuid:UUID025"/>
                </location>
             </location>
             <serviceProvider>
-               <reference value="urn:uuid:UUID024"/>
+               <reference value="urn:uuid:UUID026"/>
             </serviceProvider>
          </Encounter>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID023"/>
+      <fullUrl value="urn:uuid:UUID025"/>
       <resource>
          <Location>
             <meta>
@@ -559,13 +567,13 @@
                <postalCode value="02101"/>
             </address>
             <managingOrganization>
-               <reference value="urn:uuid:UUID024"/>
+               <reference value="urn:uuid:UUID026"/>
             </managingOrganization>
          </Location>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID024"/>
+      <fullUrl value="urn:uuid:UUID026"/>
       <resource>
          <Organization>
             <meta>
@@ -600,7 +608,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID025"/>
+               <reference value="urn:uuid:UUID027"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -614,7 +622,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID025"/>
+      <fullUrl value="urn:uuid:UUID027"/>
       <resource>
          <Practitioner>
             <meta>
@@ -658,7 +666,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID026"/>
+      <fullUrl value="urn:uuid:UUID028"/>
       <resource>
          <Provenance>
             <target>
@@ -680,7 +688,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID027"/>
+      <fullUrl value="urn:uuid:UUID029"/>
       <resource>
          <Provenance>
             <target>
@@ -696,7 +704,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID018"/>
+      <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Condition>
             <meta>
@@ -720,7 +728,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID019"/>
+      <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <Observation>
             <meta>
@@ -872,8 +880,11 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2026-07-20"/>
-               <end value="2026-07-21"/>
+               <end>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </end>
             </effectivePeriod>
             <valueString value="Regional agricultural show"/>
          </Observation>
@@ -911,8 +922,16 @@
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <effectivePeriod>
-               <start value="2026-07-20"/>
-               <end value="2026-07-21"/>
+               <start>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </start>
+               <end>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </end>
             </effectivePeriod>
             <valueCodeableConcept>
                <coding>
@@ -1002,7 +1021,6 @@
             </subject>
             <effectivePeriod>
                <start value="2026-07-20"/>
-               <end value="2026-07-21"/>
             </effectivePeriod>
          </Observation>
       </resource>
@@ -1073,7 +1091,7 @@
                <end value="2026-07-10"/>
             </effectivePeriod>
             <hasMember>
-               <reference value="urn:uuid:UUID016"/>
+               <reference value="urn:uuid:UUID018"/>
             </hasMember>
             <component><!--Travel History Address Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension">
@@ -1095,7 +1113,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID016"/>
+      <fullUrl value="urn:uuid:UUID018"/>
       <resource><!--Exposure/Contact Information Observation-->
          <Observation>
             <meta>
@@ -1159,7 +1177,7 @@
                <end value="2026-07-10"/>
             </effectivePeriod>
             <hasMember>
-               <reference value="urn:uuid:UUID017"/>
+               <reference value="urn:uuid:UUID019"/>
             </hasMember>
             <component><!--Travel History Address Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension">
@@ -1181,7 +1199,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID017"/>
+      <fullUrl value="urn:uuid:UUID019"/>
       <resource><!--Exposure/Contact Information Observation-->
          <Observation>
             <meta>
@@ -1215,6 +1233,125 @@
                <start value="2026-07-05"/>
             </effectivePeriod>
          </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource><!--C-CDACaregiver Characteristics-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.72-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="CG-FULL"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="ASSERTION"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <focus>
+               <reference value="urn:uuid:UUID030"/>
+            </focus>
+            <effectiveDateTime value="2026-07-20"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="422615001"/>
+                  <display value="Caregiver difficulty providing physical care"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID030"/>
+      <resource>
+         <RelatedPerson><!--cda:participant (CAREGIVER)-->
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <relationship>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                  <code value="CAREGIVER"/>
+                  <display value="caregiver"/>
+               </coding>
+            </relationship>
+            <relationship>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                  <code value="MTH"/>
+                  <display value="mother"/>
+               </coding>
+            </relationship>
+            <name>
+               <family value="Giver"/>
+               <given value="Care"/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-555-555-0111"/>
+               <use value="home"/>
+            </telecom>
+            <period>
+               <start value="2019-01-01"/>
+            </period>
+         </RelatedPerson>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID017"/>
+      <resource><!--C-CDACaregiver Characteristics-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.72-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="CG-BARE"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-ActCode"/>
+                  <code value="ASSERTION"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <focus>
+               <reference value="urn:uuid:UUID031"/>
+            </focus>
+            <effectiveDateTime value="2026-07-20"/>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="422615001"/>
+                  <display value="Caregiver difficulty providing physical care"/>
+               </coding>
+            </valueCodeableConcept>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource>
+         <RelatedPerson><!--cda:participant (CAREGIVER)-->
+            <patient>
+               <reference value="urn:uuid:UUID003"/>
+            </patient>
+            <relationship>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                  <code value="CAREGIVER"/>
+                  <display value="caregiver"/>
+               </coding>
+            </relationship>
+         </RelatedPerson>
       </resource>
    </entry>
 </Bundle>

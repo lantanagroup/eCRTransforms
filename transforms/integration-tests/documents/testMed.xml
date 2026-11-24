@@ -52,6 +52,8 @@
           <code code="10157-6" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Family History</title>
           <text>Mother: hypertension</text>
+          <!-- 20261125 Claude (RT-A12): a section author with a person and a time -->
+          <author><time value="20260726090000+1000"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="3333333333"/><assignedPerson><name><given>Sec</given><family>Author</family></name></assignedPerson></assignedAuthor></author>
           <entry>
             <organizer classCode="CLUSTER" moodCode="EVN">
               <templateId root="2.16.840.1.113883.10.20.22.4.45" extension="2015-08-01"/>
@@ -87,6 +89,8 @@
           <code code="8648-8" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Hospital Course</title>
           <text><table><tbody><tr ID="med1"><td>Aspirin sig text</td></tr></tbody></table></text>
+          <!-- 20261125 Claude (RT-A12): a section author that is an organization only, with no time -->
+          <author><time nullFlavor="UNK"/><assignedAuthor><id nullFlavor="NA"/><representedOrganization><id root="2.16.840.1.113883.19.5" extension="AUGMENT"/><name>Augmenting Org</name></representedOrganization></assignedAuthor></author>
           <entry>
             <substanceAdministration classCode="SBADM" moodCode="EVN">
               <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/>
@@ -96,7 +100,10 @@
               <routeCode code="C38288" codeSystem="2.16.840.1.113883.3.26.1.1" displayName="Oral"/>
               <doseQuantity value="81" unit="mg"/>
               <rateQuantity value="1" unit="mg/h"/>
-              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/><lotNumberText>LOT42</lotNumberText></manufacturedMaterial><manufacturerOrganization><id root="2.16.840.1.113883.19.5" extension="ACME"/><name>Acme Pharma</name></manufacturerOrganization></manufacturedProduct></consumable>
+              <!-- 20261125 Claude (RT-C5): two Drug Vehicle participants (C-CDA 22.4.24); each becomes a Medication.ingredient -->
+              <participant typeCode="CSM"><participantRole classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.24"/><code code="412307009" codeSystem="2.16.840.1.113883.6.96" displayName="Drug vehicle"/><playingEntity classCode="MMAT"><code code="9863" codeSystem="2.16.840.1.113883.6.88"/><name>Sodium chloride</name></playingEntity></participantRole></participant>
+              <participant typeCode="CSM"><participantRole classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.24"/><code code="412307009" codeSystem="2.16.840.1.113883.6.96" displayName="Drug vehicle"/><playingEntity classCode="MMAT"><code nullFlavor="UNK"/><name>House diluent</name></playingEntity></participantRole></participant>
             </substanceAdministration>
           </entry>
           <entry>
@@ -106,7 +113,7 @@
               <statusCode code="active"/>
               <effectiveTime xsi:type="IVL_TS"><low value="20260726"/></effectiveTime>
               <maxDoseQuantity><numerator value="4" unit="g"/><denominator value="1"/></maxDoseQuantity>
-              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="161" codeSystem="2.16.840.1.113883.6.88" displayName="acetaminophen"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="161" codeSystem="2.16.840.1.113883.6.88" displayName="acetaminophen"/><lotNumberText nullFlavor="UNK"/></manufacturedMaterial><manufacturerOrganization nullFlavor="UNK"/></manufacturedProduct></consumable>
               <entryRelationship typeCode="REFR">
                 <supply classCode="SPLY" moodCode="RQO">
                   <templateId root="2.16.840.1.113883.10.20.22.4.17" extension="2014-06-09"/>
@@ -114,6 +121,72 @@
                   <statusCode code="active"/>
                   <repeatNumber value="3"/>
                   <quantity value="30"/>
+                </supply>
+              </entryRelationship>
+            </substanceAdministration>
+          </entry>
+          <!-- 20261125 Claude (RT-C3): planned medications in moods RQO, PRMS and PRP, each with a Medication Supply Order
+               (22.4.17). Each is a MedicationRequest whose dispenseRequest holds the supply; the supply must not also
+               become a MedicationDispense. PLAN-RQO also has a real dispense (22.4.18), which is a MedicationDispense
+               with authorizingPrescription pointing at its MedicationRequest. -->
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="RQO">
+              <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+              <id root="2.16.840.1.113883.19.5" extension="PLAN-RQO"/>
+              <statusCode code="active"/>
+              <effectiveTime xsi:type="IVL_TS"><low value="20260726"/></effectiveTime>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="161" codeSystem="2.16.840.1.113883.6.88" displayName="acetaminophen"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <entryRelationship typeCode="REFR">
+                <supply classCode="SPLY" moodCode="RQO">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.17" extension="2014-06-09"/>
+                  <id root="2.16.840.1.113883.19.5" extension="SUPPLY-RQO"/>
+                  <statusCode code="active"/>
+                  <repeatNumber value="4"/>
+                  <quantity value="40"/>
+                </supply>
+              </entryRelationship>
+              <entryRelationship typeCode="REFR">
+                <supply classCode="SPLY" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.18" extension="2014-06-09"/>
+                  <id root="2.16.840.1.113883.19.5" extension="DISPENSED-RQO"/>
+                  <statusCode code="completed"/>
+                  <quantity value="20"/>
+                </supply>
+              </entryRelationship>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="PRMS">
+              <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+              <id root="2.16.840.1.113883.19.5" extension="PLAN-PRMS"/>
+              <statusCode code="active"/>
+              <effectiveTime xsi:type="IVL_TS"><low value="20260726"/></effectiveTime>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="161" codeSystem="2.16.840.1.113883.6.88" displayName="acetaminophen"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <entryRelationship typeCode="REFR">
+                <supply classCode="SPLY" moodCode="RQO">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.17" extension="2014-06-09"/>
+                  <id root="2.16.840.1.113883.19.5" extension="SUPPLY-PRMS"/>
+                  <statusCode code="active"/>
+                  <repeatNumber value="5"/>
+                  <quantity value="50"/>
+                </supply>
+              </entryRelationship>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="PRP">
+              <templateId root="2.16.840.1.113883.10.20.22.4.42" extension="2014-06-09"/>
+              <id root="2.16.840.1.113883.19.5" extension="PLAN-PRP"/>
+              <statusCode code="active"/>
+              <effectiveTime xsi:type="IVL_TS"><low value="20260726"/></effectiveTime>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="161" codeSystem="2.16.840.1.113883.6.88" displayName="acetaminophen"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <entryRelationship typeCode="REFR">
+                <supply classCode="SPLY" moodCode="RQO">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.17" extension="2014-06-09"/>
+                  <id root="2.16.840.1.113883.19.5" extension="SUPPLY-PRP"/>
+                  <statusCode code="active"/>
+                  <repeatNumber value="6"/>
+                  <quantity value="60"/>
                 </supply>
               </entryRelationship>
             </substanceAdministration>

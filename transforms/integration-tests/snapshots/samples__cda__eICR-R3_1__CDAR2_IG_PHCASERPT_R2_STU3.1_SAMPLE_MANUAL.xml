@@ -1210,6 +1210,8 @@
                <dose>
                   <value value="1"/>
                   <unit value="g"/>
+                  <system value="http://unitsofmeasure.org"/>
+                  <code value="g"/>
                </dose>
             </dosage>
          </MedicationAdministration>
@@ -1853,6 +1855,9 @@
                <valueReference>
                   <reference value="urn:uuid:UUID044"/>
                </valueReference>
+            </extension>
+            <extension url="http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension">
+               <valueBoolean value="true"/>
             </extension>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>

@@ -186,4 +186,110 @@
       <x:expect label="P6a. deceasedDateTime with data-absent-reason unknown" test="fhir:Patient/fhir:deceasedDateTime/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown' and count(fhir:Patient/fhir:deceasedBoolean) = 0" />
     </x:scenario>
   </x:scenario>
+  <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A19): guardian/code (mother, father,
+       power of attorney and so on) was never read. It is now a second coding in the SAME relationship
+       CodeableConcept, after the fixed GUARD coding: us-ph-patient makes contact.relationship 1..1, so a
+       second relationship element is not allowed. A null-flavored or absent code adds nothing. -->
+  <x:scenario label="Q. guardian/code as a second relationship coding (RT-A19)">
+    <x:scenario label="Q1. guardian with code MTH">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004c0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004c1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="20200101" />
+                <guardian>
+                  <code code="MTH" codeSystem="2.16.840.1.113883.5.111" displayName="mother" />
+                  <addr><streetAddressLine>1 Main St</streetAddressLine><city>Town</city><state>IL</state><postalCode>61707</postalCode></addr>
+                  <telecom value="tel:+1-555-555-0100" use="HP" />
+                  <guardianPerson><name><given>Gua</given><family>Rdian</family></name></guardianPerson>
+                </guardian>
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="Q1a. one contact with exactly one relationship" test="count(fhir:Patient/fhir:contact) = 1 and count(fhir:Patient/fhir:contact/fhir:relationship) = 1" />
+      <x:expect label="Q1b. GUARD is the first coding" test="fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[1]/fhir:code/@value = 'GUARD' and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[1]/fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-RoleClass'" />
+      <x:expect label="Q1c. the source code is the second coding" test="count(fhir:Patient/fhir:contact/fhir:relationship/fhir:coding) = 2 and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[2]/fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode' and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[2]/fhir:code/@value = 'MTH' and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[2]/fhir:display/@value = 'mother'" />
+      <x:expect label="Q1d. name, telecom and address still follow" test="exists(fhir:Patient/fhir:contact/fhir:relationship/following-sibling::fhir:name) and exists(fhir:Patient/fhir:contact/fhir:relationship/following-sibling::fhir:telecom) and exists(fhir:Patient/fhir:contact/fhir:relationship/following-sibling::fhir:address)" />
+    </x:scenario>
+    <x:scenario label="Q2. control: guardian with no code">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004c0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004c1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="20200101" />
+                <guardian>
+                  
+                  <addr><streetAddressLine>1 Main St</streetAddressLine><city>Town</city><state>IL</state><postalCode>61707</postalCode></addr>
+                  <telecom value="tel:+1-555-555-0100" use="HP" />
+                  <guardianPerson><name><given>Gua</given><family>Rdian</family></name></guardianPerson>
+                </guardian>
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="Q2a. GUARD only" test="count(fhir:Patient/fhir:contact/fhir:relationship) = 1 and count(fhir:Patient/fhir:contact/fhir:relationship/fhir:coding) = 1 and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding/fhir:code/@value = 'GUARD' and count(fhir:Patient/fhir:contact/fhir:relationship/*) = 1" />
+    </x:scenario>
+    <x:scenario label="Q3. control: null-flavored code">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004c0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004c1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="20200101" />
+                <guardian>
+                  <code nullFlavor="NI" />
+                  <addr><streetAddressLine>1 Main St</streetAddressLine><city>Town</city><state>IL</state><postalCode>61707</postalCode></addr>
+                  <telecom value="tel:+1-555-555-0100" use="HP" />
+                  <guardianPerson><name><given>Gua</given><family>Rdian</family></name></guardianPerson>
+                </guardian>
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="Q3a. GUARD only, nothing else in relationship" test="count(fhir:Patient/fhir:contact/fhir:relationship) = 1 and count(fhir:Patient/fhir:contact/fhir:relationship/fhir:coding) = 1 and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding/fhir:code/@value = 'GUARD' and count(fhir:Patient/fhir:contact/fhir:relationship/*) = 1 and empty(fhir:Patient/fhir:contact/fhir:relationship//fhir:extension)" />
+    </x:scenario>
+    <x:scenario label="Q4. code with a translation and original text">
+      <x:context select="//cda:recordTarget">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" lcg:uuid="00000000-0000-0000-0000-0000000004c0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" />
+          <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000004c1">
+            <patientRole>
+              <id root="2.16.840.1.113883.19.5" extension="MRN-1" />
+              <patient>
+                <name><given>Pat</given><family>Ient</family></name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" />
+                <birthTime value="20200101" />
+                <guardian>
+                  <code code="MTH" codeSystem="2.16.840.1.113883.5.111" displayName="mother"><originalText>Mum</originalText><translation code="72705000" codeSystem="2.16.840.1.113883.6.96" displayName="Mother" /></code>
+                  <addr><streetAddressLine>1 Main St</streetAddressLine><city>Town</city><state>IL</state><postalCode>61707</postalCode></addr>
+                  <telecom value="tel:+1-555-555-0100" use="HP" />
+                  <guardianPerson><name><given>Gua</given><family>Rdian</family></name></guardianPerson>
+                </guardian>
+              </patient>
+            </patientRole>
+          </recordTarget>
+        </ClinicalDocument>
+      </x:context>
+      <x:expect label="Q4a. three codings, GUARD first" test="count(fhir:Patient/fhir:contact/fhir:relationship/fhir:coding) = 3 and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[1]/fhir:code/@value = 'GUARD' and fhir:Patient/fhir:contact/fhir:relationship/fhir:coding[3]/fhir:code/@value = '72705000'" />
+      <x:expect label="Q4b. original text is kept after the codings" test="fhir:Patient/fhir:contact/fhir:relationship/fhir:text/@value = 'Mum' and empty(fhir:Patient/fhir:contact/fhir:relationship/fhir:text/following-sibling::*)" />
+    </x:scenario>
+  </x:scenario>
 </x:description>

@@ -1111,4 +1111,158 @@
         <x:expect label="X2. control: trips with nothing nested have no hasMember"
             test="count(//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history'][not(fhir:hasMember)]) = count(//fhir:Observation[fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history']) - 1" />
     </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-B20): the Past or Present
+         Occupation statusCode was never read, so nothing in the Observation said whether the job is
+         the current one. statusCode active now gives odh-isCurrentJob-extension true, completed gives
+         false, anything else gives no extension. Observation.status stays final. The dates are not
+         used: the fixtures carry a high on purpose, to show that it does not change the answer. -->
+    <x:scenario label="Y. occupation statusCode to odh-isCurrentJob-extension (RT-B20)">
+        <x:scenario label="Y1. active">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005b0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005b1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode code="active" />
+                <effectiveTime><low value="20150101" /><high value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="Y1a. one extension, valueBoolean true" test="count(fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']) = 1 and fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']/fhir:valueBoolean/@value = 'true'" />
+            <x:expect label="Y1b. status stays final" test="fhir:Observation/fhir:status/@value = 'final'" />
+            <x:expect label="Y1c. extension comes before identifier" test="exists(fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']/following-sibling::fhir:identifier)" />
+        </x:scenario>
+        <x:scenario label="Y2. completed">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005b0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005b1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20150101" /><high value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="Y2a. one extension, valueBoolean false" test="count(fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']) = 1 and fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']/fhir:valueBoolean/@value = 'false'" />
+        </x:scenario>
+        <x:scenario label="Y3. control: another status gives no extension">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005b0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005b1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode code="aborted" />
+                <effectiveTime><low value="20150101" /><high value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="Y3a. no extension" test="count(fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']) = 0" />
+            <x:expect label="Y3b. the Observation is still emitted" test="fhir:Observation/fhir:status/@value = 'final'" />
+        </x:scenario>
+        <x:scenario label="Y4. control: null-flavored statusCode gives no extension">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005b0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005b1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode nullFlavor="UNK" />
+                <effectiveTime><low value="20150101" /><high value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="Y4a. no extension" test="count(fhir:Observation/fhir:extension[@url = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension']) = 0" />
+        </x:scenario>
+    </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-B15): the older Estimated Date of Delivery
+         template (2.16.840.1.113883.10.20.15.3.1), still an optional child of Pregnancy Observation 15.3.8, fell
+         to the generic observation mapping: a separate base Observation that nothing linked to the pregnancy. As
+         a child of a pregnancy observation it is now an Estimated Date of Delivery component, like 22.4.297.
+         Anywhere else it stays a standalone Observation. Whole-pipeline test on testPreg.xml. -->
+    <x:scenario label="Z. R1.1 Estimated Date of Delivery as a pregnancy component (RT-B15)">
+        <x:context href="../../integration-tests/documents/testPreg.xml" />
+        <x:expect label="Z1. the pregnancy observation has one component: code 11778-8, valueDateTime 2026-11-15"
+            test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-R11-EDD']/fhir:component) = 1 and //fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-R11-EDD']/fhir:component/fhir:code/fhir:coding[fhir:system/@value = 'http://loinc.org']/fhir:code/@value = '11778-8' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-R11-EDD']/fhir:component/fhir:valueDateTime/@value = '2026-11-15'" />
+        <x:expect label="Z2. the date is not also in a separate Observation"
+            test="count(//fhir:Observation[fhir:valueDateTime/@value = '2026-11-15']) = 0" />
+        <x:expect label="Z3. the component is labelled as the EDD slice"
+            test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-R11-EDD']/fhir:component/comment()[normalize-space(.) = 'Observation.component: sliceEstimatedDateOfDelivery'])" />
+        <x:expect label="Z4. control: outside a pregnancy observation it stays a standalone Observation"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'STRAY-EDD']/fhir:valueDateTime/@value = '2026-11-20'" />
+        <x:expect label="Z5. control: the stray one is listed in the section"
+            test="//fhir:Composition/fhir:section/fhir:entry/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:identifier/fhir:value/@value = 'STRAY-EDD']/fhir:fullUrl/@value" />
+        <x:expect label="Z6. every reference in the bundle resolves" test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r])" />
+        <x:expect label="Z7. control: the 22.4.297 components are unchanged"
+            test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-NULL-TIMES']/fhir:component) = 2 and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'PREG-VALUED-TIMES']/fhir:component) = 2" />
+    </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C20): an effectiveTime holding only a
+         null-flavored high gave an empty effectivePeriod (invalid: an element needs a value or children). The end
+         now carries a data-absent-reason from the high's own nullFlavor, as a null-flavored low already did for
+         start. With both bounds null-flavored the end used to reuse the low's nullFlavor; it now uses its own.
+         Whole-pipeline test on testExpo.xml. -->
+    <x:scenario label="AA. null-flavored effectiveTime bounds (RT-C20)">
+        <x:context href="../../integration-tests/documents/testExpo.xml" />
+        <x:expect label="AA1. no element in the bundle is empty (no attributes, no children)" test="empty(//fhir:*[not(@*)][not(node())])" />
+        <x:expect label="AA2. only a null-flavored high: end with the reason, no start"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TEXT']/fhir:effectivePeriod/fhir:end/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown' and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TEXT']/fhir:effectivePeriod/fhir:start)" />
+        <x:expect label="AA3. low NA and high UNK: each bound has its own reason"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TWO']/fhir:effectivePeriod/fhir:start/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'not-applicable' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-TWO']/fhir:effectivePeriod/fhir:end/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode/@value = 'unknown'" />
+        <x:expect label="AA4. control: valued low with a null-flavored high is start only"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-NULL']/fhir:effectivePeriod/fhir:start/@value = '2026-07-20' and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-NULL']/fhir:effectivePeriod/fhir:end)" />
+        <x:expect label="AA5. control: valued bounds are unchanged"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-CODED']/fhir:effectivePeriod/fhir:start/@value = '2026-07-20' and //fhir:Observation[fhir:identifier/fhir:value/@value = 'EX-CODED']/fhir:effectivePeriod/fhir:end/@value = '2026-07-21'" />
+    </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C18): Caregiver Characteristics (22.4.72) wrote
+         Observation.focus pointing at the caregiver participantRole, but no resource was ever created for it (the
+         generic participant path only builds a PractitionerRole, and only when there is a person element that a
+         participantRole cannot hold), so the reference dangled. The caregiver participant is now a RelatedPerson.
+         Whole-pipeline test on testExpo.xml. -->
+    <x:scenario label="AB. Caregiver Characteristics: the caregiver is a RelatedPerson (RT-C18)">
+        <x:context href="../../integration-tests/documents/testExpo.xml" />
+        <x:expect label="AB1. every reference in the bundle resolves" test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r])" />
+        <x:expect label="AB2. each caregiver observation has one focus that is a RelatedPerson" test="count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus) = 1 and exists(//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson) and count(//fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus) = 1 and exists(//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson)" />
+        <x:expect label="AB3. the two caregivers are two different resources" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value != //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus/fhir:reference/@value" />
+        <x:expect label="AB4. patient is the document patient" test="//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:patient/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:Patient]/fhir:fullUrl/@value" />
+        <x:expect label="AB5. first relationship is CAREGIVER, second is the source code"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:relationship[1]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-RoleClass']/fhir:code/@value = 'CAREGIVER' and //fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:relationship[2]/fhir:coding[fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode']/fhir:code/@value = 'MTH'" />
+        <x:expect label="AB6. name, telecom and period are carried" test="//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:name/fhir:family/@value = 'Giver' and //fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:telecom/fhir:value/@value = '+1-555-555-0111' and //fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:period/fhir:start/@value = '2019-01-01'" />
+        <x:expect label="AB7. element order" test="string-join(distinct-values(//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:*/local-name()), ' ') = 'patient relationship name telecom period'" />
+        <x:expect label="AB8. a bare caregiver has patient and the CAREGIVER relationship only" test="string-join(//fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:*/local-name(), ' ') = 'patient relationship' and //fhir:entry[fhir:fullUrl/@value = //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE']/fhir:focus/fhir:reference/@value]/fhir:resource/fhir:RelatedPerson/fhir:relationship/fhir:coding/fhir:code/@value = 'CAREGIVER'" />
+        <x:expect label="AB9. no PractitionerRole or Practitioner is built for a caregiver" test="empty(//fhir:entry[fhir:fullUrl/@value = (//fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-FULL'] | //fhir:Observation[fhir:identifier/fhir:value/@value = 'CG-BARE'])/fhir:focus/fhir:reference/@value]/fhir:resource/(fhir:PractitionerRole | fhir:Practitioner))" />
+    </x:scenario>
 </x:description>

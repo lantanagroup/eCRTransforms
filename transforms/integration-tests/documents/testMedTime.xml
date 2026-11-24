@@ -2,7 +2,13 @@
 <!-- 20261124 Claude (re-trace finding RT-C6): administered medications whose frequency effectiveTime
      (operator="A") comes before the administration time. C-CDA does not fix the order of the two
      (CONF:1098-7508, 1098-7513). MT-FREQ-FIRST, MT-EVENT-FIRST and MT-ADM-FREQ-FIRST had no effective[x]
-     before the fix. -->
+     before the fix.
+     Also (re-trace finding RT-B16): Therapeutic Medication Response observations. MT-FREQ-LAST has a coded
+     response (control: extension with the value). MT-FREQ-FIRST has a response with no value, which used
+     to give an empty extension; MT-EVENT-FIRST has a null-flavored value.
+     Also (re-trace finding RT-C4): dose and rate units. mg, mg/h and {capsule} are on the transform's list of
+     known UCUM units and get Quantity.system and code; "Unknown" and "capsule" are not and are carried as
+     the unit text only. -->
 <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <realmCode code="US"/>
   <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
@@ -100,6 +106,16 @@
               <effectiveTime xsi:type="PIVL_TS" operator="A"><period value="12" unit="h"/></effectiveTime><effectiveTime xsi:type="IVL_TS"><low value="20260720"/><high value="20260725"/></effectiveTime>
               <doseQuantity value="81" unit="mg"/>
               <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <entryRelationship typeCode="CAUS">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.37" extension="2019-04-01"/>
+                  <id root="2.16.840.1.113883.19.5" extension="RESP"/>
+                  <code code="67540-5" codeSystem="2.16.840.1.113883.6.1"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260722"/></effectiveTime>
+                  
+                </observation>
+              </entryRelationship>
             </substanceAdministration>
           </entry>
           <entry>
@@ -109,7 +125,18 @@
               <statusCode code="completed"/>
               <effectiveTime xsi:type="IVL_TS"><low value="20260720"/><high value="20260725"/></effectiveTime><effectiveTime xsi:type="PIVL_TS" operator="A"><period value="12" unit="h"/></effectiveTime>
               <doseQuantity value="81" unit="mg"/>
+              <rateQuantity value="5" unit="mg/h"/>
               <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <entryRelationship typeCode="CAUS">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.37" extension="2019-04-01"/>
+                  <id root="2.16.840.1.113883.19.5" extension="RESP"/>
+                  <code code="67540-5" codeSystem="2.16.840.1.113883.6.1"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260722"/></effectiveTime>
+                  <value xsi:type="CD" code="268910001" codeSystem="2.16.840.1.113883.6.96" displayName="Patient's condition improved"/>
+                </observation>
+              </entryRelationship>
             </substanceAdministration>
           </entry>
           <entry>
@@ -118,8 +145,18 @@
               <id root="2.16.840.1.113883.19.5" extension="MT-EVENT-FIRST"/>
               <statusCode code="completed"/>
               <effectiveTime xsi:type="EIVL_TS" operator="A"><event code="HS"/></effectiveTime><effectiveTime value="20260721"/>
-              <doseQuantity value="81" unit="mg"/>
+              <doseQuantity value="1" unit="Unknown"/>
               <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <entryRelationship typeCode="CAUS">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.15.2.3.37" extension="2019-04-01"/>
+                  <id root="2.16.840.1.113883.19.5" extension="RESP"/>
+                  <code code="67540-5" codeSystem="2.16.840.1.113883.6.1"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260722"/></effectiveTime>
+                  <value xsi:type="CD" nullFlavor="UNK"/>
+                </observation>
+              </entryRelationship>
             </substanceAdministration>
           </entry>
           <entry>
@@ -128,7 +165,7 @@
               <id root="2.16.840.1.113883.19.5" extension="MT-FREQ-VALUE-ONLY"/>
               <statusCode code="completed"/>
               <effectiveTime xsi:type="PIVL_TS" operator="A" value="202607221159+1000"/>
-              <doseQuantity value="81" unit="mg"/>
+              <doseQuantity value="2" unit="capsule"/>
               <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
             </substanceAdministration>
           </entry>
@@ -150,7 +187,7 @@
               <id root="2.16.840.1.113883.19.5" extension="MT-ADM-FREQ-FIRST"/>
               <statusCode code="completed"/>
               <effectiveTime xsi:type="PIVL_TS" operator="A"><period value="12" unit="h"/></effectiveTime><effectiveTime xsi:type="IVL_TS"><low value="20260720"/><high value="20260725"/></effectiveTime>
-              <doseQuantity value="81" unit="mg"/>
+              <doseQuantity value="2" unit="{capsule}"/>
               <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="161" codeSystem="2.16.840.1.113883.6.88" displayName="acetaminophen"/></manufacturedMaterial></manufacturedProduct></consumable>
             </substanceAdministration>
               </entryRelationship>

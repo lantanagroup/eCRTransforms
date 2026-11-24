@@ -4,7 +4,7 @@
   exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0">
 
   <xsl:template
-    match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']] | cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][not(ancestor::cda:substanceAdministration[@moodCode = 'INT'])]"
+    match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.18']] | cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][not(ancestor::cda:substanceAdministration[@moodCode = ('INT', 'RQO', 'PRMS', 'PRP')])]"
     mode="bundle-entry">
     <xsl:call-template name="create-bundle-entry" />
     <xsl:apply-templates select="cda:author" mode="bundle-entry" />
@@ -20,17 +20,25 @@
     <xsl:apply-templates select="cda:entryRelationship/cda:*" mode="bundle-entry" />
   </xsl:template>
 
+  <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C3): the tests in this file that asked for a
+       substanceAdministration in mood INT now ask for INT, RQO, PRMS or PRP, the moods for which
+       cda2fhir-MedicationRequest.xslt produces a MedicationRequest (and folds a nested Supply Order 22.4.17 into
+       dispenseRequest). With INT only, a supply order under an RQO, PRMS or PRP medication was carried twice: in
+       dispenseRequest and as a MedicationDispense. authorizingPrescription likewise now links a real dispense
+       (22.4.18) to its MedicationRequest for all four moods, and for Planned Medication Activity (22.4.42) as
+       well as Medication Activity (22.4.16). The same change is in the nested-statement loop of
+       cda2fhir-Composition.xslt. -->
   <!-- Suppress C-CDA Supply Order if it's in a SubstanceAdministration with a moodCode of INT because it's data elements will be part of the MedicationRequest
          and not a standalone resource, but do want performer -->
   <!-- 20260729 Claude: Fix - the INT-suppression test used a hard-coded ../../../ axis depth, which breaks when the
        supply is nested one level deeper/shallower; now uses the ancestor axis (here, in the match above, and in the
        pTargetUUID below) -->
-  <xsl:template match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][ancestor::cda:substanceAdministration[@moodCode = 'INT']]" mode="bundle-entry">
+  <xsl:template match="cda:supply[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][ancestor::cda:substanceAdministration[@moodCode = ('INT', 'RQO', 'PRMS', 'PRP')]]" mode="bundle-entry">
     <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
 
     <xsl:for-each select="cda:performer[position() > 1]">
       <xsl:apply-templates select="." mode="provenance">
-        <xsl:with-param name="pTargetUUID" select="ancestor::cda:substanceAdministration[@moodCode = 'INT'][1]/@lcg:uuid" />
+        <xsl:with-param name="pTargetUUID" select="ancestor::cda:substanceAdministration[@moodCode = ('INT', 'RQO', 'PRMS', 'PRP')][1]/@lcg:uuid" />
       </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
@@ -125,10 +133,10 @@
           </xsl:apply-templates>
         </performer>
       </xsl:for-each>
-      <xsl:if test="ancestor::cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'INT']">
+      <xsl:if test="ancestor::cda:substanceAdministration[cda:templateId/@root = ('2.16.840.1.113883.10.20.22.4.16', '2.16.840.1.113883.10.20.22.4.42')][@moodCode = ('INT', 'RQO', 'PRMS', 'PRP')]">
         <!-- TODO: Add the MedicationDispense directly to the parent of the prescription (i.e. the section, intervention, or care plan). If not, it may not get pulled in via $document -->
         <authorizingPrescription>
-          <xsl:apply-templates select="ancestor::cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'INT'][1]" mode="reference" />
+          <xsl:apply-templates select="ancestor::cda:substanceAdministration[cda:templateId/@root = ('2.16.840.1.113883.10.20.22.4.16', '2.16.840.1.113883.10.20.22.4.42')][@moodCode = ('INT', 'RQO', 'PRMS', 'PRP')][1]" mode="reference" />
         </authorizingPrescription>
       </xsl:if>
       <xsl:apply-templates select="cda:quantity" mode="medication-dispense" />

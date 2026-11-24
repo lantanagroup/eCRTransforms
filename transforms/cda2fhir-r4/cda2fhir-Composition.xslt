@@ -49,6 +49,15 @@
     <xsl:apply-templates select="//cda:relatedDocument[@typeCode = 'XFRM']" mode="provenance" />
     <!-- Create a Provenance for ClinicalDocument/author so we can store the time -->
     <xsl:apply-templates select="cda:author" mode="provenance" />
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A12): a Provenance for each section author
+         of a section that is carried: recorded = the author time (document time when there is none), agent =
+         the author, target = the Composition with the targetElement extension naming the section's id. -->
+    <xsl:for-each select="//cda:section[not(lcg:section-is-omitted(.))]">
+      <xsl:apply-templates select="lcg:section-authors(.)" mode="provenance">
+        <xsl:with-param name="pTargetUUID" select="/cda:ClinicalDocument/@lcg:uuid" />
+        <xsl:with-param name="pTargetElementId" select="lcg:section-element-id(.)" />
+      </xsl:apply-templates>
+    </xsl:for-each>
     
     <!-- Create a Provenance for the CDA document that is being transformed so we can store the setId and versionNumber-->
     <xsl:apply-templates select="//cda:ClinicalDocument" mode="provenance" />
@@ -207,27 +216,7 @@
            assignedAuthor (matched by id, or the identifier-only Practitioner). Not get-author-uuid: that helper
            prefers the organization over the device, which would change the target for device authors. -->
       <xsl:for-each select="cda:author">
-        <author>
-          <reference>
-            <xsl:attribute name="value">
-              <xsl:text>urn:uuid:</xsl:text>
-              <xsl:choose>
-                <xsl:when test="cda:assignedAuthor/cda:assignedPerson">
-                  <xsl:value-of select="cda:assignedAuthor/@lcg:uuid" />
-                </xsl:when>
-                <xsl:when test="cda:assignedAuthor/cda:assignedAuthoringDevice">
-                  <xsl:value-of select="cda:assignedAuthor/cda:assignedAuthoringDevice/@lcg:uuid" />
-                </xsl:when>
-                <xsl:when test="cda:assignedAuthor/cda:representedOrganization">
-                  <xsl:value-of select="cda:assignedAuthor/cda:representedOrganization/@lcg:uuid" />
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="cda:assignedAuthor/@lcg:uuid" />
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </reference>
-        </author>
+        <xsl:call-template name="composition-author-reference" />
       </xsl:for-each>
       <!-- 20260902 Claude (register B1-complex, SG decision 2026-09-02): Composition.title is 1..1
            in both eicr-composition and rr-composition, so the omit-when-absent convention is
@@ -505,6 +494,32 @@
     </xsl:choose>
   </xsl:template>
 
+  <!-- 20261125 Claude (RT-A12): the reference for an author, used for Composition.author and for
+       Composition.section.author. Moved unchanged out of the Composition template. Context: cda:author. -->
+  <xsl:template name="composition-author-reference">
+    <author>
+      <reference>
+        <xsl:attribute name="value">
+          <xsl:text>urn:uuid:</xsl:text>
+          <xsl:choose>
+            <xsl:when test="cda:assignedAuthor/cda:assignedPerson">
+              <xsl:value-of select="cda:assignedAuthor/@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="cda:assignedAuthor/cda:assignedAuthoringDevice">
+              <xsl:value-of select="cda:assignedAuthor/cda:assignedAuthoringDevice/@lcg:uuid" />
+            </xsl:when>
+            <xsl:when test="cda:assignedAuthor/cda:representedOrganization">
+              <xsl:value-of select="cda:assignedAuthor/cda:representedOrganization/@lcg:uuid" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="cda:assignedAuthor/@lcg:uuid" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </reference>
+    </author>
+  </xsl:template>
+
   <xsl:template match="cda:section">
 
     <xsl:variable name="vSectionText">
@@ -513,19 +528,21 @@
 
     <xsl:choose>
       <!-- Don't want the encounters section if this is eICR - the encounter information goes in Composition.Encounter-->
-      <xsl:when test="$gvCurrentIg = 'eICR' and cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.22.1'" />
-      <!-- If this is eICR and there are sections with no data - we don't want to include them unless they are one of the required sections
-                 (required: Reason for Visit, Chief Complaint, History of Present Illness, Problems, Results, Medication Adminstration, Social History) -->
-      <!-- SG 20240429: Adding code to check that if there is a nullFlavor there is also no entry or section text (getting data that isn't correct with 
-                 the nullFlavor to indicate no information, but the section has data -->
-      <xsl:when
-        test="($gvCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry) and not($vSectionText/string())) and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.12') and not(cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1') and not(cda:templateId/@root = '1.3.6.1.4.1.19376.1.5.3.1.3.4') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.5.1') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.3.1') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.38') and not(cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.17')" />
-      <!-- If this isn't a required section, but it's a section that has to have an entry and 
-                there is @nullFlavor but no entry, don't include it -->
-      <xsl:when test="($gvCurrentIg = 'eICR' and @nullFlavor = 'NI' and not(cda:entry)) and (cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.10' or cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.2.1' or cda:templateId/@root = '2.16.840.1.113883.10.20.22.2.7.1')" />
+      <!-- 20261125 Claude (RT-A12): the three tests that were here are now lcg:section-is-omitted
+           (c-to-fhir-utility.xslt), unchanged, so the section-author Provenance uses the same rules:
+           the eICR encounters section; an eICR section with nullFlavor NI, no entry and no text that
+           is not one of the required sections; an eICR section that must have an entry, with
+           nullFlavor NI and no entry. -->
+      <xsl:when test="lcg:section-is-omitted(.)" />
 
       <xsl:otherwise>
         <section>
+          <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A12): a section that has an
+               author gets an id, so that the author's Provenance can point at this section (its target
+               is the Composition, with the targetElement extension naming this id). -->
+          <xsl:if test="lcg:section-authors(.)">
+            <xsl:attribute name="id" select="lcg:section-element-id(.)" />
+          </xsl:if>
           <!-- Start: Section Extensions -->
           <xsl:if test="cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.3'] or cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.2.2']">
             <xsl:apply-templates select="." mode="extension" />
@@ -541,6 +558,13 @@
           <xsl:apply-templates select="cda:code">
             <xsl:with-param name="pElementName">code</xsl:with-param>
           </xsl:apply-templates>
+          <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A12): section authors. Resources
+               were created for them (bundle-entry template above) but nothing referenced them. The target
+               is chosen exactly as for Composition.author. The author's time cannot go here; it is
+               Provenance.recorded on the Provenance created for each section author. -->
+          <xsl:for-each select="lcg:section-authors(.)">
+            <xsl:call-template name="composition-author-reference" />
+          </xsl:for-each>
           <text>
             <xsl:choose>
               <xsl:when test="count(cda:entry) = count(cda:entry[@typeCode = 'DRIV'])">
@@ -575,6 +599,24 @@
                 <xsl:apply-templates select="cda:*" mode="reference">
                   <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
                 </xsl:apply-templates>
+                <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C15): a Result Observation
+                     that carries a trigger code marker (@sdtc:valueSet on its code, value or a translation)
+                     gets a section entry of its own, so its eICR trigger code flag travels with a
+                     reference to the Observation that actually holds the code. Before, the flags of every
+                     result in a Result Organizer were written on the organizer's (panel's) entry; the
+                     entry-extension mode no longer descends into the organizer's components
+                     (cda2fhir-fallback-templates.xslt), so each flag is emitted exactly once. The
+                     organizer keeps its own entry above, flagged only for a marker on its own code.
+                     eICR only, like the flag itself. The component observations already have bundle
+                     entries (they are the panel's hasMember targets), so the reference resolves. -->
+                <xsl:if test="$gvCurrentIg = 'eICR'">
+                  <xsl:for-each
+                    select="cda:organizer[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.1']/cda:component/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2'][not(@nullFlavor)][cda:code[@sdtc:valueSet] or cda:code/cda:translation[@sdtc:valueSet] or cda:value[@sdtc:valueSet] or cda:value/cda:translation[@sdtc:valueSet]]">
+                    <xsl:apply-templates select="." mode="reference">
+                      <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
+                    </xsl:apply-templates>
+                  </xsl:for-each>
+                </xsl:if>
               </xsl:for-each>
             </xsl:when>
             <!-- When there are no entries and this is either a Problem Section or a Results Section, 
@@ -606,7 +648,10 @@
                  (cda2fhir-Coverage.xslt) already unwraps to the Policy Activity Coverage;
                - a Pregnancy Outcome (22.4.284) in the Pregnancy section (90767-5): the dedicated block
                  after this loop lists it. Outside that section this loop still lists it (R1.1 documents
-                 carry the pregnancy observation in Social History). -->
+                 carry the pregnancy observation in Social History).
+               20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C3): the Supply Order (22.4.17)
+               exclusion below now covers every mood that produces a MedicationRequest (INT, RQO, PRMS, PRP),
+               not INT only, and uses the ancestor axis instead of a fixed ../../../ depth. -->
           <xsl:for-each
             select="descendant::cda:entryRelationship[descendant::cda:*/descendant::cda:*[3]]
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])]
@@ -618,7 +663,7 @@
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.36'])]
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.60'])]
             [not(current()/cda:code/@code = '90767-5' and cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284')]
-            [not(cda:*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode = 'INT']])]
+            [not(cda:*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][ancestor::cda:substanceAdministration[@moodCode = ('INT', 'RQO', 'PRMS', 'PRP')]])]
             [cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])]
             [not(cda:code/@code = '8462-4')]]">
 

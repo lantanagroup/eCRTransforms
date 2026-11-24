@@ -36,4 +36,24 @@
             test="count(fhir:MedicationDispense/fhir:status[@value = 'completed']) = 1" />
     </x:scenario>
 
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C3): a MedicationRequest is produced for moods
+         INT, RQO, PRMS and PRP and always folds a nested Medication Supply Order (22.4.17) into dispenseRequest, but
+         the rule that stops the same supply also becoming a MedicationDispense recognised INT only. Under RQO, PRMS
+         or PRP the supply was carried twice. All those tests now use the same four moods.
+         Whole-pipeline test on testMed.xml. -->
+    <x:scenario label="RT-C3. a supply order under a medication request is carried once, in dispenseRequest">
+        <x:context href="../../integration-tests/documents/testMed.xml" />
+        <x:expect label="1. each planned medication has its supply in dispenseRequest (repeats allowed = repeatNumber minus the first fill)"
+            test="//fhir:MedicationRequest[fhir:identifier/fhir:value/@value = 'PLAN-RQO']/fhir:dispenseRequest/fhir:numberOfRepeatsAllowed/@value = '3' and //fhir:MedicationRequest[fhir:identifier/fhir:value/@value = 'PLAN-PRMS']/fhir:dispenseRequest/fhir:numberOfRepeatsAllowed/@value = '4' and //fhir:MedicationRequest[fhir:identifier/fhir:value/@value = 'PLAN-PRP']/fhir:dispenseRequest/fhir:numberOfRepeatsAllowed/@value = '5'" />
+        <x:expect label="2. no supply order is also a MedicationDispense"
+            test="empty(//fhir:MedicationDispense[fhir:identifier/fhir:value/@value = ('SUPPLY-RQO', 'SUPPLY-PRMS', 'SUPPLY-PRP')])" />
+        <x:expect label="3. the only MedicationDispense resources are the real dispenses"
+            test="count(//fhir:MedicationDispense) = 2" />
+        <x:expect label="4. a real dispense under an RQO request points at its MedicationRequest"
+            test="//fhir:MedicationDispense[fhir:identifier/fhir:value/@value = 'DISPENSED-RQO']/fhir:authorizingPrescription/fhir:reference/@value = //fhir:entry[fhir:resource/fhir:MedicationRequest/fhir:identifier/fhir:value/@value = 'PLAN-RQO']/fhir:fullUrl/@value" />
+        <x:expect label="5. no section entry references a supply order" test="every $r in //fhir:Composition/fhir:section/fhir:entry/fhir:reference/@value satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r])" />
+        <x:expect label="6. every reference in the bundle resolves" test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r])" />
+        <x:expect label="7. control: the INT medication still has its dispenseRequest" test="count(//fhir:MedicationRequest/fhir:dispenseRequest) = 4" />
+    </x:scenario>
+
 </x:description>

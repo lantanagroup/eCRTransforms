@@ -141,6 +141,10 @@
   <!-- Entry-level participants -->
   <xsl:template match="cda:author | cda:performer | cda:informant" mode="provenance">
     <xsl:param name="pTargetUUID" />
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A12): when the target is one element inside
+         the resource (a Composition.section, for a section author) this is that element's id; it is written in
+         the HL7 targetElement extension on the target reference. -->
+    <xsl:param name="pTargetElementId" />
     <entry>
       <fullUrl value="urn:uuid:{@lcg:uuid}" />
       <resource>
@@ -150,6 +154,11 @@
             <!-- when we've passed in a specific uuid, use that -->
             <xsl:when test="string-length($pTargetUUID) > 0">
               <target>
+                <xsl:if test="string-length($pTargetElementId) > 0">
+                  <extension url="http://hl7.org/fhir/StructureDefinition/targetElement">
+                    <valueUri value="{$pTargetElementId}" />
+                  </extension>
+                </xsl:if>
                 <reference value="urn:uuid:{$pTargetUUID}" />
               </target>
             </xsl:when>

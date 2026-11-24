@@ -59,12 +59,28 @@
 
     <!-- TEMPLATE: Therapeutic Response to Medication Extension -->
     <xsl:template match="cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.2.3.37']" mode="extension">
-        <xsl:comment>US Public Health Therapeutic Medication Response Extension</xsl:comment>
-        <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension">
+        <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B16): the extension is written only
+             when the response has a value (value is optional in the CDA template, and without one the
+             extension came out empty: ext-1). Not carried, by design: the response's id, statusCode and
+             effectiveTime, and a response under a medication that was not administered - the extension
+             is defined for MedicationAdministration only, with a CodeableConcept value only (SG: the
+             response is a record of the response to an administered medication). -->
+        <xsl:variable name="vValue">
             <xsl:apply-templates select="cda:value">
                 <xsl:with-param name="pElementName">valueCodeableConcept</xsl:with-param>
             </xsl:apply-templates>
-        </extension>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$vValue/*">
+                <xsl:comment>US Public Health Therapeutic Medication Response Extension</xsl:comment>
+                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension">
+                    <xsl:copy-of select="$vValue/node()" />
+                </extension>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:comment>INFO: Therapeutic Medication Response has no value, so the extension is not emitted</xsl:comment>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- TEMPLATE: Patient Religion Extension -->

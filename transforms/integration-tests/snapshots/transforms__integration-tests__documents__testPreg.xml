@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 215-->
+<!--Element count: 237-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="eICR-bundle-GENID"/>
    <meta>
@@ -174,6 +174,16 @@
                <entry>
                   <reference value="urn:uuid:UUID008"/>
                </entry>
+               <!--2.16.840.1.113883.10.20.15.3.8-->
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.3.1-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.15.3.1-->
+               <!--WARNING: Composition.section.entry omitted - no resource was created for the CDA entry it referred to-->
             </section>
             <section>
                <title value="Pregnancy"/>
@@ -190,20 +200,20 @@
                <!--2.16.840.1.113883.10.20.15.3.8-->
                <!--2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
                <entry>
-                  <reference value="urn:uuid:UUID009"/>
+                  <reference value="urn:uuid:UUID011"/>
                </entry>
                <!--2.16.840.1.113883.10.20.15.3.8-->
                <!--2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
                <entry>
-                  <reference value="urn:uuid:UUID010"/>
-               </entry>
-               <!--2.16.840.1.113883.10.20.22.4.284:2018-04-01-->
-               <entry>
-                  <reference value="urn:uuid:UUID011"/>
-               </entry>
-               <!--2.16.840.1.113883.10.20.22.4.284:2018-04-01-->
-               <entry>
                   <reference value="urn:uuid:UUID012"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.284:2018-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.284:2018-04-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
                </entry>
             </section>
             <section>
@@ -262,7 +272,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID013"/>
+                  <reference value="urn:uuid:UUID015"/>
                </entry>
             </section>
             <section>
@@ -279,7 +289,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID014"/>
+                  <reference value="urn:uuid:UUID016"/>
                </entry>
             </section>
             <section>
@@ -404,13 +414,13 @@
                </language>
             </communication>
             <managingOrganization>
-               <reference value="urn:uuid:UUID015"/>
+               <reference value="urn:uuid:UUID017"/>
             </managingOrganization>
          </Patient>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID015"/>
+      <fullUrl value="urn:uuid:UUID017"/>
       <resource>
          <Organization>
             <meta>
@@ -436,7 +446,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID016"/>
+      <fullUrl value="urn:uuid:UUID018"/>
       <resource>
          <Patient>
             <text>
@@ -459,7 +469,7 @@
             <birthDate value="1955-03-15"/>
             <link>
                <other>
-                  <reference value="urn:uuid:UUID017"/>
+                  <reference value="urn:uuid:UUID019"/>
                </other>
                <type value="seealso"/>
             </link>
@@ -467,7 +477,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID017"/>
+      <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <RelatedPerson>
             <identifier>
@@ -533,17 +543,17 @@
             </period>
             <location>
                <location>
-                  <reference value="urn:uuid:UUID018"/>
+                  <reference value="urn:uuid:UUID020"/>
                </location>
             </location>
             <serviceProvider>
-               <reference value="urn:uuid:UUID019"/>
+               <reference value="urn:uuid:UUID021"/>
             </serviceProvider>
          </Encounter>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID018"/>
+      <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Location>
             <meta>
@@ -569,13 +579,13 @@
                <postalCode value="02101"/>
             </address>
             <managingOrganization>
-               <reference value="urn:uuid:UUID019"/>
+               <reference value="urn:uuid:UUID021"/>
             </managingOrganization>
          </Location>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID019"/>
+      <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <Organization>
             <meta>
@@ -610,7 +620,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID020"/>
+               <reference value="urn:uuid:UUID022"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -624,7 +634,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID020"/>
+      <fullUrl value="urn:uuid:UUID022"/>
       <resource>
          <Practitioner>
             <meta>
@@ -680,7 +690,7 @@
                <value value="PREG-SIGNER"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID021"/>
+               <reference value="urn:uuid:UUID023"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -694,7 +704,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID021"/>
+      <fullUrl value="urn:uuid:UUID023"/>
       <resource>
          <Practitioner>
             <meta>
@@ -712,7 +722,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID022"/>
+      <fullUrl value="urn:uuid:UUID024"/>
       <resource>
          <Provenance>
             <target>
@@ -734,7 +744,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID023"/>
+      <fullUrl value="urn:uuid:UUID025"/>
       <resource>
          <Provenance>
             <target>
@@ -750,7 +760,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID024"/>
+      <fullUrl value="urn:uuid:UUID026"/>
       <resource>
          <Provenance>
             <target>
@@ -786,7 +796,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID013"/>
+      <fullUrl value="urn:uuid:UUID015"/>
       <resource>
          <Condition>
             <meta>
@@ -810,7 +820,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID014"/>
+      <fullUrl value="urn:uuid:UUID016"/>
       <resource>
          <Observation>
             <meta>
@@ -892,6 +902,78 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
                <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.3.8-->
+            </meta>
+            <!--Pregnancy Status Recorded Date-->
+            <!--Pregnancy Status Determination Date-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="PREG-R11-EDD"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="82810-3"/>
+                  <display value="Pregnancy Status"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <effectivePeriod>
+               <start value="2026-02-01"/>
+            </effectivePeriod>
+            <valueCodeableConcept>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="77386006"/>
+                  <display value="Pregnant"/>
+               </coding>
+            </valueCodeableConcept>
+            <component><!--Observation.component: sliceEstimatedDateOfDelivery-->
+               <code>
+                  <coding>
+                     <system value="http://loinc.org"/>
+                     <code value="11778-8"/>
+                  </coding>
+               </code>
+               <valueDateTime value="2026-11-15"/>
+            </component>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.15.3.1:-->
+         <Observation><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.15.3.1-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="STRAY-EDD"/>
+            </identifier>
+            <status value="final"/>
+            <code>
+               <coding>
+                  <system value="http://loinc.org"/>
+                  <code value="11778-8"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <!--INFO: Using document effective time as issued date-->
+            <issued value="2026-07-27T10:30:00+10:00"/>
+            <valueDateTime value="2026-11-20"/>
+         </Observation>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource><!--Pregnancy Status Observation-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.3.8-->
                <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
             </meta>
             <!--Pregnancy Status Recorded Date-->
@@ -917,7 +999,7 @@
                <start value="2026-01-01"/>
             </effectivePeriod>
             <performer>
-               <reference value="urn:uuid:UUID025"/>
+               <reference value="urn:uuid:UUID027"/>
             </performer>
             <valueCodeableConcept>
                <coding>
@@ -951,7 +1033,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID026"/>
+      <fullUrl value="urn:uuid:UUID028"/>
       <resource>
          <PractitionerRole>
             <meta>
@@ -963,7 +1045,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID027"/>
+               <reference value="urn:uuid:UUID029"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -977,7 +1059,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID027"/>
+      <fullUrl value="urn:uuid:UUID029"/>
       <resource>
          <Practitioner>
             <meta>
@@ -995,7 +1077,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID025"/>
+      <fullUrl value="urn:uuid:UUID027"/>
       <resource>
          <PractitionerRole>
             <meta>
@@ -1007,7 +1089,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID028"/>
+               <reference value="urn:uuid:UUID030"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -1021,7 +1103,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID028"/>
+      <fullUrl value="urn:uuid:UUID030"/>
       <resource>
          <Practitioner>
             <meta>
@@ -1039,11 +1121,11 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID029"/>
+      <fullUrl value="urn:uuid:UUID031"/>
       <resource>
          <Provenance>
             <target>
-               <reference value="urn:uuid:UUID009"/>
+               <reference value="urn:uuid:UUID011"/>
             </target>
             <recorded value="2026-07-27T10:30:00+10:00"/>
             <agent>
@@ -1054,14 +1136,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID026"/>
+                  <reference value="urn:uuid:UUID028"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID011"/>
+      <fullUrl value="urn:uuid:UUID013"/>
       <resource><!--Pregnancy Outcome Observation-->
          <Observation>
             <meta>
@@ -1085,7 +1167,7 @@
             </subject>
             <!--Reference to related Pregnancy Observation-->
             <focus>
-               <reference value="urn:uuid:UUID009"/>
+               <reference value="urn:uuid:UUID011"/>
             </focus>
             <effectiveDateTime value="2026-10-01"/>
             <valueCodeableConcept>
@@ -1110,7 +1192,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID010"/>
+      <fullUrl value="urn:uuid:UUID012"/>
       <resource><!--Pregnancy Status Observation-->
          <Observation>
             <meta>
@@ -1147,7 +1229,7 @@
                <start value="2026-01-01"/>
             </effectivePeriod>
             <performer>
-               <reference value="urn:uuid:UUID030"/>
+               <reference value="urn:uuid:UUID032"/>
             </performer>
             <valueCodeableConcept>
                <coding>
@@ -1187,7 +1269,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID031"/>
+      <fullUrl value="urn:uuid:UUID033"/>
       <resource>
          <PractitionerRole>
             <meta>
@@ -1199,7 +1281,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID032"/>
+               <reference value="urn:uuid:UUID034"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -1213,7 +1295,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID032"/>
+      <fullUrl value="urn:uuid:UUID034"/>
       <resource>
          <Practitioner>
             <meta>
@@ -1231,7 +1313,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID030"/>
+      <fullUrl value="urn:uuid:UUID032"/>
       <resource>
          <PractitionerRole>
             <meta>
@@ -1243,7 +1325,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID033"/>
+               <reference value="urn:uuid:UUID035"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -1257,7 +1339,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID033"/>
+      <fullUrl value="urn:uuid:UUID035"/>
       <resource>
          <Practitioner>
             <meta>
@@ -1275,11 +1357,11 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID034"/>
+      <fullUrl value="urn:uuid:UUID036"/>
       <resource>
          <Provenance>
             <target>
-               <reference value="urn:uuid:UUID010"/>
+               <reference value="urn:uuid:UUID012"/>
             </target>
             <recorded value="2026-07-20T00:00:00Z"/>
             <agent>
@@ -1290,14 +1372,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID031"/>
+                  <reference value="urn:uuid:UUID033"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID012"/>
+      <fullUrl value="urn:uuid:UUID014"/>
       <resource><!--Pregnancy Outcome Observation-->
          <Observation>
             <meta>
@@ -1321,7 +1403,7 @@
             </subject>
             <!--Reference to related Pregnancy Observation-->
             <focus>
-               <reference value="urn:uuid:UUID010"/>
+               <reference value="urn:uuid:UUID012"/>
             </focus>
             <effectiveDateTime value="2026-10-01"/>
             <valueCodeableConcept>

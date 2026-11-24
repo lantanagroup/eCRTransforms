@@ -119,12 +119,26 @@
             </xsl:choose>
 
             <xsl:for-each select="cda:patientRole/cda:patient/cda:guardian">
+                <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A19): guardian/code (the
+                     kind of guardian: mother, father, power of attorney and so on) was never read. It is
+                     added as further codings in the SAME relationship CodeableConcept, after the fixed
+                     GUARD coding, because us-ph-patient makes contact.relationship 1..1 (a second
+                     relationship element would fail). The generic code mapping builds the codings (code,
+                     then any translations) and the original text; a null-flavored code, or one with no
+                     @code, adds nothing. -->
+                <xsl:variable name="vGuardianCode">
+                    <xsl:apply-templates select="cda:code[@code][not(@nullFlavor)]">
+                        <xsl:with-param name="pElementName">relationship</xsl:with-param>
+                    </xsl:apply-templates>
+                </xsl:variable>
                 <contact>
                     <relationship>
                         <coding>
                             <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass" />
                             <code value="GUARD" />
                         </coding>
+                        <xsl:copy-of select="$vGuardianCode/fhir:relationship/fhir:coding" />
+                        <xsl:copy-of select="$vGuardianCode/fhir:relationship/fhir:text" />
                     </relationship>
                     <!-- 20260821 Claude (item 055, live part; policy refined by SG same day): a null-flavored
                          contact addr used to flow through the generic nullFlavor mapping into

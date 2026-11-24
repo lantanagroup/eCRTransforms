@@ -955,7 +955,12 @@
                         </valueCoding>
                      </extension>
                   </extension>
-                  <!--eICR Trigger Code Flag Extension-->
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.2-->
+               <!--2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
+               <!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
+               <entry><!--eICR Trigger Code Flag Extension-->
                   <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-trigger-code-flag-extension">
                      <extension url="triggerCodeValueSet">
                         <valueOid value="urn:oid:2.16.840.1.114222.4.11.7508"/>
@@ -970,7 +975,7 @@
                         </valueCoding>
                      </extension>
                   </extension>
-                  <reference value="urn:uuid:UUID013"/>
+                  <reference value="urn:uuid:UUID014"/>
                </entry>
             </section>
             <section>
@@ -1058,20 +1063,20 @@
                <!--2.16.840.1.113883.10.20.22.4.78-->
                <!--2.16.840.1.113883.10.20.22.4.78:2014-06-09-->
                <entry>
-                  <reference value="urn:uuid:UUID014"/>
+                  <reference value="urn:uuid:UUID015"/>
                </entry>
                <!--2.16.840.1.113883.10.20.22.4.38-->
                <!--2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
                <!--2.16.840.1.113883.10.20.22.4.38:2022-06-01-->
                <!--2.16.840.1.113883.10.20.22.4.507:2023-06-28-->
                <entry>
-                  <reference value="urn:uuid:UUID015"/>
+                  <reference value="urn:uuid:UUID016"/>
                </entry>
                <!--2.16.840.1.113883.10.20.22.4.501:2022-06-01-->
                <!--2.16.840.1.113883.10.20.22.4.38-->
                <!--2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
                <entry>
-                  <reference value="urn:uuid:UUID016"/>
+                  <reference value="urn:uuid:UUID017"/>
                </entry>
             </section>
             <section>
@@ -1171,7 +1176,7 @@
                <!--2.16.840.1.113883.10.20.22.4.26-->
                <!--2.16.840.1.113883.10.20.22.4.26:2015-08-01-->
                <entry>
-                  <reference value="urn:uuid:UUID017"/>
+                  <reference value="urn:uuid:UUID018"/>
                </entry>
             </section>
             <section>
@@ -1279,11 +1284,6 @@
                <!--2.16.840.1.113883.10.20.22.4.14-->
                <!--2.16.840.1.113883.10.20.22.4.14:2014-06-09-->
                <entry>
-                  <reference value="urn:uuid:UUID018"/>
-               </entry>
-               <!--2.16.840.1.113883.10.20.22.4.14-->
-               <!--2.16.840.1.113883.10.20.22.4.14:2014-06-09-->
-               <entry>
                   <reference value="urn:uuid:UUID019"/>
                </entry>
                <!--2.16.840.1.113883.10.20.22.4.14-->
@@ -1295,6 +1295,11 @@
                <!--2.16.840.1.113883.10.20.22.4.14:2014-06-09-->
                <entry>
                   <reference value="urn:uuid:UUID021"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.14-->
+               <!--2.16.840.1.113883.10.20.22.4.14:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID022"/>
                </entry>
             </section>
             <section>
@@ -1456,13 +1461,13 @@
                </language>
             </communication>
             <managingOrganization>
-               <reference value="urn:uuid:UUID022"/>
+               <reference value="urn:uuid:UUID023"/>
             </managingOrganization>
          </Patient>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID022"/>
+      <fullUrl value="urn:uuid:UUID023"/>
       <resource>
          <Organization>
             <meta>
@@ -1608,11 +1613,6 @@
                   </coding>
                </type>
                <individual>
-                  <reference value="urn:uuid:UUID023"/>
-               </individual>
-            </participant>
-            <participant>
-               <individual>
                   <reference value="urn:uuid:UUID024"/>
                </individual>
             </participant>
@@ -1621,22 +1621,27 @@
                   <reference value="urn:uuid:UUID025"/>
                </individual>
             </participant>
+            <participant>
+               <individual>
+                  <reference value="urn:uuid:UUID026"/>
+               </individual>
+            </participant>
             <period>
                <start value="2017-12-27T12:32:42-06:00"/>
             </period>
             <location>
                <location>
-                  <reference value="urn:uuid:UUID026"/>
+                  <reference value="urn:uuid:UUID027"/>
                </location>
             </location>
             <serviceProvider>
-               <reference value="urn:uuid:UUID027"/>
+               <reference value="urn:uuid:UUID028"/>
             </serviceProvider>
          </Encounter>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID023"/>
+      <fullUrl value="urn:uuid:UUID024"/>
       <resource>
          <PractitionerRole>
             <meta>
@@ -1648,10 +1653,10 @@
                <value value="0838"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID028"/>
+               <reference value="urn:uuid:UUID029"/>
             </practitioner>
             <organization>
-               <reference value="urn:uuid:UUID029"/>
+               <reference value="urn:uuid:UUID030"/>
             </organization>
             <telecom>
                <system value="phone"/>
@@ -1666,7 +1671,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID028"/>
+      <fullUrl value="urn:uuid:UUID029"/>
       <resource>
          <Practitioner>
             <meta>
@@ -1710,7 +1715,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID029"/>
+      <fullUrl value="urn:uuid:UUID030"/>
       <resource>
          <Organization>
             <meta>
@@ -1737,97 +1742,6 @@
                <country value="US"/>
             </address>
          </Organization>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID024"/>
-      <resource>
-         <PractitionerRole>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
-            </meta>
-            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19.1614.88"][@extension="9044494381677"]]/encounterParticipant/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="0838"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
-               <value value="0838"/>
-            </identifier>
-            <practitioner>
-               <reference value="urn:uuid:UUID030"/>
-            </practitioner>
-            <code>
-               <coding>
-                  <system value="http://nucc.org/provider-taxonomy"/>
-                  <code value="208D00000X"/>
-                  <display value="General Practice Physician"/>
-               </coding>
-               <coding>
-                  <system value="urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160"/>
-                  <code value="19"/>
-                  <display value="Family Medicine"/>
-               </coding>
-               <coding>
-                  <system value="urn:oid:1.2.840.114350.1.13.502.3.7.10.836982.1050"/>
-                  <code value="9"/>
-                  <display value="Family Medicine"/>
-               </coding>
-               <text value="Family Medicine"/>
-            </code>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-517-555-0145"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-313-555-0176"/>
-            </telecom>
-         </PractitionerRole>
-      </resource>
-   </entry>
-   <entry>
-      <fullUrl value="urn:uuid:UUID030"/>
-      <resource>
-         <Practitioner>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
-            </meta>
-            <identifier>
-               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
-               <value value="0838"/>
-            </identifier>
-            <identifier>
-               <system value="http://hl7.org/fhir/sid/us-npi"/>
-               <value>
-                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
-                     <valueCode value="not-applicable"/>
-                  </extension>
-               </value>
-            </identifier>
-            <name>
-               <use value="usual"/>
-               <family value="Hollowell"/>
-               <given value="Kira"/>
-               <suffix value="Jr."/>
-            </name>
-            <telecom>
-               <system value="phone"/>
-               <value value="+1-517-555-0145"/>
-               <use value="work"/>
-            </telecom>
-            <telecom>
-               <system value="fax"/>
-               <value value="+1-313-555-0176"/>
-            </telecom>
-            <address>
-               <use value="work"/>
-               <line value="4790 Verdant Rd"/>
-               <line value="4465 Beacon Dr Ste 23"/>
-               <city value="Hartfield"/>
-               <state value="MI"/>
-               <postalCode value="48076"/>
-               <country value="US"/>
-            </address>
-         </Practitioner>
       </resource>
    </entry>
    <entry>
@@ -1924,6 +1838,97 @@
    <entry>
       <fullUrl value="urn:uuid:UUID026"/>
       <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="2.16.840.1.113883.19.9914.93"]]/componentOf/encompassingEncounter[cda:id[@root="2.16.840.1.113883.19.1614.88"][@extension="9044494381677"]]/encounterParticipant/assignedEntity[cda:id[@root="2.16.840.1.113883.19.9455.90"][@extension="0838"]][cda:id[@root="2.16.840.1.113883.4.6"]]-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
+               <value value="0838"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID032"/>
+            </practitioner>
+            <code>
+               <coding>
+                  <system value="http://nucc.org/provider-taxonomy"/>
+                  <code value="208D00000X"/>
+                  <display value="General Practice Physician"/>
+               </coding>
+               <coding>
+                  <system value="urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160"/>
+                  <code value="19"/>
+                  <display value="Family Medicine"/>
+               </coding>
+               <coding>
+                  <system value="urn:oid:1.2.840.114350.1.13.502.3.7.10.836982.1050"/>
+                  <code value="9"/>
+                  <display value="Family Medicine"/>
+               </coding>
+               <text value="Family Medicine"/>
+            </code>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-517-555-0145"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-313-555-0176"/>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID032"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.9455.90"/>
+               <value value="0838"/>
+            </identifier>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </value>
+            </identifier>
+            <name>
+               <use value="usual"/>
+               <family value="Hollowell"/>
+               <given value="Kira"/>
+               <suffix value="Jr."/>
+            </name>
+            <telecom>
+               <system value="phone"/>
+               <value value="+1-517-555-0145"/>
+               <use value="work"/>
+            </telecom>
+            <telecom>
+               <system value="fax"/>
+               <value value="+1-313-555-0176"/>
+            </telecom>
+            <address>
+               <use value="work"/>
+               <line value="4790 Verdant Rd"/>
+               <line value="4465 Beacon Dr Ste 23"/>
+               <city value="Hartfield"/>
+               <state value="MI"/>
+               <postalCode value="48076"/>
+               <country value="US"/>
+            </address>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
          <Location>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"/>
@@ -1960,13 +1965,13 @@
                <country value="US"/>
             </address>
             <managingOrganization>
-               <reference value="urn:uuid:UUID027"/>
+               <reference value="urn:uuid:UUID028"/>
             </managingOrganization>
          </Location>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID027"/>
+      <fullUrl value="urn:uuid:UUID028"/>
       <resource>
          <Organization>
             <meta>
@@ -1996,7 +2001,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID032"/>
+      <fullUrl value="urn:uuid:UUID033"/>
       <resource>
          <Provenance>
             <target>
@@ -2011,14 +2016,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID024"/>
+                  <reference value="urn:uuid:UUID025"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID033"/>
+      <fullUrl value="urn:uuid:UUID034"/>
       <resource>
          <Provenance>
             <target>
@@ -2033,7 +2038,7 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID025"/>
+                  <reference value="urn:uuid:UUID026"/>
                </who>
             </agent>
          </Provenance>
@@ -2052,10 +2057,10 @@
                <value value="0838"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID034"/>
+               <reference value="urn:uuid:UUID035"/>
             </practitioner>
             <organization>
-               <reference value="urn:uuid:UUID035"/>
+               <reference value="urn:uuid:UUID036"/>
             </organization>
             <code>
                <coding>
@@ -2077,7 +2082,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID034"/>
+      <fullUrl value="urn:uuid:UUID035"/>
       <resource>
          <Practitioner>
             <meta>
@@ -2121,7 +2126,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID035"/>
+      <fullUrl value="urn:uuid:UUID036"/>
       <resource>
          <Organization>
             <meta>
@@ -2151,7 +2156,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID036"/>
+      <fullUrl value="urn:uuid:UUID037"/>
       <resource>
          <Organization>
             <meta>
@@ -2202,16 +2207,16 @@
                <value value="Underhill EHR"/>
             </version>
             <owner>
-               <reference value="urn:uuid:UUID036"/>
+               <reference value="urn:uuid:UUID037"/>
             </owner>
             <location>
-               <reference value="urn:uuid:UUID037"/>
+               <reference value="urn:uuid:UUID038"/>
             </location>
          </Device>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID037"/>
+      <fullUrl value="urn:uuid:UUID038"/>
       <resource>
          <Location>
             <name value="Stonebridge Medical Center"/>
@@ -2279,7 +2284,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID038"/>
+      <fullUrl value="urn:uuid:UUID039"/>
       <resource>
          <DocumentReference><!--DocumentReference.masterIdentifier = ClinicalDocument/id-->
             <masterIdentifier>
@@ -2317,7 +2322,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID039"/>
+      <fullUrl value="urn:uuid:UUID040"/>
       <resource>
          <Provenance>
             <target>
@@ -2339,7 +2344,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID040"/>
+      <fullUrl value="urn:uuid:UUID041"/>
       <resource>
          <Provenance>
             <target>
@@ -2354,14 +2359,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID036"/>
+                  <reference value="urn:uuid:UUID037"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID041"/>
+      <fullUrl value="urn:uuid:UUID042"/>
       <resource>
          <Provenance>
             <target>
@@ -2376,7 +2381,7 @@
             <entity>
                <role value="derivation"/>
                <what>
-                  <reference value="urn:uuid:UUID038"/>
+                  <reference value="urn:uuid:UUID039"/>
                </what>
             </entity>
          </Provenance>
@@ -2433,13 +2438,13 @@
             </subject>
             <authoredOn value="2023-08-29T08:14:27-05:00"/>
             <requester>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID043"/>
             </requester>
          </ServiceRequest>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID042"/>
+      <fullUrl value="urn:uuid:UUID043"/>
       <resource>
          <Organization>
             <meta>
@@ -2511,7 +2516,7 @@
             </subject>
             <authoredOn value="2023-08-29T08:14:28-05:00"/>
             <requester>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID043"/>
             </requester>
          </ServiceRequest>
       </resource>
@@ -2555,19 +2560,19 @@
             </effectivePeriod>
             <issued value="2023-07-25T11:54:00-05:00"/>
             <performer>
-               <reference value="urn:uuid:UUID043"/>
+               <reference value="urn:uuid:UUID044"/>
             </performer>
             <specimen>
-               <reference value="urn:uuid:UUID044"/>
+               <reference value="urn:uuid:UUID045"/>
             </specimen>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
-               <reference value="urn:uuid:UUID045"/>
+               <reference value="urn:uuid:UUID046"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID046"/>
+      <fullUrl value="urn:uuid:UUID047"/>
       <resource>
          <Organization>
             <meta>
@@ -2605,7 +2610,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID047"/>
+      <fullUrl value="urn:uuid:UUID048"/>
       <resource>
          <Organization>
             <meta>
@@ -2631,7 +2636,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID043"/>
+      <fullUrl value="urn:uuid:UUID044"/>
       <resource>
          <Organization>
             <meta>
@@ -2661,7 +2666,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID048"/>
+      <fullUrl value="urn:uuid:UUID049"/>
       <resource>
          <Provenance>
             <target>
@@ -2676,14 +2681,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID046"/>
+                  <reference value="urn:uuid:UUID047"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID049"/>
+      <fullUrl value="urn:uuid:UUID050"/>
       <resource>
          <Provenance>
             <target>
@@ -2698,14 +2703,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID047"/>
+                  <reference value="urn:uuid:UUID048"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID044"/>
+      <fullUrl value="urn:uuid:UUID045"/>
       <resource>
          <Specimen><!--WARNING: No profiles found for any of the following templates:
                         -->
@@ -2748,7 +2753,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID045"/>
+      <fullUrl value="urn:uuid:UUID046"/>
       <resource>
          <Observation>
             <meta>
@@ -2778,7 +2783,7 @@
             </subject>
             <effectiveDateTime value="2023-07-25T17:54:00+00:00"/>
             <performer>
-               <reference value="urn:uuid:UUID050"/>
+               <reference value="urn:uuid:UUID051"/>
             </performer>
             <valueString value="See specific Titer order"/>
             <note>
@@ -2788,7 +2793,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID050"/>
+      <fullUrl value="urn:uuid:UUID051"/>
       <resource>
          <Organization>
             <meta>
@@ -2815,7 +2820,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID051"/>
+      <fullUrl value="urn:uuid:UUID052"/>
       <resource><!--Processing as generic observation: 1.2.840.114350.1.72.3.4:-->
          <Observation><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:1.2.840.114350.1.72.3.4-->
@@ -2844,7 +2849,7 @@
                </coding>
             </valueCodeableConcept>
             <specimen>
-               <reference value="urn:uuid:UUID044"/>
+               <reference value="urn:uuid:UUID045"/>
             </specimen>
          </Observation>
       </resource>
@@ -2889,22 +2894,22 @@
             </effectivePeriod>
             <issued value="2023-07-25T11:55:00-05:00"/>
             <performer>
-               <reference value="urn:uuid:UUID052"/>
+               <reference value="urn:uuid:UUID053"/>
             </performer>
             <specimen>
-               <reference value="urn:uuid:UUID053"/>
+               <reference value="urn:uuid:UUID054"/>
             </specimen>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
-               <reference value="urn:uuid:UUID054"/>
+               <reference value="urn:uuid:UUID055"/>
             </hasMember>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
-               <reference value="urn:uuid:UUID055"/>
+               <reference value="urn:uuid:UUID056"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID056"/>
+      <fullUrl value="urn:uuid:UUID057"/>
       <resource>
          <Organization>
             <meta>
@@ -2942,7 +2947,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID057"/>
+      <fullUrl value="urn:uuid:UUID058"/>
       <resource>
          <Organization>
             <meta>
@@ -2968,7 +2973,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID052"/>
+      <fullUrl value="urn:uuid:UUID053"/>
       <resource>
          <Organization>
             <meta>
@@ -2998,7 +3003,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID058"/>
+      <fullUrl value="urn:uuid:UUID059"/>
       <resource>
          <Provenance>
             <target>
@@ -3013,14 +3018,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID056"/>
+                  <reference value="urn:uuid:UUID057"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID059"/>
+      <fullUrl value="urn:uuid:UUID060"/>
       <resource>
          <Provenance>
             <target>
@@ -3035,14 +3040,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID057"/>
+                  <reference value="urn:uuid:UUID058"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID053"/>
+      <fullUrl value="urn:uuid:UUID054"/>
       <resource>
          <Specimen><!--WARNING: No profiles found for any of the following templates:
                         -->
@@ -3085,7 +3090,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID054"/>
+      <fullUrl value="urn:uuid:UUID055"/>
       <resource>
          <Observation>
             <meta>
@@ -3121,7 +3126,7 @@
             </subject>
             <effectiveDateTime value="2023-07-25T17:55:00+00:00"/>
             <performer>
-               <reference value="urn:uuid:UUID060"/>
+               <reference value="urn:uuid:UUID061"/>
             </performer>
             <valueString value="Current Titer &gt;1024"/>
             <note>
@@ -3131,7 +3136,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID060"/>
+      <fullUrl value="urn:uuid:UUID061"/>
       <resource>
          <Organization>
             <meta>
@@ -3158,7 +3163,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID055"/>
+      <fullUrl value="urn:uuid:UUID056"/>
       <resource>
          <Observation>
             <meta>
@@ -3194,7 +3199,7 @@
             </subject>
             <effectiveDateTime value="2023-07-25T17:55:00+00:00"/>
             <performer>
-               <reference value="urn:uuid:UUID061"/>
+               <reference value="urn:uuid:UUID062"/>
             </performer>
             <valueString value="Previous Titer 1024"/>
             <note>
@@ -3204,7 +3209,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID061"/>
+      <fullUrl value="urn:uuid:UUID062"/>
       <resource>
          <Organization>
             <meta>
@@ -3231,7 +3236,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID062"/>
+      <fullUrl value="urn:uuid:UUID063"/>
       <resource><!--Processing as generic observation: 1.2.840.114350.1.72.3.4:-->
          <Observation><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:1.2.840.114350.1.72.3.4-->
@@ -3260,7 +3265,7 @@
                </coding>
             </valueCodeableConcept>
             <specimen>
-               <reference value="urn:uuid:UUID053"/>
+               <reference value="urn:uuid:UUID054"/>
             </specimen>
          </Observation>
       </resource>
@@ -3305,19 +3310,19 @@
             </effectivePeriod>
             <issued value="2023-10-13T08:31:00-05:00"/>
             <performer>
-               <reference value="urn:uuid:UUID063"/>
+               <reference value="urn:uuid:UUID064"/>
             </performer>
             <specimen>
-               <reference value="urn:uuid:UUID064"/>
+               <reference value="urn:uuid:UUID065"/>
             </specimen>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01-->
-               <reference value="urn:uuid:UUID065"/>
+               <reference value="urn:uuid:UUID066"/>
             </hasMember>
          </Observation>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID066"/>
+      <fullUrl value="urn:uuid:UUID067"/>
       <resource>
          <Organization>
             <meta>
@@ -3355,7 +3360,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID067"/>
+      <fullUrl value="urn:uuid:UUID068"/>
       <resource>
          <Organization>
             <meta>
@@ -3381,7 +3386,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID063"/>
+      <fullUrl value="urn:uuid:UUID064"/>
       <resource>
          <Organization>
             <meta>
@@ -3411,7 +3416,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID068"/>
+      <fullUrl value="urn:uuid:UUID069"/>
       <resource>
          <Provenance>
             <target>
@@ -3426,14 +3431,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID066"/>
+                  <reference value="urn:uuid:UUID067"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID069"/>
+      <fullUrl value="urn:uuid:UUID070"/>
       <resource>
          <Provenance>
             <target>
@@ -3448,14 +3453,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID067"/>
+                  <reference value="urn:uuid:UUID068"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID064"/>
+      <fullUrl value="urn:uuid:UUID065"/>
       <resource>
          <Specimen><!--WARNING: No profiles found for any of the following templates:
                         -->
@@ -3498,7 +3503,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID065"/>
+      <fullUrl value="urn:uuid:UUID066"/>
       <resource>
          <Observation>
             <meta>
@@ -3528,7 +3533,7 @@
             </subject>
             <effectiveDateTime value="2023-10-13T14:31:00+00:00"/>
             <performer>
-               <reference value="urn:uuid:UUID070"/>
+               <reference value="urn:uuid:UUID071"/>
             </performer>
             <valueString value="Negative"/>
             <note>
@@ -3538,7 +3543,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID070"/>
+      <fullUrl value="urn:uuid:UUID071"/>
       <resource>
          <Organization>
             <meta>
@@ -3565,7 +3570,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID071"/>
+      <fullUrl value="urn:uuid:UUID072"/>
       <resource><!--Processing as generic observation: 1.2.840.114350.1.72.3.4:-->
          <Observation><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:1.2.840.114350.1.72.3.4-->
@@ -3594,7 +3599,7 @@
                </coding>
             </valueCodeableConcept>
             <specimen>
-               <reference value="urn:uuid:UUID064"/>
+               <reference value="urn:uuid:UUID065"/>
             </specimen>
          </Observation>
       </resource>
@@ -3639,13 +3644,13 @@
             </effectivePeriod>
             <issued value="2024-06-19T09:00:46-05:00"/>
             <performer>
-               <reference value="urn:uuid:UUID072"/>
+               <reference value="urn:uuid:UUID073"/>
             </performer>
             <specimen>
-               <reference value="urn:uuid:UUID073"/>
+               <reference value="urn:uuid:UUID074"/>
             </specimen>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--2.16.840.1.113883.10.20.15.2.3.2:2016-12-01-->
-               <reference value="urn:uuid:UUID074"/>
+               <reference value="urn:uuid:UUID014"/>
             </hasMember>
             <hasMember><!--2.16.840.1.113883.10.20.22.4.2--><!--2.16.840.1.113883.10.20.22.4.2:2015-08-01--><!--1.2.840.114350.1.72.3.3-->
                <reference value="urn:uuid:UUID075"/>
@@ -3726,7 +3731,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID072"/>
+      <fullUrl value="urn:uuid:UUID073"/>
       <resource>
          <PractitionerRole>
             <meta>
@@ -3851,7 +3856,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID073"/>
+      <fullUrl value="urn:uuid:UUID074"/>
       <resource>
          <Specimen><!--WARNING: No profiles found for any of the following templates:
                         -->
@@ -3889,7 +3894,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID074"/>
+      <fullUrl value="urn:uuid:UUID014"/>
       <resource>
          <Observation>
             <meta>
@@ -4037,14 +4042,14 @@
                </coding>
             </valueCodeableConcept>
             <specimen>
-               <reference value="urn:uuid:UUID073"/>
+               <reference value="urn:uuid:UUID074"/>
             </specimen>
          </Observation>
       </resource>
    </entry>
    <!--WARNING: No template match for 1.2.840.114350.1.72.3.7-->
    <entry>
-      <fullUrl value="urn:uuid:UUID014"/>
+      <fullUrl value="urn:uuid:UUID015"/>
       <resource>
          <Observation>
             <meta>
@@ -4088,7 +4093,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID015"/>
+      <fullUrl value="urn:uuid:UUID016"/>
       <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.38 2.16.840.1.113883.10.20.22.4.38 2.16.840.1.113883.10.20.22.4.38 2.16.840.1.113883.10.20.22.4.507:2015-08-01 2022-06-01 2023-06-28-->
          <Observation><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:2.16.840.1.113883.10.20.22.4.38urn:hl7ii:2.16.840.1.113883.10.20.22.4.38:2015-08-01urn:hl7ii:2.16.840.1.113883.10.20.22.4.38:2022-06-01urn:hl7ii:2.16.840.1.113883.10.20.22.4.507:2023-06-28-->
@@ -4179,7 +4184,7 @@
       <resource>
          <Provenance>
             <target>
-               <reference value="urn:uuid:UUID015"/>
+               <reference value="urn:uuid:UUID016"/>
             </target>
             <recorded value="2017-12-27T13:28:20-05:00"/>
             <agent>
@@ -4197,7 +4202,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID016"/>
+      <fullUrl value="urn:uuid:UUID017"/>
       <resource><!--Processing as generic observation: 2.16.840.1.113883.10.20.22.4.501 2.16.840.1.113883.10.20.22.4.38 2.16.840.1.113883.10.20.22.4.38:2022-06-01 2015-08-01-->
          <Observation><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:2.16.840.1.113883.10.20.22.4.501:2022-06-01urn:hl7ii:2.16.840.1.113883.10.20.22.4.38urn:hl7ii:2.16.840.1.113883.10.20.22.4.38:2015-08-01-->
@@ -4244,7 +4249,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID017"/>
+      <fullUrl value="urn:uuid:UUID018"/>
       <resource>
          <Observation>
             <meta>
@@ -4320,6 +4325,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectiveDateTime value="2023-08-28T16:00:00+00:00"/>
+            <issued value="2023-08-28T11:37:45-05:00"/>
             <valueQuantity>
                <value value="172.7"/>
                <unit value="cm"/>
@@ -4422,6 +4428,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectiveDateTime value="2023-08-28T16:00:00+00:00"/>
+            <issued value="2023-08-28T11:37:45-05:00"/>
             <valueQuantity>
                <value value="72.576"/>
                <unit value="kg"/>
@@ -4524,6 +4531,7 @@
                <reference value="urn:uuid:UUID002"/>
             </subject>
             <effectiveDateTime value="2023-08-28T16:00:00+00:00"/>
+            <issued value="2023-08-28T11:37:45-05:00"/>
             <valueQuantity>
                <value value="24.33"/>
                <unit value="kg/m2"/>
@@ -4597,7 +4605,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID018"/>
+      <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <Procedure>
             <meta>
@@ -4747,13 +4755,13 @@
                <value value="0838"/>
             </identifier>
             <organization>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID043"/>
             </organization>
          </PractitionerRole>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID019"/>
+      <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Procedure>
             <meta>
@@ -4904,13 +4912,13 @@
                <value value="0838"/>
             </identifier>
             <organization>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID043"/>
             </organization>
          </PractitionerRole>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID020"/>
+      <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <Procedure>
             <meta>
@@ -5053,13 +5061,13 @@
                <value value="0838"/>
             </identifier>
             <organization>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID043"/>
             </organization>
          </PractitionerRole>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID021"/>
+      <fullUrl value="urn:uuid:UUID022"/>
       <resource>
          <Procedure>
             <meta>
@@ -5210,7 +5218,7 @@
                <value value="0838"/>
             </identifier>
             <organization>
-               <reference value="urn:uuid:UUID042"/>
+               <reference value="urn:uuid:UUID043"/>
             </organization>
          </PractitionerRole>
       </resource>

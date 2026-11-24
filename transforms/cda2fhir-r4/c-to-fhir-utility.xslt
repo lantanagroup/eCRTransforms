@@ -939,6 +939,37 @@
         <xsl:variable name="vPosition" select="count(lcg:bp-components($pSystolic, '8480-6')[. &lt;&lt; $pSystolic]) + 1" />
         <xsl:sequence select="lcg:bp-components($pSystolic, '8462-4')[$vPosition]" />
     </xsl:function>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-A12): section authors.
+         lcg:section-is-omitted holds the rules that decide whether a CDA section is left out of the
+         Composition (moved here unchanged from the cda:section template in cda2fhir-Composition.xslt, so the
+         Composition and the section-author Provenance cannot disagree).
+         lcg:section-authors is the authors of a section that carry something usable.
+         lcg:section-element-id is the Element.id given to a Composition.section that has such an author; it
+         is what the author's Provenance.target names in the targetElement extension. Position based, so it
+         is the same on every run. -->
+    <xsl:function name="lcg:section-is-omitted" as="xs:boolean">
+        <xsl:param name="pSection" as="element()" />
+        <xsl:variable name="vSectionText" select="string($pSection/cda:text)" />
+        <xsl:variable name="vRoots" select="$pSection/cda:templateId/@root" />
+        <xsl:sequence
+            select="
+                (: eICR: the encounters section is not carried as a section, the encounter goes in Composition.encounter :)
+                ($gvCurrentIg = 'eICR' and $vRoots = '2.16.840.1.113883.10.20.22.2.22.1')
+                (: eICR: a section with nullFlavor NI, no entry and no text, unless it is one of the required sections :)
+                or ($gvCurrentIg = 'eICR' and $pSection/@nullFlavor = 'NI' and not($pSection/cda:entry) and not($vSectionText)
+                    and not($vRoots = ('2.16.840.1.113883.10.20.22.2.12', '1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1', '1.3.6.1.4.1.19376.1.5.3.1.3.4', '2.16.840.1.113883.10.20.22.2.5.1', '2.16.840.1.113883.10.20.22.2.3.1', '2.16.840.1.113883.10.20.22.2.38', '2.16.840.1.113883.10.20.22.2.17')))
+                (: eICR: a section that must have an entry, with nullFlavor NI and no entry :)
+                or ($gvCurrentIg = 'eICR' and $pSection/@nullFlavor = 'NI' and not($pSection/cda:entry)
+                    and $vRoots = ('2.16.840.1.113883.10.20.22.2.10', '2.16.840.1.113883.10.20.22.2.2.1', '2.16.840.1.113883.10.20.22.2.7.1'))" />
+    </xsl:function>
+    <xsl:function name="lcg:section-authors" as="element()*">
+        <xsl:param name="pSection" as="element()" />
+        <xsl:sequence select="$pSection/cda:author[cda:*[cda:*[not(@nullFlavor)]]]" />
+    </xsl:function>
+    <xsl:function name="lcg:section-element-id" as="xs:string">
+        <xsl:param name="pSection" as="element()" />
+        <xsl:sequence select="concat('section-', count($pSection/preceding::cda:section) + count($pSection/ancestor::cda:section) + 1)" />
+    </xsl:function>
     <!-- true for a diastolic organizer component that has no systolic to go with: it is then emitted as
          a vital-sign Observation of its own instead of being folded into a blood pressure Observation -->
     <xsl:function name="lcg:bp-diastolic-is-unpaired" as="xs:boolean">

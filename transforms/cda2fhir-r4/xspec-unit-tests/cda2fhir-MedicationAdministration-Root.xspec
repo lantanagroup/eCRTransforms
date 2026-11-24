@@ -50,4 +50,55 @@
         <x:expect label="T6. never more than one effective[x]"
             test="every $m in //fhir:MedicationAdministration satisfies count($m/fhir:*[starts-with(local-name(), 'effective')]) le 1" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B16): a Therapeutic Medication Response with no
+         value gave an empty extension. The extension is now written only when there is a value. (Its date, id
+         and status are not carried, and it is carried only on an administered medication: SG confirmed.) -->
+    <x:scenario label="U. therapeutic medication response extension only when it has a value (RT-B16)">
+        <x:context href="../../integration-tests/documents/testMedTime.xml" />
+        <x:expect label="U1. no extension anywhere is without a value or child extension" test="empty(//fhir:extension[not(fhir:*)])" />
+        <x:expect label="U2. a response with no value gives no extension" test="exists(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-FIRST']) and empty(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-FIRST']/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension'])" />
+        <x:expect label="U3. control: a coded response is still carried"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-LAST']/fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension']/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '268910001'" />
+        <x:expect label="U4. every extension of this kind has a valueCodeableConcept with content"
+            test="every $e in //fhir:extension[@url = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension'] satisfies exists($e/fhir:valueCodeableConcept/fhir:*)" />
+    </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C4): a dose or rate quantity whose unit is on
+         the transform's list of known UCUM units ($gvKnownUcumUnits in cda-to-fhir-datatypes.xslt) also gets
+         Quantity.system http://unitsofmeasure.org and Quantity.code. Any other unit is carried exactly as
+         before: value and unit text only. -->
+    <x:scenario label="V. UCUM system and code on dose and rate quantities with a known unit (RT-C4)">
+        <x:context href="../../integration-tests/documents/testMedTime.xml" />
+        <x:expect label="V1. dose in mg: system and code"
+            test="exists(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-LAST']/fhir:dosage/fhir:dose[fhir:value/@value = '81'][fhir:unit/@value = 'mg'][fhir:system/@value = 'http://unitsofmeasure.org'][fhir:code/@value = 'mg'])" />
+        <x:expect label="V2. rate in mg/h: system and code"
+            test="exists(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-LAST']/fhir:dosage/fhir:rateQuantity[fhir:unit/@value = 'mg/h'][fhir:system/@value = 'http://unitsofmeasure.org'][fhir:code/@value = 'mg/h'])" />
+        <x:expect label="V3. the UCUM annotation {capsule} is on the list" test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-ADM-FREQ-FIRST']/fhir:dosage/fhir:dose[fhir:system/@value = 'http://unitsofmeasure.org']/fhir:code/@value = '{capsule}'" />
+        <x:expect label="V4. control: 'Unknown' is carried as unit text only"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-EVENT-FIRST']/fhir:dosage/fhir:dose/fhir:unit/@value = 'Unknown' and empty(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-EVENT-FIRST']/fhir:dosage/fhir:dose/(fhir:system | fhir:code))" />
+        <x:expect label="V5. control: 'capsule' without braces is carried as unit text only"
+            test="//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-VALUE-ONLY']/fhir:dosage/fhir:dose/fhir:unit/@value = 'capsule' and empty(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-VALUE-ONLY']/fhir:dosage/fhir:dose/(fhir:system | fhir:code))" />
+        <x:expect label="V6. element order inside the quantity: value, unit, system, code"
+            test="string-join(//fhir:MedicationAdministration[fhir:identifier/fhir:value/@value = 'MT-FREQ-LAST']/fhir:dosage/fhir:dose/fhir:*/local-name(), ' ') = 'value unit system code'" />
+    </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C5): a Medication carried code and form only.
+         manufacturerOrganization now becomes an Organization referenced from Medication.manufacturer and
+         lotNumberText goes to Medication.batch.lotNumber, as Immunization already did. A Drug Vehicle participant
+         (typeCode CSM) used to be written to Medication.form, which it is not, and two vehicles gave two form
+         elements (max 1); each vehicle is now a Medication.ingredient. Whole-pipeline test on testMed.xml. -->
+    <x:scenario label="W. Medication manufacturer, lot number and drug vehicle (RT-C5)">
+        <x:context href="../../integration-tests/documents/testMed.xml" />
+        <x:expect label="W1. manufacturer references an Organization entry named Acme Pharma"
+            test="//fhir:entry[fhir:fullUrl/@value = //fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:manufacturer/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Acme Pharma'" />
+        <x:expect label="W2. lot number" test="//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:batch/fhir:lotNumber/@value = 'LOT42'" />
+        <x:expect label="W3. a coded vehicle is an ingredient with the code"
+            test="//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:ingredient[1]/fhir:itemCodeableConcept/fhir:coding[fhir:system/@value = 'http://www.nlm.nih.gov/research/umls/rxnorm']/fhir:code/@value = '9863'" />
+        <x:expect label="W4. a vehicle with a null-flavored code is an ingredient with the name as text"
+            test="count(//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:ingredient) = 2 and //fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:ingredient[2]/fhir:itemCodeableConcept/fhir:text/@value = 'House diluent' and empty(//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:ingredient[2]/fhir:itemCodeableConcept/fhir:coding)" />
+        <x:expect label="W5. no Medication has form" test="exists(//fhir:Medication) and empty(//fhir:Medication/fhir:form)" />
+        <x:expect label="W6. element order: code, manufacturer, ingredient, batch"
+            test="string-join(distinct-values(//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '1191']/fhir:*[not(self::fhir:meta)]/local-name()), ' ') = 'code manufacturer ingredient batch'" />
+        <x:expect label="W7. control: null-flavored lot number and manufacturer give nothing"
+            test="exists(//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '161']) and empty(//fhir:Medication[fhir:code/fhir:coding/fhir:code/@value = '161']/(fhir:manufacturer | fhir:batch | fhir:ingredient))" />
+        <x:expect label="W8. every reference in the bundle resolves" test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies exists(//fhir:entry[fhir:fullUrl/@value = $r])" />
+    </x:scenario>
 </x:description>

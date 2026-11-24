@@ -40,6 +40,20 @@
         <x:expect label="5. every instant in the bundle is a full instant"
             test="every $v in (//fhir:timestamp | //fhir:issued | //fhir:recorded | //fhir:when)/@value satisfies matches($v, '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})$')" />
     </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C13): the Result Organizer copied its
+         first author's time to Observation.issued but the Result Observation did not, so a result-level author
+         time survived only as Provenance.recorded. The Result Observation now does the same, under the same
+         rule (only when the time has a time of day). Authors are still not used as Observation.performer. -->
+    <x:scenario label="Result Observation author time to issued (RT-C13)">
+        <x:context href="../../integration-tests/documents/testDate.xml" />
+        <x:expect label="1. a result author time with a time of day gives issued"
+            test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-RESULT-2']/fhir:issued/@value = '2026-07-26T13:00:00+10:00'" />
+        <x:expect label="2. issued comes before value" test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-RESULT-2']/fhir:issued/following-sibling::fhir:valueQuantity)" />
+        <x:expect label="3. control: a date-only result author time gives no issued" test="exists(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-RESULT-1']) and empty(//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-RESULT-1']/fhir:issued)" />
+        <x:expect label="4. control: the panel keeps its own author time" test="//fhir:Observation[fhir:identifier/fhir:value/@value = 'DT-PANEL-TIME']/fhir:issued/@value = '2026-07-26T14:15:00+10:00'" />
+        <x:expect label="5. control: the author is not a performer" test="empty(//fhir:Observation[fhir:identifier/fhir:value/@value = ('DT-RESULT-1', 'DT-RESULT-2')]/fhir:performer)" />
+        <x:expect label="6. the author time is still on a Provenance" test="//fhir:Provenance/fhir:recorded/@value = '2026-07-26T13:00:00+10:00'" />
+    </x:scenario>
     <x:scenario label="control: a document time with a time of day is unchanged (RT-A2)">
         <x:context href="../../integration-tests/documents/test-cda.xml" />
         <x:expect label="1. Bundle.timestamp keeps the document's time and offset" test="/fhir:Bundle/fhir:timestamp/@value = '2026-07-27T10:30:00+10:00'" />

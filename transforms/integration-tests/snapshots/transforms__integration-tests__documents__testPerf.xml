@@ -1010,6 +1010,8 @@
                <dose>
                   <value value="81"/>
                   <unit value="mg"/>
+                  <system value="http://unitsofmeasure.org"/>
+                  <code value="mg"/>
                </dose>
             </dosage>
          </MedicationAdministration>
@@ -1064,6 +1066,8 @@
                <dose>
                   <value value="81"/>
                   <unit value="mg"/>
+                  <system value="http://unitsofmeasure.org"/>
+                  <code value="mg"/>
                </dose>
             </dosage>
          </MedicationAdministration>

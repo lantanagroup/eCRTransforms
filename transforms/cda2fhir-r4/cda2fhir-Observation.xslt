@@ -451,6 +451,14 @@
       <xsl:apply-templates select="cda:effectiveTime">
         <xsl:with-param name="pStartElementName" select="'effective'" />
       </xsl:apply-templates>
+      <!-- issued: author -->
+      <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C13): the observation's own first
+           author time, as the Result Organizer template does, and under the same RT-A2 rule (only when
+           the time has a time of day). The author is not used as performer: the author is whoever
+           recorded the result, which is not necessarily who performed it. -->
+      <xsl:if test="cda:author[1]/cda:time/@value and contains(lcg:cdaTS2date(cda:author[1]/cda:time/@value), 'T')">
+        <issued value="{lcg:cdaTS2date(cda:author[1]/cda:time/@value)}" />
+      </xsl:if>
       <!-- performers (multiple) -->
       <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
         <xsl:apply-templates select="." mode="rename-reference-participant">
@@ -654,9 +662,13 @@
         <xsl:with-param name="pElementName">code</xsl:with-param>
       </xsl:apply-templates>
       <xsl:call-template name="subject-reference" />
+      <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C18): focus referenced the
+           caregiver participantRole, for which no resource was ever created (dangling reference). The
+           caregiver participant is now a RelatedPerson (cda2fhir-RelatedPerson.xslt), whose bundle
+           entry sits at the participant's uuid, so that is what focus references. -->
       <xsl:for-each select="$caregiver">
         <focus>
-          <xsl:apply-templates select="cda:participantRole" mode="reference" />
+          <reference value="urn:uuid:{@lcg:uuid}" />
         </focus>
       </xsl:for-each>
       <xsl:apply-templates select="cda:effectiveTime">
@@ -984,7 +996,8 @@
       </xsl:apply-templates>
 
       <!-- The entryRelationships (other than Pregnancy Outcome) -->
-      <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280']]" />
+      <!-- 20261125 Claude (RT-B15): 15.3.1 is the older Estimated Date of Delivery template -->
+      <xsl:apply-templates select="cda:entryRelationship/cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297' or @root = '2.16.840.1.113883.10.20.22.4.280' or @root = '2.16.840.1.113883.10.20.15.3.1']]" />
     </Observation>
   </xsl:template>
 
@@ -1002,7 +1015,20 @@
     </component>
   </xsl:template>
 
-  <xsl:template match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297']]">
+  <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-B15): the older Estimated Date of Delivery
+       template 2.16.840.1.113883.10.20.15.3.1 (C-CDA R1.1, still an optional child of Pregnancy Observation
+       15.3.8 in eICR STU 3.1.1) fell to the generic observation mapping: a separate base Observation that
+       nothing linked to the pregnancy. As a child of a pregnancy observation it is now mapped exactly like
+       22.4.297: one Estimated Date of Delivery component. Its bundle entry is switched off for that position
+       only (template below), so a 15.3.1 observation found anywhere else is still a standalone Observation and
+       its date is not dropped. That is why the root is NOT in templates-to-suppress.xml, which is unconditional. -->
+  <xsl:template
+    match="cda:observation[cda:templateId/@root = ('2.16.840.1.113883.10.20.15.3.8', '2.16.840.1.113883.10.20.22.4.293')]/cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.3.1']"
+    mode="bundle-entry" priority="5" />
+
+  <xsl:template
+    match="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.297']] | cda:observation[cda:templateId/@root = ('2.16.840.1.113883.10.20.15.3.8', '2.16.840.1.113883.10.20.22.4.293')]/cda:entryRelationship/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.15.3.1']"
+    priority="5">
     <component>
       <xsl:call-template name="comment-subprofile-name" />
       <!-- This is the extension for date determined -->
@@ -1429,6 +1455,24 @@
     <Observation>
       <xsl:call-template name="add-meta" />
       <xsl:apply-templates select="cda:participant[@typeCode = 'IND']" mode="extension" />
+      <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-B20): carry the CDA statusCode
+           in the profile's odh-isCurrentJob-extension. active = the current job (true), completed =
+           a past job (false); any other status, or a null-flavored one, gives no extension.
+           Observation.status below stays final: it is the status of the record, not of the job.
+           The effectiveTime is deliberately not used to decide this: only the statusCode says
+           whether the job is current. -->
+      <xsl:choose>
+        <xsl:when test="cda:statusCode/@code = 'active'">
+          <extension url="http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension">
+            <valueBoolean value="true" />
+          </extension>
+        </xsl:when>
+        <xsl:when test="cda:statusCode/@code = 'completed'">
+          <extension url="http://hl7.org/fhir/us/odh/StructureDefinition/odh-isCurrentJob-extension">
+            <valueBoolean value="false" />
+          </extension>
+        </xsl:when>
+      </xsl:choose>
       <xsl:apply-templates select="cda:id" />
       <status value="final" />
       <xsl:apply-templates select="cda:code">

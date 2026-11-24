@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 160-->
+<!--Element count: 258-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="eICR-bundle-GENID"/>
    <meta>
@@ -140,7 +140,7 @@
                   <value value="doc1"/>
                </targetIdentifier>
             </relatesTo>
-            <section>
+            <section id="section-1">
                <title value="Family History"/>
                <code>
                   <coding>
@@ -148,16 +148,19 @@
                      <code value="10157-6"/>
                   </coding>
                </code>
+               <author>
+                  <reference value="urn:uuid:UUID007"/>
+               </author>
                <text>
                   <status value="additional"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">Mother: hypertension</div>
                </text>
                <!--2.16.840.1.113883.10.20.22.4.45:2015-08-01-->
                <entry>
-                  <reference value="urn:uuid:UUID007"/>
+                  <reference value="urn:uuid:UUID008"/>
                </entry>
             </section>
-            <section>
+            <section id="section-2">
                <title value="Hospital Course"/>
                <code>
                   <coding>
@@ -165,6 +168,9 @@
                      <code value="8648-8"/>
                   </coding>
                </code>
+               <author>
+                  <reference value="urn:uuid:UUID009"/>
+               </author>
                <text>
                   <status value="additional"/>
                   <div xmlns="http://www.w3.org/1999/xhtml">
@@ -179,15 +185,31 @@
                </text>
                <!--2.16.840.1.113883.10.20.22.4.16:2014-06-09-->
                <entry>
-                  <reference value="urn:uuid:UUID008"/>
+                  <reference value="urn:uuid:UUID010"/>
                </entry>
                <!--2.16.840.1.113883.10.20.22.4.16:2014-06-09-->
                <entry>
-                  <reference value="urn:uuid:UUID009"/>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.42:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID012"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.42:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID013"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.42:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID014"/>
                </entry>
                <!--2.16.840.1.113883.10.20.22.4.18:2014-06-09-->
                <entry>
-                  <reference value="urn:uuid:UUID010"/>
+                  <reference value="urn:uuid:UUID015"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.18:2014-06-09-->
+               <entry>
+                  <reference value="urn:uuid:UUID016"/>
                </entry>
             </section>
             <section>
@@ -246,7 +268,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID011"/>
+                  <reference value="urn:uuid:UUID017"/>
                </entry>
             </section>
             <section>
@@ -263,7 +285,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID012"/>
+                  <reference value="urn:uuid:UUID018"/>
                </entry>
             </section>
             <section>
@@ -388,13 +410,13 @@
                </language>
             </communication>
             <managingOrganization>
-               <reference value="urn:uuid:UUID013"/>
+               <reference value="urn:uuid:UUID019"/>
             </managingOrganization>
          </Patient>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID013"/>
+      <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <Organization>
             <meta>
@@ -420,7 +442,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID014"/>
+      <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Patient>
             <text>
@@ -443,7 +465,7 @@
             <birthDate value="1955-03-15"/>
             <link>
                <other>
-                  <reference value="urn:uuid:UUID015"/>
+                  <reference value="urn:uuid:UUID021"/>
                </other>
                <type value="seealso"/>
             </link>
@@ -451,7 +473,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID015"/>
+      <fullUrl value="urn:uuid:UUID021"/>
       <resource>
          <RelatedPerson>
             <identifier>
@@ -517,17 +539,17 @@
             </period>
             <location>
                <location>
-                  <reference value="urn:uuid:UUID016"/>
+                  <reference value="urn:uuid:UUID022"/>
                </location>
             </location>
             <serviceProvider>
-               <reference value="urn:uuid:UUID017"/>
+               <reference value="urn:uuid:UUID023"/>
             </serviceProvider>
          </Encounter>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID016"/>
+      <fullUrl value="urn:uuid:UUID022"/>
       <resource>
          <Location>
             <meta>
@@ -553,13 +575,13 @@
                <postalCode value="02101"/>
             </address>
             <managingOrganization>
-               <reference value="urn:uuid:UUID017"/>
+               <reference value="urn:uuid:UUID023"/>
             </managingOrganization>
          </Location>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID017"/>
+      <fullUrl value="urn:uuid:UUID023"/>
       <resource>
          <Organization>
             <meta>
@@ -594,7 +616,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID018"/>
+               <reference value="urn:uuid:UUID024"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -608,7 +630,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID018"/>
+      <fullUrl value="urn:uuid:UUID024"/>
       <resource>
          <Practitioner>
             <meta>
@@ -652,7 +674,89 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID019"/>
+      <fullUrl value="urn:uuid:UUID007"/>
+      <resource>
+         <PractitionerRole>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="1.2.3.4"][@extension="doc1"]]/component/structuredBody/component/section/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="3333333333"]]-->
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="3333333333"/>
+            </identifier>
+            <practitioner>
+               <reference value="urn:uuid:UUID025"/>
+            </practitioner>
+            <telecom>
+               <system value="other"/>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </value>
+            </telecom>
+         </PractitionerRole>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID025"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <identifier>
+               <system value="http://hl7.org/fhir/sid/us-npi"/>
+               <value value="3333333333"/>
+            </identifier>
+            <name>
+               <family value="Author"/>
+               <given value="Sec"/>
+            </name>
+         </Practitioner>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </system>
+               <value>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="not-applicable"/>
+                  </extension>
+               </value>
+            </identifier>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="AUGMENT"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Augmenting Org"/>
+            <telecom>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </telecom>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID026"/>
       <resource>
          <Provenance>
             <target>
@@ -674,7 +778,57 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID020"/>
+      <fullUrl value="urn:uuid:UUID027"/>
+      <resource>
+         <Provenance>
+            <target>
+               <extension url="http://hl7.org/fhir/StructureDefinition/targetElement">
+                  <valueUri value="section-1"/>
+               </extension>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-07-26T09:00:00+10:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID007"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID028"/>
+      <resource>
+         <Provenance>
+            <target>
+               <extension url="http://hl7.org/fhir/StructureDefinition/targetElement">
+                  <valueUri value="section-2"/>
+               </extension>
+               <reference value="urn:uuid:UUID001"/>
+            </target>
+            <recorded value="2026-07-27T10:30:00+10:00"/>
+            <agent>
+               <type>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/provenance-participant-type"/>
+                     <code value="author"/>
+                  </coding>
+               </type>
+               <who>
+                  <reference value="urn:uuid:UUID009"/>
+               </who>
+            </agent>
+         </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID029"/>
       <resource>
          <Provenance>
             <target>
@@ -690,7 +844,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID011"/>
+      <fullUrl value="urn:uuid:UUID017"/>
       <resource>
          <Condition>
             <meta>
@@ -714,7 +868,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID012"/>
+      <fullUrl value="urn:uuid:UUID018"/>
       <resource>
          <Observation>
             <meta>
@@ -754,7 +908,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID007"/>
+      <fullUrl value="urn:uuid:UUID008"/>
       <resource>
          <FamilyMemberHistory><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:2.16.840.1.113883.10.20.22.4.45:2015-08-01-->
@@ -790,7 +944,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID008"/>
+      <fullUrl value="urn:uuid:UUID010"/>
       <resource>
          <MedicationAdministration>
             <meta>
@@ -803,7 +957,7 @@
             </identifier>
             <status value="completed"/>
             <medicationReference>
-               <reference value="urn:uuid:UUID021"/>
+               <reference value="urn:uuid:UUID030"/>
             </medicationReference>
             <subject>
                <reference value="urn:uuid:UUID003"/>
@@ -823,17 +977,21 @@
                <dose>
                   <value value="81"/>
                   <unit value="mg"/>
+                  <system value="http://unitsofmeasure.org"/>
+                  <code value="mg"/>
                </dose>
                <rateQuantity>
                   <value value="1"/>
                   <unit value="mg/h"/>
+                  <system value="http://unitsofmeasure.org"/>
+                  <code value="mg/h"/>
                </rateQuantity>
             </dosage>
          </MedicationAdministration>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID021"/>
+      <fullUrl value="urn:uuid:UUID030"/>
       <resource>
          <Medication>
             <meta>
@@ -846,11 +1004,56 @@
                   <display value="aspirin"/>
                </coding>
             </code>
+            <manufacturer>
+               <reference value="urn:uuid:UUID031"/>
+            </manufacturer>
+            <ingredient>
+               <itemCodeableConcept>
+                  <coding>
+                     <system value="http://www.nlm.nih.gov/research/umls/rxnorm"/>
+                     <code value="9863"/>
+                  </coding>
+               </itemCodeableConcept>
+            </ingredient>
+            <ingredient>
+               <itemCodeableConcept>
+                  <text value="House diluent"/>
+               </itemCodeableConcept>
+            </ingredient>
+            <batch>
+               <lotNumber value="LOT42"/>
+            </batch>
          </Medication>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID009"/>
+      <fullUrl value="urn:uuid:UUID031"/>
+      <resource>
+         <Organization>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="ACME"/>
+            </identifier>
+            <active value="true"/>
+            <name value="Acme Pharma"/>
+            <telecom>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </telecom>
+            <address>
+               <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                  <valueCode value="unknown"/>
+               </extension>
+            </address>
+         </Organization>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
       <resource>
          <MedicationRequest>
             <meta>
@@ -863,14 +1066,14 @@
             <status value="active"/>
             <intent value="plan"/>
             <medicationReference>
-               <reference value="urn:uuid:UUID022"/>
+               <reference value="urn:uuid:UUID032"/>
             </medicationReference>
             <subject>
                <reference value="urn:uuid:UUID003"/>
             </subject>
             <authoredOn value="2026-07-27T10:30:00+10:00"/>
             <requester>
-               <reference value="urn:uuid:UUID005"/>
+               <reference value="urn:uuid:UUID009"/>
             </requester>
             <dosageInstruction>
                <timing>
@@ -901,7 +1104,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID022"/>
+      <fullUrl value="urn:uuid:UUID032"/>
       <resource>
          <Medication>
             <meta>
@@ -918,7 +1121,209 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID010"/>
+      <fullUrl value="urn:uuid:UUID012"/>
+      <resource>
+         <MedicationRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="PLAN-RQO"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="order"/>
+            <medicationReference>
+               <reference value="urn:uuid:UUID033"/>
+            </medicationReference>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <supportingInformation>
+               <reference value="urn:uuid:UUID016"/>
+            </supportingInformation>
+            <authoredOn value="2026-07-27T10:30:00+10:00"/>
+            <requester>
+               <reference value="urn:uuid:UUID009"/>
+            </requester>
+            <dosageInstruction>
+               <timing>
+                  <repeat>
+                     <boundsPeriod>
+                        <start value="2026-07-26"/>
+                     </boundsPeriod>
+                  </repeat>
+               </timing>
+            </dosageInstruction>
+            <dispenseRequest>
+               <numberOfRepeatsAllowed value="3"/>
+               <quantity>
+                  <value value="40"/>
+               </quantity>
+            </dispenseRequest>
+         </MedicationRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID033"/>
+      <resource>
+         <Medication>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"/>
+            </meta>
+            <code>
+               <coding>
+                  <system value="http://www.nlm.nih.gov/research/umls/rxnorm"/>
+                  <code value="161"/>
+                  <display value="acetaminophen"/>
+               </coding>
+            </code>
+         </Medication>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID016"/>
+      <resource>
+         <MedicationDispense><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.18:2014-06-09-->
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="DISPENSED-RQO"/>
+            </identifier>
+            <status value="completed"/>
+            <medicationReference>
+               <reference value="urn:uuid:UUID033"/>
+            </medicationReference>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <authorizingPrescription><!--2.16.840.1.113883.10.20.22.4.42:2014-06-09-->
+               <reference value="urn:uuid:UUID012"/>
+            </authorizingPrescription>
+            <quantity>
+               <value value="20"/>
+            </quantity>
+         </MedicationDispense>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID013"/>
+      <resource>
+         <MedicationRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="PLAN-PRMS"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="plan"/>
+            <medicationReference>
+               <reference value="urn:uuid:UUID034"/>
+            </medicationReference>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <authoredOn value="2026-07-27T10:30:00+10:00"/>
+            <requester>
+               <reference value="urn:uuid:UUID009"/>
+            </requester>
+            <dosageInstruction>
+               <timing>
+                  <repeat>
+                     <boundsPeriod>
+                        <start value="2026-07-26"/>
+                     </boundsPeriod>
+                  </repeat>
+               </timing>
+            </dosageInstruction>
+            <dispenseRequest>
+               <numberOfRepeatsAllowed value="4"/>
+               <quantity>
+                  <value value="50"/>
+               </quantity>
+            </dispenseRequest>
+         </MedicationRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID034"/>
+      <resource>
+         <Medication>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"/>
+            </meta>
+            <code>
+               <coding>
+                  <system value="http://www.nlm.nih.gov/research/umls/rxnorm"/>
+                  <code value="161"/>
+                  <display value="acetaminophen"/>
+               </coding>
+            </code>
+         </Medication>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID014"/>
+      <resource>
+         <MedicationRequest>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="PLAN-PRP"/>
+            </identifier>
+            <status value="active"/>
+            <intent value="proposal"/>
+            <medicationReference>
+               <reference value="urn:uuid:UUID035"/>
+            </medicationReference>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <authoredOn value="2026-07-27T10:30:00+10:00"/>
+            <requester>
+               <reference value="urn:uuid:UUID009"/>
+            </requester>
+            <dosageInstruction>
+               <timing>
+                  <repeat>
+                     <boundsPeriod>
+                        <start value="2026-07-26"/>
+                     </boundsPeriod>
+                  </repeat>
+               </timing>
+            </dosageInstruction>
+            <dispenseRequest>
+               <numberOfRepeatsAllowed value="5"/>
+               <quantity>
+                  <value value="60"/>
+               </quantity>
+            </dispenseRequest>
+         </MedicationRequest>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID035"/>
+      <resource>
+         <Medication>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication"/>
+            </meta>
+            <code>
+               <coding>
+                  <system value="http://www.nlm.nih.gov/research/umls/rxnorm"/>
+                  <code value="161"/>
+                  <display value="acetaminophen"/>
+               </coding>
+            </code>
+         </Medication>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID015"/>
       <resource>
          <MedicationDispense><!--WARNING: No profiles found for any of the following templates:
                         urn:hl7ii:2.16.840.1.113883.10.20.22.4.18:2014-06-09-->
@@ -928,7 +1333,7 @@
             </identifier>
             <status value="in-progress"/>
             <medicationReference>
-               <reference value="urn:uuid:UUID023"/>
+               <reference value="urn:uuid:UUID036"/>
             </medicationReference>
             <subject>
                <reference value="urn:uuid:UUID003"/>
@@ -941,7 +1346,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID023"/>
+      <fullUrl value="urn:uuid:UUID036"/>
       <resource>
          <Medication>
             <meta>

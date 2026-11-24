@@ -82,6 +82,20 @@
 
     <!-- don't create reference -->
     <xsl:template match="cda:entryRelationship" mode="entry-extension"/>
+
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C15): do not collect the trigger code
+         flags of a Result Organizer's component observations onto the organizer's own section entry. A
+         triggering Result Observation now has a section entry of its own, with its flags, written by the
+         section template in cda2fhir-Composition.xslt. Only components holding a Result Observation
+         (22.4.2) of a Result Organizer (22.4.1) are stopped here, and only in an eICR, which is exactly
+         the set that gets its own entry; anything else is collected as before. -->
+    <xsl:template
+        match="cda:organizer[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.1']/cda:component[cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.2'][not(@nullFlavor)]]"
+        mode="entry-extension">
+        <xsl:if test="not($gvCurrentIg = 'eICR')">
+            <xsl:apply-templates mode="entry-extension" />
+        </xsl:if>
+    </xsl:template>
         
     
     <xsl:template match="cda:statusCode" priority="-1">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 130-->
+<!--Element count: 143-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="eICR-bundle-GENID"/>
    <meta>
@@ -384,6 +384,36 @@
                <state value="MA"/>
                <postalCode value="02101"/>
             </address>
+            <contact>
+               <relationship>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass"/>
+                     <code value="GUARD"/>
+                  </coding>
+                  <coding>
+                     <system value="http://terminology.hl7.org/CodeSystem/v3-RoleCode"/>
+                     <code value="MTH"/>
+                     <display value="mother"/>
+                  </coding>
+               </relationship>
+               <name>
+                  <family value="Rdian"/>
+                  <given value="Gua"/>
+               </name>
+               <telecom>
+                  <system value="phone"/>
+                  <value value="+1-555-555-0100"/>
+                  <use value="home"/>
+               </telecom>
+               <address>
+                  <use value="home"/>
+                  <line value="1 Main St"/>
+                  <city value="Springfield"/>
+                  <state value="IL"/>
+                  <postalCode value="61707"/>
+                  <country value="US"/>
+               </address>
+            </contact>
             <communication>
                <language>
                   <coding>

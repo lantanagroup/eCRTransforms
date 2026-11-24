@@ -399,9 +399,23 @@
        low/high boundary and reuses this template via the dispatcher's new PIVL branch -->
   <xsl:template match="cda:effectiveTime[@value or cda:low or cda:high] | cda:time[@value or cda:low or cda:high] | cda:phase[@value or cda:low or cda:high]" mode="period">
     <xsl:param name="pElementName">period</xsl:param>
-    <xsl:element name="{$pElementName}">
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C20): never write a Period with nothing
+         in it (an element needs a value or children). The known shape that did so, a lone null-flavored
+         high, is now handled in effectiveTimeInner; this guard covers any shape that is still not handled. -->
+    <xsl:variable name="vInner">
       <xsl:call-template name="effectiveTimeInner" />
-    </xsl:element>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$vInner/*">
+        <xsl:element name="{$pElementName}">
+          <xsl:copy-of select="$vInner/node()" />
+        </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:copy-of select="$vInner/comment()" />
+        <xsl:comment>WARNING: <xsl:value-of select="$pElementName" /> not written: the CDA <xsl:value-of select="local-name()" /> has no start or end that can be carried</xsl:comment>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   <xsl:template match="cda:effectiveTime | cda:time" mode="timingPeriod">
     <timingPeriod>
@@ -528,8 +542,17 @@
       <start>
         <xsl:apply-templates select="cda:low/@nullFlavor" mode="data-absent-reason-extension" />
       </start>
+      <!-- 20261125 Claude (RT-C20): the end carries the high's own nullFlavor (it reused the low's) -->
       <end>
-        <xsl:apply-templates select="cda:low/@nullFlavor" mode="data-absent-reason-extension" />
+        <xsl:apply-templates select="cda:high/@nullFlavor" mode="data-absent-reason-extension" />
+      </end>
+    </xsl:if>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C20): only a null-flavored high (no low at
+         all) matched no branch and left the Period empty. The end now carries a data-absent-reason, as a
+         null-flavored low on its own already does for start (next branch). -->
+    <xsl:if test="not(@value) and not(cda:low) and cda:high/@nullFlavor and not(cda:high/@value)">
+      <end>
+        <xsl:apply-templates select="cda:high/@nullFlavor" mode="data-absent-reason-extension" />
       </end>
     </xsl:if>
     <xsl:if test="not(@value) and cda:low/@nullFlavor and not(cda:high)">
@@ -599,6 +622,14 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+  <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C4): units of dose and rate quantities
+       that are known to be valid UCUM. A doseQuantity / rateQuantity whose @unit is on this list also gets
+       Quantity.system http://unitsofmeasure.org and Quantity.code, so the quantity is computable. Any other
+       unit (real documents carry "Unknown", "capsule", "ml" ...) is written exactly as before, as unit text
+       only, because asserting UCUM for it would be untrue and would fail validation. The list is the UCUM
+       units found in the sample corpus; add to it only units that are valid UCUM, case-sensitively. -->
+  <xsl:variable name="gvKnownUcumUnits" as="xs:string*"
+    select="('mg', 'g', 'mL', 'ug', 'mg/h', 'mU/min', 'U', '1', '10^6.U', '{capsule}')" />
   <!-- TEMPLATE: doseQuantity -->
   <xsl:template match="cda:doseQuantity | cda:rateQuantity">
     <!-- RG: Refactoring note - Look for use of this template, and see if we can refactor the whole Dosage datatype out of the resources and into this file -->
@@ -633,6 +664,11 @@
         </xsl:if>
         <xsl:if test="@unit">
           <unit value="{@unit}" />
+        </xsl:if>
+        <!-- RT-C4: system and code for a known UCUM unit (see $gvKnownUcumUnits above) -->
+        <xsl:if test="@value and not(@nullFlavor) and @unit = $gvKnownUcumUnits">
+          <system value="http://unitsofmeasure.org" />
+          <code value="{@unit}" />
         </xsl:if>
         <!-- A simple quantity doesn't allow a nullFlavor but we won't be in here if that param was true()-->
         <xsl:if test="@nullFlavor">

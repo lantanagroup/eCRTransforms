@@ -3,7 +3,9 @@
      CONF:81-10127 SHALL be precise to the day, 81-10128 only SHOULD be precise to the minute). FHIR instants
      need a full date, time and offset: Bundle.timestamp is padded to midnight UTC, Observation.issued is not
      emitted when only a date is known (DT-GENERIC from the document time, DT-PANEL-DATE from its author time);
-     DT-PANEL-TIME keeps issued because its author time has a time of day. -->
+     DT-PANEL-TIME keeps issued because its author time has a time of day.
+     20261125 Claude (RT-C13): a Result Observation's own author time gives issued in the same way:
+     DT-RESULT-1 (date only) gets none, DT-RESULT-2 (time of day) gets 2026-07-26T13:00:00+10:00. -->
 <ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <realmCode code="US"/>
   <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
@@ -117,6 +119,7 @@
                   <statusCode code="completed"/>
                   <effectiveTime value="20260726"/>
                   <value xsi:type="PQ" value="13.2" unit="g/dL"/>
+                  <author><time value="20260725"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="1111111111"/></assignedAuthor></author>
                 </observation>
               </component>
             </organizer>
@@ -137,6 +140,7 @@
                   <statusCode code="completed"/>
                   <effectiveTime value="20260726"/>
                   <value xsi:type="PQ" value="13.4" unit="g/dL"/>
+                  <author><time value="202607261300+1000"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="1111111111"/></assignedAuthor></author>
                 </observation>
               </component>
             </organizer>

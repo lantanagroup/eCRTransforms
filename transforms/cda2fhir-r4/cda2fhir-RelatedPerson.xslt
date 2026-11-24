@@ -47,6 +47,50 @@
     <!-- 20261124 Claude (re-trace finding RT-A13): priority="1". This match tied with the generic
          cda:participant[cda:associatedEntity] in cda2fhir-PractitionerRole.xslt (XTDE0540 ambiguous rule
          match); it won only because of include order. -->
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C18): the caregiver participant of a C-CDA
+         Caregiver Characteristics observation (22.4.72) fell to the generic participant path, which builds a
+         PractitionerRole and only when the role holds an assignedPerson, associatedPerson or informationRecipient.
+         A participantRole cannot hold any of those, so nothing was created and Observation.focus dangled. A
+         caregiver is not a practitioner: it is now a RelatedPerson.
+           patient      = the patient the observation is about
+           relationship = v3-RoleClass CAREGIVER (the participantRole classCode), then participantRole/code
+                          when the sender gives one
+           name         = participantRole/playingEntity/name
+           telecom, address = participantRole/telecom, participantRole/addr
+           period       = participant/time
+         Only the classCode is required by the template, so a bare caregiver gives patient and relationship. -->
+    <xsl:template
+        match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.72']/cda:participant[@typeCode = 'IND'][cda:participantRole/@classCode = 'CAREGIVER']"
+        mode="bundle-entry" priority="5">
+        <xsl:call-template name="create-bundle-entry" />
+    </xsl:template>
+
+    <xsl:template
+        match="cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.72']/cda:participant[@typeCode = 'IND'][cda:participantRole/@classCode = 'CAREGIVER']"
+        priority="5">
+        <RelatedPerson>
+            <xsl:comment>cda:participant (CAREGIVER)</xsl:comment>
+            <xsl:apply-templates select="cda:participantRole/cda:id[not(@nullFlavor)]" />
+            <xsl:call-template name="subject-reference">
+                <xsl:with-param name="pElementName">patient</xsl:with-param>
+            </xsl:call-template>
+            <relationship>
+                <coding>
+                    <system value="http://terminology.hl7.org/CodeSystem/v3-RoleClass" />
+                    <code value="CAREGIVER" />
+                    <display value="caregiver" />
+                </coding>
+            </relationship>
+            <xsl:apply-templates select="cda:participantRole/cda:code[@code][not(@nullFlavor)]">
+                <xsl:with-param name="pElementName">relationship</xsl:with-param>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="cda:participantRole/cda:playingEntity/cda:name[not(@nullFlavor)]" />
+            <xsl:apply-templates select="cda:participantRole/cda:telecom[not(@nullFlavor)]" />
+            <xsl:apply-templates select="cda:participantRole/cda:addr[not(@nullFlavor)]" />
+            <xsl:apply-templates select="cda:time[@value or cda:low or cda:high]" mode="period" />
+        </RelatedPerson>
+    </xsl:template>
+
     <xsl:template match="cda:participant[cda:associatedEntity[@classCode = 'NOK']]" mode="bundle-entry" priority="1">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>

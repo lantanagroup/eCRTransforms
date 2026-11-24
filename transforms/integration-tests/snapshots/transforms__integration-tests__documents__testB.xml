@@ -652,7 +652,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99:2"/>
                </attachment>
             </content>
          </DocumentReference>
@@ -871,8 +870,12 @@
    <entry>
       <fullUrl value="urn:uuid:UUID009"/>
       <resource><!--ODH Past or Present Job-->
-         <Observation><!--WARNING: No profiles found for any of the following templates:
-                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2020-09-01--><!--ODH Employer Extension-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2020-09-01-->
+            </meta>
+            <!--ODH Employer Extension-->
             <extension url="http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension">
                <valueReference>
                   <reference value="urn:uuid:UUID022"/>

@@ -2354,7 +2354,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.6921.97:1"/>
                </attachment>
             </content>
          </DocumentReference>
@@ -3099,7 +3098,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID054"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3141,7 +3140,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID055"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3183,7 +3182,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID056"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3225,7 +3224,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID057"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3267,7 +3266,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID058"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3309,7 +3308,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID059"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3351,7 +3350,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID060"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3393,7 +3392,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID061"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3435,7 +3434,7 @@
             </doseQuantity>
             <performer>
                <actor>
-                  <reference value="urn:uuid:UUID062"/>
+                  <reference value="urn:uuid:UUID053"/>
                </actor>
             </performer>
          </Immunization>
@@ -3486,7 +3485,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
                <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.3.8-->
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
                <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
             </meta>
             <!--Pregnancy Status Recorded Date-->
@@ -3562,6 +3560,28 @@
                <text value="[Narrative removed during de-identification]"/>
             </note>
          </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID053"/>
+      <resource>
+         <Practitioner>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"/>
+            </meta>
+            <!--/ClinicalDocument[cda:id[@root="UUID002"]]/component/structuredBody/component/section/entry/substanceAdministration[cda:id[@root="2.16.840.1.113883.4.873"][@extension="getaf://xvnr-zsn.zngxnlwqdfyxy.eyc/n5/gs204d24-1z63-957u-aj25-t1eii0907962/Nkxebjtosrmr/I2528619057/_okjmdgz/6"]]/performer/assignedEntity[cda:id[@root="2.16.840.1.113883.4.873"][@extension="Esycbfczdxcx/8977263"]]-->
+            <identifier>
+               <system value="esycbfczdxcx"/>
+               <value value="8977263"/>
+            </identifier>
+            <name>
+               <family>
+                  <extension url="http://hl7.org/fhir/StructureDefinition/data-absent-reason">
+                     <valueCode value="unknown"/>
+                  </extension>
+               </family>
+            </name>
+         </Practitioner>
       </resource>
    </entry>
 </Bundle>

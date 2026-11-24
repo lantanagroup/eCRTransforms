@@ -3,10 +3,9 @@
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.131:2015-08-01" />
   <!-- Done: mapped -->
   <!-- Composition Resource Templates -->
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.1:2015-08-01" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/US-Realm-Header" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.1" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/US-Realm-Header" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.15:2015-08-01" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/Care-Plan-Document" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.1.2:2015-08-01" profileURI="http://hl7.org/fhir/us/ccda/StructureDefinition/Continuity-of-Care-Document" />
+  <!-- 20261124 Claude (SG decision 2026-11-24: "these transforms are only for eCR"): the four C-CDA on FHIR document
+       keys were removed (22.1.1:2015-08-01 and 22.1.1 US-Realm-Header, 22.1.15:2015-08-01 Care-Plan-Document,
+       22.1.2:2015-08-01 Continuity-of-Care-Document). -->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2016-12-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2:2019-04-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
   <!-- [eICR R2 STU3] Initial Public Health Case Report Document (eICR) (V4) -->
@@ -90,8 +89,14 @@
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.212:2017-11-30" profileURI="http://hl7.org/fhir/us/odh/StructureDefinition/odh-EmploymentStatus" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.221:2020-09-01" profileURI="http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2017-11-30" profileURI="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.141" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-CareCoordination" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.61:2015-08-01" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-Coverage" />
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B1): Past or Present Occupation Observation (V2),
+       the version eICR STU 3.1.1 requires (CONF:4480-311), had no key, so it got no meta.profile -->
+  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2020-09-01" profileURI="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob" />
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B9: "these transforms are only for eCR"): the four
+       Pharmacist Care Plan keys were removed (22.4.141 PhCP-CareCoordination, 22.4.61:2015-08-01 PhCP-Coverage,
+       37.3.11:2017-08-01 PhCP-MedicationDispense, 22.4.140 PhCP-ServiceRequest). PhCP is not a dependency of the
+       eCR IG and these stamped PhCP profiles on resources in eICR bundles. The resources are still created,
+       without meta.profile. -->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.40:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter" />
   <!-- MD: add mapping for eicr-encounter -->
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.2.22" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter" />
@@ -101,8 +106,6 @@
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.13:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.14:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.12:2014-06-09" profileURI="http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.37.3.11:2017-08-01" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-MedicationDispense" />
-  <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.22.4.140" profileURI="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-ServiceRequest" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.55" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion" />
   <map templateURI="urn:hl7ii:2.16.840.1.113883.10.20.15.2.3.55:2021-01-01" profileURI="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-vaccine-credential-patient-assertion" />
   <!-- MD Add  us-ph-tribal-affiliation-extension -->

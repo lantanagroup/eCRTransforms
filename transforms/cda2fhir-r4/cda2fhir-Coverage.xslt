@@ -37,21 +37,9 @@
 
     <xsl:template match="cda:act[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.61']]">
         <Coverage>
-            <xsl:choose>
-                <!-- MD: using hrex-coverage for tental data exchange IG -->
-                <xsl:when test="
-                        /cda:ClinicalDocument/cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.2' or
-                        /cda:ClinicalDocument/cda:templateId/@root = '2.16.840.1.113883.10.20.40.1.1.1'">
-                    <meta>
-                        <profile>
-                            <xsl:attribute name="value" select="'http://hl7.org/fhir/us/davinci-hrex/StructureDefinition/hrex-coverage'" />
-                        </profile>
-                    </meta>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="add-meta" />
-                </xsl:otherwise>
-            </xsl:choose>
+            <!-- 20261124 Claude (SG decision 2026-11-24: "these transforms are only for eCR"): removed the branch
+                 that hard-coded the Da Vinci hrex-coverage profile for Dental Data Exchange documents. -->
+            <xsl:call-template name="add-meta" />
             <xsl:apply-templates select="cda:id" />
             <!-- 20260729 Claude: Fix - status was hard-coded 'active'; now mapped from the Policy Activity statusCode
                  (C-CDA fixes it to 'completed', meaning the recording is complete, so completed/active -> active;

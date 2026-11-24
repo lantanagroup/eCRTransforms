@@ -19,6 +19,9 @@
     <xsl:apply-templates select="cda:author" mode="bundle-entry" />
     <xsl:apply-templates select="cda:informant" mode="bundle-entry" />
     <xsl:apply-templates select="cda:performer" mode="bundle-entry" />
+    <!-- 20261124 Claude (RT-C1): companion organization-only PractitionerRole for an organization-only
+         performer; see the performer note in the body templates below. Creates nothing for other shapes. -->
+    <xsl:apply-templates select="cda:performer" mode="org-practitionerrole-entry" />
 
     <xsl:for-each select="cda:author | cda:informant">
       <xsl:apply-templates select="." mode="provenance" />
@@ -81,11 +84,20 @@
         <xsl:with-param name="pStartElementName">effective</xsl:with-param>
       </xsl:apply-templates>-->
 
-      <xsl:for-each select="cda:performer">
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): was a fixed
+           reference to the assignedEntity's uuid, which dangles unless the performer has an assignedPerson.
+           MedicationAdministration.performer.actor cannot reference an Organization (Practitioner |
+           PractitionerRole | Patient | RelatedPerson | Device), so an organization-only performer is
+           referenced through the companion organization-only PractitionerRole, per the reference-target
+           policy (pPersonOnlyTargets; the companion is created by the bundle-entry template above, mode
+           org-practitionerrole-entry). An ids-only performer resolves to the participation matched by id
+           or to the identifier-only Practitioner. A hollow performer resolved to a device is omitted. -->
+      <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]][not(lcg:participation-target-kind(.) = 'device')]">
         <performer>
-          <actor>
-            <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
-          </actor>
+          <xsl:apply-templates select="." mode="rename-reference-participant">
+            <xsl:with-param name="pElementName">actor</xsl:with-param>
+            <xsl:with-param name="pPersonOnlyTargets" select="true()" />
+          </xsl:apply-templates>
         </performer>
       </xsl:for-each>
 
@@ -161,11 +173,20 @@
           </xsl:apply-templates>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:for-each select="cda:performer">
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): was a fixed
+           reference to the assignedEntity's uuid, which dangles unless the performer has an assignedPerson.
+           MedicationAdministration.performer.actor cannot reference an Organization (Practitioner |
+           PractitionerRole | Patient | RelatedPerson | Device), so an organization-only performer is
+           referenced through the companion organization-only PractitionerRole, per the reference-target
+           policy (pPersonOnlyTargets; the companion is created by the bundle-entry template above, mode
+           org-practitionerrole-entry). An ids-only performer resolves to the participation matched by id
+           or to the identifier-only Practitioner. A hollow performer resolved to a device is omitted. -->
+      <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]][not(lcg:participation-target-kind(.) = 'device')]">
         <performer>
-          <actor>
-            <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
-          </actor>
+          <xsl:apply-templates select="." mode="rename-reference-participant">
+            <xsl:with-param name="pElementName">actor</xsl:with-param>
+            <xsl:with-param name="pPersonOnlyTargets" select="true()" />
+          </xsl:apply-templates>
         </performer>
       </xsl:for-each>
 

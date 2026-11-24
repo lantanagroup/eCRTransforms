@@ -1821,7 +1821,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.6921.97:1"/>
                </attachment>
             </content>
          </DocumentReference>
@@ -2213,7 +2212,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
                <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.15.3.8-->
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"/>
                <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.293:2018-04-01-->
             </meta>
             <!--Pregnancy Status Recorded Date-->

@@ -465,9 +465,30 @@
         </xsl:apply-templates>
       </xsl:for-each>
       <!-- value -->
-      <xsl:apply-templates select="cda:value">
-        <xsl:with-param name="pVitalSign" select="cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.27'" />
-      </xsl:apply-templates>
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B17): two cases are now handled before the
+           value is handed to the datatype templates.
+           (1) A value that is ONLY a nullFlavor (no code, value, text or child content) becomes
+               Observation.dataAbsentReason, as the generic observation template already does. Before: a null
+               PQ or REAL gave nothing at all, leaving a lab Observation with neither value nor dataAbsentReason
+               (us-core-2); a null ST gave valueString holding the nullFlavor code ("UNK"); a null CD gave a
+               valueCodeableConcept whose coding held only a data-absent-reason. A null-flavored value that
+               still carries content (originalText, translation) goes to the datatype templates as before.
+           (2) A value with no xsi:type but with text becomes valueString. The source is invalid (a CDA value
+               needs a type), but the text used to fall through the built-in rules and land loose inside the
+               Observation element, which is not valid FHIR XML. -->
+      <xsl:choose>
+        <xsl:when test="cda:value[1][@nullFlavor][not(@code or @value or cda:* or normalize-space(.))]">
+          <xsl:apply-templates select="cda:value[1]/@nullFlavor" mode="data-absent-reason" />
+        </xsl:when>
+        <xsl:when test="cda:value[1][not(@xsi:type)][not(@nullFlavor)][not(cda:*)][normalize-space(.)]">
+          <valueString value="{normalize-space(cda:value[1])}" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="cda:value">
+            <xsl:with-param name="pVitalSign" select="cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.27'" />
+          </xsl:apply-templates>
+        </xsl:otherwise>
+      </xsl:choose>
       <!-- interpretation -->
       <xsl:apply-templates select="cda:interpretationCode" />
       <!-- note -->

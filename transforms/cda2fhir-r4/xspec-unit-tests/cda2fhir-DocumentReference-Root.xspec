@@ -33,8 +33,11 @@
         <x:expect label="Should produce a category" 
             test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:category) = 1" />
         <!-- Validate the Attachment element  -->
-        <x:expect label="Should produce a content.attachment with url: urn:hl7ii:2.16.840.1.113883.19.5.99999.19:1" 
-            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:content/fhir:attachment/fhir:url[@value='urn:hl7ii:2.16.840.1.113883.19.5.99999.19:1']) = 1" />
+<!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A3): was urn:hl7ii:{root}:1, the setId root
+             followed by the VERSION number. The hl7ii form is root:extension, so it is now the setId root and
+             setId/@extension (sTT988). -->
+                <x:expect label="Should produce a content.attachment with url: urn:hl7ii:2.16.840.1.113883.19.5.99999.19:sTT988" 
+            test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference']]/fhir:content/fhir:attachment/fhir:url[@value='urn:hl7ii:2.16.840.1.113883.19.5.99999.19:sTT988']) = 1" />
         
     </x:scenario>
     
@@ -69,5 +72,127 @@
         <x:expect label="Should produce 11 content.attachment" 
             test="count(//fhir:DocumentReference[fhir:meta/fhir:profile[@value='http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference']]/fhir:content/fhir:attachment) = 11" />
         
+    </x:scenario>
+
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A3): the DocumentReference built for
+         the CDA document itself, and the one for its XFRM parent document, carried an invented
+         attachment.url: urn:hl7ii:{setId root}:{versionNumber}. That dropped setId/@extension and put
+         the version where the extension belongs, so every document set under one assigning root got
+         the same url. There is no retrievable location, attachment.url is optional, and identifier /
+         masterIdentifier already carry setId, version and document id, so the url is now omitted.
+         NOT changed: the RR's reference to its eICR (externalDocument 15.2.3.10), which claims
+         us-core-documentreference and needs url or data (us-core-6). -->
+    <x:scenario label="U. no invented attachment.url on the document's own DocumentReference (RT-A3)">
+        <x:scenario label="U1. the current document">
+            <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+            <x:expect label="U1a. the superseded DocumentReference exists with a content.attachment.contentType" test="count(//fhir:DocumentReference[fhir:status/@value = 'superseded']/fhir:content/fhir:attachment/fhir:contentType) = 1" />
+            <x:expect label="U1b. it has no attachment.url" test="count(//fhir:DocumentReference[fhir:status/@value = 'superseded']/fhir:content/fhir:attachment/fhir:url) = 0" />
+            <x:expect label="U1c. control: its identifier still carries setId and version" test="exists(//fhir:DocumentReference[fhir:status/@value = 'superseded']/fhir:identifier/fhir:value/@value)" />
+        </x:scenario>
+        <x:scenario label="U2. an XFRM parent document">
+            <x:context select="//cda:relatedDocument">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000009a0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <id root="2.16.840.1.113883.19.5" extension="DOC-2" />
+                    <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                    <recordTarget lcg:uuid="00000000-0000-0000-0000-0000000009a1"><patientRole><id root="2.16.840.1.113883.19.5" extension="MRN-1" /></patientRole></recordTarget>
+                    <relatedDocument typeCode="XFRM" lcg:uuid="00000000-0000-0000-0000-0000000009a2">
+                        <parentDocument>
+                            <id root="2.16.840.1.113883.19.5" extension="DOC-1" />
+                            <setId root="2.16.840.1.113883.19.5" extension="SET-1" />
+                            <versionNumber value="3" />
+                        </parentDocument>
+                    </relatedDocument>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="U2a. content.attachment.contentType present" test="count(fhir:DocumentReference/fhir:content/fhir:attachment/fhir:contentType) = 1" />
+            <x:expect label="U2b. no attachment.url" test="count(fhir:DocumentReference/fhir:content/fhir:attachment/fhir:url) = 0" />
+            <x:expect label="U2c. control: identifier value is setId extension and version" test="fhir:DocumentReference/fhir:identifier/fhir:value/@value = 'SET-1:3'" />
+        </x:scenario>
+        <x:scenario label="U3. the RR's reference to its eICR (15.2.3.10): setId with an extension">
+            <x:context select="//cda:externalDocument">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000aa0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
+                    <component><structuredBody><component><section><entry><act classCode="ACT" moodCode="EVN"><reference typeCode="REFR">
+                        <externalDocument classCode="DOCCLIN" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000aa1">
+                            <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01" />
+                            <id root="ca316e79-aaf2-4e8c-aa5f-848093bb8bb1" />
+                            <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                            <setId root="2.16.840.1.113883.19.5" extension="SET-1" />
+                            <versionNumber value="3" />
+                        </externalDocument>
+                    </reference></act></entry></section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="U3a. url is urn:hl7ii:root:extension, not root:version" test="fhir:DocumentReference/fhir:content/fhir:attachment/fhir:url/@value = 'urn:hl7ii:2.16.840.1.113883.19.5:SET-1'" />
+        </x:scenario>
+        <x:scenario label="U4. the RR's reference to its eICR (15.2.3.10): setId with an OID root only">
+            <x:context select="//cda:externalDocument">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000aa0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
+                    <component><structuredBody><component><section><entry><act classCode="ACT" moodCode="EVN"><reference typeCode="REFR">
+                        <externalDocument classCode="DOCCLIN" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000aa1">
+                            <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01" />
+                            <id root="ca316e79-aaf2-4e8c-aa5f-848093bb8bb1" />
+                            <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                            <setId root="2.16.840.1.113883.19.5.77" />
+                            <versionNumber value="3" />
+                        </externalDocument>
+                    </reference></act></entry></section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="U4a. url is urn:oid:root" test="fhir:DocumentReference/fhir:content/fhir:attachment/fhir:url/@value = 'urn:oid:2.16.840.1.113883.19.5.77'" />
+        </x:scenario>
+        <x:scenario label="U5. the RR's reference to its eICR (15.2.3.10): setId with a UUID root only">
+            <x:context select="//cda:externalDocument">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000aa0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
+                    <component><structuredBody><component><section><entry><act classCode="ACT" moodCode="EVN"><reference typeCode="REFR">
+                        <externalDocument classCode="DOCCLIN" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000aa1">
+                            <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01" />
+                            <id root="ca316e79-aaf2-4e8c-aa5f-848093bb8bb1" />
+                            <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                            <setId root="1b9cd1a0-7a3f-4f5e-9a11-0123456789ab" />
+                            <versionNumber value="3" />
+                        </externalDocument>
+                    </reference></act></entry></section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="U5a. url is urn:uuid:root, not urn:oid:" test="fhir:DocumentReference/fhir:content/fhir:attachment/fhir:url/@value = 'urn:uuid:1b9cd1a0-7a3f-4f5e-9a11-0123456789ab'" />
+        </x:scenario>
+        <x:scenario label="U6. the RR's reference to its eICR (15.2.3.10): an extension containing a space is percent-encoded">
+            <x:context select="//cda:externalDocument">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000aa0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
+                    <component><structuredBody><component><section><entry><act classCode="ACT" moodCode="EVN"><reference typeCode="REFR">
+                        <externalDocument classCode="DOCCLIN" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000aa1">
+                            <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01" />
+                            <id root="ca316e79-aaf2-4e8c-aa5f-848093bb8bb1" />
+                            <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                            <setId root="2.16.840.1.113883.19.5" extension="SET 1" />
+                            <versionNumber value="3" />
+                        </externalDocument>
+                    </reference></act></entry></section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="U6a. url has no whitespace" test="fhir:DocumentReference/fhir:content/fhir:attachment/fhir:url/@value = 'urn:hl7ii:2.16.840.1.113883.19.5:SET%201'" />
+        </x:scenario>
+        <x:scenario label="U7. the RR's reference to its eICR (15.2.3.10): control: no setId gives no url">
+            <x:context select="//cda:externalDocument">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000aa0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2.1.2" extension="2017-04-01" />
+                    <component><structuredBody><component><section><entry><act classCode="ACT" moodCode="EVN"><reference typeCode="REFR">
+                        <externalDocument classCode="DOCCLIN" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000aa1">
+                            <templateId root="2.16.840.1.113883.10.20.15.2.3.10" extension="2017-04-01" />
+                            <id root="ca316e79-aaf2-4e8c-aa5f-848093bb8bb1" />
+                            <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                            
+                            
+                        </externalDocument>
+                    </reference></act></entry></section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="U7a. no url element" test="count(fhir:DocumentReference/fhir:content/fhir:attachment/fhir:url) = 0" />
+        </x:scenario>
     </x:scenario>
 </x:description>

@@ -1375,10 +1375,6 @@
                <entry>
                   <reference value="urn:uuid:UUID047"/>
                </entry>
-               <!--2.16.840.1.113883.10.20.22.4.284:2020-04-01-->
-               <entry>
-                  <reference value="urn:uuid:UUID047"/>
-               </entry>
             </section>
             <section>
                <title value="Vital Signs (Last Filed)"/>
@@ -2148,7 +2144,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.3.117.1.1.5.2.1.1.1:2"/>
                </attachment>
             </content>
          </DocumentReference>
@@ -4010,7 +4005,7 @@
                   <display value="Certified Nursing Assistant (CNA) [Nursing Assistants]"/>
                </coding>
             </valueCodeableConcept>
-            <component><!---->
+            <component><!--Observation.component: odh-UsualIndustry-->
                <code>
                   <coding>
                      <system value="http://loinc.org"/>
@@ -4063,8 +4058,12 @@
    <entry>
       <fullUrl value="urn:uuid:UUID041"/>
       <resource><!--ODH Past or Present Job-->
-         <Observation><!--WARNING: No profiles found for any of the following templates:
-                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2020-09-01--><!--ODH Employer Extension-->
+         <Observation>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"/>
+               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.217:2020-09-01-->
+            </meta>
+            <!--ODH Employer Extension-->
             <extension url="http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension">
                <valueReference>
                   <reference value="urn:uuid:UUID108"/>
@@ -4113,7 +4112,7 @@
                </code>
                <valueString value="Asbestos"/>
             </component>
-            <component><!---->
+            <component><!--Observation.component: odh-PastOrPresentIndustry-->
                <code>
                   <coding>
                      <system value="http://loinc.org"/>
@@ -4230,7 +4229,7 @@
                   <display value="Ultrasonography (procedure)"/>
                </coding>
             </method>
-            <component><!----><!--Date Determined Extension-->
+            <component><!--Date Determined Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
                   <valueDateTime value="2017-10-01T10:15:00-05:00"/>
                </extension>
@@ -4243,7 +4242,7 @@
                </code>
                <valueDateTime value="2017-05-22"/>
             </component>
-            <component><!----><!--Date Determined Extension-->
+            <component><!--Date Determined Extension-->
                <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension">
                   <valueDateTime value="2017-10-01T10:15:00-05:00"/>
                </extension>

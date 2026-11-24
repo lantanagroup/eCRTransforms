@@ -27,4 +27,44 @@
             test="count(fhir:Coverage/fhir:status[@value = 'cancelled']) = 1" />
     </x:scenario>
 
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B9: "these transforms are only for
+         eCR"): the four Pharmacist Care Plan (PhCP) keys were removed from template-profile-mapping.xml.
+         PhCP is not a dependency of the eCR IG, and the keys stamped PhCP profiles on resources in eICR
+         bundles (PhCP-Coverage on every Coverage built from a Policy Activity 2015-08-01). The hard-coded
+         Da Vinci hrex-coverage profile for Dental Data Exchange documents was removed for the same reason. -->
+    <x:scenario label="B. no Pharmacist Care Plan or Da Vinci profile is claimed (RT-B9)">
+        <x:scenario label="B1. Coverage from a Policy Activity 2015-08-01 in an eICR">
+            <x:context href="../../integration-tests/documents/testCov.xml" />
+            <x:expect label="B1a. the Coverage is still created" test="count(//fhir:entry/fhir:resource/fhir:Coverage) = 1" />
+            <x:expect label="B1b. it claims no profile" test="count(//fhir:Coverage/fhir:meta/fhir:profile) = 0" />
+            <x:expect label="B1c. no PhCP profile anywhere in the bundle" test="count(//fhir:profile[contains(@value, '/us/phcp/')]) = 0" />
+        </x:scenario>
+        <x:scenario label="B2. the C-CDA care plan test document">
+            <x:context href="../../../samples/cda/xspec-test-files/XSPEC_CDAR2_IG_CCDA_MTM_CAREPLAN.xml" />
+            <x:expect label="B2a. no PhCP profile anywhere in the bundle" test="count(//fhir:profile[contains(@value, '/us/phcp/')]) = 0" />
+        </x:scenario>
+        <x:scenario label="B3. a Dental Data Exchange document no longer gets the Da Vinci hrex-coverage profile">
+            <x:context select="//cda:act[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.61']">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000007a0">
+                    <templateId root="2.16.840.1.113883.10.20.40.1.1.2" />
+                    <component><structuredBody><component><section>
+                        <code code="48768-6" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><act classCode="ACT" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.60" extension="2015-08-01" />
+                            <entryRelationship typeCode="COMP">
+                                <act classCode="ACT" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000007a1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.61" extension="2015-08-01" />
+                                    <id root="50000000-0000-0000-0000-000000000009" />
+                                    <code code="SELF" codeSystem="2.16.840.1.113883.5.111" /><statusCode code="completed" />
+                                </act>
+                            </entryRelationship>
+                        </act></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="B3a. the Coverage is created" test="count(fhir:Coverage) = 1" />
+            <x:expect label="B3b. it claims no profile" test="count(fhir:Coverage/fhir:meta/fhir:profile) = 0" />
+        </x:scenario>
+    </x:scenario>
+
 </x:description>

@@ -1863,7 +1863,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.3.117.1.1.5.2.1.1.1:2"/>
                </attachment>
             </content>
          </DocumentReference>

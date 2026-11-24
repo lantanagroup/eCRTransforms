@@ -173,10 +173,6 @@
                <entry>
                   <reference value="urn:uuid:UUID008"/>
                </entry>
-               <!--2.16.840.1.113883.10.20.22.4.61:2015-08-01-->
-               <entry>
-                  <reference value="urn:uuid:UUID008"/>
-               </entry>
             </section>
             <section>
                <title value="Procedures"/>
@@ -845,11 +841,8 @@
    <entry>
       <fullUrl value="urn:uuid:UUID008"/>
       <resource>
-         <Coverage>
-            <meta>
-               <profile value="http://hl7.org/fhir/us/phcp/StructureDefinition/PhCP-Coverage"/>
-               <!--CDA templateId: urn:hl7ii:2.16.840.1.113883.10.20.22.4.61:2015-08-01-->
-            </meta>
+         <Coverage><!--WARNING: No profiles found for any of the following templates:
+                        urn:hl7ii:2.16.840.1.113883.10.20.22.4.61:2015-08-01-->
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
                <value value="urn:uuid:UUID022"/>

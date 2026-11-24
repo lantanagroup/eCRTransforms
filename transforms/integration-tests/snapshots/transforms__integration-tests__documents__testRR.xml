@@ -498,8 +498,6 @@
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
                <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/author/assignedAuthor/representedOrganization-->
-               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-organization"/>
-               <!--CDA participant: ClinicalDocument[templateId/@root='2.16.840.1.113883.10.20.15.2.1.2'][templateId/@extension='2017-04-01']/author/assignedAuthor/representedOrganization-->
             </meta>
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
@@ -642,7 +640,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99:1"/>
                </attachment>
             </content>
          </DocumentReference>
@@ -919,7 +916,7 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99:1"/>
+                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99:eicr-set-1"/>
                </attachment>
             </content>
          </DocumentReference>

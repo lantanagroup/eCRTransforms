@@ -238,4 +238,81 @@
             test="count(fhir:Composition/fhir:title[@value = 'Initial Public Health Case Report']) = 0" />
         <x:expect label="G3. exactly one title" test="count(fhir:Composition/fhir:title) = 1" />
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B3): a nested Pregnancy Outcome
+         observation (22.4.284) was listed twice in the Pregnancy section, once by the general
+         nested-statement loop and once by the dedicated 90767-5 block; a Coverage was listed twice in
+         the Payers section, once by the Coverage Activity (22.4.60) reference unwrap and once by the
+         same loop. Each is now listed once. -->
+    <x:scenario label="H. no section lists the same entry twice (RT-B3)">
+        <x:scenario label="H1. eICR with a Pregnancy Outcome">
+            <x:context href="../../../samples/cda/xspec-test-files/XSPEC_eICR-CDA-001_R3_1.xml" />
+            <x:expect label="H1a. no duplicate entry reference in any section" test="every $s in //fhir:Composition/fhir:section satisfies count($s/fhir:entry/fhir:reference/@value) = count(distinct-values($s/fhir:entry/fhir:reference/@value))" />
+            <x:expect label="H1b. the Pregnancy Outcome is still listed, exactly once, in the Pregnancy section"
+                test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value = '90767-5']/fhir:entry/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation']/fhir:fullUrl/@value]) = 1" />
+        </x:scenario>
+        <x:scenario label="H2. document with a Coverage Activity in the Payers section">
+            <x:context href="../../integration-tests/documents/testCov.xml" />
+            <x:expect label="H2a. no duplicate entry reference in any section" test="every $s in //fhir:Composition/fhir:section satisfies count($s/fhir:entry/fhir:reference/@value) = count(distinct-values($s/fhir:entry/fhir:reference/@value))" />
+            <x:expect label="H2b. the Coverage is still listed, exactly once, in the Payers section"
+                test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value = '48768-6']/fhir:entry/fhir:reference[@value = //fhir:entry[fhir:resource/fhir:Coverage]/fhir:fullUrl/@value]) = 1" />
+        </x:scenario>
+    </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24: "these transforms are only for eCR"): the C-CDA on FHIR
+         document profile keys (US-Realm-Header, Continuity-of-Care-Document, Care-Plan-Document) were
+         removed from template-profile-mapping.xml, and with them the eICR/RR-only filter in
+         template2profile that skipped the US Realm Header by substring (re-trace finding RT-A6). -->
+    <x:scenario label="I. no C-CDA on FHIR document profile is claimed">
+        <x:scenario label="I1. an eICR that also declares the CCD and Care Plan document templates">
+            <x:context select="/cda:ClinicalDocument">
+            <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000008a0">
+                <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01" />
+                <templateId root="2.16.840.1.113883.10.20.22.1.1" />
+                <templateId root="2.16.840.1.113883.10.20.22.1.2" extension="2015-08-01" />
+                <templateId root="2.16.840.1.113883.10.20.22.1.15" extension="2015-08-01" />
+                <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                <id root="2.16.840.1.113883.19.5" extension="DOC-1" />
+                <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                <title>Test</title>
+                <effectiveTime value="20201107094421-0500" />
+                <setId root="2.16.840.1.113883.19.5" extension="SET-1" />
+                <versionNumber value="1" />
+            </ClinicalDocument>
+            </x:context>
+            <x:expect label="I1a. no /us/ccda/ profile on the Composition" test="count(fhir:Composition/fhir:meta/fhir:profile[contains(@value, '/us/ccda/')]) = 0" />
+            <x:expect label="I1b. control: eicr-composition is still claimed" test="fhir:Composition/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition'" />
+        </x:scenario>
+        <x:scenario label="I2. a document that is not an eICR or RR">
+            <x:context select="/cda:ClinicalDocument">
+            <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000008a0">
+                <templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01" />
+                <templateId root="2.16.840.1.113883.10.20.22.1.1" />
+                <templateId root="2.16.840.1.113883.10.20.22.1.2" extension="2015-08-01" />
+                <templateId root="2.16.840.1.113883.10.20.22.1.15" extension="2015-08-01" />
+                <id root="2.16.840.1.113883.19.5" extension="DOC-1" />
+                <code code="55751-2" codeSystem="2.16.840.1.113883.6.1" />
+                <title>Test</title>
+                <effectiveTime value="20201107094421-0500" />
+                <setId root="2.16.840.1.113883.19.5" extension="SET-1" />
+                <versionNumber value="1" />
+            </ClinicalDocument>
+            </x:context>
+            <x:expect label="I2a. no /us/ccda/ profile on the Composition" test="count(fhir:Composition/fhir:meta/fhir:profile[contains(@value, '/us/ccda/')]) = 0" />
+        </x:scenario>
+    </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace findings RT-C19, RT-C16, RT-C17): the Composition
+         listed a section entry for CDA entries that produce no resource (Immunization Activity in INT
+         mood, Planned Medication Activity in EVN mood, Specimen Collection Procedure outside a Result
+         Organizer), leaving references with no bundle entry behind them. A final pass in
+         cda2fhir-Bundle.xslt now drops any section entry whose reference matches no fullUrl.
+         Whole-pipeline test on integration-tests/documents/testPlan.xml. -->
+    <x:scenario label="J. no section entry without a resource behind it (RT-C19, RT-C16, RT-C17)">
+        <x:context href="../../integration-tests/documents/testPlan.xml" />
+        <x:expect label="J1. every urn:uuid reference in the bundle resolves to an entry"
+            test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+        <x:expect label="J2. Immunizations section lists only the given immunization" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value = '11369-6']/fhir:entry) = 1" />
+        <x:expect label="J3. Plan of Treatment section lists only the INT planned medication" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value = '18776-5']/fhir:entry) = 1" />
+        <x:expect label="J4. Results section lists only the result organizer" test="count(//fhir:Composition/fhir:section[fhir:code/fhir:coding/fhir:code/@value = '30954-2']/fhir:entry) = 1" />
+        <x:expect label="J5. each omitted entry leaves a WARNING comment" test="count(//fhir:Composition/fhir:section/comment()[contains(., 'Composition.section.entry omitted')]) = 3" />
+        <x:expect label="J6. control: the ordinary entries still produce their resources" test="count(//fhir:entry/fhir:resource/fhir:Immunization) = 1 and count(//fhir:entry/fhir:resource/fhir:MedicationRequest) = 1 and exists(//fhir:entry/fhir:resource/fhir:Observation[fhir:hasMember])" />
+    </x:scenario>
 </x:description>

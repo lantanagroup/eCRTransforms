@@ -83,9 +83,22 @@
                 <xsl:with-param name="pSimpleQuantity" select="true()" />
             </xsl:apply-templates>
             <!-- performer -->
-            <xsl:apply-templates select="cda:performer/cda:assignedEntity" mode="reference">
-                <xsl:with-param name="wrapping-elements">performer/actor</xsl:with-param>
-            </xsl:apply-templates>
+            <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): this used to
+                 reference the assignedEntity's uuid whatever the performer contained, but a resource exists at
+                 that uuid only when there is an assignedPerson, so a performer with just an organization left
+                 a dangling reference although its Organization was in the bundle. It now goes through
+                 rename-reference-participant like the other performer sites: person -> PractitionerRole,
+                 organization only -> the Organization (allowed here: Practitioner | PractitionerRole |
+                 Organization), ids only -> the participation matched by id, or the identifier-only
+                 Practitioner (see the update-referenced-actor-uuids phase). A hollow performer whose id
+                 resolves to the patient or a device is omitted, because actor cannot reference either. -->
+            <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]][not(lcg:participation-target-kind(.) = ('patient', 'device'))]">
+                <performer>
+                    <xsl:apply-templates select="." mode="rename-reference-participant">
+                        <xsl:with-param name="pElementName">actor</xsl:with-param>
+                    </xsl:apply-templates>
+                </performer>
+            </xsl:for-each>
 
             <!-- note -->
             <xsl:for-each select="cda:text">

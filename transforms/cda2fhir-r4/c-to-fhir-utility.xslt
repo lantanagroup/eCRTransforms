@@ -207,8 +207,16 @@
             
                 <xsl:choose>
                     <xsl:when test="$profiles/fhir:profile">
+                      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B2): the lookup writes one
+                           profile per templateId that has a key, so two templateIds mapped to the same profile
+                           (15.3.8 and 22.4.293:2018-04-01, both us-ph-pregnancy-status-observation) listed it twice.
+                           A repeated profile is now dropped; every "CDA templateId" comment is kept. -->
                       <meta>
-                        <xsl:apply-templates select="cda:templateId" mode="template2profile" />
+                        <xsl:for-each select="$profiles/node()">
+                          <xsl:if test="not(self::fhir:profile[@value = preceding-sibling::fhir:profile/@value])">
+                            <xsl:copy-of select="." />
+                          </xsl:if>
+                        </xsl:for-each>
                       </meta>
                     </xsl:when>
                     <xsl:otherwise>
@@ -234,21 +242,15 @@
     <xsl:template match="cda:templateId" mode="template2profile">
         <xsl:variable name="vTemplateURI" select="lcg:fcnGetTemplateURI(.)" />
 
-        <!-- If this is eCR or RR don't want to add CCDA-on-FHIR-US-Realm-Header conformance so skip those -->
-        <xsl:choose>
-            <xsl:when test="$gvCurrentIg = 'eICR' or $gvCurrentIg = 'RR'">
-                <xsl:for-each select="$template-profile-mapping/map[@templateURI = $vTemplateURI][not(contains(@templateURI, '2.16.840.1.113883.10.20.22.1.1'))]">
-                    <profile value="{@profileURI}" />
-                    <xsl:comment>CDA templateId: <xsl:value-of select="$vTemplateURI" /></xsl:comment>
-                </xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:for-each select="$template-profile-mapping/map[@templateURI = $vTemplateURI]">
-                    <profile value="{@profileURI}" />
-                    <xsl:comment>CDA templateId: <xsl:value-of select="$vTemplateURI" /></xsl:comment>
-                </xsl:for-each>
-            </xsl:otherwise>
-        </xsl:choose>
+        <!-- 20261124 Claude (SG decision 2026-11-24: "these transforms are only for eCR"): this used to skip the
+             C-CDA on FHIR US-Realm-Header profile for eICR/RR documents by testing whether the templateURI
+             CONTAINED '2.16.840.1.113883.10.20.22.1.1' (which also swallowed 22.1.15, re-trace finding RT-A6).
+             The C-CDA on FHIR document keys are no longer in template-profile-mapping.xml at all, so the
+             filter is gone and every document type is looked up the same way. -->
+        <xsl:for-each select="$template-profile-mapping/map[@templateURI = $vTemplateURI]">
+            <profile value="{@profileURI}" />
+            <xsl:comment>CDA templateId: <xsl:value-of select="$vTemplateURI" /></xsl:comment>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- TEMPLATE: Adds name to "subprofile" (e.g. Observation.component that is mapped from a CDA template) -->
@@ -256,7 +258,9 @@
         <xsl:variable name="vName">
             <xsl:apply-templates select="cda:templateId" mode="template2subprofile" />
         </xsl:variable>
-        <xsl:if test="$vName">
+        <!-- 20261124 Claude (RT-B8): was test="$vName", which is always true for a temporary tree, so a
+             template with no subprofile key wrote an EMPTY comment. Now no comment when no name is found. -->
+        <xsl:if test="string-length(normalize-space($vName)) > 0">
             <xsl:comment>
         <xsl:apply-templates select="cda:templateId" mode="template2subprofile" />
       </xsl:comment>
@@ -277,8 +281,14 @@
             <xsl:apply-templates select="self::node()" mode="participant2profile" />
         </xsl:variable>
         <xsl:if test="$profiles/fhir:profile">
+            <!-- 20261124 Claude (RT-B2): same de-duplication as add-meta (a row listed twice in
+                 participant-profile-mapping.xml gave the same profile twice). -->
             <meta>
-                <xsl:apply-templates select="self::node()" mode="participant2profile" />
+                <xsl:for-each select="$profiles/node()">
+                    <xsl:if test="not(self::fhir:profile[@value = preceding-sibling::fhir:profile/@value])">
+                        <xsl:copy-of select="." />
+                    </xsl:if>
+                </xsl:for-each>
             </meta>
         </xsl:if>
     </xsl:template>

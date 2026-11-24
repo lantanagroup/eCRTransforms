@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <realmCode code="US"/>
+  <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+  <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01"/>
+  <id root="1.2.3.4" extension="doc1"/>
+  <code code="55751-2" codeSystem="2.16.840.1.113883.6.1"/>
+  <title>Test eICR</title>
+  <effectiveTime value="20260727103000+1000"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <recordTarget>
+    <patientRole>
+      <id root="2.16.840.1.113883.19.5" extension="12345"/>
+      <addr use="H"><streetAddressLine>1 Test St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr>
+      <telecom use="HP" value="tel:+1-617-5555-1234"/>
+      <patient>
+        <name use="L"><given>Jane</given><family>Tester</family></name>
+        <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+        <birthTime value="19800101"/>
+        <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" displayName="White"/>
+        <sdtc:raceCode code="2108-9" codeSystem="2.16.840.1.113883.6.238" displayName="European"/>
+        <ethnicGroupCode nullFlavor="ASKU"/>
+        <sdtc:ethnicGroupCode nullFlavor="ASKU"/>
+        <birthplace><place><name>Auckland</name></place></birthplace>
+        <languageCommunication><languageCode code="eng"/></languageCommunication>
+      </patient>
+      <providerOrganization><id root="2.16.840.1.113883.4.6" extension="9999999999"/><name>Test Org</name><telecom value="tel:+1-617-5555-0000"/><addr><streetAddressLine>2 Org St</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></providerOrganization>
+    </patientRole>
+  </recordTarget>
+  <author><time value="20260727103000+1000"/><assignedAuthor><id root="2.16.840.1.113883.4.6" extension="1111111111"/><assignedPerson><name><given>Doc</given><family>Author</family></name></assignedPerson></assignedAuthor></author>
+  <custodian><assignedCustodian><representedCustodianOrganization><id root="2.16.840.1.113883.4.6" extension="222"/><name>Custodian Org</name></representedCustodianOrganization></assignedCustodian></custodian>
+  <componentOf>
+    <encompassingEncounter>
+      <id root="e9000000-0000-0000-0000-000000000006"/>
+      <code code="AMB" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode" displayName="ambulatory"/>
+      <effectiveTime><low value="20260725"/><high value="20260726"/></effectiveTime>
+      <location>
+        <healthCareFacility>
+          <id root="2.16.840.1.113883.4.6" extension="fac6"/>
+          <code code="1108-0" codeSystem="2.16.840.1.113883.6.259" codeSystemName="HSLOC" displayName="Emergency Department"/>
+          <location><name>Test Hospital ED</name><addr><streetAddressLine>5 Hospital Rd</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></location>
+          <serviceProviderOrganization><name>Facility Org</name></serviceProviderOrganization>
+        </healthCareFacility>
+      </location>
+    </encompassingEncounter>
+  </componentOf>
+  <component>
+    <structuredBody>
+      <!-- 20261124 Claude (re-trace findings RT-C1 / B18f): performers that carry no assignedPerson.
+           Shapes: ids only, no match elsewhere (PERF-IDONLY, used four times - must become ONE
+           identifier-only Practitioner); ids only, matching the document author's id (1111111111 -
+           must resolve to the author's PractitionerRole); organization only (Performer Org n - must
+           resolve to the Organization, or to a companion organization-only PractitionerRole on
+           MedicationAdministration, whose performer.actor cannot reference an Organization); and a
+           complete person performer as the control. Every reference in the bundle must resolve. -->
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.2.1" extension="2015-08-01"/>
+          <code code="11369-6" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Immunizations</title>
+          <text>Immunizations</text>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+              <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2015-08-01"/>
+              <id root="f2000000-0000-0000-0000-000000000001"/>
+              <statusCode code="completed"/>
+              <effectiveTime value="20260721"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09"/><manufacturedMaterial><code code="140" codeSystem="2.16.840.1.113883.12.292" displayName="Influenza, seasonal, injectable, preservative free"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.77" extension="PERF-IDONLY"/></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+              <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2015-08-01"/>
+              <id root="f2000000-0000-0000-0000-000000000002"/>
+              <statusCode code="completed"/>
+              <effectiveTime value="20260722"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09"/><manufacturedMaterial><code code="140" codeSystem="2.16.840.1.113883.12.292" displayName="Influenza, seasonal, injectable, preservative free"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.77" extension="PERF-IDONLY"/></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+              <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2015-08-01"/>
+              <id root="f2000000-0000-0000-0000-000000000003"/>
+              <statusCode code="completed"/>
+              <effectiveTime value="20260723"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09"/><manufacturedMaterial><code code="140" codeSystem="2.16.840.1.113883.12.292" displayName="Influenza, seasonal, injectable, preservative free"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.4.6" extension="1111111111"/></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+              <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2015-08-01"/>
+              <id root="f2000000-0000-0000-0000-000000000004"/>
+              <statusCode code="completed"/>
+              <effectiveTime value="20260724"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09"/><manufacturedMaterial><code code="140" codeSystem="2.16.840.1.113883.12.292" displayName="Influenza, seasonal, injectable, preservative free"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.78" extension="ORGROLE-1"/><representedOrganization><id root="2.16.840.1.113883.19.79" extension="ORG-1"/><name>Performer Org 1</name><telecom value="tel:+1-617-555-0110"/><addr><streetAddressLine>1 Org Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></representedOrganization></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN" negationInd="false">
+              <templateId root="2.16.840.1.113883.10.20.22.4.52" extension="2015-08-01"/>
+              <id root="f2000000-0000-0000-0000-000000000005"/>
+              <statusCode code="completed"/>
+              <effectiveTime value="20260725"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.54" extension="2014-06-09"/><manufacturedMaterial><code code="140" codeSystem="2.16.840.1.113883.12.292" displayName="Influenza, seasonal, injectable, preservative free"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.80" extension="PERSON-1"/><assignedPerson><name><given>Nora</given><family>Nurse</family></name></assignedPerson></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.38" extension="2014-06-09"/>
+          <code code="29549-3" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Medications Administered</title>
+          <text>Medications Administered</text>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/>
+              <id root="f3000000-0000-0000-0000-000000000001"/>
+              <statusCode code="completed"/>
+              <effectiveTime xsi:type="IVL_TS"><low value="20260720"/><high value="20260725"/></effectiveTime>
+              <doseQuantity value="81" unit="mg"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.77" extension="PERF-IDONLY"/></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/>
+              <id root="f3000000-0000-0000-0000-000000000002"/>
+              <statusCode code="completed"/>
+              <effectiveTime xsi:type="IVL_TS"><low value="20260720"/><high value="20260725"/></effectiveTime>
+              <doseQuantity value="81" unit="mg"/>
+              <consumable><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></consumable>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.78" extension="ORGROLE-2"/><representedOrganization><id root="2.16.840.1.113883.19.79" extension="ORG-2"/><name>Performer Org 2</name><telecom value="tel:+1-617-555-0120"/><addr><streetAddressLine>2 Org Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></representedOrganization></assignedEntity></performer>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <supply classCode="SPLY" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.18" extension="2014-06-09"/>
+              <id root="f4000000-0000-0000-0000-000000000001"/>
+              <statusCode code="completed"/>
+              <quantity value="30"/>
+              <product><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></product>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.78" extension="ORGROLE-3"/><representedOrganization><id root="2.16.840.1.113883.19.79" extension="ORG-3"/><name>Performer Org 3</name><telecom value="tel:+1-617-555-0130"/><addr><streetAddressLine>3 Org Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></representedOrganization></assignedEntity></performer>
+            </supply>
+          </entry>
+          <entry>
+            <supply classCode="SPLY" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.18" extension="2014-06-09"/>
+              <id root="f4000000-0000-0000-0000-000000000002"/>
+              <statusCode code="completed"/>
+              <quantity value="30"/>
+              <product><manufacturedProduct classCode="MANU"><templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/><manufacturedMaterial><code code="1191" codeSystem="2.16.840.1.113883.6.88" displayName="aspirin"/></manufacturedMaterial></manufacturedProduct></product>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.77" extension="PERF-IDONLY"/></assignedEntity></performer>
+            </supply>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <templateId root="2.16.840.1.113883.10.20.22.2.10" extension="2014-06-09"/>
+          <code code="18776-5" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Plan of Treatment</title>
+          <text>Plan of Treatment</text>
+          <entry>
+            <observation classCode="OBS" moodCode="RQO">
+              <templateId root="2.16.840.1.113883.10.20.22.4.44" extension="2014-06-09"/>
+              <id root="f5000000-0000-0000-0000-000000000001"/>
+              <code code="24331-1" codeSystem="2.16.840.1.113883.6.1"/>
+              <statusCode code="active"/>
+              <effectiveTime value="20260801"/>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.77" extension="PERF-IDONLY"/></assignedEntity></performer>
+            </observation>
+          </entry>
+          <entry>
+            <observation classCode="OBS" moodCode="RQO">
+              <templateId root="2.16.840.1.113883.10.20.22.4.44" extension="2014-06-09"/>
+              <id root="f5000000-0000-0000-0000-000000000002"/>
+              <code code="24331-1" codeSystem="2.16.840.1.113883.6.1"/>
+              <statusCode code="active"/>
+              <effectiveTime value="20260801"/>
+              <performer><assignedEntity><id root="2.16.840.1.113883.19.78" extension="ORGROLE-4"/><representedOrganization><id root="2.16.840.1.113883.19.79" extension="ORG-4"/><name>Performer Org 4</name><telecom value="tel:+1-617-555-0140"/><addr><streetAddressLine>4 Org Way</streetAddressLine><city>Boston</city><state>MA</state><postalCode>02101</postalCode></addr></representedOrganization></assignedEntity></performer>
+            </observation>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

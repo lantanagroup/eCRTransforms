@@ -972,7 +972,6 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99999.20:2"/>
                </attachment>
             </content>
          </DocumentReference>
@@ -1060,7 +1059,7 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99999.19:1"/>
+                  <url value="urn:hl7ii:2.16.840.1.113883.19.5.99999.19:sTT988"/>
                </attachment>
             </content>
          </DocumentReference>

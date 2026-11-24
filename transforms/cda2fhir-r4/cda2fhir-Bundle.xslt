@@ -2,7 +2,36 @@
 <xsl:stylesheet exclude-result-prefixes="lcg xsl cda fhir xs xsi sdtc xhtml" version="2.0" xmlns="http://hl7.org/fhir" xmlns:cda="urn:hl7-org:v3" xmlns:fhir="http://hl7.org/fhir"
   xmlns:lcg="http://www.lantanagroup.com" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace findings RT-C19, RT-C16, RT-C17): the Bundle is now
+       built into a variable (mode convert-build, the template that used to be mode convert) and passed
+       through one clean-up pass before it is output. The Composition writes a section entry reference for
+       every CDA entry it sees, but some entries match no bundle-entry template and so produce no resource:
+       an Immunization Activity in INT mood, a Planned Medication Activity in EVN mood, a Specimen Collection
+       Procedure placed outside a Result Organizer. Their references pointed at nothing. Rather than teach the
+       Composition which entries each stylesheet will or will not turn into a resource (two lists that drift
+       apart), the pass compares what was actually produced: a Composition.section.entry whose urn:uuid
+       reference matches no Bundle.entry.fullUrl is replaced by a WARNING comment. Everything else is copied
+       unchanged. -->
+  <xsl:key name="bundle-fullUrl-key" match="fhir:Bundle/fhir:entry/fhir:fullUrl" use="@value" />
+
   <xsl:template match="/" mode="convert">
+    <xsl:variable name="vBundle">
+      <xsl:apply-templates select="." mode="convert-build" />
+    </xsl:variable>
+    <xsl:apply-templates select="$vBundle" mode="drop-unresolved-section-entries" />
+  </xsl:template>
+
+  <xsl:template match="@* | node()" mode="drop-unresolved-section-entries">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()" mode="drop-unresolved-section-entries" />
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="fhir:Composition//fhir:section/fhir:entry[starts-with(fhir:reference/@value, 'urn:uuid:')][not(key('bundle-fullUrl-key', fhir:reference/@value))]" mode="drop-unresolved-section-entries">
+    <xsl:comment>WARNING: Composition.section.entry omitted - no resource was created for the CDA entry it referred to</xsl:comment>
+  </xsl:template>
+
+  <xsl:template match="/" mode="convert-build">
     <Bundle>
       <!-- Generates an id that is unique for the node. It will always be the same for the same id. Should be unique across 
            documents as the CDA document id should be unique-->
@@ -75,7 +104,8 @@
            global pass like the LOC pass above because the local author fan-outs can't be relied on to
            reach every hollow author: several Observation fan-outs filter authors on having grandchildren,
            which an id-only author never has. Templates live in cda2fhir-Practitioner.xslt. -->
-      <xsl:for-each select="//cda:assignedAuthor[@lcg:unmatched = 'true']">
+      <!-- 20261124 Claude (RT-C1): hollow performers (assignedEntity) are flagged the same way and need the same pass -->
+      <xsl:for-each select="//cda:assignedAuthor[@lcg:unmatched = 'true'] | //cda:performer/cda:assignedEntity[@lcg:unmatched = 'true']">
         <xsl:apply-templates select="." mode="unmatched-participation-entry" />
       </xsl:for-each>
     </Bundle>

@@ -112,11 +112,17 @@
       </xsl:for-each>
 
       <!-- performer -->
-      <xsl:for-each select="cda:performer">
+      <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): was a fixed
+           reference to the assignedEntity's uuid, which dangles unless the performer has an assignedPerson
+           (a pharmacy organization as the only performer is a common shape). Now through
+           rename-reference-participant: person -> PractitionerRole, organization only -> the Organization
+           (MedicationDispense.performer.actor allows it), ids only -> the participation matched by id or
+           the identifier-only Practitioner. -->
+      <xsl:for-each select="cda:performer[cda:assignedEntity[cda:*[not(@nullFlavor)]]]">
         <performer>
-          <actor>
-            <reference value="urn:uuid:{cda:assignedEntity/@lcg:uuid}" />
-          </actor>
+          <xsl:apply-templates select="." mode="rename-reference-participant">
+            <xsl:with-param name="pElementName">actor</xsl:with-param>
+          </xsl:apply-templates>
         </performer>
       </xsl:for-each>
       <xsl:if test="ancestor::cda:substanceAdministration[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.16'][@moodCode = 'INT']">

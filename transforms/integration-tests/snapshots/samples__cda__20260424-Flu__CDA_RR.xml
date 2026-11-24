@@ -889,7 +889,7 @@
             <content>
                <attachment>
                   <contentType value="text/plain"/>
-                  <url value="urn:hl7ii:1.2.840.114350.1.13.380.3.7.1.1:1"/>
+                  <url value="urn:hl7ii:1.2.840.114350.1.13.380.3.7.1.1:mtgl-204-002"/>
                </attachment>
             </content>
          </DocumentReference>

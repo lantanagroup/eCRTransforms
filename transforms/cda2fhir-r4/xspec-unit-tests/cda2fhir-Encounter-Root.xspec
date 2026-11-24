@@ -427,4 +427,145 @@
       <x:expect label="H4a. status is finished" test="fhir:Encounter/fhir:status/@value = 'finished'" />
     </x:scenario>
   </x:scenario>
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A5): the Encounter and encounter
+       Location profiles come from participant-profile-mapping.xml, keyed on the exact eICR document
+       templateId extension. It had rows for 2016-12-01, 2021-01-01 and 2022-05-01 but none for
+       2019-04-01, which template-profile-mapping.xml does accept for the Composition, so a
+       2019-04-01 document got eicr-composition but an unprofiled Encounter and Location. Rows added.
+       An UNKNOWN extension still claims nothing, deliberately (source defect; the missing profile
+       is the signal). -->
+  <x:scenario label="I. Encounter and Location profiles by eICR document template version (RT-A5)">
+    <x:scenario label="I1. document version 2019-04-01: Encounter">
+      <x:context select="//cda:encompassingEncounter">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000006a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2019-04-01" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000006a1">
+            <id root="2.16.840.1.113883.19.5" extension="ENC-1" />
+            <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="Ambulatory" />
+            <effectiveTime><low value="20201107" /><high value="20201108" /></effectiveTime>
+            <location lcg:uuid="00000000-0000-0000-0000-0000000006a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location><name>Facility Name</name><addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr></location>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="I1a. Encounter claims eicr-encounter" test="fhir:Encounter/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter'" />
+    </x:scenario>
+    <x:scenario label="I1. document version 2019-04-01: Location">
+      <x:context select="//cda:encompassingEncounter/cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000006a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2019-04-01" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000006a1">
+            <id root="2.16.840.1.113883.19.5" extension="ENC-1" />
+            <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="Ambulatory" />
+            <effectiveTime><low value="20201107" /><high value="20201108" /></effectiveTime>
+            <location lcg:uuid="00000000-0000-0000-0000-0000000006a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location><name>Facility Name</name><addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr></location>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="I1b. Location claims us-ph-location" test="fhir:Location/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location'" />
+    </x:scenario>
+    <x:scenario label="I2. control, document version 2022-05-01: Encounter">
+      <x:context select="//cda:encompassingEncounter">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000006a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000006a1">
+            <id root="2.16.840.1.113883.19.5" extension="ENC-1" />
+            <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="Ambulatory" />
+            <effectiveTime><low value="20201107" /><high value="20201108" /></effectiveTime>
+            <location lcg:uuid="00000000-0000-0000-0000-0000000006a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location><name>Facility Name</name><addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr></location>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="I2a. Encounter claims eicr-encounter" test="fhir:Encounter/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-encounter'" />
+    </x:scenario>
+    <x:scenario label="I2. control, document version 2022-05-01: Location">
+      <x:context select="//cda:encompassingEncounter/cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000006a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000006a1">
+            <id root="2.16.840.1.113883.19.5" extension="ENC-1" />
+            <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="Ambulatory" />
+            <effectiveTime><low value="20201107" /><high value="20201108" /></effectiveTime>
+            <location lcg:uuid="00000000-0000-0000-0000-0000000006a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location><name>Facility Name</name><addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr></location>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="I2b. Location claims us-ph-location" test="fhir:Location/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location'" />
+    </x:scenario>
+    <x:scenario label="I3. control, unknown document version 2022-05-02: Encounter">
+      <x:context select="//cda:encompassingEncounter">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000006a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-02" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000006a1">
+            <id root="2.16.840.1.113883.19.5" extension="ENC-1" />
+            <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="Ambulatory" />
+            <effectiveTime><low value="20201107" /><high value="20201108" /></effectiveTime>
+            <location lcg:uuid="00000000-0000-0000-0000-0000000006a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location><name>Facility Name</name><addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr></location>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="I3a. Encounter does not claim eicr-encounter" test="count(fhir:Encounter/fhir:meta/fhir:profile) = 0" />
+    </x:scenario>
+    <x:scenario label="I3. control, unknown document version 2022-05-02: Location">
+      <x:context select="//cda:encompassingEncounter/cda:location">
+      <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000006a0">
+        <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-02" />
+        <componentOf>
+          <encompassingEncounter lcg:uuid="00000000-0000-0000-0000-0000000006a1">
+            <id root="2.16.840.1.113883.19.5" extension="ENC-1" />
+            <code code="AMB" codeSystem="2.16.840.1.113883.5.4" displayName="Ambulatory" />
+            <effectiveTime><low value="20201107" /><high value="20201108" /></effectiveTime>
+            <location lcg:uuid="00000000-0000-0000-0000-0000000006a2">
+              <healthCareFacility>
+                <id root="2.16.840.1.113883.4.6" extension="1111111111" />
+                <code code="OF" codeSystem="2.16.840.1.113883.5.111" displayName="Outpatient facility" />
+                <location><name>Facility Name</name><addr><streetAddressLine>1 Facility Rd</streetAddressLine><city>Provo</city><state>UT</state><postalCode>84097</postalCode></addr></location>
+              </healthCareFacility>
+            </location>
+          </encompassingEncounter>
+        </componentOf>
+      </ClinicalDocument>
+      </x:context>
+      <x:expect label="I3b. Location does not claim us-ph-location" test="count(fhir:Location/fhir:meta/fhir:profile) = 0" />
+    </x:scenario>
+  </x:scenario>
 </x:description>

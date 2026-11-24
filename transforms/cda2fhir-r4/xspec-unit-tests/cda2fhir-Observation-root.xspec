@@ -456,4 +456,537 @@
                 test="count(//fhir:Observation[fhir:code/fhir:coding/fhir:code/@value = '74165-2']/fhir:dataAbsentReason) = 0" />
         </x:scenario>
     </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace findings RT-B1 and RT-B8): profile and
+         subprofile lookups match templateId root + extension exactly, and the 2020-09-01 versions
+         that eICR STU 3.1.1 uses (Past or Present Occupation 22.4.217, Past or Present Industry
+         22.4.216, Usual Industry 22.4.219) had no key. 22.4.217:2020-09-01 gave an Observation with no
+         meta.profile; the two components got an EMPTY comment. Keys added; and a component whose
+         template has no subprofile key now gets no comment instead of an empty one. -->
+    <x:scenario label="M. ODH 2020-09-01 template versions (RT-B1, RT-B8)">
+        <x:scenario label="M1. Past or Present Occupation 2020-09-01 with Industry 2020-09-01">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005a1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+                <entryRelationship typeCode="REFR">
+                  <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005a2">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.216" extension="2020-09-01" />
+                    <code code="86188-0" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation industry" />
+                    <statusCode code="completed" />
+                    <value xsi:type="CD" code="8170" codeSystem="2.16.840.1.113883.6.240" displayName="Home health care services" />
+                  </observation>
+                </entryRelationship>
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="M1a. meta.profile odh-PastOrPresentJob" test="fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob'" />
+            <x:expect label="M1b. no 'No profiles found' warning" test="not(fhir:Observation/comment()[contains(., 'No profiles found')])" />
+            <x:expect label="M1c. industry component is labelled" test="exists(fhir:Observation/fhir:component/comment()[normalize-space(.) = 'Observation.component: odh-PastOrPresentIndustry'])" />
+            <x:expect label="M1d. no empty comment anywhere" test="count(fhir:Observation//comment()[normalize-space(.) = '']) = 0" />
+        </x:scenario>
+        <x:scenario label="M2. control: the 2017-11-30 versions behave as before">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005a1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2017-11-30" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+                <entryRelationship typeCode="REFR">
+                  <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005a2">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.216" extension="2017-11-30" />
+                    <code code="86188-0" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation industry" />
+                    <statusCode code="completed" />
+                    <value xsi:type="CD" code="8170" codeSystem="2.16.840.1.113883.6.240" displayName="Home health care services" />
+                  </observation>
+                </entryRelationship>
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="M2a. meta.profile odh-PastOrPresentJob" test="fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob'" />
+            <x:expect label="M2b. industry component is labelled" test="exists(fhir:Observation/fhir:component/comment()[normalize-space(.) = 'Observation.component: odh-PastOrPresentIndustry'])" />
+        </x:scenario>
+        <x:scenario label="M3. a component template version with no subprofile key gets no comment, not an empty one">
+            <x:context select="//cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.217']">
+        <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-0000000005a0">
+          <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+          <component><structuredBody><component><section>
+            <templateId root="2.16.840.1.113883.10.20.22.2.17" extension="2015-08-01" />
+            <code code="29762-2" codeSystem="2.16.840.1.113883.6.1" />
+            <entry>
+              <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005a1">
+                <templateId root="2.16.840.1.113883.10.20.22.4.217" extension="2020-09-01" />
+                <id root="2.16.840.1.113883.19.5" extension="JOB-1" />
+                <code code="11341-5" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation" />
+                <statusCode code="completed" />
+                <effectiveTime><low value="20150101" /></effectiveTime>
+                <value xsi:type="CD" code="3600" codeSystem="2.16.840.1.113883.6.240" displayName="Nursing, psychiatric, and home health aides" />
+                <entryRelationship typeCode="REFR">
+                  <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-0000000005a2">
+                    <templateId root="2.16.840.1.113883.10.20.22.4.216" extension="1999-01-01" />
+                    <code code="86188-0" codeSystem="2.16.840.1.113883.6.1" displayName="History of Occupation industry" />
+                    <statusCode code="completed" />
+                    <value xsi:type="CD" code="8170" codeSystem="2.16.840.1.113883.6.240" displayName="Home health care services" />
+                  </observation>
+                </entryRelationship>
+              </observation>
+            </entry>
+          </section></component></structuredBody></component>
+        </ClinicalDocument>
+            </x:context>
+            <x:expect label="M3a. the component is still emitted" test="count(fhir:Observation/fhir:component) = 1" />
+            <x:expect label="M3b. no empty comment" test="count(fhir:Observation//comment()[normalize-space(.) = '']) = 0" />
+        </x:scenario>
+    </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B2): the profile lookup wrote one
+         <profile> per templateId that has a key, so a conformant STU 3.1.1 Pregnancy Observation, which
+         carries both 15.3.8 and 22.4.293:2018-04-01 (both mapped to us-ph-pregnancy-status-observation),
+         listed the same profile twice. Each profile is now written once; the comment naming each
+         contributing templateId is kept. -->
+    <x:scenario label="N. a profile reached through two templateIds is listed once (RT-B2)">
+        <x:scenario label="N1. Pregnancy Observation with 15.3.8 and 22.4.293:2018-04-01">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ba0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <code code="90767-5" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry>
+                            <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ba1">
+                                <templateId root="2.16.840.1.113883.10.20.15.3.8" />
+                                <templateId root="2.16.840.1.113883.10.20.22.4.293" extension="2018-04-01" />
+                                <id root="2.16.840.1.113883.19.5" extension="PREG-1" />
+                                <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
+                                <statusCode code="completed" />
+                                <effectiveTime><low value="20201101" /></effectiveTime>
+                                <value xsi:type="CD" code="77386006" codeSystem="2.16.840.1.113883.6.96" displayName="Pregnant" />
+                            </observation>
+                        </entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="N1a. exactly one meta.profile" test="count(fhir:Observation/fhir:meta/fhir:profile) = 1" />
+            <x:expect label="N1b. it is us-ph-pregnancy-status-observation" test="fhir:Observation/fhir:meta/fhir:profile/@value = 'http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation'" />
+            <x:expect label="N1c. control: both templateIds are still named in comments" test="count(fhir:Observation/fhir:meta/comment()[contains(., 'CDA templateId')]) = 2" />
+        </x:scenario>
+        <x:scenario label="N2. no resource in the RR fixture lists a profile twice">
+            <x:context href="../../integration-tests/documents/testRR.xml" />
+            <x:expect label="N2a. no duplicate profile in any meta" test="every $m in //fhir:meta satisfies count($m/fhir:profile/@value) = count(distinct-values($m/fhir:profile/@value))" />
+        </x:scenario>
+    </x:scenario>
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B17): Result Observation / Vital Sign
+         values. (1) Types that matched no template and so produced no value at all are now carried: CO and
+         CV as valueCodeableConcept, RTO_* as valueRatio, IVL_INT as valueRange. (2) A value that is ONLY a
+         nullFlavor (no code, value, text or child content) becomes Observation.dataAbsentReason; before, a
+         null PQ/REAL gave nothing (us-core-2 error), a null ST gave valueString holding the nullFlavor code,
+         and a null CD gave a valueCodeableConcept whose coding held only a data-absent-reason. A
+         null-flavored value that still carries content (originalText, translation) is handled as before.
+         (3) A value with no xsi:type and text content becomes valueString; before, the text leaked loose
+         into the Observation element. -->
+    <x:scenario label="O. Result Observation value types (RT-B17)">
+        <x:scenario label="O1. CO coded value">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="CO" code="LA6576-8" codeSystem="2.16.840.1.113883.6.1" displayName="Positive" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O1a. valueCodeableConcept with the code" test="fhir:Observation/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = 'LA6576-8'" />
+        </x:scenario>
+        <x:scenario label="O2. CV coded value">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="CV" code="260385009" codeSystem="2.16.840.1.113883.6.96" displayName="Negative" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O2a. valueCodeableConcept with the code" test="fhir:Observation/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '260385009'" />
+        </x:scenario>
+        <x:scenario label="O3. RTO_PQ_PQ titre 1:128">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="RTO_PQ_PQ"><numerator xsi:type="PQ" value="1" unit="1" /><denominator xsi:type="PQ" value="128" unit="1" /></value>
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O3a. valueRatio numerator 1 and denominator 128" test="fhir:Observation/fhir:valueRatio/fhir:numerator/fhir:value/@value = '1' and fhir:Observation/fhir:valueRatio/fhir:denominator/fhir:value/@value = '128'" />
+            <x:expect label="O3b. exactly one value[x]" test="count(fhir:Observation/*[starts-with(local-name(), 'value')]) = 1" />
+        </x:scenario>
+        <x:scenario label="O4. RTO with units">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="RTO_PQ_PQ"><numerator xsi:type="PQ" value="5" unit="mg" /><denominator xsi:type="PQ" value="1" unit="mL" /></value>
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O4a. units carried" test="fhir:Observation/fhir:valueRatio/fhir:numerator/fhir:unit/@value = 'mg' and fhir:Observation/fhir:valueRatio/fhir:denominator/fhir:unit/@value = 'mL'" />
+        </x:scenario>
+        <x:scenario label="O5. IVL_INT range">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="IVL_INT"><low value="1" /><high value="5" /></value>
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O5a. valueRange 1 to 5" test="fhir:Observation/fhir:valueRange/fhir:low/fhir:value/@value = '1' and fhir:Observation/fhir:valueRange/fhir:high/fhir:value/@value = '5'" />
+        </x:scenario>
+        <x:scenario label="O6. PQ with nullFlavor UNK">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="PQ" nullFlavor="UNK" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O6a. dataAbsentReason unknown" test="fhir:Observation/fhir:dataAbsentReason/fhir:coding/fhir:code/@value = 'unknown'" />
+            <x:expect label="O6b. no value[x]" test="count(fhir:Observation/*[starts-with(local-name(), 'value')]) = 0" />
+        </x:scenario>
+        <x:scenario label="O7. REAL with nullFlavor NI">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="REAL" nullFlavor="NI" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O7a. dataAbsentReason unknown" test="fhir:Observation/fhir:dataAbsentReason/fhir:coding/fhir:code/@value = 'unknown'" />
+            <x:expect label="O7b. no value[x]" test="count(fhir:Observation/*[starts-with(local-name(), 'value')]) = 0" />
+        </x:scenario>
+        <x:scenario label="O8. ST with nullFlavor ASKU">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="ST" nullFlavor="ASKU" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O8a. dataAbsentReason asked-unknown" test="fhir:Observation/fhir:dataAbsentReason/fhir:coding/fhir:code/@value = 'asked-unknown'" />
+            <x:expect label="O8b. no valueString holding the nullFlavor code" test="count(fhir:Observation/*[starts-with(local-name(), 'value')]) = 0" />
+        </x:scenario>
+        <x:scenario label="O9. CD with nullFlavor MSK">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="CD" nullFlavor="MSK" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O9a. dataAbsentReason masked" test="fhir:Observation/fhir:dataAbsentReason/fhir:coding/fhir:code/@value = 'masked'" />
+            <x:expect label="O9b. no valueCodeableConcept" test="count(fhir:Observation/*[starts-with(local-name(), 'value')]) = 0" />
+        </x:scenario>
+        <x:scenario label="O10. untyped value with text">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value>plain text no type</value>
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O10a. valueString carries the text" test="fhir:Observation/fhir:valueString/@value = 'plain text no type'" />
+            <x:expect label="O10b. no loose text in the Observation" test="normalize-space(string-join(fhir:Observation/text(), '')) = ''" />
+        </x:scenario>
+        <x:scenario label="O11. vital sign PQ with nullFlavor UNK">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.27" extension="2014-06-09" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="PQ" nullFlavor="UNK" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O11a. dataAbsentReason unknown" test="fhir:Observation/fhir:dataAbsentReason/fhir:coding/fhir:code/@value = 'unknown'" />
+            <x:expect label="O11b. no value[x]" test="count(fhir:Observation/*[starts-with(local-name(), 'value')]) = 0" />
+        </x:scenario>
+        <x:scenario label="O12. control: null-flavored CD that still has originalText keeps its content">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="CD" nullFlavor="OTH"><originalText>Some other organism</originalText></value>
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O12a. valueCodeableConcept text kept" test="fhir:Observation/fhir:valueCodeableConcept/fhir:text/@value = 'Some other organism'" />
+            <x:expect label="O12b. no dataAbsentReason" test="count(fhir:Observation/fhir:dataAbsentReason) = 0" />
+        </x:scenario>
+        <x:scenario label="O13. control: PQ with a value">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="PQ" value="5.1" unit="mmol/L" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O13a. valueQuantity 5.1 mmol/L" test="fhir:Observation/fhir:valueQuantity/fhir:value/@value = '5.1' and fhir:Observation/fhir:valueQuantity/fhir:unit/@value = 'mmol/L'" />
+            <x:expect label="O13b. no dataAbsentReason" test="count(fhir:Observation/fhir:dataAbsentReason) = 0" />
+        </x:scenario>
+        <x:scenario label="O14. control: ST with text">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="ST">Detected</value>
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O14a. valueString Detected" test="fhir:Observation/fhir:valueString/@value = 'Detected'" />
+        </x:scenario>
+        <x:scenario label="O15. control: CD with a code">
+            <x:context select="//cda:observation">
+                <ClinicalDocument xmlns="urn:hl7-org:v3" lcg:uuid="00000000-0000-0000-0000-000000000ca0">
+                    <templateId root="2.16.840.1.113883.10.20.15.2" extension="2022-05-01" />
+                    <component><structuredBody><component><section>
+                        <templateId root="2.16.840.1.113883.10.20.22.2.3.1" extension="2015-08-01" />
+                        <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" />
+                        <entry><organizer classCode="BATTERY" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.1" extension="2015-08-01" />
+                            <component>
+                                <observation classCode="OBS" moodCode="EVN" lcg:uuid="00000000-0000-0000-0000-000000000ca1">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.2" extension="2015-08-01" />
+                                    <id root="1a000000-0000-0000-0000-000000000001" />
+                                    <code code="1000-1" codeSystem="2.16.840.1.113883.6.1" displayName="Test" />
+                                    <statusCode code="completed" />
+                                    <effectiveTime value="20200101" />
+                                    <value xsi:type="CD" code="260373001" codeSystem="2.16.840.1.113883.6.96" displayName="Detected" />
+                                </observation>
+                            </component>
+                        </organizer></entry>
+                    </section></component></structuredBody></component>
+                </ClinicalDocument>
+            </x:context>
+            <x:expect label="O15a. valueCodeableConcept with the code" test="fhir:Observation/fhir:valueCodeableConcept/fhir:coding/fhir:code/@value = '260373001'" />
+        </x:scenario>
+    </x:scenario>
 </x:description>

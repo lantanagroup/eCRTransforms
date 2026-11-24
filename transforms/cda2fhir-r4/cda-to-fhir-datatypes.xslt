@@ -1598,7 +1598,10 @@
     </xsl:element>
     </xsl:if>
   </xsl:template>
-  <xsl:template match="cda:value[@xsi:type = 'CD' or @xsi:type = 'CE']">
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B17): CO (coded ordinal) and CV (coded value)
+       added. They are coded types with the same attributes as CD/CE, but matched no template, so a result
+       typed CO or CV (for example Positive / Negative) produced no value at all. -->
+  <xsl:template match="cda:value[@xsi:type = 'CD' or @xsi:type = 'CE' or @xsi:type = 'CO' or @xsi:type = 'CV']">
     <xsl:param name="pElementName" select="'valueCodeableConcept'" />
     <xsl:param name="pIncludeCoding" select="true()" />
     <xsl:call-template name="newCreateCodableConcept">
@@ -1651,7 +1654,31 @@
       </xsl:if>
     </xsl:element>
   </xsl:template>
-  <xsl:template match="cda:value[@xsi:type = 'IVL_REAL'] | cda:value[@xsi:type = 'IVL_PQ']">
+  <!-- 20261124 Claude (RT-B17): a ratio value (RTO_PQ_PQ, RTO_INT_INT, ...), for example a titre 1:128, matched no
+       template and produced no value. Now valueRatio: numerator and denominator each carry value and, when the
+       CDA has one, unit (as the PQ template above does). A null-flavored or incomplete ratio is left to the
+       caller's nullFlavor handling and produces nothing here. -->
+  <xsl:template match="cda:value[starts-with(@xsi:type, 'RTO')][not(@nullFlavor)][cda:numerator/@value and cda:denominator/@value]">
+    <xsl:param name="pElementName" select="'valueRatio'" />
+    <xsl:element name="{$pElementName}">
+      <xsl:for-each select="cda:numerator | cda:denominator">
+        <xsl:element name="{local-name()}">
+          <value>
+            <xsl:attribute name="value">
+              <xsl:call-template name="add-leading-zero-to-real">
+                <xsl:with-param name="pValue" select="@value" />
+              </xsl:call-template>
+            </xsl:attribute>
+          </value>
+          <xsl:if test="@unit">
+            <unit value="{@unit}" />
+          </xsl:if>
+        </xsl:element>
+      </xsl:for-each>
+    </xsl:element>
+  </xsl:template>
+  <!-- 20261124 Claude (RT-B17): IVL_INT added; an integer range matched no template and produced no value. -->
+  <xsl:template match="cda:value[@xsi:type = 'IVL_REAL'] | cda:value[@xsi:type = 'IVL_PQ'] | cda:value[@xsi:type = 'IVL_INT']">
     <xsl:param name="pElementName" select="'valueRange'" />
     <xsl:element name="{$pElementName}">
       <xsl:choose>

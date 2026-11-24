@@ -277,28 +277,12 @@
         <content>
           <attachment>
             <contentType value="text/plain" />
-            <!-- 20260804 Claude (CDAFHIR-015, SECOND SITE): the 20260803 fix for the empty <url/> was applied
-                 to the cda:externalDocument template only, because the external review cited that one location.
-                 This template has the identical shape - <url> wrapping the choose, so the no-setId branch emitted
-                 a url containing nothing but a comment - and stayed broken, live in 4 corpus documents. Same
-                 repair: attachment.url is optional, so the element is omitted entirely and the WARNING comment
-                 survives outside it. Lesson for the triage doc: when a review cites a location, fix the SHAPE
-                 across the file, not the cited line. -->
-            <xsl:choose>
-              <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
-                <url>
-                  <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-                </url>
-              </xsl:when>
-              <xsl:when test="cda:setId/@root">
-                <url>
-                  <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-                </url>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
-              </xsl:otherwise>
-            </xsl:choose>
+            <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A3): attachment.url is no longer
+                 emitted here. It was invented as urn:hl7ii:{setId root}:{versionNumber} (or urn:oid:{root}),
+                 which dropped setId/@extension, put the version in the extension slot, and gave every document
+                 set under one assigning root the same url. There is no retrievable location for the CDA
+                 document; the element is optional; identifier and masterIdentifier carry the same facts
+                 correctly. (This also retires the CDAFHIR-015 empty-url handling at this site.) -->
           </attachment>
         </content>
       </xsl:for-each>
@@ -343,22 +327,8 @@
       <content>
         <attachment>
           <contentType value="text/plain" />
-          <!-- 20260804 Claude (CDAFHIR-015, THIRD SITE): see the note in the relatedDocument template. -->
-          <xsl:choose>
-            <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
-              <url>
-                <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
-              </url>
-            </xsl:when>
-            <xsl:when test="cda:setId/@root">
-              <url>
-                <xsl:attribute name="value" select="concat('urn:oid:', cda:setId/@root)" />
-              </url>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:comment>WARNING: URL cannot be determined because CDA document does not have a cda:setId for the relatedDocument/parentDocument</xsl:comment>
-            </xsl:otherwise>
-          </xsl:choose>
+          <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A3): attachment.url is no longer
+               emitted here; see the note in the relatedDocument template above. -->
         </attachment>
       </content>
     </DocumentReference>
@@ -395,10 +365,23 @@
         <attachment>
           <contentType value="text/plain" />
           <!-- 20260804 Claude (CDAFHIR-015, FOURTH SITE): see the note in the relatedDocument template. -->
+          <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A3): this DocumentReference claims
+               us-core-documentreference, which needs attachment.url or attachment.data (us-core-6), so the url
+               stays here (it was dropped from the unprofiled DocumentReferences above) but is now built
+               correctly. It used to be urn:hl7ii:{setId root}:{versionNumber}: the hl7ii form is
+               root:extension, so the version sat in the extension slot, setId/@extension was lost, and
+               different document sets under one assigning root shared a url. Now root:extension when there
+               is an extension; a root-only setId gives urn:uuid: or urn:oid: according to the root's shape.
+               The version is not part of the url; it is in identifier (setId extension:version). -->
           <xsl:choose>
-            <xsl:when test="cda:setId/@root and cda:versionNumber/@value">
+            <xsl:when test="cda:setId/@root and cda:setId/@extension">
               <url>
-                <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', cda:versionNumber/@value)" />
+                <xsl:attribute name="value" select="concat('urn:hl7ii:', cda:setId/@root, ':', iri-to-uri(cda:setId/@extension))" />
+              </url>
+            </xsl:when>
+            <xsl:when test="matches(cda:setId/@root, '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')">
+              <url>
+                <xsl:attribute name="value" select="concat('urn:uuid:', lower-case(cda:setId/@root))" />
               </url>
             </xsl:when>
             <xsl:when test="cda:setId/@root">

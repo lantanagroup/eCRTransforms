@@ -62,24 +62,12 @@
             </xsl:apply-templates>
             <xsl:apply-templates select="$telecom" />
             <xsl:apply-templates select="$address" />
-            <!-- Qualification -->
-            <xsl:choose>
-                <xsl:when test="cda:participantRole">
-                    <xsl:apply-templates select="cda:participantRole/cda:code" mode="practitioner" />
-                </xsl:when>
-                <xsl:when test="cda:assignedAuthor">
-                    <xsl:apply-templates select="cda:assignedAuthor/cda:code" mode="practitioner" />
-                </xsl:when>
-            </xsl:choose>
+            <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-A11): removed a Practitioner.qualification
+                 branch that could never run. It looked for cda:participantRole or cda:assignedAuthor as a CHILD of the
+                 person element this template is called on, which the CDA schema does not allow. The role's code is not
+                 lost: cda2fhir-PractitionerRole.xslt writes it to PractitionerRole.code. The mode="practitioner"
+                 template it used went with it. -->
         </Practitioner>
-    </xsl:template>
-
-    <xsl:template match="cda:code" mode="practitioner">
-        <qualification>
-            <xsl:call-template name="newCreateCodableConcept">
-                <xsl:with-param name="pElementName">code</xsl:with-param>
-            </xsl:call-template>
-        </qualification>
     </xsl:template>
 
     <!-- 20260803 Claude (item 41): a "hollow" author (assignedAuthor carrying only <id> elements) that
@@ -92,11 +80,12 @@
          allow Reference(Practitioner). name is required by us-core-practitioner and is genuinely absent
          in source, so per the house convention family carries the data-absent-reason extension (same
          shape the datatypes module emits for a name element without family). -->
-    <xsl:template match="cda:assignedAuthor" mode="unmatched-participation-entry">
+    <!-- 20261124 Claude (RT-C1): both templates now also take a hollow performer (cda:performer/cda:assignedEntity) -->
+    <xsl:template match="cda:assignedAuthor | cda:assignedEntity" mode="unmatched-participation-entry">
         <xsl:call-template name="create-bundle-entry" />
     </xsl:template>
 
-    <xsl:template match="cda:assignedAuthor[@lcg:unmatched = 'true']" priority="2">
+    <xsl:template match="cda:assignedAuthor[@lcg:unmatched = 'true'] | cda:assignedEntity[@lcg:unmatched = 'true']" priority="2">
         <Practitioner>
             <meta>
                 <profile value="http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner" />

@@ -68,4 +68,31 @@
             test="count(fhir:Practitioner/fhir:name/fhir:family/fhir:extension[@url = 'http://hl7.org/fhir/StructureDefinition/data-absent-reason']/fhir:valueCode[@value = 'unknown']) = 1" />
     </x:scenario>
 
+  <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): performers that
+       carry no assignedPerson. Whole-pipeline test on integration-tests/documents/testPerf.xml, because the
+       ids-only case is resolved in the update-referenced-actor-uuids phase. Before the fix this document had
+       nine dangling performer references. -->
+  <x:scenario label="P. performers without a person resolve (RT-C1)">
+      <x:context href="../../integration-tests/documents/testPerf.xml" />
+      <x:expect label="P1. every urn:uuid reference in the bundle resolves to an entry"
+          test="every $r in //fhir:reference/@value[starts-with(., 'urn:uuid:')] satisfies $r = //fhir:entry/fhir:fullUrl/@value" />
+      <x:expect label="P2. the ids-only performer used five times becomes exactly ONE identifier-only Practitioner"
+          test="count(//fhir:Practitioner[fhir:identifier/fhir:value/@value = 'PERF-IDONLY']) = 1" />
+      <x:expect label="P3. both ids-only immunizations point at that Practitioner"
+          test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:Immunization[fhir:identifier/fhir:value/@value[ends-with(., 'f2000000-0000-0000-0000-000000000001')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:Practitioner[fhir:identifier/fhir:value/@value = 'PERF-IDONLY']) and exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:Immunization[fhir:identifier/fhir:value/@value[ends-with(., 'f2000000-0000-0000-0000-000000000002')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:Practitioner[fhir:identifier/fhir:value/@value = 'PERF-IDONLY'])" />
+      <x:expect label="P4. an ids-only performer whose id matches the document author points at the author's PractitionerRole"
+          test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:Immunization[fhir:identifier/fhir:value/@value[ends-with(., 'f2000000-0000-0000-0000-000000000003')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:PractitionerRole[fhir:practitioner])" />
+      <x:expect label="P5. Immunization, organization-only performer: actor is the Organization"
+          test="//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:Immunization[fhir:identifier/fhir:value/@value[ends-with(., 'f2000000-0000-0000-0000-000000000004')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Performer Org 1'" />
+      <x:expect label="P6. MedicationAdministration, organization-only performer: actor is a companion PractitionerRole with an organization and no practitioner"
+          test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:MedicationAdministration[fhir:identifier/fhir:value/@value[ends-with(., 'f3000000-0000-0000-0000-000000000002')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:PractitionerRole[fhir:organization][not(fhir:practitioner)])" />
+      <x:expect label="P7. that companion role's organization is Performer Org 2"
+          test="//fhir:entry[fhir:fullUrl/@value = //fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:MedicationAdministration[fhir:identifier/fhir:value/@value[ends-with(., 'f3000000-0000-0000-0000-000000000002')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:PractitionerRole/fhir:organization/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Performer Org 2'" />
+      <x:expect label="P8. MedicationDispense, organization-only performer: actor is the Organization"
+          test="//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:MedicationDispense[fhir:identifier/fhir:value/@value[ends-with(., 'f4000000-0000-0000-0000-000000000001')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:Organization/fhir:name/@value = 'Performer Org 3'" />
+      <x:expect label="P9. MedicationAdministration and MedicationDispense ids-only performers point at the same Practitioner"
+          test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:MedicationAdministration[fhir:identifier/fhir:value/@value[ends-with(., 'f3000000-0000-0000-0000-000000000001')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:Practitioner) and exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:MedicationDispense[fhir:identifier/fhir:value/@value[ends-with(., 'f4000000-0000-0000-0000-000000000002')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:Practitioner)" />
+      <x:expect label="P10. control: a complete person performer still points at a PractitionerRole with a practitioner"
+          test="exists(//fhir:entry[fhir:fullUrl/@value = //fhir:entry/fhir:resource/fhir:Immunization[fhir:identifier/fhir:value/@value[ends-with(., 'f2000000-0000-0000-0000-000000000005')]]/fhir:performer/fhir:actor/fhir:reference/@value]/fhir:resource/fhir:PractitionerRole[fhir:practitioner])" />
+  </x:scenario>
 </x:description>

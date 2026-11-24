@@ -48,15 +48,25 @@ limitations under the License.
         </xsl:copy>
     </xsl:template>
 
-    <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids">
+    <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): the match now also
+         covers a HOLLOW performer (cda:performer/cda:assignedEntity carrying only ids). Until now only hollow
+         authors were resolved here, so an id-only performer kept a uuid at which no resource was ever created
+         and every performer reference to it dangled (ten Immunization.performer.actor in the TN3 eICR). It is
+         handled exactly like a hollow author: matched by id to a complete participation when there is one,
+         otherwise kept and flagged lcg:unmatched so an identifier-only Practitioner is created for it. One
+         addition for performers: several unmatched hollow performers with the SAME id share the first one's
+         uuid, so one Practitioner is created for them, not one each. A performer whose ids are ALL
+         null-flavored is left alone: it identifies nobody, the performer sites do not reference it, and a
+         Practitioner made of data-absent-reasons would be an empty shell. -->
+    <xsl:template match="cda:assignedAuthor[cda:id][not(descendant::node()/descendant::node())]/@lcg:uuid | cda:performer/cda:assignedEntity[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())]/@lcg:uuid" mode="update-referenced-actor-uuids">
         <!-- get author id we need to match -->
         <xsl:variable name="vAuthorIdRoot">
             <!-- can only match one -->
-            <xsl:value-of select="parent::cda:assignedAuthor/cda:id[1]/@root" />
+            <xsl:value-of select="parent::*/cda:id[1]/@root" />
         </xsl:variable>
         <xsl:variable name="vAuthorIdExtension">
             <!-- can only match one -->
-            <xsl:value-of select="parent::cda:assignedAuthor/cda:id[1]/@extension" />
+            <xsl:value-of select="parent::*/cda:id[1]/@extension" />
         </xsl:variable>
         <!-- get the first instance of that author/patient id match (because there could be multiple) and
                      grab the @lcg:uuid value-->
@@ -105,8 +115,25 @@ limitations under the License.
                 </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:copy />
-                <xsl:attribute name="lcg:unmatched">true</xsl:attribute>
+                <!-- 20261124 Claude (RT-C1): the first unmatched hollow performer with this id, in document order.
+                     For an author this is always the author itself (behaviour unchanged). -->
+                <xsl:variable name="vSelf" select="parent::*" />
+                <xsl:variable name="vFirstSameId" select="
+                        if ($vSelf/self::cda:assignedEntity) then
+                            (//cda:performer/cda:assignedEntity[cda:id[not(@nullFlavor)]][not(descendant::node()/descendant::node())][string(cda:id[1]/@root) = string($vAuthorIdRoot)][string(cda:id[1]/@extension) = string($vAuthorIdExtension)])[1]
+                        else
+                            $vSelf" />
+                <xsl:choose>
+                    <xsl:when test="$vFirstSameId is $vSelf">
+                        <xsl:copy />
+                        <xsl:attribute name="lcg:unmatched">true</xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:attribute name="lcg:uuid">
+                            <xsl:value-of select="$vFirstSameId/@lcg:uuid" />
+                        </xsl:attribute>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

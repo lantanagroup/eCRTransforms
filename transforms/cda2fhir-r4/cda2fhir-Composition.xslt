@@ -573,6 +573,14 @@
           </xsl:choose>
 
           <!-- get triggers lower in the hierarchy skip wrappers like concern etc.-->
+          <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-B3): two exclusions added below,
+               each for a statement that another code path already lists, which made the same entry
+               reference appear twice in the section:
+               - children of a Coverage Activity (22.4.60): its mode="reference" template
+                 (cda2fhir-Coverage.xslt) already unwraps to the Policy Activity Coverage;
+               - a Pregnancy Outcome (22.4.284) in the Pregnancy section (90767-5): the dedicated block
+                 after this loop lists it. Outside that section this loop still lists it (R1.1 documents
+                 carry the pregnancy observation in Social History). -->
           <xsl:for-each
             select="descendant::cda:entryRelationship[descendant::cda:*/descendant::cda:*[3]]
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.3'])]
@@ -582,6 +590,8 @@
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.30'])]
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.136'])]
             [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.36'])]
+            [not(preceding-sibling::cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.60'])]
+            [not(current()/cda:code/@code = '90767-5' and cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284')]
             [not(cda:*[cda:templateId[@root = '2.16.840.1.113883.10.20.22.4.17']][../../../cda:substanceAdministration[@moodCode = 'INT']])]
             [cda:*[not(cda:templateId[key('templates-to-suppress-key', @root)])]
             [not(cda:code/@code = '8462-4')]]">
@@ -593,7 +603,8 @@
 
           <!-- Pregnancy Outcome is contained in Pregnancy Status in CDA but not in FHIR (it has a focus of the related pregnancy observation instead) -->
           <xsl:if test="cda:code/@code = '90767-5'">
-            <xsl:for-each select="//cda:entryRelationship[cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']">
+            <!-- 20261124 Claude (RT-B3): was "//", which searched the whole document, not this section -->
+            <xsl:for-each select="descendant::cda:entryRelationship[cda:observation/cda:templateId/@root = '2.16.840.1.113883.10.20.22.4.284']">
               <xsl:apply-templates select="cda:observation" mode="reference">
                 <xsl:with-param name="wrapping-elements">entry</xsl:with-param>
               </xsl:apply-templates>

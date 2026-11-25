@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Element count: 143-->
+<!--Element count: 197-->
 <Bundle xmlns="http://hl7.org/fhir">
    <id value="eICR-bundle-GENID"/>
    <meta>
@@ -174,6 +174,18 @@
                <entry>
                   <reference value="urn:uuid:UUID008"/>
                </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID009"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID010"/>
+               </entry>
+               <!--2.16.840.1.113883.10.20.22.4.4:2015-08-01-->
+               <entry>
+                  <reference value="urn:uuid:UUID011"/>
+               </entry>
             </section>
             <section>
                <title value="REASON FOR VISIT"/>
@@ -231,7 +243,7 @@
                   <div xmlns="http://www.w3.org/1999/xhtml">No information</div>
                </text>
                <entry>
-                  <reference value="urn:uuid:UUID009"/>
+                  <reference value="urn:uuid:UUID012"/>
                </entry>
             </section>
             <section>
@@ -356,13 +368,13 @@
                </language>
             </communication>
             <managingOrganization>
-               <reference value="urn:uuid:UUID010"/>
+               <reference value="urn:uuid:UUID013"/>
             </managingOrganization>
          </Patient>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID010"/>
+      <fullUrl value="urn:uuid:UUID013"/>
       <resource>
          <Organization>
             <meta>
@@ -388,7 +400,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID011"/>
+      <fullUrl value="urn:uuid:UUID014"/>
       <resource>
          <Patient>
             <text>
@@ -411,7 +423,7 @@
             <birthDate value="1955-03-15"/>
             <link>
                <other>
-                  <reference value="urn:uuid:UUID012"/>
+                  <reference value="urn:uuid:UUID015"/>
                </other>
                <type value="seealso"/>
             </link>
@@ -419,7 +431,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID012"/>
+      <fullUrl value="urn:uuid:UUID015"/>
       <resource>
          <RelatedPerson>
             <identifier>
@@ -485,17 +497,17 @@
             </period>
             <location>
                <location>
-                  <reference value="urn:uuid:UUID013"/>
+                  <reference value="urn:uuid:UUID016"/>
                </location>
             </location>
             <serviceProvider>
-               <reference value="urn:uuid:UUID014"/>
+               <reference value="urn:uuid:UUID017"/>
             </serviceProvider>
          </Encounter>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID013"/>
+      <fullUrl value="urn:uuid:UUID016"/>
       <resource>
          <Location>
             <meta>
@@ -521,13 +533,13 @@
                <postalCode value="02101"/>
             </address>
             <managingOrganization>
-               <reference value="urn:uuid:UUID014"/>
+               <reference value="urn:uuid:UUID017"/>
             </managingOrganization>
          </Location>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID014"/>
+      <fullUrl value="urn:uuid:UUID017"/>
       <resource>
          <Organization>
             <meta>
@@ -562,7 +574,7 @@
                <value value="1111111111"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID015"/>
+               <reference value="urn:uuid:UUID018"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -576,7 +588,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID015"/>
+      <fullUrl value="urn:uuid:UUID018"/>
       <resource>
          <Practitioner>
             <meta>
@@ -620,7 +632,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID016"/>
+      <fullUrl value="urn:uuid:UUID019"/>
       <resource>
          <Provenance>
             <target>
@@ -642,7 +654,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID017"/>
+      <fullUrl value="urn:uuid:UUID020"/>
       <resource>
          <Provenance>
             <target>
@@ -658,7 +670,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID009"/>
+      <fullUrl value="urn:uuid:UUID012"/>
       <resource>
          <Observation>
             <meta>
@@ -742,7 +754,7 @@
             </meta>
             <identifier>
                <system value="urn:ietf:rfc:3986"/>
-               <value value="urn:uuid:UUID018"/>
+               <value value="urn:uuid:UUID021"/>
             </identifier>
             <verificationStatus>
                <coding>
@@ -775,31 +787,31 @@
             <onsetDateTime value="2026-01-01"/>
             <recordedDate value="2026-01-01"/>
             <recorder>
-               <reference value="urn:uuid:UUID019"/>
+               <reference value="urn:uuid:UUID022"/>
             </recorder>
             <note>
                <text value="Trigger code problem, negated"/>
             </note>
             <note>
-               <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR"/>
+               <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as entered in error in FHIR"/>
             </note>
          </Condition>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID019"/>
+      <fullUrl value="urn:uuid:UUID022"/>
       <resource>
          <PractitionerRole>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
             </meta>
-            <!--/ClinicalDocument[cda:id[@root="1.2.3.4"][@extension="doc1"]]/component/structuredBody/component/section/entry/act[cda:id[@root="UUID020"]]/entryRelationship/observation[cda:id[@root="UUID018"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="4444"]]-->
+            <!--/ClinicalDocument[cda:id[@root="1.2.3.4"][@extension="doc1"]]/component/structuredBody/component/section/entry/act[cda:id[@root="UUID023"]]/entryRelationship/observation[cda:id[@root="UUID021"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="4444"]]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
                <value value="4444"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID021"/>
+               <reference value="urn:uuid:UUID024"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -813,7 +825,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID021"/>
+      <fullUrl value="urn:uuid:UUID024"/>
       <resource>
          <Practitioner>
             <meta>
@@ -831,19 +843,19 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID022"/>
+      <fullUrl value="urn:uuid:UUID025"/>
       <resource>
          <PractitionerRole>
             <meta>
                <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-practitionerrole"/>
             </meta>
-            <!--/ClinicalDocument[cda:id[@root="1.2.3.4"][@extension="doc1"]]/component/structuredBody/component/section/entry/act[cda:id[@root="UUID020"]]/entryRelationship/observation[cda:id[@root="UUID018"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="5555"]]-->
+            <!--/ClinicalDocument[cda:id[@root="1.2.3.4"][@extension="doc1"]]/component/structuredBody/component/section/entry/act[cda:id[@root="UUID023"]]/entryRelationship/observation[cda:id[@root="UUID021"]]/author/assignedAuthor[cda:id[@root="2.16.840.1.113883.4.6"][@extension="5555"]]-->
             <identifier>
                <system value="http://hl7.org/fhir/sid/us-npi"/>
                <value value="5555"/>
             </identifier>
             <practitioner>
-               <reference value="urn:uuid:UUID023"/>
+               <reference value="urn:uuid:UUID026"/>
             </practitioner>
             <telecom>
                <system value="other"/>
@@ -857,7 +869,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID023"/>
+      <fullUrl value="urn:uuid:UUID026"/>
       <resource>
          <Practitioner>
             <meta>
@@ -875,7 +887,7 @@
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID024"/>
+      <fullUrl value="urn:uuid:UUID027"/>
       <resource>
          <Provenance>
             <target>
@@ -890,14 +902,14 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID019"/>
+                  <reference value="urn:uuid:UUID022"/>
                </who>
             </agent>
          </Provenance>
       </resource>
    </entry>
    <entry>
-      <fullUrl value="urn:uuid:UUID025"/>
+      <fullUrl value="urn:uuid:UUID028"/>
       <resource>
          <Provenance>
             <target>
@@ -912,10 +924,160 @@
                   </coding>
                </type>
                <who>
-                  <reference value="urn:uuid:UUID022"/>
+                  <reference value="urn:uuid:UUID025"/>
                </who>
             </agent>
          </Provenance>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID009"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="NEG-NO-KNOWN"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="160245001"/>
+                  <display value="No current problems or disability"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <onsetDateTime value="2026-01-01"/>
+            <recordedDate value="2026-01-01"/>
+            <note>
+               <text value="No known conditions"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID010"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="NEG-PROBLEM-CODE"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="160245001"/>
+                  <display value="No current problems or disability"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <onsetDateTime value="2026-01-01"/>
+            <recordedDate value="2026-01-01"/>
+            <note>
+               <text value="No known problems"/>
+            </note>
+         </Condition>
+      </resource>
+   </entry>
+   <entry>
+      <fullUrl value="urn:uuid:UUID011"/>
+      <resource>
+         <Condition>
+            <meta>
+               <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-condition"/>
+            </meta>
+            <identifier>
+               <system value="urn:oid:2.16.840.1.113883.19.5"/>
+               <value value="NEG-PLAIN"/>
+            </identifier>
+            <clinicalStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-clinical"/>
+                  <code value="active"/>
+               </coding>
+            </clinicalStatus>
+            <verificationStatus>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status"/>
+                  <code value="refuted"/>
+               </coding>
+            </verificationStatus>
+            <category>
+               <coding>
+                  <system value="http://terminology.hl7.org/CodeSystem/condition-category"/>
+                  <code value="problem-list-item"/>
+               </coding>
+            </category>
+            <category>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="64572001"/>
+               </coding>
+            </category>
+            <code>
+               <coding>
+                  <system value="http://snomed.info/sct"/>
+                  <code value="27836007"/>
+                  <display value="Pertussis"/>
+               </coding>
+            </code>
+            <subject>
+               <reference value="urn:uuid:UUID003"/>
+            </subject>
+            <onsetDateTime value="2026-01-01"/>
+            <recordedDate value="2026-01-01"/>
+            <note>
+               <text value="Not pertussis"/>
+            </note>
+            <note>
+               <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR"/>
+            </note>
+         </Condition>
       </resource>
    </entry>
 </Bundle>

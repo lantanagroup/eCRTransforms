@@ -842,7 +842,7 @@
                <text value="Trigger code problem, negated"/>
             </note>
             <note>
-               <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR"/>
+               <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as entered in error in FHIR"/>
             </note>
          </Condition>
       </resource>

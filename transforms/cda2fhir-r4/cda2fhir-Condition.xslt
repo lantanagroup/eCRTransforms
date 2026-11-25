@@ -141,7 +141,13 @@
                         </coding>
                     </verificationStatus>
                 </xsl:when>
-                <xsl:when test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
+                <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C8): negated 64572001 "Disease" is
+                     how the eICR IG says the patient has no known conditions (Volume 2, Problem Observation:
+                     "A negationInd of true coupled with an observation/value of SNOMED code 64572001 ... indicates
+                     that the patient has no known conditions"). It used to arrive as a refuted disease. It is now
+                     treated like negated 55607006: the code becomes 160245001 "No current problems or disability" (template mode="condition"
+                     below), with no verificationStatus and no negation note. -->
+                <xsl:when test="@negationInd = 'true' and not(cda:value/@code = ('55607006', '64572001'))">
                     <verificationStatus>
                         <coding>
                             <system value="http://terminology.hl7.org/CodeSystem/condition-ver-status" />
@@ -241,11 +247,21 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
-            <xsl:if test="@negationInd = 'true' and not(cda:value/@code = '55607006')">
-                <note>
-                    <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR" />
-                </note>
-            </xsl:if>
+            <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C8): the note now matches the
+                 verificationStatus written above. A negated trigger is entered-in-error, but its note said
+                 "marked as refuted". The "no known" codes get no note (see above). -->
+            <xsl:choose>
+                <xsl:when test="@negationInd = 'true' and cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3']">
+                    <note>
+                        <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as entered in error in FHIR" />
+                    </note>
+                </xsl:when>
+                <xsl:when test="@negationInd = 'true' and not(cda:value/@code = ('55607006', '64572001'))">
+                    <note>
+                        <text value="This condition was converted from a C-CDA document. It was marked as negated in that file, so marked as refuted in FHIR" />
+                    </note>
+                </xsl:when>
+            </xsl:choose>
         </Condition>
     </xsl:template>
 
@@ -266,12 +282,16 @@
 
     <xsl:template match="cda:value" mode="condition">
         <xsl:choose>
-            <xsl:when test="../@negationInd = 'true' and @code = '55607006'">
+            <!-- 20261125 Claude (RT-C8): 64572001 added; not for a negated trigger, which is entered-in-error
+                 and keeps the code that was entered -->
+            <xsl:when test="../@negationInd = 'true' and @code = ('55607006', '64572001') and not(../cda:templateId[@root = '2.16.840.1.113883.10.20.15.2.3.3'] and @code = '64572001')">
                 <code>
                     <coding>
                         <system value="http://snomed.info/sct" />
                         <code value="160245001" />
-                        <display value="No known problems" />
+                        <!-- 20261125 Claude (RT-C8): display was "No known problems", which is not a display of
+                             160245001; the terminology server rejects it. The SNOMED CT term is used. -->
+                        <display value="No current problems or disability" />
                     </coding>
                 </code>
             </xsl:when>

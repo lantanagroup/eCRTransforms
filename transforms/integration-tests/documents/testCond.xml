@@ -111,6 +111,70 @@
               </entryRelationship>
             </act>
           </entry>
+          <!-- 20261125 Claude (RT-C8): negated Problem Observations that are not triggers.
+               NEG-NO-KNOWN: value 64572001 "Disease", the eICR way to say "no known conditions"; it becomes the
+               "No known problems" Condition, as negated 55607006 already did. NEG-PROBLEM-CODE: the 55607006 control.
+               NEG-PLAIN: an ordinary negated problem, which is refuted. -->
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="2015-08-01"/>
+              <id root="2.16.840.1.113883.19.5" extension="CONCERN-NEG-NO-KNOWN"/>
+              <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+              <statusCode code="active"/>
+              <effectiveTime><low value="20260101"/></effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN" negationInd="true">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                  <id root="2.16.840.1.113883.19.5" extension="NEG-NO-KNOWN"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>No known conditions</text>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260101"/></effectiveTime>
+                  <value xsi:type="CD" code="64572001" codeSystem="2.16.840.1.113883.6.96" displayName="Disease"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="2015-08-01"/>
+              <id root="2.16.840.1.113883.19.5" extension="CONCERN-NEG-PROBLEM-CODE"/>
+              <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+              <statusCode code="active"/>
+              <effectiveTime><low value="20260101"/></effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN" negationInd="true">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                  <id root="2.16.840.1.113883.19.5" extension="NEG-PROBLEM-CODE"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>No known problems</text>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260101"/></effectiveTime>
+                  <value xsi:type="CD" code="55607006" codeSystem="2.16.840.1.113883.6.96" displayName="Problem"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="2015-08-01"/>
+              <id root="2.16.840.1.113883.19.5" extension="CONCERN-NEG-PLAIN"/>
+              <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+              <statusCode code="active"/>
+              <effectiveTime><low value="20260101"/></effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN" negationInd="true">
+                  <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                  <id root="2.16.840.1.113883.19.5" extension="NEG-PLAIN"/>
+                  <code code="64572001" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>Not pertussis</text>
+                  <statusCode code="completed"/>
+                  <effectiveTime><low value="20260101"/></effectiveTime>
+                  <value xsi:type="CD" code="27836007" codeSystem="2.16.840.1.113883.6.96" displayName="Pertussis"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
         </section>
       </component>
     </structuredBody>

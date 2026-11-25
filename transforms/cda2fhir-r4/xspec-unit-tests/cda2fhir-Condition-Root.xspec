@@ -94,4 +94,22 @@
         <x:expect label="4. control: every Condition still has exactly one context category"
             test="every $c in //fhir:Condition satisfies count($c/fhir:category[fhir:coding/fhir:system/@value = 'http://terminology.hl7.org/CodeSystem/condition-category']) = 1" />
     </x:scenario>
+    <!-- 20261125 Claude (SG decision 2026-11-25, re-trace finding RT-C8): negated Problem Observations.
+         (1) A negated trigger is entered-in-error, but its note said it was "marked as refuted"; the note now says
+             entered in error.
+         (2) Negated 64572001 "Disease" is how the eICR IG says "no known conditions"; it arrived as a refuted
+             disease. It is now the "No known problems" Condition, as negated 55607006 already was.
+         Whole-pipeline test on testCond.xml. -->
+    <x:scenario label="negated Problem Observations (RT-C8)">
+        <x:context href="../../integration-tests/documents/testCond.xml" />
+        <x:expect label="1. a negated trigger: entered-in-error, and the note says so"
+            test="count(//fhir:Condition[fhir:verificationStatus/fhir:coding/fhir:code/@value = 'entered-in-error']) = 1 and contains(string-join(//fhir:Condition[fhir:verificationStatus/fhir:coding/fhir:code/@value = 'entered-in-error']/fhir:note/fhir:text/@value, ' '), 'marked as entered in error in FHIR') and not(contains(string-join(//fhir:Condition[fhir:verificationStatus/fhir:coding/fhir:code/@value = 'entered-in-error']/fhir:note/fhir:text/@value, ' '), 'refuted'))" />
+        <x:expect label="2. negated 64572001: code No known problems, no verificationStatus, no negation note"
+            test="//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-NO-KNOWN']/fhir:code/fhir:coding[fhir:system/@value = 'http://snomed.info/sct']/fhir:code/@value = '160245001' and empty(//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-NO-KNOWN']/fhir:verificationStatus) and empty(//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-NO-KNOWN']/fhir:note[contains(fhir:text/@value, 'negated')])" />
+        <x:expect label="3. negated 64572001 does not carry the Disease code" test="empty(//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-NO-KNOWN']/fhir:code/fhir:coding[fhir:code/@value = '64572001'])" />
+        <x:expect label="4. control: negated 55607006 is unchanged"
+            test="//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-PROBLEM-CODE']/fhir:code/fhir:coding/fhir:code/@value = '160245001' and empty(//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-PROBLEM-CODE']/fhir:verificationStatus)" />
+        <x:expect label="5. control: an ordinary negated problem is refuted, keeps its code, and its note says refuted"
+            test="//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-PLAIN']/fhir:verificationStatus/fhir:coding/fhir:code/@value = 'refuted' and //fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-PLAIN']/fhir:code/fhir:coding/fhir:code/@value = '27836007' and contains(string-join(//fhir:Condition[fhir:identifier/fhir:value/@value = 'NEG-PLAIN']/fhir:note/fhir:text/@value, ' '), 'marked as refuted in FHIR')" />
+    </x:scenario>
 </x:description>

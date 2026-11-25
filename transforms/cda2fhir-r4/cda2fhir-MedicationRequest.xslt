@@ -183,11 +183,9 @@
             <doseAndRate>
               <xsl:apply-templates select="cda:doseQuantity">
                 <xsl:with-param name="pElementName">doseQuantity</xsl:with-param>
-                <xsl:with-param name="pSimpleQuantity" select="true()" />
               </xsl:apply-templates>
               <xsl:apply-templates select="cda:rateQuantity">
                 <xsl:with-param name="pElementName">rateQuantity</xsl:with-param>
-                <xsl:with-param name="pSimpleQuantity" select="true()" />
               </xsl:apply-templates>
             </doseAndRate>
           </xsl:if>

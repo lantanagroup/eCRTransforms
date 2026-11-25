@@ -4,7 +4,6 @@
     <x:scenario label="Scenario for testing template with match 'cda:doseQuantity">
         <x:context>
             <x:param name="pElementName">doseQuantity</x:param>
-            <x:param name="pSimpleQuantity" select="false()" />
             <cda:doseQuantity value="1" unit="g" />
         </x:context>
         <x:expect label="There should be a doseQuantity with value = '1' and unit = 'g'" test="count(fhir:doseQuantity[fhir:value/@value='1'][fhir:unit/@value='g'])=1" />
@@ -20,17 +19,18 @@
     <x:expect label="There should be zero doseQuantity element" test="count(fhir:doseQuantity)=0" />
   </x:scenario>-->
 
-    <x:scenario label="Scenario for testing template with match 'cda:doseQuantity' value nullFlavor and NOT simpleQuantity data type">
+    <!-- 20261125 Claude (SG decision 2026-11-25): this scenario used to pass pSimpleQuantity false and expect the
+         nullFlavor written as Quantity.code ("NoInformation" against the v3-NullFlavor system). No stylesheet ever
+         called the template that way, so that output could not occur; the parameter and the branch are removed.
+         A null-flavored dose or rate quantity gives no element, which is what every caller already produced. -->
+    <x:scenario label="Scenario for testing template with match 'cda:doseQuantity' value nullFlavor gives no element">
         <x:context>
             <x:param name="pElementName">doseQuantity</x:param>
-            <x:param name="pSimpleQuantity" select="false()" />
             <cda:doseQuantity nullFlavor="NI" />
         </x:context>
-        <!-- This doesn't seem right - I'm thinking there probably isn't a case of dose where a  nullFlavor is allowed and that they are all simpleQuantity -->
-        <!-- 20260729 Claude: was =2. The scenario feeds ONE doseQuantity and the transform emits one,
-             correctly coded. =2 appears to have been copied from a sibling scenario; the output was never wrong. -->
-        <x:expect label="There should be a doseQuantity with nullFlavor='NoInformation'"
-            test="count(fhir:doseQuantity[fhir:code/@value='NoInformation'][fhir:system/@value='http://terminology.hl7.org/CodeSystem/v3-NullFlavor'])=1" />
+        <!-- The result is empty, so there is no context item for a relative path (which is why the 2021 scenario
+             above "caused the whole test to fail"); the test looks at $x:result instead. -->
+        <x:expect label="There should be zero doseQuantity element" test="empty($x:result[self::fhir:doseQuantity])" />
     </x:scenario>
 
     <x:scenario label="Scenario for testing cda:telecom">

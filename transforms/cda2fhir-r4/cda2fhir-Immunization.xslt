@@ -80,7 +80,6 @@
             <!-- doseQuantity -->
             <xsl:apply-templates select="cda:doseQuantity">
                 <xsl:with-param name="pElementName">doseQuantity</xsl:with-param>
-                <xsl:with-param name="pSimpleQuantity" select="true()" />
             </xsl:apply-templates>
             <!-- performer -->
             <!-- 20261124 Claude (SG decision 2026-11-24, re-trace finding RT-C1 / register item B18f): this used to

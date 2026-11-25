@@ -634,8 +634,11 @@
   <xsl:template match="cda:doseQuantity | cda:rateQuantity">
     <!-- RG: Refactoring note - Look for use of this template, and see if we can refactor the whole Dosage datatype out of the resources and into this file -->
     <xsl:param name="pElementName">doseQuantity</xsl:param>
-    <xsl:param name="pSimpleQuantity" select="false()" />
-    <xsl:if test="$pSimpleQuantity = false() or not(@nullFlavor)">
+    <!-- 20261125 Claude (SG decision 2026-11-25): a null-flavored dose or rate quantity gives no element. That was
+         already the behaviour for every caller: all of them passed pSimpleQuantity true, so the branch that wrote
+         a nullFlavor as Quantity.code never ran (and was wrong: a display word such as "Unknown" as the code,
+         against the v3-NullFlavor system, with code before system). The parameter and that branch are removed. -->
+    <xsl:if test="not(@nullFlavor)">
       <xsl:element name="{$pElementName}">
         <xsl:if test="@value">
           <value>
@@ -669,11 +672,6 @@
         <xsl:if test="@value and not(@nullFlavor) and @unit = $gvKnownUcumUnits">
           <system value="http://unitsofmeasure.org" />
           <code value="{@unit}" />
-        </xsl:if>
-        <!-- A simple quantity doesn't allow a nullFlavor but we won't be in here if that param was true()-->
-        <xsl:if test="@nullFlavor">
-          <code value="{lcg:fcnMapNullFlavor(@nullFlavor)}" />
-          <system value="http://terminology.hl7.org/CodeSystem/v3-NullFlavor" />
         </xsl:if>
       </xsl:element>
     </xsl:if>
